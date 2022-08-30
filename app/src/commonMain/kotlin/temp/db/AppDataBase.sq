@@ -1,0 +1,30 @@
+-- import kotlinx.datetime.LocalDateTime;
+-- import kotlin.collections.List;
+--
+-- CREATE TABLE art(
+--     art_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+--     url TEXT NOT NULL,
+--     title TEXT NOT NULL,
+--     description TEXT NOT NULL,
+--     price TEXT NOT NULL,
+--     create_at TEXT AS LocalDateTime NOT NULL,
+--     proprietors TEXT AS List<String> NOT NULL
+-- );
+--
+-- getLastId:
+-- SELECT last_insert_rowid();
+--
+-- setArt: INSERT OR IGNORE
+-- INTO art(art_id, url, title, description,price,create_at, proprietors)
+-- VALUES (NULL,?,?, ?,?,?, ?);
+--
+-- updateArt: INSERT OR IGNORE
+-- INTO art(art_id, url, title, description,price, create_at, proprietors)
+-- VALUES (?,?,?, ?,?,?, ?);
+--
+-- getArtById: SELECT *
+-- FROM art
+-- WHERE art_id = :artId;
+--
+-- getArts: SELECT *
+-- FROM art;
