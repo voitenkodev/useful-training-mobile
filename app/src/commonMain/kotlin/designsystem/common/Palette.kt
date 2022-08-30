@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
 @Composable
-fun GallerySpaceLightPalette() = GallerySpaceColor(
+fun LightPalette() = AppColors(
     primary = white,
     primaryInverse = almostBlack,
     secondary = almostWhite,
@@ -15,7 +15,7 @@ fun GallerySpaceLightPalette() = GallerySpaceColor(
 )
 
 @Composable
-fun GallerySpaceDarkPalette() = GallerySpaceColor(
+fun DarkPalette() = AppColors(
     primary = almostBlack,
     primaryInverse = almostWhite,
     secondary = black,
@@ -25,7 +25,7 @@ fun GallerySpaceDarkPalette() = GallerySpaceColor(
     priceDown = red
 )
 
-data class GallerySpaceColor(
+data class AppColors(
     val primary: Color, // black - white
     val primaryInverse: Color, // black - white
     val secondary: Color, //white - black

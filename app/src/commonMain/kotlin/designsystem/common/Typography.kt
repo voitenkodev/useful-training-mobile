@@ -9,7 +9,7 @@ import androidx.compose.ui.unit.sp
 
 @ExperimentalUnitApi
 @Composable
-internal fun GallerySpaceTypography() = AppTypography(
+internal fun AppTypography() = AppTypography(
     H1 = TextStyle(
         fontSize = 40.sp,
 //        fontFamily = Grenoble,

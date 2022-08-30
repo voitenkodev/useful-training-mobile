@@ -9,19 +9,14 @@ import designsystem.LocalAppTypography
 
 @ExperimentalUnitApi
 @Composable
-fun GallerySpaceTheme(
+fun DesignTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
-) {
-
-    val colors = when (darkTheme) {
-        true -> GallerySpaceDarkPalette()
-        false -> GallerySpaceLightPalette()
-    }
-
-    CompositionLocalProvider(
-        LocalAppColors provides colors,
-        LocalAppTypography provides GallerySpaceTypography(),
-        content = content
-    )
-}
+) = CompositionLocalProvider(
+    LocalAppColors provides when (darkTheme) {
+        true -> DarkPalette()
+        false -> LightPalette()
+    },
+    LocalAppTypography provides AppTypography(),
+    content = content
+)

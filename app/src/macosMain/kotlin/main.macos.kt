@@ -4,8 +4,8 @@ import platform.AppKit.NSApplication
 
 fun main() {
     NSApplication.sharedApplication()
-    Window("GallerySpace") {
-        GallerySpace()
+    Window("UsefulTraining") {
+        Main()
     }
     NSApp?.run()
 }

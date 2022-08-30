@@ -43,8 +43,6 @@ kotlin {
                 implementation(libs.datetime)
                 implementation(libs.logger)
                 implementation(libs.serialization)
-                implementation(libs.sqldelight.extensions)
-                implementation(libs.ktor.core)
 
                 implementation(compose.ui)
                 implementation(compose.foundation)
@@ -56,7 +54,6 @@ kotlin {
         val desktopMain by getting {
             dependencies {
                 implementation(compose.desktop.currentOs)
-                implementation(libs.ktor.desktop)
             }
         }
 
@@ -64,21 +61,11 @@ kotlin {
             dependencies {
                 implementation("androidx.appcompat:appcompat:1.5.0")
                 implementation("androidx.activity:activity-compose:1.5.1")
-                implementation(libs.ktor.android)
             }
         }
 
-        val jsMain by getting {
-            dependencies {
-                implementation(libs.ktor.js)
-            }
-        }
-
-        val iosMain by creating {
-            dependsOn(commonMain)
-            dependencies { implementation(libs.ktor.darwin) }
-        }
-
+        val jsMain by getting { dependencies {} }
+        val iosMain by creating { dependsOn(commonMain) }
         val macosMain by creating { dependsOn(iosMain) }
         val macosX64Main by getting { dependsOn(macosMain) }
         val macosArm64Main by getting { dependsOn(macosMain) }
@@ -126,7 +113,8 @@ compose.desktop {
             windows {
                 menuGroup = "Useful Training"
                 // see https://wixtoolset.org/documentation/manual/v3/howtos/general/generate_guids.html
-                upgradeUuid = "18159995-d967-4CD2-8885-77BFA97CFA9F"             }
+                upgradeUuid = "18159995-d967-4CD2-8885-77BFA97CFA9F"
+            }
         }
     }
 }

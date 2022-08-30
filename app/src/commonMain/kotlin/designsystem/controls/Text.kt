@@ -1,6 +1,6 @@
 package designsystem.controls
 
-import designsystem.GallerySpaceComponent
+import designsystem.DesignComponent
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -20,9 +20,9 @@ fun H1Text(
     modifier = modifier,
     text = text,
     placeholder = placeholder,
-    textStyle = GallerySpaceComponent.typography.H1,
+    textStyle = DesignComponent.typography.H1,
     maxLines = maxLines,
-    color = color ?: GallerySpaceComponent.colors.primaryInverse,
+    color = color ?: DesignComponent.colors.primaryInverse,
     textAlign = textAlign,
 )
 
@@ -38,9 +38,9 @@ fun H2Text(
     modifier = modifier,
     text = text,
     placeholder = placeholder,
-    textStyle = GallerySpaceComponent.typography.H2,
+    textStyle = DesignComponent.typography.H2,
     maxLines = maxLines,
-    color = color ?: GallerySpaceComponent.colors.primaryInverse,
+    color = color ?: DesignComponent.colors.primaryInverse,
     textAlign = textAlign,
 )
 
@@ -56,9 +56,9 @@ fun BODY1Text(
     modifier = modifier,
     text = text,
     placeholder = placeholder,
-    textStyle = GallerySpaceComponent.typography.BODY1,
+    textStyle = DesignComponent.typography.BODY1,
     maxLines = maxLines,
-    color = color ?: GallerySpaceComponent.colors.primaryInverse,
+    color = color ?: DesignComponent.colors.primaryInverse,
     textAlign = textAlign,
 )
 
@@ -74,9 +74,9 @@ fun BODY2Text(
     modifier = modifier,
     text = text,
     placeholder = placeholder,
-    textStyle = GallerySpaceComponent.typography.BODY2,
+    textStyle = DesignComponent.typography.BODY2,
     maxLines = maxLines,
-    color = color ?: GallerySpaceComponent.colors.primaryInverse.copy(alpha = 0.6f),
+    color = color ?: DesignComponent.colors.primaryInverse.copy(alpha = 0.6f),
     textAlign = textAlign,
 )
 
@@ -92,9 +92,9 @@ fun CAPTION1Text(
     modifier = modifier,
     text = text,
     placeholder = placeholder,
-    textStyle = GallerySpaceComponent.typography.CAPTION1,
+    textStyle = DesignComponent.typography.CAPTION1,
     maxLines = maxLines,
-    color = color ?: GallerySpaceComponent.colors.caption,
+    color = color ?: DesignComponent.colors.caption,
     textAlign = textAlign,
 )
 

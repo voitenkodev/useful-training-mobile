@@ -1,6 +1,6 @@
 package designsystem.controls
 
-import designsystem.GallerySpaceComponent
+import designsystem.DesignComponent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.ProvideTextStyle
@@ -27,10 +27,10 @@ fun BODY1EditText(
     modifier = modifier,
     text = text,
     onValueChange = onValueChange,
-    textStyle = GallerySpaceComponent.typography.BODY1,
+    textStyle = DesignComponent.typography.BODY1,
     maxLines = maxLines,
     label = label,
-    color = color ?: GallerySpaceComponent.colors.primaryInverse,
+    color = color ?: DesignComponent.colors.primaryInverse,
     textAlign = textAlign,
 )
 

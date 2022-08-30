@@ -13,7 +13,7 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
-import designsystem.GallerySpaceComponent
+import designsystem.DesignComponent
 import designsystem.common.almostWhite
 
 @Composable
@@ -26,13 +26,13 @@ fun ButtonPrimary(
     enabled: Boolean = true,
     leadIcon: ImageVector? = null,
 ) {
-    val _textColor = textColor ?: GallerySpaceComponent.colors.primary
-    val _backgroundColor = backgroundColor ?: GallerySpaceComponent.colors.primaryInverse
+    val _textColor = textColor ?: DesignComponent.colors.primary
+    val _backgroundColor = backgroundColor ?: DesignComponent.colors.primaryInverse
 
     Button(
         modifier = modifier,
         text = text,
-        textStyle = GallerySpaceComponent.typography.BUTTON.copy(color = _textColor),
+        textStyle = DesignComponent.typography.BUTTON.copy(color = _textColor),
         enabled = enabled,
         onClick = onClick,
         colors = ButtonDefaults.buttonColors(backgroundColor = _backgroundColor),
@@ -52,12 +52,12 @@ fun ButtonSecondary(
     leadIcon: ImageVector? = null,
 ) {
 
-    val textColor = color ?: GallerySpaceComponent.colors.primaryInverse
+    val textColor = color ?: DesignComponent.colors.primaryInverse
 
     Button(
         modifier = modifier,
         text = text,
-        textStyle = GallerySpaceComponent.typography.BUTTON.copy(color = textColor),
+        textStyle = DesignComponent.typography.BUTTON.copy(color = textColor),
         enabled = enabled,
         onClick = onClick,
         colors = ButtonDefaults.buttonColors(backgroundColor = Color.Transparent),

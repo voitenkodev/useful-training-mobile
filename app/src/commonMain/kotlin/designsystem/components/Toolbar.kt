@@ -13,9 +13,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import designsystem.GallerySpaceComponent
+import designsystem.DesignComponent
 
 @Composable
 fun Toolbar(
@@ -28,7 +27,7 @@ fun Toolbar(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .background(GallerySpaceComponent.colors.primary)
+            .background(DesignComponent.colors.primary)
             .height(44.dp)
             .padding(horizontal = 8.dp),
         verticalAlignment = Alignment.CenterVertically
@@ -64,7 +63,7 @@ fun Dot(modifier: Modifier = Modifier, onClick: () -> Unit) {
             .padding(16.dp)
             .background(
                 shape = RoundedCornerShape(50),
-                color = GallerySpaceComponent.colors.primaryInverse
+                color = DesignComponent.colors.primaryInverse
             )
     )
 }
@@ -79,7 +78,7 @@ fun Menu(modifier: Modifier = Modifier, onClick: () -> Unit) {
             .clickable { onClick.invoke() }
             .padding(8.dp),
         contentDescription = null,
-        tint = GallerySpaceComponent.colors.primaryInverse
+        tint = DesignComponent.colors.primaryInverse
     )
 }
 
@@ -93,7 +92,7 @@ fun Add(modifier: Modifier = Modifier, onClick: () -> Unit) {
             .clickable { onClick.invoke() }
             .padding(12.dp),
         contentDescription = null,
-        tint = GallerySpaceComponent.colors.primaryInverse
+        tint = DesignComponent.colors.primaryInverse
     )
 }
 
@@ -107,6 +106,6 @@ fun Ok(modifier: Modifier = Modifier, onClick: () -> Unit) {
             .clickable { onClick.invoke() }
             .padding(12.dp),
         contentDescription = null,
-        tint = GallerySpaceComponent.colors.primaryInverse
+        tint = DesignComponent.colors.primaryInverse
     )
 }

@@ -4,7 +4,7 @@ import org.jetbrains.skiko.wasm.onWasmReady
 fun main() {
     onWasmReady {
         Window {
-            GallerySpace()
+            Main()
         }
     }
 }

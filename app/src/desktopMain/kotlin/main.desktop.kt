@@ -4,8 +4,8 @@ import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.singleWindowApplication
 
 fun main() = singleWindowApplication(
-    title = "GallerySpace",
+    title = "UsefulTraining",
     state = WindowState(size = DpSize(400.dp, 800.dp))
 ) {
-    GallerySpace()
+    Main()
 }
