@@ -6,33 +6,23 @@ logger-vers = "1.0.0"
 serialization-vers = "1.3.2"
 sqldelight-vers = "1.5.3"
 ktor-vers = "2.1.0"
-
-android-gradle-vers = "7.4.0-alpha08"
-lifecycle-runtime-vers = "2.5.0-alpha04"
 datetime-vers = "0.3.1"
-coil-vers = "2.0.0-rc03"
 
+#Android
+android-gradle-vers = "7.4.0-alpha08"
 compose-activity-vers = "1.5.0-alpha03"
 compose-navigation-vers = "2.4.1"
 accompanist = "0.23.1"
 
 [libraries]
-
 coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines-vers" }
 logger = { module = "co.touchlab:kermit", version.ref = "logger-vers" }
 serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization-vers" }
 datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "datetime-vers" }
 
-kotlinx-gradle = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin-vers" }
-kotlinx-kotlin = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin-vers" }
-kotlinx-runtime = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycle-runtime-vers" }
-
 #ACCOMPANIST
 compose-accompansit-systemcontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanist" }
 compose-accompansit-navigation = { module = "com.google.accompanist:accompanist-navigation-animation", version.ref = "accompanist" }
-
-#COIL
-coil-core = { module = "io.coil-kt:coil-compose", version.ref = "coil-vers" }
 
 #SQLDELIGHT
 sqldelight-common = { module = "com.squareup.sqldelight:runtime", version.ref = "sqldelight-vers" }
@@ -49,9 +39,7 @@ ktor-desktop = { module = "io.ktor:ktor-client-apache", version.ref = "ktor-vers
 ktor-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor-vers" } #ios
 
 [plugins]
-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin-vers" }
 android-app = { id = "com.android.application", version.ref = "android-gradle-vers" }
-android-library = { id = "com.android.library", version.ref = "android-gradle-vers" }
 sqldelight = { id = "com.squareup.sqldelight", version.ref = "sqldelight-vers" }
 multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin-vers" }
 serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin-vers" }

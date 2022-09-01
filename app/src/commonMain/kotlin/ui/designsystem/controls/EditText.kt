@@ -1,8 +1,9 @@
-package designsystem.controls
+package ui.designsystem.controls
 
-import designsystem.DesignComponent
+import ui.designsystem.DesignComponent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.ProvideTextStyle
 import androidx.compose.material.TextField
 import androidx.compose.material.TextFieldDefaults
@@ -17,8 +18,8 @@ import androidx.compose.ui.text.style.TextAlign
 @Composable
 fun BODY1EditText(
     modifier: Modifier = Modifier,
-    text: TextFieldValue?,
-    onValueChange: (TextFieldValue) -> Unit,
+    text: String?,
+    onValueChange: (String) -> Unit,
     label: String? = null,
     color: Color? = null,
     textAlign: TextAlign? = null,
@@ -37,8 +38,8 @@ fun BODY1EditText(
 @Composable
 internal fun EditText(
     modifier: Modifier = Modifier,
-    text: TextFieldValue?,
-    onValueChange: (TextFieldValue) -> Unit,
+    text: String?,
+    onValueChange: (String) -> Unit,
     color: Color? = null,
     label: String? = null,
     textAlign: TextAlign? = null,
@@ -60,8 +61,8 @@ internal fun EditText(
     val errorColor = Color.Red
 
     TextField(
-        modifier = modifier.background(Color.Transparent).fillMaxWidth(),
-        value = text ?: TextFieldValue(),
+        modifier = modifier.background(Color.Transparent).wrapContentSize(),
+        value = text ?: String(),
         onValueChange = onValueChange,
         label = label?.let { { Inner(style = textStyle, text = label) } },
         textStyle = innerTextAlignTextStyle,

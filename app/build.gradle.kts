@@ -1,4 +1,5 @@
-@Suppress("DSL_SCOPE_VIOLATION") plugins {
+@Suppress("DSL_SCOPE_VIOLATION")
+plugins {
     alias(libs.plugins.android.app)
     alias(libs.plugins.multiplatform)
     alias(libs.plugins.compose)
@@ -41,13 +42,15 @@ kotlin {
             dependencies {
                 implementation(libs.coroutines)
                 implementation(libs.datetime)
-                implementation(libs.logger)
+                implementation(libs.logger) // Logger.i { "Hello World" }
                 implementation(libs.serialization)
 
                 implementation(compose.ui)
                 implementation(compose.foundation)
                 implementation(compose.material)
                 implementation(compose.runtime)
+                implementation(compose.runtime)
+
             }
         }
 
@@ -64,7 +67,7 @@ kotlin {
             }
         }
 
-        val jsMain by getting { dependencies {} }
+        val jsMain by getting {}
         val iosMain by creating { dependsOn(commonMain) }
         val macosMain by creating { dependsOn(iosMain) }
         val macosX64Main by getting { dependsOn(macosMain) }

@@ -1,4 +1,4 @@
-package designsystem.common
+package ui.designsystem.common
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color

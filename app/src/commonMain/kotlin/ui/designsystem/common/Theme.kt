@@ -1,11 +1,11 @@
-package designsystem.common
+package ui.designsystem.common
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.unit.ExperimentalUnitApi
-import designsystem.LocalAppColors
-import designsystem.LocalAppTypography
+import ui.designsystem.LocalAppColors
+import ui.designsystem.LocalAppTypography
 
 @ExperimentalUnitApi
 @Composable

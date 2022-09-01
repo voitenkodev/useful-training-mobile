@@ -1,6 +1,6 @@
-package designsystem.controls
+package ui.designsystem.controls
 
-import designsystem.DesignComponent
+import ui.designsystem.DesignComponent
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier

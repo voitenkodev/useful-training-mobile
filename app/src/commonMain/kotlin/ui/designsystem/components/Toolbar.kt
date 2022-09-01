@@ -1,4 +1,4 @@
-package designsystem.components
+package ui.designsystem.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -14,7 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-import designsystem.DesignComponent
+import ui.designsystem.DesignComponent
 
 @Composable
 fun Toolbar(

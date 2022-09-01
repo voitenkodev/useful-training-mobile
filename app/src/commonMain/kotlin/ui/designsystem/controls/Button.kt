@@ -1,4 +1,4 @@
-package designsystem.controls
+package ui.designsystem.controls
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.padding
@@ -13,8 +13,8 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
-import designsystem.DesignComponent
-import designsystem.common.almostWhite
+import ui.designsystem.DesignComponent
+import ui.designsystem.common.almostWhite
 
 @Composable
 fun ButtonPrimary(
