@@ -27,7 +27,7 @@ fun AuthScreen(
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
 
-        Spacer(Modifier.height(80.dp))
+        Spacer(Modifier.height(60.dp))
 
         InputFieldPrimary(
             modifier = Modifier.fillMaxWidth(),

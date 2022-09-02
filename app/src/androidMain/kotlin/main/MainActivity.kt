@@ -32,7 +32,6 @@ class MainActivity : ComponentActivity() {
                         login = { email, password ->
                             scope.launch {
                                 auth.login(email, password)
-                                    .flowOn(Dispatchers.IO)
                                     .onEach { Logger.i("success -> $it") }
                                     .catch { Logger.i("error -> $it") }
                                     .launchIn(scope)
@@ -41,7 +40,6 @@ class MainActivity : ComponentActivity() {
                         registration = { email, password ->
                             scope.launch {
                                 auth.registration(email, password)
-                                    .flowOn(Dispatchers.IO)
                                     .onEach { Logger.i("success -> $it") }
                                     .catch { Logger.i("error -> $it") }
                                     .launchIn(scope)
