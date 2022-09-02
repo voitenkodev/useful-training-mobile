@@ -1,4 +1,4 @@
-package ui.designsystem.components
+package ui.designsystem.controls
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable

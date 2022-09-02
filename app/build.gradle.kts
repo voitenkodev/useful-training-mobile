@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.multiplatform)
     alias(libs.plugins.compose)
     alias(libs.plugins.serialization)
+    id("com.google.gms.google-services") version "4.3.13"
 }
 
 kotlin {
@@ -64,6 +65,9 @@ kotlin {
             dependencies {
                 implementation("androidx.appcompat:appcompat:1.5.0")
                 implementation("androidx.activity:activity-compose:1.5.1")
+                // Firebase
+                implementation("com.google.firebase:firebase-auth-ktx:21.0.8")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.6.4")
             }
         }
 

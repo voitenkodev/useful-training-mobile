@@ -10,19 +10,12 @@ datetime-vers = "0.3.1"
 
 #Android
 android-gradle-vers = "7.4.0-alpha08"
-compose-activity-vers = "1.5.0-alpha03"
-compose-navigation-vers = "2.4.1"
-accompanist = "0.23.1"
 
 [libraries]
 coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines-vers" }
 logger = { module = "co.touchlab:kermit", version.ref = "logger-vers" }
 serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization-vers" }
 datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "datetime-vers" }
-
-#ACCOMPANIST
-compose-accompansit-systemcontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanist" }
-compose-accompansit-navigation = { module = "com.google.accompanist:accompanist-navigation-animation", version.ref = "accompanist" }
 
 #SQLDELIGHT
 sqldelight-common = { module = "com.squareup.sqldelight:runtime", version.ref = "sqldelight-vers" }

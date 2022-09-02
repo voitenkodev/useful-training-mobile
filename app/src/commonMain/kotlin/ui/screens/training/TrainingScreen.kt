@@ -9,8 +9,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import models.Exercise
-import co.touchlab.kermit.Logger
-import ui.designsystem.controls.BODY1EditText
+import ui.designsystem.controls.InputFieldPrimary
 
 @Composable
 fun TrainingScreen() {
@@ -33,8 +32,8 @@ fun TrainingScreen() {
 private fun Exercise(exercise: Exercise, update: (Exercise) -> Unit) {
     val state = rememberSaveable { mutableStateOf(exercise) }
     Column {
-        BODY1EditText(
-            text = state.value.name,
+        InputFieldPrimary(
+            value = state.value.name,
             onValueChange = { state.value = state.value.copy(name = it) }
         )
 
@@ -53,13 +52,13 @@ private fun Exercise(exercise: Exercise, update: (Exercise) -> Unit) {
 private fun Iteration(modifier: Modifier = Modifier, iteration: Exercise.Iteration) {
     val state = rememberSaveable { mutableStateOf(iteration) }
     Column(modifier = modifier) {
-        BODY1EditText(
-            text = state.value.weight.toString(),
+        InputFieldPrimary(
+            value = state.value.weight.toString(),
             onValueChange = {},
             textAlign = TextAlign.Center
         )
-        BODY1EditText(
-            text = state.value.count.toString(),
+        InputFieldPrimary(
+            value = state.value.count.toString(),
             onValueChange = {},
             textAlign = TextAlign.Center
         )

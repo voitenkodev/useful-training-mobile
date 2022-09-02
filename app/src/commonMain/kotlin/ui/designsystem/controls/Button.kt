@@ -43,31 +43,6 @@ fun ButtonPrimary(
 }
 
 @Composable
-fun ButtonSecondary(
-    modifier: Modifier = Modifier,
-    text: String,
-    color: Color? = null,
-    onClick: () -> Unit,
-    enabled: Boolean = true,
-    leadIcon: ImageVector? = null,
-) {
-
-    val textColor = color ?: DesignComponent.colors.primaryInverse
-
-    Button(
-        modifier = modifier,
-        text = text,
-        textStyle = DesignComponent.typography.BUTTON.copy(color = textColor),
-        enabled = enabled,
-        onClick = onClick,
-        colors = ButtonDefaults.buttonColors(backgroundColor = Color.Transparent),
-        shape = RoundedCornerShape(50),
-        borderStroke = BorderStroke(2.dp, almostWhite),
-        leadIcon = leadIcon
-    )
-}
-
-@Composable
 private fun Button(
     modifier: Modifier = Modifier,
     text: String,
@@ -89,13 +64,13 @@ private fun Button(
                 Icon(
                     imageVector = leadIcon,
                     modifier = Modifier.size(24.dp),
-                    contentDescription = "",
+                    contentDescription = null,
                     tint = almostWhite
                 )
             }
-            Text(
+            TextField(
                 modifier = Modifier
-                    .padding(horizontal = 8.dp, vertical = 4.dp),
+                    .padding(horizontal = 8.dp, vertical = 8.dp),
                 text = text.uppercase(),
                 textStyle = textStyle
             )

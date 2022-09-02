@@ -8,7 +8,7 @@ import ui.screens.AuthScreen
 fun Main() {
     DesignTheme {
         Surface(color = DesignComponent.colors.primary) {
-            AuthScreen()
+//            AuthScreen()
         }
     }
 }
