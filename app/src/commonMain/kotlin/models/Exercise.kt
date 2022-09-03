@@ -14,11 +14,7 @@ data class Exercise(
             id = id,
             name = "",
             listOf(
-                0.0 to 0,
-                0.0 to 0,
-                0.0 to 0,
-                0.0 to 0,
-                0.0 to 0,
+                0.0 to 0, 0.0 to 0, 0.0 to 0, 0.0 to 0, 0.0 to 0,
             )
         )
 

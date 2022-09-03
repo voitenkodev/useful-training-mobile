@@ -1,18 +1,15 @@
 package ui.screens
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
+import androidx.compose.foundation.lazy.grid.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import co.touchlab.kermit.Logger
 import models.Exercise
 import models.Training
 import ui.designsystem.controls.ButtonPrimary
@@ -25,35 +22,40 @@ fun TrainingScreen(
     createId: () -> String,
     save: (Training) -> Unit
 ) {
-
-    val training = remember { mutableStateOf(training) }
-
     Column(
         modifier = Modifier.fillMaxSize().padding(horizontal = 8.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        LazyColumn(
+
+        val state = remember { mutableStateOf(training) }
+
+        val spanCount = 5
+
+        LazyVerticalGrid(
             modifier = Modifier.weight(1f),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
+            columns = GridCells.Fixed(spanCount),
+            contentPadding = PaddingValues(5.dp),
+            state = rememberLazyGridState(),
         ) {
-            items(
-                items = training.value.exercises,
-                key = { training.value.id },
-                itemContent = {
-                    Exercise(
-                        exercise = it,
-                        update = {}
-                    )
-                }
-            )
+            state.value.exercises.forEach {
+                Exercise(
+                    spanCount = spanCount,
+                    exercise = it,
+                    update = { updated ->
+                        val newList = state.value.exercises.map { old -> if (it.id == updated.id) updated else old }
+                        state.value = state.value.copy(exercises = newList)
+                    }
+                )
+            }
         }
 
         ButtonPrimary(
             modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp),
             text = "Add Exercise",
             onClick = {
-                val new = training.value.copy(exercises = training.value.exercises + Exercise.empty(createId.invoke()))
-                training.value = new
+                val new = state.value.copy(exercises = state.value.exercises + Exercise.empty(createId.invoke()))
+                state.value = new
+                Logger.i { "exercises -> " + state.value.exercises.map { it.id }.toString() }
             }
         )
 
@@ -61,74 +63,69 @@ fun TrainingScreen(
     }
 }
 
-@Composable
-private fun Exercise(exercise: Exercise, update: (Exercise) -> Unit) {
-    val state = remember { mutableStateOf(exercise) }
-    Card(
-        modifier = Modifier.padding(4.dp),
-        shape = RoundedCornerShape(8.dp)
-    ) {
-        Column {
-            InputFieldPrimary(
-                value = state.value.name,
-                onValueChange = { state.value = state.value.copy(name = it) },
-                placeholder = "Name of exercise",
-                maxLines = 1
-            )
-
-            Column {
-                state.value.iterations.chunked(5).forEach {
-                    Row {
-                        it.forEachIndexed { index, item ->
-                            Iteration(
-                                modifier = Modifier.weight(1f),
-                                iteration = item,
-                                update = { iteration ->
-                                    update.invoke(state.value.copy(iterations = state.value.iterations.updated(index, iteration)))
-                                }
-                            )
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
-fun <E> Iterable<E>.updated(index: Int, elem: E) = mapIndexed { i, existing -> if (i == index) elem else existing }
-
-@Composable
-private fun Iteration(
-    modifier: Modifier = Modifier,
-    iteration: Pair<Double, Int>,
-    update: (Pair<Double, Int>) -> Unit
+fun LazyGridScope.Exercise(
+    spanCount: Int, exercise: Exercise, update: (Exercise) -> Unit
 ) {
 
-    val weight = rememberSaveable { mutableStateOf(iteration.first.takeIf { it != 0.0 }?.toString() ?: "") }
-    val count = rememberSaveable { mutableStateOf(iteration.second.takeIf { it != 0 }?.toString() ?: "") }
+    item(key = exercise.id, span = { GridItemSpan(currentLineSpan = spanCount) }) {
 
-    Column(modifier = modifier) {
-
-        Spacer(modifier = Modifier.size(4.dp))
-
-        InputFieldSecondary(
-            value = weight.value,
-            onValueChange = { weight.value = it },
-            textAlign = TextAlign.Center,
+        InputFieldPrimary(
+            value = exercise.name,
+            placeholder = "Name of exercise",
             maxLines = 1,
-            placeholder = "0.0"
+            onValueChange = {
+                // Update name of exercise
+                update.invoke(exercise.copy(name = it))
+                Logger.i { "updated exercise -> $exercise" }
+            },
         )
+    }
 
-        Spacer(modifier = Modifier.size(4.dp))
+    itemsIndexed(items = exercise.iterations, /*key = { index, _ -> index }*/) { index, item ->
 
-        InputFieldSecondary(
-            value = count.value,
-            onValueChange = { count.value = it },
-            textAlign = TextAlign.Center,
-            maxLines = 1,
-            placeholder = "0"
-        )
+        Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
 
-        Spacer(modifier = Modifier.size(4.dp))
+            InputFieldSecondary(value = item.first.takeIf { it != 0.0 }?.toString() ?: "",
+                textAlign = TextAlign.Center,
+                maxLines = 1,
+                placeholder = "0.0",
+                onValueChange = {
+                    // weight name of exercise
+                    val newIteration =
+                        exercise.iterations.mapIndexed { i, old -> if (i == index) (it.toDoubleOrNull() ?: 0.0) to old.second else old }
+                    update.invoke(exercise.copy(iterations = newIteration))
+                    Logger.i { "updated exercise -> $exercise" }
+                })
+
+            InputFieldSecondary(
+                value = item.second.takeIf { it != 0 }?.toString() ?: "",
+                textAlign = TextAlign.Center,
+                maxLines = 1,
+                placeholder = "0.0",
+                onValueChange = {
+                    // count name of exercise
+                    val newIteration =
+                        exercise.iterations.mapIndexed { i, old -> if (i == index) old.first to (it.toIntOrNull() ?: 0) else old }
+                    update.invoke(exercise.copy(iterations = newIteration))
+                    Logger.i { "updated exercise -> $exercise" }
+                },
+            )
+        }
+    }
+
+    item(span = { GridItemSpan(currentLineSpan = spanCount) }) {
+        Row {
+            Spacer(modifier = Modifier.weight(1f))
+            ButtonPrimary(
+                modifier = Modifier.wrapContentSize(),
+                text = "more",
+                onClick = {
+                    // Add 5 empty iterations for exercise
+                    val newIteration = exercise.iterations + listOf(0.0 to 0, 0.0 to 0, 0.0 to 0, 0.0 to 0, 0.0 to 0)
+                    update.invoke(exercise.copy(iterations = newIteration))
+                    Logger.i { "updated exercise -> $exercise" }
+                }
+            )
+        }
     }
 }

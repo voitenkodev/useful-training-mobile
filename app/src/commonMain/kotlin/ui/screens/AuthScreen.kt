@@ -33,7 +33,7 @@ fun AuthScreen(
             modifier = Modifier.fillMaxWidth(),
             value = email.value,
             onValueChange = { email.value = it },
-            leadingIcon = Icons.Outlined.Person,
+//            leadingIcon = Icons.Outlined.Person,
             placeholder = "Email"
         )
 
@@ -41,7 +41,7 @@ fun AuthScreen(
             modifier = Modifier.fillMaxWidth(),
             value = password.value,
             onValueChange = { password.value = it },
-            leadingIcon = Icons.Outlined.Lock,
+//            leadingIcon = Icons.Outlined.Lock,
             placeholder = "Password"
         )
 

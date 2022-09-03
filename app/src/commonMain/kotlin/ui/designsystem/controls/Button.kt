@@ -13,7 +13,7 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
-import ui.designsystem.DesignComponent
+import ui.designsystem.common.DesignComponent
 import ui.designsystem.common.almostWhite
 
 @Composable
@@ -32,7 +32,7 @@ fun ButtonPrimary(
     Button(
         modifier = modifier,
         text = text,
-        textStyle = DesignComponent.typography.BUTTON.copy(color = _textColor),
+        textStyle = DesignComponent.typography.PrimaryButton.copy(color = _textColor),
         enabled = enabled,
         onClick = onClick,
         colors = ButtonDefaults.buttonColors(backgroundColor = _backgroundColor),

@@ -5,17 +5,11 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material.Surface
 import androidx.compose.runtime.rememberCoroutineScope
-import co.touchlab.kermit.Logger
 import datasource.Auth
 import datasource.Store
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.launch
 import models.Training
-import ui.designsystem.DesignComponent
+import ui.designsystem.common.DesignComponent
 import ui.designsystem.common.DesignTheme
-import ui.screens.AuthScreen
 import ui.screens.TrainingScreen
 
 class MainActivity : ComponentActivity() {

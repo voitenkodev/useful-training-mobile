@@ -1,9 +1,7 @@
-package ui.designsystem
+package ui.designsystem.common
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.staticCompositionLocalOf
-import ui.designsystem.common.AppTypography
-import ui.designsystem.common.AppColors
 
 object DesignComponent {
 
