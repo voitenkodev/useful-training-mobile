@@ -9,7 +9,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import co.touchlab.kermit.Logger
 import models.Exercise
 import models.Training
 import ui.designsystem.controls.ButtonPrimary
@@ -37,12 +36,13 @@ fun TrainingScreen(
             contentPadding = PaddingValues(5.dp),
             state = rememberLazyGridState(),
         ) {
+
             state.value.exercises.forEach {
-                Exercise(
+                exercise(
                     spanCount = spanCount,
                     exercise = it,
                     update = { updated ->
-                        val newList = state.value.exercises.map { old -> if (it.id == updated.id) updated else old }
+                        val newList = state.value.exercises.map { old -> if (old.id == updated.id) updated else old }
                         state.value = state.value.copy(exercises = newList)
                     }
                 )
@@ -55,7 +55,6 @@ fun TrainingScreen(
             onClick = {
                 val new = state.value.copy(exercises = state.value.exercises + Exercise.empty(createId.invoke()))
                 state.value = new
-                Logger.i { "exercises -> " + state.value.exercises.map { it.id }.toString() }
             }
         )
 
@@ -63,8 +62,10 @@ fun TrainingScreen(
     }
 }
 
-fun LazyGridScope.Exercise(
-    spanCount: Int, exercise: Exercise, update: (Exercise) -> Unit
+fun LazyGridScope.exercise(
+    spanCount: Int,
+    exercise: Exercise,
+    update: (Exercise) -> Unit
 ) {
 
     item(key = exercise.id, span = { GridItemSpan(currentLineSpan = spanCount) }) {
@@ -76,12 +77,11 @@ fun LazyGridScope.Exercise(
             onValueChange = {
                 // Update name of exercise
                 update.invoke(exercise.copy(name = it))
-                Logger.i { "updated exercise -> $exercise" }
             },
         )
     }
 
-    itemsIndexed(items = exercise.iterations, /*key = { index, _ -> index }*/) { index, item ->
+    itemsIndexed(items = exercise.iterations /*key = { index, _ -> index }*/) { index, item ->
 
         Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
 
@@ -94,7 +94,6 @@ fun LazyGridScope.Exercise(
                     val newIteration =
                         exercise.iterations.mapIndexed { i, old -> if (i == index) (it.toDoubleOrNull() ?: 0.0) to old.second else old }
                     update.invoke(exercise.copy(iterations = newIteration))
-                    Logger.i { "updated exercise -> $exercise" }
                 })
 
             InputFieldSecondary(
@@ -107,15 +106,17 @@ fun LazyGridScope.Exercise(
                     val newIteration =
                         exercise.iterations.mapIndexed { i, old -> if (i == index) old.first to (it.toIntOrNull() ?: 0) else old }
                     update.invoke(exercise.copy(iterations = newIteration))
-                    Logger.i { "updated exercise -> $exercise" }
                 },
             )
         }
     }
 
     item(span = { GridItemSpan(currentLineSpan = spanCount) }) {
+
         Row {
+
             Spacer(modifier = Modifier.weight(1f))
+
             ButtonPrimary(
                 modifier = Modifier.wrapContentSize(),
                 text = "more",
@@ -123,7 +124,6 @@ fun LazyGridScope.Exercise(
                     // Add 5 empty iterations for exercise
                     val newIteration = exercise.iterations + listOf(0.0 to 0, 0.0 to 0, 0.0 to 0, 0.0 to 0, 0.0 to 0)
                     update.invoke(exercise.copy(iterations = newIteration))
-                    Logger.i { "updated exercise -> $exercise" }
                 }
             )
         }
