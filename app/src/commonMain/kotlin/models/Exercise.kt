@@ -6,26 +6,19 @@ import kotlinx.serialization.Serializable
 data class Exercise(
     val id: String,
     val name: String,
-    val iterations: List<Iteration>,
+    val iterations: List<Pair<Double, Int>>,
 ) {
-
-    @Serializable
-    data class Iteration(
-        val weight: Double,
-        val count: Int
-    )
 
     companion object {
         fun empty(id: String) = Exercise(
             id = id,
             name = "",
             listOf(
-                Iteration(0.0, 0),
-                Iteration(0.0, 0),
-                Iteration(0.0, 0),
-                Iteration(0.0, 0),
-                Iteration(0.0, 0),
-                Iteration(0.0, 0)
+                0.0 to 0,
+                0.0 to 0,
+                0.0 to 0,
+                0.0 to 0,
+                0.0 to 0,
             )
         )
 
@@ -33,12 +26,11 @@ data class Exercise(
             id = "0",
             "Bench press",
             listOf(
-                Iteration(0.0, 0),
-                Iteration(0.0, 0),
-                Iteration(0.0, 0),
-                Iteration(0.0, 0),
-                Iteration(0.0, 0),
-                Iteration(0.0, 0)
+                0.0 to 0,
+                0.0 to 0,
+                0.0 to 0,
+                0.0 to 0,
+                0.0 to 0,
             )
         )
     }

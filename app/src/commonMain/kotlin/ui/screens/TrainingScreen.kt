@@ -8,9 +8,9 @@ import androidx.compose.material.Card
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import models.Exercise
@@ -36,12 +36,16 @@ fun TrainingScreen(
             modifier = Modifier.weight(1f),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            items(training.value.exercises) {
-                Exercise(
-                    exercise = it,
-                    update = {}
-                )
-            }
+            items(
+                items = training.value.exercises,
+                key = { training.value.id },
+                itemContent = {
+                    Exercise(
+                        exercise = it,
+                        update = {}
+                    )
+                }
+            )
         }
 
         ButtonPrimary(
@@ -72,27 +76,36 @@ private fun Exercise(exercise: Exercise, update: (Exercise) -> Unit) {
                 maxLines = 1
             )
 
-            Row(modifier = Modifier.fillMaxWidth()) {
-                state.value.iterations.forEachIndexed { index, item ->
-                    Iteration(
-                        modifier = Modifier.weight(1f),
-                        iteration = item,
-                        update = {}
-                    )
+            Column {
+                state.value.iterations.chunked(5).forEach {
+                    Row {
+                        it.forEachIndexed { index, item ->
+                            Iteration(
+                                modifier = Modifier.weight(1f),
+                                iteration = item,
+                                update = { iteration ->
+                                    update.invoke(state.value.copy(iterations = state.value.iterations.updated(index, iteration)))
+                                }
+                            )
+                        }
+                    }
                 }
             }
         }
     }
 }
 
+fun <E> Iterable<E>.updated(index: Int, elem: E) = mapIndexed { i, existing -> if (i == index) elem else existing }
+
 @Composable
 private fun Iteration(
     modifier: Modifier = Modifier,
-    iteration: Exercise.Iteration,
-    update: (Exercise.Iteration) -> Unit
+    iteration: Pair<Double, Int>,
+    update: (Pair<Double, Int>) -> Unit
 ) {
-    val weight = remember { mutableStateOf("") }
-    val count = remember { mutableStateOf("") }
+
+    val weight = rememberSaveable { mutableStateOf(iteration.first.takeIf { it != 0.0 }?.toString() ?: "") }
+    val count = rememberSaveable { mutableStateOf(iteration.second.takeIf { it != 0 }?.toString() ?: "") }
 
     Column(modifier = modifier) {
 

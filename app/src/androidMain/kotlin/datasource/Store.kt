@@ -14,7 +14,7 @@ class Store(
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {
 
-    fun createId() = Util.autoId()
+    fun createId(): String = Util.autoId()
 
     private suspend fun writeTraining(
         userId: String,

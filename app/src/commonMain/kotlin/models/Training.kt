@@ -7,6 +7,7 @@ data class Training(
     val id: String,
     val exercises: List<Exercise>,
     val duration: String,
+    val date: String,
 
     val tonnage: Double,
     val countOfLifting: Int,
@@ -17,6 +18,7 @@ data class Training(
             id = id,
             exercises = emptyList(),
             duration = "",
+            date = "",
             tonnage = 0.0,
             countOfLifting = 0,
             intensity = 0.0,
