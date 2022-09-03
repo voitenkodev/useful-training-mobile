@@ -3,7 +3,7 @@ enableFeaturePreview("VERSION_CATALOGS")
 @Suppress("UnstableApiUsage")
 dependencyResolutionManagement {
 
-    // TODO CANNOT MOVE IT TO "FAIL_ON_PROJECT_REPOS" because J.S. does not build
+    // TODO CANNOT MOVE IT TO "FAIL_ON_PROJECT_REPOS" because J.S. does not build :((
     repositoriesMode.set(RepositoriesMode.PREFER_PROJECT)
 
     versionCatalogs {

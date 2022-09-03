@@ -68,6 +68,7 @@ kotlin {
                 // Firebase
                 implementation("com.google.firebase:firebase-auth-ktx:21.0.8")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.6.4")
+                implementation("com.google.firebase:firebase-firestore:24.3.0")
             }
         }
 

@@ -14,8 +14,12 @@ internal fun AppTypography() = AppTypography(
         fontSize = 40.sp,
         fontWeight = FontWeight.Bold,
         fontStyle = FontStyle.Normal,
-    ), BODY1 = TextStyle(
+    ), Body1 = TextStyle(
         fontSize = 16.sp,
+        fontWeight = FontWeight.Normal,
+        fontStyle = FontStyle.Normal,
+    ), Body2 = TextStyle(
+        fontSize = 13.sp,
         fontWeight = FontWeight.Normal,
         fontStyle = FontStyle.Normal,
     ), BUTTON = TextStyle(
@@ -27,6 +31,7 @@ internal fun AppTypography() = AppTypography(
 
 data class AppTypography(
     val H1: TextStyle,
-    val BODY1: TextStyle,
+    val Body1: TextStyle,
+    val Body2: TextStyle,
     val BUTTON: TextStyle,
 )

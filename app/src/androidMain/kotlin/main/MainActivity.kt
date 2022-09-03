@@ -6,16 +6,17 @@ import androidx.activity.compose.setContent
 import androidx.compose.material.Surface
 import androidx.compose.runtime.rememberCoroutineScope
 import co.touchlab.kermit.Logger
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 import datasource.Auth
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.*
+import datasource.Store
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import models.Training
 import ui.designsystem.DesignComponent
 import ui.designsystem.common.DesignTheme
 import ui.screens.AuthScreen
+import ui.screens.TrainingScreen
 
 class MainActivity : ComponentActivity() {
 
@@ -26,26 +27,33 @@ class MainActivity : ComponentActivity() {
             DesignTheme {
                 Surface(color = DesignComponent.colors.primary) {
                     val auth = Auth()
+                    val store = Store()
                     val scope = rememberCoroutineScope()
 
-                    AuthScreen(
-                        login = { email, password ->
-                            scope.launch {
-                                auth.login(email, password)
-                                    .onEach { Logger.i("success -> $it") }
-                                    .catch { Logger.i("error -> $it") }
-                                    .launchIn(scope)
-                            }
-                        },
-                        registration = { email, password ->
-                            scope.launch {
-                                auth.registration(email, password)
-                                    .onEach { Logger.i("success -> $it") }
-                                    .catch { Logger.i("error -> $it") }
-                                    .launchIn(scope)
-                            }
-                        }
+                    TrainingScreen(
+                        training = Training.empty(store.createId()),
+                        createId = { store.createId() },
+                        save = {}
                     )
+
+//                    AuthScreen(
+//                        login = { email, password ->
+//                            scope.launch {
+//                                auth.login(email, password)
+//                                    .onEach { Logger.i("success -> $it") }
+//                                    .catch { Logger.i("error -> $it") }
+//                                    .launchIn(scope)
+//                            }
+//                        },
+//                        registration = { email, password ->
+//                            scope.launch {
+//                                auth.registration(email, password)
+//                                    .onEach { Logger.i("success -> $it") }
+//                                    .catch { Logger.i("error -> $it") }
+//                                    .launchIn(scope)
+//                            }
+//                        }
+//                    )
                 }
             }
         }

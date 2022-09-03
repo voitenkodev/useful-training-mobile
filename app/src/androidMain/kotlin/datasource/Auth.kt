@@ -3,8 +3,6 @@ package datasource
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -13,7 +11,7 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.tasks.await
 
 class Auth(
-    private val auth: FirebaseAuth = Firebase.auth,
+    private val auth: FirebaseAuth = FirebaseAuth.getInstance(),
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {
 
