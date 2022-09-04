@@ -20,19 +20,41 @@ import ui.designsystem.common.almostWhite
 fun ButtonPrimary(
     modifier: Modifier = Modifier,
     text: String,
-    textColor: Color? = null,
-    backgroundColor: Color? = null,
     onClick: () -> Unit,
     enabled: Boolean = true,
     leadIcon: ImageVector? = null,
 ) {
-    val _textColor = textColor ?: DesignComponent.colors.primary
-    val _backgroundColor = backgroundColor ?: DesignComponent.colors.primaryInverse
+    val _textColor = DesignComponent.colors.primary
+    val _backgroundColor = DesignComponent.colors.primaryInverse
 
     Button(
         modifier = modifier,
         text = text,
         textStyle = DesignComponent.typography.PrimaryButton.copy(color = _textColor),
+        enabled = enabled,
+        onClick = onClick,
+        colors = ButtonDefaults.buttonColors(backgroundColor = _backgroundColor),
+        shape = RoundedCornerShape(50),
+        borderStroke = null,
+        leadIcon = leadIcon
+    )
+}
+
+@Composable
+fun ButtonSecondary(
+    modifier: Modifier = Modifier,
+    text: String,
+    onClick: () -> Unit,
+    enabled: Boolean = true,
+    leadIcon: ImageVector? = null,
+) {
+    val _textColor = DesignComponent.colors.primaryInverse
+    val _backgroundColor = Color.Transparent
+
+    Button(
+        modifier = modifier,
+        text = text,
+        textStyle = DesignComponent.typography.SecondaryButton.copy(brush = DesignComponent.colors.specialBrush()),
         enabled = enabled,
         onClick = onClick,
         colors = ButtonDefaults.buttonColors(backgroundColor = _backgroundColor),

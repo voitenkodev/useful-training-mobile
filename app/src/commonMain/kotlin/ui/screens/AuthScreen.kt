@@ -1,9 +1,6 @@
 package ui.screens
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Lock
-import androidx.compose.material.icons.outlined.Person
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -11,7 +8,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import ui.designsystem.controls.ButtonPrimary
-import ui.designsystem.controls.InputFieldPrimary
+import ui.designsystem.controls.InputFieldBody1
 
 @Composable
 fun AuthScreen(
@@ -29,16 +26,16 @@ fun AuthScreen(
 
         Spacer(Modifier.height(60.dp))
 
-        InputFieldPrimary(
-            modifier = Modifier.fillMaxWidth(),
+        InputFieldBody1(
+            modifier = Modifier.padding(12.dp).fillMaxWidth(),
             value = email.value,
             onValueChange = { email.value = it },
 //            leadingIcon = Icons.Outlined.Person,
             placeholder = "Email"
         )
 
-        InputFieldPrimary(
-            modifier = Modifier.fillMaxWidth(),
+        InputFieldBody1(
+            modifier = Modifier.padding(12.dp).fillMaxWidth(),
             value = password.value,
             onValueChange = { password.value = it },
 //            leadingIcon = Icons.Outlined.Lock,

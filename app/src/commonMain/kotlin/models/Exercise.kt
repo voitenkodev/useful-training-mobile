@@ -13,21 +13,13 @@ data class Exercise(
         fun empty(id: String) = Exercise(
             id = id,
             name = "",
-            listOf(
-                0.0 to 0, 0.0 to 0, 0.0 to 0, 0.0 to 0, 0.0 to 0,
-            )
+            listOf(0.0 to 0)
         )
 
         val MOCK = Exercise(
             id = "0",
             "Bench press",
-            listOf(
-                0.0 to 0,
-                0.0 to 0,
-                0.0 to 0,
-                0.0 to 0,
-                0.0 to 0,
-            )
+            listOf(0.0 to 0)
         )
     }
 }

@@ -6,12 +6,12 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.ProvideTextStyle
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.dp
 import ui.designsystem.common.DesignComponent
 
 @Composable
-fun InputFieldPrimary(
+fun InputFieldBody1(
     modifier: Modifier = Modifier,
     value: String?,
     onValueChange: (String) -> Unit,
@@ -27,22 +27,26 @@ fun InputFieldPrimary(
     color: Color? = null,
     textAlign: TextAlign? = null,
     maxLines: Int = Int.MAX_VALUE,
+    enabled: Boolean = true,
+    keyboardOptions: KeyboardOptions? = null,
 ) = InputField(
-    modifier = modifier.border(
-        BorderStroke(2.dp, Brush.horizontalGradient(listOf(Color(0xffa18cd1), Color(0xfffbc2eb)))),
+    modifier = Modifier.border(
+        BorderStroke(2.dp, DesignComponent.colors.specialBrush()),
         RoundedCornerShape(8.dp)
-    ).padding(16.dp),
+    ).then(modifier),
     value = value,
     onValueChange = onValueChange,
     textStyle = DesignComponent.typography.Body1,
     maxLines = maxLines,
     color = color ?: DesignComponent.colors.primaryInverse,
     textAlign = textAlign,
-    placeholder = placeholder
+    placeholder = placeholder,
+    enabled = enabled,
+    keyboardOptions = keyboardOptions
 )
 
 @Composable
-fun InputFieldSecondary(
+fun InputFieldBody2(
     modifier: Modifier = Modifier,
     value: String?,
     onValueChange: (String) -> Unit,
@@ -50,15 +54,19 @@ fun InputFieldSecondary(
     color: Color? = null,
     textAlign: TextAlign? = null,
     maxLines: Int = Int.MAX_VALUE,
+    enabled: Boolean = true,
+    keyboardOptions: KeyboardOptions? = null,
 ) = InputField(
-    modifier = modifier.padding(8.dp),
+    modifier = modifier,
     value = value,
     onValueChange = onValueChange,
     textStyle = DesignComponent.typography.Body2,
     maxLines = maxLines,
     color = color ?: DesignComponent.colors.primaryInverse,
     textAlign = textAlign,
-    placeholder = placeholder
+    placeholder = placeholder,
+    enabled = enabled,
+    keyboardOptions = keyboardOptions
 )
 
 @Composable
@@ -69,8 +77,10 @@ internal fun InputField(
     color: Color? = null,
     placeholder: String? = null,
     textAlign: TextAlign? = null,
+    enabled: Boolean = true,
     textStyle: TextStyle,
     maxLines: Int = Int.MAX_VALUE,
+    keyboardOptions: KeyboardOptions? = null,
 ) {
 
     val innerColorTextStyle = if (color != null) {
@@ -85,9 +95,11 @@ internal fun InputField(
         modifier = modifier.background(Color.Transparent).wrapContentSize(),
         value = value ?: String(),
         onValueChange = onValueChange,
+        enabled = enabled,
         textStyle = innerTextAlignTextStyle,
         maxLines = maxLines,
         singleLine = maxLines == 1,
+        keyboardOptions = keyboardOptions ?: KeyboardOptions.Default,
         decorationBox = { innerTextField ->
             Row(modifier = Modifier.fillMaxWidth()) {
                 if (placeholder?.isNotEmpty() == true && value.isNullOrEmpty()) {

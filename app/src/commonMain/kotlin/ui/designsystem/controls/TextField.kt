@@ -1,15 +1,15 @@
 package ui.designsystem.controls
 
-import ui.designsystem.common.DesignComponent
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
+import ui.designsystem.common.DesignComponent
 
 @Composable
-fun TextFieldPrimary(
+fun TextFieldH1(
     modifier: Modifier = Modifier,
     text: String?,
     placeholder: String? = null,
@@ -21,6 +21,24 @@ fun TextFieldPrimary(
     text = text,
     placeholder = placeholder,
     textStyle = DesignComponent.typography.H1,
+    maxLines = maxLines,
+    color = color ?: DesignComponent.colors.primaryInverse,
+    textAlign = textAlign,
+)
+
+@Composable
+fun TextFieldBody2(
+    modifier: Modifier = Modifier,
+    text: String?,
+    placeholder: String? = null,
+    color: Color? = null,
+    textAlign: TextAlign? = null,
+    maxLines: Int = Int.MAX_VALUE,
+) = TextField(
+    modifier = modifier,
+    text = text,
+    placeholder = placeholder,
+    textStyle = DesignComponent.typography.Body2,
     maxLines = maxLines,
     color = color ?: DesignComponent.colors.primaryInverse,
     textAlign = textAlign,
@@ -52,6 +70,6 @@ internal fun TextField(
         modifier = modifier,
         text = text ?: placeholder ?: "",
         style = innerTextAlignTextStyle,
-        maxLines = maxLines
+        maxLines = maxLines,
     )
 }
