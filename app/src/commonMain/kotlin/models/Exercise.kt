@@ -6,20 +6,14 @@ import kotlinx.serialization.Serializable
 data class Exercise(
     val id: String,
     val name: String,
-    val iterations: List<Pair<Double, Int>>,
+    val iterations: List<Pair<String, String>>,
 ) {
 
     companion object {
         fun empty(id: String) = Exercise(
             id = id,
             name = "",
-            listOf(0.0 to 0)
-        )
-
-        val MOCK = Exercise(
-            id = "0",
-            "Bench press",
-            listOf(0.0 to 0)
+            listOf("" to "")
         )
     }
 }

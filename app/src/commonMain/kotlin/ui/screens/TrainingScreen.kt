@@ -1,6 +1,5 @@
 package ui.screens
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.*
 import androidx.compose.foundation.text.KeyboardOptions
@@ -9,13 +8,15 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import models.Exercise
 import models.Training
-import ui.designsystem.controls.*
+import ui.designsystem.controls.ButtonPrimary
+import ui.designsystem.controls.InputFieldBody1
+import ui.designsystem.controls.InputFieldBody2
+import ui.designsystem.controls.TextFieldBody2
 
 @Composable
 fun TrainingScreen(
@@ -77,9 +78,8 @@ fun LazyGridScope.exercise(
             placeholder = "Name of exercise",
             maxLines = 1,
             onValueChange = {
-                // Update name of exercise
                 update.invoke(exercise.copy(name = it))
-            },
+            }
         )
     }
 
@@ -104,45 +104,44 @@ fun LazyGridScope.exercise(
 
         Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
 
-            // weight of iteration
             InputFieldBody2(
                 modifier = Modifier.padding(8.dp),
-                value = item.first.takeIf { it != 0.0 }?.toString() ?: "",
+                value = item.first,
                 textAlign = TextAlign.Center,
                 maxLines = 1,
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 placeholder = "0.0",
-                onValueChange = {
+                onValueChange = { value ->
                     var newIteration = exercise
                         .iterations
-                        .mapIndexed { i, old -> if (i == index) (it.toDoubleOrNull() ?: 0.0) to old.second else old }
-                        .filter { item -> item != 0.0 to 0 }
+                        .mapIndexed { i, old -> if (i == index) value to old.second else old }
+                        .filter { item -> item != "" to "" }
 
-                    if (newIteration.lastOrNull()?.first != 0.0 || newIteration.lastOrNull()?.second != 0)
-                        newIteration = newIteration + (0.0 to 0)
+                    if (newIteration.lastOrNull()?.first != "" || newIteration.lastOrNull()?.second != "")
+                        newIteration = newIteration + ("" to "")
 
                     update.invoke(exercise.copy(iterations = newIteration))
-                })
+                }
+            )
 
-            // Count of iteration
             InputFieldBody2(
                 modifier = Modifier.padding(8.dp),
-                value = item.second.takeIf { it != 0 }?.toString() ?: "",
+                value = item.second.takeIf { (it.toIntOrNull() ?: 0) > 0 }?.toString() ?: "",
                 textAlign = TextAlign.Center,
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 maxLines = 1,
                 placeholder = "0",
-                onValueChange = {
+                onValueChange = { value ->
                     var newIteration = exercise
                         .iterations
-                        .mapIndexed { i, old -> if (i == index) old.first to (it.toIntOrNull() ?: 0) else old }
-                        .filter { item -> item != 0.0 to 0 }
+                        .mapIndexed { i, old -> if (i == index) old.first to value else old }
+                        .filter { item -> item != "" to "" }
 
-                    if (newIteration.lastOrNull()?.first != 0.0 || newIteration.lastOrNull()?.second != 0)
-                        newIteration = newIteration + (0.0 to 0)
+                    if (newIteration.lastOrNull()?.first != "" || newIteration.lastOrNull()?.second != "")
+                        newIteration = newIteration + ("" to "")
 
                     update.invoke(exercise.copy(iterations = newIteration))
-                },
+                }
             )
         }
     }
