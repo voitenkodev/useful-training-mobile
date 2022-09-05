@@ -3,6 +3,10 @@ package ui.screens
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.*
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -46,6 +50,10 @@ fun TrainingScreen(
                     update = { updated ->
                         val newList = state.value.exercises.map { old -> if (old.id == updated.id) updated else old }
                         state.value = state.value.copy(exercises = newList)
+                    },
+                    remove = { removed ->
+                        val newList = state.value.exercises.mapNotNull { old -> if (old.id == removed.id) null else old }
+                        state.value = state.value.copy(exercises = newList)
                     }
                 )
             }
@@ -55,8 +63,8 @@ fun TrainingScreen(
             modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp),
             text = "Add Exercise",
             onClick = {
-                val new = state.value.copy(exercises = state.value.exercises + Exercise.empty(createId.invoke()))
-                state.value = new
+                val newExercises = state.value.exercises + Exercise.empty(createId.invoke())
+                state.value = state.value.copy(exercises = newExercises)
             }
         )
 
@@ -67,10 +75,11 @@ fun TrainingScreen(
 fun LazyGridScope.exercise(
     spanCount: Int,
     exercise: Exercise,
-    update: (Exercise) -> Unit
+    update: (Exercise) -> Unit,
+    remove: (Exercise) -> Unit,
 ) {
 
-    item(key = exercise.id, span = { GridItemSpan(currentLineSpan = spanCount) }) {
+    item(key = exercise.id, span = { GridItemSpan(currentLineSpan = spanCount - 1) }) {
 
         InputFieldBody1(
             modifier = Modifier.padding(12.dp),
@@ -81,6 +90,19 @@ fun LazyGridScope.exercise(
                 update.invoke(exercise.copy(name = it))
             }
         )
+    }
+
+    item(span = { GridItemSpan(currentLineSpan = 1) }) {
+
+        IconButton(
+            onClick = { remove.invoke(exercise) },
+        ) {
+            Icon(
+                modifier = Modifier.padding(12.dp),
+                imageVector = Icons.Default.Delete,
+                contentDescription = ""
+            )
+        }
     }
 
     item(span = { GridItemSpan(currentLineSpan = 1) }) {
