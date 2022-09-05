@@ -10,8 +10,8 @@ fun LightPalette() = AppColors(
     primaryInverse = almostBlack,
     secondary = almostWhite,
     secondaryInverse = almostWhite,
-    special1 = purple,
-    special2 = pink
+    special1 = pink,
+    special2 = purple
 )
 
 @Composable
@@ -20,8 +20,8 @@ fun DarkPalette() = AppColors(
     primaryInverse = almostWhite,
     secondary = black,
     secondaryInverse = almostWhite,
-    special1 = purple,
-    special2 = pink
+    special1 = pink,
+    special2 = purple
 )
 
 data class AppColors(

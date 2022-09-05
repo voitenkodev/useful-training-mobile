@@ -1,10 +1,10 @@
 package ui.designsystem.controls
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.ProvideTextStyle
@@ -15,7 +15,6 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
 import ui.designsystem.common.DesignComponent
 
 @Composable
@@ -30,10 +29,7 @@ fun InputFieldBody1(
     enabled: Boolean = true,
     keyboardOptions: KeyboardOptions? = null,
 ) = InputField(
-    modifier = Modifier.border(
-        BorderStroke(2.dp, DesignComponent.colors.specialBrush()),
-        RoundedCornerShape(8.dp)
-    ).then(modifier),
+    modifier = modifier,
     value = value,
     onValueChange = onValueChange,
     textStyle = DesignComponent.typography.Body1,
@@ -113,5 +109,5 @@ internal fun InputField(
 
 @Composable
 private fun Inner(style: TextStyle, text: String) = ProvideTextStyle(value = style) {
-    Text(modifier = Modifier.fillMaxSize().alpha(0.6f), text = text, maxLines = 1)
+    Text(modifier = Modifier.fillMaxSize().alpha(0.5f), text = text, maxLines = 1)
 }

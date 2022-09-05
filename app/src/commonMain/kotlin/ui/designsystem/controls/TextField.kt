@@ -45,6 +45,24 @@ fun TextFieldBody2(
 )
 
 @Composable
+fun TextFieldBody2Bold(
+    modifier: Modifier = Modifier,
+    text: String?,
+    placeholder: String? = null,
+    color: Color? = null,
+    textAlign: TextAlign? = null,
+    maxLines: Int = Int.MAX_VALUE,
+) = TextField(
+    modifier = modifier,
+    text = text,
+    placeholder = placeholder,
+    textStyle = DesignComponent.typography.Body2Bold,
+    maxLines = maxLines,
+    color = color ?: DesignComponent.colors.primaryInverse,
+    textAlign = textAlign,
+)
+
+@Composable
 internal fun TextField(
     modifier: Modifier = Modifier,
     text: String?,

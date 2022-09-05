@@ -16,14 +16,21 @@ internal fun AppTypography() = AppTypography(
         fontWeight = FontWeight.Bold,
         fontStyle = FontStyle.Normal,
     ),
+    // Name of exercise input field
     Body1 = TextStyle(
         fontSize = 16.sp,
         fontWeight = FontWeight.Normal,
         fontStyle = FontStyle.Normal,
     ),
+    // Exercise iterations
     Body2 = TextStyle(
         fontSize = 13.sp,
         fontWeight = FontWeight.Normal,
+        fontStyle = FontStyle.Normal,
+    ),
+    Body2Bold = TextStyle(
+        fontSize = 13.sp,
+        fontWeight = FontWeight.Bold,
         fontStyle = FontStyle.Normal,
     ),
     PrimaryButton = TextStyle(
@@ -43,6 +50,7 @@ data class AppTypography(
     val H1: TextStyle,
     val Body1: TextStyle,
     val Body2: TextStyle,
+    val Body2Bold: TextStyle,
     val PrimaryButton: TextStyle,
     val SecondaryButton: TextStyle,
 )

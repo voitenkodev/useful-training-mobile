@@ -1,7 +1,11 @@
 package ui.screens
 
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
@@ -17,10 +21,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import models.Exercise
 import models.Training
-import ui.designsystem.controls.ButtonPrimary
-import ui.designsystem.controls.InputFieldBody1
-import ui.designsystem.controls.InputFieldBody2
-import ui.designsystem.controls.TextFieldBody2
+import ui.designsystem.common.DesignComponent
+import ui.designsystem.controls.*
 
 @Composable
 fun TrainingScreen(
@@ -79,45 +81,54 @@ fun LazyGridScope.exercise(
     remove: (Exercise) -> Unit,
 ) {
 
-    item(key = exercise.id, span = { GridItemSpan(currentLineSpan = spanCount - 1) }) {
+    item(key = exercise.id, span = { GridItemSpan(currentLineSpan = spanCount) }) {
 
-        InputFieldBody1(
-            modifier = Modifier.padding(12.dp),
-            value = exercise.name,
-            placeholder = "Name of exercise",
-            maxLines = 1,
-            onValueChange = {
-                update.invoke(exercise.copy(name = it))
-            }
-        )
-    }
-
-    item(span = { GridItemSpan(currentLineSpan = 1) }) {
-
-        IconButton(
-            onClick = { remove.invoke(exercise) },
+        Row(
+            modifier = Modifier.background(DesignComponent.colors.special2, RoundedCornerShape(8.dp)),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Icon(
-                modifier = Modifier.padding(12.dp),
-                imageVector = Icons.Default.Delete,
-                contentDescription = ""
+
+            InputFieldBody1(
+                modifier = Modifier
+                    .background(DesignComponent.colors.primary, RoundedCornerShape(8.dp))
+                    .border(BorderStroke(2.dp, DesignComponent.colors.special2), RoundedCornerShape(8.dp))
+                    .weight(1f)
+                    .padding(12.dp),
+                value = exercise.name,
+                placeholder = "Name of exercise",
+                maxLines = 1,
+                onValueChange = {
+                    update.invoke(exercise.copy(name = it))
+                }
             )
+
+            IconButton(
+                modifier = Modifier.height(20.dp).width(50.dp),
+                onClick = { remove.invoke(exercise) }
+            ) {
+                Icon(
+                    imageVector = Icons.Filled.Delete,
+                    tint = DesignComponent.colors.primary,
+                    contentDescription = ""
+                )
+            }
         }
     }
 
     item(span = { GridItemSpan(currentLineSpan = 1) }) {
 
-        Column(
-            modifier = Modifier,
-            verticalArrangement = Arrangement.spacedBy(4.dp),
-        ) {
-            TextFieldBody2(
-                modifier = Modifier.padding(8.dp),
-                text = "Weight",
+        Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+
+            TextFieldBody2Bold(
+                modifier = Modifier.fillMaxSize().padding(8.dp),
+                text = "• Weight",
+                textAlign = TextAlign.Center,
             )
-            TextFieldBody2(
-                modifier = Modifier.padding(8.dp),
-                text = "Count",
+            TextFieldBody2Bold(
+                modifier = Modifier.fillMaxSize().padding(8.dp),
+                text = "• Count",
+                textAlign = TextAlign.Center,
             )
         }
     }

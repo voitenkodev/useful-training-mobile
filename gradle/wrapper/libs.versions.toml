@@ -9,7 +9,7 @@ ktor-vers = "2.1.0"
 datetime-vers = "0.3.1"
 
 #Android
-android-gradle-vers = "7.4.0-alpha08"
+android-gradle-vers = "7.4.0-alpha10"
 
 [libraries]
 coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines-vers" }
