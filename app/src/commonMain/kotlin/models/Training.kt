@@ -58,9 +58,26 @@ fun List<Training.Exercise.Iteration>.changeIterationByIndex(
     weight: String? = null,
     repeat: String? = null,
     index: Int
-): List<Training.Exercise.Iteration> = this.mapIndexedNotNull { i, old ->
-    val newWeight = if (i == index && weight != null) weight else old.weight
-    val newRepeat = if (i == index && repeat != null) repeat else old.repeat
-    val result = Training.Exercise.Iteration(weight = newWeight, repeat = newRepeat)
-    if (result != Training.Exercise.Iteration.empty()) result else null
+): List<Training.Exercise.Iteration> {
+    return this.mapIndexedNotNull { i, old ->
+        val newWeight = if (i == index && weight != null) weight else old.weight
+        val newRepeat = if (i == index && repeat != null) repeat else old.repeat
+        val result = Training.Exercise.Iteration(weight = newWeight, repeat = newRepeat)
+        if (result != Training.Exercise.Iteration.empty()) result else null
+    }
+}
+
+fun Training.removeExercise(exercise: Training.Exercise): Training {
+    val newList = this.exercises.mapNotNull { old -> if (old.id == exercise.id) null else old }
+    return this.copy(exercises = newList)
+}
+
+fun Training.updateExercise(exercise: Training.Exercise): Training {
+    val newList = this.exercises.map { old -> if (old.id == exercise.id) exercise else old }
+    return this.copy(exercises = newList)
+}
+
+fun Training.addExercise(id: String): Training {
+    val newExercises = this.exercises + Training.Exercise.empty(id)
+    return this.copy(exercises = newExercises)
 }

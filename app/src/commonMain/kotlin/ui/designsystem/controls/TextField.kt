@@ -76,7 +76,7 @@ internal fun TextField(
 ) {
     val isPlaceholder = text == null
 
-    val _color = if (isPlaceholder) color?.copy(alpha = 0.7f) else color
+    val _color = if (isPlaceholder) color?.copy(alpha = 0.8f) else color
 
     val innerColorTextStyle = if (_color != null) {
         textStyle.copy(color = _color)

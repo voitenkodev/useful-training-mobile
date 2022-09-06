@@ -26,6 +26,8 @@ fun InputFieldBody1(
     maxLines: Int = Int.MAX_VALUE,
     enabled: Boolean = true,
     keyboardOptions: KeyboardOptions? = null,
+    maxLength: Int? = null,
+    digits: Array<Char> = emptyArray()
 ) = InputField(
     modifier = modifier,
     value = value,
@@ -36,7 +38,9 @@ fun InputFieldBody1(
     textAlign = textAlign,
     placeholder = placeholder,
     enabled = enabled,
-    keyboardOptions = keyboardOptions
+    keyboardOptions = keyboardOptions,
+    maxLength = maxLength,
+    digits = digits
 )
 
 @Composable
@@ -50,6 +54,8 @@ fun InputFieldBody2(
     maxLines: Int = Int.MAX_VALUE,
     enabled: Boolean = true,
     keyboardOptions: KeyboardOptions? = null,
+    maxLength: Int? = null,
+    digits: Array<Char> = emptyArray()
 ) = InputField(
     modifier = modifier.padding(8.dp),
     value = value,
@@ -60,7 +66,9 @@ fun InputFieldBody2(
     textAlign = textAlign,
     placeholder = placeholder,
     enabled = enabled,
-    keyboardOptions = keyboardOptions
+    keyboardOptions = keyboardOptions,
+    maxLength = maxLength,
+    digits = digits
 )
 
 @Composable
@@ -75,6 +83,8 @@ internal fun InputField(
     textStyle: TextStyle,
     maxLines: Int = Int.MAX_VALUE,
     keyboardOptions: KeyboardOptions? = null,
+    maxLength: Int? = null,
+    digits: Array<Char> = emptyArray()
 ) {
 
     val innerColorTextStyle = if (color != null) {
@@ -88,7 +98,11 @@ internal fun InputField(
     BasicTextField(
         modifier = modifier.background(Color.Transparent).wrapContentSize(),
         value = value ?: String(),
-        onValueChange = onValueChange,
+        onValueChange = {
+            val v = if (maxLength != null) it.take(maxLength) else it
+            val digitsFilter = if (digits.isNotEmpty()) v.filter { digits.contains(it) } else v
+            onValueChange.invoke(digitsFilter)
+        },
         enabled = enabled,
         textStyle = innerTextAlignTextStyle,
         maxLines = maxLines,

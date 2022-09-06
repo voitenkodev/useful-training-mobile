@@ -11,8 +11,6 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
@@ -24,9 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import models.Training
-import models.addEmptyIteration
-import models.changeIterationByIndex
+import models.*
 import ui.designsystem.common.DesignComponent
 import ui.designsystem.controls.*
 
@@ -35,7 +31,11 @@ fun TrainingScreen(
     training: Training,
     createId: () -> String,
     save: (Training) -> Unit
-) = Column(modifier = Modifier.fillMaxSize().padding(bottom = 12.dp)) {
+) = Column(
+    modifier = Modifier
+        .fillMaxSize()
+        .padding(bottom = 12.dp)
+) {
 
     val state = remember { mutableStateOf(training) }
     val spanCount = 5
@@ -45,36 +45,27 @@ fun TrainingScreen(
     LazyVerticalGrid(
         modifier = Modifier.weight(1f),
         columns = GridCells.Fixed(spanCount),
-        contentPadding = PaddingValues(horizontal = 12.dp, vertical = 6.dp),
+        contentPadding = PaddingValues(start = 12.dp, end = 12.dp, top = 12.dp, bottom = 56.dp),
     ) {
 
         state.value.exercises.forEach {
             exercise(
-                spanCount = spanCount,
                 exercise = it,
-                update = { updated ->
-                    val newList = state.value.exercises.map { old -> if (old.id == updated.id) updated else old }
-                    state.value = state.value.copy(exercises = newList)
-                },
-                remove = { removed ->
-                    val newList = state.value.exercises.mapNotNull { old -> if (old.id == removed.id) null else old }
-                    state.value = state.value.copy(exercises = newList)
-                }
+                spanCount = spanCount,
+                update = { updated -> state.value = state.value.updateExercise(updated) },
+                remove = { removed -> state.value = state.value.removeExercise(removed) }
             )
         }
     }
 
     IconPrimary(
+        imageVector = Icons.Default.Add,
         modifier = Modifier
             .align(Alignment.End)
             .padding(end = 12.dp)
             .background(DesignComponent.colors.primaryInverse, CircleShape),
-        imageVector = Icons.Default.Add,
         color = DesignComponent.colors.primary,
-        onClick = {
-            val newExercises = state.value.exercises + Training.Exercise.empty(createId.invoke())
-            state.value = state.value.copy(exercises = newExercises)
-        }
+        onClick = { state.value = state.value.addExercise(createId.invoke()) }
     )
 }
 
@@ -89,7 +80,7 @@ fun LazyGridScope.exercise(
 
         Row(
             modifier = Modifier
-                .padding(vertical = 8.dp)
+                .padding(bottom = 8.dp, top = 8.dp)
                 .background(DesignComponent.colors.special2, RoundedCornerShape(8.dp)),
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -117,29 +108,40 @@ fun LazyGridScope.exercise(
 
     exercise.iterations.forEachIndexed { index, item ->
 
-        val isFirstItemInLine = (index) % (spanCount - 1) == 0
-        val isLastItemInLine = (index + 1) % (spanCount - 1) == 0
+        val isFirstItemInList = (index == 0)
         val isLastItemInList = index == exercise.iterations.lastIndex
+        val isFirstItemInLine = index % (spanCount - 1) == 0
+        val isLastItemInLine = (index + 1) % (spanCount - 1) == 0
 
         if (isFirstItemInLine) {
 
             item(span = { GridItemSpan(currentLineSpan = 1) }) {
 
-                Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                val textColor =
+                    if (isFirstItemInList.not()) DesignComponent.colors.primaryInverse.copy(alpha = 0.2f)
+                    else DesignComponent.colors.primaryInverse
+
+                Column(
+                    modifier = Modifier.padding(vertical = 4.dp),
+                    verticalArrangement = Arrangement.spacedBy(4.dp),
+                ) {
 
                     TextFieldBody2Bold(
                         modifier = Modifier
-                            .background(DesignComponent.colors.special2.copy(alpha = 0.2f), RoundedCornerShape(8.dp, 0.dp, 0.dp, 8.dp))
-                            .fillMaxSize(),
+                            .fillMaxSize()
+                            .background(DesignComponent.colors.special2.copy(alpha = 0.1f), RoundedCornerShape(8.dp, 0.dp, 0.dp, 8.dp)),
                         text = "• Weight",
                         textAlign = TextAlign.Center,
-                        maxLines = 1
+                        maxLines = 1,
+                        color = textColor
                     )
 
                     TextFieldBody2Bold(
                         modifier = Modifier.fillMaxSize(),
                         text = "• Repeat",
                         textAlign = TextAlign.Center,
+                        maxLines = 1,
+                        color = textColor,
                     )
                 }
             }
@@ -151,15 +153,20 @@ fun LazyGridScope.exercise(
                 if (isLastItemInLine || isLastItemInList) RoundedCornerShape(0.dp, 8.dp, 8.dp, 0.dp)
                 else RoundedCornerShape(0.dp)
 
-            Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+            Column(
+                modifier = Modifier.padding(vertical = 4.dp),
+                verticalArrangement = Arrangement.spacedBy(4.dp)
+            ) {
 
                 InputFieldBody2(
-                    modifier = Modifier.background(color = DesignComponent.colors.special2.copy(alpha = 0.2f), shape = weightShape),
+                    modifier = Modifier.background(DesignComponent.colors.special2.copy(alpha = 0.1f), weightShape),
                     value = item.weight,
                     textAlign = TextAlign.Center,
                     maxLines = 1,
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                    maxLength = 6,
                     placeholder = "0.0",
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                    digits = arrayOf('1','2','3','4','5','6','7','8','9','0',',','.'),
                     onValueChange = { value ->
                         exercise
                             .iterations
@@ -172,9 +179,11 @@ fun LazyGridScope.exercise(
                 InputFieldBody2(
                     value = item.repeat,
                     textAlign = TextAlign.Center,
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     maxLines = 1,
+                    maxLength = 2,
                     placeholder = "0",
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                    digits = arrayOf('1','2','3','4','5','6','7','8','9','0'),
                     onValueChange = { value ->
                         exercise
                             .iterations
