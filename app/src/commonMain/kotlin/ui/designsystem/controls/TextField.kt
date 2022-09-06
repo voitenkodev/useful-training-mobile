@@ -1,11 +1,13 @@
 package ui.designsystem.controls
 
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import ui.designsystem.common.DesignComponent
 
 @Composable
@@ -35,7 +37,7 @@ fun TextFieldBody2(
     textAlign: TextAlign? = null,
     maxLines: Int = Int.MAX_VALUE,
 ) = TextField(
-    modifier = modifier,
+    modifier = modifier.padding(8.dp),
     text = text,
     placeholder = placeholder,
     textStyle = DesignComponent.typography.Body2,
@@ -53,7 +55,7 @@ fun TextFieldBody2Bold(
     textAlign: TextAlign? = null,
     maxLines: Int = Int.MAX_VALUE,
 ) = TextField(
-    modifier = modifier,
+    modifier = modifier.padding(8.dp),
     text = text,
     placeholder = placeholder,
     textStyle = DesignComponent.typography.Body2Bold,

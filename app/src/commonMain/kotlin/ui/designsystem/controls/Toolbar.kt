@@ -4,7 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Done
@@ -13,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.unit.dp
 import ui.designsystem.common.DesignComponent
 
@@ -26,6 +26,7 @@ fun Toolbar(
 ) {
     Row(
         modifier = modifier
+            .shadow(elevation = 8.dp)
             .fillMaxWidth()
             .background(DesignComponent.colors.primary)
             .height(44.dp)
@@ -69,43 +70,25 @@ fun Dot(modifier: Modifier = Modifier, onClick: () -> Unit) {
 }
 
 @Composable
-fun Menu(modifier: Modifier = Modifier, onClick: () -> Unit) {
-    Icon(
+fun Menu(onClick: () -> Unit) {
+    IconPrimary(
         imageVector = Icons.Default.Menu,
-        modifier = modifier
-            .size(44.dp)
-            .clip(shape = RoundedCornerShape(50))
-            .clickable { onClick.invoke() }
-            .padding(8.dp),
-        contentDescription = null,
-        tint = DesignComponent.colors.primaryInverse
+        onClick = onClick
     )
 }
 
 @Composable
-fun Add(modifier: Modifier = Modifier, onClick: () -> Unit) {
-    Icon(
+fun Add(onClick: () -> Unit) {
+    IconPrimary(
         imageVector = Icons.Default.Add,
-        modifier = modifier
-            .size(44.dp)
-            .clip(shape = RoundedCornerShape(50))
-            .clickable { onClick.invoke() }
-            .padding(12.dp),
-        contentDescription = null,
-        tint = DesignComponent.colors.primaryInverse
+        onClick = onClick
     )
 }
 
 @Composable
-fun Ok(modifier: Modifier = Modifier, onClick: () -> Unit) {
-    Icon(
+fun Ok(onClick: () -> Unit) {
+    IconPrimary(
         imageVector = Icons.Default.Done,
-        modifier = modifier
-            .size(44.dp)
-            .clip(shape = RoundedCornerShape(50))
-            .clickable { onClick.invoke() }
-            .padding(12.dp),
-        contentDescription = null,
-        tint = DesignComponent.colors.primaryInverse
+        onClick = onClick
     )
 }

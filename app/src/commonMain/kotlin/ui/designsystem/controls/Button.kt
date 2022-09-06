@@ -8,7 +8,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.TextStyle
@@ -41,30 +40,6 @@ fun ButtonPrimary(
 }
 
 @Composable
-fun ButtonSecondary(
-    modifier: Modifier = Modifier,
-    text: String,
-    onClick: () -> Unit,
-    enabled: Boolean = true,
-    leadIcon: ImageVector? = null,
-) {
-    val _textColor = DesignComponent.colors.primaryInverse
-    val _backgroundColor = Color.Transparent
-
-    Button(
-        modifier = modifier,
-        text = text,
-        textStyle = DesignComponent.typography.SecondaryButton.copy(brush = DesignComponent.colors.specialBrush()),
-        enabled = enabled,
-        onClick = onClick,
-        colors = ButtonDefaults.buttonColors(backgroundColor = _backgroundColor),
-        shape = RoundedCornerShape(50),
-        borderStroke = null,
-        leadIcon = leadIcon
-    )
-}
-
-@Composable
 private fun Button(
     modifier: Modifier = Modifier,
     text: String,
@@ -81,6 +56,10 @@ private fun Button(
             .wrapContentSize()
             .then(modifier),
         onClick = onClick,
+        enabled = enabled,
+        shape = shape ?: MaterialTheme.shapes.small,
+        border = borderStroke,
+        colors = colors,
         content = {
             if (leadIcon != null) {
                 Icon(
@@ -96,10 +75,6 @@ private fun Button(
                 text = text.uppercase(),
                 textStyle = textStyle
             )
-        },
-        enabled = enabled,
-        shape = shape ?: MaterialTheme.shapes.small,
-        border = borderStroke,
-        colors = colors
+        }
     )
 }
