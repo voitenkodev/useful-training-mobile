@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
@@ -34,7 +35,8 @@ fun InputFieldBody1(
     enabled: Boolean = true,
     keyboardOptions: KeyboardOptions? = null,
     maxLength: Int? = null,
-    digits: Array<Char> = emptyArray()
+    digits: Array<Char> = emptyArray(),
+    keyboardActions: KeyboardActions? = null
 ) = InputField(
     modifier = modifier,
     value = value,
@@ -47,7 +49,8 @@ fun InputFieldBody1(
     enabled = enabled,
     keyboardOptions = keyboardOptions,
     maxLength = maxLength,
-    digits = digits
+    digits = digits,
+    keyboardActions = keyboardActions
 )
 
 @Composable
@@ -62,7 +65,8 @@ fun InputFieldBody2(
     enabled: Boolean = true,
     keyboardOptions: KeyboardOptions? = null,
     maxLength: Int? = null,
-    digits: Array<Char> = emptyArray()
+    digits: Array<Char> = emptyArray(),
+    keyboardActions: KeyboardActions? = null
 ) = InputField(
     modifier = modifier.padding(8.dp),
     value = value,
@@ -75,7 +79,8 @@ fun InputFieldBody2(
     enabled = enabled,
     keyboardOptions = keyboardOptions,
     maxLength = maxLength,
-    digits = digits
+    digits = digits,
+    keyboardActions = keyboardActions
 )
 
 @Composable
@@ -89,9 +94,10 @@ internal fun InputField(
     enabled: Boolean = true,
     textStyle: TextStyle,
     maxLines: Int = Int.MAX_VALUE,
-    keyboardOptions: KeyboardOptions? = null,
+    digits: Array<Char> = emptyArray(),
     maxLength: Int? = null,
-    digits: Array<Char> = emptyArray()
+    keyboardOptions: KeyboardOptions? = null,
+    keyboardActions: KeyboardActions? = null
 ) {
 
     val innerColorTextStyle = if (color != null) {
@@ -115,6 +121,7 @@ internal fun InputField(
         maxLines = maxLines,
         singleLine = maxLines == 1,
         keyboardOptions = keyboardOptions ?: KeyboardOptions.Default,
+        keyboardActions = keyboardActions ?: KeyboardActions.Default,
         decorationBox = { innerTextField ->
             Row(modifier = Modifier.fillMaxWidth()) {
                 if (placeholder?.isNotEmpty() == true && value.isNullOrEmpty()) {

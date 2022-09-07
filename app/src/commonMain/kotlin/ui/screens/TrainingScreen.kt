@@ -19,9 +19,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.focus.*
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalTextInputService
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import models.*
@@ -78,6 +78,7 @@ fun LazyGridScope.exercise(
     item(key = exercise.id, span = { GridItemSpan(currentLineSpan = maxLineSpan) }) {
 
         val help = remember { mutableStateOf(false) }
+        val focusManager = LocalFocusManager.current
 
         Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
 
@@ -111,8 +112,11 @@ fun LazyGridScope.exercise(
                     items(listOf("bench press", "weight lift", "test", "some big exercise name")) {
                         ChipPrimary(
                             text = it,
-                            onClick = { update.invoke(exercise.copy(name = it)) },
-                            onDelete = {}
+                            onDelete = {},
+                            onClick = {
+                                focusManager.moveFocus(FocusDirection.Down)
+                                update.invoke(exercise.copy(name = it))
+                            },
                         )
                     }
                 }
