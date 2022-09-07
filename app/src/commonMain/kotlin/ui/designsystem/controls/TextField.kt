@@ -37,7 +37,7 @@ fun TextFieldBody2(
     textAlign: TextAlign? = null,
     maxLines: Int = Int.MAX_VALUE,
 ) = TextField(
-    modifier = modifier.padding(8.dp),
+    modifier = modifier,
     text = text,
     placeholder = placeholder,
     textStyle = DesignComponent.typography.Body2,

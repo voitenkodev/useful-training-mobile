@@ -27,7 +27,8 @@ class MainActivity : ComponentActivity() {
                     TrainingScreen(
                         training = Training.empty(store.createId()),
                         createId = { store.createId() },
-                        save = {}
+                        save = {},
+                        help = {}
                     )
 
 //                    AuthScreen(
