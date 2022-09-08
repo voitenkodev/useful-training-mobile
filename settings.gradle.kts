@@ -3,8 +3,7 @@ enableFeaturePreview("VERSION_CATALOGS")
 @Suppress("UnstableApiUsage")
 dependencyResolutionManagement {
 
-    // TODO CANNOT MOVE IT TO "FAIL_ON_PROJECT_REPOS" because J.S. does not build :((
-    repositoriesMode.set(RepositoriesMode.PREFER_PROJECT)
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
 
     versionCatalogs {
         create("libs") {
@@ -27,5 +26,5 @@ pluginManagement {
     }
 }
 
-rootProject.name = "Useful Training"
+rootProject.name = "UsefulTraining"
 include(":app")
