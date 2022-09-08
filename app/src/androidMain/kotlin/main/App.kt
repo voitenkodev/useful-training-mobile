@@ -1,12 +1,13 @@
 package main
 
 import android.app.Application
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.ktx.initialize
+import dev.gitlive.firebase.Firebase
+import dev.gitlive.firebase.initialize
+import firebaseOptions
 
 class App : Application() {
     override fun onCreate() {
-        Firebase.initialize(this)
+        Firebase.initialize(this, firebaseOptions())
         super.onCreate()
     }
 }

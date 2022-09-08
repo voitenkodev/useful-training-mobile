@@ -1,4 +1,4 @@
-package ui.screens
+package ui.screens.training
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
@@ -13,6 +13,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Send
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -23,7 +24,6 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import models.*
 import ui.designsystem.common.DesignComponent
 import ui.designsystem.components.InputName
 import ui.designsystem.components.InputRepeat
@@ -34,9 +34,11 @@ import ui.designsystem.controls.TextFieldBody2Bold
 
 @Composable
 fun TrainingScreen(
-    training: Training,
+    training: TrainingState,
     createId: () -> String,
-    save: (Training) -> Unit,
+    save: (TrainingState) -> Unit,
+//    help: List<String>,
+//    query: (String) -> Unit,
 ) = Column(modifier = Modifier.fillMaxSize().padding(bottom = 12.dp)) {
 
     val state = remember { mutableStateOf(training) }
@@ -46,6 +48,13 @@ fun TrainingScreen(
         exercises = state.value.exercises,
         update = { updated -> state.value = state.value.updateExercise(updated) },
         remove = { removed -> state.value = state.value.removeExercise(removed) }
+    )
+
+    IconPrimary(
+        imageVector = Icons.Default.Send,
+        modifier = Modifier.align(Alignment.End).padding(end = 12.dp).background(DesignComponent.colors.primaryInverse, CircleShape),
+        color = DesignComponent.colors.primary,
+        onClick = { save.invoke(state.value) }
     )
 
     IconPrimary(
@@ -60,10 +69,13 @@ fun TrainingScreen(
 @Composable
 fun ExerciseGrid(
     modifier: Modifier = Modifier,
-    exercises: List<Training.Exercise>,
-    update: (Training.Exercise) -> Unit,
-    remove: (Training.Exercise) -> Unit,
-) {
+
+    exercises: List<TrainingState.Exercise>,
+    update: (TrainingState.Exercise) -> Unit,
+    remove: (TrainingState.Exercise) -> Unit,
+
+
+    ) {
     val spanCount = 5
 
     LazyVerticalGrid(

@@ -4,6 +4,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Application
+import dev.gitlive.firebase.Firebase
+import dev.gitlive.firebase.initialize
 import kotlinx.cinterop.*
 import platform.Foundation.NSStringFromClass
 import platform.UIKit.*

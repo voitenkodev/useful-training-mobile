@@ -1,16 +1,27 @@
 package main
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material.Surface
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.platform.LocalContext
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import datasource.Auth
 import datasource.Store
-import models.Training
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
+import ui.screens.training.TrainingState
 import ui.designsystem.common.DesignComponent
 import ui.designsystem.common.DesignTheme
-import ui.screens.TrainingScreen
+import ui.screens.AuthScreen
+import ui.screens.training.TrainingScreen
 
 class MainActivity : ComponentActivity() {
 
@@ -20,34 +31,56 @@ class MainActivity : ComponentActivity() {
         setContent {
             DesignTheme {
                 Surface(color = DesignComponent.colors.primary) {
-                    val auth = Auth()
-                    val store = Store()
-                    val scope = rememberCoroutineScope()
 
-                    TrainingScreen(
-                        training = Training.empty(store.createId()),
-                        createId = { store.createId() },
-                        save = {},
-                    )
+                    val navController = rememberNavController()
 
-//                    AuthScreen(
-//                        login = { email, password ->
-//                            scope.launch {
-//                                auth.login(email, password)
-//                                    .onEach { Logger.i("success -> $it") }
-//                                    .catch { Logger.i("error -> $it") }
-//                                    .launchIn(scope)
-//                            }
-//                        },
-//                        registration = { email, password ->
-//                            scope.launch {
-//                                auth.registration(email, password)
-//                                    .onEach { Logger.i("success -> $it") }
-//                                    .catch { Logger.i("error -> $it") }
-//                                    .launchIn(scope)
-//                            }
-//                        }
-//                    )
+                    NavHost(navController = navController, startDestination = "auth") {
+                        composable("auth") {
+                            val auth = Auth()
+                            val scope = rememberCoroutineScope()
+                            val context = LocalContext.current
+
+                            LaunchedEffect(Unit) { if (auth.isAuthorized) navController.navigate("training") }
+
+                            AuthScreen(
+                                login = { email, password ->
+                                    scope.launch {
+                                        auth.login(email, password)
+                                            .onEach { navController.navigate("training") }
+                                            .catch { Toast.makeText(context, "login - $it", Toast.LENGTH_LONG).show() }
+                                            .launchIn(scope)
+                                    }
+                                },
+                                registration = { email, password ->
+                                    scope.launch {
+                                        auth.registration(email, password)
+                                            .onEach { navController.navigate("training") }
+                                            .catch { Toast.makeText(context, "registration - $it", Toast.LENGTH_LONG).show() }
+                                            .launchIn(scope)
+                                    }
+                                }
+                            )
+                        }
+                        composable("training") {
+                            val auth = Auth()
+                            val store = Store()
+                            val scope = rememberCoroutineScope()
+                            val context = LocalContext.current
+
+                            TrainingScreen(
+                                training = TrainingState.empty(store.createId()),
+                                createId = { store.createId() },
+                                save = {
+                                    scope.launch {
+                                        store.writeTraining(auth.user?.uid, it)
+                                            .onEach { Toast.makeText(context, "save training - success", Toast.LENGTH_LONG).show() }
+                                            .catch { Toast.makeText(context, "save training - $it", Toast.LENGTH_LONG).show() }
+                                            .launchIn(this)
+                                    }
+                                },
+                            )
+                        }
+                    }
                 }
             }
         }

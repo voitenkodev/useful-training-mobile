@@ -4,7 +4,6 @@ plugins {
     alias(libs.plugins.multiplatform)
     alias(libs.plugins.compose)
     alias(libs.plugins.serialization)
-    id("com.google.gms.google-services") version "4.3.13"
 }
 
 kotlin {
@@ -43,15 +42,17 @@ kotlin {
             dependencies {
                 implementation(libs.coroutines)
                 implementation(libs.datetime)
-                implementation(libs.logger) // Logger.i { "Hello World" }
+                implementation(libs.logger)
                 implementation(libs.serialization)
+                implementation(libs.uuid)
+
+                implementation(libs.firebase.auth)
+                implementation(libs.firebase.firestore)
 
                 implementation(compose.ui)
                 implementation(compose.foundation)
                 implementation(compose.material)
                 implementation(compose.runtime)
-                implementation(compose.runtime)
-
             }
         }
 
@@ -65,10 +66,7 @@ kotlin {
             dependencies {
                 implementation("androidx.appcompat:appcompat:1.5.0")
                 implementation("androidx.activity:activity-compose:1.5.1")
-                // Firebase
-                implementation("com.google.firebase:firebase-auth-ktx:21.0.8")
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.6.4")
-                implementation("com.google.firebase:firebase-firestore:24.3.0")
+                implementation("androidx.navigation:navigation-compose:2.5.2")
             }
         }
 
