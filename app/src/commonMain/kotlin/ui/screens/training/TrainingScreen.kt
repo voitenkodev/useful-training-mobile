@@ -37,8 +37,8 @@ import ui.designsystem.controls.TextFieldBody2Bold
 fun TrainingScreen(
     training: TrainingState,
     save: (TrainingState) -> Unit,
-//    help: List<String>,
-//    query: (String) -> Unit,
+//    assistName: List<String>,
+//    findAssist: (String) -> Unit,
 ) = Column(modifier = Modifier.fillMaxSize().padding(bottom = 12.dp)) {
 
     val state = remember { mutableStateOf(training) }
@@ -64,7 +64,6 @@ fun TrainingScreen(
         onClick = { state.value = state.value.addExercise() }
     )
 }
-
 
 @Composable
 fun ExerciseGrid(
@@ -117,15 +116,19 @@ fun ExerciseGrid(
                     }
 
                     val list = listOf("bench press", "weight lift", "test", "some big exercise name")
-
-                    HelpInputNameRow(
-                        visibility = help.value && list.isNotEmpty(),
-                        list = list,
-                        onClick = {
-                            focusManager.moveFocus(FocusDirection.Down)
-                            update.invoke(exercise.copy(name = it))
+                    AnimatedVisibility(help.value && list.isNotEmpty()) {
+                        LazyRow(
+                            modifier = Modifier.padding(top = 4.dp),
+                            horizontalArrangement = Arrangement.spacedBy(4.dp)
+                        ) {
+                            items(list) {
+                                ChipPrimary(text = it, onClick = {
+                                    focusManager.moveFocus(FocusDirection.Down)
+                                    update.invoke(exercise.copy(name = it))
+                                })
+                            }
                         }
-                    )
+                    }
                 }
             }
 
@@ -209,16 +212,4 @@ fun ExerciseGrid(
             }
         }
     }
-}
-
-@Composable
-fun HelpInputNameRow(
-    visibility: Boolean,
-    list: List<String>,
-    onClick: (String) -> Unit
-) = AnimatedVisibility(visibility) {
-    LazyRow(
-        modifier = Modifier.padding(top = 4.dp),
-        horizontalArrangement = Arrangement.spacedBy(4.dp)
-    ) { items(list) { ChipPrimary(text = it, onClick = onClick) } }
 }
