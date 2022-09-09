@@ -24,6 +24,7 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import co.touchlab.kermit.Logger
 import ui.designsystem.common.DesignComponent
 import ui.designsystem.components.InputName
 import ui.designsystem.components.InputRepeat
@@ -72,10 +73,10 @@ fun ExerciseGrid(
     exercises: List<TrainingState.Exercise>,
     update: (TrainingState.Exercise) -> Unit,
     remove: (TrainingState.Exercise) -> Unit,
-    ) {
+) {
     val spanCount = 5
+    Logger.i { "Exercises -> $exercises" }
 
-    // TODO GRID DOESN'T WORK FOR IOS
     LazyVerticalGrid(
         modifier = modifier,
         columns = GridCells.Fixed(spanCount),

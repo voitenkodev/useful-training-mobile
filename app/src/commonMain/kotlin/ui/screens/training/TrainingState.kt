@@ -27,25 +27,28 @@ data class TrainingState(
             val repeat: String
         ) {
             companion object {
-                val EMPTY = Iteration(weight = "", repeat = "")
+                val EMPTY
+                    get() = Iteration(weight = "", repeat = "")
             }
         }
 
         companion object {
-            val EMPTY = Exercise(id = uuid4().toString(), name = "", iterations = listOf(Iteration.EMPTY))
+            val EMPTY
+                get() = Exercise(id = uuid4().toString(), name = "", iterations = listOf(Iteration.EMPTY))
         }
     }
 
     companion object {
-        val EMPTY = TrainingState(
-            id = uuid4().toString(),
-            exercises = emptyList(),
-            duration = "",
-            date = "",
-            tonnage = 0.0,
-            countOfLifting = 0,
-            intensity = 0.0,
-        )
+        val EMPTY
+            get() = TrainingState(
+                id = uuid4().toString(),
+                exercises = emptyList(),
+                duration = "",
+                date = "",
+                tonnage = 0.0,
+                countOfLifting = 0,
+                intensity = 0.0,
+            )
     }
 }
 
