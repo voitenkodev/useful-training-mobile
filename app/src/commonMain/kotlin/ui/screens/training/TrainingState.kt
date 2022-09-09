@@ -9,11 +9,14 @@ data class TrainingState(
     val exercises: List<Exercise>,
     val duration: String,
     val date: String,
-
-    val tonnage: Double,
-    val countOfLifting: Int,
-    val intensity: Double,
 ) {
+
+    val tonnage: Double
+        get() = exercises.sumOf { it.tonnage }
+    val countOfLifting: Int
+        get() = exercises.sumOf { it.countOfLifting }
+    val intensity: Double
+        get() = tonnage / countOfLifting
 
     @Serializable
     data class Exercise(
@@ -21,6 +24,20 @@ data class TrainingState(
         val name: String,
         val iterations: List<Iteration>,
     ) {
+
+        val tonnage
+            get() = iterations
+                .sumOf { (it.repeat.toIntOrNull() ?: 0) * (it.weight.toDoubleOrNull() ?: 0.0) }
+
+
+        val countOfLifting: Int
+            get() = iterations
+                .mapNotNull { it.repeat.toIntOrNull() }
+                .sum()
+
+        val intensity
+            get() = tonnage / countOfLifting
+
         @Serializable
         data class Iteration(
             val weight: String,
@@ -45,9 +62,6 @@ data class TrainingState(
                 exercises = emptyList(),
                 duration = "",
                 date = "",
-                tonnage = 0.0,
-                countOfLifting = 0,
-                intensity = 0.0,
             )
     }
 }
