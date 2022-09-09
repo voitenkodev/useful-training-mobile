@@ -25,6 +25,7 @@ kotlin {
             "-linker-option", "-framework", "-linker-option", "CoreGraphics"
         )
     }
+//    iosArm64("uikitArm64").binaries.executable {
     iosArm64("uikitArm64").binaries.executable {
         entryPoint = "main"
         freeCompilerArgs += listOf(
@@ -46,8 +47,9 @@ kotlin {
 
                 implementation(libs.uuid)
 
-//                implementation(libs.firebase.auth)
-//                implementation(libs.firebase.firestore)
+                // it does not working for IOS target :(
+                implementation(libs.firebase.auth)
+                implementation(libs.firebase.firestore)
 
                 implementation(compose.ui)
                 implementation(compose.foundation)
@@ -125,20 +127,17 @@ compose.desktop {
     }
 }
 
-compose.experimental {
-    web.application {}
-    uikit.application {
-        bundleIdPrefix = "dev.voitenko.usefultraining"
-        projectName = "UsefulTraining"
-        deployConfigurations {
-            simulator("IPhone13") {
-                //Usage: ./gradlew iosDeployIPhone13Debug
-                device = org.jetbrains.compose.experimental.dsl.IOSDevices.IPHONE_13_PRO
-            }
-            simulator("IPadUI") {
-                //Usage: ./gradlew iosDeployIPadUIDebug
-                device = org.jetbrains.compose.experimental.dsl.IOSDevices.IPAD_MINI_6th_Gen
-            }
+compose.experimental.uikit.application {
+    bundleIdPrefix = "dev.voitenko.usefultraining"
+    projectName = "UsefulTraining"
+    deployConfigurations {
+        simulator("IPhone13") {
+            //Usage: ./gradlew iosDeployIPhone13Debug
+            device = org.jetbrains.compose.experimental.dsl.IOSDevices.IPHONE_13_PRO
+        }
+        simulator("IPadUI") {
+            //Usage: ./gradlew iosDeployIPadUIDebug
+            device = org.jetbrains.compose.experimental.dsl.IOSDevices.IPAD_MINI_6th_Gen
         }
     }
 }

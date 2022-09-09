@@ -1,5 +1,6 @@
 package ui.screens.training
 
+import com.benasher44.uuid.uuid4
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -26,18 +27,18 @@ data class TrainingState(
             val repeat: String
         ) {
             companion object {
-                fun empty() = Iteration(weight = "", repeat = "")
+                val EMPTY = Iteration(weight = "", repeat = "")
             }
         }
 
         companion object {
-            fun empty(id: String) = Exercise(id = id, name = "", iterations = listOf(Iteration.empty()))
+            val EMPTY = Exercise(id = uuid4().toString(), name = "", iterations = listOf(Iteration.EMPTY))
         }
     }
 
     companion object {
-        fun empty(id: String) = TrainingState(
-            id = id,
+        val EMPTY = TrainingState(
+            id = uuid4().toString(),
             exercises = emptyList(),
             duration = "",
             date = "",
@@ -50,7 +51,7 @@ data class TrainingState(
 
 fun List<TrainingState.Exercise.Iteration>.addEmptyIteration(): List<TrainingState.Exercise.Iteration> {
     val lastIsNotEmpty = this.lastOrNull()?.weight != "" || this.lastOrNull()?.repeat != ""
-    return if (lastIsNotEmpty) this + TrainingState.Exercise.Iteration.empty()
+    return if (lastIsNotEmpty) this + TrainingState.Exercise.Iteration.EMPTY
     else this
 }
 
@@ -63,7 +64,7 @@ fun List<TrainingState.Exercise.Iteration>.changeIterationByIndex(
         val newWeight = if (i == index && weight != null) weight else old.weight
         val newRepeat = if (i == index && repeat != null) repeat else old.repeat
         val result = TrainingState.Exercise.Iteration(weight = newWeight, repeat = newRepeat)
-        if (result != TrainingState.Exercise.Iteration.empty()) result else null
+        if (result != TrainingState.Exercise.Iteration.EMPTY) result else null
     }
 }
 
@@ -77,7 +78,7 @@ fun TrainingState.updateExercise(exercise: TrainingState.Exercise): TrainingStat
     return this.copy(exercises = newList)
 }
 
-fun TrainingState.addExercise(id: String): TrainingState {
-    val newExercises = this.exercises + TrainingState.Exercise.empty(id)
+fun TrainingState.addExercise(): TrainingState {
+    val newExercises = this.exercises + TrainingState.Exercise.EMPTY
     return this.copy(exercises = newExercises)
 }
