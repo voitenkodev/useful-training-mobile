@@ -1,4 +1,4 @@
-package ui.screens
+package auth
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
@@ -7,8 +7,8 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import ui.designsystem.controls.ButtonPrimary
-import ui.designsystem.controls.InputFieldBody1
+import designsystem.controls.ButtonPrimary
+import designsystem.controls.InputFieldBody1
 
 @Composable
 fun AuthScreen(

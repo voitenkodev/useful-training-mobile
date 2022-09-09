@@ -1,4 +1,4 @@
-package ui.designsystem.controls
+package designsystem.controls
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -21,7 +21,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import ui.designsystem.common.DesignComponent
+import designsystem.common.DesignComponent
 
 @Composable
 fun InputFieldBody1(

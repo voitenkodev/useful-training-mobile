@@ -17,11 +17,11 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import ui.screens.training.TrainingState
-import ui.designsystem.common.DesignComponent
-import ui.designsystem.common.DesignTheme
-import ui.screens.AuthScreen
-import ui.screens.training.TrainingScreen
+import designsystem.common.DesignComponent
+import designsystem.common.DesignTheme
+import auth.AuthScreen
+import training.TrainingScreen
+import training.TrainingState
 
 class MainActivity : ComponentActivity() {
 
@@ -68,7 +68,7 @@ class MainActivity : ComponentActivity() {
                             val context = LocalContext.current
 
                             TrainingScreen(
-                                training = TrainingState.EMPTY,
+                                training = TrainingState.empty(0.0),
                                 save = {
                                     scope.launch {
                                         store.writeTraining(auth.user?.uid, it)

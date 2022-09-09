@@ -44,12 +44,7 @@ kotlin {
                 implementation(libs.datetime)
                 implementation(libs.logger)
                 implementation(libs.serialization)
-
                 implementation(libs.uuid)
-
-                // it does not working for IOS target :(
-                implementation(libs.firebase.auth)
-                implementation(libs.firebase.firestore)
 
                 implementation(compose.ui)
                 implementation(compose.foundation)
@@ -69,6 +64,11 @@ kotlin {
                 implementation("androidx.appcompat:appcompat:1.5.0")
                 implementation("androidx.activity:activity-compose:1.5.1")
                 implementation("androidx.navigation:navigation-compose:2.5.2")
+
+                // Firebase
+                implementation("com.google.firebase:firebase-auth-ktx:21.0.8")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.6.4")
+                implementation("com.google.firebase:firebase-firestore:24.3.0")
             }
         }
 

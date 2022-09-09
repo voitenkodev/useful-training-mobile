@@ -1,17 +1,16 @@
 package datasource
 
 import com.benasher44.uuid.uuid4
-import dev.gitlive.firebase.Firebase
-import dev.gitlive.firebase.firestore.FirebaseFirestore
-import dev.gitlive.firebase.firestore.firestore
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.flowOn
-import ui.screens.training.TrainingState
+import kotlinx.coroutines.tasks.await
+import training.TrainingState
 
 class Store(
-    private val store: FirebaseFirestore = Firebase.firestore,
+    private val store: FirebaseFirestore = FirebaseFirestore.getInstance(),
     private val dispatcher: CoroutineDispatcher = Dispatchers.Default
 ) {
     suspend fun writeTraining(
@@ -24,6 +23,6 @@ class Store(
             .collection("trainings")
             .document(uuid4().toString())
             .set(training)
+            .await()
     ).flowOn(dispatcher)
-
 }

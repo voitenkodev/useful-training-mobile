@@ -1,4 +1,4 @@
-package ui.designsystem.controls
+package designsystem.controls
 
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -10,7 +10,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
-import ui.designsystem.common.DesignComponent
+import designsystem.common.DesignComponent
 
 @Composable
 fun IconPrimary(

@@ -1,4 +1,4 @@
-package ui.designsystem.components
+package designsystem.components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -16,9 +16,9 @@ import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import ui.designsystem.common.DesignComponent
-import ui.designsystem.controls.InputFieldBody1
-import ui.designsystem.controls.InputFieldBody2
+import designsystem.common.DesignComponent
+import designsystem.controls.InputFieldBody1
+import designsystem.controls.InputFieldBody2
 
 @Composable
 fun InputName(

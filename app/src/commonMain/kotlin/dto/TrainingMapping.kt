@@ -1,6 +1,6 @@
-package models
+package dto
 
-import ui.screens.training.TrainingState
+import training.TrainingState
 
 fun TrainingState.map() = Training(
     id = id,

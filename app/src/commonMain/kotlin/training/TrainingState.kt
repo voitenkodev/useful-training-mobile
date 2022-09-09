@@ -1,4 +1,4 @@
-package ui.screens.training
+package training
 
 import com.benasher44.uuid.uuid4
 import kotlinx.serialization.Serializable
@@ -9,6 +9,7 @@ data class TrainingState(
     val exercises: List<Exercise>,
     val duration: String,
     val date: String,
+    val userWeight: Double
 ) {
 
     val tonnage: Double
@@ -28,7 +29,6 @@ data class TrainingState(
         val tonnage
             get() = iterations
                 .sumOf { (it.repeat.toIntOrNull() ?: 0) * (it.weight.toDoubleOrNull() ?: 0.0) }
-
 
         val countOfLifting: Int
             get() = iterations
@@ -56,13 +56,15 @@ data class TrainingState(
     }
 
     companion object {
-        val EMPTY
-            get() = TrainingState(
+        fun empty(userWeight: Double): TrainingState {
+           return TrainingState(
                 id = uuid4().toString(),
                 exercises = emptyList(),
                 duration = "",
                 date = "",
+                userWeight = userWeight
             )
+        }
     }
 }
 

@@ -1,4 +1,4 @@
-package ui.designsystem.controls
+package designsystem.controls
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-import ui.designsystem.common.DesignComponent
+import designsystem.common.DesignComponent
 
 @Composable
 fun ChipPrimary(

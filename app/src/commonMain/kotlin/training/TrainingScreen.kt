@@ -1,4 +1,4 @@
-package ui.screens.training
+package training
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
@@ -25,13 +25,13 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import co.touchlab.kermit.Logger
-import ui.designsystem.common.DesignComponent
-import ui.designsystem.components.InputName
-import ui.designsystem.components.InputRepeat
-import ui.designsystem.components.InputWeight
-import ui.designsystem.controls.ChipPrimary
-import ui.designsystem.controls.IconPrimary
-import ui.designsystem.controls.TextFieldBody2Bold
+import designsystem.common.DesignComponent
+import designsystem.components.InputName
+import designsystem.components.InputRepeat
+import designsystem.components.InputWeight
+import designsystem.controls.ChipPrimary
+import designsystem.controls.IconPrimary
+import designsystem.controls.TextFieldBody2Bold
 
 @Composable
 fun TrainingScreen(
@@ -122,10 +122,13 @@ fun ExerciseGrid(
                             horizontalArrangement = Arrangement.spacedBy(4.dp)
                         ) {
                             items(list) {
-                                ChipPrimary(text = it, onClick = {
-                                    focusManager.moveFocus(FocusDirection.Down)
-                                    update.invoke(exercise.copy(name = it))
-                                })
+                                ChipPrimary(
+                                    text = it,
+                                    onClick = {
+                                        focusManager.moveFocus(FocusDirection.Down)
+                                        update.invoke(exercise.copy(name = it))
+                                    }
+                                )
                             }
                         }
                     }

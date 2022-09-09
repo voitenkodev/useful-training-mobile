@@ -1,4 +1,4 @@
-package ui.designsystem.common
+package designsystem.common
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Brush
