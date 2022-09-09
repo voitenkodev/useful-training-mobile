@@ -10,8 +10,8 @@ import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.tasks.await
 
-class Auth(
-    private val auth: FirebaseAuth = FirebaseAuth.getInstance(),
+class AuthSource(
+    private val auth: FirebaseAuth,
     private val dispatcher: CoroutineDispatcher = Dispatchers.Default
 ) {
 

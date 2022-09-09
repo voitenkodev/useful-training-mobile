@@ -11,7 +11,7 @@ import designsystem.controls.ButtonPrimary
 import designsystem.controls.InputFieldBody1
 
 @Composable
-fun AuthScreen(
+fun AuthContent(
     registration: (String, String) -> Unit,
     login: (String, String) -> Unit
 ) {

@@ -11,16 +11,16 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import datasource.Auth
-import datasource.Store
+import datasource.AuthSource
+import datasource.TrainingSource
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import designsystem.common.DesignComponent
 import designsystem.common.DesignTheme
-import auth.AuthScreen
-import training.TrainingScreen
+import auth.AuthContent
+import training.TrainingContent
 import training.TrainingState
 
 class MainActivity : ComponentActivity() {
@@ -36,16 +36,16 @@ class MainActivity : ComponentActivity() {
 
                     NavHost(navController = navController, startDestination = "auth") {
                         composable("auth") {
-                            val auth = Auth()
+                            val authSource = AuthSource()
                             val scope = rememberCoroutineScope()
                             val context = LocalContext.current
 
-                            LaunchedEffect(Unit) { if (auth.isAuthorized) navController.navigate("training") }
+                            LaunchedEffect(Unit) { if (authSource.isAuthorized) navController.navigate("training") }
 
-                            AuthScreen(
+                            AuthContent(
                                 login = { email, password ->
                                     scope.launch {
-                                        auth.login(email, password)
+                                        authSource.login(email, password)
                                             .onEach { navController.navigate("training") }
                                             .catch { Toast.makeText(context, "login - $it", Toast.LENGTH_LONG).show() }
                                             .launchIn(scope)
@@ -53,7 +53,7 @@ class MainActivity : ComponentActivity() {
                                 },
                                 registration = { email, password ->
                                     scope.launch {
-                                        auth.registration(email, password)
+                                        authSource.registration(email, password)
                                             .onEach { navController.navigate("training") }
                                             .catch { Toast.makeText(context, "registration - $it", Toast.LENGTH_LONG).show() }
                                             .launchIn(scope)
@@ -62,16 +62,16 @@ class MainActivity : ComponentActivity() {
                             )
                         }
                         composable("training") {
-                            val auth = Auth()
-                            val store = Store()
+                            val authSource = AuthSource()
+                            val trainingSource = TrainingSource()
                             val scope = rememberCoroutineScope()
                             val context = LocalContext.current
 
-                            TrainingScreen(
+                            TrainingContent(
                                 training = TrainingState.empty(0.0),
                                 save = {
                                     scope.launch {
-                                        store.writeTraining(auth.user?.uid, it)
+                                        trainingSource.writeTraining(authSource.user?.uid, it)
                                             .onEach { Toast.makeText(context, "save training - success", Toast.LENGTH_LONG).show() }
                                             .catch { Toast.makeText(context, "save training - $it", Toast.LENGTH_LONG).show() }
                                             .launchIn(this)

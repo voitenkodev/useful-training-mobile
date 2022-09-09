@@ -61,14 +61,20 @@ kotlin {
 
         val androidMain by getting {
             dependencies {
+                // Common
                 implementation("androidx.appcompat:appcompat:1.5.0")
                 implementation("androidx.activity:activity-compose:1.5.1")
                 implementation("androidx.navigation:navigation-compose:2.5.2")
-
                 // Firebase
                 implementation("com.google.firebase:firebase-auth-ktx:21.0.8")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.6.4")
                 implementation("com.google.firebase:firebase-firestore:24.3.0")
+                // Accompanist
+                implementation("com.google.accompanist:accompanist-navigation-animation:0.23.1")
+                // Koin
+                implementation("io.insert-koin:koin-core:3.2.0")
+                implementation("io.insert-koin:koin-androidx-compose:3.2.0")
+                implementation("io.insert-koin:koin-android:3.2.0")
             }
         }
 

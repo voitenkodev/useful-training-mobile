@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.tasks.await
 import training.TrainingState
 
-class Store(
+class TrainingSource(
     private val store: FirebaseFirestore = FirebaseFirestore.getInstance(),
     private val dispatcher: CoroutineDispatcher = Dispatchers.Default
 ) {

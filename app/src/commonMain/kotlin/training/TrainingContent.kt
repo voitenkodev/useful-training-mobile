@@ -34,7 +34,7 @@ import designsystem.controls.IconPrimary
 import designsystem.controls.TextFieldBody2Bold
 
 @Composable
-fun TrainingScreen(
+fun TrainingContent(
     training: TrainingState,
     save: (TrainingState) -> Unit,
 //    assistName: List<String>,
