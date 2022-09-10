@@ -1,16 +1,19 @@
 package training
 
 import com.benasher44.uuid.uuid4
+import dev.icerock.moko.parcelize.Parcelable
+import dev.icerock.moko.parcelize.Parcelize
 import kotlinx.serialization.Serializable
 
 @Serializable
+@Parcelize
 data class TrainingState(
     val id: String,
     val exercises: List<Exercise>,
     val duration: String,
     val date: String,
     val userWeight: Double
-) {
+) : Parcelable {
 
     val tonnage: Double
         get() = exercises.sumOf { it.tonnage }
@@ -20,11 +23,12 @@ data class TrainingState(
         get() = tonnage / countOfLifting
 
     @Serializable
+    @Parcelize
     data class Exercise(
         val id: String,
         val name: String,
         val iterations: List<Iteration>,
-    ) {
+    ) : Parcelable {
 
         val tonnage
             get() = iterations
@@ -39,10 +43,11 @@ data class TrainingState(
             get() = tonnage / countOfLifting
 
         @Serializable
+        @Parcelize
         data class Iteration(
             val weight: String,
             val repeat: String
-        ) {
+        ) : Parcelable {
             companion object {
                 val EMPTY
                     get() = Iteration(weight = "", repeat = "")
@@ -57,7 +62,7 @@ data class TrainingState(
 
     companion object {
         fun empty(userWeight: Double): TrainingState {
-           return TrainingState(
+            return TrainingState(
                 id = uuid4().toString(),
                 exercises = emptyList(),
                 duration = "",

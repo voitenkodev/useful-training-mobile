@@ -2,14 +2,18 @@ package ui
 
 import androidx.compose.animation.AnimatedContentScope
 import androidx.compose.animation.AnimatedVisibilityScope
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Composable
-import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.*
+import androidx.lifecycle.SavedStateHandle
+import androidx.navigation.NamedNavArgument
+import androidx.navigation.NavBackStackEntry
+import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavHostController
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import org.koin.androidx.compose.koinViewModel
+import org.koin.core.parameter.parametersOf
+import training.TrainingState
 import ui.auth.AuthScreen
 import ui.auth.AuthViewModel
 import ui.training.TrainingScreen
@@ -19,22 +23,20 @@ import ui.training.TrainingViewModel
 fun Navigator(navController: NavHostController) {
     AnimatedNavHost(
         navController = navController,
-        startDestination = Routes.Auth.route
+        startDestination = Routes.Training.route
     ) {
 
         screen(
             route = Routes.Training.route,
             content = {
-                val viewModel = koinViewModel<TrainingViewModel>()
-
-                TrainingScreen(
-                    navController = navController,
-                    viewModel = viewModel
-                )
+                val state = TrainingState.empty(0.0)
+                val params = mapOf("trainingState" to state)
+                val viewModel = koinViewModel<TrainingViewModel> { parametersOf(SavedStateHandle(params)) }
+                TrainingScreen(viewModel = viewModel)
             }
         )
 
-       screen(
+        screen(
             route = Routes.Auth.route,
             content = {
                 val viewModel = koinViewModel<AuthViewModel>()
@@ -49,7 +51,6 @@ fun Navigator(navController: NavHostController) {
     }
 }
 
-@ExperimentalAnimationApi
 private fun NavGraphBuilder.screen(
     route: String,
     arguments: List<NamedNavArgument> = emptyList(),

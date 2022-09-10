@@ -36,32 +36,31 @@ import designsystem.controls.TextFieldBody2Bold
 @Composable
 fun TrainingContent(
     training: TrainingState,
+    update: (TrainingState)-> Unit,
     save: (TrainingState) -> Unit,
 //    assistName: List<String>,
 //    findAssist: (String) -> Unit,
 ) = Column(modifier = Modifier.fillMaxSize().padding(bottom = 12.dp)) {
 
-    val state = remember { mutableStateOf(training) }
-
     ExerciseGrid(
         modifier = Modifier.weight(1f),
-        exercises = state.value.exercises,
-        update = { updated -> state.value = state.value.updateExercise(updated) },
-        remove = { removed -> state.value = state.value.removeExercise(removed) }
+        exercises = training.exercises,
+        update = { updated -> update(training.updateExercise(updated)) },
+        remove = { removed -> update(training.removeExercise(removed)) }
     )
 
     IconPrimary(
         imageVector = Icons.Default.Send,
         modifier = Modifier.align(Alignment.End).padding(end = 12.dp).background(DesignComponent.colors.primaryInverse, CircleShape),
         color = DesignComponent.colors.primary,
-        onClick = { save.invoke(state.value) }
+        onClick = { save.invoke(training) }
     )
 
     IconPrimary(
         imageVector = Icons.Default.Add,
         modifier = Modifier.align(Alignment.End).padding(end = 12.dp).background(DesignComponent.colors.primaryInverse, CircleShape),
         color = DesignComponent.colors.primary,
-        onClick = { state.value = state.value.addExercise() }
+        onClick = { update(training.addExercise()) }
     )
 }
 

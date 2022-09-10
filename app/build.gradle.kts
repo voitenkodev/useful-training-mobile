@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.multiplatform)
     alias(libs.plugins.compose)
     alias(libs.plugins.serialization)
+    alias(libs.plugins.parcelize)
 }
 
 kotlin {
@@ -25,7 +26,6 @@ kotlin {
             "-linker-option", "-framework", "-linker-option", "CoreGraphics"
         )
     }
-//    iosArm64("uikitArm64").binaries.executable {
     iosArm64("uikitArm64").binaries.executable {
         entryPoint = "main"
         freeCompilerArgs += listOf(
@@ -50,6 +50,8 @@ kotlin {
                 implementation(compose.foundation)
                 implementation(compose.material)
                 implementation(compose.runtime)
+
+                implementation("dev.icerock.moko:parcelize:0.8.0")
             }
         }
 

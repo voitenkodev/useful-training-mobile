@@ -4,7 +4,6 @@ import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.flowOn
@@ -12,7 +11,7 @@ import kotlinx.coroutines.tasks.await
 
 class AuthSource(
     private val auth: FirebaseAuth,
-    private val dispatcher: CoroutineDispatcher = Dispatchers.Default
+    private val dispatcher: CoroutineDispatcher
 ) {
 
     suspend fun login(email: String, password: String): Flow<AuthResult> =

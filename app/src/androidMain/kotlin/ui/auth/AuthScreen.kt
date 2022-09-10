@@ -1,9 +1,7 @@
 package ui.auth
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.navigation.NavController
-import auth.AuthContent
 
 @Composable
 fun AuthScreen(

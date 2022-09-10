@@ -4,11 +4,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.navigation.NavController
 import training.TrainingContent
-import ui.auth.AuthViewModel
 
 @Composable
 fun TrainingScreen(
-    navController: NavController,
     viewModel: TrainingViewModel
 ) {
 
@@ -16,6 +14,7 @@ fun TrainingScreen(
 
     TrainingContent(
         training = state.value,
-        save = viewModel::save
+        update = viewModel::update,
+        save = viewModel::save,
     )
 }

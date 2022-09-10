@@ -3,15 +3,14 @@ package datasource
 import com.benasher44.uuid.uuid4
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.tasks.await
 import training.TrainingState
 
 class TrainingSource(
-    private val store: FirebaseFirestore = FirebaseFirestore.getInstance(),
-    private val dispatcher: CoroutineDispatcher = Dispatchers.Default
+    private val store: FirebaseFirestore,
+    private val dispatcher: CoroutineDispatcher
 ) {
     suspend fun writeTraining(
         userId: String?,
