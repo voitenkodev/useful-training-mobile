@@ -17,8 +17,8 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import designsystem.common.DesignComponent
-import designsystem.controls.InputFieldBody1
-import designsystem.controls.InputFieldBody2
+import designsystem.controls.InputFieldPrimary
+import designsystem.controls.InputFieldSecondary
 
 @Composable
 fun InputName(
@@ -28,7 +28,7 @@ fun InputName(
 ) {
     val focusManager = LocalFocusManager.current
 
-    InputFieldBody1(
+    InputFieldPrimary(
         modifier = Modifier
             .background(DesignComponent.colors.primary, RoundedCornerShape(8.dp))
             .border(BorderStroke(2.dp, DesignComponent.colors.special2), RoundedCornerShape(8.dp))
@@ -51,7 +51,7 @@ fun InputWeight(
 ) {
     val focusManager = LocalFocusManager.current
 
-    InputFieldBody2(
+    InputFieldSecondary(
         modifier = modifier,
         value = value,
         onValueChange = onValueChange,
@@ -71,7 +71,7 @@ fun InputRepeat(
     value: String?,
     onValueChange: (String) -> Unit,
 ) {
-    InputFieldBody2(
+    InputFieldSecondary(
         modifier = modifier,
         value = value,
         onValueChange = onValueChange,

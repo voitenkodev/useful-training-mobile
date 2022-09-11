@@ -8,8 +8,8 @@ import androidx.compose.ui.unit.dp
 import designsystem.common.DesignComponent
 
 @Composable
-fun Divider(
+fun DividerPrimary(
     modifier: Modifier = Modifier,
     thickness: Dp = 1.dp,
-    color: Color = DesignComponent.colors.primary
+    color: Color = DesignComponent.colors.primaryInverse.copy(alpha = 0.1f)
 ) = androidx.compose.material.Divider(modifier = modifier, color = color, thickness = thickness)

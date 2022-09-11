@@ -1,7 +1,6 @@
 package designsystem.common
 
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 
 @Composable
@@ -32,11 +31,7 @@ data class AppColors(
 
     val special1: Color,
     val special2: Color
-) {
-    fun specialBrush(): Brush {
-        return Brush.horizontalGradient(listOf(special1, special2))
-    }
-}
+)
 
 internal val black = Color(0xff000000)
 internal val white = Color(0xffffffff)

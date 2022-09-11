@@ -1,13 +1,12 @@
 package designsystem.controls
 
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
 import designsystem.common.DesignComponent
 
 @Composable
@@ -18,6 +17,7 @@ fun TextFieldH1(
     color: Color? = null,
     textAlign: TextAlign? = null,
     maxLines: Int = Int.MAX_VALUE,
+    fontWeight: FontWeight? = null
 ) = TextField(
     modifier = modifier,
     text = text,
@@ -26,6 +26,7 @@ fun TextFieldH1(
     maxLines = maxLines,
     color = color ?: DesignComponent.colors.primaryInverse,
     textAlign = textAlign,
+    fontWeight = fontWeight
 )
 
 @Composable
@@ -36,6 +37,7 @@ fun TextFieldBody2(
     color: Color? = null,
     textAlign: TextAlign? = null,
     maxLines: Int = Int.MAX_VALUE,
+    fontWeight: FontWeight? = null
 ) = TextField(
     modifier = modifier,
     text = text,
@@ -44,24 +46,7 @@ fun TextFieldBody2(
     maxLines = maxLines,
     color = color ?: DesignComponent.colors.primaryInverse,
     textAlign = textAlign,
-)
-
-@Composable
-fun TextFieldBody2Bold(
-    modifier: Modifier = Modifier,
-    text: String?,
-    placeholder: String? = null,
-    color: Color? = null,
-    textAlign: TextAlign? = null,
-    maxLines: Int = Int.MAX_VALUE,
-) = TextField(
-    modifier = modifier.padding(8.dp),
-    text = text,
-    placeholder = placeholder,
-    textStyle = DesignComponent.typography.Body2Bold,
-    maxLines = maxLines,
-    color = color ?: DesignComponent.colors.primaryInverse,
-    textAlign = textAlign,
+    fontWeight = fontWeight
 )
 
 @Composable
@@ -73,23 +58,28 @@ internal fun TextField(
     textAlign: TextAlign? = null,
     textStyle: TextStyle,
     maxLines: Int = Int.MAX_VALUE,
+    fontWeight: FontWeight? = null
 ) {
     val isPlaceholder = text == null
 
     val _color = if (isPlaceholder) color?.copy(alpha = 0.8f) else color
 
-    val innerColorTextStyle = if (_color != null) {
+    val textStyle1 = if (_color != null) {
         textStyle.copy(color = _color)
     } else textStyle
 
-    val innerTextAlignTextStyle = if (textAlign != null) {
-        innerColorTextStyle.copy(textAlign = textAlign)
-    } else innerColorTextStyle
+    val textStyle2 = if (textAlign != null) {
+        textStyle1.copy(textAlign = textAlign)
+    } else textStyle1
+
+    val textStyle3 = if (fontWeight != null) {
+        textStyle2.copy(fontWeight = fontWeight)
+    } else textStyle2
 
     BasicText(
         modifier = modifier,
         text = text ?: placeholder ?: "",
-        style = innerTextAlignTextStyle,
+        style = textStyle3,
         maxLines = maxLines,
     )
 }

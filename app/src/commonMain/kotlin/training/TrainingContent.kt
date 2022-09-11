@@ -22,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import designsystem.common.DesignComponent
@@ -30,7 +31,7 @@ import designsystem.components.InputRepeat
 import designsystem.components.InputWeight
 import designsystem.controls.ChipPrimary
 import designsystem.controls.IconPrimary
-import designsystem.controls.TextFieldBody2Bold
+import designsystem.controls.TextFieldBody2
 
 @Composable
 fun TrainingContent(
@@ -151,25 +152,27 @@ fun ExerciseGrid(
                             verticalArrangement = Arrangement.spacedBy(4.dp),
                         ) {
 
-                            TextFieldBody2Bold(
+                            TextFieldBody2(
                                 modifier = Modifier
                                     .fillMaxSize()
                                     .background(
                                         color = DesignComponent.colors.special2.copy(alpha = 0.1f),
                                         shape = RoundedCornerShape(8.dp, 0.dp, 0.dp, 8.dp)
-                                    ),
+                                    ).padding(8.dp),
                                 text = "• Weight",
                                 textAlign = TextAlign.Center,
                                 maxLines = 1,
-                                color = textColor
+                                color = textColor,
+                                fontWeight = FontWeight.Bold
                             )
 
-                            TextFieldBody2Bold(
-                                modifier = Modifier.fillMaxSize(),
+                            TextFieldBody2(
+                                modifier = Modifier.padding(8.dp).fillMaxSize(),
                                 text = "• Repeat",
                                 textAlign = TextAlign.Center,
                                 maxLines = 1,
                                 color = textColor,
+                                fontWeight = FontWeight.Bold
                             )
                         }
                     }

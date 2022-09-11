@@ -2,15 +2,22 @@ package ui.auth
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.navigation.NavController
 import auth.AuthContent
+import ui.navigation.LocalNavigator
+import ui.navigation.Router
 
 @Composable
 fun AuthScreen(
-    viewModel: AuthViewModel
+    viewModel: AuthViewModel,
+    navigate: (Router) -> Unit
 ) {
 
     val state = viewModel.authState.collectAsState()
+
+    LocalNavigator(
+        viewModel.event,
+        navigate = navigate
+    )
 
     AuthContent(
         state = state.value,

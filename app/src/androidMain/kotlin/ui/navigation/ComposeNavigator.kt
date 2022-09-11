@@ -1,4 +1,4 @@
-package ui
+package ui.navigation
 
 import androidx.compose.animation.AnimatedContentScope
 import androidx.compose.animation.AnimatedVisibilityScope
@@ -17,37 +17,48 @@ import org.koin.core.parameter.parametersOf
 import training.TrainingState
 import ui.auth.AuthScreen
 import ui.auth.AuthViewModel
+import ui.review.ReviewScreen
 import ui.training.TrainingScreen
 import ui.training.TrainingViewModel
 
 @Composable
-fun Navigator(navController: NavHostController) {
-    AnimatedNavHost(
-        navController = navController,
-        startDestination = Routes.Training.route
-    ) {
+fun ComposeNavigator(navController: NavHostController) = AnimatedNavHost(
+    navController = navController,
+    startDestination = Router.Auth.route
+) {
 
-        screen(
-            route = Routes.Training.route,
-            content = {
-                val state = TrainingState.empty(0.0)
-                val params = mapOf("trainingState" to state)
-                val viewModel = koinViewModel<TrainingViewModel> { parametersOf(SavedStateHandle(params)) }
-                TrainingScreen(viewModel = viewModel)
-            }
-        )
+    screen(
+        route = Router.Auth.route,
+        content = {
+            val state = AuthState.EMPTY
+            val params = mapOf("authState" to state)
+            val viewModel = koinViewModel<AuthViewModel> { parametersOf(SavedStateHandle(params)) }
+            AuthScreen(
+                viewModel = viewModel,
+                navigate = { navController.routeTo(route = it) }
+            )
+        }
+    )
 
-        screen(
-            route = Routes.Auth.route,
-            content = {
-                val state = AuthState.EMPTY
-                val params = mapOf("authState" to state)
-                val viewModel = koinViewModel<AuthViewModel> { parametersOf(SavedStateHandle(params)) }
+    screen(
+        route = Router.Training.ID,
+        content = {
+            val state = TrainingState.empty(0.0)
+            val params = mapOf("trainingState" to state)
+            val viewModel = koinViewModel<TrainingViewModel> { parametersOf(SavedStateHandle(params)) }
+            TrainingScreen(
+                viewModel = viewModel,
+                navigate = { navController.routeTo(route = it) }
+            )
+        }
+    )
 
-                AuthScreen(viewModel = viewModel)
-            }
-        )
-    }
+    screen(
+        route = Router.Review.ID,
+        content = {
+            ReviewScreen()
+        }
+    )
 }
 
 private fun NavGraphBuilder.screen(
@@ -63,8 +74,3 @@ private fun NavGraphBuilder.screen(
     popExitTransition = { slideOutOfContainer(AnimatedContentScope.SlideDirection.Right, animationSpec = tween(400)) },
     content = content
 )
-
-sealed class Routes(val route: String) {
-    object Auth : Routes("auth_screen")
-    object Training : Routes("training_screen")
-}

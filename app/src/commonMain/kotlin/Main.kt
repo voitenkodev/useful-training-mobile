@@ -7,7 +7,6 @@ import designsystem.common.DesignTheme
 fun Main() {
     DesignTheme {
         Surface(color = DesignComponent.colors.primary) {
-
         }
     }
 }

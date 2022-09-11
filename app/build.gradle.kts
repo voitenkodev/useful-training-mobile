@@ -66,6 +66,7 @@ kotlin {
                 // Common
                 implementation("androidx.appcompat:appcompat:1.5.0")
                 implementation("androidx.activity:activity-compose:1.5.1")
+                // Navigation
                 implementation("androidx.navigation:navigation-compose:2.5.2")
                 // Firebase
                 implementation("com.google.firebase:firebase-auth-ktx:21.0.8")
@@ -77,6 +78,8 @@ kotlin {
                 implementation("io.insert-koin:koin-core:3.2.0")
                 implementation("io.insert-koin:koin-androidx-compose:3.2.0")
                 implementation("io.insert-koin:koin-android:3.2.0")
+                // Chart
+                implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
             }
         }
 

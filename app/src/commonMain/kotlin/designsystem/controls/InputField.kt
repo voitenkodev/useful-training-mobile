@@ -2,21 +2,14 @@ package designsystem.controls
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
 import androidx.compose.material.ProvideTextStyle
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Clear
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
@@ -24,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import designsystem.common.DesignComponent
 
 @Composable
-fun InputFieldBody1(
+fun InputFieldPrimary(
     modifier: Modifier = Modifier,
     value: String?,
     onValueChange: (String) -> Unit,
@@ -41,7 +34,7 @@ fun InputFieldBody1(
     modifier = modifier,
     value = value,
     onValueChange = onValueChange,
-    textStyle = DesignComponent.typography.Body1,
+    textStyle = DesignComponent.typography.Body,
     maxLines = maxLines,
     color = color ?: DesignComponent.colors.primaryInverse,
     textAlign = textAlign,
@@ -54,7 +47,7 @@ fun InputFieldBody1(
 )
 
 @Composable
-fun InputFieldBody2(
+fun InputFieldSecondary(
     modifier: Modifier = Modifier,
     value: String?,
     onValueChange: (String) -> Unit,
