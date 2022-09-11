@@ -24,7 +24,6 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import co.touchlab.kermit.Logger
 import designsystem.common.DesignComponent
 import designsystem.components.InputName
 import designsystem.components.InputRepeat
@@ -35,8 +34,8 @@ import designsystem.controls.TextFieldBody2Bold
 
 @Composable
 fun TrainingContent(
-    training: TrainingState,
-    update: (TrainingState)-> Unit,
+    state: TrainingState,
+    update: (TrainingState) -> Unit,
     save: (TrainingState) -> Unit,
 //    assistName: List<String>,
 //    findAssist: (String) -> Unit,
@@ -44,36 +43,34 @@ fun TrainingContent(
 
     ExerciseGrid(
         modifier = Modifier.weight(1f),
-        exercises = training.exercises,
-        update = { updated -> update(training.updateExercise(updated)) },
-        remove = { removed -> update(training.removeExercise(removed)) }
+        exercises = state.exercises,
+        update = { updated -> update(state.updateExercise(updated)) },
+        remove = { removed -> update(state.removeExercise(removed)) }
     )
 
     IconPrimary(
         imageVector = Icons.Default.Send,
         modifier = Modifier.align(Alignment.End).padding(end = 12.dp).background(DesignComponent.colors.primaryInverse, CircleShape),
         color = DesignComponent.colors.primary,
-        onClick = { save.invoke(training) }
+        onClick = { save.invoke(state) }
     )
 
     IconPrimary(
         imageVector = Icons.Default.Add,
         modifier = Modifier.align(Alignment.End).padding(end = 12.dp).background(DesignComponent.colors.primaryInverse, CircleShape),
         color = DesignComponent.colors.primary,
-        onClick = { update(training.addExercise()) }
+        onClick = { update(state.addExercise()) }
     )
 }
 
 @Composable
 fun ExerciseGrid(
     modifier: Modifier = Modifier,
-
     exercises: List<TrainingState.Exercise>,
     update: (TrainingState.Exercise) -> Unit,
     remove: (TrainingState.Exercise) -> Unit,
 ) {
     val spanCount = 5
-    Logger.i { "Exercises -> $exercises" }
 
     LazyVerticalGrid(
         modifier = modifier,
@@ -115,6 +112,7 @@ fun ExerciseGrid(
                     }
 
                     val list = listOf("bench press", "weight lift", "test", "some big exercise name")
+
                     AnimatedVisibility(help.value && list.isNotEmpty()) {
                         LazyRow(
                             modifier = Modifier.padding(top = 4.dp),

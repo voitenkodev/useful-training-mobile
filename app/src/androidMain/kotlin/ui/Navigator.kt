@@ -9,6 +9,7 @@ import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
+import auth.AuthState
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import org.koin.androidx.compose.koinViewModel
@@ -39,15 +40,13 @@ fun Navigator(navController: NavHostController) {
         screen(
             route = Routes.Auth.route,
             content = {
-                val viewModel = koinViewModel<AuthViewModel>()
+                val state = AuthState.EMPTY
+                val params = mapOf("authState" to state)
+                val viewModel = koinViewModel<AuthViewModel> { parametersOf(SavedStateHandle(params)) }
 
-                AuthScreen(
-                    navController = navController,
-                    viewModel = viewModel
-                )
+                AuthScreen(viewModel = viewModel)
             }
         )
-
     }
 }
 
