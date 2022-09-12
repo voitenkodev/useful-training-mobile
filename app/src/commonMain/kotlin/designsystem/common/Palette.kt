@@ -9,8 +9,7 @@ fun LightPalette() = AppColors(
     primaryInverse = almostBlack,
     secondary = almostWhite,
     secondaryInverse = almostWhite,
-    special1 = pink,
-    special2 = purple
+    special = purple
 )
 
 @Composable
@@ -19,8 +18,7 @@ fun DarkPalette() = AppColors(
     primaryInverse = almostWhite,
     secondary = black,
     secondaryInverse = almostWhite,
-    special1 = pink,
-    special2 = purple
+    special = purple
 )
 
 data class AppColors(
@@ -29,9 +27,10 @@ data class AppColors(
     val secondary: Color,
     val secondaryInverse: Color,
 
-    val special1: Color,
-    val special2: Color
-)
+    val special: Color
+) {
+    val primaryAlpha = 0.2f
+}
 
 internal val black = Color(0xff000000)
 internal val white = Color(0xffffffff)
@@ -40,5 +39,4 @@ internal val almostWhite = Color(0xFFF1F1F1)
 internal val almostBlack = Color(0xFF121311)
 
 internal val purple = Color(0xffa18cd1)
-internal val pink = Color(0xfffbc2eb)
 

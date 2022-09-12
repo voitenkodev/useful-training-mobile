@@ -12,8 +12,14 @@ object DesignComponent {
     val typography: AppTypography
         @Composable
         get() = LocalAppTypography.current
+
+    val size: AppSize
+        @Composable
+        get() = LocalAppSize.current
 }
 
 internal val LocalAppColors = staticCompositionLocalOf<AppColors> { error("No colors provided") }
 
 internal val LocalAppTypography = staticCompositionLocalOf<AppTypography> { error("No font provided") }
+
+internal val LocalAppSize = staticCompositionLocalOf<AppSize> { error("No size provided") }

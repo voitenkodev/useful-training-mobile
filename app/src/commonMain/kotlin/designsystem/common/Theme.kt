@@ -10,10 +10,15 @@ fun DesignTheme(
     darkTheme: Boolean = false, // need isSystemInDarkTheme()
     content: @Composable () -> Unit
 ) = CompositionLocalProvider(
+
     LocalAppColors provides when (darkTheme) {
         true -> DarkPalette()
         false -> LightPalette()
     },
+
     LocalAppTypography provides AppTypography(),
+
+    LocalAppSize provides AppSize(),
+
     content = content
 )

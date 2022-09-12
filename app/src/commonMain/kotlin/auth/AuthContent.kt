@@ -2,11 +2,12 @@ package auth
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
+import designsystem.common.DesignComponent
+import designsystem.components.InputEmail
+import designsystem.components.InputPassword
 import designsystem.controls.ButtonPrimary
-import designsystem.controls.InputFieldPrimary
+import designsystem.controls.TextFieldH1
 
 @Composable
 fun AuthContent(
@@ -15,27 +16,24 @@ fun AuthContent(
     registration: (AuthState) -> Unit,
     login: (AuthState) -> Unit
 ) = Column(
-    modifier = Modifier.fillMaxSize().padding(horizontal = 20.dp),
-    horizontalAlignment = Alignment.CenterHorizontally,
-    verticalArrangement = Arrangement.spacedBy(12.dp)
+    modifier = Modifier.fillMaxSize().padding(DesignComponent.size.rootSpace),
+    verticalArrangement = Arrangement.spacedBy(DesignComponent.size.itemSpace)
 ) {
 
-    Spacer(Modifier.height(60.dp))
-
-    InputFieldPrimary(
-        modifier = Modifier.padding(12.dp).fillMaxWidth(),
-        value = state.email,
-        onValueChange = { update(state.copy(email = it)) },
-//            leadingIcon = Icons.Outlined.Person,
-        placeholder = "Email"
+    TextFieldH1(
+        text = "Welcome!"
     )
 
-    InputFieldPrimary(
-        modifier = Modifier.padding(12.dp).fillMaxWidth(),
+    InputEmail(
+        modifier = Modifier.fillMaxWidth(),
+        value = state.email,
+        onValueChange = { update(state.copy(email = it)) }
+    )
+
+    InputPassword(
+        modifier = Modifier.fillMaxWidth(),
         value = state.password,
-        onValueChange = { update(state.copy(password = it)) },
-//            leadingIcon = Icons.Outlined.Lock,
-        placeholder = "Password"
+        onValueChange = { update(state.copy(password = it)) }
     )
 
     Spacer(Modifier.weight(1f))
@@ -51,6 +49,4 @@ fun AuthContent(
         text = "Registration",
         onClick = { registration.invoke(state) }
     )
-
-    Spacer(Modifier.height(20.dp))
 }

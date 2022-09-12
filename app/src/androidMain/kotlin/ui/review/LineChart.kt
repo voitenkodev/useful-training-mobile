@@ -5,10 +5,7 @@ import android.widget.LinearLayout
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -30,13 +27,14 @@ fun LineChart(
     modifier: Modifier
 ) {
     val backgroundColor = DesignComponent.colors.primary.toArgb()
-    val filledBackground = DesignComponent.colors.special2
+    val lineColor = DesignComponent.colors.special
+    val filledColorAlpha = DesignComponent.colors.primaryAlpha
     val textColor = DesignComponent.colors.primaryInverse
 
     AndroidView(
         modifier = modifier
             .background(color = DesignComponent.colors.primary, shape = RoundedCornerShape(8.dp))
-            .border(BorderStroke(2.dp, DesignComponent.colors.special2), shape = RoundedCornerShape(8.dp))
+            .border(BorderStroke(6.dp, DesignComponent.colors.special), shape = RoundedCornerShape(8.dp))
             .padding(8.dp),
         factory = { context ->
             LineChart(context).apply {
@@ -61,6 +59,7 @@ fun LineChart(
                 xAxis.position = XAxis.XAxisPosition.BOTTOM
                 xAxis.textSize = 10f
                 xAxis.textColor = textColor.toArgb()
+                xAxis.axisMinimum = 0.8f
                 // labels NOT need
                 axisRight.isEnabled = false
 
@@ -89,7 +88,8 @@ fun LineChart(
                 it.second.toFloat() to it.first.toFloat()
             }.toLineChart(
                 label = "Tonnage",
-                color = filledBackground
+                color = lineColor,
+                backgroundColor = lineColor.copy(alpha = filledColorAlpha)
             )
             it.animateY(500)
             it.invalidate()
@@ -100,6 +100,7 @@ fun LineChart(
 fun List<Pair<Float, Float>>.toLineChart(
     label: String,
     color: Color,
+    backgroundColor: Color,
 ): LineData {
 
     val values = ArrayList<Entry>()
@@ -126,8 +127,7 @@ fun List<Pair<Float, Float>>.toLineChart(
     set.mode = LineDataSet.Mode.CUBIC_BEZIER
 
     // set color of filled area
-    set.fillColor = color.toArgb()
-    set.fillAlpha = 30
+    set.fillColor = backgroundColor.toArgb()
 
     // add the data sets
     val dataSets = ArrayList<ILineDataSet>()

@@ -21,6 +21,58 @@ import designsystem.controls.InputFieldPrimary
 import designsystem.controls.InputFieldSecondary
 
 @Composable
+fun InputEmail(
+    modifier: Modifier = Modifier,
+    value: String?,
+    onValueChange: (String) -> Unit,
+) {
+    val focusManager = LocalFocusManager.current
+
+    InputFieldPrimary(
+        modifier = Modifier.background(DesignComponent.colors.primary, RoundedCornerShape(8.dp))
+            .border(BorderStroke(2.dp, DesignComponent.colors.special), RoundedCornerShape(8.dp))
+            .padding(12.dp)
+            .then(modifier),
+        value = value,
+        onValueChange = onValueChange,
+//            leadingIcon = Icons.Outlined.Person,
+        placeholder = "Email",
+        keyboardActions = KeyboardActions { focusManager.moveFocus(FocusDirection.Next) },
+        keyboardOptions = KeyboardOptions(
+            capitalization = KeyboardCapitalization.Sentences,
+            imeAction = ImeAction.Next,
+            keyboardType = KeyboardType.Email
+        )
+    )
+}
+
+@Composable
+fun InputPassword(
+    modifier: Modifier = Modifier,
+    value: String?,
+    onValueChange: (String) -> Unit,
+) {
+    val focusManager = LocalFocusManager.current
+
+    InputFieldPrimary(
+        modifier = Modifier.background(DesignComponent.colors.primary, RoundedCornerShape(8.dp))
+            .border(BorderStroke(2.dp, DesignComponent.colors.special), RoundedCornerShape(8.dp))
+            .padding(12.dp)
+            .then(modifier),
+        value = value,
+        onValueChange = onValueChange,
+//            leadingIcon = Icons.Outlined.Person,
+        placeholder = "Password",
+        keyboardActions = KeyboardActions { focusManager.moveFocus(FocusDirection.Next) },
+        keyboardOptions = KeyboardOptions(
+            capitalization = KeyboardCapitalization.Sentences,
+            imeAction = ImeAction.Next,
+            keyboardType = KeyboardType.Password
+        )
+    )
+}
+
+@Composable
 fun InputName(
     modifier: Modifier = Modifier,
     value: String?,
@@ -31,7 +83,7 @@ fun InputName(
     InputFieldPrimary(
         modifier = Modifier
             .background(DesignComponent.colors.primary, RoundedCornerShape(8.dp))
-            .border(BorderStroke(2.dp, DesignComponent.colors.special2), RoundedCornerShape(8.dp))
+            .border(BorderStroke(2.dp, DesignComponent.colors.special), RoundedCornerShape(8.dp))
             .padding(12.dp)
             .then(modifier),
         value = value,
