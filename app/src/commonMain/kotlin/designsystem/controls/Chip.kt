@@ -15,12 +15,12 @@ fun ChipPrimary(
     text: String,
     onClick: (String) -> Unit,
 ) {
-    TextFieldBody2(
-        modifier = Modifier.clip(CircleShape)
-            .clickable { onClick.invoke(text) }
-            .background(color = DesignComponent.colors.special, shape = CircleShape)
-            .padding(horizontal = 12.dp, vertical = 4.dp),
-        text = text,
-        color = DesignComponent.colors.primary
-    )
+//    TextFieldBody2(
+//        modifier = Modifier.clip(CircleShape)
+//            .clickable { onClick.invoke(text) }
+//            .background(color = DesignComponent.colors.special, shape = CircleShape)
+//            .padding(horizontal = 12.dp, vertical = 4.dp),
+//        text = text,
+//        color = DesignComponent.colors.primary
+//    )
 }

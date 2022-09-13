@@ -19,10 +19,10 @@ fun TrainingScreen(
         navigate = navigate
     )
 
-
     TrainingContent(
         state = state.value,
         update = viewModel::update,
-        save = viewModel::save
+        save = viewModel::save,
+        help = listOf("bench press", "weight lift", "test", "some big exercise name")
     )
 }

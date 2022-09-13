@@ -21,8 +21,8 @@ fun TrainingState.map() = Training(
         )
     },
     duration = duration,
-    date = date,
+    date = null,
     tonnage = tonnage,
     countOfLifting = countOfLifting,
-    intensity = intensity
+    intensity = intensity,
 )

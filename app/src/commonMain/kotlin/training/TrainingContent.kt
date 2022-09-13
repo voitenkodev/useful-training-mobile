@@ -1,12 +1,12 @@
 package training
 
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
+import androidx.compose.foundation.lazy.grid.LazyGridItemScope
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
@@ -15,12 +15,12 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Send
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
@@ -42,16 +42,16 @@ fun TrainingContent(
     state: TrainingState,
     update: (TrainingState) -> Unit,
     save: (TrainingState) -> Unit,
-//    assistName: List<String>,
-//    findAssist: (String) -> Unit,
+    help: List<String>,
 ) = Column(modifier = Modifier.fillMaxSize()) {
 
     ExerciseGrid(
         modifier = Modifier.weight(1f),
         exercises = state.exercises,
+        help = help,
         update = { updated -> update(state.updateExercise(updated)) },
         remove = { removed -> update(state.removeExercise(removed)) },
-        add = { update(state.addExercise()) }
+        add = { update(state.addExercise()) },
     )
 
     IconPrimary(
@@ -68,11 +68,14 @@ fun TrainingContent(
 fun ExerciseGrid(
     modifier: Modifier = Modifier,
     exercises: List<TrainingState.Exercise>,
+    help: List<String>,
     update: (TrainingState.Exercise) -> Unit,
     remove: (TrainingState.Exercise) -> Unit,
     add: () -> Unit,
 ) {
     val spanCount = 5
+    val showHelp = remember { mutableStateOf(false) }
+    val focusManager = LocalFocusManager.current
 
     LazyVerticalGrid(
         modifier = modifier,
@@ -82,49 +85,27 @@ fun ExerciseGrid(
 
         exercises.forEach { exercise ->
 
-            item(key = exercise.id, span = { GridItemSpan(currentLineSpan = maxLineSpan) }) {
-
-                val help = remember { mutableStateOf(false) }
-
-                val focusManager = LocalFocusManager.current
-
-                Column {
-
-                    Row(
-                        modifier = Modifier
-                            .padding(top = 8.dp, bottom = 4.dp)
-                            .background(DesignComponent.colors.special, RoundedCornerShape(8.dp)),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-
-                        InputName(
-                            modifier = Modifier
-                                .onFocusChanged { help.value = it.hasFocus }
-                                .weight(1f),
-                            value = exercise.name,
-                            onValueChange = { update.invoke(exercise.copy(name = it)) },
-                        )
-
-                        IconPrimary(
-                            modifier = Modifier.height(20.dp).width(50.dp),
-                            imageVector = Icons.Filled.Delete,
-                            color = DesignComponent.colors.primary,
-                            onClick = { remove.invoke(exercise) },
-                        )
-                    }
-
-                    val list = listOf("bench press", "weight lift", "test", "some big exercise name")
-
-                    Help(
-                        list = list,
-                        visibility = help.value && list.isNotEmpty(),
-                        onClick = {
-                            focusManager.moveFocus(FocusDirection.Down)
-                            update.invoke(exercise.copy(name = it))
-                        }
-                    )
-                }
+            item(
+                key = exercise.id,
+                span = { GridItemSpan(currentLineSpan = maxLineSpan) }
+            ) {
+                InputNameItem(showHelp, exercise, update, remove)
             }
+
+//            if (showHelp.value && help.isNotEmpty()) {
+//                item(
+//                    key = exercise.id + "help",
+//                    span = { GridItemSpan(currentLineSpan = maxLineSpan) }
+//                ) {
+//                    HelpItem(
+//                        list = help,
+//                        onClick = {
+//                            focusManager.moveFocus(FocusDirection.Down)
+//                            update.invoke(exercise.copy(name = it))
+//                        }
+//                    )
+//                }
+//            }
 
             exercise.iterations.forEachIndexed { index, item ->
 
@@ -134,19 +115,25 @@ fun ExerciseGrid(
                 val isLastItemInLine = (index + 1) % (spanCount - 1) == 0
 
                 if (isFirstItemInLine) {
-                    item {
+                    item(
+                        key = exercise.id + index + "caption",
+                        span = { GridItemSpan(currentLineSpan = 1) }
+                    ) {
                         val textColor = if (isFirstItemInList.not()) DesignComponent.colors.primaryInverse.copy(alpha = 0.2f)
                         else DesignComponent.colors.primaryInverse
-                        IterationCaption(textColor = textColor)
+                        IterationCaptionItem(textColor = textColor)
                     }
                 }
 
-                item {
+                item(
+                    key = exercise.id + index + "iteration",
+                    span = { GridItemSpan(currentLineSpan = 1) }
+                ) {
                     val weightShape =
                         if (isLastItemInLine || isLastItemInList) RoundedCornerShape(topEnd = 8.dp, bottomEnd = 8.dp)
                         else RoundedCornerShape(0.dp)
 
-                    IterationInput(
+                    IterationInputItem(
                         weightShape = weightShape,
                         iteration = item,
                         updateWeight = { value ->
@@ -167,75 +154,104 @@ fun ExerciseGrid(
                 }
             }
         }
-        item(span = { GridItemSpan(currentLineSpan = maxLineSpan) }) {
-            NewExercise(onClick = add)
+        item(
+            key = "newExercise",
+            span = { GridItemSpan(currentLineSpan = maxLineSpan) }) {
+            NewExerciseItem(onClick = add)
         }
     }
 }
 
 @Composable
-private fun Help(
+private fun LazyGridItemScope.InputNameItem(
+    showHelp: MutableState<Boolean>,
+    exercise: TrainingState.Exercise,
+    update: (TrainingState.Exercise) -> Unit,
+    remove: (TrainingState.Exercise) -> Unit
+) = Row(
+    modifier = Modifier
+        .animateItemPlacement()
+        .padding(top = 8.dp, bottom = 4.dp)
+        .background(DesignComponent.colors.special, RoundedCornerShape(8.dp)),
+    verticalAlignment = Alignment.CenterVertically
+) {
+
+    InputName(
+        modifier = Modifier
+            .onFocusChanged { showHelp.value = it.hasFocus }
+            .weight(1f),
+        value = exercise.name,
+        onValueChange = { update.invoke(exercise.copy(name = it)) },
+    )
+
+    IconPrimary(
+        modifier = Modifier.height(20.dp).width(50.dp),
+        imageVector = Icons.Filled.Delete,
+        color = DesignComponent.colors.primary,
+        onClick = { remove.invoke(exercise) },
+    )
+}
+
+@Composable
+private fun LazyGridItemScope.HelpItem(
     list: List<String>,
-    visibility: Boolean,
     onClick: (String) -> Unit,
-) = AnimatedVisibility(visibility) {
-    LazyRow(
-        modifier = Modifier.padding(top = 4.dp, bottom = 4.dp),
-        horizontalArrangement = Arrangement.spacedBy(4.dp)
-    ) {
-        items(list) {
-            ChipPrimary(
-                text = it,
-                onClick = { onClick.invoke(it) }
-            )
-        }
-    }
-}
-
-@Composable
-private fun IterationCaption(textColor: Color) {
-    Column(
-        modifier = Modifier.padding(vertical = 4.dp),
-        verticalArrangement = Arrangement.spacedBy(4.dp),
-    ) {
-
-        TextFieldBody2(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(
-                    color = DesignComponent.colors.special.copy(alpha = 0.1f),
-                    shape = RoundedCornerShape(topStart = 8.dp, bottomStart = 8.dp)
-                ).padding(8.dp),
-            text = "• Weight",
-            textAlign = TextAlign.Center,
-            maxLines = 1,
-            color = textColor,
-            fontWeight = FontWeight.Bold
-        )
-
-        TextFieldBody2(
-            modifier = Modifier.padding(8.dp).fillMaxSize(),
-            text = "• Repeat",
-            textAlign = TextAlign.Center,
-            maxLines = 1,
-            color = textColor,
-            fontWeight = FontWeight.Bold
+) = LazyRow(
+    modifier = Modifier.animateItemPlacement().padding(top = 4.dp, bottom = 4.dp),
+    horizontalArrangement = Arrangement.spacedBy(4.dp)
+) {
+    items(list) {
+        ChipPrimary(
+            text = it,
+            onClick = { onClick.invoke(it) }
         )
     }
 }
 
 @Composable
-private fun IterationInput(
+private fun LazyGridItemScope.IterationCaptionItem(
+    textColor: Color
+) = Column(
+    modifier = Modifier.animateItemPlacement().padding(vertical = 4.dp),
+    verticalArrangement = Arrangement.spacedBy(4.dp),
+) {
+    TextFieldBody2(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(
+                color = DesignComponent.colors.special.copy(alpha = 0.1f),
+                shape = RoundedCornerShape(topStart = 8.dp, bottomStart = 8.dp)
+            ).padding(8.dp),
+        text = "• Weight",
+        textAlign = TextAlign.Center,
+        maxLines = 1,
+        color = textColor,
+        fontWeight = FontWeight.Bold
+    )
+
+    TextFieldBody2(
+        modifier = Modifier.padding(8.dp).fillMaxSize(),
+        text = "• Repeat",
+        textAlign = TextAlign.Center,
+        maxLines = 1,
+        color = textColor,
+        fontWeight = FontWeight.Bold
+    )
+}
+
+@Composable
+private fun LazyGridItemScope.IterationInputItem(
     weightShape: Shape,
     iteration: TrainingState.Exercise.Iteration,
     updateWeight: (value: String) -> Unit,
     updateRepeat: (value: String) -> Unit
 ) = Column(
-    modifier = Modifier.padding(vertical = 4.dp),
+    modifier = Modifier.animateItemPlacement().padding(vertical = 4.dp),
     verticalArrangement = Arrangement.spacedBy(4.dp)
 ) {
     InputWeight(
-        modifier = Modifier.background(DesignComponent.colors.special.copy(alpha = 0.1f), weightShape),
+        modifier = Modifier
+            .background(DesignComponent.colors.special.copy(alpha = 0.1f), weightShape),
         value = iteration.weight,
         onValueChange = updateWeight
     )
@@ -246,20 +262,20 @@ private fun IterationInput(
 }
 
 @Composable
-fun NewExercise(
+fun LazyGridItemScope.NewExerciseItem(
     onClick: () -> Unit
 ) = TextFieldH1(
     modifier = Modifier
+        .animateItemPlacement()
         .fillMaxWidth()
-        .aspectRatio(2f)
         .background(
-            color = DesignComponent.colors.special.copy(alpha = DesignComponent.colors.primaryAlpha),
+            color = DesignComponent.colors.special.copy(alpha = DesignComponent.colors.alphaPrimary),
             shape = RoundedCornerShape(8.dp)
         ).clip(
             shape = RoundedCornerShape(8.dp)
         ).clickable {
             onClick.invoke()
-        },
+        }.padding(vertical = 8.dp),
     text = "+",
     color = DesignComponent.colors.primary,
     textAlign = TextAlign.Center

@@ -10,6 +10,8 @@ sealed class Router(val route: String, val args: Bundle) {
 
     object Auth : Router(route = "auth_screen", args = bundleOf())
 
+    object Trainings : Router(route = "trainings_screen", args = bundleOf())
+
     data class Training(
         val trainingState: TrainingState
     ) : Router(ID, bundleOf(ARG to trainingState)) {

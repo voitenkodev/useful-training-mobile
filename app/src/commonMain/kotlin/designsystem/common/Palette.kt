@@ -29,7 +29,7 @@ data class AppColors(
 
     val special: Color
 ) {
-    val primaryAlpha = 0.2f
+    val alphaPrimary = 0.2f
 }
 
 internal val black = Color(0xff000000)

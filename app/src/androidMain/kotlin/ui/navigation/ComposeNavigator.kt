@@ -15,6 +15,7 @@ import com.google.accompanist.navigation.animation.composable
 import org.koin.androidx.compose.koinViewModel
 import org.koin.core.parameter.parametersOf
 import training.TrainingState
+import trainings.TrainingsContent
 import ui.auth.AuthScreen
 import ui.auth.AuthViewModel
 import ui.review.ReviewScreen
@@ -24,7 +25,7 @@ import ui.training.TrainingViewModel
 @Composable
 fun ComposeNavigator(navController: NavHostController) = AnimatedNavHost(
     navController = navController,
-    startDestination = Router.Auth.route
+    startDestination = Router.Trainings.route
 ) {
 
     screen(
@@ -57,6 +58,12 @@ fun ComposeNavigator(navController: NavHostController) = AnimatedNavHost(
         route = Router.Review.ID,
         content = {
             ReviewScreen()
+        }
+    )
+    screen(
+        route = Router.Trainings.route,
+        content = {
+            TrainingsContent()
         }
     )
 }

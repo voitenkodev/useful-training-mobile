@@ -106,3 +106,255 @@ fun TrainingState.addExercise(): TrainingState {
     val newExercises = this.exercises + TrainingState.Exercise.EMPTY
     return this.copy(exercises = newExercises)
 }
+
+// TODO MOCK
+val MOCK = TrainingState(
+    id = "SOME_ID",
+    exercises = listOf(
+        TrainingState.Exercise(
+            id = "idEx1",
+            name = "Bench Press",
+            iterations = listOf(
+                TrainingState.Exercise.Iteration(
+                    weight = "100.54",
+                    repeat = "822"
+                ),
+                TrainingState.Exercise.Iteration(
+                    weight = "110",
+                    repeat = "6"
+                ),
+                TrainingState.Exercise.Iteration(
+                    weight = "115",
+                    repeat = "6"
+                ),
+                TrainingState.Exercise.Iteration(
+                    weight = "120",
+                    repeat = "5"
+                ),
+                TrainingState.Exercise.Iteration(
+                    weight = "150",
+                    repeat = "2"
+                ),
+                TrainingState.Exercise.Iteration(
+                    weight = "115",
+                    repeat = "6"
+                ),
+                TrainingState.Exercise.Iteration(
+                    weight = "120",
+                    repeat = "5"
+                ),
+                TrainingState.Exercise.Iteration(
+                    weight = "150",
+                    repeat = "2"
+                )
+            )
+        ),
+        TrainingState.Exercise(
+            id = "idEx2",
+            name = "My New Exercise",
+            iterations = listOf(
+                TrainingState.Exercise.Iteration(
+                    weight = "80",
+                    repeat = "15"
+                ),
+                TrainingState.Exercise.Iteration(
+                    weight = "80",
+                    repeat = "15"
+                ),
+                TrainingState.Exercise.Iteration(
+                    weight = "85",
+                    repeat = "15"
+                ),
+                TrainingState.Exercise.Iteration(
+                    weight = "85",
+                    repeat = "15"
+                ),
+                TrainingState.Exercise.Iteration(
+                    weight = "85",
+                    repeat = "13"
+                )
+            )
+        ),
+        TrainingState.Exercise(
+            id = "idEx3",
+            name = "Bench Press",
+            iterations = listOf(
+                TrainingState.Exercise.Iteration(
+                    weight = "100.5",
+                    repeat = "8"
+                ),
+                TrainingState.Exercise.Iteration(
+                    weight = "110",
+                    repeat = "6"
+                ),
+                TrainingState.Exercise.Iteration(
+                    weight = "115",
+                    repeat = "6"
+                ),
+                TrainingState.Exercise.Iteration(
+                    weight = "120",
+                    repeat = "5"
+                ),
+                TrainingState.Exercise.Iteration(
+                    weight = "150",
+                    repeat = "2"
+                ),
+                TrainingState.Exercise.Iteration(
+                    weight = "115",
+                    repeat = "6"
+                ),
+                TrainingState.Exercise.Iteration(
+                    weight = "120",
+                    repeat = "5"
+                ),
+                TrainingState.Exercise.Iteration(
+                    weight = "150",
+                    repeat = "2"
+                )
+            )
+        ),
+        TrainingState.Exercise(
+            id = "idEx4",
+            name = "Bench Press",
+            iterations = listOf(
+                TrainingState.Exercise.Iteration(
+                    weight = "100.5",
+                    repeat = "8"
+                ),
+                TrainingState.Exercise.Iteration(
+                    weight = "110",
+                    repeat = "6"
+                ),
+                TrainingState.Exercise.Iteration(
+                    weight = "115",
+                    repeat = "6"
+                ),
+                TrainingState.Exercise.Iteration(
+                    weight = "120",
+                    repeat = "5"
+                ),
+                TrainingState.Exercise.Iteration(
+                    weight = "150",
+                    repeat = "2"
+                ),
+                TrainingState.Exercise.Iteration(
+                    weight = "115",
+                    repeat = "6"
+                ),
+                TrainingState.Exercise.Iteration(
+                    weight = "120",
+                    repeat = "5"
+                ),
+                TrainingState.Exercise.Iteration(
+                    weight = "150",
+                    repeat = "2"
+                )
+            )
+        ),
+        TrainingState.Exercise(
+            id = "idEx5",
+            name = "Super Hard Press",
+            iterations = listOf(
+                TrainingState.Exercise.Iteration(
+                    weight = "100.5",
+                    repeat = "8"
+                ),
+                TrainingState.Exercise.Iteration(
+                    weight = "110",
+                    repeat = "6"
+                ),
+                TrainingState.Exercise.Iteration(
+                    weight = "115",
+                    repeat = "6"
+                ),
+                TrainingState.Exercise.Iteration(
+                    weight = "120",
+                    repeat = "5"
+                ),
+                TrainingState.Exercise.Iteration(
+                    weight = "150",
+                    repeat = "2"
+                ),
+                TrainingState.Exercise.Iteration(
+                    weight = "115",
+                    repeat = "6"
+                ),
+                TrainingState.Exercise.Iteration(
+                    weight = "120",
+                    repeat = "5"
+                ),
+                TrainingState.Exercise.Iteration(
+                    weight = "115",
+                    repeat = "6"
+                ),
+                TrainingState.Exercise.Iteration(
+                    weight = "120",
+                    repeat = "5"
+                ),
+                TrainingState.Exercise.Iteration(
+                    weight = "115",
+                    repeat = "6"
+                ),
+                TrainingState.Exercise.Iteration(
+                    weight = "120",
+                    repeat = "5"
+                ),
+                TrainingState.Exercise.Iteration(
+                    weight = "150",
+                    repeat = "2"
+                )
+            )
+        ),
+        TrainingState.Exercise(
+            id = "idEx6",
+            name = "Another Exercise",
+            iterations = listOf(
+                TrainingState.Exercise.Iteration(
+                    weight = "100.5",
+                    repeat = "8"
+                ),
+                TrainingState.Exercise.Iteration(
+                    weight = "110",
+                    repeat = "6"
+                ),
+                TrainingState.Exercise.Iteration(
+                    weight = "115",
+                    repeat = "6"
+                ),
+                TrainingState.Exercise.Iteration(
+                    weight = "120",
+                    repeat = "5"
+                ),
+                TrainingState.Exercise.Iteration(
+                    weight = "150",
+                    repeat = "2"
+                ),
+            )
+        ),
+        TrainingState.Exercise(
+            id = "idEx7",
+            name = "Some Other",
+            iterations = listOf(
+                TrainingState.Exercise.Iteration(
+                    weight = "100.5",
+                    repeat = "8"
+                ),
+                TrainingState.Exercise.Iteration(
+                    weight = "110",
+                    repeat = "6"
+                ),
+                TrainingState.Exercise.Iteration(
+                    weight = "115",
+                    repeat = "6"
+                ),
+                TrainingState.Exercise.Iteration(
+                    weight = "120",
+                    repeat = "5"
+                )
+            )
+        ),
+    ),
+    duration = "",
+    date = "",
+    userWeight = 0.0
+)
