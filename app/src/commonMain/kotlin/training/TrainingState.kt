@@ -116,36 +116,36 @@ val MOCK = TrainingState(
             name = "Bench Press",
             iterations = listOf(
                 TrainingState.Exercise.Iteration(
-                    weight = "100.54",
-                    repeat = "822"
+                    weight = "100.5",
+                    repeat = "82"
                 ),
                 TrainingState.Exercise.Iteration(
-                    weight = "110",
+                    weight = "110.2",
+                    repeat = "22"
+                ),
+                TrainingState.Exercise.Iteration(
+                    weight = "115.1",
+                    repeat = "36"
+                ),
+                TrainingState.Exercise.Iteration(
+                    weight = "120.2",
+                    repeat = "25"
+                ),
+                TrainingState.Exercise.Iteration(
+                    weight = "30",
+                    repeat = "8"
+                ),
+                TrainingState.Exercise.Iteration(
+                    weight = "35",
+                    repeat = "8"
+                ),
+                TrainingState.Exercise.Iteration(
+                    weight = "40",
+                    repeat = "7"
+                ),
+                TrainingState.Exercise.Iteration(
+                    weight = "45",
                     repeat = "6"
-                ),
-                TrainingState.Exercise.Iteration(
-                    weight = "115",
-                    repeat = "6"
-                ),
-                TrainingState.Exercise.Iteration(
-                    weight = "120",
-                    repeat = "5"
-                ),
-                TrainingState.Exercise.Iteration(
-                    weight = "150",
-                    repeat = "2"
-                ),
-                TrainingState.Exercise.Iteration(
-                    weight = "115",
-                    repeat = "6"
-                ),
-                TrainingState.Exercise.Iteration(
-                    weight = "120",
-                    repeat = "5"
-                ),
-                TrainingState.Exercise.Iteration(
-                    weight = "150",
-                    repeat = "2"
                 )
             )
         ),
