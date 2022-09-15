@@ -38,7 +38,7 @@ fun TrainingsContent(
     item {
         TextFieldH1(
             modifier = Modifier.padding(top = 44.dp, bottom = 8.dp),
-            text = "Trainings!",
+            text = "\uD83D\uDCD4 Trainings!",
         )
     }
 
@@ -90,12 +90,10 @@ fun TrainingItem(trainingState: TrainingState) = Column(
     trainingState.exercises.forEachIndexed { index, item ->
 
         TextFieldBody2(
-            modifier = Modifier.padding(top = 8.dp, bottom = 4.dp),
+            modifier = Modifier.padding(top = 12.dp, bottom = 4.dp),
             text = "${index + 1}. ${item.name}",
             fontWeight = FontWeight.Bold
         )
-
-        Divider()
 
         IterationVerticalGrid(
             modifier = Modifier.padding(top = 4.dp),
@@ -107,7 +105,7 @@ fun TrainingItem(trainingState: TrainingState) = Column(
                         .background(
                             color = DesignComponent.colors.primary70,
                             shape = CircleShape
-                        ).padding(horizontal = 8.dp, vertical = 4.dp),
+                        ).padding(horizontal = 6.dp, vertical = 4.dp),
                     text = it.weight + " x " + it.repeat
                 )
             }

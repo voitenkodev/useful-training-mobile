@@ -28,7 +28,7 @@ fun AuthContent(
 
     TextFieldH1(
         modifier = Modifier.padding(top = 44.dp, bottom = 8.dp),
-        text = "Hello Again!",
+        text = "\uD83D\uDC4B Hello Again!",
     )
 
     TextFieldH2(
