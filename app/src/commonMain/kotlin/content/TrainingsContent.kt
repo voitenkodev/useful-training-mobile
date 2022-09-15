@@ -5,9 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Divider
 import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
@@ -23,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import designsystem.common.DesignComponent
 import designsystem.controls.TextFieldBody2
 import designsystem.controls.TextFieldBody3
+import designsystem.controls.TextFieldH1
 import state.TrainingState
 
 @Composable
@@ -30,43 +29,36 @@ fun TrainingsContent(
     trainings: List<TrainingState>
 ) = LazyColumn(
     modifier = Modifier
-        .background(DesignComponent.colors.secondary100).
-        fillMaxSize(),
+        .fillMaxSize()
+        .background(DesignComponent.colors.primary50),
     verticalArrangement = Arrangement.spacedBy(DesignComponent.size.itemSpace),
     contentPadding = PaddingValues(DesignComponent.size.rootSpace)
 ) {
 
-    items(trainings) {
-        TrainingItem(it)
+    item {
+        TextFieldH1(
+            modifier = Modifier.padding(top = 44.dp, bottom = 8.dp),
+            text = "Trainings!",
+        )
     }
-}
 
-@Composable
-private fun CycleItem() {
-    Row(
-        modifier = Modifier.background(
-            color = DesignComponent.colors.primary100,
-            shape = CircleShape
-        ).padding(horizontal = 10.dp, vertical = 4.dp),
-        horizontalArrangement = Arrangement.spacedBy(4.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        TextFieldBody2(
-            text = "WEEK FROM",
-            color = DesignComponent.colors.secondary100,
-        )
-        TextFieldBody2(
-            text = "16.09.2022",
-            color = DesignComponent.colors.secondary100,
-        )
+    trainings.forEachIndexed { index, item ->
+        if (index % 3 == 0) {
+            item {
+                CycleItem()
+            }
+        }
+        item(item) {
+            TrainingItem(item)
+        }
     }
 }
 
 @Composable
 fun TrainingItem(trainingState: TrainingState) = Column(
     modifier = Modifier
-        .background(DesignComponent.colors.secondary100, RoundedCornerShape(8.dp))
-        .border(BorderStroke(2.dp, DesignComponent.colors.primary100), RoundedCornerShape(8.dp))
+        .background(DesignComponent.colors.primary100, DesignComponent.shape.maxShape)
+        .border(BorderStroke(2.dp, DesignComponent.colors.primary70), DesignComponent.shape.maxShape)
         .padding(12.dp)
 ) {
 
@@ -77,12 +69,12 @@ fun TrainingItem(trainingState: TrainingState) = Column(
     ) {
         TextFieldBody2(
             text = trainingState.weekDay.name,
-            color = DesignComponent.colors.primary100,
+            color = DesignComponent.colors.secondary100,
             fontWeight = FontWeight.Bold
         )
         TextFieldBody2(
             text = trainingState.date,
-            color = DesignComponent.colors.secondaryInverse,
+            color = DesignComponent.colors.primaryInverse50,
         )
 
         Spacer(modifier = Modifier.weight(1f))
@@ -90,7 +82,7 @@ fun TrainingItem(trainingState: TrainingState) = Column(
         Icon(
             modifier = Modifier.size(30.dp).padding(4.dp),
             imageVector = Icons.Default.ArrowForward,
-            tint = DesignComponent.colors.primary100,
+            tint = DesignComponent.colors.tertiary100,
             contentDescription = null
         )
     }
@@ -98,7 +90,7 @@ fun TrainingItem(trainingState: TrainingState) = Column(
     trainingState.exercises.forEachIndexed { index, item ->
 
         TextFieldBody2(
-            modifier = Modifier.padding(top = 8.dp, bottom = 2.dp),
+            modifier = Modifier.padding(top = 8.dp, bottom = 4.dp),
             text = "${index + 1}. ${item.name}",
             fontWeight = FontWeight.Bold
         )
@@ -113,15 +105,36 @@ fun TrainingItem(trainingState: TrainingState) = Column(
                 TextFieldBody3(
                     modifier = Modifier
                         .background(
-                            color = DesignComponent.colors.secondary100,
+                            color = DesignComponent.colors.primary70,
                             shape = CircleShape
-                        ).padding(horizontal = 8.dp, vertical = 3.dp),
+                        ).padding(horizontal = 8.dp, vertical = 4.dp),
                     text = it.weight + " x " + it.repeat
                 )
             }
         }
     }
     Spacer(modifier = Modifier.size(12.dp))
+}
+
+@Composable
+private fun CycleItem() {
+    Row(
+        modifier = Modifier.background(
+            color = DesignComponent.colors.tertiary100,
+            shape = CircleShape
+        ).padding(horizontal = 10.dp, vertical = 4.dp),
+        horizontalArrangement = Arrangement.spacedBy(4.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        TextFieldBody2(
+            text = "Week from:",
+            color = DesignComponent.colors.tertiaryInverse,
+        )
+        TextFieldBody2(
+            text = "16.09.2022",
+            color = DesignComponent.colors.tertiaryInverse,
+        )
+    }
 }
 
 @Composable

@@ -1,10 +1,7 @@
 package designsystem.controls
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -27,6 +24,7 @@ fun InputFieldPrimary(
     placeholder: String? = null,
     color: Color? = null,
     textAlign: TextAlign? = null,
+    leadIcon: @Composable (() -> Unit)? = null,
     maxLines: Int = Int.MAX_VALUE,
     enabled: Boolean = true,
     keyboardOptions: KeyboardOptions? = null,
@@ -44,6 +42,7 @@ fun InputFieldPrimary(
     placeholder = placeholder,
     enabled = enabled,
     keyboardOptions = keyboardOptions,
+    leadIcon = leadIcon,
     maxLength = maxLength,
     digits = digits,
     keyboardActions = keyboardActions
@@ -59,6 +58,7 @@ fun InputFieldSecondary(
     textAlign: TextAlign? = null,
     maxLines: Int = Int.MAX_VALUE,
     enabled: Boolean = true,
+    leadIcon: @Composable (() -> Unit)? = null,
     keyboardOptions: KeyboardOptions? = null,
     maxLength: Int? = null,
     digits: Array<Char> = emptyArray(),
@@ -76,7 +76,8 @@ fun InputFieldSecondary(
     keyboardOptions = keyboardOptions,
     maxLength = maxLength,
     digits = digits,
-    keyboardActions = keyboardActions
+    keyboardActions = keyboardActions,
+    leadIcon = leadIcon
 )
 
 @Composable
@@ -87,6 +88,7 @@ internal fun InputField(
     color: Color? = null,
     placeholder: String? = null,
     textAlign: TextAlign? = null,
+    leadIcon: @Composable (() -> Unit)? = null,
     enabled: Boolean = true,
     textStyle: TextStyle,
     maxLines: Int = Int.MAX_VALUE,
@@ -120,12 +122,18 @@ internal fun InputField(
         keyboardActions = keyboardActions ?: KeyboardActions.Default,
         decorationBox = { innerTextField ->
             Row(modifier = Modifier.fillMaxWidth()) {
-                if (placeholder?.isNotEmpty() == true && value.isNullOrEmpty()) {
-                    Inner(style = innerTextAlignTextStyle, text = placeholder)
+                if (leadIcon != null) {
+                    leadIcon.invoke()
+                    Spacer(modifier = Modifier.size(6.dp))
+                }
+                Box {
+                    if (placeholder?.isNotEmpty() == true && value.isNullOrEmpty()) {
+                        Inner(style = innerTextAlignTextStyle, text = placeholder)
+                    }
+                    innerTextField()
                 }
             }
-            innerTextField()
-        },
+        }
     )
 }
 

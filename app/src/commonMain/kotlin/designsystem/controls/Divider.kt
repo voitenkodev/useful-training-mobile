@@ -11,5 +11,5 @@ import designsystem.common.DesignComponent
 fun DividerPrimary(
     modifier: Modifier = Modifier,
     thickness: Dp = 1.dp,
-    color: Color = DesignComponent.colors.secondaryInverse.copy(alpha = 0.1f)
+    color: Color = DesignComponent.colors.secondaryInverse100.copy(alpha = 0.1f)
 ) = androidx.compose.material.Divider(modifier = modifier, color = color, thickness = thickness)

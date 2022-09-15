@@ -1,7 +1,6 @@
 package designsystem.controls
 
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.runtime.Composable
@@ -16,7 +15,7 @@ import designsystem.common.DesignComponent
 fun IconPrimary(
     modifier: Modifier = Modifier,
     imageVector: ImageVector,
-    color: Color = DesignComponent.colors.secondaryInverse,
+    color: Color = DesignComponent.colors.secondaryInverse100,
     onClick: () -> Unit
 ) = IconButton(
     modifier = modifier,

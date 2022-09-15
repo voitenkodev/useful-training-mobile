@@ -28,7 +28,7 @@ fun LineChart(
 ) {
     val backgroundColor = DesignComponent.colors.secondary100.toArgb()
     val lineColor = DesignComponent.colors.primary100
-    val textColor = DesignComponent.colors.secondaryInverse
+    val textColor = DesignComponent.colors.secondaryInverse100
     val filledColor = DesignComponent.colors.secondary100
 
     AndroidView(

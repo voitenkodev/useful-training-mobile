@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.TextStyle
@@ -29,6 +30,31 @@ fun ButtonPrimary(
         modifier = modifier,
         text = text,
         textStyle = DesignComponent.typography.PrimaryButton.copy(color = _textColor),
+        enabled = enabled,
+        onClick = onClick,
+        colors = ButtonDefaults.buttonColors(backgroundColor = _backgroundColor),
+        shape = DesignComponent.shape.maxShape,
+        borderStroke = null,
+        leadIcon = leadIcon
+    )
+}
+
+@Composable
+fun ButtonSecondary(
+    modifier: Modifier = Modifier,
+    text: String,
+    onClick: () -> Unit,
+    enabled: Boolean = true,
+    leadIcon: ImageVector? = null,
+) {
+
+    val _textColor = DesignComponent.colors.secondary100
+    val _backgroundColor = Color.Companion.Transparent
+
+    Button(
+        modifier = modifier,
+        text = text,
+        textStyle = DesignComponent.typography.SecondaryButton.copy(color = _textColor),
         enabled = enabled,
         onClick = onClick,
         colors = ButtonDefaults.buttonColors(backgroundColor = _backgroundColor),
@@ -69,9 +95,8 @@ private fun Button(
                 )
             }
             TextField(
-                modifier = Modifier
-                    .padding(horizontal = 8.dp, vertical = 8.dp),
-                text = text.uppercase(),
+                modifier = Modifier.padding(horizontal = 0.dp, vertical = 8.dp),
+                text = text,
                 textStyle = textStyle
             )
         }

@@ -28,7 +28,7 @@ import ui.training.TrainingViewModel
 @Composable
 fun ComposeNavigator(navController: NavHostController) = AnimatedNavHost(
     navController = navController,
-    startDestination = Router.Auth.route
+    startDestination = Router.Trainings.route
 ) {
 
     screen(

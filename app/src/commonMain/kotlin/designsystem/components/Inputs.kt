@@ -4,8 +4,13 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.Icon
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.Lock
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
@@ -30,11 +35,18 @@ fun InputEmail(
     InputFieldPrimary(
         modifier = modifier
             .background(DesignComponent.colors.primary100, DesignComponent.shape.minShape)
-            .border(BorderStroke(2.dp, DesignComponent.colors.primaryInverse50), DesignComponent.shape.minShape)
+            .border(BorderStroke(2.dp, DesignComponent.colors.primary70), DesignComponent.shape.minShape)
             .padding(12.dp),
         value = value,
         onValueChange = onValueChange,
-//            leadingIcon = Icons.Outlined.Person,
+        leadIcon = {
+            Icon(
+                modifier = Modifier.size(22.dp),
+                imageVector = Icons.Default.Email,
+                contentDescription = null,
+                tint = DesignComponent.colors.primaryInverse50
+            )
+        },
         placeholder = "Email",
         keyboardActions = KeyboardActions { focusManager.moveFocus(FocusDirection.Next) },
         keyboardOptions = KeyboardOptions(
@@ -56,12 +68,19 @@ fun InputPassword(
     InputFieldPrimary(
         modifier = Modifier
             .background(DesignComponent.colors.primary100, DesignComponent.shape.minShape)
-            .border(BorderStroke(2.dp, DesignComponent.colors.primaryInverse50), DesignComponent.shape.minShape)
+            .border(BorderStroke(2.dp, DesignComponent.colors.primary70), DesignComponent.shape.minShape)
             .padding(12.dp)
             .then(modifier),
         value = value,
         onValueChange = onValueChange,
-//            leadingIcon = Icons.Outlined.Person,
+        leadIcon = {
+            Icon(
+                modifier = Modifier.size(22.dp),
+                imageVector = Icons.Default.Lock,
+                contentDescription = null,
+                tint = DesignComponent.colors.primaryInverse50
+            )
+        },
         placeholder = "Password",
         keyboardActions = KeyboardActions { focusManager.moveFocus(FocusDirection.Next) },
         keyboardOptions = KeyboardOptions(

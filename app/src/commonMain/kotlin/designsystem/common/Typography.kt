@@ -42,8 +42,8 @@ internal fun AppTypography() = AppTypography(
         fontStyle = FontStyle.Normal,
     ),
     SecondaryButton = TextStyle(
-        fontSize = 12.sp,
-        fontWeight = FontWeight.Normal,
+        fontSize = 13.sp,
+        fontWeight = FontWeight.Bold,
         fontStyle = FontStyle.Normal,
         textDecoration = TextDecoration.Underline
     )

@@ -3,15 +3,13 @@ package content
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import designsystem.common.DesignComponent
 import designsystem.components.InputEmail
 import designsystem.components.InputPassword
-import designsystem.controls.ButtonPrimary
-import designsystem.controls.TextFieldH1
-import designsystem.controls.TextFieldH2
-import designsystem.controls.Toolbar
+import designsystem.controls.*
 import state.AuthState
 
 @Composable
@@ -28,17 +26,14 @@ fun AuthContent(
     verticalArrangement = Arrangement.spacedBy(DesignComponent.size.itemSpace)
 ) {
 
-    Toolbar()
-
     TextFieldH1(
+        modifier = Modifier.padding(top = 44.dp, bottom = 8.dp),
         text = "Hello Again!",
     )
 
     TextFieldH2(
         text = "Welcome back you've been missed!",
     )
-
-    Spacer(modifier = Modifier.size(8.dp))
 
     InputEmail(
         modifier = Modifier.fillMaxWidth(),
@@ -56,13 +51,25 @@ fun AuthContent(
 
     ButtonPrimary(
         modifier = Modifier.fillMaxWidth(),
-        text = "Login",
+        text = "Log In",
         onClick = { login.invoke(state) }
     )
 
-    ButtonPrimary(
+    Row(
         modifier = Modifier.fillMaxWidth(),
-        text = "Registration",
-        onClick = { registration.invoke(state) }
-    )
+        horizontalArrangement = Arrangement.spacedBy(0.dp, Alignment.CenterHorizontally),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+
+        TextFieldBody2(
+            text = "Don't have an account yet?",
+            color = DesignComponent.colors.primaryInverse50
+        )
+
+        ButtonSecondary(
+            text = "Sign Up!",
+            onClick = { registration.invoke(state) }
+        )
+    }
+
 }

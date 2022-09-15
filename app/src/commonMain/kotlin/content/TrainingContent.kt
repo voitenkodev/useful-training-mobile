@@ -59,7 +59,7 @@ fun TrainingContent(
         imageVector = Icons.Default.Send,
         modifier = Modifier
             .align(Alignment.End)
-            .background(DesignComponent.colors.secondaryInverse, CircleShape),
+            .background(DesignComponent.colors.secondaryInverse100, CircleShape),
         color = DesignComponent.colors.secondary100,
         onClick = { save.invoke(state) }
     )
@@ -120,8 +120,8 @@ fun ExerciseGrid(
                         key = exercise.id + index + "caption",
                         span = { GridItemSpan(currentLineSpan = 1) }
                     ) {
-                        val textColor = if (isFirstItemInList.not()) DesignComponent.colors.secondaryInverse.copy(alpha = 0.2f)
-                        else DesignComponent.colors.secondaryInverse
+                        val textColor = if (isFirstItemInList.not()) DesignComponent.colors.secondaryInverse100.copy(alpha = 0.2f)
+                        else DesignComponent.colors.secondaryInverse100
                         IterationCaptionItem(textColor = textColor)
                     }
                 }

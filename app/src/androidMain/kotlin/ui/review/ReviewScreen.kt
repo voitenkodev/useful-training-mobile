@@ -28,7 +28,7 @@ fun ReviewScreen() = LazyColumn(
         TextFieldBody2(
             modifier = Modifier.padding(horizontal = 8.dp),
             text = "Summary",
-            color = DesignComponent.colors.secondaryInverse.copy(alpha = 0.5f)
+            color = DesignComponent.colors.secondaryInverse100.copy(alpha = 0.5f)
         )
     }
     item {
