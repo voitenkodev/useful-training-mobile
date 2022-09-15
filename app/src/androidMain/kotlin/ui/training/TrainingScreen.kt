@@ -3,7 +3,7 @@ package ui.training
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import ui.navigation.LocalNavigator
-import training.TrainingContent
+import content.TrainingContent
 import ui.navigation.Router
 
 @Composable

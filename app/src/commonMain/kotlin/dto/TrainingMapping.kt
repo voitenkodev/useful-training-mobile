@@ -1,6 +1,6 @@
 package dto
 
-import training.TrainingState
+import state.TrainingState
 
 fun TrainingState.map() = Training(
     id = id,

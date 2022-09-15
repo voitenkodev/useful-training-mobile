@@ -23,34 +23,31 @@ fun Toolbar(
     menu: (() -> Unit)? = null,
     add: (() -> Unit)? = null,
     ok: (() -> Unit)? = null,
+) = Row(
+    modifier = modifier
+        .fillMaxWidth()
+        .background(DesignComponent.colors.primary50)
+        .height(44.dp)
+        .padding(horizontal = 8.dp),
+    verticalAlignment = Alignment.CenterVertically
 ) {
-    Row(
-        modifier = modifier
-            .shadow(elevation = 8.dp)
-            .fillMaxWidth()
-            .background(DesignComponent.colors.primary)
-            .height(44.dp)
-            .padding(horizontal = 8.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
 
-        back?.let {
-            Dot(onClick = it)
-        }
+    back?.let {
+        Dot(onClick = it)
+    }
 
-        Spacer(modifier = Modifier.weight(1f))
+    Spacer(modifier = Modifier.weight(1f))
 
-        add?.let {
-            Add(onClick = it)
-        }
+    add?.let {
+        Add(onClick = it)
+    }
 
-        ok?.let {
-            Ok(onClick = it)
-        }
+    ok?.let {
+        Ok(onClick = it)
+    }
 
-        menu?.let {
-            Menu(onClick = it)
-        }
+    menu?.let {
+        Menu(onClick = it)
     }
 }
 
@@ -59,12 +56,12 @@ fun Dot(modifier: Modifier = Modifier, onClick: () -> Unit) {
     Spacer(
         modifier = modifier
             .size(42.dp)
-            .clip(shape = RoundedCornerShape(50))
+            .clip(shape = DesignComponent.shape.maxShape)
             .clickable { onClick.invoke() }
             .padding(16.dp)
             .background(
-                shape = RoundedCornerShape(50),
-                color = DesignComponent.colors.primaryInverse
+                shape = DesignComponent.shape.maxShape,
+                color = DesignComponent.colors.primaryInverse100
             )
     )
 }

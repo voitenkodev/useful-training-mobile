@@ -16,7 +16,7 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             DesignTheme {
-                Surface(color = DesignComponent.colors.primary) {
+                Surface(color = DesignComponent.colors.primary100) {
                     val navController = rememberAnimatedNavController()
                     ComposeNavigator(navController)
                 }

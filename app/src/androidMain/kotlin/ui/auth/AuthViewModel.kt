@@ -3,12 +3,12 @@ package ui.auth
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import auth.AuthState
+import state.AuthState
 import datasource.AuthSource
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import training.TrainingState
+import state.TrainingState
 import ui.navigation.Router
 
 class AuthViewModel(

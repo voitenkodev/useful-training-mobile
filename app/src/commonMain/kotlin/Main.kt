@@ -6,7 +6,7 @@ import designsystem.common.DesignTheme
 @Composable
 fun Main() {
     DesignTheme {
-        Surface(color = DesignComponent.colors.primary) {
+        Surface(color = DesignComponent.colors.primary100) {
         }
     }
 }

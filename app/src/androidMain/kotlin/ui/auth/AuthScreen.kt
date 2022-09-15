@@ -2,7 +2,7 @@ package ui.auth
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import auth.AuthContent
+import content.AuthContent
 import ui.navigation.LocalNavigator
 import ui.navigation.Router
 

@@ -1,7 +1,10 @@
 package designsystem.controls
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -36,7 +39,7 @@ fun InputFieldPrimary(
     onValueChange = onValueChange,
     textStyle = DesignComponent.typography.Body,
     maxLines = maxLines,
-    color = color ?: DesignComponent.colors.primaryInverse,
+    color = color ?: DesignComponent.colors.primaryInverse100,
     textAlign = textAlign,
     placeholder = placeholder,
     enabled = enabled,
@@ -66,7 +69,7 @@ fun InputFieldSecondary(
     onValueChange = onValueChange,
     textStyle = DesignComponent.typography.Body2,
     maxLines = maxLines,
-    color = color ?: DesignComponent.colors.primaryInverse,
+    color = color ?: DesignComponent.colors.primaryInverse100,
     textAlign = textAlign,
     placeholder = placeholder,
     enabled = enabled,
@@ -128,5 +131,5 @@ internal fun InputField(
 
 @Composable
 private fun Inner(style: TextStyle, text: String) = ProvideTextStyle(value = style) {
-    Text(modifier = Modifier.fillMaxSize().alpha(0.5f), text = text, maxLines = 1)
+    Text(modifier = Modifier.fillMaxWidth().alpha(0.5f), text = text, maxLines = 1)
 }

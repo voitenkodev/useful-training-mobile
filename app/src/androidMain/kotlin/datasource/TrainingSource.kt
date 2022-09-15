@@ -6,7 +6,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.tasks.await
-import training.TrainingState
+import state.TrainingState
 
 class TrainingSource(
     private val store: FirebaseFirestore,

@@ -1,4 +1,4 @@
-package training
+package content
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -36,6 +36,7 @@ import designsystem.controls.ChipPrimary
 import designsystem.controls.IconPrimary
 import designsystem.controls.TextFieldBody2
 import designsystem.controls.TextFieldH1
+import state.*
 
 @Composable
 fun TrainingContent(
@@ -58,8 +59,8 @@ fun TrainingContent(
         imageVector = Icons.Default.Send,
         modifier = Modifier
             .align(Alignment.End)
-            .background(DesignComponent.colors.primaryInverse, CircleShape),
-        color = DesignComponent.colors.primary,
+            .background(DesignComponent.colors.secondaryInverse, CircleShape),
+        color = DesignComponent.colors.secondary100,
         onClick = { save.invoke(state) }
     )
 }
@@ -119,8 +120,8 @@ fun ExerciseGrid(
                         key = exercise.id + index + "caption",
                         span = { GridItemSpan(currentLineSpan = 1) }
                     ) {
-                        val textColor = if (isFirstItemInList.not()) DesignComponent.colors.primaryInverse.copy(alpha = 0.2f)
-                        else DesignComponent.colors.primaryInverse
+                        val textColor = if (isFirstItemInList.not()) DesignComponent.colors.secondaryInverse.copy(alpha = 0.2f)
+                        else DesignComponent.colors.secondaryInverse
                         IterationCaptionItem(textColor = textColor)
                     }
                 }
@@ -172,7 +173,7 @@ private fun LazyGridItemScope.InputNameItem(
     modifier = Modifier
         .animateItemPlacement()
         .padding(top = 8.dp, bottom = 4.dp)
-        .background(DesignComponent.colors.special, RoundedCornerShape(8.dp)),
+        .background(DesignComponent.colors.primary100, RoundedCornerShape(8.dp)),
     verticalAlignment = Alignment.CenterVertically
 ) {
 
@@ -187,7 +188,7 @@ private fun LazyGridItemScope.InputNameItem(
     IconPrimary(
         modifier = Modifier.height(20.dp).width(50.dp),
         imageVector = Icons.Filled.Delete,
-        color = DesignComponent.colors.primary,
+        color = DesignComponent.colors.secondary100,
         onClick = { remove.invoke(exercise) },
     )
 }
@@ -219,7 +220,7 @@ private fun LazyGridItemScope.IterationCaptionItem(
         modifier = Modifier
             .fillMaxSize()
             .background(
-                color = DesignComponent.colors.special.copy(alpha = 0.1f),
+                color = DesignComponent.colors.primary100.copy(alpha = 0.1f),
                 shape = RoundedCornerShape(topStart = 8.dp, bottomStart = 8.dp)
             ).padding(8.dp),
         text = "• Weight",
@@ -251,7 +252,7 @@ private fun LazyGridItemScope.IterationInputItem(
 ) {
     InputWeight(
         modifier = Modifier
-            .background(DesignComponent.colors.special.copy(alpha = 0.1f), weightShape),
+            .background(DesignComponent.colors.primary100.copy(alpha = 0.1f), weightShape),
         value = iteration.weight,
         onValueChange = updateWeight
     )
@@ -269,7 +270,7 @@ fun LazyGridItemScope.NewExerciseItem(
         .animateItemPlacement()
         .fillMaxWidth()
         .background(
-            color = DesignComponent.colors.special.copy(alpha = DesignComponent.colors.alphaPrimary),
+            color = DesignComponent.colors.secondary100,
             shape = RoundedCornerShape(8.dp)
         ).clip(
             shape = RoundedCornerShape(8.dp)
@@ -277,6 +278,6 @@ fun LazyGridItemScope.NewExerciseItem(
             onClick.invoke()
         }.padding(vertical = 8.dp),
     text = "+",
-    color = DesignComponent.colors.primary,
+    color = DesignComponent.colors.secondary100,
     textAlign = TextAlign.Center
 )

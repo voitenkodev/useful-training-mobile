@@ -12,8 +12,13 @@ import androidx.compose.ui.unit.sp
 @Composable
 internal fun AppTypography() = AppTypography(
     H1 = TextStyle(
-        fontSize = 40.sp,
+        fontSize = 36.sp,
         fontWeight = FontWeight.Bold,
+        fontStyle = FontStyle.Normal,
+    ),
+    H2 = TextStyle(
+        fontSize = 22.sp,
+        fontWeight = FontWeight.Normal,
         fontStyle = FontStyle.Normal,
     ),
     Body = TextStyle(
@@ -46,6 +51,7 @@ internal fun AppTypography() = AppTypography(
 
 data class AppTypography(
     val H1: TextStyle, // big titles
+    val H2: TextStyle, // little titles
 
     val Body: TextStyle, // main inputs + fields
     val Body2: TextStyle, // additional little input

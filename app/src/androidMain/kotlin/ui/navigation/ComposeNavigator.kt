@@ -9,13 +9,16 @@ import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
-import auth.AuthState
+import state.AuthState
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import org.koin.androidx.compose.koinViewModel
 import org.koin.core.parameter.parametersOf
-import training.TrainingState
-import trainings.TrainingsContent
+import state.MOCK_1
+import state.MOCK_2
+import state.MOCK_3
+import state.TrainingState
+import content.TrainingsContent
 import ui.auth.AuthScreen
 import ui.auth.AuthViewModel
 import ui.review.ReviewScreen
@@ -25,7 +28,7 @@ import ui.training.TrainingViewModel
 @Composable
 fun ComposeNavigator(navController: NavHostController) = AnimatedNavHost(
     navController = navController,
-    startDestination = Router.Trainings.route
+    startDestination = Router.Auth.route
 ) {
 
     screen(
@@ -60,10 +63,12 @@ fun ComposeNavigator(navController: NavHostController) = AnimatedNavHost(
             ReviewScreen()
         }
     )
+
     screen(
         route = Router.Trainings.route,
         content = {
-            TrainingsContent()
+            val list = listOf(MOCK_1, MOCK_2, MOCK_3)
+            TrainingsContent(trainings = list)
         }
     )
 }

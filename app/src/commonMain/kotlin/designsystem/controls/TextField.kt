@@ -24,7 +24,26 @@ fun TextFieldH1(
     placeholder = placeholder,
     textStyle = DesignComponent.typography.H1,
     maxLines = maxLines,
-    color = color ?: DesignComponent.colors.primaryInverse,
+    color = color ?: DesignComponent.colors.primaryInverse100,
+    textAlign = textAlign,
+    fontWeight = fontWeight
+)
+@Composable
+fun TextFieldH2(
+    text: String?,
+    modifier: Modifier = Modifier,
+    placeholder: String? = null,
+    color: Color? = null,
+    textAlign: TextAlign? = null,
+    maxLines: Int = Int.MAX_VALUE,
+    fontWeight: FontWeight? = null
+) = TextField(
+    text = text,
+    modifier = modifier,
+    placeholder = placeholder,
+    textStyle = DesignComponent.typography.H2,
+    maxLines = maxLines,
+    color = color ?: DesignComponent.colors.primaryInverse100,
     textAlign = textAlign,
     fontWeight = fontWeight
 )
@@ -44,7 +63,7 @@ fun TextFieldBody1(
     placeholder = placeholder,
     textStyle = DesignComponent.typography.Body,
     maxLines = maxLines,
-    color = color ?: DesignComponent.colors.primaryInverse,
+    color = color ?: DesignComponent.colors.primaryInverse100,
     textAlign = textAlign,
     fontWeight = fontWeight
 )
@@ -64,7 +83,7 @@ fun TextFieldBody2(
     placeholder = placeholder,
     textStyle = DesignComponent.typography.Body2,
     maxLines = maxLines,
-    color = color ?: DesignComponent.colors.primaryInverse,
+    color = color ?: DesignComponent.colors.primaryInverse100,
     textAlign = textAlign,
     fontWeight = fontWeight
 )
@@ -84,7 +103,7 @@ fun TextFieldBody3(
     placeholder = placeholder,
     textStyle = DesignComponent.typography.Body3,
     maxLines = maxLines,
-    color = color ?: DesignComponent.colors.primaryInverse,
+    color = color ?: DesignComponent.colors.primaryInverse100,
     textAlign = textAlign,
     fontWeight = fontWeight
 )

@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.core.net.toUri
 import androidx.core.os.bundleOf
 import androidx.navigation.*
-import training.TrainingState
+import state.TrainingState
 
 sealed class Router(val route: String, val args: Bundle) {
 

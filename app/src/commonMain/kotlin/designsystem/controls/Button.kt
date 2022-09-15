@@ -4,7 +4,6 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -13,7 +12,6 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import designsystem.common.DesignComponent
-import designsystem.common.almostWhite
 
 @Composable
 fun ButtonPrimary(
@@ -23,8 +21,9 @@ fun ButtonPrimary(
     enabled: Boolean = true,
     leadIcon: ImageVector? = null,
 ) {
-    val _textColor = DesignComponent.colors.primary
-    val _backgroundColor = DesignComponent.colors.primaryInverse
+
+    val _textColor = DesignComponent.colors.tertiaryInverse
+    val _backgroundColor = DesignComponent.colors.tertiary100
 
     Button(
         modifier = modifier,
@@ -33,7 +32,7 @@ fun ButtonPrimary(
         enabled = enabled,
         onClick = onClick,
         colors = ButtonDefaults.buttonColors(backgroundColor = _backgroundColor),
-        shape = RoundedCornerShape(50),
+        shape = DesignComponent.shape.maxShape,
         borderStroke = null,
         leadIcon = leadIcon
     )
@@ -66,7 +65,7 @@ private fun Button(
                     imageVector = leadIcon,
                     modifier = Modifier.size(24.dp),
                     contentDescription = null,
-                    tint = almostWhite
+                    tint = DesignComponent.colors.primary100
                 )
             }
             TextField(

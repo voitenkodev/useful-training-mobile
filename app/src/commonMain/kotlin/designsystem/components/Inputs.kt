@@ -4,7 +4,6 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.runtime.Composable
@@ -29,10 +28,10 @@ fun InputEmail(
     val focusManager = LocalFocusManager.current
 
     InputFieldPrimary(
-        modifier = Modifier.background(DesignComponent.colors.primary, RoundedCornerShape(8.dp))
-            .border(BorderStroke(2.dp, DesignComponent.colors.special), RoundedCornerShape(8.dp))
-            .padding(12.dp)
-            .then(modifier),
+        modifier = modifier
+            .background(DesignComponent.colors.primary100, DesignComponent.shape.minShape)
+            .border(BorderStroke(2.dp, DesignComponent.colors.primaryInverse50), DesignComponent.shape.minShape)
+            .padding(12.dp),
         value = value,
         onValueChange = onValueChange,
 //            leadingIcon = Icons.Outlined.Person,
@@ -55,8 +54,9 @@ fun InputPassword(
     val focusManager = LocalFocusManager.current
 
     InputFieldPrimary(
-        modifier = Modifier.background(DesignComponent.colors.primary, RoundedCornerShape(8.dp))
-            .border(BorderStroke(2.dp, DesignComponent.colors.special), RoundedCornerShape(8.dp))
+        modifier = Modifier
+            .background(DesignComponent.colors.primary100, DesignComponent.shape.minShape)
+            .border(BorderStroke(2.dp, DesignComponent.colors.primaryInverse50), DesignComponent.shape.minShape)
             .padding(12.dp)
             .then(modifier),
         value = value,
@@ -82,8 +82,8 @@ fun InputName(
 
     InputFieldPrimary(
         modifier = Modifier
-            .background(DesignComponent.colors.primary, RoundedCornerShape(8.dp))
-            .border(BorderStroke(2.dp, DesignComponent.colors.special), RoundedCornerShape(8.dp))
+            .background(DesignComponent.colors.secondary100, DesignComponent.shape.minShape)
+            .border(BorderStroke(2.dp, DesignComponent.colors.primary100), DesignComponent.shape.minShape)
             .padding(12.dp)
             .then(modifier),
         value = value,

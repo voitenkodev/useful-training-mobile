@@ -1,10 +1,11 @@
-package trainings
+package content
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Divider
@@ -20,64 +21,76 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import designsystem.common.DesignComponent
-import designsystem.controls.TextFieldBody1
 import designsystem.controls.TextFieldBody2
 import designsystem.controls.TextFieldBody3
-import designsystem.controls.TextFieldH1
-import training.MOCK
-import training.TrainingState
+import state.TrainingState
 
 @Composable
 fun TrainingsContent(
+    trainings: List<TrainingState>
 ) = LazyColumn(
-    modifier = Modifier.fillMaxSize().padding(DesignComponent.size.rootSpace),
-    verticalArrangement = Arrangement.spacedBy(DesignComponent.size.itemSpace)
+    modifier = Modifier
+        .background(DesignComponent.colors.secondary100).
+        fillMaxSize(),
+    verticalArrangement = Arrangement.spacedBy(DesignComponent.size.itemSpace),
+    contentPadding = PaddingValues(DesignComponent.size.rootSpace)
 ) {
 
-    stickyHeader {
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(4.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            TextFieldH1(
-                text = "•",
-                color = DesignComponent.colors.special
-            )
-
-            TextFieldBody2(
-                text = "cycle from",
-                color = DesignComponent.colors.primaryInverse.copy(alpha = 0.5f)
-            )
-
-            TextFieldBody1(text = "16.09.2022")
-        }
+    items(trainings) {
+        TrainingItem(it)
     }
-    item {
-        TrainingItem(MOCK)
+}
+
+@Composable
+private fun CycleItem() {
+    Row(
+        modifier = Modifier.background(
+            color = DesignComponent.colors.primary100,
+            shape = CircleShape
+        ).padding(horizontal = 10.dp, vertical = 4.dp),
+        horizontalArrangement = Arrangement.spacedBy(4.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        TextFieldBody2(
+            text = "WEEK FROM",
+            color = DesignComponent.colors.secondary100,
+        )
+        TextFieldBody2(
+            text = "16.09.2022",
+            color = DesignComponent.colors.secondary100,
+        )
     }
 }
 
 @Composable
 fun TrainingItem(trainingState: TrainingState) = Column(
-    modifier = Modifier.background(DesignComponent.colors.primary, RoundedCornerShape(8.dp))
-        .border(BorderStroke(2.dp, DesignComponent.colors.special), RoundedCornerShape(8.dp))
+    modifier = Modifier
+        .background(DesignComponent.colors.secondary100, RoundedCornerShape(8.dp))
+        .border(BorderStroke(2.dp, DesignComponent.colors.primary100), RoundedCornerShape(8.dp))
         .padding(12.dp)
 ) {
 
     Row(
-        modifier = Modifier.fillMaxSize().padding(vertical = 2.dp),
-        verticalAlignment = Alignment.CenterVertically
+        modifier = Modifier.fillMaxSize().padding(vertical = 8.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(4.dp)
     ) {
         TextFieldBody2(
-            modifier = Modifier.weight(1f),
-            text = "Monday",
-            color = DesignComponent.colors.special,
+            text = trainingState.weekDay.name,
+            color = DesignComponent.colors.primary100,
             fontWeight = FontWeight.Bold
         )
+        TextFieldBody2(
+            text = trainingState.date,
+            color = DesignComponent.colors.secondaryInverse,
+        )
+
+        Spacer(modifier = Modifier.weight(1f))
+
         Icon(
             modifier = Modifier.size(30.dp).padding(4.dp),
             imageVector = Icons.Default.ArrowForward,
-            tint = DesignComponent.colors.special,
+            tint = DesignComponent.colors.primary100,
             contentDescription = null
         )
     }
@@ -98,10 +111,11 @@ fun TrainingItem(trainingState: TrainingState) = Column(
         ) {
             item.iterations.forEach {
                 TextFieldBody3(
-                    modifier = Modifier.background(
-                        color = DesignComponent.colors.special.copy(alpha = DesignComponent.colors.alphaPrimary),
-                        shape = CircleShape
-                    ).padding(horizontal = 8.dp, vertical = 3.dp),
+                    modifier = Modifier
+                        .background(
+                            color = DesignComponent.colors.secondary100,
+                            shape = CircleShape
+                        ).padding(horizontal = 8.dp, vertical = 3.dp),
                     text = it.weight + " x " + it.repeat
                 )
             }

@@ -26,15 +26,15 @@ import designsystem.common.DesignComponent
 fun LineChart(
     modifier: Modifier
 ) {
-    val backgroundColor = DesignComponent.colors.primary.toArgb()
-    val lineColor = DesignComponent.colors.special
-    val filledColorAlpha = DesignComponent.colors.alphaPrimary
-    val textColor = DesignComponent.colors.primaryInverse
+    val backgroundColor = DesignComponent.colors.secondary100.toArgb()
+    val lineColor = DesignComponent.colors.primary100
+    val textColor = DesignComponent.colors.secondaryInverse
+    val filledColor = DesignComponent.colors.secondary100
 
     AndroidView(
         modifier = modifier
-            .background(color = DesignComponent.colors.primary, shape = RoundedCornerShape(8.dp))
-            .border(BorderStroke(6.dp, DesignComponent.colors.special), shape = RoundedCornerShape(8.dp))
+            .background(color = DesignComponent.colors.secondary100, shape = RoundedCornerShape(8.dp))
+            .border(BorderStroke(6.dp, DesignComponent.colors.primary100), shape = RoundedCornerShape(8.dp))
             .padding(8.dp),
         factory = { context ->
             LineChart(context).apply {
@@ -89,7 +89,7 @@ fun LineChart(
             }.toLineChart(
                 label = "Tonnage",
                 color = lineColor,
-                backgroundColor = lineColor.copy(alpha = filledColorAlpha)
+                backgroundColor = filledColor
             )
             it.animateY(500)
             it.invalidate()

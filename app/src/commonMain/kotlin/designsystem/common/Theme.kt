@@ -20,5 +20,7 @@ fun DesignTheme(
 
     LocalAppSize provides AppSize(),
 
+    LocalAppShape provides AppShape(),
+
     content = content
 )

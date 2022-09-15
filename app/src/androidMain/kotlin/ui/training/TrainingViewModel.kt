@@ -8,7 +8,7 @@ import datasource.TrainingSource
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import training.TrainingState
+import state.TrainingState
 import ui.navigation.Router
 
 class TrainingViewModel(
