@@ -5,8 +5,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.Divider
 import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowForward
@@ -20,7 +18,6 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import designsystem.common.DesignComponent
 import designsystem.controls.TextFieldBody2
-import designsystem.controls.TextFieldBody3
 import designsystem.controls.TextFieldH1
 import state.TrainingState
 
@@ -43,11 +40,11 @@ fun TrainingsContent(
     }
 
     trainings.forEachIndexed { index, item ->
-        if (index % 3 == 0) {
-            item {
-                CycleItem()
-            }
-        }
+//        if (index % 3 == 0) {
+//            item {
+//                CycleItem()
+//            }
+//        }
         item(item) {
             TrainingItem(item)
         }
@@ -57,8 +54,8 @@ fun TrainingsContent(
 @Composable
 fun TrainingItem(trainingState: TrainingState) = Column(
     modifier = Modifier
-        .background(DesignComponent.colors.primary100, DesignComponent.shape.maxShape)
-        .border(BorderStroke(2.dp, DesignComponent.colors.primary70), DesignComponent.shape.maxShape)
+        .background(DesignComponent.colors.primary100, DesignComponent.shape.minShape)
+        .border(BorderStroke(2.dp, DesignComponent.colors.primary70), DesignComponent.shape.minShape)
         .padding(12.dp)
 ) {
 
@@ -89,25 +86,30 @@ fun TrainingItem(trainingState: TrainingState) = Column(
 
     trainingState.exercises.forEachIndexed { index, item ->
 
-        TextFieldBody2(
-            modifier = Modifier.padding(top = 12.dp, bottom = 4.dp),
-            text = "${index + 1}. ${item.name}",
-            fontWeight = FontWeight.Bold
-        )
+        Row(modifier = Modifier.padding(top = 12.dp)) {
 
-        IterationVerticalGrid(
-            modifier = Modifier.padding(top = 4.dp),
-            spacing = 4.dp,
-        ) {
-            item.iterations.forEach {
-                TextFieldBody3(
-                    modifier = Modifier
-                        .background(
-                            color = DesignComponent.colors.primary70,
-                            shape = CircleShape
-                        ).padding(horizontal = 6.dp, vertical = 4.dp),
-                    text = it.weight + " x " + it.repeat
-                )
+            TextFieldBody2(text = "${index + 1}.", fontWeight = FontWeight.Bold)
+
+            Column {
+
+                TextFieldBody2(text = " ${item.name}", fontWeight = FontWeight.Bold)
+
+                IterationVerticalGrid(
+                    modifier = Modifier.padding(top = 6.dp, bottom = 2.dp),
+                    spacing = 4.dp,
+                ) {
+                    item.iterations.forEach {
+                        TextFieldBody2(
+                            modifier = Modifier
+                                .background(
+                                    color = DesignComponent.colors.primary70,
+                                    shape = DesignComponent.shape.minShape
+                                )
+                                .padding(horizontal = 6.dp, vertical = 4.dp),
+                            text = it.weight + "x" + it.repeat
+                        )
+                    }
+                }
             }
         }
     }
@@ -118,8 +120,8 @@ fun TrainingItem(trainingState: TrainingState) = Column(
 private fun CycleItem() {
     Row(
         modifier = Modifier.background(
-            color = DesignComponent.colors.tertiary100,
-            shape = CircleShape
+            color = DesignComponent.colors.tertiary50,
+            shape = DesignComponent.shape.minShape
         ).padding(horizontal = 10.dp, vertical = 4.dp),
         horizontalArrangement = Arrangement.spacedBy(4.dp),
         verticalAlignment = Alignment.CenterVertically

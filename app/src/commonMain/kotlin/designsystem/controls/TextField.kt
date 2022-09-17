@@ -89,26 +89,6 @@ fun TextFieldBody2(
 )
 
 @Composable
-fun TextFieldBody3(
-    text: String?,
-    modifier: Modifier = Modifier,
-    placeholder: String? = null,
-    color: Color? = null,
-    textAlign: TextAlign? = null,
-    maxLines: Int = Int.MAX_VALUE,
-    fontWeight: FontWeight? = null
-) = TextField(
-    modifier = modifier,
-    text = text,
-    placeholder = placeholder,
-    textStyle = DesignComponent.typography.Body3,
-    maxLines = maxLines,
-    color = color ?: DesignComponent.colors.primaryInverse100,
-    textAlign = textAlign,
-    fontWeight = fontWeight
-)
-
-@Composable
 internal fun TextField(
     text: String?,
     modifier: Modifier = Modifier,

@@ -17,6 +17,7 @@ fun LightPalette() = AppColors(
     secondaryInverse50 = color_black_100,
 
     tertiary100 = color_5,
+    tertiary50 = color_4,
     tertiaryInverse = color_white_100
 )
 
@@ -37,12 +38,13 @@ data class AppColors(
     val secondaryInverse50: Color,
 
     val tertiary100: Color,
+    val tertiary50: Color,
     val tertiaryInverse: Color,
 )
 
 val color_white_100 = Color(0xffffffff)
 val color_white_70 = Color(0xfff5f5f5)
-val color_white_50 = Color(0xfff5f7fb)
+val color_white_50 = Color(0xffdae4f5)
 val color_black_100 = Color(0xff000000)
 val color_black_50 = Color(0xffa8a8a8)
 
