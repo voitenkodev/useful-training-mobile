@@ -19,7 +19,7 @@ import state.TrainingState
 
 @Composable
 fun TrainingsContent(
-    trainings: List<TrainingState>,
+    state: List<TrainingState>,
     get: (TrainingState) -> Unit
 ) = LazyColumn(
     modifier = Modifier
@@ -46,7 +46,7 @@ fun TrainingsContent(
         }
     }
 
-    trainings.forEachIndexed { index, item ->
+    state.forEachIndexed { index, item ->
 //        if (index % 3 == 0) {
 //            item {
 //                CycleItem()

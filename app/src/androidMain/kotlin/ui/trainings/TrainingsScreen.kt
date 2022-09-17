@@ -20,7 +20,7 @@ fun TrainingsScreen(
     )
 
     TrainingsContent(
-        trainings = state.value,
+        state = state.value,
         get = viewModel::get
     )
 }
