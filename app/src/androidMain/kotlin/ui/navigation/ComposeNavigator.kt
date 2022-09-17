@@ -9,21 +9,19 @@ import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
-import state.AuthState
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import org.koin.androidx.compose.koinViewModel
 import org.koin.core.parameter.parametersOf
-import state.MOCK_1
-import state.MOCK_2
-import state.MOCK_3
+import state.AuthState
 import state.TrainingState
-import content.TrainingsContent
 import ui.auth.AuthScreen
 import ui.auth.AuthViewModel
 import ui.review.ReviewScreen
 import ui.training.TrainingScreen
 import ui.training.TrainingViewModel
+import ui.trainings.TrainingsScreen
+import ui.trainings.TrainingsViewModel
 
 @Composable
 fun ComposeNavigator(navController: NavHostController) = AnimatedNavHost(
@@ -47,8 +45,8 @@ fun ComposeNavigator(navController: NavHostController) = AnimatedNavHost(
     screen(
         route = Router.Training.ID,
         content = {
-            val state = TrainingState.empty(0.0)
-            val params = mapOf("trainingState" to state)
+            val arg = it.arguments?.get(Router.Training.ARG) as? TrainingState
+            val params = mapOf("trainingState" to arg)
             val viewModel = koinViewModel<TrainingViewModel> { parametersOf(SavedStateHandle(params)) }
             TrainingScreen(
                 viewModel = viewModel,
@@ -67,8 +65,11 @@ fun ComposeNavigator(navController: NavHostController) = AnimatedNavHost(
     screen(
         route = Router.Trainings.route,
         content = {
-            val list = listOf(MOCK_1, MOCK_2, MOCK_3)
-            TrainingsContent(trainings = list)
+            val viewModel = koinViewModel<TrainingsViewModel> { parametersOf(SavedStateHandle(mapOf())) }
+            TrainingsScreen(
+                viewModel = viewModel,
+                navigate = { navController.routeTo(route = it) }
+            )
         }
     )
 }

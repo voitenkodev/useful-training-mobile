@@ -1,13 +1,10 @@
 package content
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowForward
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -17,13 +14,13 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import designsystem.common.DesignComponent
-import designsystem.controls.TextFieldBody2
-import designsystem.controls.TextFieldH1
+import designsystem.controls.*
 import state.TrainingState
 
 @Composable
 fun TrainingsContent(
-    trainings: List<TrainingState>
+    trainings: List<TrainingState>,
+    get: (TrainingState) -> Unit
 ) = LazyColumn(
     modifier = Modifier
         .fillMaxSize()
@@ -33,10 +30,20 @@ fun TrainingsContent(
 ) {
 
     item {
-        TextFieldH1(
-            modifier = Modifier.padding(top = 44.dp, bottom = 8.dp),
-            text = "\uD83D\uDCD4 Trainings!",
-        )
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            TextFieldH1(
+                modifier = Modifier.padding(top = 44.dp, bottom = 8.dp),
+                text = "Trainings!",
+            )
+            TextFieldH1(
+                modifier = Modifier.padding(top = 44.dp, bottom = 8.dp),
+                text = "\uD83D\uDCCA",
+            )
+
+        }
     }
 
     trainings.forEachIndexed { index, item ->
@@ -46,47 +53,55 @@ fun TrainingsContent(
 //            }
 //        }
         item(item) {
-            TrainingItem(item)
+            TrainingItem(
+                trainingState = item,
+                get = get
+            )
         }
     }
 }
 
 @Composable
-fun TrainingItem(trainingState: TrainingState) = Column(
+fun TrainingItem(
+    trainingState: TrainingState,
+    get: (TrainingState) -> Unit
+) = Column(
     modifier = Modifier
         .background(DesignComponent.colors.primary100, DesignComponent.shape.minShape)
-        .border(BorderStroke(2.dp, DesignComponent.colors.primary70), DesignComponent.shape.minShape)
-        .padding(12.dp)
+        .padding(bottom = 24.dp)
 ) {
-
     Row(
-        modifier = Modifier.fillMaxSize().padding(vertical = 8.dp),
+        modifier = Modifier.fillMaxWidth().padding(start = 12.dp),
+        horizontalArrangement = Arrangement.spacedBy(4.dp),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(4.dp)
     ) {
-        TextFieldBody2(
+        TextFieldBody1(
+            modifier = Modifier.padding(vertical = 12.dp),
             text = trainingState.weekDay.name,
             color = DesignComponent.colors.secondary100,
             fontWeight = FontWeight.Bold
         )
-        TextFieldBody2(
-            text = trainingState.date,
+        TextFieldBody1(
+            modifier = Modifier.padding(vertical = 12.dp),
+            text = trainingState.date.takeLast(5), // todo update to format date
             color = DesignComponent.colors.primaryInverse50,
         )
 
         Spacer(modifier = Modifier.weight(1f))
 
-        Icon(
-            modifier = Modifier.size(30.dp).padding(4.dp),
-            imageVector = Icons.Default.ArrowForward,
-            tint = DesignComponent.colors.tertiary100,
-            contentDescription = null
+        IconPrimary(
+            modifier = Modifier.height(20.dp),
+            imageVector = Icons.Default.Edit,
+            color = DesignComponent.colors.tertiary100,
+            onClick = { get.invoke(trainingState) }
         )
     }
 
+    DividerPrimary(modifier = Modifier.padding(start = 12.dp, end = 12.dp, bottom = 4.dp))
+
     trainingState.exercises.forEachIndexed { index, item ->
 
-        Row(modifier = Modifier.padding(top = 12.dp)) {
+        Row(modifier = Modifier.padding(horizontal = 12.dp).padding(top = 8.dp)) {
 
             TextFieldBody2(text = "${index + 1}.", fontWeight = FontWeight.Bold)
 
@@ -113,7 +128,6 @@ fun TrainingItem(trainingState: TrainingState) = Column(
             }
         }
     }
-    Spacer(modifier = Modifier.size(12.dp))
 }
 
 @Composable
@@ -138,7 +152,7 @@ private fun CycleItem() {
 }
 
 @Composable
-fun IterationVerticalGrid(
+private fun IterationVerticalGrid(
     modifier: Modifier = Modifier,
     spacing: Dp,
     content: @Composable () -> Unit

@@ -1,14 +1,14 @@
-package ui.training
+package ui.trainings
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import ui.navigation.LocalNavigator
-import content.TrainingContent
+import content.TrainingsContent
 import ui.navigation.Router
 
 @Composable
-fun TrainingScreen(
-    viewModel: TrainingViewModel,
+fun TrainingsScreen(
+    viewModel: TrainingsViewModel,
     navigate: (Router) -> Unit
 ) {
 
@@ -19,10 +19,8 @@ fun TrainingScreen(
         navigate = navigate
     )
 
-    TrainingContent(
-        state = state.value,
-        update = viewModel::update,
-        save = viewModel::save,
-        help = listOf("bench press", "weight lift", "test", "some big exercise name")
+    TrainingsContent(
+        trainings = state.value,
+        get = viewModel::get
     )
 }

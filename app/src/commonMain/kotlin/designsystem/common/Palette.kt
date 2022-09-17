@@ -52,4 +52,5 @@ val color_1 = Color(0xff2ec4b6)
 val color_2 = Color(0xffcbf3f0)
 
 val color_4 = Color(0xffffe5c3)
-val color_5 = Color(0xffff9f1c)
+//val color_5 = Color(0xffff9f1c)
+val color_5 = Color(0xffffb005)

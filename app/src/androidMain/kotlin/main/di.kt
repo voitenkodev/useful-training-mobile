@@ -12,6 +12,7 @@ import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import ui.auth.AuthViewModel
 import ui.training.TrainingViewModel
+import ui.trainings.TrainingsViewModel
 
 val appModule = module {
     single(named("IO")) { Dispatchers.IO }
@@ -25,4 +26,5 @@ val appModule = module {
 
     viewModel { params: ParametersHolder -> TrainingViewModel(params.get(), get(), get()) }
     viewModelOf(::AuthViewModel)
+    viewModelOf(::TrainingsViewModel)
 }

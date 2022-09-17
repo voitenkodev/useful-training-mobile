@@ -1,20 +1,14 @@
 package designsystem.components
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.Icon
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Email
-import androidx.compose.material.icons.filled.Lock
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
@@ -23,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import designsystem.common.DesignComponent
 import designsystem.controls.InputFieldPrimary
 import designsystem.controls.InputFieldSecondary
+import designsystem.controls.TextFieldBody1
 
 @Composable
 fun InputEmail(
@@ -35,18 +30,10 @@ fun InputEmail(
     InputFieldPrimary(
         modifier = modifier
             .background(DesignComponent.colors.primary100, DesignComponent.shape.minShape)
-            .border(BorderStroke(2.dp, DesignComponent.colors.primary70), DesignComponent.shape.minShape)
             .padding(12.dp),
         value = value,
         onValueChange = onValueChange,
-        leadIcon = {
-            Icon(
-                modifier = Modifier.size(22.dp),
-                imageVector = Icons.Default.Email,
-                contentDescription = null,
-                tint = DesignComponent.colors.primaryInverse50
-            )
-        },
+        leadIcon = { TextFieldBody1(text = "✉️") },
         placeholder = "Email",
         keyboardActions = KeyboardActions { focusManager.moveFocus(FocusDirection.Next) },
         keyboardOptions = KeyboardOptions(
@@ -68,19 +55,11 @@ fun InputPassword(
     InputFieldPrimary(
         modifier = Modifier
             .background(DesignComponent.colors.primary100, DesignComponent.shape.minShape)
-            .border(BorderStroke(2.dp, DesignComponent.colors.primary70), DesignComponent.shape.minShape)
             .padding(12.dp)
             .then(modifier),
         value = value,
         onValueChange = onValueChange,
-        leadIcon = {
-            Icon(
-                modifier = Modifier.size(22.dp),
-                imageVector = Icons.Default.Lock,
-                contentDescription = null,
-                tint = DesignComponent.colors.primaryInverse50
-            )
-        },
+        leadIcon = { TextFieldBody1(text = "\uD83D\uDD12️") },
         placeholder = "Password",
         keyboardActions = KeyboardActions { focusManager.moveFocus(FocusDirection.Next) },
         keyboardOptions = KeyboardOptions(
@@ -100,17 +79,14 @@ fun InputName(
     val focusManager = LocalFocusManager.current
 
     InputFieldPrimary(
-        modifier = Modifier
-            .background(DesignComponent.colors.secondary100, DesignComponent.shape.minShape)
-            .border(BorderStroke(2.dp, DesignComponent.colors.primary100), DesignComponent.shape.minShape)
-            .padding(12.dp)
-            .then(modifier),
+        modifier = modifier,
         value = value,
         placeholder = "Name of exercise",
         maxLines = 1,
         keyboardActions = KeyboardActions { focusManager.moveFocus(FocusDirection.Next) },
         onValueChange = onValueChange,
         keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Sentences, imeAction = ImeAction.Next),
+        fontWeight = FontWeight.Bold
     )
 }
 
@@ -123,7 +99,7 @@ fun InputWeight(
     val focusManager = LocalFocusManager.current
 
     InputFieldSecondary(
-        modifier = modifier,
+        modifier = modifier.padding(bottom = 2.dp),
         value = value,
         onValueChange = onValueChange,
         textAlign = TextAlign.Center,
@@ -143,7 +119,7 @@ fun InputRepeat(
     onValueChange: (String) -> Unit,
 ) {
     InputFieldSecondary(
-        modifier = modifier,
+        modifier = modifier.padding(top = 2.dp),
         value = value,
         onValueChange = onValueChange,
         textAlign = TextAlign.Center,

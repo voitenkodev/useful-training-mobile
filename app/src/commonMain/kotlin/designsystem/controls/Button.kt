@@ -22,9 +22,8 @@ fun ButtonPrimary(
     enabled: Boolean = true,
     leadIcon: ImageVector? = null,
 ) {
-
-    val _textColor = DesignComponent.colors.tertiaryInverse
-    val _backgroundColor = DesignComponent.colors.tertiary100
+    val _textColor = DesignComponent.colors.secondaryInverse100
+    val _backgroundColor = DesignComponent.colors.secondary100
 
     Button(
         modifier = modifier,
@@ -48,7 +47,7 @@ fun ButtonSecondary(
     leadIcon: ImageVector? = null,
 ) {
 
-    val _textColor = DesignComponent.colors.secondary100
+    val _textColor = DesignComponent.colors.tertiary100
     val _backgroundColor = Color.Companion.Transparent
 
     Button(

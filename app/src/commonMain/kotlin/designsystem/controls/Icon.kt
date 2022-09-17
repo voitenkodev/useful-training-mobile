@@ -1,6 +1,8 @@
 package designsystem.controls
 
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.runtime.Composable
@@ -18,15 +20,13 @@ fun IconPrimary(
     color: Color = DesignComponent.colors.secondaryInverse100,
     onClick: () -> Unit
 ) = IconButton(
-    modifier = modifier,
+    modifier = modifier.wrapContentSize(),
     onClick = onClick
 ) {
-
     Icon(
         imageVector = imageVector,
         tint = color,
         modifier = Modifier
-            .size(20.dp)
             .clip(shape = DesignComponent.shape.minShape),
         contentDescription = null,
     )

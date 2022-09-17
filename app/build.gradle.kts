@@ -74,6 +74,7 @@ kotlin {
                 implementation("com.google.firebase:firebase-firestore:24.3.0")
                 // Accompanist
                 implementation("com.google.accompanist:accompanist-navigation-animation:0.23.1")
+                implementation("com.google.accompanist:accompanist-systemuicontroller:0.23.1")
                 // Koin
                 implementation("io.insert-koin:koin-core:3.2.0")
                 implementation("io.insert-koin:koin-androidx-compose:3.2.0")

@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import designsystem.common.DesignComponent
@@ -29,6 +30,7 @@ fun InputFieldPrimary(
     enabled: Boolean = true,
     keyboardOptions: KeyboardOptions? = null,
     maxLength: Int? = null,
+    fontWeight: FontWeight? = null,
     digits: Array<Char> = emptyArray(),
     keyboardActions: KeyboardActions? = null
 ) = InputField(
@@ -45,7 +47,8 @@ fun InputFieldPrimary(
     leadIcon = leadIcon,
     maxLength = maxLength,
     digits = digits,
-    keyboardActions = keyboardActions
+    keyboardActions = keyboardActions,
+    fontWeight = fontWeight
 )
 
 @Composable
@@ -61,6 +64,7 @@ fun InputFieldSecondary(
     leadIcon: @Composable (() -> Unit)? = null,
     keyboardOptions: KeyboardOptions? = null,
     maxLength: Int? = null,
+    fontWeight: FontWeight? = null,
     digits: Array<Char> = emptyArray(),
     keyboardActions: KeyboardActions? = null
 ) = InputField(
@@ -77,7 +81,8 @@ fun InputFieldSecondary(
     maxLength = maxLength,
     digits = digits,
     keyboardActions = keyboardActions,
-    leadIcon = leadIcon
+    leadIcon = leadIcon,
+    fontWeight = fontWeight
 )
 
 @Composable
@@ -93,18 +98,23 @@ internal fun InputField(
     textStyle: TextStyle,
     maxLines: Int = Int.MAX_VALUE,
     digits: Array<Char> = emptyArray(),
+    fontWeight: FontWeight? = null,
     maxLength: Int? = null,
     keyboardOptions: KeyboardOptions? = null,
     keyboardActions: KeyboardActions? = null
 ) {
 
-    val innerColorTextStyle = if (color != null) {
+    val textStyle1 = if (color != null) {
         textStyle.copy(color = color)
     } else textStyle
 
-    val innerTextAlignTextStyle = if (textAlign != null) {
-        innerColorTextStyle.copy(textAlign = textAlign)
-    } else innerColorTextStyle
+    val textStyle2 = if (textAlign != null) {
+        textStyle1.copy(textAlign = textAlign)
+    } else textStyle1
+
+    val textStyle3 = if (fontWeight != null) {
+        textStyle2.copy(fontWeight = fontWeight)
+    } else textStyle2
 
     BasicTextField(
         modifier = modifier.background(Color.Transparent).wrapContentSize(),
@@ -115,7 +125,7 @@ internal fun InputField(
             onValueChange.invoke(digitsFilter)
         },
         enabled = enabled,
-        textStyle = innerTextAlignTextStyle,
+        textStyle = textStyle3,
         maxLines = maxLines,
         singleLine = maxLines == 1,
         keyboardOptions = keyboardOptions ?: KeyboardOptions.Default,
@@ -128,7 +138,7 @@ internal fun InputField(
                 }
                 Box {
                     if (placeholder?.isNotEmpty() == true && value.isNullOrEmpty()) {
-                        Inner(style = innerTextAlignTextStyle, text = placeholder)
+                        Inner(style = textStyle3, text = placeholder)
                     }
                     innerTextField()
                 }
