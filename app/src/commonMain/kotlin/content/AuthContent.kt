@@ -71,5 +71,4 @@ fun AuthContent(
             onClick = { registration.invoke(state) }
         )
     }
-
 }

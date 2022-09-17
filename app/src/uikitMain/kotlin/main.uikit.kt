@@ -34,10 +34,6 @@ class SkikoAppDelegate : UIResponder, UIApplicationDelegateProtocol {
     override fun application(application: UIApplication, didFinishLaunchingWithOptions: Map<Any?, *>?): Boolean {
         window = UIWindow(frame = UIScreen.mainScreen.bounds)
         val height = window?.bounds
-//        Logger.i { height.toString() }
-//        Logger.i { "size qwe ------ " + height?.size.toString() }
-//        Logger.i { "align qwe ------ " + height?.align.toString() }
-
         window!!.rootViewController = Application("UsefulTraining") {
             Column {
                 Box(modifier = Modifier.height(height?.size?.dp ?: 0.dp)) // To skip upper part of screen.
