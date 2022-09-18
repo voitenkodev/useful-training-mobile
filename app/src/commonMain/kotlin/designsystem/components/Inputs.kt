@@ -29,8 +29,8 @@ fun InputEmail(
 
     InputFieldPrimary(
         modifier = modifier
-            .background(DesignComponent.colors.primary100, DesignComponent.shape.minShape)
-            .padding(12.dp),
+            .background(DesignComponent.colors.secondary, DesignComponent.shape.circleShape)
+            .padding(16.dp),
         value = value,
         onValueChange = onValueChange,
         leadIcon = { TextFieldBody1(text = "✉️") },
@@ -53,10 +53,9 @@ fun InputPassword(
     val focusManager = LocalFocusManager.current
 
     InputFieldPrimary(
-        modifier = Modifier
-            .background(DesignComponent.colors.primary100, DesignComponent.shape.minShape)
-            .padding(12.dp)
-            .then(modifier),
+        modifier = modifier
+            .background(DesignComponent.colors.secondary, DesignComponent.shape.circleShape)
+            .padding(16.dp),
         value = value,
         onValueChange = onValueChange,
         leadIcon = { TextFieldBody1(text = "\uD83D\uDD12️") },

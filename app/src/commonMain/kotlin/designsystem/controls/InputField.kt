@@ -39,7 +39,7 @@ fun InputFieldPrimary(
     onValueChange = onValueChange,
     textStyle = DesignComponent.typography.Body,
     maxLines = maxLines,
-    color = color ?: DesignComponent.colors.primaryInverse100,
+    color = color ?: DesignComponent.colors.content,
     textAlign = textAlign,
     placeholder = placeholder,
     enabled = enabled,
@@ -73,7 +73,7 @@ fun InputFieldSecondary(
     onValueChange = onValueChange,
     textStyle = DesignComponent.typography.Body2,
     maxLines = maxLines,
-    color = color ?: DesignComponent.colors.primaryInverse100,
+    color = color ?: DesignComponent.colors.content,
     textAlign = textAlign,
     placeholder = placeholder,
     enabled = enabled,
@@ -134,7 +134,7 @@ internal fun InputField(
             Row(modifier = Modifier.fillMaxWidth()) {
                 if (leadIcon != null) {
                     leadIcon.invoke()
-                    Spacer(modifier = Modifier.size(6.dp))
+                    Spacer(modifier = Modifier.size(8.dp))
                 }
                 Box {
                     if (placeholder?.isNotEmpty() == true && value.isNullOrEmpty()) {

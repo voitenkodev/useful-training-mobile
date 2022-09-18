@@ -24,7 +24,7 @@ fun TextFieldH1(
     placeholder = placeholder,
     textStyle = DesignComponent.typography.H1,
     maxLines = maxLines,
-    color = color ?: DesignComponent.colors.primaryInverse100,
+    color = color ?: DesignComponent.colors.content,
     textAlign = textAlign,
     fontWeight = fontWeight
 )
@@ -43,7 +43,7 @@ fun TextFieldH2(
     placeholder = placeholder,
     textStyle = DesignComponent.typography.H2,
     maxLines = maxLines,
-    color = color ?: DesignComponent.colors.primaryInverse100,
+    color = color ?: DesignComponent.colors.content,
     textAlign = textAlign,
     fontWeight = fontWeight
 )
@@ -63,7 +63,7 @@ fun TextFieldBody1(
     placeholder = placeholder,
     textStyle = DesignComponent.typography.Body,
     maxLines = maxLines,
-    color = color ?: DesignComponent.colors.primaryInverse100,
+    color = color ?: DesignComponent.colors.content,
     textAlign = textAlign,
     fontWeight = fontWeight
 )
@@ -83,7 +83,7 @@ fun TextFieldBody2(
     placeholder = placeholder,
     textStyle = DesignComponent.typography.Body2,
     maxLines = maxLines,
-    color = color ?: DesignComponent.colors.primaryInverse100,
+    color = color ?: DesignComponent.colors.content,
     textAlign = textAlign,
     fontWeight = fontWeight
 )

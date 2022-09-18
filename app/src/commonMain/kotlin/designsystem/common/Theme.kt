@@ -1,5 +1,6 @@
 package designsystem.common
 
+import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.unit.ExperimentalUnitApi
@@ -22,5 +23,9 @@ fun DesignTheme(
 
     LocalAppShape provides AppShape(),
 
-    content = content
+    content = {
+        Surface(color = DesignComponent.colors.primary) {
+            content.invoke()
+        }
+    }
 )

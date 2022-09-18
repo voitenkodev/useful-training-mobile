@@ -11,6 +11,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import designsystem.common.DesignComponent
 
@@ -22,17 +23,17 @@ fun ButtonPrimary(
     enabled: Boolean = true,
     leadIcon: ImageVector? = null,
 ) {
-    val _textColor = DesignComponent.colors.secondaryInverse100
-    val _backgroundColor = DesignComponent.colors.secondary100
+    val _textColor = DesignComponent.colors.content
+    val _backgroundColor = DesignComponent.colors.accent_primary
 
     Button(
         modifier = modifier,
-        text = text,
-        textStyle = DesignComponent.typography.PrimaryButton.copy(color = _textColor),
+        text = text.uppercase(),
+        textStyle = DesignComponent.typography.PrimaryButton.copy(color = _textColor, fontWeight = FontWeight.Bold),
         enabled = enabled,
         onClick = onClick,
         colors = ButtonDefaults.buttonColors(backgroundColor = _backgroundColor),
-        shape = DesignComponent.shape.maxShape,
+        shape = DesignComponent.shape.circleShape,
         borderStroke = null,
         leadIcon = leadIcon
     )
@@ -47,13 +48,13 @@ fun ButtonSecondary(
     leadIcon: ImageVector? = null,
 ) {
 
-    val _textColor = DesignComponent.colors.tertiary100
+    val _textColor = DesignComponent.colors.accent_secondary
     val _backgroundColor = Color.Companion.Transparent
 
     Button(
         modifier = modifier,
         text = text,
-        textStyle = DesignComponent.typography.SecondaryButton.copy(color = _textColor),
+        textStyle = DesignComponent.typography.SecondaryButton.copy(color = _textColor, fontWeight = FontWeight.Bold),
         enabled = enabled,
         onClick = onClick,
         colors = ButtonDefaults.buttonColors(backgroundColor = _backgroundColor),
@@ -90,7 +91,7 @@ private fun Button(
                     imageVector = leadIcon,
                     modifier = Modifier.size(24.dp),
                     contentDescription = null,
-                    tint = DesignComponent.colors.primary100
+                    tint = DesignComponent.colors.primary
                 )
             }
             TextField(

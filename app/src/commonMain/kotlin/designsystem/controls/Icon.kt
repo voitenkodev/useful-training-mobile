@@ -17,7 +17,7 @@ import designsystem.common.DesignComponent
 fun IconPrimary(
     modifier: Modifier = Modifier,
     imageVector: ImageVector,
-    color: Color = DesignComponent.colors.secondaryInverse100,
+    color: Color = DesignComponent.colors.content,
     onClick: () -> Unit
 ) = IconButton(
     modifier = modifier.wrapContentSize(),
@@ -27,7 +27,7 @@ fun IconPrimary(
         imageVector = imageVector,
         tint = color,
         modifier = Modifier
-            .clip(shape = DesignComponent.shape.minShape),
+            .clip(shape = DesignComponent.shape.maxShape),
         contentDescription = null,
     )
 }

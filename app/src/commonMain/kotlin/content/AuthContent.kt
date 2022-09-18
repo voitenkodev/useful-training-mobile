@@ -1,6 +1,5 @@
 package content
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -14,14 +13,14 @@ import state.AuthState
 
 @Composable
 fun AuthContent(
+    modifier: Modifier = Modifier,
     state: AuthState,
     update: (AuthState) -> Unit,
     registration: (AuthState) -> Unit,
     login: (AuthState) -> Unit
 ) = Column(
-    modifier = Modifier
+    modifier = modifier
         .fillMaxSize()
-        .background(color = DesignComponent.colors.primary50)
         .padding(DesignComponent.size.rootSpace),
     verticalArrangement = Arrangement.spacedBy(DesignComponent.size.itemSpace)
 ) {
@@ -63,7 +62,7 @@ fun AuthContent(
 
         TextFieldBody2(
             text = "Don't have an account yet?",
-            color = DesignComponent.colors.primaryInverse50
+            color = DesignComponent.colors.caption
         )
 
         ButtonSecondary(

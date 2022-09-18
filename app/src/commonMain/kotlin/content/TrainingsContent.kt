@@ -19,12 +19,11 @@ import state.TrainingState
 
 @Composable
 fun TrainingsContent(
+    modifier: Modifier = Modifier,
     state: List<TrainingState>,
     get: (TrainingState) -> Unit
 ) = LazyColumn(
-    modifier = Modifier
-        .fillMaxSize()
-        .background(DesignComponent.colors.primary50),
+    modifier = modifier.fillMaxSize(),
     verticalArrangement = Arrangement.spacedBy(DesignComponent.size.itemSpace),
     contentPadding = PaddingValues(DesignComponent.size.rootSpace)
 ) {
@@ -67,24 +66,39 @@ fun TrainingItem(
     get: (TrainingState) -> Unit
 ) = Column(
     modifier = Modifier
-        .background(DesignComponent.colors.primary100, DesignComponent.shape.minShape)
+        .background(
+            color = DesignComponent.colors.secondary,
+            shape = DesignComponent.shape.maxShape
+        )
         .padding(bottom = 24.dp)
 ) {
     Row(
-        modifier = Modifier.fillMaxWidth().padding(start = 12.dp),
-        horizontalArrangement = Arrangement.spacedBy(4.dp),
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.spacedBy(2.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         TextFieldBody1(
-            modifier = Modifier.padding(vertical = 12.dp),
+            modifier = Modifier
+                .padding(start = 12.dp, top = 12.dp, bottom = 12.dp, end = 4.dp)
+                .background(
+                    color = DesignComponent.colors.accent_primary,
+                    shape = DesignComponent.shape.circleShape
+                )
+                .padding(vertical = 2.dp, horizontal = 12.dp),
             text = trainingState.weekDay.name,
-            color = DesignComponent.colors.secondary100,
+            color = DesignComponent.colors.content,
             fontWeight = FontWeight.Bold
         )
-        TextFieldBody1(
-            modifier = Modifier.padding(vertical = 12.dp),
-            text = trainingState.date.takeLast(5), // todo update to format date
-            color = DesignComponent.colors.primaryInverse50,
+
+        TextFieldBody2(
+            text = "Started at:",
+            color = DesignComponent.colors.caption,
+        )
+
+        TextFieldBody2(
+            text = trainingState.date.takeLast(5),
+            color = DesignComponent.colors.content,
+            fontWeight = FontWeight.Bold
         )
 
         Spacer(modifier = Modifier.weight(1f))
@@ -92,7 +106,7 @@ fun TrainingItem(
         IconPrimary(
             modifier = Modifier.height(20.dp),
             imageVector = Icons.Default.Edit,
-            color = DesignComponent.colors.tertiary100,
+            color = DesignComponent.colors.accent_secondary,
             onClick = { get.invoke(trainingState) }
         )
     }
@@ -101,27 +115,26 @@ fun TrainingItem(
 
     trainingState.exercises.forEachIndexed { index, item ->
 
-        Row(modifier = Modifier.padding(horizontal = 12.dp).padding(top = 8.dp)) {
+        Row(
+            modifier = Modifier.padding(horizontal = 12.dp).padding(top = 8.dp),
+            horizontalArrangement = Arrangement.spacedBy(4.dp)
+        ) {
 
-            TextFieldBody2(text = "${index + 1}.", fontWeight = FontWeight.Bold)
+            TextFieldBody1(text = "${index + 1}.", fontWeight = FontWeight.Bold)
 
             Column {
 
-                TextFieldBody2(text = " ${item.name}", fontWeight = FontWeight.Bold)
+                TextFieldBody1(text = item.name, fontWeight = FontWeight.Bold)
 
                 IterationVerticalGrid(
-                    modifier = Modifier.padding(top = 6.dp, bottom = 2.dp),
+                    modifier = Modifier.padding(top = 6.dp, bottom = 4.dp),
                     spacing = 4.dp,
                 ) {
                     item.iterations.forEach {
-                        TextFieldBody2(
-                            modifier = Modifier
-                                .background(
-                                    color = DesignComponent.colors.primary70,
-                                    shape = DesignComponent.shape.minShape
-                                )
-                                .padding(horizontal = 6.dp, vertical = 4.dp),
-                            text = it.weight + "x" + it.repeat
+                        TextFieldBody1(
+                            modifier = Modifier.padding(end = 4.dp),
+                            text = it.weight + "x" + it.repeat,
+                            color = DesignComponent.colors.caption
                         )
                     }
                 }
@@ -130,26 +143,26 @@ fun TrainingItem(
     }
 }
 
-@Composable
-private fun CycleItem() {
-    Row(
-        modifier = Modifier.background(
-            color = DesignComponent.colors.tertiary50,
-            shape = DesignComponent.shape.minShape
-        ).padding(horizontal = 10.dp, vertical = 4.dp),
-        horizontalArrangement = Arrangement.spacedBy(4.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        TextFieldBody2(
-            text = "Week from:",
-            color = DesignComponent.colors.tertiaryInverse,
-        )
-        TextFieldBody2(
-            text = "16.09.2022",
-            color = DesignComponent.colors.tertiaryInverse,
-        )
-    }
-}
+//@Composable
+//private fun CycleItem() {
+//    Row(
+//        modifier = Modifier.background(
+//            color = DesignComponent.colors.content,
+//            shape = DesignComponent.shape.circleShape
+//        ).padding(horizontal = 10.dp, vertical = 4.dp),
+//        horizontalArrangement = Arrangement.spacedBy(4.dp),
+//        verticalAlignment = Alignment.CenterVertically
+//    ) {
+//        TextFieldBody2(
+//            text = "Week from:",
+//            color = DesignComponent.colors.primary,
+//        )
+//        TextFieldBody2(
+//            text = "16.09.2022",
+//            color = DesignComponent.colors.primary,
+//        )
+//    }
+//}
 
 @Composable
 private fun IterationVerticalGrid(
