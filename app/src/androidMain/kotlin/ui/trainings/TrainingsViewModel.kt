@@ -41,4 +41,8 @@ class TrainingsViewModel(
     fun get(training: TrainingState) = viewModelScope.launch {
         _navigation.send(Router.Training(training))
     }
+
+    fun add() = viewModelScope.launch {
+        _navigation.send(Router.Training())
+    }
 }

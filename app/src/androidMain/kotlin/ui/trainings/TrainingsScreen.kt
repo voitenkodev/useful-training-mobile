@@ -25,6 +25,7 @@ fun TrainingsScreen(
     TrainingsContent(
         modifier = Modifier.statusBarsPadding().navigationBarsPadding(),
         state = state.value,
-        get = viewModel::get
+        get = viewModel::get,
+        add = viewModel::add
     )
 }

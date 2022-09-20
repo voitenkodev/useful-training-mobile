@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -14,6 +15,8 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import designsystem.common.DesignComponent
+import designsystem.components.AccentLabel
+import designsystem.components.Title
 import designsystem.controls.*
 import state.TrainingState
 
@@ -21,11 +24,48 @@ import state.TrainingState
 fun TrainingsContent(
     modifier: Modifier = Modifier,
     state: List<TrainingState>,
-    get: (TrainingState) -> Unit
+    get: (TrainingState) -> Unit,
+    add: () -> Unit,
+) = Box {
+
+    val contentPadding = PaddingValues(
+        top = DesignComponent.size.rootSpace,
+        start = DesignComponent.size.rootSpace,
+        end = DesignComponent.size.rootSpace,
+        bottom = DesignComponent.size.rootSpace + 56.dp + DesignComponent.size.rootSpace
+    )
+
+    TrainingsList(
+        modifier = modifier,
+        state = state,
+        get = get,
+        contentPadding = contentPadding
+    )
+
+    IconPrimary(
+        modifier = Modifier
+            .padding(DesignComponent.size.rootSpace)
+            .size(56.dp)
+            .background(
+                color = DesignComponent.colors.accent_primary,
+                shape = DesignComponent.shape.circleShape
+            )
+            .align(Alignment.BottomEnd),
+        imageVector = Icons.Default.Add,
+        onClick = add
+    )
+}
+
+@Composable
+private fun TrainingsList(
+    modifier: Modifier = Modifier,
+    state: List<TrainingState>,
+    get: (TrainingState) -> Unit,
+    contentPadding: PaddingValues
 ) = LazyColumn(
     modifier = modifier.fillMaxSize(),
     verticalArrangement = Arrangement.spacedBy(DesignComponent.size.itemSpace),
-    contentPadding = PaddingValues(DesignComponent.size.rootSpace)
+    contentPadding = contentPadding
 ) {
 
     item {
@@ -33,10 +73,11 @@ fun TrainingsContent(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            TextFieldH1(
-                modifier = Modifier.padding(top = 44.dp, bottom = 8.dp),
-                text = "Trainings!",
+
+            Title(
+                text = "Trainings!"
             )
+
             TextFieldH1(
                 modifier = Modifier.padding(top = 44.dp, bottom = 8.dp),
                 text = "\uD83D\uDCCA",
@@ -61,7 +102,7 @@ fun TrainingsContent(
 }
 
 @Composable
-fun TrainingItem(
+private fun TrainingItem(
     trainingState: TrainingState,
     get: (TrainingState) -> Unit
 ) = Column(
@@ -77,17 +118,10 @@ fun TrainingItem(
         horizontalArrangement = Arrangement.spacedBy(2.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        TextFieldBody1(
-            modifier = Modifier
-                .padding(start = 12.dp, top = 12.dp, bottom = 12.dp, end = 4.dp)
-                .background(
-                    color = DesignComponent.colors.accent_primary,
-                    shape = DesignComponent.shape.circleShape
-                )
-                .padding(vertical = 2.dp, horizontal = 12.dp),
+
+        AccentLabel(
+            modifier = Modifier.padding(start = 12.dp, top = 12.dp, bottom = 12.dp, end = 4.dp),
             text = trainingState.weekDay.name,
-            color = DesignComponent.colors.content,
-            fontWeight = FontWeight.Bold
         )
 
         TextFieldBody2(

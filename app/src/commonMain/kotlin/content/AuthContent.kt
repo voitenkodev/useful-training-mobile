@@ -8,7 +8,11 @@ import androidx.compose.ui.unit.dp
 import designsystem.common.DesignComponent
 import designsystem.components.InputEmail
 import designsystem.components.InputPassword
-import designsystem.controls.*
+import designsystem.components.Title
+import designsystem.controls.ButtonPrimary
+import designsystem.controls.ButtonSecondary
+import designsystem.controls.TextFieldBody2
+import designsystem.controls.TextFieldH2
 import state.AuthState
 
 @Composable
@@ -22,11 +26,10 @@ fun AuthContent(
     modifier = modifier
         .fillMaxSize()
         .padding(DesignComponent.size.rootSpace),
-    verticalArrangement = Arrangement.spacedBy(DesignComponent.size.itemSpace)
+    verticalArrangement = Arrangement.spacedBy(DesignComponent.size.rootSpace)
 ) {
 
-    TextFieldH1(
-        modifier = Modifier.padding(top = 44.dp, bottom = 8.dp),
+    Title(
         text = "\uD83D\uDC4B Hello Again!",
     )
 

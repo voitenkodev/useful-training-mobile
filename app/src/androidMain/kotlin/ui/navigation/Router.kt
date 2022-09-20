@@ -13,7 +13,7 @@ sealed class Router(val route: String, val args: Bundle) {
     object Trainings : Router(route = "trainings_screen", args = bundleOf())
 
     data class Training(
-        val trainingState: TrainingState
+        val trainingState: TrainingState? = null
     ) : Router(ID, bundleOf(ARG to trainingState)) {
         companion object {
             const val ID = "training_screen"

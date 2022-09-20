@@ -20,12 +20,12 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import designsystem.common.DesignComponent
+import designsystem.components.AccentLabel
 import designsystem.components.InputName
 import designsystem.components.InputRepeat
 import designsystem.components.InputWeight
 import designsystem.controls.*
 import state.*
-
 
 @Composable
 fun TrainingContent(
@@ -38,7 +38,7 @@ fun TrainingContent(
         .fillMaxSize()
         .padding(bottom = DesignComponent.size.rootSpace),
 ) {
-    TrainingList(
+    ExerciseList(
         state = state,
         update = update,
         save = save
@@ -47,7 +47,7 @@ fun TrainingContent(
 }
 
 @Composable
-fun ColumnScope.TrainingList(
+private fun ColumnScope.ExerciseList(
     state: TrainingState,
     update: (TrainingState) -> Unit,
     save: (TrainingState) -> Unit,
@@ -120,20 +120,14 @@ private fun InputNameItem(
     update: (TrainingState.Exercise) -> Unit,
     remove: (TrainingState.Exercise) -> Unit
 ) = Row(
-    modifier = Modifier.padding(start = 6.dp),
+    modifier = Modifier.padding(start = 8.dp),
     verticalAlignment = Alignment.CenterVertically,
     horizontalArrangement = Arrangement.spacedBy(4.dp)
 ) {
 
-    TextFieldBody1(
-        modifier = Modifier
-            .padding(vertical = 6.dp)
-            .background(
-                color = DesignComponent.colors.accent_primary,
-                shape = DesignComponent.shape.circleShape
-            ).padding(horizontal = 6.dp, vertical = 4.dp),
+    AccentLabel(
+        modifier = Modifier.padding(bottom = 8.dp, top = 8.dp, end = 4.dp),
         text = "$number",
-        fontWeight = FontWeight.Bold
     )
 
     InputName(
@@ -199,7 +193,7 @@ private fun LazyItemScope.IterationInputItem(
 }
 
 @Composable
-fun LazyItemScope.NewExerciseItem(
+private fun LazyItemScope.NewExerciseItem(
     onClick: () -> Unit
 ) = ButtonPrimary(
     modifier = Modifier.fillMaxWidth().animateItemPlacement(),
@@ -208,7 +202,7 @@ fun LazyItemScope.NewExerciseItem(
 )
 
 @Composable
-fun SaveTrainingItem(
+private fun SaveTrainingItem(
     onClick: () -> Unit
 ) = Row(
     modifier = Modifier.fillMaxWidth(),
