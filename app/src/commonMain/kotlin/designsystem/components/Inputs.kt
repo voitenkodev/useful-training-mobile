@@ -5,21 +5,24 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Clear
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.KeyboardCapitalization
-import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.*
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import designsystem.common.DesignComponent
+import designsystem.common.Eye
+import designsystem.common.EyeOff
+import designsystem.controls.IconPrimary
 import designsystem.controls.InputFieldPrimary
 import designsystem.controls.InputFieldSecondary
-import designsystem.controls.TextFieldBody1
 
 @Composable
 fun InputEmail(
@@ -31,12 +34,20 @@ fun InputEmail(
 
     InputFieldPrimary(
         modifier = modifier
-            .background(DesignComponent.colors.secondary, DesignComponent.shape.circleShape)
+            .background(DesignComponent.colors.secondary, DesignComponent.shape.maxShape)
             .padding(16.dp),
         value = value,
         onValueChange = onValueChange,
-        leadIcon = { TextFieldBody1(text = "✉️") },
-        placeholder = "Email",
+        trailing = value?.isNotEmpty().takeIf { it == true }?.let {
+            {
+                IconPrimary(
+                    imageVector = Icons.Default.Clear,
+                    color = DesignComponent.colors.caption,
+                    onClick = { onValueChange.invoke(String()) }
+                )
+            }
+        },
+        leading = { InputLabel(text = "Email") },
         keyboardActions = KeyboardActions { focusManager.moveFocus(FocusDirection.Next) },
         keyboardOptions = KeyboardOptions(
             capitalization = KeyboardCapitalization.Sentences,
@@ -54,14 +65,23 @@ fun InputPassword(
 ) {
     val focusManager = LocalFocusManager.current
 
+    val passwordVisibility = rememberSaveable { mutableStateOf(false) }
+
     InputFieldPrimary(
         modifier = modifier
-            .background(DesignComponent.colors.secondary, DesignComponent.shape.circleShape)
+            .background(DesignComponent.colors.secondary, DesignComponent.shape.maxShape)
             .padding(16.dp),
         value = value,
         onValueChange = onValueChange,
-        leadIcon = { TextFieldBody1(text = "\uD83D\uDD12️") },
-        placeholder = "Password",
+        visualTransformation = if (passwordVisibility.value) VisualTransformation.None else PasswordVisualTransformation(),
+        leading = { InputLabel(text = "Password") },
+        trailing = {
+            IconPrimary(
+                imageVector = if (passwordVisibility.value) EyeOff else Eye,
+                color = DesignComponent.colors.caption,
+                onClick = { passwordVisibility.value = passwordVisibility.value.not() }
+            )
+        },
         keyboardActions = KeyboardActions { focusManager.moveFocus(FocusDirection.Next) },
         keyboardOptions = KeyboardOptions(
             capitalization = KeyboardCapitalization.Sentences,

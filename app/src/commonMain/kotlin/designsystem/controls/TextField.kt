@@ -28,6 +28,7 @@ fun TextFieldH1(
     textAlign = textAlign,
     fontWeight = fontWeight
 )
+
 @Composable
 fun TextFieldH2(
     text: String?,
@@ -89,7 +90,7 @@ fun TextFieldBody2(
 )
 
 @Composable
-internal fun TextField(
+fun TextField(
     text: String?,
     modifier: Modifier = Modifier,
     placeholder: String? = null,

@@ -33,7 +33,7 @@ fun ButtonPrimary(
         enabled = enabled,
         onClick = onClick,
         colors = ButtonDefaults.buttonColors(backgroundColor = _backgroundColor),
-        shape = DesignComponent.shape.circleShape,
+        shape = DesignComponent.shape.maxShape,
         borderStroke = null,
         leadIcon = leadIcon
     )

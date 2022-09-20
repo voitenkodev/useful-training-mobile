@@ -7,7 +7,7 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun AppShape() = AppShape(
-    maxShape = androidx.compose.foundation.shape.RoundedCornerShape(16.dp),
+    maxShape = androidx.compose.foundation.shape.RoundedCornerShape(10.dp),
     circleShape = CircleShape,
 )
 

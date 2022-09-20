@@ -25,23 +25,26 @@ fun AuthContent(
 ) = Column(
     modifier = modifier
         .fillMaxSize()
-        .padding(DesignComponent.size.rootSpace),
-    verticalArrangement = Arrangement.spacedBy(DesignComponent.size.rootSpace)
+        .padding(DesignComponent.size.rootSpace)
 ) {
 
     Title(
-        text = "\uD83D\uDC4B Hello Again!",
+        text = "\uD83D\uDC4B Welcome back!",
     )
 
     TextFieldH2(
-        text = "Welcome back you've been missed!",
+        text = "Sign in to your account",
     )
+
+    Spacer(modifier = Modifier.size(30.dp))
 
     InputEmail(
         modifier = Modifier.fillMaxWidth(),
         value = state.email,
         onValueChange = { update(state.copy(email = it)) }
     )
+
+    Spacer(modifier = Modifier.size(14.dp))
 
     InputPassword(
         modifier = Modifier.fillMaxWidth(),
@@ -56,6 +59,8 @@ fun AuthContent(
         text = "Log In",
         onClick = { login.invoke(state) }
     )
+
+    Spacer(modifier = Modifier.size(8.dp))
 
     Row(
         modifier = Modifier.fillMaxWidth(),

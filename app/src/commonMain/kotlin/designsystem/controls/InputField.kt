@@ -11,8 +11,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import designsystem.common.DesignComponent
@@ -25,14 +27,16 @@ fun InputFieldPrimary(
     placeholder: String? = null,
     color: Color? = null,
     textAlign: TextAlign? = null,
-    leadIcon: @Composable (() -> Unit)? = null,
+    leading: @Composable (() -> Unit)? = null,
+    trailing: @Composable (() -> Unit)? = null,
     maxLines: Int = Int.MAX_VALUE,
     enabled: Boolean = true,
     keyboardOptions: KeyboardOptions? = null,
     maxLength: Int? = null,
     fontWeight: FontWeight? = null,
     digits: Array<Char> = emptyArray(),
-    keyboardActions: KeyboardActions? = null
+    keyboardActions: KeyboardActions? = null,
+    visualTransformation: VisualTransformation = VisualTransformation.None,
 ) = InputField(
     modifier = modifier,
     value = value,
@@ -44,11 +48,13 @@ fun InputFieldPrimary(
     placeholder = placeholder,
     enabled = enabled,
     keyboardOptions = keyboardOptions,
-    leadIcon = leadIcon,
+    leading = leading,
+    trailing = trailing,
     maxLength = maxLength,
     digits = digits,
     keyboardActions = keyboardActions,
-    fontWeight = fontWeight
+    fontWeight = fontWeight,
+    visualTransformation = visualTransformation
 )
 
 @Composable
@@ -61,12 +67,14 @@ fun InputFieldSecondary(
     textAlign: TextAlign? = null,
     maxLines: Int = Int.MAX_VALUE,
     enabled: Boolean = true,
-    leadIcon: @Composable (() -> Unit)? = null,
+    leading: @Composable (() -> Unit)? = null,
+    trailing: @Composable (() -> Unit)? = null,
     keyboardOptions: KeyboardOptions? = null,
     maxLength: Int? = null,
     fontWeight: FontWeight? = null,
     digits: Array<Char> = emptyArray(),
-    keyboardActions: KeyboardActions? = null
+    keyboardActions: KeyboardActions? = null,
+    visualTransformation: VisualTransformation = VisualTransformation.None,
 ) = InputField(
     modifier = modifier.padding(8.dp),
     value = value,
@@ -81,8 +89,10 @@ fun InputFieldSecondary(
     maxLength = maxLength,
     digits = digits,
     keyboardActions = keyboardActions,
-    leadIcon = leadIcon,
-    fontWeight = fontWeight
+    leading = leading,
+    trailing = trailing,
+    fontWeight = fontWeight,
+    visualTransformation = visualTransformation
 )
 
 @Composable
@@ -93,12 +103,14 @@ internal fun InputField(
     color: Color? = null,
     placeholder: String? = null,
     textAlign: TextAlign? = null,
-    leadIcon: @Composable (() -> Unit)? = null,
+    leading: @Composable (() -> Unit)? = null,
+    trailing: @Composable (() -> Unit)? = null,
     enabled: Boolean = true,
     textStyle: TextStyle,
     maxLines: Int = Int.MAX_VALUE,
     digits: Array<Char> = emptyArray(),
     fontWeight: FontWeight? = null,
+    visualTransformation: VisualTransformation = VisualTransformation.None,
     maxLength: Int? = null,
     keyboardOptions: KeyboardOptions? = null,
     keyboardActions: KeyboardActions? = null
@@ -116,8 +128,7 @@ internal fun InputField(
         textStyle2.copy(fontWeight = fontWeight)
     } else textStyle2
 
-    BasicTextField(
-        modifier = modifier.background(Color.Transparent).wrapContentSize(),
+    BasicTextField(modifier = modifier.background(Color.Transparent).wrapContentSize(),
         value = value ?: String(),
         onValueChange = {
             val v = if (maxLength != null) it.take(maxLength) else it
@@ -127,24 +138,29 @@ internal fun InputField(
         enabled = enabled,
         textStyle = textStyle3,
         maxLines = maxLines,
+        visualTransformation = visualTransformation,
+        cursorBrush = SolidColor(DesignComponent.colors.content),
         singleLine = maxLines == 1,
         keyboardOptions = keyboardOptions ?: KeyboardOptions.Default,
         keyboardActions = keyboardActions ?: KeyboardActions.Default,
         decorationBox = { innerTextField ->
             Row(modifier = Modifier.fillMaxWidth()) {
-                if (leadIcon != null) {
-                    leadIcon.invoke()
+                if (leading != null) {
+                    leading.invoke()
                     Spacer(modifier = Modifier.size(8.dp))
                 }
-                Box {
+                Box(modifier = Modifier.weight(1f)) {
                     if (placeholder?.isNotEmpty() == true && value.isNullOrEmpty()) {
                         Inner(style = textStyle3, text = placeholder)
                     }
                     innerTextField()
                 }
+                if (trailing != null) {
+                    Spacer(modifier = Modifier.size(8.dp))
+                    trailing.invoke()
+                }
             }
-        }
-    )
+        })
 }
 
 @Composable

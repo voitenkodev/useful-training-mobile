@@ -10,8 +10,8 @@ data class AuthState(
 ) : Parcelable {
     companion object {
         val EMPTY = AuthState(
-            email = "voitenko.dev@gmail.com",
-            password = "qwerty123"
+            email = "",
+            password = ""
         )
     }
 }
