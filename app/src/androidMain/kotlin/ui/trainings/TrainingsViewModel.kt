@@ -26,16 +26,16 @@ class TrainingsViewModel(
     private val _trainingState = MutableStateFlow(savedStateHandle["trainingsState"] ?: listOf(MOCK_1, MOCK_2, MOCK_3))
     val trainingState: StateFlow<List<TrainingState>> = _trainingState.asStateFlow()
 
-    // listOf(MOCK_1, MOCK_2, MOCK_3)
     init {
-        // todo load trainings + save in statehandler
-//        _trainingState.value = newState
-//        savedStateHandle["trainingsState"] = newState
-    }
-
-    fun save(trainingState: TrainingState) = viewModelScope.launch {
-        trainingSource.writeTraining(authSource.user?.uid, trainingState).onEach { _navigation.send(Router.Review(trainingState)) }
-            .launchIn(this)
+        viewModelScope.launch {
+//            trainingSource
+//                .getTrainings(authSource.user?.uid)
+//                .onEach {
+//                    _trainingState.value = it
+//                    savedStateHandle["trainingsState"] = it
+//                }
+//                .launchIn(this)
+        }
     }
 
     fun get(training: TrainingState) = viewModelScope.launch {

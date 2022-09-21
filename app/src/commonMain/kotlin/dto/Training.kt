@@ -2,6 +2,8 @@ package dto
 
 import kotlinx.serialization.Serializable
 
+const val TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"
+
 @Serializable
 data class Training(
     val id: String?,

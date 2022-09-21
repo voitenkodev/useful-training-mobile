@@ -8,7 +8,6 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import state.AuthState
-import state.TrainingState
 import ui.navigation.Router
 
 class AuthViewModel(
@@ -22,6 +21,12 @@ class AuthViewModel(
     private val _authState = MutableStateFlow(savedStateHandle["authState"] ?: AuthState.EMPTY)
     val authState: StateFlow<AuthState> = _authState.asStateFlow()
 
+    init {
+        if (authSource.isAuthorized) viewModelScope.launch {
+            _navigation.send(Router.Trainings)
+        }
+    }
+
     fun login(authState: AuthState) = viewModelScope.launch {
         authSource
             .login(authState.email, authState.password)
@@ -32,7 +37,7 @@ class AuthViewModel(
     fun registration(authState: AuthState) = viewModelScope.launch {
         authSource
             .registration(authState.email, authState.password)
-            .onEach { _navigation.send(Router.Training(TrainingState.empty(0.0))) }
+            .onEach { _navigation.send(Router.Trainings) }
             .launchIn(this)
     }
 

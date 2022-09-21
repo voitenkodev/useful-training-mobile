@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import datasource.AuthSource
 import datasource.TrainingSource
+import dto.map
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -24,8 +25,9 @@ class TrainingViewModel(
     val trainingState: StateFlow<TrainingState> = _trainingState.asStateFlow()
 
     fun save(trainingState: TrainingState) = viewModelScope.launch {
+        val training = trainingState.map()
         trainingSource
-            .writeTraining(authSource.user?.uid, trainingState)
+            .writeTraining(authSource.user?.uid, training)
             .onEach { _navigation.send(Router.Review(trainingState)) }
             .launchIn(this)
     }

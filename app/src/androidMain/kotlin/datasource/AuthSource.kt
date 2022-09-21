@@ -19,7 +19,11 @@ class AuthSource(
             .flowOn(dispatcher)
 
     suspend fun registration(email: String, password: String): Flow<AuthResult> =
-        flowOf(auth.signInWithEmailAndPassword(email, password).await())
+        flowOf(auth.createUserWithEmailAndPassword(email, password).await())
+            .flowOn(dispatcher)
+
+    fun logout(): Flow<Unit> =
+        flowOf(auth.signOut())
             .flowOn(dispatcher)
 
     val isAuthorized: Boolean = auth.currentUser != null

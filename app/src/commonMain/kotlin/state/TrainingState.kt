@@ -18,7 +18,8 @@ data class TrainingState(
 ) : Parcelable {
 
     val weekDay: DayOfWeek
-        get() = LocalDateTime.parse(date).dayOfWeek
+        get() = DayOfWeek.FRIDAY
+//        get() = LocalDateTime.parse(date).dayOfWeek
     val tonnage: Double
         get() = exercises.sumOf { it.tonnage }
     val countOfLifting: Int
@@ -285,7 +286,7 @@ val MOCK_1 = TrainingState(
         )
     ),
     duration = "",
-    date = "2021-03-16T02:16:20",
+    date = "2000-10-31T01:30:00.000-05:00",
     userWeight = 0.0
 )
 
@@ -459,7 +460,7 @@ val MOCK_2 = TrainingState(
 
         ),
     duration = "",
-    date = "2021-03-14T02:16:20",
+    date = "2000-10-31T01:30:00.000-05:00",
     userWeight = 0.0
 )
 
@@ -637,6 +638,6 @@ val MOCK_3 = TrainingState(
 
         ),
     duration = "",
-    date = "2021-03-12T02:16:20",
+    date = "2000-10-31T01:30:00.000-05:00",
     userWeight = 0.0
 )

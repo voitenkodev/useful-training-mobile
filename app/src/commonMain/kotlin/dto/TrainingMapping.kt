@@ -14,14 +14,14 @@ fun TrainingState.map() = Training(
                         weight = it.weight.toDoubleOrNull(),
                         repeat = it.repeat.toIntOrNull()
                     )
-                }.filter { it.repeat == null || it.weight == null },
+                }.filterNot { it.repeat == null || it.weight == null },
             tonnage = it.tonnage,
             countOfLifting = it.countOfLifting,
             intensity = it.intensity
         )
     },
     duration = duration,
-    date = null,
+    date = date,
     tonnage = tonnage,
     countOfLifting = countOfLifting,
     intensity = intensity,
