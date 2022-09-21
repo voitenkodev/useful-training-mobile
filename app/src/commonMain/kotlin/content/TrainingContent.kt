@@ -2,15 +2,14 @@ package content
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyItemScope
-import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Send
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
@@ -26,6 +25,7 @@ import designsystem.components.InputName
 import designsystem.components.InputRepeat
 import designsystem.components.InputWeight
 import designsystem.controls.*
+import kotlinx.coroutines.launch
 import state.*
 
 @Composable
@@ -36,15 +36,22 @@ fun TrainingContent(
     save: (TrainingState) -> Unit,
 ) = Column(modifier = modifier.fillMaxSize()) {
 
+    val coroutineScope = rememberCoroutineScope()
+    val listState = rememberLazyListState()
+
     ExerciseList(
         modifier = Modifier.weight(1f),
+        lazyListState = listState,
         state = state,
         update = update,
-        save = save
+        save = save,
     )
     NewExerciseItem(
         modifier = Modifier.fillMaxWidth().padding(DesignComponent.size.rootSpace),
-        onClick = { update.invoke(state.addExercise()) }
+        onClick = {
+            update.invoke(state.addExercise())
+            coroutineScope.launch { listState.animateScrollToItem(state.exercises.lastIndex) }
+        }
     )
 }
 
@@ -52,10 +59,12 @@ fun TrainingContent(
 private fun ExerciseList(
     modifier: Modifier = Modifier,
     state: TrainingState,
+    lazyListState: LazyListState,
     update: (TrainingState) -> Unit,
     save: (TrainingState) -> Unit,
 ) = LazyColumn(
     modifier = modifier,
+    state = lazyListState,
     contentPadding = PaddingValues(DesignComponent.size.rootSpace),
     verticalArrangement = Arrangement.spacedBy(DesignComponent.size.itemSpace),
 ) {
