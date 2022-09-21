@@ -10,7 +10,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import designsystem.common.DesignComponent
 import designsystem.controls.TextFieldBody1
-import designsystem.controls.TextFieldH1
 
 @Composable
 fun AccentLabel(modifier: Modifier = Modifier, text: String) = TextFieldBody1(
@@ -21,12 +20,6 @@ fun AccentLabel(modifier: Modifier = Modifier, text: String) = TextFieldBody1(
         ).padding(horizontal = 8.dp, vertical = 2.dp),
     text = text,
     fontWeight = FontWeight.Bold
-)
-
-@Composable
-fun Title(modifier: Modifier = Modifier, text: String) = TextFieldH1(
-    modifier = modifier.padding(top = 44.dp),
-    text = text,
 )
 
 @Composable

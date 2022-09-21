@@ -1,6 +1,7 @@
 package designsystem.controls
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
@@ -19,9 +20,9 @@ import designsystem.common.DesignComponent
 fun ButtonPrimary(
     modifier: Modifier = Modifier,
     text: String,
-    onClick: () -> Unit,
     enabled: Boolean = true,
     leadIcon: ImageVector? = null,
+    onClick: () -> Unit,
 ) {
     val _textColor = DesignComponent.colors.content
     val _backgroundColor = DesignComponent.colors.accent_primary
@@ -30,6 +31,7 @@ fun ButtonPrimary(
         modifier = modifier,
         text = text.uppercase(),
         textStyle = DesignComponent.typography.PrimaryButton.copy(color = _textColor, fontWeight = FontWeight.Bold),
+        contentPadding = PaddingValues(vertical = 16.dp),
         enabled = enabled,
         onClick = onClick,
         colors = ButtonDefaults.buttonColors(backgroundColor = _backgroundColor),
@@ -54,6 +56,7 @@ fun ButtonSecondary(
     Button(
         modifier = modifier,
         text = text,
+        contentPadding = PaddingValues(vertical = 0.dp),
         textStyle = DesignComponent.typography.SecondaryButton.copy(color = _textColor, fontWeight = FontWeight.Bold),
         enabled = enabled,
         onClick = onClick,
@@ -67,6 +70,7 @@ fun ButtonSecondary(
 @Composable
 private fun Button(
     modifier: Modifier = Modifier,
+    contentPadding: PaddingValues = ButtonDefaults.TextButtonContentPadding,
     text: String,
     textStyle: TextStyle,
     onClick: () -> Unit,
@@ -82,6 +86,7 @@ private fun Button(
             .then(modifier),
         onClick = onClick,
         enabled = enabled,
+        contentPadding = contentPadding,
         shape = shape ?: MaterialTheme.shapes.small,
         border = borderStroke,
         colors = colors,
@@ -95,7 +100,7 @@ private fun Button(
                 )
             }
             TextField(
-                modifier = Modifier.padding(horizontal = 0.dp, vertical = 8.dp),
+                modifier = Modifier.padding(horizontal = 0.dp),
                 text = text,
                 textStyle = textStyle
             )

@@ -68,7 +68,7 @@ data class TrainingState(
         fun empty(userWeight: Double): TrainingState {
             return TrainingState(
                 id = uuid4().toString(),
-                exercises = emptyList(),
+                exercises = listOf(Exercise.EMPTY),
                 duration = "",
                 date = "",
                 userWeight = userWeight

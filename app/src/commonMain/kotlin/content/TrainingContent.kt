@@ -7,6 +7,7 @@ import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Send
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
@@ -33,29 +34,46 @@ fun TrainingContent(
     state: TrainingState,
     update: (TrainingState) -> Unit,
     save: (TrainingState) -> Unit,
-) = Column(
-    modifier = modifier
-        .fillMaxSize()
-        .padding(bottom = DesignComponent.size.rootSpace),
-) {
-    ExerciseList(
-        state = state,
-        update = update,
-        save = save
-    )
-    SaveTrainingItem(onClick = { save.invoke(state) })
-}
+) = ExerciseList(
+    modifier = modifier,
+    state = state,
+    update = update,
+    save = save
+)
 
 @Composable
-private fun ColumnScope.ExerciseList(
+private fun ExerciseList(
+    modifier: Modifier = Modifier,
     state: TrainingState,
     update: (TrainingState) -> Unit,
     save: (TrainingState) -> Unit,
 ) = LazyColumn(
-    modifier = Modifier.weight(1f),
+    modifier = modifier.fillMaxSize(),
     contentPadding = PaddingValues(DesignComponent.size.rootSpace),
     verticalArrangement = Arrangement.spacedBy(DesignComponent.size.itemSpace),
 ) {
+    item {
+        Spacer(modifier = Modifier.size(44.dp))
+    }
+
+    stickyHeader {
+        Row(
+            modifier = Modifier.fillMaxWidth().background(DesignComponent.colors.primary),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+
+            TextFieldH1(
+                text = "Exercises!",
+            )
+
+            IconPrimary(
+                modifier = Modifier.size(56.dp),
+                imageVector = Icons.Default.Send,
+                color = DesignComponent.colors.accent_secondary,
+                onClick = { save.invoke(state) }
+            )
+        }
+    }
 
     itemsIndexed(state.exercises, key = { index, exercise -> exercise.id }) { index, exercise ->
         Column(
@@ -139,7 +157,7 @@ private fun InputNameItem(
     IconPrimary(
         modifier = Modifier.height(20.dp).width(50.dp),
         imageVector = Icons.Filled.Delete,
-        color = DesignComponent.colors.accent_secondary,
+        color = DesignComponent.colors.caption,
         onClick = { remove.invoke(exercise) },
     )
 }

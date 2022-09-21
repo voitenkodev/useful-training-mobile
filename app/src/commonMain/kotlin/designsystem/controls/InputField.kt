@@ -149,21 +149,27 @@ internal fun InputField(
         keyboardActions = keyboardActions ?: KeyboardActions.Default,
         decorationBox = { innerTextField ->
             Row(
-                modifier = Modifier.fillMaxWidth().height(IntrinsicSize.Min),
+                modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
 
                 leading?.let {
-                    it.invoke()
-                    DividerPrimary(orientation = Orientation.Vertical)
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        modifier = Modifier.wrapContentSize().height(IntrinsicSize.Min)
+                    ) {
+                        it.invoke()
+                        DividerPrimary(orientation = Orientation.Vertical)
+                    }
                 }
 
                 Box(modifier = Modifier.weight(1f)) {
+                    innerTextField()
                     if (placeholder?.isNotEmpty() == true && value.isNullOrEmpty()) {
                         Inner(style = textStyle3, text = placeholder)
                     }
-                    innerTextField()
                 }
 
                 trailing?.invoke()

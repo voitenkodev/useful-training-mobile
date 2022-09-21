@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -16,7 +17,6 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import designsystem.common.DesignComponent
 import designsystem.components.AccentLabel
-import designsystem.components.Title
 import designsystem.controls.*
 import state.TrainingState
 
@@ -26,7 +26,7 @@ fun TrainingsContent(
     state: List<TrainingState>,
     get: (TrainingState) -> Unit,
     add: () -> Unit,
-) = Box {
+) = Box(modifier = modifier) {
 
     val contentPadding = PaddingValues(
         top = DesignComponent.size.rootSpace,
@@ -36,7 +36,6 @@ fun TrainingsContent(
     )
 
     TrainingsList(
-        modifier = modifier,
         state = state,
         get = get,
         contentPadding = contentPadding
@@ -69,20 +68,26 @@ private fun TrainingsList(
 ) {
 
     item {
+        Spacer(modifier = Modifier.size(44.dp))
+    }
+
+    stickyHeader {
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth().background(DesignComponent.colors.primary),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
 
-            Title(
-                text = "Trainings!"
-            )
-
             TextFieldH1(
-                modifier = Modifier.padding(top = 44.dp, bottom = 8.dp),
-                text = "\uD83D\uDCCA",
+                text = "Trainings!",
             )
 
+            IconPrimary(
+                modifier = Modifier.size(56.dp),
+                imageVector = Icons.Default.ArrowForward,
+                color = DesignComponent.colors.accent_secondary
+            ) {
+
+            }
         }
     }
 
@@ -110,8 +115,7 @@ private fun TrainingItem(
         .background(
             color = DesignComponent.colors.secondary,
             shape = DesignComponent.shape.maxShape
-        )
-        .padding(bottom = 24.dp)
+        ).padding(12.dp)
 ) {
     Row(
         modifier = Modifier.fillMaxWidth(),
@@ -120,7 +124,7 @@ private fun TrainingItem(
     ) {
 
         AccentLabel(
-            modifier = Modifier.padding(start = 12.dp, top = 12.dp, bottom = 12.dp, end = 4.dp),
+            modifier = Modifier.padding(end = 4.dp),
             text = trainingState.weekDay.name,
         )
 
@@ -140,17 +144,17 @@ private fun TrainingItem(
         IconPrimary(
             modifier = Modifier.height(20.dp),
             imageVector = Icons.Default.Edit,
-            color = DesignComponent.colors.accent_secondary,
+            color = DesignComponent.colors.caption,
             onClick = { get.invoke(trainingState) }
         )
     }
 
-    DividerPrimary(modifier = Modifier.padding(start = 12.dp, end = 12.dp, bottom = 4.dp))
+    DividerPrimary(modifier = Modifier.padding(bottom = 4.dp, top = 12.dp))
 
     trainingState.exercises.forEachIndexed { index, item ->
 
         Row(
-            modifier = Modifier.padding(horizontal = 12.dp).padding(top = 8.dp),
+            modifier = Modifier.padding(top = 8.dp),
             horizontalArrangement = Arrangement.spacedBy(4.dp)
         ) {
 

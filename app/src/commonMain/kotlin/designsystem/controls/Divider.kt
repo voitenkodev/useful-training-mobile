@@ -15,7 +15,7 @@ import designsystem.common.DesignComponent
 fun DividerPrimary(
     modifier: Modifier = Modifier,
     thickness: Dp = 1.dp,
-    color: Color = DesignComponent.colors.caption.copy(alpha = 0.5f),
+    color: Color = DesignComponent.colors.caption.copy(alpha = 0.3f),
     orientation: Orientation = Orientation.Horizontal
 ) {
     if (orientation == Orientation.Horizontal) androidx.compose.material.Divider(

@@ -19,13 +19,17 @@ fun DarkPalette() = AppColors(
 )
 
 data class AppColors(
+    // BACKGROUNDS
     val primary: Color,
     val secondary: Color,
 
+    // ACTIONS
     val accent_primary: Color,
     val accent_secondary: Color,
 
     val content: Color,
+
+    // Actions + content
     val caption: Color,
 )
 
