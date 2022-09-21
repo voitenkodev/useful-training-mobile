@@ -1,6 +1,8 @@
 package designsystem.controls
 
+import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
@@ -8,6 +10,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.ProvideTextStyle
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
@@ -128,7 +131,8 @@ internal fun InputField(
         textStyle2.copy(fontWeight = fontWeight)
     } else textStyle2
 
-    BasicTextField(modifier = modifier.background(Color.Transparent).wrapContentSize(),
+    BasicTextField(
+        modifier = modifier.background(Color.Transparent).animateContentSize(),
         value = value ?: String(),
         onValueChange = {
             val v = if (maxLength != null) it.take(maxLength) else it
@@ -144,21 +148,25 @@ internal fun InputField(
         keyboardOptions = keyboardOptions ?: KeyboardOptions.Default,
         keyboardActions = keyboardActions ?: KeyboardActions.Default,
         decorationBox = { innerTextField ->
-            Row(modifier = Modifier.fillMaxWidth()) {
-                if (leading != null) {
-                    leading.invoke()
-                    Spacer(modifier = Modifier.size(8.dp))
+            Row(
+                modifier = Modifier.fillMaxWidth().height(IntrinsicSize.Min),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+
+                leading?.let {
+                    it.invoke()
+                    DividerPrimary(orientation = Orientation.Vertical)
                 }
+
                 Box(modifier = Modifier.weight(1f)) {
                     if (placeholder?.isNotEmpty() == true && value.isNullOrEmpty()) {
                         Inner(style = textStyle3, text = placeholder)
                     }
                     innerTextField()
                 }
-                if (trailing != null) {
-                    Spacer(modifier = Modifier.size(8.dp))
-                    trailing.invoke()
-                }
+
+                trailing?.invoke()
             }
         })
 }

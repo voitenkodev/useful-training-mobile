@@ -48,6 +48,7 @@ fun InputEmail(
             }
         },
         leading = { InputLabel(text = "Email") },
+        maxLines = 1,
         keyboardActions = KeyboardActions { focusManager.moveFocus(FocusDirection.Next) },
         keyboardOptions = KeyboardOptions(
             capitalization = KeyboardCapitalization.Sentences,
@@ -82,6 +83,7 @@ fun InputPassword(
                 onClick = { passwordVisibility.value = passwordVisibility.value.not() }
             )
         },
+        maxLines = 1,
         keyboardActions = KeyboardActions { focusManager.moveFocus(FocusDirection.Next) },
         keyboardOptions = KeyboardOptions(
             capitalization = KeyboardCapitalization.Sentences,

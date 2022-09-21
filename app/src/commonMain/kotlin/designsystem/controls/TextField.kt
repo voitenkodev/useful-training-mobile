@@ -7,6 +7,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import designsystem.common.DesignComponent
 
 @Composable
@@ -17,7 +18,8 @@ fun TextFieldH1(
     color: Color? = null,
     textAlign: TextAlign? = null,
     maxLines: Int = Int.MAX_VALUE,
-    fontWeight: FontWeight? = null
+    fontWeight: FontWeight? = null,
+    overflow: TextOverflow = TextOverflow.Clip
 ) = TextField(
     text = text,
     modifier = modifier,
@@ -26,7 +28,8 @@ fun TextFieldH1(
     maxLines = maxLines,
     color = color ?: DesignComponent.colors.content,
     textAlign = textAlign,
-    fontWeight = fontWeight
+    fontWeight = fontWeight,
+    overflow = overflow
 )
 
 @Composable
@@ -37,7 +40,8 @@ fun TextFieldH2(
     color: Color? = null,
     textAlign: TextAlign? = null,
     maxLines: Int = Int.MAX_VALUE,
-    fontWeight: FontWeight? = null
+    fontWeight: FontWeight? = null,
+    overflow: TextOverflow = TextOverflow.Clip
 ) = TextField(
     text = text,
     modifier = modifier,
@@ -46,7 +50,9 @@ fun TextFieldH2(
     maxLines = maxLines,
     color = color ?: DesignComponent.colors.content,
     textAlign = textAlign,
-    fontWeight = fontWeight
+    fontWeight = fontWeight,
+    overflow = overflow
+
 )
 
 @Composable
@@ -57,7 +63,8 @@ fun TextFieldBody1(
     color: Color? = null,
     textAlign: TextAlign? = null,
     maxLines: Int = Int.MAX_VALUE,
-    fontWeight: FontWeight? = null
+    fontWeight: FontWeight? = null,
+    overflow: TextOverflow = TextOverflow.Clip
 ) = TextField(
     modifier = modifier,
     text = text,
@@ -66,7 +73,8 @@ fun TextFieldBody1(
     maxLines = maxLines,
     color = color ?: DesignComponent.colors.content,
     textAlign = textAlign,
-    fontWeight = fontWeight
+    fontWeight = fontWeight,
+    overflow = overflow
 )
 
 @Composable
@@ -77,7 +85,8 @@ fun TextFieldBody2(
     color: Color? = null,
     textAlign: TextAlign? = null,
     maxLines: Int = Int.MAX_VALUE,
-    fontWeight: FontWeight? = null
+    fontWeight: FontWeight? = null,
+    overflow: TextOverflow = TextOverflow.Clip
 ) = TextField(
     modifier = modifier,
     text = text,
@@ -86,7 +95,8 @@ fun TextFieldBody2(
     maxLines = maxLines,
     color = color ?: DesignComponent.colors.content,
     textAlign = textAlign,
-    fontWeight = fontWeight
+    fontWeight = fontWeight,
+    overflow = overflow
 )
 
 @Composable
@@ -98,7 +108,8 @@ fun TextField(
     textAlign: TextAlign? = null,
     textStyle: TextStyle,
     maxLines: Int = Int.MAX_VALUE,
-    fontWeight: FontWeight? = null
+    fontWeight: FontWeight? = null,
+    overflow: TextOverflow = TextOverflow.Clip
 ) {
     val isPlaceholder = text == null
 
@@ -121,5 +132,6 @@ fun TextField(
         text = text ?: placeholder ?: "",
         style = textStyle3,
         maxLines = maxLines,
+        overflow = overflow
     )
 }
