@@ -67,11 +67,11 @@ private fun TrainingsList(
     contentPadding = contentPadding
 ) {
 
-    item {
+    item(key = "header_spacer") {
         Spacer(modifier = Modifier.size(44.dp))
     }
 
-    stickyHeader {
+    stickyHeader(key = "header") {
         Row(
             modifier = Modifier.fillMaxWidth().background(DesignComponent.colors.primary),
             horizontalArrangement = Arrangement.SpaceBetween
@@ -97,7 +97,7 @@ private fun TrainingsList(
 //                CycleItem()
 //            }
 //        }
-        item(item) {
+        item(key = item.id) {
             TrainingItem(
                 trainingState = item,
                 get = get

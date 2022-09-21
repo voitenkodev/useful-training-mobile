@@ -34,12 +34,19 @@ fun TrainingContent(
     state: TrainingState,
     update: (TrainingState) -> Unit,
     save: (TrainingState) -> Unit,
-) = ExerciseList(
-    modifier = modifier,
-    state = state,
-    update = update,
-    save = save
-)
+) = Column(modifier = modifier.fillMaxSize()) {
+
+    ExerciseList(
+        modifier = Modifier.weight(1f),
+        state = state,
+        update = update,
+        save = save
+    )
+    NewExerciseItem(
+        modifier = Modifier.fillMaxWidth().padding(DesignComponent.size.rootSpace),
+        onClick = { update.invoke(state.addExercise()) }
+    )
+}
 
 @Composable
 private fun ExerciseList(
@@ -48,15 +55,15 @@ private fun ExerciseList(
     update: (TrainingState) -> Unit,
     save: (TrainingState) -> Unit,
 ) = LazyColumn(
-    modifier = modifier.fillMaxSize(),
+    modifier = modifier,
     contentPadding = PaddingValues(DesignComponent.size.rootSpace),
     verticalArrangement = Arrangement.spacedBy(DesignComponent.size.itemSpace),
 ) {
-    item {
+    item(key = "header_spacer") {
         Spacer(modifier = Modifier.size(44.dp))
     }
 
-    stickyHeader {
+    stickyHeader(key = "header") {
         Row(
             modifier = Modifier.fillMaxWidth().background(DesignComponent.colors.primary),
             horizontalArrangement = Arrangement.SpaceBetween
@@ -121,12 +128,6 @@ private fun ExerciseList(
                 }
             }
         }
-    }
-    item(key = "newExercise") {
-        NewExerciseItem(onClick = { update.invoke(state.addExercise()) })
-    }
-    item(key = "saveTraining") {
-
     }
 }
 
@@ -211,10 +212,11 @@ private fun LazyItemScope.IterationInputItem(
 }
 
 @Composable
-private fun LazyItemScope.NewExerciseItem(
+private fun NewExerciseItem(
+    modifier: Modifier = Modifier,
     onClick: () -> Unit
 ) = ButtonPrimary(
-    modifier = Modifier.fillMaxWidth().animateItemPlacement(),
+    modifier = modifier,
     text = "Add Exercise",
     onClick = { onClick.invoke() }
 )
