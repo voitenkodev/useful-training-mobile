@@ -4,6 +4,7 @@ import com.benasher44.uuid.uuid4
 import com.google.firebase.firestore.FirebaseFirestore
 import dto.Training
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
@@ -16,39 +17,45 @@ class TrainingSource(
     suspend fun writeTraining(
         userId: String?,
         training: Training
-    ) = flowOf(
-        store
-            .collection("users")
-            .document(userId ?: throw Exception("invalid user id"))
-            .collection("trainings")
-            .document(uuid4().toString())
-            .set(training)
-            .await()
-    ).flowOn(dispatcher)
+    ) = flow {
+        emit(
+            store
+                .collection("users")
+                .document(userId ?: throw Exception("invalid user id"))
+                .collection("trainings")
+                .document(uuid4().toString())
+                .set(training)
+                .await()
+        )
+    }.flowOn(dispatcher)
 
     suspend fun getTrainings(
         userId: String?,
-    ) = flowOf(
-        store
-            .collection("users")
-            .document(userId ?: error("invalid user id"))
-            .collection("trainings")
-            .get()
-            .await()
-    ).map {
+    ) = flow {
+        emit(
+            store
+                .collection("users")
+                .document(userId ?: error("invalid user id"))
+                .collection("trainings")
+                .get()
+                .await()
+        )
+    }.map {
         it.documents.mapNotNull { it.toObject(Training::class.java)?.copy(id = it.id) }
     }.flowOn(dispatcher)
 
     suspend fun getTraining(
         userId: String?,
         trainingId: String?,
-    ) = flowOf(
-        store
-            .collection("users")
-            .document(userId ?: error("invalid user id"))
-            .collection("trainings")
-            .document(trainingId ?: error("invalid training id"))
-            .get()
-            .await()
-    ).flowOn(dispatcher)
+    ) = flow {
+        emit(
+            store
+                .collection("users")
+                .document(userId ?: error("invalid user id"))
+                .collection("trainings")
+                .document(trainingId ?: error("invalid training id"))
+                .get()
+                .await()
+        )
+    }.flowOn(dispatcher)
 }

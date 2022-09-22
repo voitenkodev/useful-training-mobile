@@ -32,8 +32,9 @@ class TrainingViewModel(
 
         val training = trainingState.validate()?.toTraining()
 
-        if (training != null) trainingSource
-            .writeTraining(authSource.user?.uid, training)
+        trainingSource
+            .writeTraining(authSource.user?.uid, training?: error("invalid Training"))
+            .catch { _error.send(it.toString()) }
             .onEach { _navigation.send(Router.Review(trainingState)) }
             .launchIn(this)
     }

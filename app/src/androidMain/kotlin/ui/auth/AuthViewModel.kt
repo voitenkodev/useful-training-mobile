@@ -19,6 +19,9 @@ class AuthViewModel(
     private val _navigation: Channel<Router> = Channel(Channel.BUFFERED)
     val event: Flow<Router> = _navigation.receiveAsFlow()
 
+    private val _error: Channel<String> = Channel(Channel.BUFFERED)
+    val error: Flow<String> = _error.receiveAsFlow()
+
     private val _authState = MutableStateFlow(savedStateHandle["authState"] ?: AuthState.EMPTY)
     val authState: StateFlow<AuthState> = _authState.asStateFlow()
 
@@ -33,7 +36,7 @@ class AuthViewModel(
         if (auth != null) authSource
             .login(auth.email, auth.password)
             .onEach { _navigation.send(Router.Trainings) }
-            .catch {  }
+            .catch { _error.send(it.toString()) }
             .launchIn(this)
     }
 
