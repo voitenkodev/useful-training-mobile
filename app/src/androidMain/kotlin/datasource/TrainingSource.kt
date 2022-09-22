@@ -1,16 +1,13 @@
 package datasource
 
-import co.touchlab.kermit.Logger
 import com.benasher44.uuid.uuid4
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.QuerySnapshot
 import dto.Training
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.tasks.await
-import state.TrainingState
 
 class TrainingSource(
     private val store: FirebaseFirestore,
@@ -22,7 +19,7 @@ class TrainingSource(
     ) = flowOf(
         store
             .collection("users")
-            .document(userId ?: error("invalid user id"))
+            .document(userId ?: throw Exception("invalid user id"))
             .collection("trainings")
             .document(uuid4().toString())
             .set(training)
@@ -39,11 +36,7 @@ class TrainingSource(
             .get()
             .await()
     ).map {
-        it.documents
-            .map {
-            Logger.i { "object = $it" }
-            it.toObject(Training::class.java)
-        }
+        it.documents.mapNotNull { it.toObject(Training::class.java)?.copy(id = it.id) }
     }.flowOn(dispatcher)
 
     suspend fun getTraining(

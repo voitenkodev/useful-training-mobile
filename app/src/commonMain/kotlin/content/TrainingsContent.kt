@@ -10,10 +10,7 @@ import androidx.compose.material.icons.filled.Edit
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import designsystem.common.DesignComponent
 import designsystem.components.AccentLabel
@@ -92,11 +89,6 @@ private fun TrainingsList(
     }
 
     state.forEachIndexed { index, item ->
-//        if (index % 3 == 0) {
-//            item {
-//                CycleItem()
-//            }
-//        }
         item(key = item.id) {
             TrainingItem(
                 trainingState = item,
@@ -125,16 +117,17 @@ private fun TrainingItem(
 
         AccentLabel(
             modifier = Modifier.padding(end = 4.dp),
-            text = trainingState.weekDay.name,
+            text = trainingState.weekDay,
         )
 
         TextFieldBody2(
-            text = "Started at:",
+            modifier = Modifier.padding(end = 4.dp),
+            text = "Started at",
             color = DesignComponent.colors.caption,
         )
 
         TextFieldBody2(
-            text = trainingState.date.takeLast(5),
+            text = trainingState.time,
             color = DesignComponent.colors.content,
             fontWeight = FontWeight.Bold
         )
@@ -177,63 +170,6 @@ private fun TrainingItem(
                     }
                 }
             }
-        }
-    }
-}
-
-//@Composable
-//private fun CycleItem() {
-//    Row(
-//        modifier = Modifier.background(
-//            color = DesignComponent.colors.content,
-//            shape = DesignComponent.shape.circleShape
-//        ).padding(horizontal = 10.dp, vertical = 4.dp),
-//        horizontalArrangement = Arrangement.spacedBy(4.dp),
-//        verticalAlignment = Alignment.CenterVertically
-//    ) {
-//        TextFieldBody2(
-//            text = "Week from:",
-//            color = DesignComponent.colors.primary,
-//        )
-//        TextFieldBody2(
-//            text = "16.09.2022",
-//            color = DesignComponent.colors.primary,
-//        )
-//    }
-//}
-
-@Composable
-private fun IterationVerticalGrid(
-    modifier: Modifier = Modifier,
-    spacing: Dp,
-    content: @Composable () -> Unit
-) = Layout(
-    content = content,
-    modifier = modifier
-) { measurables, constraints ->
-    var currentRow = 0
-    var currentOrigin = IntOffset.Zero
-    val spacingValue = spacing.toPx().toInt()
-    val placeables = measurables.map { measurable ->
-        val placeable = measurable.measure(constraints)
-
-        if (currentOrigin.x > 0f && currentOrigin.x + placeable.width > constraints.maxWidth) {
-            currentRow += 1
-            currentOrigin = currentOrigin.copy(x = 0, y = currentOrigin.y + placeable.height + spacingValue)
-        }
-
-        placeable to currentOrigin.also {
-            currentOrigin = it.copy(x = it.x + placeable.width + spacingValue)
-        }
-    }
-
-    layout(
-        width = constraints.maxWidth,
-        height = placeables.lastOrNull()?.run { first.height + second.y } ?: 0
-    ) {
-        placeables.forEach {
-            val (placeable, origin) = it
-            placeable.place(origin.x, origin.y)
         }
     }
 }

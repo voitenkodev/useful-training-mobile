@@ -8,6 +8,7 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import state.AuthState
+import state.validate
 import ui.navigation.Router
 
 class AuthViewModel(
@@ -28,9 +29,11 @@ class AuthViewModel(
     }
 
     fun login(authState: AuthState) = viewModelScope.launch {
-        authSource
-            .login(authState.email, authState.password)
+        val auth = authState.validate()
+        if (auth != null) authSource
+            .login(auth.email, auth.password)
             .onEach { _navigation.send(Router.Trainings) }
+            .catch {  }
             .launchIn(this)
     }
 

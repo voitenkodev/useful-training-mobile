@@ -2,34 +2,32 @@ package dto
 
 import kotlinx.serialization.Serializable
 
-const val TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"
-
 @Serializable
 data class Training(
-    val id: String?,
-    val exercises: List<Exercise>?,
-    val duration: String?,
-    val date: String?,
+    val id: String? = null,
+    val exercises: List<Exercise> = emptyList(),
+    val duration: String? = null,
+    val date: String? = null,
 
-    val tonnage: Double?,
-    val countOfLifting: Int?,
-    val intensity: Double?,
+    val tonnage: Double? = null,
+    val countOfLifting: Int? = null,
+    val intensity: Double? = null,
 ) {
 
     @Serializable
     data class Exercise(
-        val id: String?,
-        val name: String?,
-        val iterations: List<Iteration>?,
+        val id: String? = null,
+        val name: String? = null,
+        val iterations: List<Iteration> = emptyList(),
 
-        val tonnage: Double?,
-        val countOfLifting: Int?,
-        val intensity: Double?,
+        val tonnage: Double? = null,
+        val countOfLifting: Int? = null,
+        val intensity: Double? = null,
     ) {
         @Serializable
         data class Iteration(
-            val weight: Double?,
-            val repeat: Int?
+            val weight: Double? = null,
+            val repeat: Int? = null
         )
     }
 }

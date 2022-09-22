@@ -15,11 +15,6 @@ fun Main() {
                 registration = {},
                 login = {}
             )
-//            TrainingsContent(
-//                state = listOf(MOCK_1, MOCK_2, MOCK_3),
-//                get = {},
-//                add = {}
-//            )
         }
     }
 }

@@ -18,11 +18,8 @@ val appModule = module {
     single(named("IO")) { Dispatchers.IO }
     single(named("MAIN")) { Dispatchers.Main }
 
-    single { FirebaseAuth.getInstance() }
-    single { FirebaseFirestore.getInstance() }
-
-    single { AuthSource(get(), get(named("IO"))) }
-    single { TrainingSource(get(), get(named("IO"))) }
+    single { AuthSource(FirebaseAuth.getInstance(), get(named("IO"))) }
+    single { TrainingSource(FirebaseFirestore.getInstance(), get(named("IO"))) }
 
     viewModel { params: ParametersHolder -> TrainingViewModel(params.get(), get(), get()) }
     viewModelOf(::AuthViewModel)

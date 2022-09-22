@@ -28,5 +28,5 @@ class AuthSource(
 
     val isAuthorized: Boolean = auth.currentUser != null
 
-    val user: FirebaseUser? = auth.currentUser
+    val user: FirebaseUser? get() = auth.currentUser
 }

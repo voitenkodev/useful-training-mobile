@@ -13,11 +13,8 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
-import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import designsystem.common.DesignComponent
 import designsystem.components.AccentLabel
@@ -212,7 +209,9 @@ private fun LazyItemScope.IterationInputItem(
         onValueChange = updateWeight
     )
 
-    DividerPrimary(modifier = Modifier.padding(horizontal = 8.dp))
+    DividerPrimary(
+        modifier = Modifier.padding(horizontal = 8.dp)
+    )
 
     InputRepeat(
         value = iteration.repeat,
@@ -229,53 +228,3 @@ private fun NewExerciseItem(
     text = "Add Exercise",
     onClick = { onClick.invoke() }
 )
-
-@Composable
-private fun SaveTrainingItem(
-    onClick: () -> Unit
-) = Row(
-    modifier = Modifier.fillMaxWidth(),
-    horizontalArrangement = Arrangement.spacedBy(0.dp, Alignment.CenterHorizontally),
-    verticalAlignment = Alignment.CenterVertically
-) {
-
-    TextFieldBody2(
-        text = "Do you finish the training?",
-        color = DesignComponent.colors.caption
-    )
-
-    ButtonSecondary(
-        text = "Save It!",
-        onClick = { onClick.invoke() }
-    )
-}
-
-@Composable
-private fun IterationVerticalGrid(
-    modifier: Modifier = Modifier,
-    spacing: Dp,
-    content: @Composable () -> Unit
-) = Layout(
-    content = content, modifier = modifier
-) { measurables, constraints ->
-    var currentRow = 0
-    var currentOrigin = IntOffset.Zero
-    val spacingValue = spacing.toPx().toInt()
-    val placeables = measurables.map { measurable ->
-        val placeable = measurable.measure(constraints)
-
-        if (currentOrigin.x > 0f && currentOrigin.x + placeable.width > constraints.maxWidth) {
-            currentRow += 1
-            currentOrigin = currentOrigin.copy(x = 0, y = currentOrigin.y + placeable.height + spacingValue)
-        }
-
-        placeable to currentOrigin.also { currentOrigin = it.copy(x = it.x + placeable.width + spacingValue) }
-    }
-
-    layout(width = constraints.maxWidth, height = placeables.lastOrNull()?.run { first.height + second.y } ?: 0) {
-        placeables.forEach {
-            val (placeable, origin) = it
-            placeable.place(origin.x, origin.y)
-        }
-    }
-}

@@ -11,7 +11,7 @@ data class AuthState(
     companion object {
         val EMPTY = AuthState(
             email = "voitenko.dev@gmail.com",
-            password = "qwerty123"
+            password = "bboygasta37373"
         )
     }
 }

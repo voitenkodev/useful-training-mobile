@@ -8,9 +8,7 @@ import datasource.TrainingSource
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import state.MOCK_1
-import state.MOCK_2
-import state.MOCK_3
+import mapping.toTrainingStateList
 import state.TrainingState
 import ui.navigation.Router
 
@@ -23,18 +21,19 @@ class TrainingsViewModel(
     private val _navigation: Channel<Router> = Channel(Channel.BUFFERED)
     val event: Flow<Router> = _navigation.receiveAsFlow()
 
-    private val _trainingState = MutableStateFlow(savedStateHandle["trainingsState"] ?: listOf(MOCK_1, MOCK_2, MOCK_3))
+    private val _trainingState = MutableStateFlow(savedStateHandle["trainingsState"] ?: emptyList<TrainingState>())
     val trainingState: StateFlow<List<TrainingState>> = _trainingState.asStateFlow()
 
     init {
         viewModelScope.launch {
-//            trainingSource
-//                .getTrainings(authSource.user?.uid)
-//                .onEach {
-//                    _trainingState.value = it
-//                    savedStateHandle["trainingsState"] = it
-//                }
-//                .launchIn(this)
+            trainingSource
+                .getTrainings(authSource.user?.uid)
+                .map { it.toTrainingStateList() }
+                .onEach {
+                    _trainingState.value = it
+                    savedStateHandle["trainingsState"] = it
+                }
+                .launchIn(this)
         }
     }
 
