@@ -12,6 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import designsystem.common.BarChart
 import designsystem.common.DesignComponent
 import designsystem.components.AccentLabel
 import designsystem.controls.*
@@ -22,6 +23,7 @@ fun TrainingsContent(
     modifier: Modifier = Modifier,
     state: List<TrainingState>,
     get: (TrainingState) -> Unit,
+    show: (TrainingState) -> Unit,
     add: () -> Unit,
 ) = Box(modifier = modifier) {
 
@@ -35,6 +37,7 @@ fun TrainingsContent(
     TrainingsList(
         state = state,
         get = get,
+        show = show,
         contentPadding = contentPadding
     )
 
@@ -57,6 +60,7 @@ private fun TrainingsList(
     modifier: Modifier = Modifier,
     state: List<TrainingState>,
     get: (TrainingState) -> Unit,
+    show: (TrainingState) -> Unit,
     contentPadding: PaddingValues
 ) = LazyColumn(
     modifier = modifier.fillMaxSize(),
@@ -92,7 +96,8 @@ private fun TrainingsList(
         item(key = item.id) {
             TrainingItem(
                 trainingState = item,
-                get = get
+                get = get,
+                show = show
             )
         }
     }
@@ -101,7 +106,8 @@ private fun TrainingsList(
 @Composable
 private fun TrainingItem(
     trainingState: TrainingState,
-    get: (TrainingState) -> Unit
+    get: (TrainingState) -> Unit,
+    show: (TrainingState) -> Unit,
 ) = Column(
     modifier = Modifier
         .background(
@@ -133,6 +139,15 @@ private fun TrainingItem(
         )
 
         Spacer(modifier = Modifier.weight(1f))
+
+        IconPrimary(
+            modifier = Modifier.height(20.dp),
+            imageVector = BarChart,
+            color = DesignComponent.colors.caption,
+            onClick = { show.invoke(trainingState) }
+        )
+
+        Spacer(modifier = Modifier.size(20.dp))
 
         IconPrimary(
             modifier = Modifier.height(20.dp),

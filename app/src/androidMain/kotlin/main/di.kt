@@ -11,6 +11,7 @@ import org.koin.core.parameter.ParametersHolder
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import ui.auth.AuthViewModel
+import ui.review.ReviewViewModel
 import ui.training.TrainingViewModel
 import ui.trainings.TrainingsViewModel
 
@@ -22,6 +23,7 @@ val appModule = module {
     single { TrainingSource(FirebaseFirestore.getInstance(), get(named("IO"))) }
 
     viewModel { params: ParametersHolder -> TrainingViewModel(params.get(), get(), get()) }
+    viewModel { params: ParametersHolder -> ReviewViewModel(params.get(), get(), get()) }
     viewModelOf(::AuthViewModel)
     viewModelOf(::TrainingsViewModel)
 }

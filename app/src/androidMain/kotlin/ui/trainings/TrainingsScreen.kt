@@ -5,8 +5,8 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
-import ui.navigation.LocalNavigator
 import content.TrainingsContent
+import ui.navigation.LocalNavigator
 import ui.navigation.Router
 
 @Composable
@@ -26,6 +26,7 @@ fun TrainingsScreen(
         modifier = Modifier.statusBarsPadding().navigationBarsPadding(),
         state = state.value,
         get = viewModel::get,
-        add = viewModel::add
+        add = viewModel::add,
+        show = viewModel::show
     )
 }
