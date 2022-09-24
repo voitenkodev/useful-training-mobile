@@ -25,35 +25,47 @@ fun TrainingsContent(
     get: (TrainingState) -> Unit,
     show: (TrainingState) -> Unit,
     add: () -> Unit,
-) = Box(modifier = modifier) {
-
-    val contentPadding = PaddingValues(
+) = RootSecondary(
+    modifier = modifier,
+    title = "Trainings!",
+    paddingValues = PaddingValues(
         top = DesignComponent.size.rootSpace,
-        start = DesignComponent.size.rootSpace,
-        end = DesignComponent.size.rootSpace,
         bottom = DesignComponent.size.rootSpace + 56.dp + DesignComponent.size.rootSpace
-    )
-
-    TrainingsList(
-        state = state,
-        get = get,
-        show = show,
-        contentPadding = contentPadding
-    )
-
-    IconPrimary(
-        modifier = Modifier
-            .padding(DesignComponent.size.rootSpace)
-            .size(56.dp)
-            .background(
-                color = DesignComponent.colors.accent_primary,
-                shape = DesignComponent.shape.circleShape
-            )
-            .align(Alignment.BottomEnd),
-        imageVector = Icons.Default.Add,
-        onClick = add
-    )
-}
+    ),
+    floating = {
+        IconPrimary(
+            modifier = Modifier
+                .padding(DesignComponent.size.rootSpace)
+                .size(56.dp)
+                .background(
+                    color = DesignComponent.colors.accent_primary,
+                    shape = DesignComponent.shape.circleShape
+                )
+                .align(Alignment.BottomEnd),
+            imageVector = Icons.Default.Add,
+            onClick = add
+        )
+    },
+    menu = {
+        IconPrimary(
+            modifier = Modifier.size(56.dp),
+            imageVector = Icons.Default.ArrowForward,
+            color = DesignComponent.colors.accent_secondary,
+            onClick = {}
+        )
+    },
+    content = {
+        state.forEachIndexed { index, item ->
+            item(key = item.id) {
+                TrainingItem(
+                    trainingState = item,
+                    get = get,
+                    show = show
+                )
+            }
+        }
+    }
+)
 
 @Composable
 private fun TrainingsList(
@@ -79,16 +91,10 @@ private fun TrainingsList(
         ) {
 
             TextFieldH1(
-                text = "Trainings!",
+                text = "ASD",
             )
 
-            IconPrimary(
-                modifier = Modifier.size(56.dp),
-                imageVector = Icons.Default.ArrowForward,
-                color = DesignComponent.colors.accent_secondary
-            ) {
 
-            }
         }
     }
 

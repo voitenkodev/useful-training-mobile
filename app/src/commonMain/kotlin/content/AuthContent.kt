@@ -18,13 +18,9 @@ fun AuthContent(
     update: (AuthState) -> Unit,
     registration: (AuthState) -> Unit,
     login: (AuthState) -> Unit
-) = Root(
+) = RootPrimary(
     modifier = modifier,
-    header = {
-        TextFieldH1(
-            text = "\uD83D\uDC4B Welcome back!",
-        )
-    },
+    title = "\uD83D\uDC4B Welcome back!",
     footer = {
 
         ButtonPrimary(modifier = Modifier.fillMaxWidth(), text = "Log In", onClick = { login.invoke(state) })
@@ -49,14 +45,16 @@ fun AuthContent(
         }
     },
     content = {
+
         item {
             TextFieldH2(
                 text = "Sign in to your account",
+                color = DesignComponent.colors.caption
             )
         }
-        item {
-            Spacer(modifier = Modifier.size(30.dp))
-        }
+
+        item { Spacer(modifier = Modifier.size(16.dp)) }
+
         item {
             InputEmail(
                 modifier = Modifier.fillMaxWidth(),
@@ -64,9 +62,7 @@ fun AuthContent(
                 onValueChange = { update(state.copy(email = it)) }
             )
         }
-        item {
-            Spacer(modifier = Modifier.size(14.dp))
-        }
+
         item {
             InputPassword(
                 modifier = Modifier.fillMaxWidth(),

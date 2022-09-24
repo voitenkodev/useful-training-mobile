@@ -17,7 +17,7 @@ internal fun AppTypography() = AppTypography(
         fontStyle = FontStyle.Normal,
     ),
     H2 = TextStyle(
-        fontSize = 22.sp,
+        fontSize = 18.sp,
         fontWeight = FontWeight.Normal,
         fontStyle = FontStyle.Normal,
     ),
