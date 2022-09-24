@@ -1,6 +1,4 @@
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Application
@@ -35,10 +33,7 @@ class SkikoAppDelegate : UIResponder, UIApplicationDelegateProtocol {
         window = UIWindow(frame = UIScreen.mainScreen.bounds)
         val height = window?.bounds
         window!!.rootViewController = Application("UsefulTraining") {
-            Column {
-                Box(modifier = Modifier.height(height?.size?.dp ?: 0.dp)) // To skip upper part of screen.
-                Main()
-            }
+            Main(modifier = Modifier.padding(top = height?.size?.dp ?: 0.dp))
         }
         window!!.makeKeyAndVisible()
         return true
