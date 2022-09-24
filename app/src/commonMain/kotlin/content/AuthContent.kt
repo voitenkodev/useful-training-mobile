@@ -18,61 +18,61 @@ fun AuthContent(
     update: (AuthState) -> Unit,
     registration: (AuthState) -> Unit,
     login: (AuthState) -> Unit
-) = Column(
-    modifier = modifier
-        .fillMaxSize()
-        .padding(DesignComponent.size.rootSpace)
-) {
-
-    TextFieldH1(
-        modifier = modifier.padding(top = 44.dp),
-        text = "\uD83D\uDC4B Welcome back!",
-    )
-
-    TextFieldH2(
-        text = "Sign in to your account",
-    )
-
-    Spacer(modifier = Modifier.size(30.dp))
-
-    InputEmail(
-        modifier = Modifier.fillMaxWidth(),
-        value = state.email,
-        onValueChange = { update(state.copy(email = it)) }
-    )
-
-    Spacer(modifier = Modifier.size(14.dp))
-
-    InputPassword(
-        modifier = Modifier.fillMaxWidth(),
-        value = state.password,
-        onValueChange = { update(state.copy(password = it)) }
-    )
-
-    Spacer(modifier = Modifier.weight(1f))
-
-    ButtonPrimary(
-        modifier = Modifier.fillMaxWidth(),
-        text = "Log In",
-        onClick = { login.invoke(state) }
-    )
-
-    Spacer(modifier = Modifier.size(8.dp))
-
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(0.dp, Alignment.CenterHorizontally),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-
-        TextFieldBody2(
-            text = "Don't have an account yet?",
-            color = DesignComponent.colors.caption
+) = Root(
+    modifier = modifier,
+    header = {
+        TextFieldH1(
+            text = "\uD83D\uDC4B Welcome back!",
         )
+    },
+    footer = {
 
-        ButtonSecondary(
-            text = "Sign Up!",
-            onClick = { registration.invoke(state) }
-        )
+        ButtonPrimary(modifier = Modifier.fillMaxWidth(), text = "Log In", onClick = { login.invoke(state) })
+
+        Spacer(modifier = Modifier.size(8.dp))
+
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(0.dp, Alignment.CenterHorizontally),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+
+            TextFieldBody2(
+                text = "Don't have an account yet?",
+                color = DesignComponent.colors.caption
+            )
+
+            ButtonSecondary(
+                text = "Sign Up!",
+                onClick = { registration.invoke(state) }
+            )
+        }
+    },
+    content = {
+        item {
+            TextFieldH2(
+                text = "Sign in to your account",
+            )
+        }
+        item {
+            Spacer(modifier = Modifier.size(30.dp))
+        }
+        item {
+            InputEmail(
+                modifier = Modifier.fillMaxWidth(),
+                value = state.email,
+                onValueChange = { update(state.copy(email = it)) }
+            )
+        }
+        item {
+            Spacer(modifier = Modifier.size(14.dp))
+        }
+        item {
+            InputPassword(
+                modifier = Modifier.fillMaxWidth(),
+                value = state.password,
+                onValueChange = { update(state.copy(password = it)) }
+            )
+        }
     }
-}
+)
