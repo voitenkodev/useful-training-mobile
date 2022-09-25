@@ -27,6 +27,12 @@ fun TrainingsContent(
     add: () -> Unit,
 ) = Root(
     modifier = modifier,
+    contentPadding = PaddingValues(
+        top = DesignComponent.size.space,
+        bottom = DesignComponent.size.space + 56.dp + DesignComponent.size.space,
+        start = DesignComponent.size.space,
+        end = DesignComponent.size.space
+    ),
     header = {
         Header(title = "Trainings!")
     },
