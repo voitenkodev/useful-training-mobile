@@ -26,8 +26,8 @@ fun ReviewContent(
 ) = LazyColumn(
     modifier = modifier
         .fillMaxSize(),
-    verticalArrangement = Arrangement.spacedBy(DesignComponent.size.itemSpace),
-    contentPadding = PaddingValues(DesignComponent.size.rootSpace)
+    verticalArrangement = Arrangement.spacedBy(DesignComponent.size.space),
+    contentPadding = PaddingValues(DesignComponent.size.space)
 ) {
 
     item(key = "header_spacer") {

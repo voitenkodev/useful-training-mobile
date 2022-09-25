@@ -2,10 +2,8 @@ package content
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -15,6 +13,8 @@ import androidx.compose.ui.unit.dp
 import designsystem.common.BarChart
 import designsystem.common.DesignComponent
 import designsystem.components.AccentLabel
+import designsystem.components.Header
+import designsystem.components.Root
 import designsystem.controls.*
 import state.TrainingState
 
@@ -25,42 +25,46 @@ fun TrainingsContent(
     get: (TrainingState) -> Unit,
     show: (TrainingState) -> Unit,
     add: () -> Unit,
-) = RootSecondary(
+) = Root(
     modifier = modifier,
-    title = "Trainings!",
-    paddingValues = PaddingValues(
-        top = DesignComponent.size.rootSpace,
-        bottom = DesignComponent.size.rootSpace + 56.dp + DesignComponent.size.rootSpace
-    ),
-    floating = {
-        IconPrimary(
-            modifier = Modifier
-                .padding(DesignComponent.size.rootSpace)
-                .size(56.dp)
-                .background(
-                    color = DesignComponent.colors.accent_primary,
-                    shape = DesignComponent.shape.circleShape
-                )
-                .align(Alignment.BottomEnd),
-            imageVector = Icons.Default.Add,
-            onClick = add
-        )
+    header = {
+        Header(title = "Trainings!")
     },
-    menu = {
-        IconPrimary(
-            modifier = Modifier.size(56.dp),
-            imageVector = Icons.Default.ArrowForward,
-            color = DesignComponent.colors.accent_secondary,
-            onClick = {}
-        )
+    floating = {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .align(Alignment.BottomCenter)
+                .padding(DesignComponent.size.space),
+            horizontalArrangement = Arrangement.spacedBy(DesignComponent.size.space)
+        ) {
+            ButtonPrimary(
+                modifier = Modifier
+                    .background(
+                        color = DesignComponent.colors.accent_primary,
+                        shape = DesignComponent.shape.circleShape
+                    ).weight(1f),
+                text = "New Training",
+                leadIcon = Icons.Default.Add,
+                onClick = add
+            )
+            IconPrimary(
+                modifier = Modifier
+                    .size(56.dp)
+                    .background(
+                        color = DesignComponent.colors.accent_secondary,
+                        shape = DesignComponent.shape.maxShape
+                    ),
+                imageVector = BarChart,
+                onClick = {}
+            )
+        }
     },
     content = {
         state.forEachIndexed { index, item ->
             item(key = item.id) {
                 TrainingItem(
-                    trainingState = item,
-                    get = get,
-                    show = show
+                    trainingState = item, get = get, show = show
                 )
             }
         }
@@ -68,58 +72,15 @@ fun TrainingsContent(
 )
 
 @Composable
-private fun TrainingsList(
-    modifier: Modifier = Modifier,
-    state: List<TrainingState>,
-    get: (TrainingState) -> Unit,
-    show: (TrainingState) -> Unit,
-    contentPadding: PaddingValues
-) = LazyColumn(
-    modifier = modifier.fillMaxSize(),
-    verticalArrangement = Arrangement.spacedBy(DesignComponent.size.itemSpace),
-    contentPadding = contentPadding
-) {
-
-    item(key = "header_spacer") {
-        Spacer(modifier = Modifier.size(44.dp))
-    }
-
-    stickyHeader(key = "header") {
-        Row(
-            modifier = Modifier.fillMaxWidth().background(DesignComponent.colors.primary),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-
-            TextFieldH1(
-                text = "ASD",
-            )
-
-
-        }
-    }
-
-    state.forEachIndexed { index, item ->
-        item(key = item.id) {
-            TrainingItem(
-                trainingState = item,
-                get = get,
-                show = show
-            )
-        }
-    }
-}
-
-@Composable
 private fun TrainingItem(
     trainingState: TrainingState,
     get: (TrainingState) -> Unit,
     show: (TrainingState) -> Unit,
 ) = Column(
-    modifier = Modifier
-        .background(
-            color = DesignComponent.colors.secondary,
-            shape = DesignComponent.shape.maxShape
-        ).padding(12.dp)
+    modifier = Modifier.background(
+        color = DesignComponent.colors.secondary,
+        shape = DesignComponent.shape.maxShape
+    ).padding(12.dp)
 ) {
     Row(
         modifier = Modifier.fillMaxWidth(),

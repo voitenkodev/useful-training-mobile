@@ -6,9 +6,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import designsystem.common.DesignComponent
+import designsystem.components.Header
 import designsystem.components.InputEmail
 import designsystem.components.InputPassword
-import designsystem.controls.*
+import designsystem.components.Root
+import designsystem.controls.ButtonPrimary
+import designsystem.controls.ButtonSecondary
+import designsystem.controls.TextFieldBody2
+import designsystem.controls.TextFieldH2
 import state.AuthState
 
 @Composable
@@ -18,14 +23,18 @@ fun AuthContent(
     update: (AuthState) -> Unit,
     registration: (AuthState) -> Unit,
     login: (AuthState) -> Unit
-) = RootPrimary(
+) = Root(
     modifier = modifier,
-    title = "\uD83D\uDC4B Welcome back!",
+    header = {
+        Header(title = "\uD83D\uDC4B Welcome back!")
+    },
     footer = {
 
-        ButtonPrimary(modifier = Modifier.fillMaxWidth(), text = "Log In", onClick = { login.invoke(state) })
-
-        Spacer(modifier = Modifier.size(8.dp))
+        ButtonPrimary(
+            modifier = Modifier.fillMaxWidth(),
+            text = "Log In",
+            onClick = { login.invoke(state) }
+        )
 
         Row(
             modifier = Modifier.fillMaxWidth(),

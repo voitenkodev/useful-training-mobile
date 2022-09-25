@@ -2,10 +2,11 @@ package content
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.*
+import androidx.compose.foundation.lazy.LazyItemScope
+import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material.icons.filled.Send
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
@@ -17,10 +18,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import designsystem.common.DesignComponent
-import designsystem.components.AccentLabel
-import designsystem.components.InputName
-import designsystem.components.InputRepeat
-import designsystem.components.InputWeight
+import designsystem.components.*
 import designsystem.controls.*
 import kotlinx.coroutines.launch
 import state.*
@@ -31,110 +29,82 @@ fun TrainingContent(
     state: TrainingState,
     update: (TrainingState) -> Unit,
     save: (TrainingState) -> Unit,
-) = Column(modifier = modifier.fillMaxSize()) {
+) {
 
     val coroutineScope = rememberCoroutineScope()
     val listState = rememberLazyListState()
 
-    ExerciseList(
-        modifier = Modifier.weight(1f),
-        lazyListState = listState,
-        state = state,
-        update = update,
-        save = save,
-    )
-    NewExerciseItem(
-        modifier = Modifier.fillMaxWidth().padding(DesignComponent.size.rootSpace),
-        onClick = {
-            update.invoke(state.addExercise())
-            coroutineScope.launch { listState.animateScrollToItem(state.exercises.lastIndex) }
-        }
-    )
-}
-
-@Composable
-private fun ExerciseList(
-    modifier: Modifier = Modifier,
-    state: TrainingState,
-    lazyListState: LazyListState,
-    update: (TrainingState) -> Unit,
-    save: (TrainingState) -> Unit,
-) = LazyColumn(
-    modifier = modifier,
-    state = lazyListState,
-    contentPadding = PaddingValues(DesignComponent.size.rootSpace),
-    verticalArrangement = Arrangement.spacedBy(DesignComponent.size.itemSpace),
-) {
-    item(key = "header_spacer") {
-        Spacer(modifier = Modifier.size(44.dp))
-    }
-
-    stickyHeader(key = "header") {
-        Row(
-            modifier = Modifier.fillMaxWidth().background(DesignComponent.colors.primary),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-
-            TextFieldH1(
-                text = "Exercises!",
+    Root(
+        modifier = modifier,
+        header = {
+            Header(
+                title = "Exercises!",
+                save = { save.invoke(state) }
             )
-
-            IconPrimary(
-                modifier = Modifier.size(56.dp),
-                imageVector = Icons.Default.Send,
-                color = DesignComponent.colors.accent_secondary,
-                onClick = { save.invoke(state) }
+        },
+        contentPadding = PaddingValues(
+            top = DesignComponent.size.space,
+            bottom = DesignComponent.size.space + 56.dp + DesignComponent.size.space
+        ),
+        footer = {
+            NewExerciseItem(
+                modifier = Modifier.fillMaxWidth().padding(DesignComponent.size.space),
+                onClick = {
+                    update.invoke(state.addExercise())
+                    coroutineScope.launch { listState.animateScrollToItem(state.exercises.lastIndex) }
+                }
             )
-        }
-    }
+        },
+        content = {
+            itemsIndexed(state.exercises, key = { index, exercise -> exercise.id }) { index, exercise ->
+                Column(
+                    modifier = Modifier
+                        .animateItemPlacement()
+                        .background(
+                            color = DesignComponent.colors.secondary,
+                            shape = DesignComponent.shape.maxShape
+                        )
+                ) {
+                    InputNameItem(
+                        number = index + 1,
+                        showHelp = mutableStateOf(value = false),
+                        exercise = exercise,
+                        update = { update.invoke(state.updateExercise(it)) },
+                        remove = { update.invoke(state.removeExercise(it)) })
 
-    itemsIndexed(state.exercises, key = { index, exercise -> exercise.id }) { index, exercise ->
-        Column(
-            modifier = Modifier
-                .animateItemPlacement()
-                .background(
-                    color = DesignComponent.colors.secondary,
-                    shape = DesignComponent.shape.maxShape
-                )
-        ) {
-            InputNameItem(
-                number = index + 1,
-                showHelp = mutableStateOf(value = false),
-                exercise = exercise,
-                update = { update.invoke(state.updateExercise(it)) },
-                remove = { update.invoke(state.removeExercise(it)) })
+                    DividerPrimary(modifier = Modifier.padding(horizontal = 12.dp))
 
-            DividerPrimary(modifier = Modifier.padding(horizontal = 12.dp))
+                    IterationVerticalGrid(
+                        modifier = Modifier.padding(top = 4.dp, bottom = 8.dp, start = 4.dp, end = 4.dp),
+                        spacing = 4.dp
+                    ) {
 
-            IterationVerticalGrid(
-                modifier = Modifier.padding(top = 4.dp, bottom = 8.dp, start = 4.dp, end = 4.dp),
-                spacing = 4.dp
-            ) {
+                        IterationCaptionItem()
 
-                IterationCaptionItem()
-
-                exercise.iterations.forEachIndexed { index, iteration ->
-                    IterationInputItem(
-                        iteration = iteration,
-                        updateWeight = { value ->
-                            exercise
-                                .iterations
-                                .changeIterationByIndex(weight = value, index = index)
-                                .addEmptyIteration()
-                                .run { update.invoke(state.updateExercise(exercise = exercise.copy(iterations = this))) }
-                        },
-                        updateRepeat = { value ->
-                            exercise
-                                .iterations
-                                .changeIterationByIndex(repeat = value, index = index)
-                                .addEmptyIteration()
-                                .run { update.invoke(state.updateExercise(exercise = exercise.copy(iterations = this))) }
+                        exercise.iterations.forEachIndexed { index, iteration ->
+                            IterationInputItem(
+                                iteration = iteration,
+                                updateWeight = { value ->
+                                    exercise
+                                        .iterations
+                                        .changeIterationByIndex(weight = value, index = index)
+                                        .addEmptyIteration()
+                                        .run { update.invoke(state.updateExercise(exercise = exercise.copy(iterations = this))) }
+                                },
+                                updateRepeat = { value ->
+                                    exercise
+                                        .iterations
+                                        .changeIterationByIndex(repeat = value, index = index)
+                                        .addEmptyIteration()
+                                        .run { update.invoke(state.updateExercise(exercise = exercise.copy(iterations = this))) }
+                                }
+                            )
                         }
-                    )
+                    }
                 }
             }
         }
-    }
+    )
 }
 
 @Composable

@@ -6,11 +6,13 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun AppSize() = AppSize(
-    rootSpace = 12.dp,
-    itemSpace = 12.dp,
+    space = 12.dp,
+    footer = 56.dp,
+    header = 56.dp,
 )
 
 data class AppSize(
-    val rootSpace: Dp,
-    val itemSpace: Dp,
+    val space: Dp,
+    val footer: Dp,
+    val header: Dp,
 )

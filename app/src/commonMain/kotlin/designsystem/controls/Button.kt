@@ -1,10 +1,7 @@
 package designsystem.controls
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -31,7 +28,7 @@ fun ButtonPrimary(
         modifier = modifier,
         text = text.uppercase(),
         textStyle = DesignComponent.typography.PrimaryButton.copy(color = _textColor, fontWeight = FontWeight.Bold),
-        contentPadding = PaddingValues(vertical = 16.dp),
+        contentPadding = PaddingValues(16.dp),
         enabled = enabled,
         onClick = onClick,
         colors = ButtonDefaults.buttonColors(backgroundColor = _backgroundColor),
@@ -81,9 +78,10 @@ private fun Button(
     leadIcon: ImageVector? = null,
 ) {
     TextButton(
-        modifier = Modifier
-            .wrapContentSize()
-            .then(modifier),
+//        modifier = Modifier
+//            .wrapContentSize()
+//            .then(modifier),
+        modifier = modifier,
         onClick = onClick,
         enabled = enabled,
         contentPadding = contentPadding,
@@ -96,7 +94,7 @@ private fun Button(
                     imageVector = leadIcon,
                     modifier = Modifier.size(24.dp),
                     contentDescription = null,
-                    tint = DesignComponent.colors.primary
+                    tint = DesignComponent.colors.content
                 )
             }
             TextField(
