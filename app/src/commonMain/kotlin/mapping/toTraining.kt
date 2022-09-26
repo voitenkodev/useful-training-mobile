@@ -21,7 +21,7 @@ fun TrainingState.toTraining() = Training(
         )
     },
     duration = duration,
-    date = dateTime,
+    date = startDateTime,
     tonnage = tonnage,
     countOfLifting = countOfLifting,
     intensity = intensity,

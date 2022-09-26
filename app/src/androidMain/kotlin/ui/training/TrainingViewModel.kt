@@ -3,7 +3,6 @@ package ui.training
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import state.validate
 import datasource.AuthSource
 import datasource.TrainingSource
 import kotlinx.coroutines.channels.Channel
@@ -11,6 +10,8 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import mapping.toTraining
 import state.TrainingState
+import state.calculateDuration
+import state.validate
 import ui.navigation.Router
 
 class TrainingViewModel(
@@ -30,10 +31,10 @@ class TrainingViewModel(
 
     fun save(trainingState: TrainingState) = viewModelScope.launch {
 
-        val training = trainingState.validate()?.toTraining()
+        val training = trainingState.validate()?.calculateDuration()?.toTraining()
 
         trainingSource
-            .writeTraining(authSource.user?.uid, training?: error("invalid Training"))
+            .writeTraining(authSource.user?.uid, training ?: error("invalid Training"))
             .catch { _error.send(it.toString()) }
             .onEach { _navigation.send(Router.Review(trainingState)) }
             .launchIn(this)

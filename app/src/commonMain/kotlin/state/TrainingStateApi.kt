@@ -1,5 +1,7 @@
 package state
 
+import utils.DateTimeKtx
+
 fun TrainingState.validate(): TrainingState? {
     val exercises = exercises.mapNotNull {
 
@@ -18,6 +20,13 @@ fun TrainingState.validate(): TrainingState? {
 
     return if (exercises.isNotEmpty()) this.copy(exercises = exercises)
     else null
+}
+
+fun TrainingState.calculateDuration(): TrainingState {
+    return if (duration == null)
+        this.copy(duration = DateTimeKtx().durationFrom(this.startDateTime))
+    else
+        this
 }
 
 fun List<TrainingState.Exercise.Iteration>.addEmptyIteration(): List<TrainingState.Exercise.Iteration> {

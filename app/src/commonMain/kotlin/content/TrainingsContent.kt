@@ -3,7 +3,6 @@ package content
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -51,7 +50,6 @@ fun TrainingsContent(
                         shape = DesignComponent.shape.circleShape
                     ).weight(1f),
                 text = "New Training",
-                leadIcon = Icons.Default.Add,
                 onClick = add
             )
             IconPrimary(
@@ -70,7 +68,9 @@ fun TrainingsContent(
         state.forEachIndexed { index, item ->
             item(key = item.id) {
                 TrainingItem(
-                    trainingState = item, get = get, show = show
+                    trainingState = item,
+                    get = get,
+                    show = show
                 )
             }
         }
@@ -88,47 +88,12 @@ private fun TrainingItem(
         shape = DesignComponent.shape.maxShape
     ).padding(12.dp)
 ) {
-    Row(
+    TrainingHeader(
         modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(2.dp),
-        verticalAlignment = Alignment.CenterVertically,
-    ) {
-
-        AccentLabel(
-            modifier = Modifier.padding(end = 4.dp),
-            text = trainingState.weekDay,
-        )
-
-        TextFieldBody2(
-            modifier = Modifier.padding(end = 4.dp),
-            text = "Started at",
-            color = DesignComponent.colors.caption,
-        )
-
-        TextFieldBody2(
-            text = trainingState.time,
-            color = DesignComponent.colors.content,
-            fontWeight = FontWeight.Bold
-        )
-
-        Spacer(modifier = Modifier.weight(1f))
-
-        IconPrimary(
-            modifier = Modifier.height(20.dp),
-            imageVector = BarChart,
-            color = DesignComponent.colors.caption,
-            onClick = { show.invoke(trainingState) }
-        )
-
-        Spacer(modifier = Modifier.size(20.dp))
-
-        IconPrimary(
-            modifier = Modifier.height(20.dp),
-            imageVector = Icons.Default.Edit,
-            color = DesignComponent.colors.caption,
-            onClick = { get.invoke(trainingState) }
-        )
-    }
+        trainingState = trainingState,
+        show = show,
+        get = get
+    )
 
     DividerPrimary(modifier = Modifier.padding(bottom = 4.dp, top = 12.dp))
 
@@ -160,4 +125,95 @@ private fun TrainingItem(
             }
         }
     }
+    DividerPrimary(modifier = Modifier.padding(bottom = 12.dp))
+
+    TrainingFooter(
+        modifier = Modifier.fillMaxWidth(),
+        trainingState = trainingState
+    )
+}
+
+@Composable
+private fun TrainingHeader(
+    modifier: Modifier = Modifier,
+    trainingState: TrainingState,
+    show: (TrainingState) -> Unit,
+    get: (TrainingState) -> Unit
+) = Row(
+    modifier = modifier,
+    horizontalArrangement = Arrangement.spacedBy(2.dp),
+    verticalAlignment = Alignment.CenterVertically,
+) {
+
+    AccentLabel(
+        modifier = Modifier.padding(end = 4.dp),
+        text = trainingState.weekDay,
+    )
+
+    TextFieldBody2(
+        modifier = Modifier.padding(end = 4.dp),
+        text = "At",
+        color = DesignComponent.colors.caption,
+    )
+
+    TextFieldBody2(
+        text = trainingState.startTime,
+        color = DesignComponent.colors.content,
+        fontWeight = FontWeight.Bold
+    )
+
+    Spacer(modifier = Modifier.weight(1f))
+
+    IconPrimary(
+        modifier = Modifier.height(20.dp),
+        imageVector = BarChart,
+        color = DesignComponent.colors.caption,
+        onClick = { show.invoke(trainingState) }
+    )
+
+    Spacer(modifier = Modifier.size(20.dp))
+
+    IconPrimary(
+        modifier = Modifier.height(20.dp),
+        imageVector = Icons.Default.Edit,
+        color = DesignComponent.colors.caption,
+        onClick = { get.invoke(trainingState) }
+    )
+}
+
+@Composable
+private fun TrainingFooter(
+    modifier: Modifier = Modifier,
+    trainingState: TrainingState,
+) = Row(
+    modifier = modifier,
+    horizontalArrangement = Arrangement.spacedBy(2.dp),
+    verticalAlignment = Alignment.CenterVertically,
+) {
+
+    TextFieldBody2(
+        modifier = Modifier.padding(end = 4.dp),
+        text = "Duration",
+        color = DesignComponent.colors.caption,
+    )
+
+    TextFieldBody2(
+        text = trainingState.durationTime,
+        color = DesignComponent.colors.content,
+        fontWeight = FontWeight.Bold
+    )
+
+    Spacer(modifier = Modifier.weight(1f))
+
+    TextFieldBody2(
+        modifier = Modifier.padding(end = 4.dp),
+        text = "Tonnage",
+        color = DesignComponent.colors.caption,
+    )
+
+    TextFieldBody2(
+        text = "${trainingState.tonnage}kg",
+        color = DesignComponent.colors.content,
+        fontWeight = FontWeight.Bold
+    )
 }

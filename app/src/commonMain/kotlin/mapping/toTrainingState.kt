@@ -20,5 +20,5 @@ fun Training.toTrainingState() = TrainingState(
         )
     },
     duration = duration.toString(),
-    dateTime = date.toString(),
+    startDateTime = date.toString(),
 )

@@ -11,16 +11,18 @@ import utils.DateTimeKtx
 data class TrainingState(
     val id: String? = null,
     val exercises: List<Exercise> = listOf(Exercise()),
-    val duration: String = "",
-    val dateTime: String = DateTimeKtx().currentTime(),
+    val startDateTime: String = DateTimeKtx().currentTime(),
+    val duration: String? = null,
 ) : Parcelable {
 
     val weekDay: String
-        get() = DateTimeKtx().getFormattedWeekDay(dateTime)
-    val time: String
-        get() = DateTimeKtx().getFormattedTime(dateTime)
-    val date: String
-        get() = DateTimeKtx().getFormattedDate(dateTime)
+        get() = DateTimeKtx().formattedWeekDay(startDateTime) ?: ""
+    val startTime: String
+        get() = DateTimeKtx().formattedTime(startDateTime) ?: ""
+    val startDate: String
+        get() = DateTimeKtx().formattedDate(startDateTime) ?: ""
+    val durationTime: String
+        get() = duration?.let { DateTimeKtx().getFormattedDuration(it) } ?: ""
 
     val tonnage: Double
         get() = exercises.sumOf { it.tonnage }
