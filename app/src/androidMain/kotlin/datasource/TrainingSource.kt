@@ -2,10 +2,10 @@ package datasource
 
 import com.benasher44.uuid.uuid4
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import dto.Training
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.tasks.await
@@ -37,6 +37,7 @@ class TrainingSource(
                 .collection("users")
                 .document(userId ?: error("invalid user id"))
                 .collection("trainings")
+                .orderBy("date", Query.Direction.DESCENDING)
                 .get()
                 .await()
         )
