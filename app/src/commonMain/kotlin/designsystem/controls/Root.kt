@@ -1,4 +1,4 @@
-package designsystem.components
+package designsystem.controls
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -27,7 +27,14 @@ fun Root(
         verticalArrangement = Arrangement.spacedBy(DesignComponent.size.space),
         contentPadding = contentPadding,
         content = {
-            headerItem(header = header)
+            if (header != null) {
+                item(key = "header_spacer") {
+                    Spacer(modifier = Modifier.size(44.dp))
+                }
+                stickyHeader(key = "header") {
+                    header.invoke()
+                }
+            }
             content.invoke(this)
         }
     )
@@ -80,18 +87,5 @@ fun Root(
             modifier = modifier,
             contentPadding = PaddingValues(vertical = DesignComponent.size.space)
         )
-    }
-}
-
-private fun LazyListScope.headerItem(
-    header: @Composable (() -> Unit)? = null
-) {
-    if (header != null) {
-        item(key = "header_spacer") {
-            Spacer(modifier = Modifier.size(44.dp))
-        }
-        stickyHeader(key = "header") {
-            header.invoke()
-        }
     }
 }

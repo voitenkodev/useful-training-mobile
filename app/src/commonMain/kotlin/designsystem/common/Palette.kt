@@ -19,8 +19,8 @@ fun DarkPalette() = AppColors(
 
     unique = AppColors.Unique(
         color1 = Color(0xff228D57),
-        color2 = Color(0xffD0DBE5),
-        color3 = Color(0xff5622E5),
+        color2 = Color(0xffD0DBE5), // change
+        color3 = Color(0xff5622E5), // change
         color4 = Color(0xffD5BD3F),
         color5 = Color(0xffEA3469),
         color6 = Color(0xff28D8A3),

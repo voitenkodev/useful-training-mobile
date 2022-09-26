@@ -1,4 +1,4 @@
-package designsystem.components
+package designsystem.controls
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -11,8 +11,6 @@ import androidx.compose.ui.unit.dp
 import designsystem.common.BarChart
 import designsystem.common.DesignComponent
 import designsystem.common.Save
-import designsystem.controls.IconPrimary
-import designsystem.controls.TextFieldH1
 
 @Composable
 fun Header(

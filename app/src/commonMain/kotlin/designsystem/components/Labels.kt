@@ -16,9 +16,9 @@ import kotlinx.datetime.DayOfWeek
 @Composable
 fun WeekDayLabel(
     modifier: Modifier = Modifier,
-    dayOfWeek: String?,
+    weekDay: String?,
 ) {
-    val backgroundColor = when (dayOfWeek) {
+    val backgroundColor = when (weekDay) {
         DayOfWeek.MONDAY.name -> DesignComponent.colors.unique.color1
         DayOfWeek.TUESDAY.name -> DesignComponent.colors.unique.color2
         DayOfWeek.WEDNESDAY.name -> DesignComponent.colors.unique.color3
@@ -35,7 +35,7 @@ fun WeekDayLabel(
                 color = backgroundColor,
                 shape = DesignComponent.shape.circleShape
             ).padding(horizontal = 8.dp, vertical = 2.dp),
-        text = dayOfWeek,
+        text = weekDay,
         fontWeight = FontWeight.Bold
     )
 }

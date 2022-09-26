@@ -46,14 +46,16 @@ fun ReviewScreen(
             LineChart(
                 label = "Tonnage",
                 modifier = Modifier.fillMaxWidth().aspectRatio(1.8f),
-                state = it.exercises.map { it.tonnage.toFloat() }
+                state = it.exercises.map { it.tonnage.toFloat() },
+                color = DesignComponent.colors.unique.color1
             )
         },
         intensity = {
             LineChart(
                 label = "Intensity",
                 modifier = Modifier.fillMaxWidth().aspectRatio(1.8f),
-                state = it.exercises.map { it.intensity.toFloat() }
+                state = it.exercises.map { it.intensity.toFloat() },
+                color = DesignComponent.colors.unique.color4
             )
         }
     )
@@ -63,10 +65,11 @@ fun ReviewScreen(
 fun LineChart(
     label: String,
     state: List<Float>,
+    color: Color,
     modifier: Modifier = Modifier
 ) {
     val backgroundColor = DesignComponent.colors.secondary.toArgb()
-    val lineColor = DesignComponent.colors.accent_primary
+    val lineColor = color
     val textColor = DesignComponent.colors.content
     val filledColor = DesignComponent.colors.caption
 

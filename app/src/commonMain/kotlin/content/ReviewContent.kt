@@ -10,6 +10,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import designsystem.common.DesignComponent
+import designsystem.components.ExerciseItem
+import designsystem.components.WeekDayLabel
 import designsystem.controls.DividerPrimary
 import designsystem.controls.IconPrimary
 import designsystem.controls.TextFieldBody2
@@ -51,6 +53,10 @@ fun ReviewContent(
         }
     }
 
+    item(key = "weekday") {
+        WeekDayLabel(weekDay = state.weekDay)
+    }
+
     item(key = "tonnage_chart") {
         tonnage.invoke(state)
     }
@@ -69,6 +75,15 @@ fun ReviewContent(
 
     item(key = "summary_info") {
         Summary()
+    }
+
+    item(key = "exercises") {
+        state.exercises.forEachIndexed { index, item ->
+            ExerciseItem(
+                number = index + 1,
+                exercise = item
+            )
+        }
     }
 }
 

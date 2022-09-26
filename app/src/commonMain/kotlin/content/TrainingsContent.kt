@@ -11,8 +11,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import designsystem.common.BarChart
 import designsystem.common.DesignComponent
-import designsystem.components.Header
-import designsystem.components.Root
+import designsystem.components.ExerciseItem
 import designsystem.components.WeekDayLabel
 import designsystem.controls.*
 import state.TrainingState
@@ -98,32 +97,10 @@ private fun TrainingItem(
     DividerPrimary(modifier = Modifier.padding(bottom = 4.dp, top = 12.dp))
 
     trainingState.exercises.forEachIndexed { index, item ->
-
-        Row(
-            modifier = Modifier.padding(top = 8.dp),
-            horizontalArrangement = Arrangement.spacedBy(4.dp)
-        ) {
-
-            TextFieldBody1(text = "${index + 1}.", fontWeight = FontWeight.Bold)
-
-            Column {
-
-                TextFieldBody1(text = item.name, fontWeight = FontWeight.Bold)
-
-                IterationVerticalGrid(
-                    modifier = Modifier.padding(top = 6.dp, bottom = 4.dp),
-                    spacing = 4.dp,
-                ) {
-                    item.iterations.forEach {
-                        TextFieldBody1(
-                            modifier = Modifier.padding(end = 4.dp),
-                            text = it.weight + "x" + it.repeat,
-                            color = DesignComponent.colors.caption
-                        )
-                    }
-                }
-            }
-        }
+        ExerciseItem(
+            number = index + 1,
+            exercise = item
+        )
     }
     DividerPrimary(modifier = Modifier.padding(bottom = 12.dp))
 
@@ -147,7 +124,7 @@ private fun TrainingHeader(
 
     WeekDayLabel(
         modifier = Modifier.padding(end = 4.dp),
-        dayOfWeek = trainingState.weekDay,
+        weekDay = trainingState.weekDay,
     )
 
     TextFieldBody2(

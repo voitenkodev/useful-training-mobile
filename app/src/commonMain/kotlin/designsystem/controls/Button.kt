@@ -1,7 +1,9 @@
 package designsystem.controls
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -78,9 +80,6 @@ private fun Button(
     leadIcon: ImageVector? = null,
 ) {
     TextButton(
-//        modifier = Modifier
-//            .wrapContentSize()
-//            .then(modifier),
         modifier = modifier,
         onClick = onClick,
         enabled = enabled,
