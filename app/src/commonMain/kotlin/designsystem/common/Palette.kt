@@ -16,22 +16,46 @@ fun DarkPalette() = AppColors(
 
     content = color_white,
     caption = color_gray,
+
+    unique = AppColors.Unique(
+        color1 = Color(0xff228D57),
+        color2 = Color(0xffD0DBE5),
+        color3 = Color(0xff5622E5),
+        color4 = Color(0xffD5BD3F),
+        color5 = Color(0xffEA3469),
+        color6 = Color(0xff28D8A3),
+        color7 = Color(0xff00BEB2),
+    )
 )
 
 data class AppColors(
-    // BACKGROUNDS
+    // Background
     val primary: Color,
     val secondary: Color,
 
-    // ACTIONS
+    // Actions, Labels
     val accent_primary: Color,
     val accent_secondary: Color,
 
+    //content
     val content: Color,
 
     // Actions + content
     val caption: Color,
-)
+
+    // Week colors
+    val unique: Unique
+) {
+    data class Unique(
+        val color1: Color,
+        val color2: Color,
+        val color3: Color,
+        val color4: Color,
+        val color5: Color,
+        val color6: Color,
+        val color7: Color,
+    )
+}
 
 val color_white = Color(0xffffffff)
 val color_gray = Color(0xff7f8899)

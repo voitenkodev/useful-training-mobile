@@ -11,9 +11,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import designsystem.common.BarChart
 import designsystem.common.DesignComponent
-import designsystem.components.AccentLabel
 import designsystem.components.Header
 import designsystem.components.Root
+import designsystem.components.WeekDayLabel
 import designsystem.controls.*
 import state.TrainingState
 
@@ -145,9 +145,9 @@ private fun TrainingHeader(
     verticalAlignment = Alignment.CenterVertically,
 ) {
 
-    AccentLabel(
+    WeekDayLabel(
         modifier = Modifier.padding(end = 4.dp),
-        text = trainingState.weekDay,
+        dayOfWeek = trainingState.weekDay,
     )
 
     TextFieldBody2(
