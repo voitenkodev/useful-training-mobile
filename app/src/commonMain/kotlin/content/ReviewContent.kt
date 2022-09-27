@@ -6,7 +6,9 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Send
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import designsystem.common.DesignComponent
@@ -22,12 +24,10 @@ import state.TrainingState
 fun ReviewContent(
     modifier: Modifier = Modifier,
     state: TrainingState,
-    tonnage: @Composable (TrainingState) -> Unit,
-    intensity: @Composable (TrainingState) -> Unit,
+    chart: @Composable (String, List<Float>, Color) -> Unit,
     ok: () -> Unit
 ) = LazyColumn(
-    modifier = modifier
-        .fillMaxSize(),
+    modifier = modifier.fillMaxSize(),
     verticalArrangement = Arrangement.spacedBy(DesignComponent.size.space),
     contentPadding = PaddingValues(DesignComponent.size.space)
 ) {
@@ -44,12 +44,10 @@ fun ReviewContent(
 
             TextFieldH1(text = "Review!")
 
-            IconPrimary(
-                modifier = Modifier.size(56.dp),
+            IconPrimary(modifier = Modifier.size(56.dp),
                 imageVector = Icons.Default.Send,
                 color = DesignComponent.colors.accent_secondary,
-                onClick = { ok.invoke() }
-            )
+                onClick = { ok.invoke() })
         }
     }
 
@@ -58,11 +56,21 @@ fun ReviewContent(
     }
 
     item(key = "tonnage_chart") {
-        tonnage.invoke(state)
+        ChartSection(
+            label = "Tonnage",
+            data = state.exercises.map { it.tonnage.toFloat() },
+            color = DesignComponent.colors.unique.color1,
+            chart = chart
+        )
     }
 
     item(key = "intensity_chart") {
-        intensity.invoke(state)
+        ChartSection(
+            label = "Intensity",
+            data = state.exercises.map { it.intensity.toFloat() },
+            color = DesignComponent.colors.unique.color4,
+            chart = chart
+        )
     }
 
     item(key = "summary_title") {
@@ -74,43 +82,70 @@ fun ReviewContent(
     }
 
     item(key = "summary_info") {
-        Summary()
+        Summary(state = state)
     }
 
     item(key = "exercises") {
         state.exercises.forEachIndexed { index, item ->
             ExerciseItem(
-                number = index + 1,
-                exercise = item
+                number = index + 1, exercise = item
             )
         }
     }
 }
 
 @Composable
-private fun Summary() = Column(
+private fun ChartSection(
+    label: String,
+    data: List<Float>,
+    color: Color,
+    chart: @Composable (String, List<Float>, Color) -> Unit,
+) = Column(
+    modifier = Modifier
+        .fillMaxWidth()
+        .aspectRatio(1.5f)
+        .background(
+            color = DesignComponent.colors.secondary,
+            shape = DesignComponent.shape.maxShape
+        ).padding(DesignComponent.size.space),
+    verticalArrangement = Arrangement.spacedBy(DesignComponent.size.space)
+) {
+    Row(
+        modifier = Modifier.align(Alignment.End),
+        horizontalArrangement = Arrangement.spacedBy(DesignComponent.size.space),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Spacer(Modifier.size(14.dp).background(color))
+        TextFieldBody2(text = label, color = DesignComponent.colors.caption)
+    }
+    chart.invoke(label, data, color)
+}
+
+@Composable
+private fun Summary(
+    state: TrainingState
+) = Column(
     modifier = Modifier.background(
-        color = DesignComponent.colors.secondary,
-        shape = DesignComponent.shape.maxShape
+        color = DesignComponent.colors.secondary, shape = DesignComponent.shape.maxShape
     )
 ) {
     Section(
         label = "Tonnage",
-        value = "30 000"
+        value = "${state.tonnage}kg"
     )
 
     DividerPrimary()
 
     Section(
         label = "Repeats",
-        value = "120"
+        value = "${state.countOfLifting}"
     )
 
     DividerPrimary()
 
     Section(
         label = "Intensity",
-        value = "54%"
+        value = "${state.intensity}%"
     )
 }
 
@@ -119,17 +154,15 @@ private fun Section(
     label: String, value: String
 ) {
     Row(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceBetween
+        modifier = Modifier.fillMaxWidth().padding(DesignComponent.size.space), horizontalArrangement = Arrangement.SpaceBetween
     ) {
         TextFieldBody2(
-            modifier = Modifier.padding(8.dp),
             text = label,
-            fontWeight = FontWeight.Bold
+            color = DesignComponent.colors.caption,
         )
         TextFieldBody2(
-            modifier = Modifier.padding(8.dp),
-            text = value
+            text = value,
+            fontWeight = FontWeight.Bold,
         )
     }
 }

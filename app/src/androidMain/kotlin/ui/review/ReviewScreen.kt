@@ -2,9 +2,6 @@ package ui.review
 
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable
@@ -42,22 +39,7 @@ fun ReviewScreen(
         modifier = Modifier.statusBarsPadding().navigationBarsPadding(),
         state = state.value,
         ok = viewModel::ok,
-        tonnage = {
-            LineChart(
-                label = "Tonnage",
-                modifier = Modifier.fillMaxWidth().aspectRatio(1.8f),
-                state = it.exercises.map { it.tonnage.toFloat() },
-                color = DesignComponent.colors.unique.color1
-            )
-        },
-        intensity = {
-            LineChart(
-                label = "Intensity",
-                modifier = Modifier.fillMaxWidth().aspectRatio(1.8f),
-                state = it.exercises.map { it.intensity.toFloat() },
-                color = DesignComponent.colors.unique.color4
-            )
-        }
+        chart = { label, list, color -> LineChart(label = label, state = list, color = color) }
     )
 }
 
@@ -66,16 +48,13 @@ fun LineChart(
     label: String,
     state: List<Float>,
     color: Color,
-    modifier: Modifier = Modifier
 ) {
-    val backgroundColor = DesignComponent.colors.secondary.toArgb()
+    val backgroundColor = Color.Transparent.toArgb()
     val lineColor = color
     val textColor = DesignComponent.colors.content
-    val filledColor = DesignComponent.colors.caption
+    val filledColor = color.copy(alpha = 0.3f)
 
     AndroidView(
-        modifier = modifier
-            .background(color = DesignComponent.colors.secondary, shape = DesignComponent.shape.maxShape),
         factory = { context ->
             com.github.mikephil.charting.charts.LineChart(context).apply {
                 layoutParams = LinearLayout.LayoutParams(
