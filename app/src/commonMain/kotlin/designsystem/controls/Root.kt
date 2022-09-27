@@ -85,7 +85,7 @@ fun Root(
     } else {
         Content(
             modifier = modifier,
-            contentPadding = PaddingValues(vertical = DesignComponent.size.space)
+            contentPadding = PaddingValues(DesignComponent.size.space)
         )
     }
 }

@@ -4,6 +4,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowForward
+import androidx.compose.material.icons.filled.Clear
+import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -18,6 +20,7 @@ fun Header(
     save: (() -> Unit)? = null,
     forward: (() -> Unit)? = null,
     chart: (() -> Unit)? = null,
+    exit: (() -> Unit)? = null,
 ) = Row(
     modifier = Modifier.fillMaxWidth().height(56.dp).background(DesignComponent.colors.primary),
     horizontalArrangement = Arrangement.SpaceBetween
@@ -39,6 +42,12 @@ fun Header(
     forward?.let {
         Action(
             imageVector = Icons.Default.ArrowForward,
+            onClick = it
+        )
+    }
+    exit?.let {
+        Action(
+            imageVector = Icons.Default.Clear,
             onClick = it
         )
     }

@@ -14,14 +14,70 @@ import androidx.compose.ui.unit.dp
 import designsystem.common.DesignComponent
 import designsystem.components.ExerciseItem
 import designsystem.components.WeekDayLabel
-import designsystem.controls.DividerPrimary
-import designsystem.controls.IconPrimary
-import designsystem.controls.TextFieldBody2
-import designsystem.controls.TextFieldH1
+import designsystem.controls.*
 import state.TrainingState
 
 @Composable
 fun ReviewContent(
+    modifier: Modifier = Modifier,
+    state: TrainingState,
+    chart: @Composable (String, List<Float>, Color) -> Unit,
+    ok: () -> Unit
+) = Root(
+    modifier = modifier,
+    header = {
+        Header(
+            title = "Review!",
+            exit = ok
+        )
+    },
+    content = {
+        item(key = "weekday") {
+            WeekDayLabel(weekDay = state.weekDay)
+        }
+
+        item(key = "tonnage_chart") {
+            ChartSection(
+                label = "Tonnage",
+                data = state.exercises.map { it.tonnage.toFloat() },
+                color = DesignComponent.colors.unique.color1,
+                chart = chart
+            )
+        }
+
+        item(key = "intensity_chart") {
+            ChartSection(
+                label = "Intensity",
+                data = state.exercises.map { it.intensity.toFloat() },
+                color = DesignComponent.colors.unique.color4,
+                chart = chart
+            )
+        }
+
+        item(key = "summary_title") {
+            TextFieldBody2(
+                modifier = Modifier.padding(horizontal = 8.dp),
+                text = "Summary",
+                color = DesignComponent.colors.content.copy(alpha = 0.5f)
+            )
+        }
+
+        item(key = "summary_info") {
+            Summary(state = state)
+        }
+
+        item(key = "exercises") {
+            state.exercises.forEachIndexed { index, item ->
+                ExerciseItem(
+                    number = index + 1, exercise = item
+                )
+            }
+        }
+    }
+)
+
+@Composable
+fun ReviewContent1(
     modifier: Modifier = Modifier,
     state: TrainingState,
     chart: @Composable (String, List<Float>, Color) -> Unit,
@@ -49,10 +105,6 @@ fun ReviewContent(
                 color = DesignComponent.colors.accent_secondary,
                 onClick = { ok.invoke() })
         }
-    }
-
-    item(key = "weekday") {
-        WeekDayLabel(weekDay = state.weekDay)
     }
 
     item(key = "tonnage_chart") {
