@@ -14,6 +14,7 @@ import com.google.accompanist.navigation.animation.composable
 import org.koin.androidx.compose.koinViewModel
 import org.koin.core.parameter.parametersOf
 import state.TrainingState
+import state.pushEmptyIterations
 import ui.auth.AuthScreen
 import ui.auth.AuthViewModel
 import ui.review.ReviewScreen
@@ -44,7 +45,7 @@ fun ComposeNavigator(navController: NavHostController) = AnimatedNavHost(
         route = Router.Training.ID,
         content = {
             val arg = it.arguments?.get(Router.Training.ARG) as? TrainingState
-            val params = mapOf(Router.Training.ARG to arg)
+            val params = mapOf(Router.Training.ARG to arg?.pushEmptyIterations())
             val viewModel = koinViewModel<TrainingViewModel> { parametersOf(SavedStateHandle(params)) }
             TrainingScreen(
                 viewModel = viewModel,

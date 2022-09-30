@@ -36,6 +36,34 @@ fun ReviewContent(
             WeekDayLabel(weekDay = state.weekDay)
         }
 
+        item(key = "duration") {
+            Row(
+                modifier = modifier,
+                horizontalArrangement = Arrangement.spacedBy(2.dp),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+
+                TextFieldBody2(
+                    modifier = Modifier.padding(end = 4.dp),
+                    text = "Date",
+                    color = DesignComponent.colors.caption,
+                )
+
+                TextFieldBody2(
+                    modifier = Modifier.padding(end = 4.dp),
+                    text = state.startTime,
+                    color = DesignComponent.colors.content,
+                    fontWeight = FontWeight.Bold
+                )
+
+                TextFieldBody2(
+                    text = state.startDate,
+                    color = DesignComponent.colors.content,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+        }
+
         item(key = "tonnage_chart") {
             ChartSection(
                 label = "Tonnage",
@@ -178,8 +206,9 @@ private fun Summary(
     state: TrainingState
 ) = Column(
     modifier = Modifier.background(
-        color = DesignComponent.colors.secondary, shape = DesignComponent.shape.maxShape
-    )
+        color = DesignComponent.colors.secondary,
+        shape = DesignComponent.shape.maxShape
+    ).padding(horizontal = DesignComponent.size.space),
 ) {
     Section(
         label = "Tonnage",
@@ -199,6 +228,13 @@ private fun Summary(
         label = "Intensity",
         value = "${state.intensity}%"
     )
+
+    DividerPrimary()
+
+    Section(
+        label = "Duration",
+        value = state.durationTime
+    )
 }
 
 @Composable
@@ -206,7 +242,8 @@ private fun Section(
     label: String, value: String
 ) {
     Row(
-        modifier = Modifier.fillMaxWidth().padding(DesignComponent.size.space), horizontalArrangement = Arrangement.SpaceBetween
+        modifier = Modifier.fillMaxWidth().padding(vertical = DesignComponent.size.space),
+        horizontalArrangement = Arrangement.SpaceBetween
     ) {
         TextFieldBody2(
             text = label,

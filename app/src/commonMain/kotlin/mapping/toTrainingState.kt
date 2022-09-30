@@ -9,16 +9,21 @@ fun Training.toTrainingState() = TrainingState(
     id = id.toString(),
     exercises = exercises.map {
         TrainingState.Exercise(
-            id = it.id.toString(),
-            name = it.name.toString(),
+            id = it.id ?: "",
+            name = it.name ?: "",
             iterations = it.iterations.map {
                 TrainingState.Exercise.Iteration(
-                    weight = it.weight.toString(),
-                    repeat = it.repeat.toString()
+                    weight = it.weight?.toDoubleOrIntString() ?: "",
+                    repeat = it.repeat?.toString() ?: ""
                 )
             },
         )
     },
-    duration = duration.toString(),
-    startDateTime = date.toString(),
+    duration = duration ?: "",
+    startDateTime = date ?: "",
 )
+
+fun Double.toDoubleOrIntString(): String {
+    return if (this.compareTo(this.toInt()) == 0) this.toInt().toString()
+    else this.toString()
+}

@@ -29,6 +29,12 @@ fun TrainingState.calculateDuration(): TrainingState {
         this
 }
 
+fun TrainingState.pushEmptyIterations(): TrainingState {
+    return this.copy(exercises = exercises.map {
+        it.copy(iterations = it.iterations.addEmptyIteration())
+    })
+}
+
 fun List<TrainingState.Exercise.Iteration>.addEmptyIteration(): List<TrainingState.Exercise.Iteration> {
     val lastIsNotEmpty = this.lastOrNull()?.weight != "" || this.lastOrNull()?.repeat != ""
     return if (lastIsNotEmpty) this + TrainingState.Exercise.Iteration()

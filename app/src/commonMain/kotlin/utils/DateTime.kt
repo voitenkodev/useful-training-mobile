@@ -5,7 +5,7 @@ import kotlin.time.Duration
 
 class DateTimeKtx {
 
-    fun currentTime() = Clock.System.now().minus(1, DateTimeUnit.HOUR).toString()
+    fun currentTime() = Clock.System.now().toString()
 
     fun durationFrom(iso8601Timestamp: String): String {
         val now: Instant = Clock.System.now()
