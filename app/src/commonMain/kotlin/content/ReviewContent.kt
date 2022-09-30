@@ -32,36 +32,11 @@ fun ReviewContent(
         )
     },
     content = {
-        item(key = "weekday") {
-            WeekDayLabel(weekDay = state.weekDay)
-        }
-
-        item(key = "duration") {
-            Row(
-                modifier = modifier,
-                horizontalArrangement = Arrangement.spacedBy(2.dp),
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-
-                TextFieldBody2(
-                    modifier = Modifier.padding(end = 4.dp),
-                    text = "Date",
-                    color = DesignComponent.colors.caption,
-                )
-
-                TextFieldBody2(
-                    modifier = Modifier.padding(end = 4.dp),
-                    text = state.startTime,
-                    color = DesignComponent.colors.content,
-                    fontWeight = FontWeight.Bold
-                )
-
-                TextFieldBody2(
-                    text = state.startDate,
-                    color = DesignComponent.colors.content,
-                    fontWeight = FontWeight.Bold
-                )
-            }
+        item(key = "date") {
+            DateItem(
+                modifier = Modifier,
+                state = state
+            )
         }
 
         item(key = "tonnage_chart") {
@@ -105,73 +80,35 @@ fun ReviewContent(
 )
 
 @Composable
-fun ReviewContent1(
-    modifier: Modifier = Modifier,
-    state: TrainingState,
-    chart: @Composable (String, List<Float>, Color) -> Unit,
-    ok: () -> Unit
-) = LazyColumn(
-    modifier = modifier.fillMaxSize(),
-    verticalArrangement = Arrangement.spacedBy(DesignComponent.size.space),
-    contentPadding = PaddingValues(DesignComponent.size.space)
+private fun DateItem(modifier: Modifier, state: TrainingState) = Row(
+    modifier = modifier,
+    horizontalArrangement = Arrangement.spacedBy(2.dp),
+    verticalAlignment = Alignment.CenterVertically,
 ) {
 
-    item(key = "header_spacer") {
-        Spacer(modifier = Modifier.size(44.dp))
-    }
+    WeekDayLabel(
+        modifier = Modifier.padding(end = 4.dp),
+        weekDay = state.weekDay
+    )
 
-    stickyHeader(key = "header") {
-        Row(
-            modifier = Modifier.fillMaxWidth().background(DesignComponent.colors.primary),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
+    TextFieldBody2(
+        modifier = Modifier.padding(end = 4.dp),
+        text = "Date",
+        color = DesignComponent.colors.caption,
+    )
 
-            TextFieldH1(text = "Review!")
+    TextFieldBody2(
+        modifier = Modifier.padding(end = 4.dp),
+        text = state.startTime,
+        color = DesignComponent.colors.content,
+        fontWeight = FontWeight.Bold
+    )
 
-            IconPrimary(modifier = Modifier.size(56.dp),
-                imageVector = Icons.Default.Send,
-                color = DesignComponent.colors.accent_secondary,
-                onClick = { ok.invoke() })
-        }
-    }
-
-    item(key = "tonnage_chart") {
-        ChartSection(
-            label = "Tonnage",
-            data = state.exercises.map { it.tonnage.toFloat() },
-            color = DesignComponent.colors.unique.color1,
-            chart = chart
-        )
-    }
-
-    item(key = "intensity_chart") {
-        ChartSection(
-            label = "Intensity",
-            data = state.exercises.map { it.intensity.toFloat() },
-            color = DesignComponent.colors.unique.color4,
-            chart = chart
-        )
-    }
-
-    item(key = "summary_title") {
-        TextFieldBody2(
-            modifier = Modifier.padding(horizontal = 8.dp),
-            text = "Summary",
-            color = DesignComponent.colors.content.copy(alpha = 0.5f)
-        )
-    }
-
-    item(key = "summary_info") {
-        Summary(state = state)
-    }
-
-    item(key = "exercises") {
-        state.exercises.forEachIndexed { index, item ->
-            ExerciseItem(
-                number = index + 1, exercise = item
-            )
-        }
-    }
+    TextFieldBody2(
+        text = state.startDate,
+        color = DesignComponent.colors.content,
+        fontWeight = FontWeight.Bold
+    )
 }
 
 @Composable
@@ -208,7 +145,9 @@ private fun Summary(
     modifier = Modifier.background(
         color = DesignComponent.colors.secondary,
         shape = DesignComponent.shape.maxShape
-    ).padding(horizontal = DesignComponent.size.space),
+    ).padding(
+        horizontal = DesignComponent.size.space
+    )
 ) {
     Section(
         label = "Tonnage",
@@ -239,7 +178,8 @@ private fun Summary(
 
 @Composable
 private fun Section(
-    label: String, value: String
+    label: String,
+    value: String
 ) {
     Row(
         modifier = Modifier.fillMaxWidth().padding(vertical = DesignComponent.size.space),
