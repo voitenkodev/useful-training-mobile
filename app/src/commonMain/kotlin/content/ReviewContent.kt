@@ -105,7 +105,7 @@ private fun DateItem(modifier: Modifier, state: TrainingState) = Row(
     )
 
     TextFieldBody2(
-        text = state.startDate,
+        text = state.shortStartDate,
         color = DesignComponent.colors.content,
         fontWeight = FontWeight.Bold
     )

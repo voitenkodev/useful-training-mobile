@@ -18,12 +18,15 @@ data class TrainingState(
     val intensity: Double? = null
 ) : Parcelable {
 
+    // UI date presentation
     val weekDay: String
         get() = DateTimeKtx().formattedWeekDay(startDateTime) ?: ""
     val startTime: String
         get() = DateTimeKtx().formattedTime(startDateTime) ?: ""
-    val startDate: String
-        get() = DateTimeKtx().formattedDate(startDateTime) ?: ""
+    val shortStartDate: String
+        get() = DateTimeKtx().formattedShortDate(startDateTime) ?: ""
+    val longStartDate: String
+        get() = DateTimeKtx().formattedLongDate(startDateTime) ?: ""
     val durationTime: String
         get() = duration?.let { DateTimeKtx().getFormattedDuration(it) } ?: ""
 

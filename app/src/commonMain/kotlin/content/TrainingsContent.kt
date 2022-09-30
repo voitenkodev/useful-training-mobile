@@ -15,6 +15,7 @@ import designsystem.components.ExerciseItem
 import designsystem.components.WeekDayLabel
 import designsystem.controls.*
 import state.TrainingState
+import utils.DateTimeKtx
 
 @Composable
 fun TrainingsContent(
@@ -23,58 +24,86 @@ fun TrainingsContent(
     get: (TrainingState) -> Unit,
     show: (TrainingState) -> Unit,
     add: () -> Unit,
-) = Root(
-    modifier = modifier,
-    contentPadding = PaddingValues(
-        top = DesignComponent.size.space,
-        bottom = DesignComponent.size.space + 56.dp + DesignComponent.size.space,
-        start = DesignComponent.size.space,
-        end = DesignComponent.size.space
-    ),
-    header = {
-        Header(title = "Trainings!")
-    },
-    floating = {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .align(Alignment.BottomCenter)
-                .padding(DesignComponent.size.space),
-            horizontalArrangement = Arrangement.spacedBy(DesignComponent.size.space)
-        ) {
-            ButtonPrimary(
-                modifier = Modifier
-                    .background(
-                        color = DesignComponent.colors.accent_primary,
-                        shape = DesignComponent.shape.circleShape
-                    ).weight(1f),
-                text = "New Training",
-                onClick = add
-            )
-            IconPrimary(
-                modifier = Modifier
-                    .size(56.dp)
-                    .background(
-                        color = DesignComponent.colors.accent_secondary,
-                        shape = DesignComponent.shape.maxShape
-                    ),
-                imageVector = BarChart,
-                onClick = {}
-            )
-        }
-    },
-    content = {
-        state.forEachIndexed { index, item ->
-            item(key = item.id) {
-                TrainingItem(
-                    trainingState = item,
-                    get = get,
-                    show = show
-                )
+) = Root(modifier = modifier, contentPadding = PaddingValues(
+    top = DesignComponent.size.space,
+    bottom = DesignComponent.size.space + 56.dp + DesignComponent.size.space,
+    start = DesignComponent.size.space,
+    end = DesignComponent.size.space
+), header = {
+    Header(title = "Trainings!")
+}, floating = {
+    FloatingMenu(
+        modifier = Modifier.fillMaxWidth().align(Alignment.BottomCenter).padding(DesignComponent.size.space),
+        add = add
+    )
+}, content = {
+
+    var lastDate: String? = null
+
+    state.forEach { item ->
+        lastDate?.let {
+            if (DateTimeKtx().isPreviousWeek(item.startDateTime, it)) {
+                item(key = "week_by_${item.shortStartDate}") {
+                    WeekItem(state = item)
+                }
             }
         }
+        lastDate = item.startDateTime
+
+        item(key = item.id) {
+            TrainingItem(
+                trainingState = item,
+                get = get,
+                show = show
+            )
+        }
     }
-)
+})
+
+@Composable
+private fun WeekItem(state: TrainingState) = Row(
+    modifier = Modifier.padding(DesignComponent.size.space),
+    horizontalArrangement = Arrangement.spacedBy(2.dp, Alignment.CenterHorizontally),
+    verticalAlignment = Alignment.CenterVertically,
+) {
+
+    TextFieldBody2(
+        modifier = Modifier.padding(end = 4.dp),
+        text = "Week at",
+        color = DesignComponent.colors.caption,
+    )
+
+    TextFieldBody2(
+        text = state.longStartDate,
+        color = DesignComponent.colors.content,
+        fontWeight = FontWeight.Bold
+    )
+}
+
+@Composable
+fun FloatingMenu(
+    modifier: Modifier = Modifier, add: () -> Unit
+) = Row(
+    modifier = modifier,
+    horizontalArrangement = Arrangement.spacedBy(DesignComponent.size.space)
+) {
+    ButtonPrimary(
+        modifier = Modifier.background(
+            color = DesignComponent.colors.accent_primary,
+            shape = DesignComponent.shape.circleShape
+        ).weight(1f),
+        text = "New Training",
+        onClick = add
+    )
+    IconPrimary(
+        modifier = Modifier.size(56.dp).background(
+            color = DesignComponent.colors.accent_secondary,
+            shape = DesignComponent.shape.maxShape
+        ),
+        imageVector = BarChart,
+        onClick = {}
+    )
+}
 
 @Composable
 private fun TrainingItem(
@@ -98,8 +127,7 @@ private fun TrainingItem(
 
     trainingState.exercises.forEachIndexed { index, item ->
         ExerciseItem(
-            number = index + 1,
-            exercise = item
+            number = index + 1, exercise = item
         )
     }
     DividerPrimary(modifier = Modifier.padding(bottom = 12.dp))
@@ -112,10 +140,7 @@ private fun TrainingItem(
 
 @Composable
 private fun TrainingHeader(
-    modifier: Modifier = Modifier,
-    trainingState: TrainingState,
-    show: (TrainingState) -> Unit,
-    get: (TrainingState) -> Unit
+    modifier: Modifier = Modifier, trainingState: TrainingState, show: (TrainingState) -> Unit, get: (TrainingState) -> Unit
 ) = Row(
     modifier = modifier,
     horizontalArrangement = Arrangement.spacedBy(2.dp),
@@ -129,7 +154,7 @@ private fun TrainingHeader(
 
     TextFieldBody2(
         modifier = Modifier.padding(end = 4.dp),
-        text = "At",
+        text = "Start Time",
         color = DesignComponent.colors.caption,
     )
 
@@ -141,21 +166,17 @@ private fun TrainingHeader(
 
     Spacer(modifier = Modifier.weight(1f))
 
-    IconPrimary(
-        modifier = Modifier.height(20.dp),
+    IconPrimary(modifier = Modifier.height(20.dp),
         imageVector = BarChart,
         color = DesignComponent.colors.caption,
-        onClick = { show.invoke(trainingState) }
-    )
+        onClick = { show.invoke(trainingState) })
 
     Spacer(modifier = Modifier.size(20.dp))
 
-    IconPrimary(
-        modifier = Modifier.height(20.dp),
+    IconPrimary(modifier = Modifier.height(20.dp),
         imageVector = Icons.Default.Edit,
         color = DesignComponent.colors.caption,
-        onClick = { get.invoke(trainingState) }
-    )
+        onClick = { get.invoke(trainingState) })
 }
 
 @Composable

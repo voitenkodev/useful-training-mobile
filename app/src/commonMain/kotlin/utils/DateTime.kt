@@ -1,11 +1,13 @@
 package utils
 
+import androidx.compose.ui.text.capitalize
+import androidx.compose.ui.text.intl.Locale
 import kotlinx.datetime.*
 import kotlin.time.Duration
 
 class DateTimeKtx {
 
-    fun currentTime() = Clock.System.now().toString()
+    fun currentTime() = Clock.System.now().plus(6, DateTimeUnit.DAY, TimeZone.currentSystemDefault()).toString()
 
     fun durationFrom(iso8601Timestamp: String): String {
         val now: Instant = Clock.System.now()
@@ -13,13 +15,37 @@ class DateTimeKtx {
         return result.toString()
     }
 
-    fun formattedDate(iso8601Timestamp: String): String? {
+    fun formattedShortDate(iso8601Timestamp: String): String? {
         val localDateTime = iso8601TimestampToLocalDateTime(iso8601Timestamp) ?: return null
         val date = localDateTime.date
         val day = date.dayOfMonth
         val month = date.monthNumber
         val year = date.year
         return "${day.zeroPrefixed(2)}.${month.zeroPrefixed(2)}.${year}"
+    }
+
+    fun formattedLongDate(iso8601Timestamp: String): String? {
+        val localDateTime = iso8601TimestampToLocalDateTime(iso8601Timestamp) ?: return null
+        val date = localDateTime.date
+        val day = date.dayOfMonth
+        val month = date.month.name.lowercase().capitalize(Locale.current)
+        val year = date.year
+        return "${day.zeroPrefixed(2)} $month $year"
+    }
+
+    fun isPreviousWeek(currentIso8601Timestamp: String, lastIso8601Timestamp: String): Boolean {
+        val currentLocalDateTime = iso8601TimestampToLocalDateTime(currentIso8601Timestamp) ?: return false
+        val dayOfWeek = DayOfWeek.values().size - currentLocalDateTime.dayOfWeek.ordinal
+
+        val endWeek = currentLocalDateTime
+            .toInstant(TimeZone.currentSystemDefault())
+            .plus(dayOfWeek, DateTimeUnit.DAY, TimeZone.currentSystemDefault())
+            .toLocalDateTime(TimeZone.currentSystemDefault())
+
+        val result =
+            iso8601TimestampToLocalDateTime(lastIso8601Timestamp)?.let { endWeek.compareTo(it) }
+
+        return (result ?: 0) < 0
     }
 
     fun formattedTime(iso8601Timestamp: String): String? {
@@ -49,8 +75,7 @@ class DateTimeKtx {
     }
 
     private fun timeFormat(
-        hour: Int,
-        min: Int
+        hour: Int, min: Int
     ): String {
         return if (hour > 0 && min > 0) {
             "${hour.zeroPrefixed(2)}h ${min.zeroPrefixed(2)}m"
