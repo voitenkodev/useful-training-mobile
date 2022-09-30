@@ -36,12 +36,11 @@ class TrainingViewModel(
             .validate()
             ?.calculateDuration()
             ?.calculateValues()
-            ?.toTraining()
 
         trainingSource
-            .writeTraining(authSource.user?.uid, training ?: error("invalid Training"))
+            .writeTraining(authSource.user?.uid, training?.toTraining() ?: error("invalid Training"))
             .catch { _error.send(it.toString()) }
-            .onEach { _navigation.send(Router.Review(trainingState)) }
+            .onEach { _navigation.send(Router.Review(training)) }
             .launchIn(this)
     }
 
