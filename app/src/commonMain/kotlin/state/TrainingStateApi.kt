@@ -1,6 +1,7 @@
 package state
 
 import utils.DateTimeKtx
+import kotlin.math.round
 
 fun TrainingState.validate(): TrainingState? {
     val exercises = exercises.mapNotNull {
@@ -20,6 +21,36 @@ fun TrainingState.validate(): TrainingState? {
 
     return if (exercises.isNotEmpty()) this.copy(exercises = exercises)
     else null
+}
+
+fun TrainingState.calculateValues(): TrainingState {
+    fun Double.round(decimals: Int): Double {
+        var multiplier = 1.0
+        repeat(decimals) { multiplier *= 10 }
+        return round(this * multiplier) / multiplier
+    }
+
+    val calculatedExercises = exercises.map {
+        val exTonnage = it.iterations.sumOf { it.tonnage }
+        val exCountOfLifting = it.iterations.sumOf { it.countOfLifting }
+        val exIntensity = (exTonnage / exCountOfLifting)
+        it.copy(
+            tonnage = exTonnage.round(2),
+            countOfLifting = exCountOfLifting,
+            intensity = exIntensity.round(1)
+        )
+    }
+
+    val trainTonnage = calculatedExercises.sumOf { it.tonnage }
+    val trainCountOfLifting = calculatedExercises.sumOf { it.countOfLifting }
+    val trainIntensity = trainTonnage / trainCountOfLifting
+
+    return this.copy(
+        exercises = calculatedExercises,
+        tonnage = trainTonnage.round(2),
+        countOfLifting = trainCountOfLifting,
+        intensity = trainIntensity.round(1)
+    )
 }
 
 fun TrainingState.calculateDuration(): TrainingState {

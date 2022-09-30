@@ -13,6 +13,9 @@ data class TrainingState(
     val exercises: List<Exercise> = listOf(Exercise()),
     val startDateTime: String = DateTimeKtx().currentTime(),
     val duration: String? = null,
+    val tonnage: Double? = null,
+    val countOfLifting: Int? = null,
+    val intensity: Double? = null
 ) : Parcelable {
 
     val weekDay: String
@@ -24,27 +27,16 @@ data class TrainingState(
     val durationTime: String
         get() = duration?.let { DateTimeKtx().getFormattedDuration(it) } ?: ""
 
-    val tonnage: Double
-        get() = exercises.sumOf { it.tonnage }
-    val countOfLifting: Int
-        get() = exercises.sumOf { it.countOfLifting }
-    val intensity: Double
-        get() = tonnage / countOfLifting
-
     @Serializable
     @Parcelize
     data class Exercise(
         val id: String = uuid4().toString(),
         val name: String = "",
         val iterations: List<Iteration> = listOf(Iteration()),
+        val tonnage: Double = 0.0,
+        val countOfLifting: Int = 0,
+        val intensity: Double = 0.0
     ) : Parcelable {
-
-        val tonnage
-            get() = iterations.sumOf { it.tonnage }
-        val countOfLifting: Int
-            get() = iterations.sumOf { it.countOfLifting }
-        val intensity
-            get() = tonnage / countOfLifting
 
         @Serializable
         @Parcelize
@@ -52,6 +44,7 @@ data class TrainingState(
             val weight: String = "",
             val repeat: String = ""
         ) : Parcelable {
+
             val tonnage
                 get() = (repeat.toIntOrNull() ?: 0) * (weight.toDoubleOrNull() ?: 0.0)
             val countOfLifting: Int

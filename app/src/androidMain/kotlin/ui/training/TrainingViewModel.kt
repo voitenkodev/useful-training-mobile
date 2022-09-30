@@ -11,6 +11,7 @@ import kotlinx.coroutines.launch
 import mapping.toTraining
 import state.TrainingState
 import state.calculateDuration
+import state.calculateValues
 import state.validate
 import ui.navigation.Router
 
@@ -31,7 +32,11 @@ class TrainingViewModel(
 
     fun save(trainingState: TrainingState) = viewModelScope.launch {
 
-        val training = trainingState.validate()?.calculateDuration()?.toTraining()
+        val training = trainingState
+            .validate()
+            ?.calculateDuration()
+            ?.calculateValues()
+            ?.toTraining()
 
         trainingSource
             .writeTraining(authSource.user?.uid, training ?: error("invalid Training"))

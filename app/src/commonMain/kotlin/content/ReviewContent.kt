@@ -2,9 +2,6 @@ package content
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Send
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -14,7 +11,10 @@ import androidx.compose.ui.unit.dp
 import designsystem.common.DesignComponent
 import designsystem.components.ExerciseItem
 import designsystem.components.WeekDayLabel
-import designsystem.controls.*
+import designsystem.controls.DividerPrimary
+import designsystem.controls.Header
+import designsystem.controls.Root
+import designsystem.controls.TextFieldBody2
 import state.TrainingState
 
 @Composable

@@ -17,10 +17,16 @@ fun Training.toTrainingState() = TrainingState(
                     repeat = it.repeat?.toString() ?: ""
                 )
             },
+            tonnage = it.tonnage ?: 0.0,
+            countOfLifting = it.countOfLifting ?: 0,
+            intensity = it.intensity ?: 0.0
         )
     },
     duration = duration ?: "",
     startDateTime = date ?: "",
+    tonnage = tonnage,
+    countOfLifting = countOfLifting,
+    intensity = intensity
 )
 
 fun Double.toDoubleOrIntString(): String {
