@@ -3,10 +3,12 @@ package ui.navigation
 import android.os.Bundle
 import androidx.core.net.toUri
 import androidx.core.os.bundleOf
-import androidx.navigation.*
+import androidx.navigation.NavController
+import androidx.navigation.NavDeepLinkRequest
+import androidx.navigation.NavDestination
 import state.TrainingState
 
-sealed class Router(val route: String, val args: Bundle) {
+sealed class Router(val route: String, val args: Bundle, open var direction: Direction = Direction.FORWARD) {
 
     object Auth : Router(route = "auth_screen", args = bundleOf())
 
@@ -31,11 +33,14 @@ sealed class Router(val route: String, val args: Bundle) {
     }
 }
 
-fun NavController.routeTo(
-    route: Router,
-    navOptions: NavOptions? = null,
-    navigatorExtras: Navigator.Extras? = null
-) {
+enum class Direction { FORWARD, BACK }
+
+fun NavController.routeTo(route: Router) {
+    if (route.direction == Direction.BACK) {
+        popBackStack(route = route.route, inclusive = false)
+        return
+    }
+
     val routeLink = NavDeepLinkRequest
         .Builder
         .fromUri(NavDestination.createRoute(route.route).toUri())
@@ -45,8 +50,8 @@ fun NavController.routeTo(
     if (deepLinkMatch != null) {
         val destination = deepLinkMatch.destination
         val id = destination.id
-        navigate(id, route.args, navOptions, navigatorExtras)
+        navigate(id, route.args)
     } else {
-        navigate(route.route, navOptions, navigatorExtras)
+        navigate(route.route)
     }
 }

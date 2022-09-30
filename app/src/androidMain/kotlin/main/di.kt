@@ -23,7 +23,7 @@ val appModule = module {
     single { TrainingSource(FirebaseFirestore.getInstance(), get(named("IO"))) }
 
     viewModel { params: ParametersHolder -> TrainingViewModel(params.get(), get(), get()) }
-    viewModel { params: ParametersHolder -> ReviewViewModel(params.get(), get(), get()) }
+    viewModel { params: ParametersHolder -> ReviewViewModel(params.get()) }
     viewModelOf(::AuthViewModel)
     viewModelOf(::TrainingsViewModel)
 }

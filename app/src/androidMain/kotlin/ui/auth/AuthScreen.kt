@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import content.AuthContent
 import kotlinx.coroutines.flow.collectLatest
-import ui.navigation.LocalNavigator
+import ui.navigation.ScreenNavigator
 import ui.navigation.Router
 
 @Composable
@@ -29,7 +29,7 @@ fun AuthScreen(
 
         }
     }
-    LocalNavigator(
+    ScreenNavigator(
         viewModel.event,
         navigate = navigate
     )

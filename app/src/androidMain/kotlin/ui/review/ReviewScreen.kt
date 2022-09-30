@@ -19,7 +19,7 @@ import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import content.ReviewContent
 import designsystem.common.DesignComponent
-import ui.navigation.LocalNavigator
+import ui.navigation.ScreenNavigator
 import ui.navigation.Router
 
 @Composable
@@ -30,7 +30,7 @@ fun ReviewScreen(
 
     val state = viewModel.trainingState.collectAsState()
 
-    LocalNavigator(
+    ScreenNavigator(
         event = viewModel.event,
         navigate = navigate
     )

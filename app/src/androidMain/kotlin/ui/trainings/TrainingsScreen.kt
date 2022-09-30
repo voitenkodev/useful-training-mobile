@@ -6,7 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import content.TrainingsContent
-import ui.navigation.LocalNavigator
+import ui.navigation.ScreenNavigator
 import ui.navigation.Router
 
 @Composable
@@ -17,7 +17,7 @@ fun TrainingsScreen(
 
     val state = viewModel.trainingState.collectAsState()
 
-    LocalNavigator(
+    ScreenNavigator(
         viewModel.event,
         navigate = navigate
     )
