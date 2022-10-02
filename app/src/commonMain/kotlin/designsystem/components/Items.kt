@@ -11,7 +11,7 @@ import androidx.compose.ui.unit.dp
 import designsystem.common.DesignComponent
 import designsystem.controls.IterationVerticalGrid
 import designsystem.controls.TextFieldBody1
-import state.TrainingState
+import presentation.state.TrainingState
 
 @Composable
 fun ExerciseItem(

@@ -6,7 +6,7 @@ import androidx.core.os.bundleOf
 import androidx.navigation.NavController
 import androidx.navigation.NavDeepLinkRequest
 import androidx.navigation.NavDestination
-import state.TrainingState
+import presentation.state.TrainingState
 
 sealed class Router(val route: String, val args: Bundle, open var direction: Direction = Direction.FORWARD) {
 

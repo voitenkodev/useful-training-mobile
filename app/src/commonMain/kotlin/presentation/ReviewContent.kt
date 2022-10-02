@@ -1,4 +1,4 @@
-package content
+package presentation
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -15,7 +15,7 @@ import designsystem.controls.DividerPrimary
 import designsystem.controls.Header
 import designsystem.controls.Root
 import designsystem.controls.TextFieldBody2
-import state.TrainingState
+import presentation.state.TrainingState
 
 @Composable
 fun ReviewContent(

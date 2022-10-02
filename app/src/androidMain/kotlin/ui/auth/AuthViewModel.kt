@@ -7,8 +7,8 @@ import datasource.AuthSource
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import state.AuthState
-import state.validate
+import presentation.state.AuthState
+import presentation.state.validate
 import ui.navigation.Router
 
 class AuthViewModel(

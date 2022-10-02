@@ -3,22 +3,20 @@ package ui.training
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import datasource.AuthSource
-import datasource.TrainingSource
+import data.repository.TrainingRepository
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import mapping.toTraining
-import state.TrainingState
-import state.calculateDuration
-import state.calculateValues
-import state.validate
+import data.mapping.toTraining
+import presentation.state.TrainingState
+import presentation.state.calculateDuration
+import presentation.state.calculateValues
+import presentation.state.validate
 import ui.navigation.Router
 
 class TrainingViewModel(
     private val savedStateHandle: SavedStateHandle,
-    private val authSource: AuthSource,
-    private val trainingSource: TrainingSource,
+    private val trainingRepo: TrainingRepository,
 ) : ViewModel() {
 
     private val _navigation: Channel<Router> = Channel(Channel.BUFFERED)
@@ -32,15 +30,14 @@ class TrainingViewModel(
 
     fun save(trainingState: TrainingState) = viewModelScope.launch {
 
-        val training = trainingState
+        val finalState = trainingState
             .validate()
             ?.calculateDuration()
             ?.calculateValues()
 
-        trainingSource
-            .writeTraining(authSource.user?.uid, training?.toTraining() ?: error("invalid Training"))
+        trainingRepo.setTraining(training = finalState?.toTraining() ?: error("invalid Training"))
+            .onEach { _navigation.send(Router.Review(finalState)) }
             .catch { _error.send(it.toString()) }
-            .onEach { _navigation.send(Router.Review(training)) }
             .launchIn(this)
     }
 

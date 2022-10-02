@@ -13,8 +13,8 @@ import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import org.koin.androidx.compose.koinViewModel
 import org.koin.core.parameter.parametersOf
-import state.TrainingState
-import state.pushEmptyIterations
+import presentation.state.TrainingState
+import presentation.state.pushEmptyIterations
 import ui.auth.AuthScreen
 import ui.auth.AuthViewModel
 import ui.review.ReviewScreen

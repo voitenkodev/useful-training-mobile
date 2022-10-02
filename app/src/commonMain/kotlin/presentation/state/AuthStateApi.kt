@@ -1,4 +1,4 @@
-package state
+package presentation.state
 
 fun AuthState.validate(): AuthState? {
     val emailAddressRegex = Regex(

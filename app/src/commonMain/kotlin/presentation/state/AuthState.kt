@@ -1,4 +1,4 @@
-package state
+package presentation.state
 
 import dev.icerock.moko.parcelize.Parcelable
 import dev.icerock.moko.parcelize.Parcelize

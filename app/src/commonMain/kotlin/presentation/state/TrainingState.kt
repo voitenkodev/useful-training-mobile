@@ -1,4 +1,4 @@
-package state
+package presentation.state
 
 import com.benasher44.uuid.uuid4
 import dev.icerock.moko.parcelize.Parcelable

@@ -1,4 +1,4 @@
-package content
+package presentation
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -21,7 +21,7 @@ import designsystem.common.DesignComponent
 import designsystem.components.*
 import designsystem.controls.*
 import kotlinx.coroutines.launch
-import state.*
+import presentation.state.*
 
 @Composable
 fun TrainingContent(

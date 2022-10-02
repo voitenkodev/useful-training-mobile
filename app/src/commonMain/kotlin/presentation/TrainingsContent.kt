@@ -1,4 +1,4 @@
-package content
+package presentation
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -14,7 +14,7 @@ import designsystem.common.DesignComponent
 import designsystem.components.ExerciseItem
 import designsystem.components.WeekDayLabel
 import designsystem.controls.*
-import state.TrainingState
+import presentation.state.TrainingState
 import utils.DateTimeKtx
 
 @Composable

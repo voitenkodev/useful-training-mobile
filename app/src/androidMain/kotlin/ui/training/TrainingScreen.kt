@@ -9,7 +9,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import content.TrainingContent
+import presentation.TrainingContent
 import kotlinx.coroutines.flow.collectLatest
 import ui.navigation.ScreenNavigator
 import ui.navigation.Router

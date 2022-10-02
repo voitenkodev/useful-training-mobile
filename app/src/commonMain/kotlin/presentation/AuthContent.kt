@@ -1,4 +1,4 @@
-package content
+package presentation
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
@@ -14,7 +14,7 @@ import designsystem.controls.ButtonPrimary
 import designsystem.controls.ButtonSecondary
 import designsystem.controls.TextFieldBody2
 import designsystem.controls.TextFieldH2
-import state.AuthState
+import presentation.state.AuthState
 
 @Composable
 fun AuthContent(

@@ -1,35 +1,55 @@
 package datasource
 
-import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
+import data.source.AuthProtocol
+import data.dto.User
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.tasks.await
 
 class AuthSource(
     private val auth: FirebaseAuth,
     private val dispatcher: CoroutineDispatcher
-) {
+) : AuthProtocol {
 
-    suspend fun login(email: String, password: String): Flow<AuthResult> =
+    override fun login(email: String, password: String): Flow<User> =
         flow {
             emit(auth.signInWithEmailAndPassword(email, password).await())
+        }.map {
+            User(
+                uid = it.user?.uid,
+                displayName = it.user?.displayName,
+                email = it.user?.email
+            )
         }.flowOn(dispatcher)
 
-    suspend fun registration(email: String, password: String): Flow<AuthResult> =
+    override fun registration(email: String, password: String): Flow<User> =
         flow {
             emit(auth.createUserWithEmailAndPassword(email, password).await())
+        }.map {
+            User(
+                uid = it.user?.uid,
+                displayName = it.user?.displayName,
+                email = it.user?.email
+            )
         }.flowOn(dispatcher)
 
-    fun logout(): Flow<Unit> =
+    override fun logout(): Flow<Unit> =
         flow {
             emit(auth.signOut())
         }.flowOn(dispatcher)
 
-    val isAuthorized: Boolean = auth.currentUser != null
+    override val isAuthorized: Boolean = auth.currentUser != null
 
-    val user: FirebaseUser? get() = auth.currentUser
+    override val user: User?
+        get() = auth.currentUser?.let {
+            User(
+                uid = it.uid,
+                displayName = it.displayName,
+                email = it.email
+            )
+        }
 }

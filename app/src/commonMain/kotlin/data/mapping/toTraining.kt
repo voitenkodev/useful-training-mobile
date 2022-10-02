@@ -1,7 +1,7 @@
-package mapping
+package data.mapping
 
-import dto.Training
-import state.TrainingState
+import data.dto.Training
+import presentation.state.TrainingState
 
 fun TrainingState.toTraining() = Training(
     id = id,
