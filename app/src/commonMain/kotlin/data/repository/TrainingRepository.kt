@@ -1,5 +1,6 @@
 package data.repository
 
+import com.benasher44.uuid.uuid4
 import data.dto.ShortTraining
 import data.dto.Training
 import data.mapping.toShortTraining
@@ -23,18 +24,22 @@ class TrainingRepository(
             userId = authSource.user?.uid
         )
 
-    suspend fun setTraining(training: Training): Flow<Unit> = trainingSource
-        .setTraining(
-            userId = authSource.user?.uid,
-            trainingId = training.id,
-            training = training
-        ).combine(
-            trainingSource.setShortTraining(
-                authSource.user?.uid,
-                trainingId = training.id,
-                training = training.toShortTraining()
-            )
-        ) { _, _ -> }
+    suspend fun setTraining(training: Training): Flow<Unit> {
+        val id = training.id ?: uuid4().toString()
+
+        return trainingSource
+            .setTraining(
+                userId = authSource.user?.uid,
+                trainingId = id,
+                training = training
+            ).combine(
+                trainingSource.setShortTraining(
+                    authSource.user?.uid,
+                    trainingId = id,
+                    training = training.toShortTraining()
+                )
+            ) { _, _ -> }
+    }
 
     suspend fun removeTraining(trainingId: String): Flow<Unit> = trainingSource
         .removeTraining(
@@ -42,7 +47,7 @@ class TrainingRepository(
             trainingId = trainingId,
         ).combine(
             trainingSource.removeShortTraining(
-                authSource.user?.uid,
+                userId = authSource.user?.uid,
                 trainingId = trainingId
             )
         ) { _, _ -> }

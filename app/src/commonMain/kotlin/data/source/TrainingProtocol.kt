@@ -8,13 +8,13 @@ interface TrainingProtocol {
 
     suspend fun setTraining(
         userId: String?,
-        trainingId: String?,
+        trainingId: String,
         training: Training
     ): Flow<Unit>
 
     suspend fun setShortTraining(
         userId: String?,
-        trainingId: String?,
+        trainingId: String,
         training: ShortTraining
     ): Flow<Unit>
 

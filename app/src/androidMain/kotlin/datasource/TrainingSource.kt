@@ -19,7 +19,7 @@ class TrainingSource(
 ) : TrainingProtocol {
     override suspend fun setTraining(
         userId: String?,
-        trainingId: String?,
+        trainingId: String,
         training: Training
     ): Flow<Unit> = flow {
         emit(
@@ -27,7 +27,7 @@ class TrainingSource(
                 .collection("users")
                 .document(userId ?: throw Exception("invalid user id"))
                 .collection("trainings")
-                .document(trainingId ?: uuid4().toString())
+                .document(trainingId)
                 .set(training)
                 .await()
         )
@@ -91,7 +91,7 @@ class TrainingSource(
 
     override suspend fun setShortTraining(
         userId: String?,
-        trainingId: String?,
+        trainingId: String,
         training: ShortTraining
     ): Flow<Unit> = flow {
         emit(

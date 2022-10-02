@@ -61,9 +61,11 @@ fun TrainingState.calculateDuration(): TrainingState {
 }
 
 fun TrainingState.pushEmptyIterations(): TrainingState {
-    return this.copy(exercises = exercises.map {
-        it.copy(iterations = it.iterations.addEmptyIteration())
-    })
+    return this.copy(
+        exercises = exercises.map {
+            it.copy(iterations = it.iterations.addEmptyIteration())
+        }
+    )
 }
 
 fun List<TrainingState.Exercise.Iteration>.addEmptyIteration(): List<TrainingState.Exercise.Iteration> {

@@ -32,8 +32,9 @@ class ReviewViewModel(
             trainingRepository.getShortTrainings()
                 .map { it.toShortTrainingState() }
                 .onEach {
-                    _comparingState.value = it
-                    savedStateHandle["comparingState"] = it
+                    val result = it.filterNot { it.id == trainingState.value.id }
+                    _comparingState.value = result
+                    savedStateHandle["comparingState"] = result
                 }
                 .catch { }
                 .launchIn(this)
