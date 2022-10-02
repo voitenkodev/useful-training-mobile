@@ -3,11 +3,11 @@ package ui.training
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import data.mapping.toTraining
 import data.repository.TrainingRepository
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import data.mapping.toTraining
 import presentation.state.TrainingState
 import presentation.state.calculateDuration
 import presentation.state.calculateValues
@@ -16,7 +16,7 @@ import ui.navigation.Router
 
 class TrainingViewModel(
     private val savedStateHandle: SavedStateHandle,
-    private val trainingRepo: TrainingRepository,
+    private val trainingRepository: TrainingRepository,
 ) : ViewModel() {
 
     private val _navigation: Channel<Router> = Channel(Channel.BUFFERED)
@@ -35,7 +35,7 @@ class TrainingViewModel(
             ?.calculateDuration()
             ?.calculateValues()
 
-        trainingRepo.setTraining(training = finalState?.toTraining() ?: error("invalid Training"))
+        trainingRepository.setTraining(training = finalState?.toTraining() ?: error("invalid Training"))
             .onEach { _navigation.send(Router.Review(finalState)) }
             .catch { _error.send(it.toString()) }
             .launchIn(this)

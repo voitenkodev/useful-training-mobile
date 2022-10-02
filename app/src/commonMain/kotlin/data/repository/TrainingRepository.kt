@@ -1,9 +1,9 @@
 package data.repository
 
-import data.source.AuthProtocol
-import data.source.TrainingProtocol
 import data.dto.Training
 import data.mapping.toShortTraining
+import data.source.AuthProtocol
+import data.source.TrainingProtocol
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 
@@ -22,6 +22,17 @@ class TrainingRepository(
                 authSource.user?.uid,
                 trainingId = training.id,
                 training = training.toShortTraining()
+            )
+        ) { _, _ -> }
+
+    suspend fun removeTraining(trainingId: String): Flow<Unit> = trainingSource
+        .removeTraining(
+            userId = authSource.user?.uid,
+            trainingId = trainingId,
+        ).combine(
+            trainingSource.removeShortTraining(
+                authSource.user?.uid,
+                trainingId = trainingId
             )
         ) { _, _ -> }
 }

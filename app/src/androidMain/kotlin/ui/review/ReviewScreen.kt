@@ -17,10 +17,10 @@ import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
-import presentation.ReviewContent
 import designsystem.common.DesignComponent
-import ui.navigation.ScreenNavigator
+import presentation.ReviewContent
 import ui.navigation.Router
+import ui.navigation.ScreenNavigator
 
 @Composable
 fun ReviewScreen(
@@ -38,8 +38,9 @@ fun ReviewScreen(
     ReviewContent(
         modifier = Modifier.statusBarsPadding().navigationBarsPadding(),
         state = state.value,
-        ok = viewModel::ok,
-        chart = { label, list, color -> LineChart(label = label, state = list, color = color) }
+        back = viewModel::ok,
+        remove = viewModel::remove,
+        chart = { label, list, color -> LineChart(label = label, state = list, color = color) },
     )
 }
 

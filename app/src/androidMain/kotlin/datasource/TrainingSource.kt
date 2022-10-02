@@ -3,9 +3,9 @@ package datasource
 import com.benasher44.uuid.uuid4
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
-import data.source.TrainingProtocol
 import data.dto.ShortTraining
 import data.dto.Training
+import data.source.TrainingProtocol
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -29,6 +29,29 @@ class TrainingSource(
                 .collection("trainings")
                 .document(trainingId ?: uuid4().toString())
                 .set(training)
+                .await()
+        )
+    }.map { }.flowOn(dispatcher)
+
+    override suspend fun removeTraining(userId: String?, trainingId: String): Flow<Unit> = flow {
+        emit(
+            store
+                .collection("users")
+                .document(userId ?: throw Exception("invalid user id"))
+                .collection("trainings")
+                .document(trainingId)
+                .delete()
+                .await()
+        )
+    }.map { }.flowOn(dispatcher)
+    override suspend fun removeShortTraining(userId: String?, trainingId: String): Flow<Unit> = flow {
+        emit(
+            store
+                .collection("users")
+                .document(userId ?: throw Exception("invalid user id"))
+                .collection("trainings_short")
+                .document(trainingId)
+                .delete()
                 .await()
         )
     }.map { }.flowOn(dispatcher)

@@ -11,10 +11,7 @@ import androidx.compose.ui.unit.dp
 import designsystem.common.DesignComponent
 import designsystem.components.ExerciseItem
 import designsystem.components.WeekDayLabel
-import designsystem.controls.DividerPrimary
-import designsystem.controls.Header
-import designsystem.controls.Root
-import designsystem.controls.TextFieldBody2
+import designsystem.controls.*
 import presentation.state.TrainingState
 
 @Composable
@@ -22,13 +19,14 @@ fun ReviewContent(
     modifier: Modifier = Modifier,
     state: TrainingState,
     chart: @Composable (String, List<Float>, Color) -> Unit,
-    ok: () -> Unit
+    back: () -> Unit,
+    remove: (TrainingState) -> Unit
 ) = Root(
     modifier = modifier,
     header = {
         Header(
             title = "Review!",
-            exit = ok
+            exit = back
         )
     },
     content = {
@@ -75,6 +73,13 @@ fun ReviewContent(
                     number = index + 1, exercise = item
                 )
             }
+        }
+        item(key = "remove_action") {
+            ButtonPrimary(
+                modifier = Modifier.fillMaxWidth(),
+                text = "Remove",
+                onClick = { remove.invoke(state) },
+            )
         }
     }
 )

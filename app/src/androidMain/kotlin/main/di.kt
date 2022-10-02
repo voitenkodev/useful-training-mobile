@@ -29,7 +29,7 @@ val appModule = module {
     single { TrainingRepository(get(), get()) }
 
     viewModel { params: ParametersHolder -> TrainingViewModel(params.get(), get()) }
-    viewModel { params: ParametersHolder -> ReviewViewModel(params.get()) }
+    viewModel { params: ParametersHolder -> ReviewViewModel(params.get(), get()) }
 
     viewModelOf(::AuthViewModel)
     viewModelOf(::TrainingsViewModel)

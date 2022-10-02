@@ -12,13 +12,24 @@ interface TrainingProtocol {
         training: Training
     ): Flow<Unit>
 
-    suspend fun getTrainings(
-        userId: String?,
-    ): Flow<List<Training>>
-
     suspend fun setShortTraining(
         userId: String?,
         trainingId: String?,
         training: ShortTraining
     ): Flow<Unit>
+
+    suspend fun removeTraining(
+        userId: String?,
+        trainingId: String,
+    ): Flow<Unit>
+
+    suspend fun removeShortTraining(
+        userId: String?,
+        trainingId: String,
+    ): Flow<Unit>
+
+    suspend fun getTrainings(
+        userId: String?,
+    ): Flow<List<Training>>
+
 }
