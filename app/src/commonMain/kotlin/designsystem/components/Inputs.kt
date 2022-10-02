@@ -34,7 +34,7 @@ fun InputEmail(
 
     InputFieldPrimary(
         modifier = modifier
-            .background(DesignComponent.colors.secondary, DesignComponent.shape.maxShape)
+            .background(DesignComponent.colors.secondary, DesignComponent.shape.default)
             .padding(16.dp),
         value = value,
         onValueChange = onValueChange,
@@ -70,7 +70,7 @@ fun InputPassword(
 
     InputFieldPrimary(
         modifier = modifier
-            .background(DesignComponent.colors.secondary, DesignComponent.shape.maxShape)
+            .background(DesignComponent.colors.secondary, DesignComponent.shape.default)
             .padding(16.dp),
         value = value,
         onValueChange = onValueChange,

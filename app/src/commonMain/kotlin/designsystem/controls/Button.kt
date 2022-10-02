@@ -34,7 +34,7 @@ fun ButtonPrimary(
         enabled = enabled,
         onClick = onClick,
         colors = ButtonDefaults.buttonColors(backgroundColor = _backgroundColor),
-        shape = DesignComponent.shape.maxShape,
+        shape = DesignComponent.shape.default,
         borderStroke = null,
         leadIcon = leadIcon
     )
@@ -60,7 +60,7 @@ fun ButtonSecondary(
         enabled = enabled,
         onClick = onClick,
         colors = ButtonDefaults.buttonColors(backgroundColor = _backgroundColor),
-        shape = DesignComponent.shape.maxShape,
+        shape = DesignComponent.shape.default,
         borderStroke = null,
         leadIcon = leadIcon
     )

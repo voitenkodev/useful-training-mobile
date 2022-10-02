@@ -2,6 +2,7 @@ package presentation
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -10,8 +11,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import designsystem.common.DesignComponent
 import designsystem.components.ExerciseItem
+import designsystem.components.ShortTrainingItem
 import designsystem.components.WeekDayLabel
 import designsystem.controls.*
+import presentation.state.ShortTrainingState
 import presentation.state.TrainingState
 
 @Composable
@@ -59,8 +62,47 @@ fun ReviewContent(
             ButtonPrimary(
                 modifier = Modifier.fillMaxWidth(),
                 text = "Compare With...",
-                onClick = {  },
+                onClick = { },
             )
+        }
+
+        item(key = "short") {
+            LazyRow(
+                horizontalArrangement = Arrangement.spacedBy(DesignComponent.size.space)
+            ) {
+                item {
+                    ShortTrainingItem(
+                        state = ShortTrainingState(
+                            id = "Qwerty",
+                            startDateTime = "2022-09-30T15:13:49.334Z",
+                            duration = "1h 58m 19.68s",
+                            exercises = listOf(
+                                "Становая на прямых ногах",
+                                "Тяга вертикального блока к груди",
+                                "Тяга горизонтального блока к животу узким хватом",
+                                "Тяга горизонтального блока к животу широким хватом",
+                                "Шраги в смитте",
+                                "Скручивание"
+                            ),
+                        )
+                    )
+                }
+                item {
+                    ShortTrainingItem(
+                        state = ShortTrainingState(
+                            id = "Qwerty2",
+                            startDateTime = "2022-09-30T15:13:49.334Z",
+                            duration = "1h 58m 19.68s",
+                            exercises = listOf(
+                                "Становая на прямых ногах",
+                                "Тяга в к груди",
+                                "Шраги в смитте",
+                                "Скручивание"
+                            ),
+                        )
+                    )
+                }
+            }
         }
 
         item(key = "summary_title") {
@@ -82,6 +124,7 @@ fun ReviewContent(
                 )
             }
         }
+
         item(key = "remove_action") {
             ButtonSecondary(
                 modifier = Modifier.fillMaxWidth(),
@@ -93,7 +136,10 @@ fun ReviewContent(
 )
 
 @Composable
-private fun DateItem(modifier: Modifier, state: TrainingState) = Row(
+private fun DateItem(
+    modifier: Modifier,
+    state: TrainingState
+) = Row(
     modifier = modifier,
     horizontalArrangement = Arrangement.spacedBy(2.dp),
     verticalAlignment = Alignment.CenterVertically,
@@ -136,7 +182,7 @@ private fun ChartSection(
         .aspectRatio(1.5f)
         .background(
             color = DesignComponent.colors.secondary,
-            shape = DesignComponent.shape.maxShape
+            shape = DesignComponent.shape.default
         ).padding(DesignComponent.size.space),
     verticalArrangement = Arrangement.spacedBy(DesignComponent.size.space)
 ) {
@@ -157,7 +203,7 @@ private fun Summary(
 ) = Column(
     modifier = Modifier.background(
         color = DesignComponent.colors.secondary,
-        shape = DesignComponent.shape.maxShape
+        shape = DesignComponent.shape.default
     ).padding(
         horizontal = DesignComponent.size.space
     )

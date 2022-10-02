@@ -24,7 +24,7 @@ fun IconPrimary(
     Icon(
         imageVector = imageVector,
         tint = color,
-        modifier = Modifier.clip(shape = DesignComponent.shape.maxShape),
+        modifier = Modifier.clip(shape = DesignComponent.shape.default),
         contentDescription = null,
     )
 }

@@ -62,7 +62,7 @@ fun TrainingContent(
                         .animateItemPlacement()
                         .background(
                             color = DesignComponent.colors.secondary,
-                            shape = DesignComponent.shape.maxShape
+                            shape = DesignComponent.shape.default
                         )
                 ) {
                     InputNameItem(
@@ -70,7 +70,8 @@ fun TrainingContent(
                         showHelp = mutableStateOf(value = false),
                         exercise = exercise,
                         update = { update.invoke(state.updateExercise(it)) },
-                        remove = { update.invoke(state.removeExercise(it)) })
+                        remove = { update.invoke(state.removeExercise(it)) }
+                    )
 
                     DividerPrimary(modifier = Modifier.padding(horizontal = 12.dp))
 

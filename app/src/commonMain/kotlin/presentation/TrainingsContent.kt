@@ -24,41 +24,47 @@ fun TrainingsContent(
     get: (TrainingState) -> Unit,
     show: (TrainingState) -> Unit,
     add: () -> Unit,
-) = Root(modifier = modifier, contentPadding = PaddingValues(
-    top = DesignComponent.size.space,
-    bottom = DesignComponent.size.space + 56.dp + DesignComponent.size.space,
-    start = DesignComponent.size.space,
-    end = DesignComponent.size.space
-), header = {
-    Header(title = "Trainings!")
-}, floating = {
-    FloatingMenu(
-        modifier = Modifier.fillMaxWidth().align(Alignment.BottomCenter).padding(DesignComponent.size.space),
-        add = add
-    )
-}, content = {
+) = Root(
+    modifier = modifier,
+    contentPadding = PaddingValues(
+        top = DesignComponent.size.space,
+        bottom = DesignComponent.size.space + 56.dp + DesignComponent.size.space,
+        start = DesignComponent.size.space,
+        end = DesignComponent.size.space
+    ),
+    header = {
+        Header(title = "Trainings!")
+    },
+    floating = {
+        FloatingMenu(
+            modifier = Modifier.fillMaxWidth().align(Alignment.BottomCenter).padding(DesignComponent.size.space),
+            add = add
+        )
+    },
+    content = {
 
-    var lastDate: String? = null
+        var lastDate: String? = null
 
-    state.forEach { item ->
-        lastDate?.let {
-            if (DateTimeKtx().isPreviousWeek(item.startDateTime, it)) {
-                item(key = "week_by_${item.shortStartDate}") {
-                    WeekItem(state = item)
+        state.forEach { item ->
+            lastDate?.let {
+                if (DateTimeKtx().isPreviousWeek(item.startDateTime, it)) {
+                    item(key = "week_by_${item.shortStartDate}") {
+                        WeekItem(state = item)
+                    }
                 }
             }
-        }
-        lastDate = item.startDateTime
+            lastDate = item.startDateTime
 
-        item(key = item.id) {
-            TrainingItem(
-                trainingState = item,
-                get = get,
-                show = show
-            )
+            item(key = item.id) {
+                TrainingItem(
+                    trainingState = item,
+                    get = get,
+                    show = show
+                )
+            }
         }
     }
-})
+)
 
 @Composable
 private fun WeekItem(state: TrainingState) = Row(
@@ -81,7 +87,7 @@ private fun WeekItem(state: TrainingState) = Row(
 }
 
 @Composable
-fun FloatingMenu(
+private fun FloatingMenu(
     modifier: Modifier = Modifier, add: () -> Unit
 ) = Row(
     modifier = modifier,
@@ -98,7 +104,7 @@ fun FloatingMenu(
     IconPrimary(
         modifier = Modifier.size(56.dp).background(
             color = DesignComponent.colors.accent_secondary,
-            shape = DesignComponent.shape.maxShape
+            shape = DesignComponent.shape.default
         ),
         imageVector = BarChart,
         onClick = {}
@@ -113,7 +119,7 @@ private fun TrainingItem(
 ) = Column(
     modifier = Modifier.background(
         color = DesignComponent.colors.secondary,
-        shape = DesignComponent.shape.maxShape
+        shape = DesignComponent.shape.default
     ).padding(12.dp)
 ) {
     TrainingHeader(
@@ -169,14 +175,16 @@ private fun TrainingHeader(
     IconPrimary(modifier = Modifier.height(20.dp),
         imageVector = BarChart,
         color = DesignComponent.colors.caption,
-        onClick = { show.invoke(trainingState) })
+        onClick = { show.invoke(trainingState) }
+    )
 
     Spacer(modifier = Modifier.size(20.dp))
 
     IconPrimary(modifier = Modifier.height(20.dp),
         imageVector = Icons.Default.Edit,
         color = DesignComponent.colors.caption,
-        onClick = { get.invoke(trainingState) })
+        onClick = { get.invoke(trainingState) }
+    )
 }
 
 @Composable
