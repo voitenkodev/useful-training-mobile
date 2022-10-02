@@ -55,6 +55,14 @@ fun ReviewContent(
             )
         }
 
+        item(key = "compare_action") {
+            ButtonPrimary(
+                modifier = Modifier.fillMaxWidth(),
+                text = "Compare With...",
+                onClick = {  },
+            )
+        }
+
         item(key = "summary_title") {
             TextFieldBody2(
                 modifier = Modifier.padding(horizontal = 8.dp),
@@ -75,9 +83,9 @@ fun ReviewContent(
             }
         }
         item(key = "remove_action") {
-            ButtonPrimary(
+            ButtonSecondary(
                 modifier = Modifier.fillMaxWidth(),
-                text = "Remove",
+                text = "Remove Training!",
                 onClick = { remove.invoke(state) },
             )
         }
