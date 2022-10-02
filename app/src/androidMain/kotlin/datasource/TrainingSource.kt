@@ -44,6 +44,7 @@ class TrainingSource(
                 .await()
         )
     }.map { }.flowOn(dispatcher)
+
     override suspend fun removeShortTraining(userId: String?, trainingId: String): Flow<Unit> = flow {
         emit(
             store
@@ -70,6 +71,22 @@ class TrainingSource(
         )
     }.map {
         it.documents.mapNotNull { it.toObject(Training::class.java)?.copy(id = it.id) }
+    }.flowOn(dispatcher)
+
+    override suspend fun getShortTrainings(
+        userId: String?,
+    ): Flow<List<ShortTraining>> = flow {
+        emit(
+            store
+                .collection("users")
+                .document(userId ?: error("invalid user id"))
+                .collection("trainings_short")
+                .orderBy("date", Query.Direction.DESCENDING)
+                .get()
+                .await()
+        )
+    }.map {
+        it.documents.mapNotNull { it.toObject(ShortTraining::class.java)?.copy(id = it.id) }
     }.flowOn(dispatcher)
 
     override suspend fun setShortTraining(

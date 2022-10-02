@@ -18,6 +18,10 @@ interface TrainingProtocol {
         training: ShortTraining
     ): Flow<Unit>
 
+    suspend fun getShortTrainings(
+        userId: String?,
+    ): Flow<List<ShortTraining>>
+
     suspend fun removeTraining(
         userId: String?,
         trainingId: String,

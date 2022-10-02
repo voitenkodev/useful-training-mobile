@@ -1,5 +1,6 @@
 package data.repository
 
+import data.dto.ShortTraining
 import data.dto.Training
 import data.mapping.toShortTraining
 import data.source.AuthProtocol
@@ -11,6 +12,16 @@ class TrainingRepository(
     private val authSource: AuthProtocol,
     private val trainingSource: TrainingProtocol
 ) {
+
+    suspend fun getShortTrainings(): Flow<List<ShortTraining>> = trainingSource
+        .getShortTrainings(
+            userId = authSource.user?.uid,
+        )
+
+    suspend fun getTrainings(): Flow<List<Training>> = trainingSource
+        .getTrainings(
+            userId = authSource.user?.uid
+        )
 
     suspend fun setTraining(training: Training): Flow<Unit> = trainingSource
         .setTraining(

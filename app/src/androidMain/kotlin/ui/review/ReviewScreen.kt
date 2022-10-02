@@ -10,7 +10,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.viewinterop.AndroidView
-import co.touchlab.kermit.Logger
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
@@ -28,7 +27,8 @@ fun ReviewScreen(
     navigate: (Router) -> Unit
 ) {
 
-    val state = viewModel.trainingState.collectAsState()
+    val trainingState = viewModel.trainingState.collectAsState()
+    val comparingState = viewModel.comparingState.collectAsState()
 
     ScreenNavigator(
         event = viewModel.event,
@@ -37,7 +37,8 @@ fun ReviewScreen(
 
     ReviewContent(
         modifier = Modifier.statusBarsPadding().navigationBarsPadding(),
-        state = state.value,
+        trainingState = trainingState.value,
+        comparingState = comparingState.value,
         back = viewModel::ok,
         remove = viewModel::remove,
         chart = { label, list, color -> LineChart(label = label, state = list, color = color) },
@@ -113,8 +114,6 @@ fun List<Pair<Float, Float>>.toLineChart(
     color: Color,
     backgroundColor: Color,
 ): LineData {
-
-    Logger.i { this.toString() }
 
     val values = ArrayList<Entry>()
     values.addAll(this.map { Entry(it.first, it.second) })

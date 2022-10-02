@@ -29,7 +29,7 @@ fun Training.toTrainingState() = TrainingState(
     intensity = intensity
 )
 
-fun Double.toDoubleOrIntString(): String {
+private fun Double.toDoubleOrIntString(): String {
     return if (this.compareTo(this.toInt()) == 0) this.toInt().toString()
     else this.toString()
 }

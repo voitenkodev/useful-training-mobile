@@ -12,7 +12,7 @@ import androidx.compose.ui.unit.dp
 import designsystem.common.BarChart
 import designsystem.common.DesignComponent
 import designsystem.components.ExerciseItem
-import designsystem.components.WeekDayLabel
+import designsystem.components.labels.WeekDayLabel
 import designsystem.controls.*
 import presentation.state.TrainingState
 import utils.DateTimeKtx
@@ -122,6 +122,7 @@ private fun TrainingItem(
         shape = DesignComponent.shape.default
     ).padding(12.dp)
 ) {
+
     TrainingHeader(
         modifier = Modifier.fillMaxWidth(),
         trainingState = trainingState,
@@ -133,7 +134,8 @@ private fun TrainingItem(
 
     trainingState.exercises.forEachIndexed { index, item ->
         ExerciseItem(
-            number = index + 1, exercise = item
+            number = index + 1,
+            exercise = item
         )
     }
     DividerPrimary(modifier = Modifier.padding(bottom = 12.dp))
@@ -146,7 +148,10 @@ private fun TrainingItem(
 
 @Composable
 private fun TrainingHeader(
-    modifier: Modifier = Modifier, trainingState: TrainingState, show: (TrainingState) -> Unit, get: (TrainingState) -> Unit
+    modifier: Modifier = Modifier,
+    trainingState: TrainingState,
+    show: (TrainingState) -> Unit,
+    get: (TrainingState) -> Unit
 ) = Row(
     modifier = modifier,
     horizontalArrangement = Arrangement.spacedBy(2.dp),
@@ -172,7 +177,8 @@ private fun TrainingHeader(
 
     Spacer(modifier = Modifier.weight(1f))
 
-    IconPrimary(modifier = Modifier.height(20.dp),
+    IconPrimary(
+        modifier = Modifier.height(20.dp),
         imageVector = BarChart,
         color = DesignComponent.colors.caption,
         onClick = { show.invoke(trainingState) }
@@ -180,7 +186,8 @@ private fun TrainingHeader(
 
     Spacer(modifier = Modifier.size(20.dp))
 
-    IconPrimary(modifier = Modifier.height(20.dp),
+    IconPrimary(
+        modifier = Modifier.height(20.dp),
         imageVector = Icons.Default.Edit,
         color = DesignComponent.colors.caption,
         onClick = { get.invoke(trainingState) }

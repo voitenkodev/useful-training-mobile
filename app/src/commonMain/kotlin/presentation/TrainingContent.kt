@@ -4,13 +4,11 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
@@ -18,9 +16,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import designsystem.common.DesignComponent
-import designsystem.components.*
+import designsystem.components.inputs.InputExerciseName
+import designsystem.components.inputs.InputRepeat
+import designsystem.components.inputs.InputWeight
+import designsystem.components.labels.AccentLabel
 import designsystem.controls.*
-import kotlinx.coroutines.launch
 import presentation.state.*
 
 @Composable
@@ -29,84 +29,71 @@ fun TrainingContent(
     state: TrainingState,
     update: (TrainingState) -> Unit,
     save: (TrainingState) -> Unit,
-) {
-
-    val coroutineScope = rememberCoroutineScope()
-    val listState = rememberLazyListState()
-
-    Root(
-        modifier = modifier,
-        header = {
-            Header(
-                title = "Exercises!",
-                save = { save.invoke(state) }
-            )
-        },
-        contentPadding = PaddingValues(
-            top = DesignComponent.size.space,
-            bottom = DesignComponent.size.space + 56.dp + DesignComponent.size.space
-        ),
-        footer = {
-            NewExerciseItem(
-                modifier = Modifier.fillMaxWidth().padding(DesignComponent.size.space),
-                onClick = {
-                    update.invoke(state.addExercise())
-                    coroutineScope.launch { listState.animateScrollToItem(state.exercises.lastIndex) }
-                }
-            )
-        },
-        content = {
-            itemsIndexed(state.exercises, key = { index, exercise -> exercise.id }) { index, exercise ->
-                Column(
-                    modifier = Modifier
-                        .animateItemPlacement()
-                        .background(
-                            color = DesignComponent.colors.secondary,
-                            shape = DesignComponent.shape.default
-                        )
-                ) {
-                    InputNameItem(
-                        number = index + 1,
-                        showHelp = mutableStateOf(value = false),
-                        exercise = exercise,
-                        update = { update.invoke(state.updateExercise(it)) },
-                        remove = { update.invoke(state.removeExercise(it)) }
+) = Root(
+    modifier = modifier,
+    header = {
+        Header(
+            title = "Exercises!",
+            save = { save.invoke(state) }
+        )
+    },
+    footer = {
+        NewExerciseItem(
+            modifier = Modifier.fillMaxWidth().padding(DesignComponent.size.space),
+            onClick = { update.invoke(state.addExercise()) }
+        )
+    },
+    content = {
+        itemsIndexed(state.exercises, key = { index, exercise -> exercise.id }) { index, exercise ->
+            Column(
+                modifier = Modifier
+                    .animateItemPlacement()
+                    .background(
+                        color = DesignComponent.colors.secondary,
+                        shape = DesignComponent.shape.default
                     )
+            ) {
+                InputNameItem(
+                    number = index + 1,
+                    showHelp = mutableStateOf(value = false),
+                    exercise = exercise,
+                    update = { update.invoke(state.updateExercise(it)) },
+                    remove = { update.invoke(state.removeExercise(it)) }
+                )
 
-                    DividerPrimary(modifier = Modifier.padding(horizontal = 12.dp))
+                DividerPrimary(modifier = Modifier.padding(horizontal = 12.dp))
 
-                    IterationVerticalGrid(
-                        modifier = Modifier.padding(top = 4.dp, bottom = 8.dp, start = 4.dp, end = 4.dp),
-                        spacing = 4.dp
-                    ) {
+                IterationVerticalGrid(
+                    modifier = Modifier.padding(top = 4.dp, bottom = 8.dp, start = 4.dp, end = 4.dp),
+                    spacing = 4.dp
+                ) {
 
-                        IterationCaptionItem()
+                    IterationCaptionItem()
 
-                        exercise.iterations.forEachIndexed { index, iteration ->
-                            IterationInputItem(
-                                iteration = iteration,
-                                updateWeight = { value ->
-                                    exercise
-                                        .iterations
-                                        .changeIterationByIndex(weight = value, index = index)
-                                        .addEmptyIteration()
-                                        .run { update.invoke(state.updateExercise(exercise = exercise.copy(iterations = this))) }
-                                },
-                                updateRepeat = { value ->
-                                    exercise
-                                        .iterations
-                                        .changeIterationByIndex(repeat = value, index = index)
-                                        .addEmptyIteration()
-                                        .run { update.invoke(state.updateExercise(exercise = exercise.copy(iterations = this))) }
-                                }
-                            )
-                        }
+                    exercise.iterations.forEachIndexed { index, iteration ->
+                        IterationInputItem(
+                            iteration = iteration,
+                            updateWeight = { value ->
+                                exercise
+                                    .iterations
+                                    .changeIterationByIndex(weight = value, index = index)
+                                    .addEmptyIteration()
+                                    .run { update.invoke(state.updateExercise(exercise = exercise.copy(iterations = this))) }
+                            },
+                            updateRepeat = { value ->
+                                exercise
+                                    .iterations
+                                    .changeIterationByIndex(repeat = value, index = index)
+                                    .addEmptyIteration()
+                                    .run { update.invoke(state.updateExercise(exercise = exercise.copy(iterations = this))) }
+                            }
+                        )
                     }
                 }
             }
         }
-    )
-}
+    }
+)
 
 @Composable
 private fun InputNameItem(
@@ -126,7 +113,7 @@ private fun InputNameItem(
         text = "$number",
     )
 
-    InputName(
+    InputExerciseName(
         modifier = Modifier.onFocusChanged { showHelp.value = it.hasFocus }.weight(1f),
         value = exercise.name,
         onValueChange = { update.invoke(exercise.copy(name = it)) },

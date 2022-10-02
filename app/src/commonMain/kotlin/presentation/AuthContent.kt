@@ -6,14 +6,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import designsystem.common.DesignComponent
-import designsystem.controls.Header
-import designsystem.components.InputEmail
-import designsystem.components.InputPassword
-import designsystem.controls.Root
-import designsystem.controls.ButtonPrimary
-import designsystem.controls.ButtonSecondary
-import designsystem.controls.TextFieldBody2
-import designsystem.controls.TextFieldH2
+import designsystem.components.inputs.InputEmail
+import designsystem.components.inputs.InputPassword
+import designsystem.controls.*
 import presentation.state.AuthState
 
 @Composable
