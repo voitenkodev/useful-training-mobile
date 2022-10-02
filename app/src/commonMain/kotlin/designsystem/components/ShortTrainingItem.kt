@@ -25,8 +25,7 @@ fun ShortTrainingItem(
         .background(
             color = DesignComponent.colors.secondary,
             shape = DesignComponent.shape.default
-        )
-        .padding(DesignComponent.size.space),
+        ).padding(DesignComponent.size.space),
 ) {
     Row(
         horizontalArrangement = Arrangement.spacedBy(2.dp),
@@ -61,7 +60,7 @@ fun ShortTrainingItem(
             overflow = TextOverflow.Ellipsis
         )
     }
-    TextFieldBody2(
+    if (state.exercises.size > 4) TextFieldBody2(
         text = "...",
         fontWeight = FontWeight.Bold,
         maxLines = 1,

@@ -3,19 +3,17 @@ package ui.trainings
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import datasource.AuthSource
-import datasource.TrainingSource
+import data.mapping.toTrainingStateList
+import data.repository.TrainingRepository
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import data.mapping.toTrainingStateList
 import presentation.state.TrainingState
 import ui.navigation.Router
 
 class TrainingsViewModel(
     private val savedStateHandle: SavedStateHandle,
-    private val authSource: AuthSource,
-    private val trainingSource: TrainingSource,
+    private val trainingRepository: TrainingRepository,
 ) : ViewModel() {
 
     private val _navigation: Channel<Router> = Channel(Channel.BUFFERED)
@@ -26,8 +24,8 @@ class TrainingsViewModel(
 
     init {
         viewModelScope.launch {
-            trainingSource
-                .getTrainings(authSource.user?.uid)
+            trainingRepository
+                .getTrainings()
                 .map { it.toTrainingStateList() }
                 .onEach {
                     _trainingState.value = it
