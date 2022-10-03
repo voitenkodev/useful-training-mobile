@@ -138,7 +138,8 @@ private fun TrainingItem(
             exercise = item
         )
     }
-    DividerPrimary(modifier = Modifier.padding(bottom = 12.dp))
+
+    DividerPrimary(modifier = Modifier.padding(vertical = 12.dp))
 
     TrainingFooter(
         modifier = Modifier.fillMaxWidth(),
