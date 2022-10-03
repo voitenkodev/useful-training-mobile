@@ -6,8 +6,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import presentation.TrainingsContent
-import ui.navigation.ScreenNavigator
 import ui.navigation.Router
+import ui.navigation.ScreenNavigator
 
 @Composable
 fun TrainingsScreen(
@@ -15,7 +15,7 @@ fun TrainingsScreen(
     navigate: (Router) -> Unit
 ) {
 
-    val state = viewModel.trainingState.collectAsState()
+    val fetch = viewModel.trainingState.collectAsState()
 
     ScreenNavigator(
         viewModel.event,
@@ -24,9 +24,9 @@ fun TrainingsScreen(
 
     TrainingsContent(
         modifier = Modifier.statusBarsPadding().navigationBarsPadding(),
-        state = state.value,
-        get = viewModel::get,
+        fetch = fetch.value,
+        edit = viewModel::get,
         add = viewModel::add,
-        show = viewModel::show
+        review = viewModel::show
     )
 }

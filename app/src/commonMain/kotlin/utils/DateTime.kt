@@ -33,6 +33,19 @@ class DateTimeKtx {
         return "${day.zeroPrefixed(2)} $month $year"
     }
 
+    fun formattedEndOfWeek(iso8601Timestamp: String): String? {
+        val currentLocalDateTime = iso8601TimestampToLocalDateTime(iso8601Timestamp) ?: return null
+
+        val dayOfWeek = DayOfWeek.values().size - currentLocalDateTime.dayOfWeek.ordinal
+
+        val endOfWeek = currentLocalDateTime
+            .toInstant(TimeZone.currentSystemDefault())
+            .plus(dayOfWeek, DateTimeUnit.DAY, TimeZone.currentSystemDefault())
+            .toString()
+
+        return formattedLongDate(endOfWeek)
+    }
+
     fun isPreviousWeek(currentIso8601Timestamp: String, lastIso8601Timestamp: String): Boolean {
         val currentLocalDateTime = iso8601TimestampToLocalDateTime(currentIso8601Timestamp) ?: return false
         val dayOfWeek = DayOfWeek.values().size - currentLocalDateTime.dayOfWeek.ordinal
@@ -60,7 +73,7 @@ class DateTimeKtx {
         return localDateTime.dayOfWeek.name
     }
 
-    fun getFormattedDuration(duration: String): String? {
+    fun formattedDuration(duration: String): String? {
         return Duration.parseOrNull(duration)?.toComponents { hours, minutes, _, _ ->
             timeFormat(hours.toInt(), minutes)
         }

@@ -27,8 +27,6 @@ fun ReviewScreen(
     navigate: (Router) -> Unit
 ) {
 
-    val trainingState = viewModel.trainingState.collectAsState()
-    val comparingState = viewModel.comparingState.collectAsState()
 
     ScreenNavigator(
         event = viewModel.event,
@@ -37,8 +35,6 @@ fun ReviewScreen(
 
     ReviewContent(
         modifier = Modifier.statusBarsPadding().navigationBarsPadding(),
-        trainingState = trainingState.value,
-        comparingState = comparingState.value,
         back = viewModel::ok,
         remove = viewModel::remove,
         chart = { label, list, color -> LineChart(label = label, state = list, color = color) },

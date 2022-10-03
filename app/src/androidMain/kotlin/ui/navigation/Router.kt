@@ -1,36 +1,19 @@
 package ui.navigation
 
-import android.os.Bundle
 import androidx.core.net.toUri
-import androidx.core.os.bundleOf
 import androidx.navigation.NavController
 import androidx.navigation.NavDeepLinkRequest
 import androidx.navigation.NavDestination
-import presentation.state.TrainingState
 
-sealed class Router(val route: String, val args: Bundle, open var direction: Direction = Direction.FORWARD) {
+sealed class Router(val route: String, open var direction: Direction = Direction.FORWARD) {
 
-    object Auth : Router(route = "auth_screen", args = bundleOf())
+    object Auth : Router(route = "auth_screen")
 
-    object Trainings : Router(route = "trainings_screen", args = bundleOf())
+    object Trainings : Router(route = "trainings_screen")
 
-    data class Training(
-        val trainingState: TrainingState? = null
-    ) : Router(ID, bundleOf(ARG to trainingState)) {
-        companion object {
-            const val ID = "training_screen"
-            const val ARG = "trainingState"
-        }
-    }
+    object Training : Router(route = "training_screen")
 
-    data class Review(
-        val trainingState: TrainingState
-    ) : Router(ID, bundleOf(ARG to trainingState)) {
-        companion object {
-            const val ID = "review_screen"
-            const val ARG = "trainingState"
-        }
-    }
+    object Review : Router(route = "review_screen")
 }
 
 enum class Direction { FORWARD, BACK }
@@ -50,7 +33,7 @@ fun NavController.routeTo(route: Router) {
     if (deepLinkMatch != null) {
         val destination = deepLinkMatch.destination
         val id = destination.id
-        navigate(id, route.args)
+        navigate(id)
     } else {
         navigate(route.route)
     }

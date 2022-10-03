@@ -12,7 +12,7 @@ uuid-vers = "0.5.0"
 #firebase-vers = "1.6.2"
 
 #Android
-android-gradle-vers = "7.4.0-alpha10"
+android-gradle-vers = "8.0.0-alpha02"
 
 [libraries]
 coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines-vers" }

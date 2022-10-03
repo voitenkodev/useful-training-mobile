@@ -8,9 +8,7 @@ import data.source.TrainingProtocol
 import datasource.AuthSource
 import datasource.TrainingSource
 import kotlinx.coroutines.Dispatchers
-import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.androidx.viewmodel.dsl.viewModelOf
-import org.koin.core.parameter.ParametersHolder
 import org.koin.core.qualifier.named
 import org.koin.dsl.bind
 import org.koin.dsl.module
@@ -28,9 +26,8 @@ val appModule = module {
 
     single { TrainingRepository(get(), get()) }
 
-    viewModel { params: ParametersHolder -> TrainingViewModel(params.get(), get()) }
-    viewModel { params: ParametersHolder -> ReviewViewModel(params.get(), get()) }
-
+    viewModelOf(::ReviewViewModel)
     viewModelOf(::AuthViewModel)
     viewModelOf(::TrainingsViewModel)
+    viewModelOf(::TrainingViewModel)
 }

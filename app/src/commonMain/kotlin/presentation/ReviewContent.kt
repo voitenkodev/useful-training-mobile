@@ -1,10 +1,18 @@
 package presentation
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -12,83 +20,95 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import designsystem.common.DesignComponent
 import designsystem.components.ExerciseItem
-import designsystem.components.ShortTrainingItem
+import designsystem.components.CollapsedTrainingItem
 import designsystem.components.labels.WeekDayLabel
-import designsystem.controls.*
-import presentation.state.ShortTrainingState
-import presentation.state.TrainingState
+import designsystem.controls.ButtonSecondary
+import designsystem.controls.DividerPrimary
+import designsystem.controls.Header
+import designsystem.controls.Root
+import designsystem.controls.TextFieldBody2
+import redux.GlobalState
+import redux.ReviewState
+import redux.TrainingState
+import redux.rememberDispatcher
+import redux.selectState
 
 @Composable
 fun ReviewContent(
     modifier: Modifier = Modifier,
-    trainingState: TrainingState,
-    comparingState: List<ShortTrainingState>,
     chart: @Composable (String, List<Float>, Color) -> Unit,
     back: () -> Unit,
     remove: (TrainingState) -> Unit
-) = Root(
-    modifier = modifier,
-    header = {
-        Header(
-            title = "Review!",
-            exit = back
-        )
-    },
-    content = {
-        item(key = "date") {
-            DateItem(
-                modifier = Modifier,
-                state = trainingState
+) {
+    val dispatcher = rememberDispatcher()
+    val state by selectState<GlobalState, ReviewState> { this.reviewState }
+
+    Root(
+        modifier = modifier,
+        header = {
+            Header(
+                title = "Review!",
+                exit = back
             )
-        }
+        },
+        content = {
+            item(key = "date") {
+                DateItem(
+                    modifier = Modifier,
+                    weekDay = state.reviewTraining.weekDay,
+                    startTime = state.reviewTraining.startTime,
+                    startDate = state.reviewTraining.shortStartDate
+                )
+            }
 
-        item(key = "tonnage_chart") {
-            ChartSection(
-                label = "Tonnage",
-                data = trainingState.exercises.map { it.tonnage.toFloat() },
-                color = DesignComponent.colors.unique.color1,
-                chart = chart
-            )
-        }
+            item(key = "tonnage_chart") {
+                ChartSection(
+                    label = "Tonnage",
+                    data = state.reviewTraining.exercises.map { it.tonnage.toFloat() },
+                    color = DesignComponent.colors.unique.color1,
+                    chart = chart
+                )
+            }
 
-        item(key = "intensity_chart") {
-            ChartSection(
-                label = "Intensity",
-                data = trainingState.exercises.map { it.intensity.toFloat() },
-                color = DesignComponent.colors.unique.color4,
-                chart = chart
-            )
-        }
+            item(key = "intensity_chart") {
+                ChartSection(
+                    label = "Intensity",
+                    data = state.reviewTraining.exercises.map { it.intensity.toFloat() },
+                    color = DesignComponent.colors.unique.color4,
+                    chart = chart
+                )
+            }
 
-        item(key = "comparing") {
-            Comparing(comparingState)
-        }
+            item(key = "comparing") {
+                Comparing(state.otherTraining)
+            }
 
-        item(key = "summary") {
-            Summary(state = trainingState)
-        }
+            item(key = "summary") {
+                Summary(state = state.reviewTraining)
+            }
 
-        item(key = "exercises") {
-            trainingState.exercises.forEachIndexed { index, item ->
-                ExerciseItem(
-                    number = index + 1, exercise = item
+            item(key = "exercises") {
+                state.reviewTraining.exercises.forEachIndexed { index, item ->
+                    ExerciseItem(
+                        number = index + 1, exercise = item
+                    )
+                }
+            }
+
+            item(key = "remove_action") {
+                ButtonSecondary(
+                    modifier = Modifier.fillMaxWidth(),
+                    text = "Remove Training",
+                    onClick = { remove.invoke(state.reviewTraining) },
                 )
             }
         }
-
-        item(key = "remove_action") {
-            ButtonSecondary(
-                modifier = Modifier.fillMaxWidth(),
-                text = "Remove Training",
-                onClick = { remove.invoke(trainingState) },
-            )
-        }
-    }
-)
+    )
+}
 
 @Composable
 private fun Comparing(
-    list: List<ShortTrainingState>
+    list: List<TrainingState>
 ) = Column(
     verticalArrangement = Arrangement.spacedBy(DesignComponent.size.space)
 ) {
@@ -103,21 +123,17 @@ private fun Comparing(
         horizontalArrangement = Arrangement.spacedBy(DesignComponent.size.space)
     ) {
         items(list) {
-            ShortTrainingItem(
-                state = ShortTrainingState(
-                    id = it.id,
-                    startDateTime = it.startDateTime,
-                    duration = it.duration,
-                    exercises = it.exercises,
-                )
-            )
+            CollapsedTrainingItem(state = it)
         }
     }
 }
 
 @Composable
 private fun DateItem(
-    modifier: Modifier, state: TrainingState
+    modifier: Modifier,
+    weekDay: String,
+    startTime: String,
+    startDate: String
 ) = Row(
     modifier = modifier,
     horizontalArrangement = Arrangement.spacedBy(2.dp),
@@ -125,7 +141,8 @@ private fun DateItem(
 ) {
 
     WeekDayLabel(
-        modifier = Modifier.padding(end = 4.dp), weekDay = state.weekDay
+        modifier = Modifier.padding(end = 4.dp),
+        weekDay = weekDay
     )
 
     TextFieldBody2(
@@ -136,13 +153,15 @@ private fun DateItem(
 
     TextFieldBody2(
         modifier = Modifier.padding(end = 4.dp),
-        text = state.startTime,
+        text = startTime,
         color = DesignComponent.colors.content,
         fontWeight = FontWeight.Bold
     )
 
     TextFieldBody2(
-        text = state.shortStartDate, color = DesignComponent.colors.content, fontWeight = FontWeight.Bold
+        text = startDate,
+        color = DesignComponent.colors.content,
+        fontWeight = FontWeight.Bold
     )
 }
 

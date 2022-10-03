@@ -1,18 +1,15 @@
 package ui.auth
 
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import datasource.AuthSource
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import presentation.state.AuthState
-import presentation.state.validate
+import redux.AuthState
 import ui.navigation.Router
 
 class AuthViewModel(
-    private val savedStateHandle: SavedStateHandle,
     private val authSource: AuthSource,
 ) : ViewModel() {
 
@@ -22,9 +19,6 @@ class AuthViewModel(
     private val _error: Channel<String> = Channel(Channel.BUFFERED)
     val error: Flow<String> = _error.receiveAsFlow()
 
-    private val _authState = MutableStateFlow(savedStateHandle["authState"] ?: AuthState.EMPTY)
-    val authState: StateFlow<AuthState> = _authState.asStateFlow()
-
     init {
         if (authSource.isAuthorized) viewModelScope.launch {
             _navigation.send(Router.Trainings)
@@ -32,9 +26,8 @@ class AuthViewModel(
     }
 
     fun login(authState: AuthState) = viewModelScope.launch {
-        val auth = authState.validate()
-        if (auth != null) authSource
-            .login(auth.email, auth.password)
+        authSource
+            .login(authState.email, authState.password)
             .onEach { _navigation.send(Router.Trainings) }
             .catch { _error.send(it.toString()) }
             .launchIn(this)
@@ -45,10 +38,5 @@ class AuthViewModel(
             .registration(authState.email, authState.password)
             .onEach { _navigation.send(Router.Trainings) }
             .launchIn(this)
-    }
-
-    fun update(newState: AuthState) {
-        _authState.value = newState
-        savedStateHandle["trainingState"] = newState
     }
 }

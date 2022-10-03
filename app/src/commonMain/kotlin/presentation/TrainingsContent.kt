@@ -1,10 +1,21 @@
 package presentation
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -13,61 +24,80 @@ import designsystem.common.BarChart
 import designsystem.common.DesignComponent
 import designsystem.components.ExerciseItem
 import designsystem.components.labels.WeekDayLabel
-import designsystem.controls.*
-import presentation.state.TrainingState
-import utils.DateTimeKtx
+import designsystem.controls.ButtonPrimary
+import designsystem.controls.DividerPrimary
+import designsystem.controls.Header
+import designsystem.controls.IconPrimary
+import designsystem.controls.Root
+import designsystem.controls.TextFieldBody2
+import redux.GlobalState
+import redux.ReviewAction
+import redux.TrainingAction
+import redux.TrainingState
+import redux.TrainingsAction
+import redux.TrainingsState
+import redux.rememberDispatcher
+import redux.selectState
 
 @Composable
 fun TrainingsContent(
     modifier: Modifier = Modifier,
-    state: List<TrainingState>,
-    get: (TrainingState) -> Unit,
-    show: (TrainingState) -> Unit,
+    fetch: List<TrainingState>,
+    edit: () -> Unit,
+    review: () -> Unit,
     add: () -> Unit,
-) = Root(
-    modifier = modifier,
-    contentPadding = PaddingValues(
-        top = DesignComponent.size.space,
-        bottom = DesignComponent.size.space + 56.dp + DesignComponent.size.space,
-        start = DesignComponent.size.space,
-        end = DesignComponent.size.space
-    ),
-    header = {
-        Header(title = "Trainings!")
-    },
-    floating = {
-        FloatingMenu(
-            modifier = Modifier.fillMaxWidth().align(Alignment.BottomCenter).padding(DesignComponent.size.space),
-            add = add
-        )
-    },
-    content = {
+) {
+    val dispatcher = rememberDispatcher()
+    val state by selectState<GlobalState, TrainingsState> { this.trainingsState }
 
-        var lastDate: String? = null
+    LaunchedEffect(fetch) { dispatcher(TrainingsAction.GetTrainings(fetch)) }
 
-        state.forEach { item ->
-            lastDate?.let {
-                if (DateTimeKtx().isPreviousWeek(item.startDateTime, it)) {
-                    item(key = "week_by_${item.shortStartDate}") {
-                        WeekItem(state = item)
-                    }
+    Root(
+        modifier = modifier,
+        contentPadding = PaddingValues(
+            top = DesignComponent.size.space,
+            bottom = DesignComponent.size.space + 56.dp + DesignComponent.size.space,
+            start = DesignComponent.size.space,
+            end = DesignComponent.size.space
+        ),
+        header = {
+            Header(title = "Trainings!")
+        },
+        floating = {
+            FloatingMenu(
+                modifier = Modifier.fillMaxWidth().align(Alignment.BottomCenter).padding(DesignComponent.size.space),
+                add = add
+            )
+        },
+        content = {
+
+            state.trainings.groupBy { it.endOfWeek }.onEach {
+
+                item(key = "week_by_${it.key}") {
+                    WeekItem(startOfWeek = it.key)
+                }
+
+                items(it.value) { training ->
+                    TrainingItem(
+                        trainingState = training,
+                        edit = {
+                            dispatcher(TrainingAction.PutTrainingAction(it))
+                            dispatcher(TrainingAction.ProvideEmptyIterations)
+                            edit.invoke()
+                        },
+                        review = {
+                            dispatcher(ReviewAction.GetTrainings(selected = it, all = state.trainings))
+                            review.invoke()
+                        }
+                    )
                 }
             }
-            lastDate = item.startDateTime
-
-            item(key = item.id) {
-                TrainingItem(
-                    trainingState = item,
-                    get = get,
-                    show = show
-                )
-            }
         }
-    }
-)
+    )
+}
 
 @Composable
-private fun WeekItem(state: TrainingState) = Row(
+private fun WeekItem(startOfWeek: String) = Row(
     modifier = Modifier.padding(DesignComponent.size.space),
     horizontalArrangement = Arrangement.spacedBy(2.dp, Alignment.CenterHorizontally),
     verticalAlignment = Alignment.CenterVertically,
@@ -80,7 +110,7 @@ private fun WeekItem(state: TrainingState) = Row(
     )
 
     TextFieldBody2(
-        text = state.longStartDate,
+        text = startOfWeek,
         color = DesignComponent.colors.content,
         fontWeight = FontWeight.Bold
     )
@@ -88,7 +118,8 @@ private fun WeekItem(state: TrainingState) = Row(
 
 @Composable
 private fun FloatingMenu(
-    modifier: Modifier = Modifier, add: () -> Unit
+    modifier: Modifier = Modifier,
+    add: () -> Unit
 ) = Row(
     modifier = modifier,
     horizontalArrangement = Arrangement.spacedBy(DesignComponent.size.space)
@@ -114,8 +145,8 @@ private fun FloatingMenu(
 @Composable
 private fun TrainingItem(
     trainingState: TrainingState,
-    get: (TrainingState) -> Unit,
-    show: (TrainingState) -> Unit,
+    edit: (TrainingState) -> Unit,
+    review: (TrainingState) -> Unit,
 ) = Column(
     modifier = Modifier.background(
         color = DesignComponent.colors.secondary,
@@ -126,8 +157,8 @@ private fun TrainingItem(
     TrainingHeader(
         modifier = Modifier.fillMaxWidth(),
         trainingState = trainingState,
-        show = show,
-        get = get
+        review = review,
+        edit = edit
     )
 
     DividerPrimary(modifier = Modifier.padding(bottom = 4.dp, top = 12.dp))
@@ -151,8 +182,8 @@ private fun TrainingItem(
 private fun TrainingHeader(
     modifier: Modifier = Modifier,
     trainingState: TrainingState,
-    show: (TrainingState) -> Unit,
-    get: (TrainingState) -> Unit
+    review: (TrainingState) -> Unit,
+    edit: (TrainingState) -> Unit
 ) = Row(
     modifier = modifier,
     horizontalArrangement = Arrangement.spacedBy(2.dp),
@@ -182,7 +213,7 @@ private fun TrainingHeader(
         modifier = Modifier.height(20.dp),
         imageVector = BarChart,
         color = DesignComponent.colors.caption,
-        onClick = { show.invoke(trainingState) }
+        onClick = { review.invoke(trainingState) }
     )
 
     Spacer(modifier = Modifier.size(20.dp))
@@ -191,7 +222,7 @@ private fun TrainingHeader(
         modifier = Modifier.height(20.dp),
         imageVector = Icons.Default.Edit,
         color = DesignComponent.colors.caption,
-        onClick = { get.invoke(trainingState) }
+        onClick = { edit.invoke(trainingState) }
     )
 }
 

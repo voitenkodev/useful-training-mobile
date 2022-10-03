@@ -1,7 +1,12 @@
 package designsystem.components
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -12,12 +17,12 @@ import designsystem.common.DesignComponent
 import designsystem.components.labels.WeekDayLabel
 import designsystem.controls.DividerPrimary
 import designsystem.controls.TextFieldBody2
-import presentation.state.ShortTrainingState
+import redux.TrainingState
 
 @Composable
-fun ShortTrainingItem(
+fun CollapsedTrainingItem(
     modifier: Modifier = Modifier,
-    state: ShortTrainingState
+    state: TrainingState
 ) = Column(
     modifier = modifier
         .width(250.dp)
@@ -44,7 +49,7 @@ fun ShortTrainingItem(
         )
 
         TextFieldBody2(
-            text = state.startDate,
+            text = state.startLongDate,
             color = DesignComponent.colors.content,
             fontWeight = FontWeight.Bold
         )
@@ -52,7 +57,7 @@ fun ShortTrainingItem(
 
     DividerPrimary(modifier = Modifier.padding(bottom = 4.dp, top = 12.dp))
 
-    state.exercises.take(4).forEachIndexed { index, item ->
+    state.exercises.take(4).map { it.name }.forEachIndexed { index, item ->
         TextFieldBody2(
             text = "${index + 1}.  $item",
             fontWeight = FontWeight.Bold,

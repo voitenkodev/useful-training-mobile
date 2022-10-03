@@ -1,7 +1,7 @@
 package data.mapping
 
 import data.dto.Training
-import presentation.state.TrainingState
+import redux.TrainingState
 
 fun List<Training?>.toTrainingStateList() = this.mapNotNull { it?.toTrainingState() }
 

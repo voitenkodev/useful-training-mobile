@@ -1,6 +1,5 @@
 package datasource
 
-import com.benasher44.uuid.uuid4
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import data.dto.ShortTraining
@@ -99,7 +98,7 @@ class TrainingSource(
                 .collection("users")
                 .document(userId ?: throw Exception("invalid user id"))
                 .collection("trainings_short")
-                .document(trainingId ?: uuid4().toString())
+                .document(trainingId)
                 .set(training)
                 .await()
         )

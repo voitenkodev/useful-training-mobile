@@ -9,6 +9,8 @@ import androidx.core.view.WindowCompat
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import designsystem.common.DesignTheme
+import redux.StoreProvider
+import redux.store
 import ui.navigation.HostNavigator
 
 class MainActivity : ComponentActivity() {
@@ -25,7 +27,9 @@ class MainActivity : ComponentActivity() {
             SideEffect { systemUiController.setSystemBarsColor(color = Color.Transparent, darkIcons = false) }
 
             DesignTheme {
-                HostNavigator(navController)
+                StoreProvider(store) {
+                    HostNavigator(navController)
+                }
             }
         }
     }

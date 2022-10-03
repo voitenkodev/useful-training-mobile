@@ -6,19 +6,19 @@ import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import presentation.TrainingContent
 import kotlinx.coroutines.flow.collectLatest
-import ui.navigation.ScreenNavigator
+import presentation.TrainingContent
 import ui.navigation.Router
+import ui.navigation.ScreenNavigator
 
 @Composable
 fun TrainingScreen(
     viewModel: TrainingViewModel,
     navigate: (Router) -> Unit
 ) {
+
     val context = LocalContext.current
     LaunchedEffect(key1 = Unit) {
         viewModel.error.collectLatest { value: String ->
@@ -26,17 +26,14 @@ fun TrainingScreen(
         }
     }
 
-    val state = viewModel.trainingState.collectAsState()
-
     ScreenNavigator(
         event = viewModel.event,
         navigate = navigate
     )
 
+
     TrainingContent(
         modifier = Modifier.statusBarsPadding().navigationBarsPadding().imePadding(),
-        state = state.value,
-        update = viewModel::update,
-        save = viewModel::save,
+        save = viewModel::save
     )
 }

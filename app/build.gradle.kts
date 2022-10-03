@@ -10,14 +10,14 @@ plugins {
 kotlin {
     jvm("desktop")
     android()
-    macosX64().binaries.executable {
-        entryPoint = "main"
-        freeCompilerArgs += listOf("-linker-option", "-framework", "-linker-option", "Metal")
-    }
-    macosArm64().binaries.executable {
-        entryPoint = "main"
-        freeCompilerArgs += listOf("-linker-option", "-framework", "-linker-option", "Metal")
-    }
+//    macosX64().binaries.executable {
+//        entryPoint = "main"
+//        freeCompilerArgs += listOf("-linker-option", "-framework", "-linker-option", "Metal")
+//    }
+//    macosArm64().binaries.executable {
+//        entryPoint = "main"
+//        freeCompilerArgs += listOf("-linker-option", "-framework", "-linker-option", "Metal")
+//    }
     iosX64("uikitX64").binaries.executable {
         entryPoint = "main"
         freeCompilerArgs += listOf(
@@ -52,6 +52,8 @@ kotlin {
                 implementation(compose.runtime)
 
                 implementation("dev.icerock.moko:parcelize:0.8.0")
+                implementation("org.reduxkotlin:redux-kotlin-threadsafe:0.5.5")
+//                implementation("org.reduxkotlin:redux-kotlin-compose:0.5.5")
             }
         }
 
@@ -64,14 +66,14 @@ kotlin {
         val androidMain by getting {
             dependencies {
                 // Common
-                implementation("androidx.appcompat:appcompat:1.5.0")
-                implementation("androidx.activity:activity-compose:1.5.1")
+                implementation("androidx.appcompat:appcompat:1.5.1")
+                implementation("androidx.activity:activity-compose:1.6.0")
                 // Navigation
                 implementation("androidx.navigation:navigation-compose:2.5.2")
                 // Firebase
                 implementation("com.google.firebase:firebase-auth-ktx:21.0.8")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.6.4")
-                implementation("com.google.firebase:firebase-firestore:24.3.0")
+                implementation("com.google.firebase:firebase-firestore:24.3.1")
                 // Accompanist
                 implementation("com.google.accompanist:accompanist-navigation-animation:0.23.1")
                 implementation("com.google.accompanist:accompanist-systemuicontroller:0.23.1")
@@ -86,8 +88,8 @@ kotlin {
 
         val iosMain by creating { dependsOn(commonMain) }
         val macosMain by creating { dependsOn(iosMain) }
-        val macosX64Main by getting { dependsOn(macosMain) }
-        val macosArm64Main by getting { dependsOn(macosMain) }
+//        val macosX64Main by getting { dependsOn(macosMain) }
+//        val macosArm64Main by getting { dependsOn(macosMain) }
         val uikitMain by creating { dependsOn(iosMain) }
         val uikitX64Main by getting { dependsOn(uikitMain) }
         val uikitArm64Main by getting { dependsOn(uikitMain) }
@@ -107,13 +109,13 @@ kotlin {
 
 android {
     namespace = "dev.voitenko.usefultraining"
-    compileSdk = 32
+    compileSdk = 33
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
 
     defaultConfig {
         applicationId = "dev.voitenko.usefultraining"
         minSdk = 21
-        targetSdk = 32
+        targetSdk = 33
         versionCode = 1
         versionName = "1.0"
     }
@@ -166,11 +168,11 @@ kotlin {
     }
 }
 
-compose.desktop.nativeApplication {
-    targets(kotlin.targets.getByName("macosX64"))
-    distributions {
-        targetFormats(org.jetbrains.compose.desktop.application.dsl.TargetFormat.Dmg)
-        packageName = "UsefulTraining"
-        packageVersion = "1.0.0"
-    }
-}
+//compose.desktop.nativeApplication {
+//    targets(kotlin.targets.getByName("macosX64"))
+//    distributions {
+//        targetFormats(org.jetbrains.compose.desktop.application.dsl.TargetFormat.Dmg)
+//        packageName = "UsefulTraining"
+//        packageVersion = "1.0.0"
+//    }
+//}

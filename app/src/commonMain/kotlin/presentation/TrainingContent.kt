@@ -8,6 +8,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -21,87 +22,105 @@ import designsystem.components.inputs.InputRepeat
 import designsystem.components.inputs.InputWeight
 import designsystem.components.labels.AccentLabel
 import designsystem.controls.*
-import presentation.state.*
+import redux.GlobalState
+import redux.TrainingAction
+import redux.TrainingState
+import redux.rememberDispatcher
+import redux.selectState
 
 @Composable
 fun TrainingContent(
     modifier: Modifier = Modifier,
-    state: TrainingState,
-    update: (TrainingState) -> Unit,
     save: (TrainingState) -> Unit,
-) = Root(
-    modifier = modifier,
-    header = {
-        Header(
-            title = "Exercises!",
-            save = { save.invoke(state) }
-        )
-    },
-    footer = {
-        NewExerciseItem(
-            modifier = Modifier.fillMaxWidth().padding(DesignComponent.size.space),
-            onClick = { update.invoke(state.addExercise()) }
-        )
-    },
-    content = {
-        itemsIndexed(state.exercises, key = { index, exercise -> exercise.id }) { index, exercise ->
-            Column(
-                modifier = Modifier
-                    .animateItemPlacement()
-                    .background(
-                        color = DesignComponent.colors.secondary,
-                        shape = DesignComponent.shape.default
-                    )
-            ) {
-                InputNameItem(
-                    number = index + 1,
-                    showHelp = mutableStateOf(value = false),
-                    exercise = exercise,
-                    update = { update.invoke(state.updateExercise(it)) },
-                    remove = { update.invoke(state.removeExercise(it)) }
-                )
+) {
+    val dispatcher = rememberDispatcher()
+    val state by selectState<GlobalState, TrainingState> { this.trainingState }
 
-                DividerPrimary(modifier = Modifier.padding(horizontal = 12.dp))
-
-                IterationVerticalGrid(
-                    modifier = Modifier.padding(top = 4.dp, bottom = 8.dp, start = 4.dp, end = 4.dp),
-                    spacing = 4.dp
-                ) {
-
-                    IterationCaptionItem()
-
-                    exercise.iterations.forEachIndexed { index, iteration ->
-                        IterationInputItem(
-                            iteration = iteration,
-                            updateWeight = { value ->
-                                exercise
-                                    .iterations
-                                    .changeIterationByIndex(weight = value, index = index)
-                                    .addEmptyIteration()
-                                    .run { update.invoke(state.updateExercise(exercise = exercise.copy(iterations = this))) }
-                            },
-                            updateRepeat = { value ->
-                                exercise
-                                    .iterations
-                                    .changeIterationByIndex(repeat = value, index = index)
-                                    .addEmptyIteration()
-                                    .run { update.invoke(state.updateExercise(exercise = exercise.copy(iterations = this))) }
-                            }
+    Root(
+        modifier = modifier,
+        header = {
+            Header(
+                title = "Exercises!",
+                save = {
+                    dispatcher(TrainingAction.ValidateExercises)
+                    dispatcher(TrainingAction.CalculateDuration)
+                    dispatcher(TrainingAction.CalculateValues)
+                    save.invoke(state)
+                }
+            )
+        },
+        footer = {
+            NewExerciseItem(
+                modifier = Modifier.fillMaxWidth().padding(DesignComponent.size.space),
+                onClick = { dispatcher(TrainingAction.AddExerciseAction) }
+            )
+        },
+        content = {
+            itemsIndexed(state.exercises, key = { index, exercise -> exercise.id }) { index, exercise ->
+                Column(
+                    modifier = Modifier
+                        .animateItemPlacement()
+                        .background(
+                            color = DesignComponent.colors.secondary,
+                            shape = DesignComponent.shape.default
                         )
+                ) {
+                    InputNameItem(
+                        number = index + 1,
+                        showHelp = mutableStateOf(value = false),
+                        name = exercise.name,
+                        update = { dispatcher(TrainingAction.SetNameExerciseAction(exerciseId = exercise.id, value = it)) },
+                        remove = { dispatcher(TrainingAction.RemoveExerciseAction(exerciseId = exercise.id)) }
+                    )
+
+                    DividerPrimary(modifier = Modifier.padding(horizontal = 12.dp))
+
+                    IterationVerticalGrid(
+                        modifier = Modifier.padding(top = 4.dp, bottom = 8.dp, start = 4.dp, end = 4.dp),
+                        spacing = 4.dp
+                    ) {
+
+                        IterationCaptionItem()
+
+                        exercise.iterations.forEachIndexed { index, iteration ->
+                            IterationInputItem(
+                                iteration = iteration,
+                                updateWeight = { value ->
+                                    dispatcher(
+                                        TrainingAction.SetWeightExerciseIterationAction(
+                                            exerciseId = exercise.id,
+                                            number = index,
+                                            value = value
+                                        )
+                                    )
+                                    dispatcher(TrainingAction.ProvideEmptyIteration(exerciseId = exercise.id))
+                                },
+                                updateRepeat = { value ->
+                                    dispatcher(
+                                        TrainingAction.SetRepeatExerciseIterationAction(
+                                            exerciseId = exercise.id,
+                                            number = index,
+                                            value = value
+                                        )
+                                    )
+                                    dispatcher(TrainingAction.ProvideEmptyIteration(exerciseId = exercise.id))
+                                }
+                            )
+                        }
                     }
                 }
             }
         }
-    }
-)
+    )
+}
 
 @Composable
 private fun InputNameItem(
     number: Int,
     showHelp: MutableState<Boolean>,
-    exercise: TrainingState.Exercise,
-    update: (TrainingState.Exercise) -> Unit,
-    remove: (TrainingState.Exercise) -> Unit
+    name: String,
+    update: (String) -> Unit,
+    remove: () -> Unit
 ) = Row(
     modifier = Modifier.padding(start = 8.dp),
     verticalAlignment = Alignment.CenterVertically,
@@ -115,15 +134,15 @@ private fun InputNameItem(
 
     InputExerciseName(
         modifier = Modifier.onFocusChanged { showHelp.value = it.hasFocus }.weight(1f),
-        value = exercise.name,
-        onValueChange = { update.invoke(exercise.copy(name = it)) },
+        value = name,
+        onValueChange = { update.invoke(it) },
     )
 
     IconPrimary(
         modifier = Modifier.height(20.dp).width(50.dp),
         imageVector = Icons.Filled.Delete,
         color = DesignComponent.colors.caption,
-        onClick = { remove.invoke(exercise) },
+        onClick = { remove.invoke() },
     )
 }
 
