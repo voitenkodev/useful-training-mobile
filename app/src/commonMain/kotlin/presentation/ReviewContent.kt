@@ -26,59 +26,65 @@ fun ReviewContent(
     chart: @Composable (String, List<Float>, Color) -> Unit,
     back: () -> Unit,
     remove: (TrainingState) -> Unit
-) = Root(modifier = modifier, header = {
-    Header(
-        title = "Review!", exit = back
-    )
-}, content = {
-    item(key = "date") {
-        DateItem(
-            modifier = Modifier, state = trainingState
+) = Root(
+    modifier = modifier,
+    header = {
+        Header(
+            title = "Review!",
+            exit = back
         )
-    }
+    },
+    content = {
+        item(key = "date") {
+            DateItem(
+                modifier = Modifier,
+                state = trainingState
+            )
+        }
 
-    item(key = "tonnage_chart") {
-        ChartSection(
-            label = "Tonnage",
-            data = trainingState.exercises.map { it.tonnage.toFloat() },
-            color = DesignComponent.colors.unique.color1,
-            chart = chart
-        )
-    }
+        item(key = "tonnage_chart") {
+            ChartSection(
+                label = "Tonnage",
+                data = trainingState.exercises.map { it.tonnage.toFloat() },
+                color = DesignComponent.colors.unique.color1,
+                chart = chart
+            )
+        }
 
-    item(key = "intensity_chart") {
-        ChartSection(
-            label = "Intensity",
-            data = trainingState.exercises.map { it.intensity.toFloat() },
-            color = DesignComponent.colors.unique.color4,
-            chart = chart
-        )
-    }
+        item(key = "intensity_chart") {
+            ChartSection(
+                label = "Intensity",
+                data = trainingState.exercises.map { it.intensity.toFloat() },
+                color = DesignComponent.colors.unique.color4,
+                chart = chart
+            )
+        }
 
-    item(key = "comparing") {
-        Comparing(comparingState)
-    }
+        item(key = "comparing") {
+            Comparing(comparingState)
+        }
 
-    item(key = "summary") {
-        Summary(state = trainingState)
-    }
+        item(key = "summary") {
+            Summary(state = trainingState)
+        }
 
-    item(key = "exercises") {
-        trainingState.exercises.forEachIndexed { index, item ->
-            ExerciseItem(
-                number = index + 1, exercise = item
+        item(key = "exercises") {
+            trainingState.exercises.forEachIndexed { index, item ->
+                ExerciseItem(
+                    number = index + 1, exercise = item
+                )
+            }
+        }
+
+        item(key = "remove_action") {
+            ButtonSecondary(
+                modifier = Modifier.fillMaxWidth(),
+                text = "Remove Training",
+                onClick = { remove.invoke(trainingState) },
             )
         }
     }
-
-    item(key = "remove_action") {
-        ButtonSecondary(
-            modifier = Modifier.fillMaxWidth(),
-            text = "Remove Training",
-            onClick = { remove.invoke(trainingState) },
-        )
-    }
-})
+)
 
 @Composable
 private fun Comparing(
@@ -149,7 +155,8 @@ private fun ChartSection(
 ) = Column(
     modifier = Modifier.fillMaxWidth().aspectRatio(1.5f).background(
         color = DesignComponent.colors.secondary, shape = DesignComponent.shape.default
-    ).padding(DesignComponent.size.space), verticalArrangement = Arrangement.spacedBy(DesignComponent.size.space)
+    ).padding(DesignComponent.size.space),
+    verticalArrangement = Arrangement.spacedBy(DesignComponent.size.space)
 ) {
     Row(
         modifier = Modifier.align(Alignment.End),
@@ -211,7 +218,8 @@ private fun Section(
     label: String, value: String
 ) {
     Row(
-        modifier = Modifier.fillMaxWidth().padding(vertical = DesignComponent.size.space), horizontalArrangement = Arrangement.SpaceBetween
+        modifier = Modifier.fillMaxWidth().padding(vertical = DesignComponent.size.space),
+        horizontalArrangement = Arrangement.SpaceBetween
     ) {
         TextFieldBody2(
             text = label,
