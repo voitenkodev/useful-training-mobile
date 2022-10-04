@@ -10,6 +10,7 @@ import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import designsystem.common.DesignTheme
 import redux.StoreProvider
+import redux.rememberDispatcher
 import redux.store
 import ui.navigation.HostNavigator
 
@@ -28,6 +29,7 @@ class MainActivity : ComponentActivity() {
 
             DesignTheme {
                 StoreProvider(store) {
+
                     HostNavigator(navController)
                 }
             }

@@ -12,56 +12,59 @@ import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import org.koin.androidx.compose.koinViewModel
 import redux.TrainingState
+import redux.rememberDispatcher
 import ui.auth.AuthScreen
 import ui.review.ReviewScreen
 import ui.training.TrainingScreen
 import ui.trainings.TrainingsScreen
 
 @Composable
-fun HostNavigator(navController: NavHostController) = AnimatedNavHost(
-    navController = navController,
-    startDestination = Router.Auth.route
-) {
+fun HostNavigator(navController: NavHostController) {
+    AnimatedNavHost(
+        navController = navController,
+        startDestination = Router.Auth.route
+    ) {
 
-    screen(
-        route = Router.Auth.route,
-        content = {
-            AuthScreen(
-                viewModel = koinViewModel(),
-                navigate = { navController.routeTo(route = it) }
-            )
-        }
-    )
+        screen(
+            route = Router.Auth.route,
+            content = {
+                AuthScreen(
+                    viewModel = koinViewModel(),
+                    navigate = { navController.routeTo(route = it) }
+                )
+            }
+        )
 
-    screen(
-        route = Router.Training.route,
-        content = {
-            TrainingScreen(
-                viewModel = koinViewModel(),
-                navigate = { navController.routeTo(route = it) }
-            )
-        }
-    )
+        screen(
+            route = Router.Training.route,
+            content = {
+                TrainingScreen(
+                    viewModel = koinViewModel(),
+                    navigate = { navController.routeTo(route = it) }
+                )
+            }
+        )
 
-    screen(
-        route = Router.Review.route,
-        content = {
-            ReviewScreen(
-                viewModel = koinViewModel(),
-                navigate = { navController.routeTo(route = it) }
-            )
-        }
-    )
+        screen(
+            route = Router.Review.route,
+            content = {
+                ReviewScreen(
+                    viewModel = koinViewModel(),
+                    navigate = { navController.routeTo(route = it) }
+                )
+            }
+        )
 
-    screen(
-        route = Router.Trainings.route,
-        content = {
-            TrainingsScreen(
-                viewModel = koinViewModel(),
-                navigate = { navController.routeTo(route = it) }
-            )
-        }
-    )
+        screen(
+            route = Router.Trainings.route,
+            content = {
+                TrainingsScreen(
+                    viewModel = koinViewModel(),
+                    navigate = { navController.routeTo(route = it) }
+                )
+            }
+        )
+    }
 }
 
 private fun NavGraphBuilder.screen(

@@ -66,7 +66,10 @@ fun TrainingsContent(
         floating = {
             FloatingMenu(
                 modifier = Modifier.fillMaxWidth().align(Alignment.BottomCenter).padding(DesignComponent.size.space),
-                add = add
+                add = {
+                    dispatcher(TrainingAction.PutTrainingAction(TrainingState()))
+                    add.invoke()
+                }
             )
         },
         content = {

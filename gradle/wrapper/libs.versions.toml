@@ -1,6 +1,6 @@
 [versions]
 #KMM
-compose-vers = "1.2.0-alpha01-dev770"
+compose-vers = "1.2.0-beta02"
 kotlin-vers = "1.7.10"
 coroutines-vers = "1.6.4"
 logger-vers = "1.0.0"
@@ -11,7 +11,6 @@ datetime-vers = "0.3.1"
 uuid-vers = "0.5.0"
 redux-vers = "0.5.5"
 parcelize-vers = "0.8.0"
-#firebase-vers = "1.6.2"
 
 #Android
 android-gradle-vers = "8.0.0-alpha02"
@@ -38,10 +37,6 @@ ktor-android = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor-vers
 ktor-js = { module = "io.ktor:ktor-client-js", version.ref = "ktor-vers" }
 ktor-desktop = { module = "io.ktor:ktor-client-apache", version.ref = "ktor-vers" }
 ktor-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor-vers" }
-
-#FIREBASE
-#firebase-auth = { module = "dev.gitlive:firebase-auth", version.ref = "firebase-vers" }
-#firebase-firestore = { module = "dev.gitlive:firebase-firestore", version.ref = "firebase-vers" }
 
 [plugins]
 android-app = { id = "com.android.application", version.ref = "android-gradle-vers" }
