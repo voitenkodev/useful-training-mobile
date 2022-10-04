@@ -54,7 +54,6 @@ data class TrainingState(
 }
 
 sealed class TrainingAction(action: String) : Action(ReduxGroups.TRAINING, action) {
-
     data class PutTrainingAction(
         val training: TrainingState
     ) : TrainingAction("PUT_TRAINING_ACTION")

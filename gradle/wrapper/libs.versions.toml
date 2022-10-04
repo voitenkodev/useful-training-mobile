@@ -9,6 +9,8 @@ sqldelight-vers = "1.5.3"
 ktor-vers = "2.1.0"
 datetime-vers = "0.3.1"
 uuid-vers = "0.5.0"
+redux-vers = "0.5.5"
+parcelize-vers = "0.8.0"
 #firebase-vers = "1.6.2"
 
 #Android
@@ -20,6 +22,8 @@ logger = { module = "co.touchlab:kermit", version.ref = "logger-vers" }
 serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization-vers" }
 datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "datetime-vers" }
 uuid = { module = "com.benasher44:uuid", version.ref = "uuid-vers" }
+redux = { module = "org.reduxkotlin:redux-kotlin-threadsafe", version.ref = "redux-vers" }
+parcelize = { module = "dev.icerock.moko:parcelize", version.ref = "parcelize-vers" }
 
 #SQLDELIGHT
 sqldelight-common = { module = "com.squareup.sqldelight:runtime", version.ref = "sqldelight-vers" }

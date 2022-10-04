@@ -8,8 +8,8 @@ plugins {
 }
 
 kotlin {
-    jvm("desktop")
     android()
+//    jvm("desktop")
 //    macosX64().binaries.executable {
 //        entryPoint = "main"
 //        freeCompilerArgs += listOf("-linker-option", "-framework", "-linker-option", "Metal")
@@ -45,21 +45,13 @@ kotlin {
                 implementation(libs.logger)
                 implementation(libs.serialization)
                 implementation(libs.uuid)
+                implementation(libs.redux)
+                implementation(libs.parcelize)
 
                 implementation(compose.ui)
                 implementation(compose.foundation)
                 implementation(compose.material)
                 implementation(compose.runtime)
-
-                implementation("dev.icerock.moko:parcelize:0.8.0")
-                implementation("org.reduxkotlin:redux-kotlin-threadsafe:0.5.5")
-//                implementation("org.reduxkotlin:redux-kotlin-compose:0.5.5")
-            }
-        }
-
-        val desktopMain by getting {
-            dependencies {
-                implementation(compose.desktop.currentOs)
             }
         }
 
@@ -88,11 +80,18 @@ kotlin {
 
         val iosMain by creating { dependsOn(commonMain) }
         val macosMain by creating { dependsOn(iosMain) }
-//        val macosX64Main by getting { dependsOn(macosMain) }
-//        val macosArm64Main by getting { dependsOn(macosMain) }
         val uikitMain by creating { dependsOn(iosMain) }
         val uikitX64Main by getting { dependsOn(uikitMain) }
         val uikitArm64Main by getting { dependsOn(uikitMain) }
+
+//        val desktopMain by getting {
+//            dependencies {
+//                implementation(compose.desktop.currentOs)
+//            }
+//        }
+
+//        val macosX64Main by getting { dependsOn(macosMain) }
+//        val macosArm64Main by getting { dependsOn(macosMain) }
     }
 
     kotlin.sourceSets.all {
@@ -121,26 +120,26 @@ android {
     }
 }
 
-compose.desktop {
-    application {
-        mainClass = "Main_desktopKt"
-        nativeDistributions {
-            targetFormats(
-                org.jetbrains.compose.desktop.application.dsl.TargetFormat.Dmg,
-                org.jetbrains.compose.desktop.application.dsl.TargetFormat.Msi,
-                org.jetbrains.compose.desktop.application.dsl.TargetFormat.Deb
-            )
-            packageName = "usefultraining"
-            packageVersion = "1.0.0"
-
-            windows {
-                menuGroup = "UsefulTraining"
-                // see https://wixtoolset.org/documentation/manual/v3/howtos/general/generate_guids.html
-                upgradeUuid = "18159995-d967-4CD2-8885-77BFA97CFA9F"
-            }
-        }
-    }
-}
+//compose.desktop {
+//    application {
+//        mainClass = "Main_desktopKt"
+//        nativeDistributions {
+//            targetFormats(
+//                org.jetbrains.compose.desktop.application.dsl.TargetFormat.Dmg,
+//                org.jetbrains.compose.desktop.application.dsl.TargetFormat.Msi,
+//                org.jetbrains.compose.desktop.application.dsl.TargetFormat.Deb
+//            )
+//            packageName = "usefultraining"
+//            packageVersion = "1.0.0"
+//
+//            windows {
+//                menuGroup = "UsefulTraining"
+//                // see https://wixtoolset.org/documentation/manual/v3/howtos/general/generate_guids.html
+//                upgradeUuid = "18159995-d967-4CD2-8885-77BFA97CFA9F"
+//            }
+//        }
+//    }
+//}
 
 compose.experimental.uikit.application {
     bundleIdPrefix = "dev.voitenko.usefultraining"
