@@ -3,7 +3,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import designsystem.common.DesignComponent
 import designsystem.common.DesignTheme
-import presentation.AuthContent
 
 @Composable
 fun Main(
@@ -14,10 +13,10 @@ fun Main(
             modifier = modifier,
             color = DesignComponent.colors.primary
         ) {
-            AuthContent(
-                registration = {},
-                login = {}
-            )
+//            AuthContent(
+//                registration = {},
+//                login = {}
+//            )
         }
     }
 }

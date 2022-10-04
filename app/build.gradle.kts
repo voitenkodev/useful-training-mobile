@@ -9,15 +9,7 @@ plugins {
 
 kotlin {
     android()
-//    jvm("desktop")
-//    macosX64().binaries.executable {
-//        entryPoint = "main"
-//        freeCompilerArgs += listOf("-linker-option", "-framework", "-linker-option", "Metal")
-//    }
-//    macosArm64().binaries.executable {
-//        entryPoint = "main"
-//        freeCompilerArgs += listOf("-linker-option", "-framework", "-linker-option", "Metal")
-//    }
+
     iosX64("uikitX64").binaries.executable {
         entryPoint = "main"
         freeCompilerArgs += listOf(
@@ -79,19 +71,9 @@ kotlin {
         }
 
         val iosMain by creating { dependsOn(commonMain) }
-        val macosMain by creating { dependsOn(iosMain) }
         val uikitMain by creating { dependsOn(iosMain) }
         val uikitX64Main by getting { dependsOn(uikitMain) }
         val uikitArm64Main by getting { dependsOn(uikitMain) }
-
-//        val desktopMain by getting {
-//            dependencies {
-//                implementation(compose.desktop.currentOs)
-//            }
-//        }
-
-//        val macosX64Main by getting { dependsOn(macosMain) }
-//        val macosArm64Main by getting { dependsOn(macosMain) }
     }
 
     kotlin.sourceSets.all {
@@ -120,37 +102,14 @@ android {
     }
 }
 
-//compose.desktop {
-//    application {
-//        mainClass = "Main_desktopKt"
-//        nativeDistributions {
-//            targetFormats(
-//                org.jetbrains.compose.desktop.application.dsl.TargetFormat.Dmg,
-//                org.jetbrains.compose.desktop.application.dsl.TargetFormat.Msi,
-//                org.jetbrains.compose.desktop.application.dsl.TargetFormat.Deb
-//            )
-//            packageName = "usefultraining"
-//            packageVersion = "1.0.0"
-//
-//            windows {
-//                menuGroup = "UsefulTraining"
-//                // see https://wixtoolset.org/documentation/manual/v3/howtos/general/generate_guids.html
-//                upgradeUuid = "18159995-d967-4CD2-8885-77BFA97CFA9F"
-//            }
-//        }
-//    }
-//}
-
 compose.experimental.uikit.application {
     bundleIdPrefix = "dev.voitenko.usefultraining"
     projectName = "UsefulTraining"
     deployConfigurations {
-        simulator("IPhone13") {
-            //Usage: ./gradlew iosDeployIPhone13Debug
+        simulator("IPhone13") { // Usage: ./gradlew iosDeployIPhone13Debug
             device = org.jetbrains.compose.experimental.dsl.IOSDevices.IPHONE_13_PRO
         }
-        simulator("IPadUI") {
-            //Usage: ./gradlew iosDeployIPadUIDebug
+        simulator("IPadUI") { // Usage: ./gradlew iosDeployIPadUIDebug
             device = org.jetbrains.compose.experimental.dsl.IOSDevices.IPAD_MINI_6th_Gen
         }
     }
@@ -166,12 +125,3 @@ kotlin {
         binaries.all { freeCompilerArgs += "-Xdisable-phases=VerifyBitcode" }
     }
 }
-
-//compose.desktop.nativeApplication {
-//    targets(kotlin.targets.getByName("macosX64"))
-//    distributions {
-//        targetFormats(org.jetbrains.compose.desktop.application.dsl.TargetFormat.Dmg)
-//        packageName = "UsefulTraining"
-//        packageVersion = "1.0.0"
-//    }
-//}
