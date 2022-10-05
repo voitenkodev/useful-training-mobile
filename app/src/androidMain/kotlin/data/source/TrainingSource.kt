@@ -1,10 +1,9 @@
-package datasource
+package data.source
 
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import data.dto.ShortTraining
 import data.dto.Training
-import data.source.TrainingProtocol
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

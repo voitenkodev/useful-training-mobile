@@ -4,9 +4,9 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import data.repository.TrainingRepository
 import data.source.AuthProtocol
+import data.source.AuthSource
 import data.source.TrainingProtocol
-import datasource.AuthSource
-import datasource.TrainingSource
+import data.source.TrainingSource
 import kotlinx.coroutines.Dispatchers
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.core.qualifier.named

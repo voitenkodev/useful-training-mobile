@@ -1,6 +1,8 @@
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import designsystem.common.DesignTheme
+import navigation.NavigatorState
+import presentation.AuthContent
 import redux.StoreProvider
 import redux.store
 
@@ -10,6 +12,13 @@ fun Main(
 ) {
     DesignTheme {
         StoreProvider(store) {
+            NavigatorState {
+                AuthContent(
+                    registration = {},
+                    login = {}
+                )
+                // Put Graph
+            }
         }
     }
 }

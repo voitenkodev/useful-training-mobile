@@ -1,7 +1,6 @@
-package datasource
+package data.source
 
 import com.google.firebase.auth.FirebaseAuth
-import data.source.AuthProtocol
 import data.dto.User
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
