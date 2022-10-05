@@ -6,13 +6,12 @@ import androidx.activity.compose.setContent
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.Color
 import androidx.core.view.WindowCompat
-import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import designsystem.common.DesignTheme
+import navigation.NavigatorState
 import redux.StoreProvider
-import redux.rememberDispatcher
 import redux.store
-import ui.navigation.HostNavigator
+import ui.navigation.GlobalGraph
 
 class MainActivity : ComponentActivity() {
 
@@ -23,14 +22,14 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             val systemUiController = rememberSystemUiController()
-            val navController = rememberAnimatedNavController()
 
             SideEffect { systemUiController.setSystemBarsColor(color = Color.Transparent, darkIcons = false) }
 
             DesignTheme {
                 StoreProvider(store) {
-
-                    HostNavigator(navController)
+                    NavigatorState {
+                        GlobalGraph(it)
+                    }
                 }
             }
         }

@@ -14,15 +14,15 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
+import redux.Direction
 import redux.TrainingState
-import ui.navigation.Router
 
 class TrainingsViewModel(
     private val trainingRepository: TrainingRepository,
 ) : ViewModel() {
 
-    private val _navigation: Channel<Router> = Channel(Channel.BUFFERED)
-    val event: Flow<Router> = _navigation.receiveAsFlow()
+    private val _navigation: Channel<Direction> = Channel(Channel.BUFFERED)
+    val event: Flow<Direction> = _navigation.receiveAsFlow()
 
     private val _trainingState = MutableStateFlow(emptyList<TrainingState>())
     val trainingState: StateFlow<List<TrainingState>> = _trainingState.asStateFlow()
@@ -38,14 +38,14 @@ class TrainingsViewModel(
     }
 
     fun get() = viewModelScope.launch {
-        _navigation.send(Router.Training)
+        _navigation.send(Direction.Training)
     }
 
     fun show() = viewModelScope.launch {
-        _navigation.send(Router.Review)
+        _navigation.send(Direction.Review)
     }
 
     fun add() = viewModelScope.launch {
-        _navigation.send(Router.Training)
+        _navigation.send(Direction.Training)
     }
 }

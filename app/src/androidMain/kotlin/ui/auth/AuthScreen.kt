@@ -10,13 +10,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import kotlinx.coroutines.flow.collectLatest
 import presentation.AuthContent
-import ui.navigation.Router
 import ui.navigation.ScreenNavigator
 
 @Composable
 fun AuthScreen(
-    viewModel: AuthViewModel,
-    navigate: (Router) -> Unit
+    viewModel: AuthViewModel
 ) {
 
     val context = LocalContext.current
@@ -29,7 +27,6 @@ fun AuthScreen(
 
     ScreenNavigator(
         viewModel.event,
-        navigate = navigate
     )
 
     AuthContent(

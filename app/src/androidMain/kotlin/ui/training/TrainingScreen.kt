@@ -10,13 +10,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import kotlinx.coroutines.flow.collectLatest
 import presentation.TrainingContent
-import ui.navigation.Router
 import ui.navigation.ScreenNavigator
 
 @Composable
 fun TrainingScreen(
-    viewModel: TrainingViewModel,
-    navigate: (Router) -> Unit
+    viewModel: TrainingViewModel
 ) {
 
     val context = LocalContext.current
@@ -26,10 +24,7 @@ fun TrainingScreen(
         }
     }
 
-    ScreenNavigator(
-        event = viewModel.event,
-        navigate = navigate
-    )
+    ScreenNavigator(event = viewModel.event)
 
 
     TrainingContent(

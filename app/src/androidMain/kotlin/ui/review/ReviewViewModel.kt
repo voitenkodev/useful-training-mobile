@@ -6,19 +6,18 @@ import data.repository.TrainingRepository
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import redux.Direction
 import redux.TrainingState
-import ui.navigation.Direction
-import ui.navigation.Router
 
 class ReviewViewModel(
     private val trainingRepository: TrainingRepository,
 ) : ViewModel() {
 
-    private val _navigation: Channel<Router> = Channel(Channel.BUFFERED)
-    val event: Flow<Router> = _navigation.receiveAsFlow()
+    private val _navigation: Channel<Direction> = Channel(Channel.BUFFERED)
+    val event: Flow<Direction> = _navigation.receiveAsFlow()
 
     fun ok() = viewModelScope.launch {
-        _navigation.send(Router.Trainings.apply { direction = Direction.BACK })
+        _navigation.send(Direction.Trainings)
     }
 
     fun remove(state: TrainingState) = viewModelScope.launch {
@@ -26,7 +25,7 @@ class ReviewViewModel(
 
         trainingRepository
             .removeTraining(trainingId = id ?: error("invalid Training ID"))
-            .onEach { _navigation.send(Router.Trainings.apply { direction = Direction.BACK }) }
+            .onEach { _navigation.send(Direction.Trainings) }
             .catch { }
             .launchIn(this)
     }

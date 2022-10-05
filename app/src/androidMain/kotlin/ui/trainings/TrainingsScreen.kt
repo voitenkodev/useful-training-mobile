@@ -6,21 +6,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import presentation.TrainingsContent
-import ui.navigation.Router
 import ui.navigation.ScreenNavigator
 
 @Composable
 fun TrainingsScreen(
-    viewModel: TrainingsViewModel,
-    navigate: (Router) -> Unit
+    viewModel: TrainingsViewModel
 ) {
 
     val fetch = viewModel.trainingState.collectAsState()
 
-    ScreenNavigator(
-        viewModel.event,
-        navigate = navigate
-    )
+    ScreenNavigator(viewModel.event)
 
     TrainingsContent(
         modifier = Modifier.statusBarsPadding().navigationBarsPadding(),

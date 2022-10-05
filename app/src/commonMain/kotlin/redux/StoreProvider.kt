@@ -1,10 +1,22 @@
 package redux
 
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.DisallowComposableCalls
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.ProvidableCompositionLocal
+import androidx.compose.runtime.State
+import androidx.compose.runtime.compositionLocalOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import co.touchlab.kermit.Logger
-import org.reduxkotlin.*
+import org.reduxkotlin.Dispatcher
+import org.reduxkotlin.Middleware
+import org.reduxkotlin.Store
+import org.reduxkotlin.applyMiddleware
+import org.reduxkotlin.createStore
 
-val store = createStore(
+val store: Store<GlobalState> = createStore(
     globalReducer,
     GlobalState(),
     applyMiddleware(createMiddleware { action -> Logger.i { "reduxLogger::DISPATCHED => \"${action.group}/${action.action}\"" } })
@@ -13,11 +25,8 @@ val store = createStore(
 private val LocalStore: ProvidableCompositionLocal<Store<*>> = compositionLocalOf { error("undefined") }
 
 @Composable
-@Suppress("FunctionName")
-fun <T : Any> StoreProvider(store: Store<T>, content: @Composable Store<T>.() -> Unit) {
-    CompositionLocalProvider(LocalStore provides store) {
-        store.content()
-    }
+fun <T> StoreProvider(store: Store<T>, content: @Composable Store<T>.() -> Unit) {
+    CompositionLocalProvider(LocalStore provides store) { store.content() }
 }
 
 @Composable
@@ -47,7 +56,7 @@ inline fun <TState, TSlice> Store<TState>.selectState(
 fun <TState> rememberStore(): Store<TState> = LocalStore.current as Store<TState>
 
 private fun createMiddleware(logic: (action: Action) -> Unit): Middleware<GlobalState> {
-    return { store ->
+    return {
         { next ->
             { action ->
                 if (action is Action) logic(action)

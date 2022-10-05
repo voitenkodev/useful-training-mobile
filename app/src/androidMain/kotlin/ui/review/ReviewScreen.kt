@@ -5,7 +5,6 @@ import android.widget.LinearLayout
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
@@ -18,20 +17,14 @@ import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import designsystem.common.DesignComponent
 import presentation.ReviewContent
-import ui.navigation.Router
 import ui.navigation.ScreenNavigator
 
 @Composable
 fun ReviewScreen(
     viewModel: ReviewViewModel,
-    navigate: (Router) -> Unit
 ) {
 
-
-    ScreenNavigator(
-        event = viewModel.event,
-        navigate = navigate
-    )
+    ScreenNavigator(event = viewModel.event)
 
     ReviewContent(
         modifier = Modifier.statusBarsPadding().navigationBarsPadding(),
