@@ -17,5 +17,5 @@ fun GlobalGraph(it: Direction) = when (it) {
 
     Direction.Training -> TrainingScreen(viewModel = koinViewModel())
 
-    Direction.Trainings -> TrainingsScreen(viewModel = koinViewModel())
+    Direction.Trainings -> TrainingsScreen()
 }

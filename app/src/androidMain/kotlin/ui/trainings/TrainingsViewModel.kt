@@ -28,13 +28,13 @@ class TrainingsViewModel(
     val trainingState: StateFlow<List<TrainingState>> = _trainingState.asStateFlow()
 
     init {
-        viewModelScope.launch {
-            trainingRepository
-                .getTrainings()
-                .map { it.toTrainingStateList() }
-                .onEach { _trainingState.value = it }
-                .launchIn(this)
-        }
+//        viewModelScope.launch {
+//            trainingRepository
+//                .getTrainings()
+//                .map { it.toTrainingStateList() }
+//                .onEach { _trainingState.value = it }
+//                .launchIn(this)
+//        }
     }
 
     fun get() = viewModelScope.launch {

@@ -1,12 +1,12 @@
 package main
 
+import AuthSource
+import TrainingSource
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import data.repository.TrainingRepository
 import data.source.AuthProtocol
-import data.source.AuthSource
 import data.source.TrainingProtocol
-import data.source.TrainingSource
 import kotlinx.coroutines.Dispatchers
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.core.qualifier.named
@@ -15,7 +15,6 @@ import org.koin.dsl.module
 import ui.auth.AuthViewModel
 import ui.review.ReviewViewModel
 import ui.training.TrainingViewModel
-import ui.trainings.TrainingsViewModel
 
 val appModule = module {
     single(named("IO")) { Dispatchers.IO }
@@ -28,6 +27,5 @@ val appModule = module {
 
     viewModelOf(::ReviewViewModel)
     viewModelOf(::AuthViewModel)
-    viewModelOf(::TrainingsViewModel)
     viewModelOf(::TrainingViewModel)
 }

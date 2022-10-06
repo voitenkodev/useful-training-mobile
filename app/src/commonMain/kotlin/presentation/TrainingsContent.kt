@@ -14,7 +14,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -30,11 +29,12 @@ import designsystem.controls.Header
 import designsystem.controls.IconPrimary
 import designsystem.controls.Root
 import designsystem.controls.TextFieldBody2
+import redux.Direction
 import redux.GlobalState
+import redux.NavigatorAction
 import redux.ReviewAction
 import redux.TrainingAction
 import redux.TrainingState
-import redux.TrainingsAction
 import redux.TrainingsState
 import redux.rememberDispatcher
 import redux.selectState
@@ -42,15 +42,9 @@ import redux.selectState
 @Composable
 fun TrainingsContent(
     modifier: Modifier = Modifier,
-    fetch: List<TrainingState>,
-    edit: () -> Unit,
-    review: () -> Unit,
-    add: () -> Unit,
 ) {
     val dispatcher = rememberDispatcher()
     val state by selectState<GlobalState, TrainingsState> { this.trainingsState }
-
-    LaunchedEffect(fetch) { dispatcher(TrainingsAction.GetTrainings(fetch)) }
 
     Root(
         modifier = modifier,
@@ -68,7 +62,7 @@ fun TrainingsContent(
                 modifier = Modifier.fillMaxWidth().align(Alignment.BottomCenter).padding(DesignComponent.size.space),
                 add = {
                     dispatcher(TrainingAction.PutTrainingAction(TrainingState()))
-                    add.invoke()
+                    dispatcher(NavigatorAction.NAVIGATE(Direction.Training))
                 }
             )
         },
@@ -86,11 +80,11 @@ fun TrainingsContent(
                         edit = {
                             dispatcher(TrainingAction.PutTrainingAction(it))
                             dispatcher(TrainingAction.ProvideEmptyIterations)
-                            edit.invoke()
+                            dispatcher(NavigatorAction.NAVIGATE(Direction.Training))
                         },
                         review = {
                             dispatcher(ReviewAction.GetTrainings(selected = it, all = state.trainings))
-                            review.invoke()
+                            dispatcher(NavigatorAction.NAVIGATE(Direction.Review))
                         }
                     )
                 }

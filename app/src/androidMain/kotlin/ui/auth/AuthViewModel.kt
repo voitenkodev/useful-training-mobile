@@ -1,8 +1,8 @@
 package ui.auth
 
+import AuthSource
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import data.source.AuthSource
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
