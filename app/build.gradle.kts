@@ -44,6 +44,8 @@ kotlin {
                 implementation(compose.foundation)
                 implementation(compose.material)
                 implementation(compose.runtime)
+
+                implementation("io.insert-koin:koin-core:3.2.0")
             }
         }
 
@@ -59,15 +61,22 @@ kotlin {
                 // Accompanist
                 implementation("com.google.accompanist:accompanist-systemuicontroller:0.23.1")
                 // Koin
-                implementation("io.insert-koin:koin-core:3.2.0")
                 implementation("io.insert-koin:koin-androidx-compose:3.2.0")
                 implementation("io.insert-koin:koin-android:3.2.0")
                 // Chart
                 implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
+                // Coil
+                implementation("io.coil-kt:coil:2.2.2")
+                implementation("io.coil-kt:coil-compose:2.2.2")
             }
         }
 
-        val iosMain by creating { dependsOn(commonMain) }
+        val iosMain by creating {
+            dependsOn(commonMain)
+            dependencies {
+                implementation("io.github.qdsfdhvh:image-loader:1.1.9")
+            }
+        }
         val uikitMain by creating { dependsOn(iosMain) }
         val uikitX64Main by getting { dependsOn(uikitMain) }
         val uikitArm64Main by getting { dependsOn(uikitMain) }
