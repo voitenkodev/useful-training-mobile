@@ -7,7 +7,7 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.Color
 import androidx.core.view.WindowCompat
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
-import designsystem.common.DesignTheme
+import designsystem.atomic.DesignTheme
 import navigation.NavigatorState
 import redux.StoreProvider
 import redux.store

@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import designsystem.common.DesignComponent
+import designsystem.atomic.DesignComponent
 import designsystem.components.labels.WeekDayLabel
 import designsystem.controls.DividerPrimary
 import designsystem.controls.TextFieldBody2

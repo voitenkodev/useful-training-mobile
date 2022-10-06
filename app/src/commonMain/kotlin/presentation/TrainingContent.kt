@@ -16,7 +16,7 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import designsystem.common.DesignComponent
+import designsystem.atomic.DesignComponent
 import designsystem.components.inputs.InputExerciseName
 import designsystem.components.inputs.InputRepeat
 import designsystem.components.inputs.InputWeight

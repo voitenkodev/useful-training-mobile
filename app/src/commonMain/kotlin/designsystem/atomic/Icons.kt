@@ -1,4 +1,4 @@
-package designsystem.common
+package designsystem.atomic
 
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.PathFillType.Companion.NonZero

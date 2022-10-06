@@ -10,7 +10,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import designsystem.common.DesignComponent
+import designsystem.atomic.DesignComponent
 import designsystem.components.inputs.InputEmail
 import designsystem.components.inputs.InputPassword
 import designsystem.controls.ButtonPrimary

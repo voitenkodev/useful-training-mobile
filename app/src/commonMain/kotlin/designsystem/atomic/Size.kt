@@ -1,4 +1,4 @@
-package designsystem.common
+package designsystem.atomic
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.Dp

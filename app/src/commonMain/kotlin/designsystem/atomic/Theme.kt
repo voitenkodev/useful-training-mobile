@@ -1,4 +1,4 @@
-package designsystem.common
+package designsystem.atomic
 
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable

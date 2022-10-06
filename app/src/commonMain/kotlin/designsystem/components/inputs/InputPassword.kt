@@ -12,9 +12,9 @@ import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.*
 import androidx.compose.ui.unit.dp
-import designsystem.common.DesignComponent
-import designsystem.common.Eye
-import designsystem.common.EyeOff
+import designsystem.atomic.DesignComponent
+import designsystem.atomic.Eye
+import designsystem.atomic.EyeOff
 import designsystem.components.labels.InputLabel
 import designsystem.controls.IconPrimary
 import designsystem.controls.InputFieldPrimary

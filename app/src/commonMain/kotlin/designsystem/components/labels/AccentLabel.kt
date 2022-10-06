@@ -7,7 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import designsystem.common.DesignComponent
+import designsystem.atomic.DesignComponent
 import designsystem.controls.TextFieldBody1
 
 @Composable

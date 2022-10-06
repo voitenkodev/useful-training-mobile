@@ -6,7 +6,7 @@ import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import designsystem.common.DesignComponent
+import designsystem.atomic.DesignComponent
 
 @Composable
 fun Root(

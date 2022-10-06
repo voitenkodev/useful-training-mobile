@@ -1,4 +1,4 @@
-package designsystem.common
+package designsystem.atomic
 
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable

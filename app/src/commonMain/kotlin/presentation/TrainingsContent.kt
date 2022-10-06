@@ -19,8 +19,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import designsystem.common.BarChart
-import designsystem.common.DesignComponent
+import designsystem.atomic.BarChart
+import designsystem.atomic.DesignComponent
 import designsystem.components.ExerciseItem
 import designsystem.components.labels.WeekDayLabel
 import designsystem.controls.ButtonPrimary

@@ -1,6 +1,6 @@
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import designsystem.common.DesignTheme
+import designsystem.atomic.DesignTheme
 import navigation.NavigatorState
 import presentation.AuthContent
 import redux.StoreProvider

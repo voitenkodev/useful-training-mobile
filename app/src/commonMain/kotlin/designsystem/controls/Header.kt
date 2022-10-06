@@ -5,14 +5,13 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material.icons.filled.Clear
-import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
-import designsystem.common.BarChart
-import designsystem.common.DesignComponent
-import designsystem.common.Save
+import designsystem.atomic.BarChart
+import designsystem.atomic.DesignComponent
+import designsystem.atomic.Save
 
 @Composable
 fun Header(

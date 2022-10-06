@@ -15,7 +15,7 @@ import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
-import designsystem.common.DesignComponent
+import designsystem.atomic.DesignComponent
 import presentation.ReviewContent
 import ui.navigation.ScreenNavigator
 
