@@ -8,11 +8,7 @@ import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.platform.LocalLifecycleOwner
 
 @Composable
-actual fun BackHandler(
-    action: () -> Unit,
-    content: @Composable () -> Unit
-) {
-    content()
+actual fun BackHandler(action: () -> Unit) {
 
     val currentOnBack by rememberUpdatedState(action)
     val backCallback = remember {

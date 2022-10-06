@@ -8,7 +8,7 @@ import androidx.compose.foundation.gestures.rememberDraggableState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
@@ -22,46 +22,40 @@ import designsystem.common.DesignComponent
 import kotlin.math.min
 
 @Composable
-actual fun BackHandler(
-    action: () -> Unit,
-    content: @Composable () -> Unit
-) {
+actual fun BackHandler(action: () -> Unit) {
     val triggerBackPressDragDistance = 40f
-
     val dragDistance = remember { mutableStateOf(0f) }
     val state = rememberDraggableState { dragDistance.value = min(dragDistance.value + it, triggerBackPressDragDistance * 2) }
 
-    Box(contentAlignment = Alignment.CenterStart) {
-
-        content()
-
-        Box(
-            modifier = Modifier
-                .fillMaxHeight()
-                .width(20.dp)
-                .draggable(
-                    state = state,
-                    orientation = Orientation.Horizontal,
-                    onDragStopped = {
-                        if (dragDistance.value > triggerBackPressDragDistance) {
-                            action.invoke()
-                            dragDistance.value = 0f
-                        }
+    Box(
+        modifier = Modifier
+            .fillMaxHeight()
+            .widthIn(min = 20.dp)
+            .draggable(
+                state = state,
+                orientation = Orientation.Horizontal,
+                onDragStopped = {
+                    if (dragDistance.value > triggerBackPressDragDistance) {
+                        action.invoke()
+                        dragDistance.value = 0f
                     }
-                )
-        )
+                }
+            ),
+        contentAlignment = Alignment.CenterStart
+    ) {
 
         AnimatedVisibility(
             visible = dragDistance.value > triggerBackPressDragDistance,
             enter = slideInHorizontally(initialOffsetX = { -it }, animationSpec = tween(durationMillis = 100)),
-            exit = slideOutHorizontally(targetOffsetX = { -it })
-        ) {
-            Icon(
-                imageVector = Icons.Default.KeyboardArrowLeft,
-                contentDescription = null,
-                modifier = Modifier.size(60.dp),
-                tint = DesignComponent.colors.content,
-            )
-        }
+            exit = slideOutHorizontally(targetOffsetX = { -it }),
+            content = {
+                Icon(
+                    imageVector = Icons.Default.KeyboardArrowLeft,
+                    contentDescription = null,
+                    modifier = Modifier.size(40.dp),
+                    tint = DesignComponent.colors.content,
+                )
+            }
+        )
     }
 }
