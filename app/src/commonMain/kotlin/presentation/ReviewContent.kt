@@ -25,6 +25,7 @@ import designsystem.components.labels.WeekDayLabel
 import designsystem.controls.ButtonSecondary
 import designsystem.controls.DividerPrimary
 import designsystem.components.Header
+import designsystem.components.LineChartBoard
 import designsystem.controls.LineChart
 import designsystem.components.Root
 import designsystem.controls.TextFieldBody2
@@ -172,31 +173,49 @@ private fun ChartSection(
     data: List<Float>,
     color: Color,
     chart: @Composable (String, List<Float>, Color) -> Unit,
-) = Column(
-    modifier = Modifier.fillMaxWidth().aspectRatio(1.5f).background(
-        color = DesignComponent.colors.secondary, shape = DesignComponent.shape.default
-    ).padding(DesignComponent.size.space),
-    verticalArrangement = Arrangement.spacedBy(DesignComponent.size.space)
-) {
-    Row(
-        modifier = Modifier.align(Alignment.End),
-        horizontalArrangement = Arrangement.spacedBy(DesignComponent.size.space),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Spacer(Modifier.size(14.dp).background(color))
-        TextFieldBody2(text = label, color = DesignComponent.colors.caption)
-    }
+) = LineChartBoard(
+    modifier = Modifier
+        .fillMaxWidth()
+        .aspectRatio(1.8f),
+    yPoints = data,
+    label = label,
+    lineColor = color,
+    fillColor = color.copy(alpha = 0.2f),
+    pointColor = color
+)
 
-    LineChart(
-        modifier = Modifier
-            .fillMaxWidth()
-            .aspectRatio(1.8f),
-        yPoints = data,
-        lineColor = color,
-        fillColor = color.copy(alpha = 0.2f),
-        pointColor = color
-    )
-}
+//@Composable
+//private fun ChartSection(
+//    label: String,
+//    data: List<Float>,
+//    color: Color,
+//    chart: @Composable (String, List<Float>, Color) -> Unit,
+//) = Column(
+//    modifier = Modifier.fillMaxWidth().aspectRatio(1.5f).background(
+//        color = DesignComponent.colors.secondary, shape = DesignComponent.shape.default
+//    ).padding(DesignComponent.size.space),
+//    verticalArrangement = Arrangement.spacedBy(DesignComponent.size.space)
+//) {
+//    Row(
+//        modifier = Modifier.align(Alignment.End),
+//        horizontalArrangement = Arrangement.spacedBy(DesignComponent.size.space),
+//        verticalAlignment = Alignment.CenterVertically
+//    ) {
+//        Spacer(Modifier.size(14.dp).background(color))
+//        TextFieldBody2(text = label, color = DesignComponent.colors.caption)
+//    }
+//
+//    LineChartBoard(
+//        modifier = Modifier
+//            .fillMaxWidth()
+//            .aspectRatio(1.8f),
+//        yPoints = data,
+//        label = label,
+//        lineColor = color,
+//        fillColor = color.copy(alpha = 0.2f),
+//        pointColor = color
+//    )
+//}
 
 @Composable
 private fun Summary(

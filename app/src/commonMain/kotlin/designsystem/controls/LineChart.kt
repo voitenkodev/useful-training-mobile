@@ -21,9 +21,12 @@ fun LineChart(
 
     Canvas(modifier = modifier) {
 
-        val spaceX = size.width / (yPoints.size - 1)
         val maxY = yPoints.max()
-        val spacyY = size.height / maxY
+        val minY = yPoints.min()
+
+        val spaceX = size.width / (yPoints.size - 1)
+        val spacyY = size.height / (maxY - minY)
+
         val normX = mutableListOf<Float>()
         val normY = mutableListOf<Float>()
 
@@ -34,7 +37,7 @@ fun LineChart(
 
                 if (i == 0) {
 
-                    moveTo(currentX, size.height - (yPoints[i] * spacyY))
+                    moveTo(currentX, size.height - ((yPoints[i] - minY) * spacyY))
 
                 } else {
 
@@ -43,9 +46,9 @@ fun LineChart(
                     val conX1 = (previousX + currentX) / 2f
                     val conX2 = (previousX + currentX) / 2f
 
-                    val conY1 = size.height - (yPoints[i - 1] * spacyY)
-                    val conY2 = size.height - (yPoints[i] * spacyY)
-                    val conY3 = size.height - (yPoints[i] * spacyY)
+                    val conY1 = size.height - ((yPoints[i - 1] - minY) * spacyY)
+                    val conY2 = size.height - ((yPoints[i] - minY) * spacyY)
+                    val conY3 = size.height - ((yPoints[i] - minY) * spacyY)
 
                     cubicTo(
                         x1 = conX1,
@@ -59,7 +62,7 @@ fun LineChart(
 
                 // Circle dot points
                 normX.add(currentX)
-                normY.add(size.height - (yPoints[i] * spacyY))
+                normY.add(size.height - ((yPoints[i] - minY) * spacyY))
 
             }
         }
