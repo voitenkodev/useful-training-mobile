@@ -25,9 +25,9 @@ import designsystem.components.ExerciseItem
 import designsystem.components.labels.WeekDayLabel
 import designsystem.controls.ButtonPrimary
 import designsystem.controls.DividerPrimary
-import designsystem.controls.Header
+import designsystem.components.Header
 import designsystem.controls.IconPrimary
-import designsystem.controls.Root
+import designsystem.components.Root
 import designsystem.controls.TextFieldBody2
 import redux.Direction
 import redux.GlobalState

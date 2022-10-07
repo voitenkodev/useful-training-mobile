@@ -15,8 +15,8 @@ import designsystem.components.inputs.InputEmail
 import designsystem.components.inputs.InputPassword
 import designsystem.controls.ButtonPrimary
 import designsystem.controls.ButtonSecondary
-import designsystem.controls.Header
-import designsystem.controls.Root
+import designsystem.components.Header
+import designsystem.components.Root
 import designsystem.controls.TextFieldBody2
 import designsystem.controls.TextFieldH2
 import redux.AuthAction

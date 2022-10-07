@@ -19,13 +19,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import designsystem.atomic.DesignComponent
-import designsystem.components.ExerciseItem
 import designsystem.components.CollapsedTrainingItem
+import designsystem.components.ExerciseItem
 import designsystem.components.labels.WeekDayLabel
 import designsystem.controls.ButtonSecondary
 import designsystem.controls.DividerPrimary
-import designsystem.controls.Header
-import designsystem.controls.Root
+import designsystem.components.Header
+import designsystem.controls.LineChart
+import designsystem.components.Root
 import designsystem.controls.TextFieldBody2
 import redux.GlobalState
 import redux.ReviewState
@@ -69,7 +70,6 @@ fun ReviewContent(
                     chart = chart
                 )
             }
-
             item(key = "intensity_chart") {
                 ChartSection(
                     label = "Intensity",
@@ -90,7 +90,8 @@ fun ReviewContent(
             item(key = "exercises") {
                 state.reviewTraining.exercises.forEachIndexed { index, item ->
                     ExerciseItem(
-                        number = index + 1, exercise = item
+                        number = index + 1,
+                        exercise = item
                     )
                 }
             }
@@ -185,7 +186,16 @@ private fun ChartSection(
         Spacer(Modifier.size(14.dp).background(color))
         TextFieldBody2(text = label, color = DesignComponent.colors.caption)
     }
-    chart.invoke(label, data, color)
+
+    LineChart(
+        modifier = Modifier
+            .fillMaxWidth()
+            .aspectRatio(1.8f),
+        yPoints = data,
+        lineColor = color,
+        fillColor = color.copy(alpha = 0.2f),
+        pointColor = color
+    )
 }
 
 @Composable
