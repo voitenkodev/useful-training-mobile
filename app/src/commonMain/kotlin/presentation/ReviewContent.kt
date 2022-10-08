@@ -4,11 +4,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
@@ -21,15 +19,15 @@ import androidx.compose.ui.unit.dp
 import designsystem.atomic.DesignComponent
 import designsystem.components.CollapsedTrainingItem
 import designsystem.components.ExerciseItem
+import designsystem.components.Header
+import designsystem.components.LineChartBoard
+import designsystem.components.Root
 import designsystem.components.labels.WeekDayLabel
 import designsystem.controls.ButtonSecondary
 import designsystem.controls.DividerPrimary
-import designsystem.components.Header
-import designsystem.components.LineChartBoard
-import designsystem.controls.LineChart
-import designsystem.components.Root
 import designsystem.controls.TextFieldBody2
 import redux.GlobalState
+import redux.NavigatorAction
 import redux.ReviewState
 import redux.TrainingState
 import redux.rememberDispatcher
@@ -38,8 +36,6 @@ import redux.selectState
 @Composable
 fun ReviewContent(
     modifier: Modifier = Modifier,
-    chart: @Composable (String, List<Float>, Color) -> Unit,
-    back: () -> Unit,
     remove: (TrainingState) -> Unit
 ) {
     val dispatcher = rememberDispatcher()
@@ -50,7 +46,7 @@ fun ReviewContent(
         header = {
             Header(
                 title = "Review!",
-                exit = back
+                exit = { dispatcher(NavigatorAction.BACK) }
             )
         },
         content = {
@@ -68,15 +64,14 @@ fun ReviewContent(
                     label = "Tonnage",
                     data = state.reviewTraining.exercises.map { it.tonnage.toFloat() },
                     color = DesignComponent.colors.unique.color1,
-                    chart = chart
                 )
             }
+
             item(key = "intensity_chart") {
                 ChartSection(
                     label = "Intensity",
                     data = state.reviewTraining.exercises.map { it.intensity.toFloat() },
                     color = DesignComponent.colors.unique.color4,
-                    chart = chart
                 )
             }
 
@@ -172,7 +167,6 @@ private fun ChartSection(
     label: String,
     data: List<Float>,
     color: Color,
-    chart: @Composable (String, List<Float>, Color) -> Unit,
 ) = LineChartBoard(
     modifier = Modifier
         .fillMaxWidth()
@@ -183,39 +177,6 @@ private fun ChartSection(
     fillColor = color.copy(alpha = 0.2f),
     pointColor = color
 )
-
-//@Composable
-//private fun ChartSection(
-//    label: String,
-//    data: List<Float>,
-//    color: Color,
-//    chart: @Composable (String, List<Float>, Color) -> Unit,
-//) = Column(
-//    modifier = Modifier.fillMaxWidth().aspectRatio(1.5f).background(
-//        color = DesignComponent.colors.secondary, shape = DesignComponent.shape.default
-//    ).padding(DesignComponent.size.space),
-//    verticalArrangement = Arrangement.spacedBy(DesignComponent.size.space)
-//) {
-//    Row(
-//        modifier = Modifier.align(Alignment.End),
-//        horizontalArrangement = Arrangement.spacedBy(DesignComponent.size.space),
-//        verticalAlignment = Alignment.CenterVertically
-//    ) {
-//        Spacer(Modifier.size(14.dp).background(color))
-//        TextFieldBody2(text = label, color = DesignComponent.colors.caption)
-//    }
-//
-//    LineChartBoard(
-//        modifier = Modifier
-//            .fillMaxWidth()
-//            .aspectRatio(1.8f),
-//        yPoints = data,
-//        label = label,
-//        lineColor = color,
-//        fillColor = color.copy(alpha = 0.2f),
-//        pointColor = color
-//    )
-//}
 
 @Composable
 private fun Summary(

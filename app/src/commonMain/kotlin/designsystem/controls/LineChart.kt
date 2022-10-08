@@ -33,6 +33,7 @@ fun LineChart(
         val strokePath = Path().apply {
 
             for (i in yPoints.indices) {
+
                 val currentX = i * spaceX
 
                 if (i == 0) {
