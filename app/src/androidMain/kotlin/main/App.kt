@@ -4,9 +4,9 @@ import android.app.Application
 import com.google.firebase.FirebaseOptions
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.ktx.initialize
+import initCommonKoin
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
-import org.koin.core.context.startKoin
 
 class App : Application() {
     override fun onCreate() {
@@ -22,9 +22,8 @@ class App : Application() {
         .setApplicationId("1:152127980653:android:612172b2ad983d64df2b64")
         .build()
 
-    private fun initKoin() = startKoin {
+    private fun initKoin() = initCommonKoin {
         androidLogger()
         androidContext(this@App)
-        modules(appModule)
     }
 }

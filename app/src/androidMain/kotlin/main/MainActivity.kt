@@ -8,10 +8,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.core.view.WindowCompat
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import designsystem.atomic.DesignTheme
+import navigation.GlobalGraph
 import navigation.NavigatorState
 import redux.StoreProvider
 import redux.store
-import ui.navigation.GlobalGraph
 
 class MainActivity : ComponentActivity() {
 

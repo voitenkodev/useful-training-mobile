@@ -41,6 +41,7 @@ class SkikoAppDelegate : UIResponder, UIApplicationDelegateProtocol {
     }
 
     override fun application(application: UIApplication, didFinishLaunchingWithOptions: Map<Any?, *>?): Boolean {
+        initCommonKoin()
         window = UIWindow(frame = UIScreen.mainScreen.bounds)
         val height = window?.bounds
         window!!.rootViewController = Application("UsefulTraining") {

@@ -109,31 +109,32 @@ actual class TrainingSource : TrainingProtocol {
         userId: String?,
         trainingId: String,
         training: Training
-    ): Flow<Unit> = flow { emit(Unit)}
+    ): Flow<Unit> = flow { emit(Unit) }
 
-    override suspend fun removeTraining(userId: String?, trainingId: String): Flow<Unit> = flow { emit(Unit)}
+    override suspend fun removeTraining(userId: String?, trainingId: String): Flow<Unit> = flow { emit(Unit) }
 
-    override suspend fun removeShortTraining(userId: String?, trainingId: String): Flow<Unit> = flow { emit(Unit)}
+    override suspend fun removeShortTraining(userId: String?, trainingId: String): Flow<Unit> = flow { emit(Unit) }
 
     override suspend fun getTrainings(
         userId: String?,
-    ): Flow<List<Training>> = flow { emit(emptyList())}
+    ): Flow<List<Training>> = flow { emit(emptyList()) }
 
     override suspend fun getShortTrainings(
         userId: String?,
-    ): Flow<List<ShortTraining>> = flow { emit(emptyList())}
+    ): Flow<List<ShortTraining>> = flow { emit(emptyList()) }
 
     override suspend fun setShortTraining(
         userId: String?,
         trainingId: String,
         training: ShortTraining
-    ): Flow<Unit> = flow { emit(Unit)}
+    ): Flow<Unit> = flow { emit(Unit) }
 }
 
 actual val defaultDispatcher: CoroutineContext = MainDispatcher
 
-actual val uiDispatcher: CoroutineContext = MainDispatcher
+actual val ioDispatcher: CoroutineContext = MainDispatcher
 
+actual val uiDispatcher: CoroutineContext = MainDispatcher
 
 @ThreadLocal
 object MainDispatcher : CoroutineDispatcher() {

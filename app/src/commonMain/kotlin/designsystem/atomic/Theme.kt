@@ -3,11 +3,13 @@ package designsystem.atomic
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.ExperimentalUnitApi
 
 @ExperimentalUnitApi
 @Composable
 fun DesignTheme(
+    modifier: Modifier = Modifier,
     darkTheme: Boolean = false, // need isSystemInDarkTheme()
     content: @Composable () -> Unit
 ) = CompositionLocalProvider(
@@ -24,7 +26,10 @@ fun DesignTheme(
     LocalAppShape provides AppShape(),
 
     content = {
-        Surface(color = DesignComponent.colors.primary) {
+        Surface(
+            modifier = modifier,
+            color = DesignComponent.colors.primary
+        ) {
             content.invoke()
         }
     }

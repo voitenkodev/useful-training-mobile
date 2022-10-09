@@ -66,10 +66,11 @@ actual fun RemoteImage(imageUrl: String, modifier: Modifier, contentDescription:
     )
 }
 
-actual class AuthSource(
-    private val auth: FirebaseAuth,
-    private val dispatcher: CoroutineDispatcher
-) : AuthProtocol {
+actual class AuthSource : AuthProtocol {
+
+    private val auth: FirebaseAuth = FirebaseAuth.getInstance()
+    private val dispatcher: CoroutineDispatcher = Dispatchers.IO
+
 
     override fun login(email: String, password: String): Flow<User> =
         flow {
@@ -110,10 +111,11 @@ actual class AuthSource(
         }
 }
 
-actual class TrainingSource(
-    private val store: FirebaseFirestore,
-    private val dispatcher: CoroutineDispatcher
-) : TrainingProtocol {
+actual class TrainingSource : TrainingProtocol {
+
+    private val store: FirebaseFirestore = FirebaseFirestore.getInstance()
+    private val dispatcher: CoroutineDispatcher = Dispatchers.IO
+
     override suspend fun setTraining(
         userId: String?,
         trainingId: String,
@@ -204,5 +206,7 @@ actual class TrainingSource(
 }
 
 actual val defaultDispatcher: CoroutineContext = Dispatchers.Default
+
+actual val ioDispatcher: CoroutineContext = Dispatchers.IO
 
 actual val uiDispatcher: CoroutineContext = Dispatchers.Main

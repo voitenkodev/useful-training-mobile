@@ -7,13 +7,13 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
-class ComposeViewModel : RememberObserver {
+class ComposeLoader : RememberObserver {
 
     private val scope = CoroutineScope(Dispatchers.Default)
     private var job: Job? = null
     private val tasks: MutableList<suspend CoroutineScope.() -> Unit> = mutableListOf()
 
-    fun call(task: suspend CoroutineScope.() -> Unit) {
+    fun load(task: suspend CoroutineScope.() -> Unit) {
         tasks.add(task)
         if (job?.isActive == true) {
             scope.launch(block = task)

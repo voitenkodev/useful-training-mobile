@@ -1,41 +1,57 @@
 package presentation
 
+import AuthSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import designsystem.atomic.DesignComponent
+import designsystem.components.Header
+import designsystem.components.Root
 import designsystem.components.inputs.InputEmail
 import designsystem.components.inputs.InputPassword
 import designsystem.controls.ButtonPrimary
 import designsystem.controls.ButtonSecondary
-import designsystem.components.Header
-import designsystem.components.Root
 import designsystem.controls.TextFieldBody2
 import designsystem.controls.TextFieldH2
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import org.koin.mp.KoinPlatformTools
 import redux.AuthAction
 import redux.AuthState
+import redux.Direction
 import redux.GlobalState
+import redux.NavigatorAction
 import redux.rememberDispatcher
 import redux.selectState
+import utils.ComposeLoader
+
 
 @Composable
-fun AuthContent(
-    modifier: Modifier = Modifier,
-    registration: (AuthState) -> Unit,
-    login: (AuthState) -> Unit
-) {
-    val dispatcher = rememberDispatcher()
+fun AuthContent(modifier: Modifier = Modifier) {
+
     val state by selectState<GlobalState, AuthState> { this.authState }
+    val dispatcher = rememberDispatcher()
+
+    val loader = remember { ComposeLoader() }
+    val authApi = KoinPlatformTools.defaultContext().get().get<AuthSource>()
+
+    LaunchedEffect(Unit) {
+        if (authApi.isAuthorized) dispatcher(NavigatorAction.NAVIGATE(Direction.Trainings))
+    }
 
     Root(
-        modifier = modifier,
+        modifier = modifier.fillMaxSize(),
         header = {
             Header(title = "\uD83D\uDC4B Welcome back!")
         },
@@ -46,7 +62,13 @@ fun AuthContent(
                 text = "Log In",
                 onClick = {
                     dispatcher(AuthAction.Validate)
-                    login.invoke(state)
+                    loader.load {
+                        authApi
+                            .login(state.email, state.password)
+                            .onEach { dispatcher(NavigatorAction.NAVIGATE(Direction.Trainings)) }
+                            .catch { }
+                            .launchIn(this)
+                    }
                 }
             )
 
@@ -65,7 +87,13 @@ fun AuthContent(
                     text = "Sign Up!",
                     onClick = {
                         dispatcher(AuthAction.Validate)
-                        registration.invoke(state)
+                        loader.load {
+                            authApi
+                                .registration(state.email, state.password)
+                                .onEach { dispatcher(NavigatorAction.NAVIGATE(Direction.Trainings)) }
+                                .catch { }
+                                .launchIn(this)
+                        }
                     }
                 )
             }

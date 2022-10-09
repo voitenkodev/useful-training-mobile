@@ -33,13 +33,13 @@ import redux.selectState
 @Composable
 fun TrainingContent(
     modifier: Modifier = Modifier,
-    save: (TrainingState) -> Unit,
+    save: ((TrainingState) -> Unit)? = null,
 ) {
     val dispatcher = rememberDispatcher()
     val state by selectState<GlobalState, TrainingState> { this.trainingState }
 
     Root(
-        modifier = modifier,
+        modifier = modifier.fillMaxSize(),
         header = {
             Header(
                 title = "Exercises!",
@@ -47,7 +47,7 @@ fun TrainingContent(
                     dispatcher(TrainingAction.ValidateExercises)
                     dispatcher(TrainingAction.CalculateDuration)
                     dispatcher(TrainingAction.CalculateValues)
-                    save.invoke(state)
+                    save?.invoke(state)
                 }
             )
         },

@@ -1,11 +1,13 @@
 package presentation
 
+import AuthSource
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -14,11 +16,15 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import data.mapping.toTrainingStateList
+import data.repository.TrainingRepository
 import designsystem.atomic.BarChart
 import designsystem.atomic.DesignComponent
 import designsystem.components.ExerciseItem
@@ -29,15 +35,26 @@ import designsystem.components.Header
 import designsystem.controls.IconPrimary
 import designsystem.components.Root
 import designsystem.controls.TextFieldBody2
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onEach
+import org.koin.core.Koin
+import org.koin.core.component.KoinScopeComponent
+import org.koin.core.component.createScope
+import org.koin.core.scope.Scope
+import org.koin.dsl.KoinAppDeclaration
+import org.koin.mp.KoinPlatformTools
 import redux.Direction
 import redux.GlobalState
 import redux.NavigatorAction
 import redux.ReviewAction
 import redux.TrainingAction
 import redux.TrainingState
+import redux.TrainingsAction
 import redux.TrainingsState
 import redux.rememberDispatcher
 import redux.selectState
+import utils.ComposeLoader
 
 @Composable
 fun TrainingsContent(
@@ -46,8 +63,18 @@ fun TrainingsContent(
     val dispatcher = rememberDispatcher()
     val state by selectState<GlobalState, TrainingsState> { this.trainingsState }
 
+    val trainingApi = KoinPlatformTools.defaultContext().get().get<TrainingRepository>()
+
+    LaunchedEffect(Unit){
+        trainingApi
+            .getTrainings()
+            .map { it.toTrainingStateList() }
+            .onEach { dispatcher(TrainingsAction.GetTrainings(it)) }
+            .launchIn(this)
+    }
+
     Root(
-        modifier = modifier,
+        modifier = modifier.fillMaxSize(),
         contentPadding = PaddingValues(
             top = DesignComponent.size.space,
             bottom = DesignComponent.size.space + 56.dp + DesignComponent.size.space,
