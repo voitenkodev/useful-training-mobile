@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -34,20 +33,24 @@ import redux.GlobalState
 import redux.NavigatorAction
 import redux.rememberDispatcher
 import redux.selectState
-import utils.ComposeLoader
+import utils.rememberComposeLoader
 
 
 @Composable
-fun AuthContent(modifier: Modifier = Modifier) {
+fun AuthContent(
+    modifier: Modifier = Modifier,
+) {
 
+    // todo should be UseCase
+    val api = KoinPlatformTools.defaultContext().get().get<AuthSource>()
     val state by selectState<GlobalState, AuthState> { this.authState }
-    val dispatcher = rememberDispatcher()
 
-    val loader = remember { ComposeLoader() }
-    val authApi = KoinPlatformTools.defaultContext().get().get<AuthSource>()
+    val dispatcher = rememberDispatcher()
+    val loader = rememberComposeLoader()
 
     LaunchedEffect(Unit) {
-        if (authApi.isAuthorized) dispatcher(NavigatorAction.NAVIGATE(Direction.Trainings))
+        if (api.isAuthorized)
+            dispatcher(NavigatorAction.NAVIGATE(Direction.Trainings))
     }
 
     Root(
@@ -63,7 +66,7 @@ fun AuthContent(modifier: Modifier = Modifier) {
                 onClick = {
                     dispatcher(AuthAction.Validate)
                     loader.load {
-                        authApi
+                        api
                             .login(state.email, state.password)
                             .onEach { dispatcher(NavigatorAction.NAVIGATE(Direction.Trainings)) }
                             .catch { }
@@ -88,7 +91,7 @@ fun AuthContent(modifier: Modifier = Modifier) {
                     onClick = {
                         dispatcher(AuthAction.Validate)
                         loader.load {
-                            authApi
+                            api
                                 .registration(state.email, state.password)
                                 .onEach { dispatcher(NavigatorAction.NAVIGATE(Direction.Trainings)) }
                                 .catch { }

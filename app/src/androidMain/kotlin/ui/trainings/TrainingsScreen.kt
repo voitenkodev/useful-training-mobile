@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import data.mapping.toTrainingStateList
 import data.repository.TrainingRepository
@@ -18,6 +19,7 @@ import redux.rememberDispatcher
 @Composable
 fun TrainingsScreen() {
 
+    val scope = rememberCoroutineScope()
     val dispatcher = rememberDispatcher()
     val repo = get<TrainingRepository>()
 

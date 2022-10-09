@@ -15,6 +15,7 @@ fun initCommonKoin(
 }
 
 val appModule = module {
+
     single(named("DEFAULT")) { defaultDispatcher }
     single(named("IO")) { defaultDispatcher }
     single(named("MAIN")) { uiDispatcher }

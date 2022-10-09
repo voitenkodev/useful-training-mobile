@@ -1,11 +1,18 @@
 package utils
 
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.RememberObserver
+import androidx.compose.runtime.remember
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
+
+@Composable
+fun rememberComposeLoader(): ComposeLoader {
+    return remember { ComposeLoader() }
+}
 
 class ComposeLoader : RememberObserver {
 
