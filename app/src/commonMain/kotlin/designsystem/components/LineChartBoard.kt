@@ -6,12 +6,14 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import designsystem.atomic.DesignComponent
 import designsystem.controls.LineChart
@@ -51,24 +53,57 @@ fun LineChartBoard(
                 verticalArrangement = Arrangement.SpaceBetween
             ) {
 
-                TextFieldBody2(text = maxY.toString())
+                TextFieldBody2(
+                    text = maxY.toString(),
+                    textAlign = TextAlign.End
 
-                TextFieldBody2(text = threeQuartersY.toString())
+                )
 
-                TextFieldBody2(text = middleY.toString())
+                TextFieldBody2(
+                    text = threeQuartersY.toString(),
+                    textAlign = TextAlign.End
 
-                TextFieldBody2(text = quarterY.toString())
+                )
 
-                TextFieldBody2(text = minY.toString())
+                TextFieldBody2(
+                    text = middleY.toString(),
+                    textAlign = TextAlign.End
+
+                )
+
+                TextFieldBody2(
+                    text = quarterY.toString(),
+                    textAlign = TextAlign.End
+
+                )
+
+                TextFieldBody2(
+                    text = minY.toString(),
+                    textAlign = TextAlign.End
+                )
+
+                Spacer(modifier = Modifier.size(20.dp))
             }
 
-            LineChart(
-                modifier = Modifier.fillMaxSize(),
-                yPoints = yPoints,
-                lineColor = lineColor,
-                fillColor = fillColor,
-                pointColor = pointColor
-            )
+            Column {
+                LineChart(
+                    modifier = Modifier.weight(1f).fillMaxWidth(),
+                    yPoints = yPoints,
+                    lineColor = lineColor,
+                    fillColor = fillColor,
+                    pointColor = pointColor
+                )
+
+                Row(
+                    modifier = Modifier.fillMaxWidth().height(24.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.Bottom
+                ) {
+                    yPoints.forEachIndexed { index, _ ->
+                        TextFieldBody2(text = (index + 1).toString())
+                    }
+                }
+            }
         }
     }
 }
