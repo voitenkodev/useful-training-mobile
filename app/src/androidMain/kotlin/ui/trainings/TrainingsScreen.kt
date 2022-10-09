@@ -29,7 +29,5 @@ fun TrainingsScreen() {
             .launchIn(this)
     }
 
-    TrainingsContent(
-        modifier = Modifier.statusBarsPadding().navigationBarsPadding(),
-    )
+    TrainingsContent(modifier = Modifier.statusBarsPadding().navigationBarsPadding())
 }

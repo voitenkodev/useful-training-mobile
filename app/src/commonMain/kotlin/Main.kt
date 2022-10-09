@@ -1,4 +1,5 @@
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import designsystem.atomic.DesignTheme
 import navigation.NavigatorState
@@ -14,8 +15,12 @@ fun Main(
         StoreProvider(store) {
             NavigatorState {
                 AuthContent(
-                    registration = {},
-                    login = {}
+                    registration = {
+
+                    },
+                    login = {
+
+                    }
                 )
                 // Put Graph
             }
