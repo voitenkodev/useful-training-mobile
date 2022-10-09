@@ -29,13 +29,11 @@ import data.dto.Training
 import data.dto.User
 import data.source.AuthProtocol
 import data.source.TrainingProtocol
-import designsystem.common.DesignComponent
+import designsystem.atomic.DesignComponent
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Runnable
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.map
 import platform.darwin.dispatch_async
 import platform.darwin.dispatch_get_main_queue
 import kotlin.coroutines.CoroutineContext
