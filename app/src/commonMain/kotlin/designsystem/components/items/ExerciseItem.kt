@@ -1,4 +1,4 @@
-package designsystem.components
+package designsystem.components.items
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

@@ -1,7 +1,16 @@
 package presentation
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
@@ -16,6 +25,8 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import data.mapping.toTraining
+import data.repository.TrainingRepositoryImpl
 import designsystem.atomic.DesignComponent
 import designsystem.components.Header
 import designsystem.components.Root
@@ -23,20 +34,33 @@ import designsystem.components.inputs.InputExerciseName
 import designsystem.components.inputs.InputRepeat
 import designsystem.components.inputs.InputWeight
 import designsystem.components.labels.AccentLabel
-import designsystem.controls.*
+import designsystem.controls.ButtonPrimary
+import designsystem.controls.DividerPrimary
+import designsystem.controls.IconPrimary
+import designsystem.controls.IterationVerticalGrid
+import designsystem.controls.TextFieldBody2
+import globalKoin
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import redux.Direction
 import redux.GlobalState
+import redux.NavigatorAction
 import redux.TrainingAction
 import redux.TrainingState
 import redux.rememberDispatcher
 import redux.selectState
+import utils.rememberComposeCoroutineContext
 
 @Composable
 fun TrainingContent(
     modifier: Modifier = Modifier,
-    save: ((TrainingState) -> Unit)? = null,
 ) {
     val dispatcher = rememberDispatcher()
     val state by selectState<GlobalState, TrainingState> { this.trainingState }
+
+    val api = globalKoin().get<TrainingRepositoryImpl>()
+    val loader = rememberComposeCoroutineContext()
 
     Root(
         modifier = modifier.fillMaxSize(),
@@ -47,7 +71,12 @@ fun TrainingContent(
                     dispatcher(TrainingAction.ValidateExercises)
                     dispatcher(TrainingAction.CalculateDuration)
                     dispatcher(TrainingAction.CalculateValues)
-                    save?.invoke(state)
+                    loader.call {
+                        api.setTraining(training = state.toTraining())
+                            .onEach { dispatcher(NavigatorAction.NAVIGATE(Direction.Review)) }
+                            .catch { }
+                            .launchIn(this)
+                    }
                 }
             )
         },

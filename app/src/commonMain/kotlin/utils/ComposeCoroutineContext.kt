@@ -10,17 +10,17 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
 @Composable
-fun rememberComposeLoader(): ComposeLoader {
-    return remember { ComposeLoader() }
+fun rememberComposeCoroutineContext(): ComposeCoroutineContext {
+    return remember { ComposeCoroutineContext() }
 }
 
-class ComposeLoader : RememberObserver {
+class ComposeCoroutineContext : RememberObserver {
 
     private val scope = CoroutineScope(Dispatchers.Default)
     private var job: Job? = null
     private val tasks: MutableList<suspend CoroutineScope.() -> Unit> = mutableListOf()
 
-    fun load(task: suspend CoroutineScope.() -> Unit) {
+    fun call(task: suspend CoroutineScope.() -> Unit) {
         tasks.add(task)
         if (job?.isActive == true) {
             scope.launch(block = task)

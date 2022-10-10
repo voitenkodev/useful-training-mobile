@@ -1,8 +1,5 @@
 package presentation
 
-import AuthSource
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -10,22 +7,21 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import data.repository.AuthRepository
 import designsystem.atomic.DesignComponent
 import designsystem.components.Header
 import designsystem.components.Root
+import designsystem.components.buttons.QuestionButton
 import designsystem.components.inputs.InputEmail
 import designsystem.components.inputs.InputPassword
 import designsystem.controls.ButtonPrimary
-import designsystem.controls.ButtonSecondary
-import designsystem.controls.TextFieldBody2
 import designsystem.controls.TextFieldH2
+import globalKoin
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import org.koin.mp.KoinPlatformTools
 import redux.AuthAction
 import redux.AuthState
 import redux.Direction
@@ -33,20 +29,16 @@ import redux.GlobalState
 import redux.NavigatorAction
 import redux.rememberDispatcher
 import redux.selectState
-import utils.rememberComposeLoader
-
+import utils.rememberComposeCoroutineContext
 
 @Composable
-fun AuthContent(
-    modifier: Modifier = Modifier,
-) {
+fun AuthContent() {
 
-    // todo should be UseCase
-    val api = KoinPlatformTools.defaultContext().get().get<AuthSource>()
+    val api = globalKoin().get<AuthRepository>()
+    val launcher = rememberComposeCoroutineContext()
+
     val state by selectState<GlobalState, AuthState> { this.authState }
-
     val dispatcher = rememberDispatcher()
-    val loader = rememberComposeLoader()
 
     LaunchedEffect(Unit) {
         if (api.isAuthorized)
@@ -54,52 +46,9 @@ fun AuthContent(
     }
 
     Root(
-        modifier = modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize(),
         header = {
             Header(title = "\uD83D\uDC4B Welcome back!")
-        },
-        footer = {
-
-            ButtonPrimary(
-                modifier = Modifier.fillMaxWidth(),
-                text = "Log In",
-                onClick = {
-                    dispatcher(AuthAction.Validate)
-                    loader.load {
-                        api
-                            .login(state.email, state.password)
-                            .onEach { dispatcher(NavigatorAction.NAVIGATE(Direction.Trainings)) }
-                            .catch { }
-                            .launchIn(this)
-                    }
-                }
-            )
-
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(0.dp, Alignment.CenterHorizontally),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-
-                TextFieldBody2(
-                    text = "Don't have an account yet?",
-                    color = DesignComponent.colors.caption
-                )
-
-                ButtonSecondary(
-                    text = "Sign Up!",
-                    onClick = {
-                        dispatcher(AuthAction.Validate)
-                        loader.load {
-                            api
-                                .registration(state.email, state.password)
-                                .onEach { dispatcher(NavigatorAction.NAVIGATE(Direction.Trainings)) }
-                                .catch { }
-                                .launchIn(this)
-                        }
-                    }
-                )
-            }
         },
         content = {
 
@@ -129,6 +78,39 @@ fun AuthContent(
                     onValueChange = { dispatcher(AuthAction.SetPasswordAction(it)) }
                 )
             }
+        },
+        footer = {
+
+            ButtonPrimary(
+                modifier = Modifier.fillMaxWidth(),
+                text = "Log In",
+                onClick = {
+                    dispatcher(AuthAction.Validate)
+                    launcher.call {
+                        api
+                            .login(state.email, state.password)
+                            .onEach { dispatcher(NavigatorAction.NAVIGATE(Direction.Trainings)) }
+                            .catch { }
+                            .launchIn(this)
+                    }
+                }
+            )
+
+            QuestionButton(
+                modifier = Modifier.fillMaxWidth(),
+                question = "Don't have an account yet?",
+                answer = "Sign Up!",
+                onClick = {
+                    dispatcher(AuthAction.Validate)
+                    launcher.call {
+                        api
+                            .registration(state.email, state.password)
+                            .onEach { dispatcher(NavigatorAction.NAVIGATE(Direction.Trainings)) }
+                            .catch { }
+                            .launchIn(this)
+                    }
+                }
+            )
         }
     )
 }

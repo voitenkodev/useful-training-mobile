@@ -1,24 +1,17 @@
 package presentation
 
-import AuthSource
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Edit
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -27,22 +20,15 @@ import data.mapping.toTrainingStateList
 import data.repository.TrainingRepository
 import designsystem.atomic.BarChart
 import designsystem.atomic.DesignComponent
-import designsystem.components.ExerciseItem
-import designsystem.components.labels.WeekDayLabel
-import designsystem.controls.ButtonPrimary
-import designsystem.controls.DividerPrimary
 import designsystem.components.Header
-import designsystem.controls.IconPrimary
 import designsystem.components.Root
+import designsystem.components.items.TrainingItem
+import designsystem.controls.ButtonPrimary
+import designsystem.controls.IconPrimary
 import designsystem.controls.TextFieldBody2
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
-import org.koin.core.Koin
-import org.koin.core.component.KoinScopeComponent
-import org.koin.core.component.createScope
-import org.koin.core.scope.Scope
-import org.koin.dsl.KoinAppDeclaration
 import org.koin.mp.KoinPlatformTools
 import redux.Direction
 import redux.GlobalState
@@ -54,19 +40,17 @@ import redux.TrainingsAction
 import redux.TrainingsState
 import redux.rememberDispatcher
 import redux.selectState
-import utils.ComposeLoader
 
 @Composable
-fun TrainingsContent(
-    modifier: Modifier = Modifier,
-) {
-    val dispatcher = rememberDispatcher()
+fun TrainingsContent() {
+
+    val api = KoinPlatformTools.defaultContext().get().get<TrainingRepository>()
+
     val state by selectState<GlobalState, TrainingsState> { this.trainingsState }
+    val dispatcher = rememberDispatcher()
 
-    val trainingApi = KoinPlatformTools.defaultContext().get().get<TrainingRepository>()
-
-    LaunchedEffect(Unit){
-        trainingApi
+    LaunchedEffect(Unit) {
+        api
             .getTrainings()
             .map { it.toTrainingStateList() }
             .onEach { dispatcher(TrainingsAction.GetTrainings(it)) }
@@ -74,7 +58,7 @@ fun TrainingsContent(
     }
 
     Root(
-        modifier = modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize(),
         contentPadding = PaddingValues(
             top = DesignComponent.size.space,
             bottom = DesignComponent.size.space + 56.dp + DesignComponent.size.space,
@@ -90,7 +74,8 @@ fun TrainingsContent(
                 add = {
                     dispatcher(TrainingAction.PutTrainingAction(TrainingState()))
                     dispatcher(NavigatorAction.NAVIGATE(Direction.Training))
-                }
+                },
+                statistic = {}
             )
         },
         content = {
@@ -103,7 +88,7 @@ fun TrainingsContent(
 
                 items(it.value) { training ->
                     TrainingItem(
-                        trainingState = training,
+                        state = training,
                         edit = {
                             dispatcher(TrainingAction.PutTrainingAction(it))
                             dispatcher(TrainingAction.ProvideEmptyIterations)
@@ -143,7 +128,8 @@ private fun WeekItem(startOfWeek: String) = Row(
 @Composable
 private fun FloatingMenu(
     modifier: Modifier = Modifier,
-    add: () -> Unit
+    add: () -> Unit,
+    statistic: () -> Unit
 ) = Row(
     modifier = modifier,
     horizontalArrangement = Arrangement.spacedBy(DesignComponent.size.space)
@@ -157,132 +143,13 @@ private fun FloatingMenu(
         onClick = add
     )
     IconPrimary(
-        modifier = Modifier.size(56.dp).background(
-            color = DesignComponent.colors.accent_secondary,
-            shape = DesignComponent.shape.default
-        ),
+        modifier = Modifier
+            .size(56.dp)
+            .background(
+                color = DesignComponent.colors.accent_secondary,
+                shape = DesignComponent.shape.default
+            ),
         imageVector = BarChart,
-        onClick = {}
-    )
-}
-
-@Composable
-private fun TrainingItem(
-    trainingState: TrainingState,
-    edit: (TrainingState) -> Unit,
-    review: (TrainingState) -> Unit,
-) = Column(
-    modifier = Modifier.background(
-        color = DesignComponent.colors.secondary,
-        shape = DesignComponent.shape.default
-    ).padding(12.dp)
-) {
-
-    TrainingHeader(
-        modifier = Modifier.fillMaxWidth(),
-        trainingState = trainingState,
-        review = review,
-        edit = edit
-    )
-
-    DividerPrimary(modifier = Modifier.padding(bottom = 4.dp, top = 12.dp))
-
-    trainingState.exercises.forEachIndexed { index, item ->
-        ExerciseItem(
-            number = index + 1,
-            exercise = item
-        )
-    }
-
-    DividerPrimary(modifier = Modifier.padding(vertical = 12.dp))
-
-    TrainingFooter(
-        modifier = Modifier.fillMaxWidth(),
-        trainingState = trainingState
-    )
-}
-
-@Composable
-private fun TrainingHeader(
-    modifier: Modifier = Modifier,
-    trainingState: TrainingState,
-    review: (TrainingState) -> Unit,
-    edit: (TrainingState) -> Unit
-) = Row(
-    modifier = modifier,
-    horizontalArrangement = Arrangement.spacedBy(2.dp),
-    verticalAlignment = Alignment.CenterVertically,
-) {
-
-    WeekDayLabel(
-        modifier = Modifier.padding(end = 4.dp),
-        weekDay = trainingState.weekDay,
-    )
-
-    TextFieldBody2(
-        modifier = Modifier.padding(end = 4.dp),
-        text = "Start Time",
-        color = DesignComponent.colors.caption,
-    )
-
-    TextFieldBody2(
-        text = trainingState.startTime,
-        color = DesignComponent.colors.content,
-        fontWeight = FontWeight.Bold
-    )
-
-    Spacer(modifier = Modifier.weight(1f))
-
-    IconPrimary(
-        modifier = Modifier.height(20.dp),
-        imageVector = BarChart,
-        color = DesignComponent.colors.caption,
-        onClick = { review.invoke(trainingState) }
-    )
-
-    Spacer(modifier = Modifier.size(20.dp))
-
-    IconPrimary(
-        modifier = Modifier.height(20.dp),
-        imageVector = Icons.Default.Edit,
-        color = DesignComponent.colors.caption,
-        onClick = { edit.invoke(trainingState) }
-    )
-}
-
-@Composable
-private fun TrainingFooter(
-    modifier: Modifier = Modifier,
-    trainingState: TrainingState,
-) = Row(
-    modifier = modifier,
-    horizontalArrangement = Arrangement.spacedBy(2.dp),
-    verticalAlignment = Alignment.CenterVertically,
-) {
-
-    TextFieldBody2(
-        modifier = Modifier.padding(end = 4.dp),
-        text = "Duration",
-        color = DesignComponent.colors.caption,
-    )
-
-    TextFieldBody2(
-        text = trainingState.durationTime,
-        color = DesignComponent.colors.content,
-        fontWeight = FontWeight.Bold
-    )
-
-    Spacer(modifier = Modifier.weight(1f))
-
-    TextFieldBody2(
-        modifier = Modifier.padding(end = 4.dp),
-        text = "Tonnage",
-        color = DesignComponent.colors.caption,
-    )
-
-    TextFieldBody2(
-        text = "${trainingState.tonnage}kg",
-        color = DesignComponent.colors.content,
-        fontWeight = FontWeight.Bold
+        onClick = statistic
     )
 }

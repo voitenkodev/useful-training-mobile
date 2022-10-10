@@ -17,9 +17,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import data.repository.TrainingRepository
 import designsystem.atomic.DesignComponent
-import designsystem.components.CollapsedTrainingItem
-import designsystem.components.ExerciseItem
+import designsystem.components.items.CollapsedTrainingItem
+import designsystem.components.items.ExerciseItem
 import designsystem.components.Header
 import designsystem.components.LineChartBoard
 import designsystem.components.Root
@@ -27,18 +28,26 @@ import designsystem.components.labels.WeekDayLabel
 import designsystem.controls.ButtonSecondary
 import designsystem.controls.DividerPrimary
 import designsystem.controls.TextFieldBody2
+import globalKoin
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import redux.Direction
 import redux.GlobalState
 import redux.NavigatorAction
 import redux.ReviewState
 import redux.TrainingState
 import redux.rememberDispatcher
 import redux.selectState
+import utils.rememberComposeCoroutineContext
 
 @Composable
 fun ReviewContent(
     modifier: Modifier = Modifier,
-    remove: ((TrainingState) -> Unit)? = null
 ) {
+    val api = globalKoin().get<TrainingRepository>()
+    val loader = rememberComposeCoroutineContext()
+
     val dispatcher = rememberDispatcher()
     val state by selectState<GlobalState, ReviewState> { this.reviewState }
 
@@ -97,7 +106,15 @@ fun ReviewContent(
                 ButtonSecondary(
                     modifier = Modifier.fillMaxWidth(),
                     text = "Remove Training",
-                    onClick = { remove?.invoke(state.reviewTraining) },
+                    onClick = {
+                        loader.call {
+                            api
+                                .removeTraining(trainingId = state.reviewTraining.id ?: error("invalid Training ID"))
+                                .onEach { dispatcher(NavigatorAction.NAVIGATE(Direction.Trainings)) }
+                                .catch { }
+                                .launchIn(this)
+                        }
+                    },
                 )
             }
         }
