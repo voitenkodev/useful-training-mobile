@@ -9,7 +9,8 @@ import org.reduxkotlin.ReducerForActionType
 @Parcelize
 data class ReviewState(
     val reviewTraining: TrainingState = TrainingState(),
-    val otherTraining: List<TrainingState> = emptyList()
+    val compareTraining: TrainingState? = null,
+    val otherTrainings: List<TrainingState> = emptyList()
 ) : Parcelable
 
 sealed class ReviewAction(action: String) : Action(ReduxGroups.REVIEW, action) {
@@ -18,13 +19,19 @@ sealed class ReviewAction(action: String) : Action(ReduxGroups.REVIEW, action) {
         val selected: TrainingState,
         val all: List<TrainingState>
     ) : ReviewAction("GET_TRAINING_ACTION")
+
+    data class CompareTrainings(
+        val training: TrainingState? = null,
+    ) : ReviewAction("GET_TRAINING_ACTION")
 }
 
 val reviewReducer: ReducerForActionType<ReviewState, ReviewAction> = { state, action ->
     when (action) {
         is ReviewAction.GetTrainings -> state.copy(
             reviewTraining = action.selected,
-            otherTraining = action.all.filterNot { action.selected.id == it.id }
+            otherTrainings = action.all.filterNot { action.selected.id == it.id }
         )
+
+        is ReviewAction.CompareTrainings -> state.copy(compareTraining = action.training)
     }
 }

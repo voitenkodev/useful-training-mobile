@@ -1,6 +1,5 @@
 package presentation
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -20,13 +19,14 @@ import androidx.compose.ui.unit.dp
 import data.repository.TrainingRepository
 import designsystem.atomic.DesignComponent
 import designsystem.components.Header
-import designsystem.components.LineChartItem
 import designsystem.components.Root
 import designsystem.components.items.CollapsedTrainingItem
 import designsystem.components.items.ExerciseItem
+import designsystem.components.items.LineChartItem
 import designsystem.components.labels.WeekDayLabel
 import designsystem.controls.ButtonSecondary
 import designsystem.controls.DividerPrimary
+import designsystem.controls.PointLine
 import designsystem.controls.TextFieldBody2
 import designsystem.controls.secondaryBackground
 import globalKoin
@@ -36,6 +36,7 @@ import kotlinx.coroutines.flow.onEach
 import redux.Direction
 import redux.GlobalState
 import redux.NavigatorAction
+import redux.ReviewAction
 import redux.ReviewState
 import redux.TrainingState
 import redux.rememberDispatcher
@@ -63,7 +64,6 @@ fun ReviewContent(
         content = {
             item(key = "date") {
                 DateItem(
-                    modifier = Modifier,
                     weekDay = state.reviewTraining.weekDay,
                     startTime = state.reviewTraining.startTime,
                     startDate = state.reviewTraining.shortStartDate
@@ -74,6 +74,7 @@ fun ReviewContent(
                 ChartSection(
                     label = "Tonnage",
                     data = state.reviewTraining.exercises.map { it.tonnage.toFloat() },
+                    compareData = state.compareTraining?.exercises?.map { it.tonnage.toFloat() },
                     color = DesignComponent.colors.unique.color1,
                 )
             }
@@ -82,12 +83,16 @@ fun ReviewContent(
                 ChartSection(
                     label = "Intensity",
                     data = state.reviewTraining.exercises.map { it.intensity.toFloat() },
+                    compareData = state.compareTraining?.exercises?.map { it.intensity.toFloat() },
                     color = DesignComponent.colors.unique.color4,
                 )
             }
 
             item(key = "comparing") {
-                Comparing(state.otherTraining)
+                Comparing(
+                    list = state.otherTrainings,
+                    compare = { dispatcher(ReviewAction.CompareTrainings(it)) }
+                )
             }
 
             item(key = "summary") {
@@ -124,7 +129,8 @@ fun ReviewContent(
 
 @Composable
 private fun Comparing(
-    list: List<TrainingState>
+    list: List<TrainingState>,
+    compare: (TrainingState) -> Unit
 ) = Column(
     verticalArrangement = Arrangement.spacedBy(DesignComponent.size.space)
 ) {
@@ -139,14 +145,17 @@ private fun Comparing(
         horizontalArrangement = Arrangement.spacedBy(DesignComponent.size.space)
     ) {
         items(list) {
-            CollapsedTrainingItem(state = it)
+            CollapsedTrainingItem(
+                state = it,
+                onClick = compare
+            )
         }
     }
 }
 
 @Composable
 private fun DateItem(
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     weekDay: String,
     startTime: String,
     startDate: String
@@ -184,17 +193,32 @@ private fun DateItem(
 @Composable
 private fun ChartSection(
     label: String,
-    data: List<Float>,
     color: Color,
+    data: List<Float>,
+    compareData: List<Float>? = null,
 ) = LineChartItem(
     modifier = Modifier
         .fillMaxWidth()
         .aspectRatio(1.7f),
-    yPoints = data,
-    label = label,
-    lineColor = color,
-    fillColor = color.copy(alpha = 0.2f),
-    pointColor = color
+    lines = buildList {
+        add(
+            PointLine(
+                yValue = data,
+                lineColor = color,
+                fillColor = color.copy(alpha = 0.2f),
+                pointColor = DesignComponent.colors.content,
+                label = label
+            )
+        )
+        if (compareData != null) add(
+            PointLine(
+                yValue = compareData,
+                lineColor = DesignComponent.colors.caption,
+                fillColor = DesignComponent.colors.caption.copy(alpha = 0.2f),
+                label = "Compare"
+            )
+        )
+    }
 )
 
 @Composable

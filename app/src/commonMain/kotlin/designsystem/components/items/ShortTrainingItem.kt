@@ -1,5 +1,6 @@
 package designsystem.components.items
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -22,13 +23,15 @@ import redux.TrainingState
 @Composable
 fun CollapsedTrainingItem(
     modifier: Modifier = Modifier,
-    state: TrainingState
+    state: TrainingState,
+    onClick: (TrainingState) -> Unit
 ) = Column(
     modifier = modifier
         .width(250.dp)
         .height(150.dp)
         .secondaryBackground()
-        .padding(DesignComponent.size.space),
+        .padding(DesignComponent.size.space)
+        .clickable { onClick.invoke(state) },
 ) {
     Row(
         horizontalArrangement = Arrangement.spacedBy(2.dp),
