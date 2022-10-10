@@ -39,13 +39,12 @@ kotlin {
                 implementation(libs.uuid)
                 implementation(libs.redux)
                 implementation(libs.parcelize)
+                implementation(libs.koin.core)
 
                 implementation(compose.ui)
                 implementation(compose.foundation)
                 implementation(compose.material)
                 implementation(compose.runtime)
-
-                implementation("io.insert-koin:koin-core:3.2.0")
             }
         }
 
@@ -60,14 +59,11 @@ kotlin {
                 implementation("com.google.firebase:firebase-firestore:24.3.1")
                 // Accompanist
                 implementation("com.google.accompanist:accompanist-systemuicontroller:0.23.1")
-                // Koin
-                implementation("io.insert-koin:koin-androidx-compose:3.2.0")
-                implementation("io.insert-koin:koin-android:3.2.0")
-                // Chart
-                implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
                 // Coil
                 implementation("io.coil-kt:coil:2.2.2")
                 implementation("io.coil-kt:coil-compose:2.2.2")
+
+                implementation(libs.koin.android)
             }
         }
 

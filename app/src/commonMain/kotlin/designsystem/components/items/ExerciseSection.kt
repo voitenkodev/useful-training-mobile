@@ -15,10 +15,11 @@ import redux.TrainingState
 
 @Composable
 fun ExerciseItem(
+    modifier: Modifier = Modifier,
     number: Int,
     exercise: TrainingState.Exercise
 ) = Row(
-    modifier = Modifier.padding(top = 8.dp),
+    modifier = modifier.padding(top = 8.dp),
     horizontalArrangement = Arrangement.spacedBy(4.dp)
 ) {
     Row(

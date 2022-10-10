@@ -11,6 +11,7 @@ datetime-vers = "0.3.1"
 uuid-vers = "0.5.0"
 redux-vers = "0.5.5"
 parcelize-vers = "0.8.0"
+koin-vers = "3.2.0"
 
 #Android
 android-gradle-vers = "8.0.0-alpha02"
@@ -23,6 +24,10 @@ datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "d
 uuid = { module = "com.benasher44:uuid", version.ref = "uuid-vers" }
 redux = { module = "org.reduxkotlin:redux-kotlin-threadsafe", version.ref = "redux-vers" }
 parcelize = { module = "dev.icerock.moko:parcelize", version.ref = "parcelize-vers" }
+
+#KOIN
+koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin-vers" }
+koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin-vers" }
 
 #SQLDELIGHT
 sqldelight-common = { module = "com.squareup.sqldelight:runtime", version.ref = "sqldelight-vers" }

@@ -18,6 +18,7 @@ import designsystem.atomic.EyeOff
 import designsystem.components.labels.InputLabel
 import designsystem.controls.IconPrimary
 import designsystem.controls.InputFieldPrimary
+import designsystem.controls.secondaryBackground
 
 @Composable
 fun InputPassword(
@@ -31,7 +32,7 @@ fun InputPassword(
 
     InputFieldPrimary(
         modifier = modifier
-            .background(DesignComponent.colors.secondary, DesignComponent.shape.default)
+            .secondaryBackground()
             .padding(16.dp),
         value = value,
         onValueChange = onValueChange,

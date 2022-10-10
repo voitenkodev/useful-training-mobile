@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -18,9 +19,10 @@ import androidx.compose.ui.unit.dp
 import designsystem.atomic.DesignComponent
 import designsystem.controls.LineChart
 import designsystem.controls.TextFieldBody2
+import designsystem.controls.secondaryBackground
 
 @Composable
-fun LineChartBoard(
+fun LineChartItem(
     modifier: Modifier = Modifier,
     label: String,
     yPoints: List<Float>,
@@ -35,7 +37,9 @@ fun LineChartBoard(
     val quarterY = ((minY + middleY) / 2)
 
     Column(
-        modifier = modifier,
+        modifier = modifier
+            .secondaryBackground()
+            .padding(DesignComponent.size.space),
         verticalArrangement = Arrangement.spacedBy(DesignComponent.size.space)
     ) {
 

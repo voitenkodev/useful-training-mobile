@@ -1,6 +1,5 @@
 package designsystem.components.items
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -17,6 +16,7 @@ import designsystem.atomic.DesignComponent
 import designsystem.components.labels.WeekDayLabel
 import designsystem.controls.DividerPrimary
 import designsystem.controls.TextFieldBody2
+import designsystem.controls.secondaryBackground
 import redux.TrainingState
 
 @Composable
@@ -27,10 +27,8 @@ fun CollapsedTrainingItem(
     modifier = modifier
         .width(250.dp)
         .height(150.dp)
-        .background(
-            color = DesignComponent.colors.secondary,
-            shape = DesignComponent.shape.default
-        ).padding(DesignComponent.size.space),
+        .secondaryBackground()
+        .padding(DesignComponent.size.space),
 ) {
     Row(
         horizontalArrangement = Arrangement.spacedBy(2.dp),

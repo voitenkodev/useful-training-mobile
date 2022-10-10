@@ -1,5 +1,6 @@
 package designsystem.atomic
 
+import androidx.compose.foundation.background
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -27,10 +28,9 @@ fun DesignTheme(
 
     content = {
         Surface(
-            modifier = modifier,
-            color = DesignComponent.colors.primary
-        ) {
-            content.invoke()
-        }
+            modifier = Modifier.background(DesignComponent.colors.primary).then(modifier),
+            color = DesignComponent.colors.primary,
+            content = content
+        )
     }
 )

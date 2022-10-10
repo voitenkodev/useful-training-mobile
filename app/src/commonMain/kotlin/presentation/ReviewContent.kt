@@ -19,15 +19,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import data.repository.TrainingRepository
 import designsystem.atomic.DesignComponent
+import designsystem.components.Header
+import designsystem.components.LineChartItem
+import designsystem.components.Root
 import designsystem.components.items.CollapsedTrainingItem
 import designsystem.components.items.ExerciseItem
-import designsystem.components.Header
-import designsystem.components.LineChartBoard
-import designsystem.components.Root
 import designsystem.components.labels.WeekDayLabel
 import designsystem.controls.ButtonSecondary
 import designsystem.controls.DividerPrimary
 import designsystem.controls.TextFieldBody2
+import designsystem.controls.secondaryBackground
 import globalKoin
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
@@ -185,10 +186,10 @@ private fun ChartSection(
     label: String,
     data: List<Float>,
     color: Color,
-) = LineChartBoard(
+) = LineChartItem(
     modifier = Modifier
         .fillMaxWidth()
-        .aspectRatio(1.8f),
+        .aspectRatio(1.7f),
     yPoints = data,
     label = label,
     lineColor = color,
@@ -210,10 +211,9 @@ private fun Summary(
     )
 
     Column(
-        modifier = Modifier.background(
-            color = DesignComponent.colors.secondary,
-            shape = DesignComponent.shape.default
-        ).padding(horizontal = DesignComponent.size.space),
+        modifier = Modifier
+            .secondaryBackground()
+            .padding(horizontal = DesignComponent.size.space),
     ) {
 
         Section(
@@ -241,9 +241,7 @@ private fun Summary(
 }
 
 @Composable
-private fun Section(
-    label: String, value: String
-) {
+private fun Section(label: String, value: String) {
     Row(
         modifier = Modifier.fillMaxWidth().padding(vertical = DesignComponent.size.space),
         horizontalArrangement = Arrangement.SpaceBetween
