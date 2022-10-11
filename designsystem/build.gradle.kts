@@ -12,10 +12,6 @@ kotlin {
     iosX64("uikitX64")
     iosArm64("uikitArm64")
 
-//    lint {
-//        isWarningsAsErrors = true
-//        isAbortOnError = true
-//    }
 
     sourceSets {
         val commonMain by getting {
@@ -29,19 +25,12 @@ kotlin {
 
         val androidMain by getting {}
         val uikitMain by creating { dependsOn(commonMain) }
-        val uikitX64Main by getting { dependsOn(uikitMain) }
-        val uikitArm64Main by getting { dependsOn(uikitMain) }
     }
 
     kotlin.sourceSets.all {
-        languageSettings.optIn("kotlinx.coroutines.ExperimentalCoroutinesApi")
-        languageSettings.optIn("androidx.compose.ui.unit.ExperimentalUnitApi")
         languageSettings.optIn("androidx.compose.ui.text.ExperimentalTextApi")
         languageSettings.optIn("androidx.compose.foundation.ExperimentalFoundationApi")
         languageSettings.optIn("androidx.compose.ui.ExperimentalComposeUiApi")
-        languageSettings.optIn("androidx.compose.material.ExperimentalMaterialApi")
-        languageSettings.optIn("androidx.compose.animation.ExperimentalAnimationApi")
-        languageSettings.optIn("kotlin.time.ExperimentalTime")
     }
 }
 
@@ -50,10 +39,4 @@ android {
     compileSdk = 33
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     defaultConfig { minSdk = 21 }
-}
-
-kotlin {
-    targets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget> {
-        binaries.all { freeCompilerArgs += "-Xdisable-phases=VerifyBitcode" }
-    }
 }

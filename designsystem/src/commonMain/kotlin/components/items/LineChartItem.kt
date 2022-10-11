@@ -3,7 +3,7 @@ package components.items
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import atomic.DesignComponent
+import DesignComponent
 import components.LineChart
 import controls.secondaryBackground
 import models.PointLineComponent

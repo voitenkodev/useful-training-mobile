@@ -7,7 +7,7 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import atomic.DesignComponent
+import DesignComponent
 import components.Header
 import components.Root
 import components.items.EditExerciseItem

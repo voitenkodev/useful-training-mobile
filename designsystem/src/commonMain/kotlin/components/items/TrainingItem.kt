@@ -15,7 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import atomic.DesignComponent
+import DesignComponent
 import atomic.icons.BarChart
 import components.labels.WeekDayLabel
 import controls.DividerPrimary
@@ -77,7 +77,7 @@ private fun TrainingHeader(
 
     WeekDayLabel(
         modifier = Modifier.padding(end = 4.dp),
-        weekDay = weekDay,
+        weekDayEnglish = weekDay,
     )
 
     TextFieldBody2(

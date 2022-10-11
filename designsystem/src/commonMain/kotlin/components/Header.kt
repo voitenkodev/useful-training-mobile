@@ -9,7 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
-import atomic.DesignComponent
+import DesignComponent
 import atomic.icons.BarChart
 import atomic.icons.Save
 import controls.IconPrimary

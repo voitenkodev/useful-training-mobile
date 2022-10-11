@@ -13,7 +13,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import atomic.DesignComponent
+import DesignComponent
 import components.labels.InputLabel
 import controls.IconPrimary
 import controls.InputFieldPrimary

@@ -17,7 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import atomic.DesignComponent
+import DesignComponent
 import components.Header
 import components.Root
 import components.items.ExerciseItem
@@ -168,7 +168,7 @@ private fun DateItem(
 
     WeekDayLabel(
         modifier = Modifier.padding(end = 4.dp),
-        weekDay = weekDay
+        weekDayEnglish = weekDay
     )
 
     TextFieldBody2(

@@ -1,7 +1,9 @@
-package atomic
-
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.staticCompositionLocalOf
+import atomic.AppColors
+import atomic.AppShape
+import atomic.AppSize
+import atomic.AppTypography
 
 object DesignComponent {
 

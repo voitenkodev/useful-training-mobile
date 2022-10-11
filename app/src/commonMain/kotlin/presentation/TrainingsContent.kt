@@ -16,7 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import atomic.DesignComponent
+import DesignComponent
 import atomic.icons.BarChart
 import components.Header
 import components.Root

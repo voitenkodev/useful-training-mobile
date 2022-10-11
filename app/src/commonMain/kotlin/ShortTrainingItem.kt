@@ -11,7 +11,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import atomic.DesignComponent
 import components.labels.WeekDayLabel
 import controls.DividerPrimary
 import controls.TextFieldBody2
@@ -38,7 +37,7 @@ fun CollapsedTrainingItem(
 
         WeekDayLabel(
             modifier = Modifier.padding(end = 4.dp),
-            weekDay = state.weekDay,
+            weekDayEnglish = state.weekDay,
         )
 
         TextFieldBody2(

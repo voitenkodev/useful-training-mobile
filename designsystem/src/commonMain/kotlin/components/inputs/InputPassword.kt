@@ -11,7 +11,7 @@ import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.*
 import androidx.compose.ui.unit.dp
-import atomic.DesignComponent
+import DesignComponent
 import atomic.icons.Eye
 import atomic.icons.EyeOff
 import components.labels.InputLabel
