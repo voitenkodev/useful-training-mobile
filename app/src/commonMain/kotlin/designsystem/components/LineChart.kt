@@ -18,7 +18,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import designsystem.atomic.DesignComponent
-import designsystem.controls.LineChartCanvas
+import designsystem.controls.LineChartCore
 import designsystem.controls.PointLine
 import designsystem.controls.TextFieldBody2
 
@@ -57,7 +57,7 @@ fun LineChart(
             )
 
             Column {
-                LineChartCanvas(
+                LineChartCore(
                     modifier = Modifier.weight(1f).fillMaxWidth(),
                     lines = lines
                 )

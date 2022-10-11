@@ -23,7 +23,7 @@ data class PointLine(
 )
 
 @Composable
-fun LineChartCanvas(
+fun LineChartCore(
     modifier: Modifier = Modifier,
     lines: List<PointLine>
 ) {
