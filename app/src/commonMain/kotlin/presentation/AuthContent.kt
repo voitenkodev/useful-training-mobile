@@ -29,7 +29,7 @@ import redux.GlobalState
 import redux.NavigatorAction
 import redux.rememberDispatcher
 import redux.selectState
-import utils.rememberComposeCoroutineContext
+import rememberComposeCoroutineContext
 
 @Composable
 fun AuthContent() {

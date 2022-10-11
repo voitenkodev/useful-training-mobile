@@ -33,6 +33,8 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(project(":designsystem"))
+                implementation(project(":core"))
+
                 implementation(libs.coroutines)
                 implementation(libs.datetime)
                 implementation(libs.logger)

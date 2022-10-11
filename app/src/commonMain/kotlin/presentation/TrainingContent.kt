@@ -26,7 +26,7 @@ import redux.TrainingAction
 import redux.TrainingState
 import redux.rememberDispatcher
 import redux.selectState
-import utils.rememberComposeCoroutineContext
+import rememberComposeCoroutineContext
 
 @Composable
 fun TrainingContent(

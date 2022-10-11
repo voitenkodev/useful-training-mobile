@@ -1,6 +1,5 @@
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import DesignTheme
 import navigation.GlobalGraph
 import navigation.NavigatorState
 import redux.StoreProvider

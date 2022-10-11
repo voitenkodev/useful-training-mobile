@@ -1,5 +1,3 @@
-package navigation
-
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedContentScope
 import androidx.compose.animation.AnimatedVisibilityScope
@@ -21,16 +19,15 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveableStateHolder
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import redux.Direction
 
 @Composable
-fun AnimatedHost(
-    currentScreen: Direction?,
-    screenToRemove: Direction?,
-    animationType: AnimationType,
+fun NavigationHost(
+    currentScreen: String?,
+    screenToRemove: String?,
+    animationType: AnimationType = AnimationType.Push(300),
     isForward: Boolean,
-    onScreenRemove: ((Direction) -> Unit)? = null,
-    content: @Composable (Direction) -> Unit
+    onScreenRemove: ((String) -> Unit)? = null,
+    content: @Composable (String) -> Unit
 ) {
     val stateHolder = rememberSaveableStateHolder()
 
@@ -40,14 +37,14 @@ fun AnimatedHost(
         isForwardDirection = isForward,
         content = { direct ->
             if (direct != null) {
-                stateHolder.SaveableStateProvider(direct.route) { content(direct) }
+                stateHolder.SaveableStateProvider(direct) { content(direct) }
             }
         }
     )
 
     LaunchedEffect(currentScreen, screenToRemove) {
         screenToRemove?.let {
-            stateHolder.removeState(it.route)
+            stateHolder.removeState(it)
             onScreenRemove?.invoke(it)
         }
     }

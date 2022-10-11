@@ -1,8 +1,9 @@
 package navigation
 
-import platform.BackHandler
+import NavigationHost
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import platform.BackHandler
 import redux.Direction
 import redux.GlobalState
 import redux.NavigatorAction
@@ -16,12 +17,11 @@ fun NavigatorState(graph: @Composable (Direction) -> Unit) {
     val state by selectState<GlobalState, NavigatorState> { this.navigatorState }
     val dispatcher = rememberDispatcher()
 
-    AnimatedHost(
-        currentScreen = state.added,
-        screenToRemove = state.removed,
-        animationType = AnimationType.Push(300),
+    NavigationHost(
+        currentScreen = state.added.route,
+        screenToRemove = state.removed?.route,
         isForward = state.type == redux.TransitionType.FORWARD,
-        content = graph
+        content = { direct -> Direction.values().find { it.route == direct }?.let { graph.invoke(it) } }
     )
 
     BackHandler(action = { dispatcher(NavigatorAction.BACK) })

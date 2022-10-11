@@ -17,11 +17,11 @@ sealed class NavigatorAction(action: String) : Action(ReduxGroups.NAVIGATOR, act
 
 enum class TransitionType { FORWARD, BACK }
 
-sealed class Direction(val route: String) {
-    object Auth : Direction(route = "auth_screen")
-    object Trainings : Direction(route = "trainings_screen")
-    object Training : Direction(route = "training_screen")
-    object Review : Direction(route = "review_screen")
+enum class Direction(val route: String) {
+    Auth(route = "auth_screen"),
+    Trainings(route = "trainings_screen"),
+    Training(route = "training_screen"),
+    Review(route = "review_screen")
 }
 
 val navigatorReducer: ReducerForActionType<NavigatorState, NavigatorAction> = { state, action ->
