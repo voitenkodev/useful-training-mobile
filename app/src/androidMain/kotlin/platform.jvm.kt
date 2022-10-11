@@ -28,44 +28,6 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.tasks.await
 import kotlin.coroutines.CoroutineContext
 
-@Composable
-actual fun BackHandler(action: () -> Unit) {
-
-    val currentOnBack by rememberUpdatedState(action)
-    val backCallback = remember {
-        object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                currentOnBack()
-            }
-        }
-    }
-
-    val backDispatcher = checkNotNull(LocalOnBackPressedDispatcherOwner.current) {
-        "No OnBackPressedDispatcherOwner was provided via LocalOnBackPressedDispatcherOwner"
-    }.onBackPressedDispatcher
-    val lifecycleOwner = LocalLifecycleOwner.current
-
-    DisposableEffect(lifecycleOwner, backDispatcher) {
-        backDispatcher.addCallback(lifecycleOwner, backCallback)
-        onDispose { backCallback.remove() }
-    }
-}
-
-@Composable
-actual fun RemoteImage(imageUrl: String, modifier: Modifier, contentDescription: String?) {
-    val model = ImageRequest.Builder(LocalContext.current)
-        .data(imageUrl)
-        .placeholder(0)
-        .build()
-
-    AsyncImage(
-        modifier = modifier,
-        model = model,
-        contentDescription = contentDescription,
-        contentScale = ContentScale.Crop,
-    )
-}
-
 actual class AuthSource : AuthProtocol {
 
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
@@ -205,8 +167,3 @@ actual class TrainingSource : TrainingProtocol {
     }.map { }.flowOn(dispatcher)
 }
 
-actual val defaultDispatcher: CoroutineContext = Dispatchers.Default
-
-actual val ioDispatcher: CoroutineContext = Dispatchers.IO
-
-actual val uiDispatcher: CoroutineContext = Dispatchers.Main

@@ -1,6 +1,6 @@
 package navigation
 
-import BackHandler
+import platform.BackHandler
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import redux.Direction

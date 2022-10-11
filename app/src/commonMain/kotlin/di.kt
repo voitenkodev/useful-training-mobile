@@ -9,6 +9,9 @@ import org.koin.dsl.KoinAppDeclaration
 import org.koin.dsl.bind
 import org.koin.dsl.module
 import org.koin.mp.KoinPlatformTools
+import platform.defaultDispatcher
+import platform.ioDispatcher
+import platform.uiDispatcher
 
 fun initCommonKoin(
     appDeclaration: KoinAppDeclaration = {},
@@ -25,7 +28,7 @@ val appModule = module {
     single { TrainingSource() } bind TrainingProtocol::class
 
     single(named("DEFAULT")) { defaultDispatcher }
-    single(named("IO")) { defaultDispatcher }
+    single(named("IO")) { ioDispatcher }
     single(named("MAIN")) { uiDispatcher }
 
     single { TrainingRepositoryImpl(get(), get(), get(named("IO"))) } bind TrainingRepository::class
