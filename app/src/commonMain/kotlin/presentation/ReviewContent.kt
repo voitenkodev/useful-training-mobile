@@ -1,6 +1,6 @@
 package presentation
 
-import CollapsedTrainingItem
+import DesignComponent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -17,11 +17,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import DesignComponent
 import components.Header
 import components.Root
 import components.items.ExerciseItem
 import components.items.LineChartItem
+import components.items.ShortTrainingItem
 import components.labels.WeekDayLabel
 import controls.ButtonSecondary
 import controls.DividerPrimary
@@ -34,6 +34,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import models.PointLineComponent
 import presentation.map.toExerciseComponent
+import presentation.map.toTrainingComponent
 import redux.Direction
 import redux.GlobalState
 import redux.NavigatorAction
@@ -146,9 +147,9 @@ private fun Comparing(
         horizontalArrangement = Arrangement.spacedBy(DesignComponent.size.space)
     ) {
         items(list) {
-            CollapsedTrainingItem(
-                state = it,
-                onClick = compare
+            ShortTrainingItem(
+                training = it.toTrainingComponent(),
+                onClick = { compare.invoke(it) }
             )
         }
     }

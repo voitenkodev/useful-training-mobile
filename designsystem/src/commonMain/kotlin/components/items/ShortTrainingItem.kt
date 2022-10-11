@@ -21,7 +21,7 @@ import controls.secondaryBackground
 import models.TrainingComponent
 
 @Composable
-fun CollapsedTrainingItem(
+fun ShortTrainingItem(
     modifier: Modifier = Modifier,
     training: TrainingComponent,
     onClick: () -> Unit
