@@ -27,3 +27,4 @@ pluginManagement {
 
 rootProject.name = "UsefulTraining"
 include(":app")
+include(":designsystem")

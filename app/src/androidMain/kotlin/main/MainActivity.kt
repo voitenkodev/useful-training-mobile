@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.core.view.WindowCompat
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
-import designsystem.atomic.DesignTheme
+import atomic.DesignTheme
 import navigation.GlobalGraph
 import navigation.NavigatorState
 import redux.StoreProvider

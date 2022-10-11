@@ -45,6 +45,7 @@ ktor-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor-vers"
 
 [plugins]
 android-app = { id = "com.android.application", version.ref = "android-gradle-vers" }
+android-library = { id = "com.android.library", version.ref = "android-gradle-vers" }
 multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin-vers" }
 serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin-vers" }
 parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin-vers" }

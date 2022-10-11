@@ -16,20 +16,21 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import atomic.DesignComponent
+import atomic.icons.BarChart
+import components.Header
+import components.Root
+import components.items.TrainingItem
+import controls.ButtonPrimary
+import controls.IconPrimary
+import controls.TextFieldBody2
 import data.mapping.toTrainingStateList
 import data.repository.TrainingRepository
-import designsystem.atomic.BarChart
-import designsystem.atomic.DesignComponent
-import designsystem.components.Header
-import designsystem.components.Root
-import designsystem.components.items.TrainingItem
-import designsystem.controls.ButtonPrimary
-import designsystem.controls.IconPrimary
-import designsystem.controls.TextFieldBody2
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import org.koin.mp.KoinPlatformTools
+import presentation.map.toTrainingComponent
 import redux.Direction
 import redux.GlobalState
 import redux.NavigatorAction
@@ -88,14 +89,14 @@ fun TrainingsContent() {
 
                 items(it.value) { training ->
                     TrainingItem(
-                        state = training,
+                        training = training.toTrainingComponent(),
                         edit = {
-                            dispatcher(TrainingAction.PutTrainingAction(it))
+                            dispatcher(TrainingAction.PutTrainingAction(training))
                             dispatcher(TrainingAction.ProvideEmptyIterations)
                             dispatcher(NavigatorAction.NAVIGATE(Direction.Training))
                         },
                         review = {
-                            dispatcher(ReviewAction.GetTrainings(selected = it, all = state.trainings))
+                            dispatcher(ReviewAction.GetTrainings(selected = training, all = state.trainings))
                             dispatcher(NavigatorAction.NAVIGATE(Direction.Review))
                         }
                     )

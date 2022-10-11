@@ -1,6 +1,6 @@
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import designsystem.atomic.DesignTheme
+import atomic.DesignTheme
 import navigation.GlobalGraph
 import navigation.NavigatorState
 import redux.StoreProvider

@@ -7,17 +7,18 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import atomic.DesignComponent
+import components.Header
+import components.Root
+import components.items.EditExerciseItem
+import controls.ButtonPrimary
 import data.mapping.toTraining
 import data.repository.TrainingRepositoryImpl
-import designsystem.atomic.DesignComponent
-import designsystem.components.Header
-import designsystem.components.Root
-import designsystem.components.items.EditExerciseItem
-import designsystem.controls.ButtonPrimary
 import globalKoin
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import presentation.map.toExerciseComponent
 import redux.Direction
 import redux.GlobalState
 import redux.NavigatorAction
@@ -66,7 +67,7 @@ fun TrainingContent(
                 EditExerciseItem(
                     modifier = Modifier.animateItemPlacement(),
                     number = index + 1,
-                    state = exercise,
+                    exercise = exercise.toExerciseComponent(),
                     updateName = { dispatcher(TrainingAction.SetNameExerciseAction(exerciseId = exercise.id, value = it)) },
                     removeExercise = { dispatcher(TrainingAction.RemoveExerciseAction(exerciseId = exercise.id)) },
                     updateWeight = { num, value ->

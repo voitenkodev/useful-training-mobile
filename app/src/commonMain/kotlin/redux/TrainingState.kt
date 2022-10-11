@@ -156,7 +156,7 @@ fun TrainingState.addExercise(): TrainingState {
 fun TrainingState.validate(): TrainingState {
     val exercises = exercises.mapNotNull {
         val isNameValid = it.name.isNotBlank()
-        val iterations = it.iterations.filter {iteration ->
+        val iterations = it.iterations.filter { iteration ->
             val repeat = iteration.repeat.toIntOrNull()
             val weight = iteration.weight.toDoubleOrNull()
             val isRepeatValid = repeat != null && repeat > 0.0

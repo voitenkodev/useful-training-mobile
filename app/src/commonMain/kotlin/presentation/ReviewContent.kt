@@ -1,5 +1,6 @@
 package presentation
 
+import CollapsedTrainingItem
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -16,23 +17,23 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import atomic.DesignComponent
+import components.Header
+import components.Root
+import components.items.ExerciseItem
+import components.items.LineChartItem
+import components.labels.WeekDayLabel
+import controls.ButtonSecondary
+import controls.DividerPrimary
+import controls.TextFieldBody2
+import controls.secondaryBackground
 import data.repository.TrainingRepository
-import designsystem.atomic.DesignComponent
-import designsystem.components.Header
-import designsystem.components.Root
-import designsystem.components.items.CollapsedTrainingItem
-import designsystem.components.items.ExerciseItem
-import designsystem.components.items.LineChartItem
-import designsystem.components.labels.WeekDayLabel
-import designsystem.controls.ButtonSecondary
-import designsystem.controls.DividerPrimary
-import designsystem.controls.PointLine
-import designsystem.controls.TextFieldBody2
-import designsystem.controls.secondaryBackground
 import globalKoin
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import models.PointLineComponent
+import presentation.map.toExerciseComponent
 import redux.Direction
 import redux.GlobalState
 import redux.NavigatorAction
@@ -103,7 +104,7 @@ fun ReviewContent(
                 state.reviewTraining.exercises.forEachIndexed { index, item ->
                     ExerciseItem(
                         number = index + 1,
-                        exercise = item
+                        exercise = item.toExerciseComponent()
                     )
                 }
             }
@@ -202,7 +203,7 @@ private fun ChartSection(
         .aspectRatio(1.7f),
     lines = buildList {
         add(
-            PointLine(
+            PointLineComponent(
                 yValue = data,
                 lineColor = color,
                 fillColor = color.copy(alpha = 0.2f),
@@ -211,7 +212,7 @@ private fun ChartSection(
             )
         )
         if (compareData != null) add(
-            PointLine(
+            PointLineComponent(
                 yValue = compareData,
                 lineColor = DesignComponent.colors.caption,
                 fillColor = DesignComponent.colors.caption.copy(alpha = 0.2f),
