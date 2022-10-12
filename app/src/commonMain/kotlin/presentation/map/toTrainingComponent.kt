@@ -3,7 +3,7 @@ package presentation.map
 import models.ExerciseComponent
 import models.IterationComponent
 import models.TrainingComponent
-import redux.TrainingState
+import presentation.training.TrainingState
 
 fun TrainingState.toTrainingComponent() = TrainingComponent(
     exercises = exercises.map { it.toExerciseComponent() },

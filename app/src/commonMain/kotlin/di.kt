@@ -9,9 +9,6 @@ import org.koin.dsl.KoinAppDeclaration
 import org.koin.dsl.bind
 import org.koin.dsl.module
 import org.koin.mp.KoinPlatformTools
-import platform.defaultDispatcher
-import platform.ioDispatcher
-import platform.uiDispatcher
 
 fun initCommonKoin(
     appDeclaration: KoinAppDeclaration = {},

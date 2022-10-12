@@ -12,7 +12,7 @@ kotlin {
 
     iosX64("uikitX64").binaries.executable {
         entryPoint = "main"
-        freeCompilerArgs += listOf(
+        freeCompilerArgs = freeCompilerArgs + listOf(
             "-linker-option", "-framework", "-linker-option", "Metal",
             "-linker-option", "-framework", "-linker-option", "CoreText",
             "-linker-option", "-framework", "-linker-option", "CoreGraphics"
@@ -20,23 +20,22 @@ kotlin {
     }
     iosArm64("uikitArm64").binaries.executable {
         entryPoint = "main"
-        freeCompilerArgs += listOf(
+        freeCompilerArgs = freeCompilerArgs + listOf(
             "-linker-option", "-framework", "-linker-option", "Metal",
             "-linker-option", "-framework", "-linker-option", "CoreText",
             "-linker-option", "-framework", "-linker-option", "CoreGraphics"
         )
         // TODO: the current compose binary surprises LLVM, so disable checks for now.
-        freeCompilerArgs += "-Xdisable-phases=VerifyBitcode"
+        freeCompilerArgs = freeCompilerArgs + "-Xdisable-phases=VerifyBitcode"
     }
 
     sourceSets {
         val commonMain by getting {
             dependencies {
                 implementation(project(":designsystem"))
-                implementation(project(":core"))
+                implementation(project(":utils"))
 
                 implementation(libs.coroutines)
-                implementation(libs.datetime)
                 implementation(libs.logger)
                 implementation(libs.serialization)
                 implementation(libs.uuid)
@@ -62,20 +61,12 @@ kotlin {
                 implementation("com.google.firebase:firebase-firestore:24.3.1")
                 // Accompanist
                 implementation("com.google.accompanist:accompanist-systemuicontroller:0.23.1")
-                // Coil
-                implementation("io.coil-kt:coil:2.2.2")
-                implementation("io.coil-kt:coil-compose:2.2.2")
 
                 implementation(libs.koin.android)
             }
         }
 
-        val iosMain by creating {
-            dependsOn(commonMain)
-            dependencies {
-                implementation("io.github.qdsfdhvh:image-loader:1.1.9")
-            }
-        }
+        val iosMain by creating { dependsOn(commonMain) }
         val uikitMain by creating { dependsOn(iosMain) }
         val uikitX64Main by getting { dependsOn(uikitMain) }
         val uikitArm64Main by getting { dependsOn(uikitMain) }
@@ -127,6 +118,6 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
 // TODO: the current compose binary surprises LLVM, so disable checks for now.
 kotlin {
     targets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget> {
-        binaries.all { freeCompilerArgs += "-Xdisable-phases=VerifyBitcode" }
+        binaries.all { freeCompilerArgs = freeCompilerArgs + "-Xdisable-phases=VerifyBitcode" }
     }
 }

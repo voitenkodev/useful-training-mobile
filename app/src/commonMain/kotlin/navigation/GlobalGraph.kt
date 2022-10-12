@@ -1,11 +1,11 @@
 package navigation
 
 import androidx.compose.runtime.Composable
-import presentation.AuthContent
-import presentation.ReviewContent
-import presentation.TrainingContent
-import presentation.TrainingsContent
-import redux.Direction
+import presentation.auth.AuthContent
+import presentation.review.ReviewContent
+import presentation.training.TrainingContent
+import presentation.trainings.TrainingsContent
+import Direction
 
 @Composable
 fun GlobalGraph(direction: Direction) = when (direction) {

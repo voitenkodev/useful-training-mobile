@@ -8,10 +8,8 @@ plugins {
 
 kotlin {
     android()
-    iosSimulatorArm64()
     iosX64("uikitX64")
     iosArm64("uikitArm64")
-
 
     sourceSets {
         val commonMain by getting {
