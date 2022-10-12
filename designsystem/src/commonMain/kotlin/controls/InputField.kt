@@ -1,9 +1,17 @@
 package controls
 
+import DesignComponent
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.Orientation
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -20,7 +28,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import DesignComponent
 
 @Composable
 fun InputFieldPrimary(
@@ -136,7 +143,7 @@ internal fun InputField(
         value = value ?: String(),
         onValueChange = {
             val v = if (maxLength != null) it.take(maxLength) else it
-            val digitsFilter = if (digits.isNotEmpty()) v.filter { digits.contains(it) } else v
+            val digitsFilter = if (digits.isNotEmpty()) v.filter { char -> digits.contains(char) } else v
             onValueChange.invoke(digitsFilter)
         },
         enabled = enabled,

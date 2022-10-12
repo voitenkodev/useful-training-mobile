@@ -9,13 +9,13 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.path
 import androidx.compose.ui.unit.dp
 
-private var _save: ImageVector? = null
-public val Save: ImageVector
+private var innerSave: ImageVector? = null
+val Save: ImageVector
     get() {
-        if (_save != null) {
-            return _save!!
+        if (innerSave != null) {
+            return innerSave!!
         }
-        _save = ImageVector.Builder(
+        innerSave = ImageVector.Builder(
             name = "Save", defaultWidth = 24.0.dp, defaultHeight = 24.0.dp,
             viewportWidth = 24.0f, viewportHeight = 24.0f
         ).apply {
@@ -25,13 +25,13 @@ public val Save: ImageVector
             ) {
                 moveTo(19.0f, 21.0f)
                 horizontalLineTo(5.0f)
-                arcToRelative(2.0f, 2.0f, 0.0f, false, true, -2.0f, -2.0f)
+                arcToRelative(2.0f, 2.0f, 0.0f, isMoreThanHalf = false, isPositiveArc = true, dx1 = -2.0f, dy1 = -2.0f)
                 verticalLineTo(5.0f)
-                arcToRelative(2.0f, 2.0f, 0.0f, false, true, 2.0f, -2.0f)
+                arcToRelative(2.0f, 2.0f, 0.0f, isMoreThanHalf = false, isPositiveArc = true, dx1 = 2.0f, dy1 = -2.0f)
                 horizontalLineToRelative(11.0f)
                 lineToRelative(5.0f, 5.0f)
                 verticalLineToRelative(11.0f)
-                arcToRelative(2.0f, 2.0f, 0.0f, false, true, -2.0f, 2.0f)
+                arcToRelative(2.0f, 2.0f, 0.0f, false, isPositiveArc = true, dx1 = -2.0f, dy1 = 2.0f)
                 close()
             }
             path(fill = SolidColor(Color(0x00000000)), stroke = SolidColor(Color(0xFF000000)),
@@ -53,5 +53,5 @@ public val Save: ImageVector
             }
         }
             .build()
-        return _save!!
+        return innerSave!!
     }

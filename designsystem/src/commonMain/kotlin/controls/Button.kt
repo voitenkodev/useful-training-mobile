@@ -1,10 +1,15 @@
 package controls
 
+import DesignComponent
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.*
+import androidx.compose.material.ButtonColors
+import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -13,7 +18,6 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import DesignComponent
 
 @Composable
 fun ButtonPrimary(
@@ -23,17 +27,17 @@ fun ButtonPrimary(
     leadIcon: ImageVector? = null,
     onClick: () -> Unit,
 ) {
-    val _textColor = DesignComponent.colors.content
-    val _backgroundColor = DesignComponent.colors.accent_primary
+    val innerTextColor = DesignComponent.colors.content
+    val innerBackgroundColor = DesignComponent.colors.accent_primary
 
     Button(
         modifier = modifier,
         text = text.uppercase(),
-        textStyle = DesignComponent.typography.PrimaryButton.copy(color = _textColor, fontWeight = FontWeight.Bold),
+        textStyle = DesignComponent.typography.PrimaryButton.copy(color = innerTextColor, fontWeight = FontWeight.Bold),
         contentPadding = PaddingValues(16.dp),
         enabled = enabled,
         onClick = onClick,
-        colors = ButtonDefaults.buttonColors(backgroundColor = _backgroundColor),
+        colors = ButtonDefaults.buttonColors(backgroundColor = innerBackgroundColor),
         shape = DesignComponent.shape.default,
         borderStroke = null,
         leadIcon = leadIcon
@@ -49,17 +53,17 @@ fun ButtonSecondary(
     leadIcon: ImageVector? = null,
 ) {
 
-    val _textColor = DesignComponent.colors.accent_secondary
-    val _backgroundColor = Color.Companion.Transparent
+    val innerTextColor = DesignComponent.colors.accent_secondary
+    val innerBackgroundColor = Color.Companion.Transparent
 
     Button(
         modifier = modifier,
         text = text,
         contentPadding = PaddingValues(vertical = 0.dp),
-        textStyle = DesignComponent.typography.SecondaryButton.copy(color = _textColor, fontWeight = FontWeight.Bold),
+        textStyle = DesignComponent.typography.SecondaryButton.copy(color = innerTextColor, fontWeight = FontWeight.Bold),
         enabled = enabled,
         onClick = onClick,
-        colors = ButtonDefaults.buttonColors(backgroundColor = _backgroundColor),
+        colors = ButtonDefaults.buttonColors(backgroundColor = innerBackgroundColor),
         shape = DesignComponent.shape.default,
         borderStroke = null,
         leadIcon = leadIcon

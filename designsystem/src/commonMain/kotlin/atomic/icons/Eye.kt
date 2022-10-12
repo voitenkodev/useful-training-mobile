@@ -9,13 +9,13 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.path
 import androidx.compose.ui.unit.dp
 
-private var _eye: ImageVector? = null
+private var innerEye: ImageVector? = null
 val Eye: ImageVector
     get() {
-        if (_eye != null) {
-            return _eye!!
+        if (innerEye != null) {
+            return innerEye!!
         }
-        _eye = ImageVector.Builder(
+        innerEye = ImageVector.Builder(
             name = "Eye", defaultWidth = 24.0.dp, defaultHeight = 24.0.dp, viewportWidth
             = 24.0f, viewportHeight = 24.0f
         ).apply {
@@ -38,10 +38,10 @@ val Eye: ImageVector
             ) {
                 moveTo(12.0f, 12.0f)
                 moveToRelative(-3.0f, 0.0f)
-                arcToRelative(3.0f, 3.0f, 0.0f, true, true, 6.0f, 0.0f)
-                arcToRelative(3.0f, 3.0f, 0.0f, true, true, -6.0f, 0.0f)
+                arcToRelative(3.0f, 3.0f, 0.0f, isMoreThanHalf = true, isPositiveArc = true, dx1 = 6.0f, dy1 = 0.0f)
+                arcToRelative(3.0f, 3.0f, 0.0f, isMoreThanHalf = true, isPositiveArc = true, dx1 = -6.0f, dy1 = 0.0f)
             }
         }
             .build()
-        return _eye!!
+        return innerEye!!
     }

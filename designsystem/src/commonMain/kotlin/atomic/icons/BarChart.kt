@@ -9,13 +9,13 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.path
 import androidx.compose.ui.unit.dp
 
-private var _barChart: ImageVector? = null
-public val BarChart: ImageVector
+private var innerBarChart: ImageVector? = null
+val BarChart: ImageVector
     get() {
-        if (_barChart != null) {
-            return _barChart!!
+        if (innerBarChart != null) {
+            return innerBarChart!!
         }
-        _barChart = ImageVector.Builder(
+        innerBarChart = ImageVector.Builder(
             name = "BarChart", defaultWidth = 24.0.dp, defaultHeight = 24.0.dp,
             viewportWidth = 24.0f, viewportHeight = 24.0f
         ).apply {
@@ -42,5 +42,5 @@ public val BarChart: ImageVector
             }
         }
             .build()
-        return _barChart!!
+        return innerBarChart!!
     }

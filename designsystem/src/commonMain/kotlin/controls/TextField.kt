@@ -1,5 +1,6 @@
 package controls
 
+import DesignComponent
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -8,7 +9,6 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import DesignComponent
 
 @Composable
 fun TextFieldH1(
@@ -113,10 +113,10 @@ fun TextField(
 ) {
     val isPlaceholder = text == null
 
-    val _color = if (isPlaceholder) color?.copy(alpha = 0.8f) else color
+    val innerColor = if (isPlaceholder) color?.copy(alpha = 0.8f) else color
 
-    val textStyle1 = if (_color != null) {
-        textStyle.copy(color = _color)
+    val textStyle1 = if (innerColor != null) {
+        textStyle.copy(color = innerColor)
     } else textStyle
 
     val textStyle2 = if (textAlign != null) {

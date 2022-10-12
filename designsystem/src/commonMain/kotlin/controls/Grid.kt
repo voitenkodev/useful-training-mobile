@@ -14,11 +14,11 @@ fun IterationVerticalGrid(
 ) = Layout(
     content = content,
     modifier = modifier
-) { measurables, constraints ->
+) { measure, constraints ->
     var currentRow = 0
     var currentOrigin = IntOffset.Zero
     val spacingValue = spacing.toPx().toInt()
-    val placeables = measurables.map { measurable ->
+    val place = measure.map { measurable ->
         val placeable = measurable.measure(constraints)
 
         if (currentOrigin.x > 0f && currentOrigin.x + placeable.width > constraints.maxWidth) {
@@ -33,9 +33,9 @@ fun IterationVerticalGrid(
 
     layout(
         width = constraints.maxWidth,
-        height = placeables.lastOrNull()?.run { first.height + second.y } ?: 0
+        height = place.lastOrNull()?.run { first.height + second.y } ?: 0
     ) {
-        placeables.forEach {
+        place.forEach {
             val (placeable, origin) = it
             placeable.place(origin.x, origin.y)
         }
