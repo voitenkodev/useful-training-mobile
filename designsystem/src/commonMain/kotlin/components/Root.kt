@@ -7,11 +7,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import DesignComponent
+import androidx.compose.foundation.lazy.LazyItemScope
 
 @Composable
 fun Root(
     modifier: Modifier = Modifier,
-    header: @Composable (() -> Unit)? = null,
+    header: @Composable (LazyItemScope.() -> Unit)? = null,
     footer: (@Composable ColumnScope.() -> Unit)? = null,
     floating: (@Composable BoxScope.() -> Unit)? = null,
     contentPadding: PaddingValues? = null,
@@ -32,7 +33,7 @@ fun Root(
                     Spacer(modifier = Modifier.size(44.dp))
                 }
                 stickyHeader(key = "header") {
-                    header.invoke()
+                    header.invoke(this)
                 }
             }
             content.invoke(this)

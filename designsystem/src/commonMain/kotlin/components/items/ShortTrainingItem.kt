@@ -1,5 +1,7 @@
 package components.items
 
+import DesignComponent
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -10,10 +12,10 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import DesignComponent
 import components.labels.WeekDayLabel
 import controls.DividerPrimary
 import controls.TextFieldBody2
@@ -24,12 +26,18 @@ import models.TrainingComponent
 fun ShortTrainingItem(
     modifier: Modifier = Modifier,
     training: TrainingComponent,
+    highlight: Boolean = false,
     onClick: () -> Unit
 ) = Column(
     modifier = modifier
         .width(250.dp)
         .height(150.dp)
         .secondaryBackground()
+        .border(
+            width = 2.dp,
+            color = if (highlight) DesignComponent.colors.accent_secondary else Color.Transparent,
+            shape = DesignComponent.shape.default
+        )
         .padding(DesignComponent.size.space)
         .clickable(onClick = onClick),
 ) {

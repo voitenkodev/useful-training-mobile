@@ -1,15 +1,23 @@
 package presentation.review
 
 import DesignComponent
+import Direction
+import GlobalState
+import NavigatorAction
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Clear
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -25,6 +33,7 @@ import components.items.ShortTrainingItem
 import components.labels.WeekDayLabel
 import controls.ButtonSecondary
 import controls.DividerPrimary
+import controls.IconPrimary
 import controls.TextFieldBody2
 import controls.secondaryBackground
 import data.repository.TrainingRepository
@@ -35,13 +44,10 @@ import kotlinx.coroutines.flow.onEach
 import models.PointLineComponent
 import presentation.map.toExerciseComponent
 import presentation.map.toTrainingComponent
-import Direction
-import GlobalState
-import NavigatorAction
 import presentation.training.TrainingState
+import rememberComposeCoroutineContext
 import rememberDispatcher
 import selectState
-import rememberComposeCoroutineContext
 
 @Composable
 fun ReviewContent(
@@ -92,7 +98,9 @@ fun ReviewContent(
                 item(key = "comparing") {
                     Comparing(
                         list = state.otherTrainings,
-                        compare = { dispatcher(ReviewAction.CompareTrainings(it)) }
+                        selected = state.compareTraining,
+                        compare = { dispatcher(ReviewAction.CompareTrainings(it)) },
+                        clear = { dispatcher(ReviewAction.CompareTrainings(null)) }
                     )
                 }
             }
@@ -131,24 +139,45 @@ fun ReviewContent(
 
 @Composable
 private fun Comparing(
+    selected: TrainingState?,
     list: List<TrainingState>,
-    compare: (TrainingState) -> Unit
+    compare: (TrainingState) -> Unit,
+    clear: () -> Unit
 ) = Column(
     verticalArrangement = Arrangement.spacedBy(DesignComponent.size.space)
 ) {
 
-    TextFieldBody2(
-        modifier = Modifier.padding(start = DesignComponent.size.space),
-        text = "Compare with...",
-        color = DesignComponent.colors.caption
-    )
+    Row(
+        horizontalArrangement = Arrangement.spacedBy(DesignComponent.size.space)
+    ) {
+
+        TextFieldBody2(
+            modifier = Modifier.padding(start = DesignComponent.size.space),
+            text = "Compare with...",
+            color = DesignComponent.colors.caption
+        )
+
+        if (selected != null) IconPrimary(
+            modifier = Modifier
+                .width(16.dp)
+                .height(16.dp)
+                .background(
+                    color = DesignComponent.colors.accent_secondary,
+                    shape = DesignComponent.shape.default
+                ),
+            imageVector = Icons.Default.Clear,
+            onClick = clear
+        )
+    }
 
     LazyRow(
         horizontalArrangement = Arrangement.spacedBy(DesignComponent.size.space)
     ) {
+
         items(list) {
             ShortTrainingItem(
                 training = it.toTrainingComponent(),
+                highlight = it == selected,
                 onClick = { compare.invoke(it) }
             )
         }
