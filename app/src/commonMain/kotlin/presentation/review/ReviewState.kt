@@ -3,9 +3,10 @@ package presentation.review
 import dev.icerock.moko.parcelize.Parcelable
 import dev.icerock.moko.parcelize.Parcelize
 import kotlinx.serialization.Serializable
-import org.reduxkotlin.ReducerForActionType
 import presentation.training.TrainingState
 import Action
+import GlobalState
+import ReducerForActionType
 import ReduxGroups
 
 @Serializable
@@ -18,21 +19,20 @@ data class ReviewState(
 
 sealed class ReviewAction(action: String) : Action(ReduxGroups.REVIEW, action) {
 
-    data class GetTrainings(
-        val selected: TrainingState,
-        val all: List<TrainingState>
+    data class FetchTrainings(
+        val selected: TrainingState
     ) : ReviewAction("GET_TRAINING_ACTION")
 
     data class CompareTrainings(
         val training: TrainingState? = null,
-    ) : ReviewAction("GET_TRAINING_ACTION")
+    ) : ReviewAction("COMPARE_TRAINING_ACTION")
 }
 
-val reviewReducer: ReducerForActionType<ReviewState, ReviewAction> = { state, action ->
+val reviewReducer: ReducerForActionType<ReviewState, GlobalState, ReviewAction> = { state, globalState, action ->
     when (action) {
-        is ReviewAction.GetTrainings -> state.copy(
+        is ReviewAction.FetchTrainings -> state.copy(
             reviewTraining = action.selected,
-            otherTrainings = action.all.filterNot { action.selected.id == it.id }
+            otherTrainings = globalState.trainingsState.trainings.filterNot { action.selected.id == it.id }
         )
 
         is ReviewAction.CompareTrainings -> state.copy(compareTraining = action.training)

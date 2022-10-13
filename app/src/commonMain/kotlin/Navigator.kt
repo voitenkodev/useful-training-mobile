@@ -1,5 +1,3 @@
-import org.reduxkotlin.ReducerForActionType
-
 data class NavigatorState(
     val stack: List<Direction> = listOf(Direction.Auth),
     val added: Direction = Direction.Auth,
@@ -22,7 +20,7 @@ enum class Direction(val route: String) {
     Review(route = "review_screen")
 }
 
-val navigatorReducer: ReducerForActionType<NavigatorState, NavigatorAction> = { state, action ->
+val navigatorReducer: ReducerForActionType<NavigatorState, GlobalState, NavigatorAction> = { state, _, action ->
     when (action) {
         is NavigatorAction.NAVIGATE -> {
             val index = state.stack.lastIndexOf(action.direction)

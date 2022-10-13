@@ -4,10 +4,11 @@ import com.benasher44.uuid.uuid4
 import dev.icerock.moko.parcelize.Parcelable
 import dev.icerock.moko.parcelize.Parcelize
 import kotlinx.serialization.Serializable
-import org.reduxkotlin.ReducerForActionType
 import Action
 import ReduxGroups
 import DateTimeKtx
+import GlobalState
+import ReducerForActionType
 
 @Serializable
 @Parcelize
@@ -91,7 +92,7 @@ sealed class TrainingAction(action: String) : Action(ReduxGroups.TRAINING, actio
     ) : TrainingAction("PROVIDE_EMPTY_ITERATION_ACTION")
 }
 
-val trainingReducer: ReducerForActionType<TrainingState, TrainingAction> = { state, action ->
+val trainingReducer: ReducerForActionType<TrainingState, GlobalState, TrainingAction> = { state, _, action ->
     when (action) {
         is TrainingAction.PutTrainingAction -> action.training
         is TrainingAction.AddExerciseAction -> state.addExercise()

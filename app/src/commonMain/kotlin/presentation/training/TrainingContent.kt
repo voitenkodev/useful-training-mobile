@@ -22,6 +22,7 @@ import presentation.map.toExerciseComponent
 import Direction
 import GlobalState
 import NavigatorAction
+import presentation.review.ReviewAction
 import rememberDispatcher
 import selectState
 import rememberComposeCoroutineContext
@@ -47,7 +48,10 @@ fun TrainingContent(
                     dispatcher(TrainingAction.CalculateValues)
                     loader.call {
                         api.setTraining(training = state.toTraining())
-                            .onEach { dispatcher(NavigatorAction.NAVIGATE(Direction.Review)) }
+                            .onEach {
+                                dispatcher(ReviewAction.FetchTrainings(selected = state))
+                                dispatcher(NavigatorAction.NAVIGATE(Direction.Review))
+                            }
                             .catch { }
                             .launchIn(this)
                     }

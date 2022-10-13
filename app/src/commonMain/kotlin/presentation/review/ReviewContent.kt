@@ -88,11 +88,13 @@ fun ReviewContent(
                 )
             }
 
-            item(key = "comparing") {
-                Comparing(
-                    list = state.otherTrainings,
-                    compare = { dispatcher(ReviewAction.CompareTrainings(it)) }
-                )
+            if (state.otherTrainings.isNotEmpty()) {
+                item(key = "comparing") {
+                    Comparing(
+                        list = state.otherTrainings,
+                        compare = { dispatcher(ReviewAction.CompareTrainings(it)) }
+                    )
+                }
             }
 
             item(key = "summary") {

@@ -1,11 +1,12 @@
 package presentation.trainings
 
+import Action
+import GlobalState
+import ReducerForActionType
+import ReduxGroups
 import dev.icerock.moko.parcelize.Parcelable
 import dev.icerock.moko.parcelize.Parcelize
 import kotlinx.serialization.Serializable
-import org.reduxkotlin.ReducerForActionType
-import Action
-import ReduxGroups
 import presentation.training.TrainingState
 
 @Serializable
@@ -21,7 +22,7 @@ sealed class TrainingsAction(action: String) : Action(ReduxGroups.TRAININGS, act
     ) : TrainingsAction("GET_TRAININGS_ACTION")
 }
 
-val trainingsReducer: ReducerForActionType<TrainingsState, TrainingsAction> = { state, action ->
+val trainingsReducer: ReducerForActionType<TrainingsState, GlobalState, TrainingsAction> = { state, _, action ->
     when (action) {
         is TrainingsAction.GetTrainings -> state.copy(trainings = action.trainings)
     }

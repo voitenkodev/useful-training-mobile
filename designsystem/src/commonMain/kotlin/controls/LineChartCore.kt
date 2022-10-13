@@ -90,10 +90,11 @@ fun LineChartCore(
 
             it.first.pointColor?.let { pointColor ->
                 (normX.indices).forEach { index ->
-                    drawCircle(
+                    val offset = Offset(normX[index], normY[index])
+                    if (offset != Offset.Unspecified) drawCircle(
                         color = pointColor,
                         radius = 5.dp.toPx(),
-                        center = Offset(normX[index], normY[index])
+                        center = offset
                     )
                 }
             }

@@ -1,7 +1,8 @@
 package presentation.auth
 
-import org.reduxkotlin.ReducerForActionType
 import Action
+import GlobalState
+import ReducerForActionType
 import ReduxGroups
 
 data class AuthState(
@@ -23,7 +24,7 @@ sealed class AuthAction(action: String) : Action(ReduxGroups.AUTH, action) {
     object RegistrationAction : AuthAction("REGISTRATION_ACTION")
 }
 
-val authReducer: ReducerForActionType<AuthState, AuthAction> = { state, action ->
+val authReducer: ReducerForActionType<AuthState, GlobalState, AuthAction> = { state, _, action ->
     when (action) {
         is AuthAction.SetEmailAction -> state.copy(email = action.email)
         is AuthAction.SetPasswordAction -> state.copy(password = action.password)

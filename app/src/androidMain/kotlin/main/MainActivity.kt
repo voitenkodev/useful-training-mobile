@@ -4,6 +4,7 @@ import Main
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Modifier
@@ -23,7 +24,7 @@ class MainActivity : ComponentActivity() {
 
             SideEffect { systemUiController.setSystemBarsColor(color = Color.Transparent, darkIcons = false) }
 
-            Main(modifier = Modifier.statusBarsPadding())
+            Main(modifier = Modifier.statusBarsPadding().navigationBarsPadding())
         }
     }
 }

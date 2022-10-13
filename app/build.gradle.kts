@@ -39,7 +39,6 @@ kotlin {
                 implementation(libs.logger)
                 implementation(libs.serialization)
                 implementation(libs.uuid)
-                implementation(libs.redux)
                 implementation(libs.parcelize)
                 implementation(libs.koin.core)
 

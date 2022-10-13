@@ -10,20 +10,41 @@ import androidx.compose.runtime.remember
 import org.reduxkotlin.Dispatcher
 import org.reduxkotlin.Middleware
 import org.reduxkotlin.Store
+import org.reduxkotlin.applyMiddleware
+import org.reduxkotlin.createStore
+
+/**
+ * val dispatcher = rememberDispatcher()
+ *
+ * val state by selectState<GlobalState, ReviewState> { this.reviewState }
+ *
+ * */
+typealias Reducer<State> = (state: State, action: Any) -> State
+typealias ReducerForActionType<TState, GState, TAction> = (state: TState, globalState: GState, action: TAction) -> TState
 
 private val LocalStore: ProvidableCompositionLocal<Store<*>> = compositionLocalOf { error("undefined") }
 
 @Composable
-fun <T> StoreProvider(store: Store<T>, content: @Composable Store<T>.() -> Unit) {
-    CompositionLocalProvider(LocalStore provides store) { store.content() }
+fun <S> StoreProvider(
+    globalState: S,
+    globalReducer: Reducer<S>,
+    logging: (Any) -> Unit,
+    content: @Composable () -> Unit
+) {
+    val store: Store<S> = createStore(
+        globalReducer,
+        globalState,
+        applyMiddleware(createMiddleware<Any, S> { action ->
+            logging.invoke(action)
+        })
+    )
+    CompositionLocalProvider(LocalStore provides store, content = content)
 }
 
 @Composable
 inline fun <reified TState, TSlice> selectState(
     crossinline selector: @DisallowComposableCalls TState.() -> TSlice
-): State<TSlice> {
-    return rememberStore<TState>().selectState(selector)
-}
+): State<TSlice> = rememberStore<TState>().selectState(selector)
 
 @Composable
 fun rememberDispatcher(): Dispatcher = rememberStore<Any>().dispatch

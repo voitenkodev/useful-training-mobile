@@ -1,8 +1,3 @@
-import co.touchlab.kermit.Logger
-import org.reduxkotlin.Reducer
-import org.reduxkotlin.Store
-import org.reduxkotlin.applyMiddleware
-import org.reduxkotlin.createStore
 import presentation.auth.AuthAction
 import presentation.auth.AuthState
 import presentation.auth.authReducer
@@ -30,19 +25,11 @@ enum class ReduxGroups { NAVIGATOR, AUTH, TRAINING, TRAININGS, REVIEW }
 
 val globalReducer: Reducer<GlobalState> = { state, action ->
     when (action) {
-        is AuthAction -> state.copy(authState = authReducer(state.authState, action))
-        is TrainingAction -> state.copy(trainingState = trainingReducer(state.trainingState, action))
-        is TrainingsAction -> state.copy(trainingsState = trainingsReducer(state.trainingsState, action))
-        is ReviewAction -> state.copy(reviewState = reviewReducer(state.reviewState, action))
-        is NavigatorAction -> state.copy(navigatorState = navigatorReducer(state.navigatorState, action))
+        is AuthAction -> state.copy(authState = authReducer(state.authState, state, action))
+        is TrainingAction -> state.copy(trainingState = trainingReducer(state.trainingState, state, action))
+        is TrainingsAction -> state.copy(trainingsState = trainingsReducer(state.trainingsState, state, action))
+        is ReviewAction -> state.copy(reviewState = reviewReducer(state.reviewState, state, action))
+        is NavigatorAction -> state.copy(navigatorState = navigatorReducer(state.navigatorState, state, action))
         else -> state
     }
 }
-
-val store: Store<GlobalState> = createStore(
-    globalReducer,
-    GlobalState(),
-    applyMiddleware(createMiddleware<Action, GlobalState> { action ->
-        Logger.i { "reduxLogger::DISPATCHED => \"${action.group}/${action.action}\"" }
-    })
-)

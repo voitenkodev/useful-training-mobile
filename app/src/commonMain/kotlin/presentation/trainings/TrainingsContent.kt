@@ -94,7 +94,7 @@ fun TrainingsContent() {
                             dispatcher(NavigatorAction.NAVIGATE(Direction.Training))
                         },
                         review = {
-                            dispatcher(ReviewAction.GetTrainings(selected = training, all = state.trainings))
+                            dispatcher(ReviewAction.FetchTrainings(selected = training))
                             dispatcher(NavigatorAction.NAVIGATE(Direction.Review))
                         }
                     )
