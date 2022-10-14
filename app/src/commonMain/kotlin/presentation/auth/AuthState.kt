@@ -8,7 +8,8 @@ import ReduxGroups
 data class AuthState(
     val email: String = "voitenko.dev@gmail.com",
     val password: String = "bboygasta37373",
-    val error: String? = null
+    val error: String? = null,
+    val loading: Boolean = false
 )
 
 sealed class AuthAction(action: String) : Action(ReduxGroups.AUTH, action) {
@@ -17,20 +18,19 @@ sealed class AuthAction(action: String) : Action(ReduxGroups.AUTH, action) {
 
     data class SetPasswordAction(val password: String) : AuthAction("SET_PASSWORD_ACTION")
 
-    object LoginAction : AuthAction("LOGIN_ACTION")
-
     object Validate : AuthAction("VALIDATE_ACTION")
-
-    object RegistrationAction : AuthAction("REGISTRATION_ACTION")
+    data class Error(val message: String? = null) : AuthAction("ERROR_ACTION")
+    data class Loading(val value: Boolean) : AuthAction("LOADING_ACTION")
 }
+
 
 val authReducer: ReducerForActionType<AuthState, GlobalState, AuthAction> = { state, _, action ->
     when (action) {
         is AuthAction.SetEmailAction -> state.copy(email = action.email)
         is AuthAction.SetPasswordAction -> state.copy(password = action.password)
-        AuthAction.LoginAction -> TODO()
-        AuthAction.RegistrationAction -> TODO()
-        AuthAction.Validate -> state.validate()
+        is AuthAction.Validate -> state.validate()
+        is AuthAction.Error -> state.copy(error = action.message)
+        is AuthAction.Loading -> state.copy(loading = action.value)
     }
 }
 
@@ -51,6 +51,11 @@ fun AuthState.validate(): AuthState {
     val isEmailValid = newEmail.matches(emailAddressRegex)
     val isPasswordValid = newPassword.length > 5
 
-    return if (isEmailValid && isPasswordValid) this.copy(email = newEmail, password = newPassword, error = "")
-    else this.copy(error = "Invalid UI")
+    val newError = if (isEmailValid.not()) {
+        "Invalid Email Field"
+    } else if (isPasswordValid.not()) {
+        "Invalid password field"
+    } else null
+
+    return this.copy(email = newEmail, password = newPassword, error = newError)
 }

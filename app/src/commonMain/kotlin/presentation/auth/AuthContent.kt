@@ -1,5 +1,9 @@
 package presentation.auth
 
+import DesignComponent
+import Direction
+import GlobalState
+import NavigatorAction
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -9,8 +13,9 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import DesignComponent
+import components.Error
 import components.Header
+import components.Loading
 import components.Root
 import components.buttons.QuestionButton
 import components.inputs.InputEmail
@@ -22,12 +27,10 @@ import globalKoin
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import Direction
-import GlobalState
-import NavigatorAction
+import kotlinx.coroutines.flow.onStart
+import rememberComposeCoroutineContext
 import rememberDispatcher
 import selectState
-import rememberComposeCoroutineContext
 
 @Composable
 fun AuthContent() {
@@ -45,9 +48,9 @@ fun AuthContent() {
 
     Root(
         modifier = Modifier.fillMaxSize(),
-        header = {
-            Header(title = "\uD83D\uDC4B Welcome back!")
-        },
+        loading = { Loading(state.loading) },
+        error = { Error(message = state.error, close = { dispatcher(AuthAction.Error(null)) }) },
+        header = { Header(title = "\uD83D\uDC4B Welcome back!") },
         content = {
 
             item {
@@ -57,11 +60,9 @@ fun AuthContent() {
                 )
             }
 
-            item {
-                Spacer(modifier = Modifier.size(16.dp))
-            }
+            item("space_1") { Spacer(modifier = Modifier.size(16.dp)) }
 
-            item {
+            item("email_input") {
                 InputEmail(
                     modifier = Modifier.fillMaxWidth(),
                     value = state.email,
@@ -69,7 +70,7 @@ fun AuthContent() {
                 )
             }
 
-            item {
+            item("password_input") {
                 InputPassword(
                     modifier = Modifier.fillMaxWidth(),
                     value = state.password,
@@ -84,12 +85,19 @@ fun AuthContent() {
                 text = "Log In",
                 onClick = {
                     dispatcher(AuthAction.Validate)
-                    launcher.call {
+                    if (state.error == null) launcher.call {
                         api
                             .login(state.email, state.password)
-                            .onEach { dispatcher(NavigatorAction.NAVIGATE(Direction.Trainings)) }
-                            .catch { }
-                            .launchIn(this)
+                            .onStart {
+                                dispatcher(AuthAction.Loading(true))
+                            }.onEach {
+                                dispatcher(AuthAction.Loading(false))
+                                dispatcher(AuthAction.Error(null))
+                                dispatcher(NavigatorAction.NAVIGATE(Direction.Trainings))
+                            }.catch {
+                                dispatcher(AuthAction.Loading(false))
+                                dispatcher(AuthAction.Error(it.message))
+                            }.launchIn(this)
                     }
                 }
             )
@@ -100,7 +108,7 @@ fun AuthContent() {
                 answer = "Sign Up!",
                 onClick = {
                     dispatcher(AuthAction.Validate)
-                    launcher.call {
+                    if (state.error == null) launcher.call {
                         api
                             .registration(state.email, state.password)
                             .onEach { dispatcher(NavigatorAction.NAVIGATE(Direction.Trainings)) }

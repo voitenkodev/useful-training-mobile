@@ -4,6 +4,7 @@ import DesignComponent
 import Direction
 import GlobalState
 import NavigatorAction
+import PointLine
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -41,7 +42,6 @@ import globalKoin
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import models.PointLineComponent
 import presentation.map.toExerciseComponent
 import presentation.map.toTrainingComponent
 import presentation.training.TrainingState
@@ -233,16 +233,15 @@ private fun ChartSection(
         .aspectRatio(1.7f),
     lines = buildList {
         add(
-            PointLineComponent(
+            PointLine(
                 yValue = data,
                 lineColor = color,
                 fillColor = color.copy(alpha = 0.2f),
-                pointColor = DesignComponent.colors.content,
                 label = label
             )
         )
         if (compareData != null) add(
-            PointLineComponent(
+            PointLine(
                 yValue = compareData,
                 lineColor = DesignComponent.colors.caption,
                 fillColor = DesignComponent.colors.caption.copy(alpha = 0.2f),
@@ -296,18 +295,16 @@ private fun Summary(
 }
 
 @Composable
-private fun Section(label: String, value: String) {
-    Row(
-        modifier = Modifier.fillMaxWidth().padding(vertical = DesignComponent.size.space),
-        horizontalArrangement = Arrangement.SpaceBetween
-    ) {
-        TextFieldBody2(
-            text = label,
-            color = DesignComponent.colors.caption,
-        )
-        TextFieldBody2(
-            text = value,
-            fontWeight = FontWeight.Bold,
-        )
-    }
+private fun Section(label: String, value: String) = Row(
+    modifier = Modifier.fillMaxWidth().padding(vertical = DesignComponent.size.space),
+    horizontalArrangement = Arrangement.SpaceBetween
+) {
+    TextFieldBody2(
+        text = label,
+        color = DesignComponent.colors.caption,
+    )
+    TextFieldBody2(
+        text = value,
+        fontWeight = FontWeight.Bold,
+    )
 }

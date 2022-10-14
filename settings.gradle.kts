@@ -29,3 +29,4 @@ rootProject.name = "UsefulTraining"
 include(":app")
 include(":designsystem")
 include(":utils")
+include(":chart")

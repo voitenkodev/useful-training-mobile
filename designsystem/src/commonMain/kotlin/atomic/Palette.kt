@@ -13,6 +13,7 @@ fun DarkPalette() = AppColors(
 
     accent_primary = color_blue,
     accent_secondary = color_yellow,
+    accent_tertiary = color_red,
 
     content = color_white,
     caption = color_gray,
@@ -34,8 +35,9 @@ data class AppColors(
     val secondary: Color,
 
     // Actions, Labels
-    val accent_primary: Color,
-    val accent_secondary: Color,
+    val accent_primary: Color, // blue
+    val accent_secondary: Color, // yellow
+    val accent_tertiary: Color, // red
 
     //content
     val content: Color,
@@ -65,3 +67,4 @@ val color_black_50 = Color(0xff18181c)
 
 val color_blue = Color(0xff335bff)
 val color_yellow = Color(0xffffb005)
+val color_red = Color(0xffEA3469)

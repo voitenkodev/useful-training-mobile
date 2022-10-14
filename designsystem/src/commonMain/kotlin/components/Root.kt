@@ -1,13 +1,26 @@
 package components
 
-import androidx.compose.foundation.layout.*
+import DesignComponent
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import DesignComponent
-import androidx.compose.foundation.lazy.LazyItemScope
 
 @Composable
 fun Root(
@@ -16,6 +29,8 @@ fun Root(
     footer: (@Composable ColumnScope.() -> Unit)? = null,
     floating: (@Composable BoxScope.() -> Unit)? = null,
     contentPadding: PaddingValues? = null,
+    loading: (@Composable () -> Unit)? = null,
+    error: (@Composable () -> Unit)? = null,
     content: LazyListScope.() -> Unit,
 ) {
 
@@ -29,12 +44,8 @@ fun Root(
         contentPadding = contentPadding,
         content = {
             if (header != null) {
-                item(key = "header_spacer") {
-                    Spacer(modifier = Modifier.size(44.dp))
-                }
-                stickyHeader(key = "header") {
-                    header.invoke(this)
-                }
+                item(key = "header_spacer") { Spacer(modifier = Modifier.size(44.dp)) }
+                stickyHeader(key = "header") { header.invoke(this) }
             }
             content.invoke(this)
         }
@@ -56,9 +67,7 @@ fun Root(
             footer.invoke(this)
         }
     } else if (footer == null && floating != null) {
-        Box(
-            modifier = modifier
-        ) {
+        Box(modifier = modifier) {
             Content(
                 modifier = Modifier.fillMaxSize(),
                 contentPadding = contentPadding ?: PaddingValues(DesignComponent.size.space)
@@ -89,4 +98,8 @@ fun Root(
             contentPadding = PaddingValues(DesignComponent.size.space)
         )
     }
+
+    error?.invoke()
+
+    loading?.invoke()
 }

@@ -14,7 +14,8 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                api(project(":chart"))
+                implementation(libs.logger)
+
                 implementation(compose.ui)
                 implementation(compose.foundation)
                 implementation(compose.material)
@@ -33,7 +34,7 @@ kotlin {
 }
 
 android {
-    namespace = "dev.voitenko.usefultraining.designsystem"
+    namespace = "dev.voitenko.usefultraining.chart"
     compileSdk = 33
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     defaultConfig { minSdk = 21 }

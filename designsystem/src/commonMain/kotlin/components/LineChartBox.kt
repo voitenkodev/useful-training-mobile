@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -18,14 +17,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import DesignComponent
-import controls.LineChartCore
+import LineChart
+import PointLine
+import androidx.compose.foundation.lazy.items
 import controls.TextFieldBody2
-import models.PointLineComponent
 
 @Composable
-fun LineChart(
+fun LineChartBox(
     modifier: Modifier = Modifier,
-    lines: List<PointLineComponent>
+    lines: List<PointLine>
 ) {
 
     val minY = lines.minOfOrNull { it.yValue.min() }?.toInt() ?: 0
@@ -57,7 +57,7 @@ fun LineChart(
             )
 
             Column {
-                LineChartCore(
+                LineChart(
                     modifier = Modifier.weight(1f).fillMaxWidth(),
                     lines = lines
                 )
@@ -74,7 +74,7 @@ fun LineChart(
 @Composable
 private fun NameLabels(
     modifier: Modifier = Modifier,
-    lines: List<PointLineComponent>
+    lines: List<PointLine>
 ) = LazyRow(
     modifier = modifier,
     horizontalArrangement = Arrangement.spacedBy(DesignComponent.size.space),
