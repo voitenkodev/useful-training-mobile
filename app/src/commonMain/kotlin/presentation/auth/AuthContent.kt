@@ -1,9 +1,7 @@
 package presentation.auth
 
 import DesignComponent
-import Direction
 import GlobalState
-import NavigatorAction
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -11,6 +9,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import components.Error
@@ -22,29 +21,17 @@ import components.inputs.InputEmail
 import components.inputs.InputPassword
 import controls.ButtonPrimary
 import controls.TextFieldH2
-import data.repository.AuthRepository
-import globalKoin
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.onStart
-import rememberComposeCoroutineContext
 import rememberDispatcher
 import selectState
 
 @Composable
 fun AuthContent() {
 
-    val api = globalKoin().get<AuthRepository>()
-    val launcher = rememberComposeCoroutineContext()
-
     val state by selectState<GlobalState, AuthState> { this.authState }
     val dispatcher = rememberDispatcher()
 
-    LaunchedEffect(Unit) {
-        if (api.isAuthorized)
-            dispatcher(NavigatorAction.NAVIGATE(Direction.Trainings))
-    }
+    val presenter = remember { AuthPresenter(dispatcher) }
+    LaunchedEffect(Unit) { presenter.checkAuthorization() }
 
     Root(
         modifier = Modifier.fillMaxSize(),
@@ -85,20 +72,7 @@ fun AuthContent() {
                 text = "Log In",
                 onClick = {
                     dispatcher(AuthAction.Validate)
-                    if (state.error == null) launcher.call {
-                        api
-                            .login(state.email, state.password)
-                            .onStart {
-                                dispatcher(AuthAction.Loading(true))
-                            }.onEach {
-                                dispatcher(AuthAction.Loading(false))
-                                dispatcher(AuthAction.Error(null))
-                                dispatcher(NavigatorAction.NAVIGATE(Direction.Trainings))
-                            }.catch {
-                                dispatcher(AuthAction.Loading(false))
-                                dispatcher(AuthAction.Error(it.message))
-                            }.launchIn(this)
-                    }
+                    if (state.error == null) presenter.login(email = state.email, password = state.password)
                 }
             )
 
@@ -108,13 +82,7 @@ fun AuthContent() {
                 answer = "Sign Up!",
                 onClick = {
                     dispatcher(AuthAction.Validate)
-                    if (state.error == null) launcher.call {
-                        api
-                            .registration(state.email, state.password)
-                            .onEach { dispatcher(NavigatorAction.NAVIGATE(Direction.Trainings)) }
-                            .catch { }
-                            .launchIn(this)
-                    }
+                    if (state.error == null) presenter.registration(email = state.email, password = state.password)
                 }
             )
         }

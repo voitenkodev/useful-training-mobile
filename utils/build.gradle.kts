@@ -19,6 +19,7 @@ kotlin {
                 implementation(compose.ui)
                 implementation(libs.datetime)
                 implementation(libs.redux)
+                implementation(libs.logger)
             }
         }
 

@@ -1,31 +1,22 @@
 package presentation.training
 
+import DesignComponent
+import GlobalState
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import DesignComponent
 import components.Header
 import components.Root
 import components.items.EditExerciseItem
 import controls.ButtonPrimary
-import data.mapping.toTraining
-import data.repository.TrainingRepositoryImpl
-import globalKoin
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
 import presentation.map.toExerciseComponent
-import Direction
-import GlobalState
-import NavigatorAction
-import presentation.review.ReviewAction
 import rememberDispatcher
 import selectState
-import rememberComposeCoroutineContext
 
 @Composable
 fun TrainingContent(
@@ -34,8 +25,7 @@ fun TrainingContent(
     val dispatcher = rememberDispatcher()
     val state by selectState<GlobalState, TrainingState> { this.trainingState }
 
-    val api = globalKoin().get<TrainingRepositoryImpl>()
-    val loader = rememberComposeCoroutineContext()
+    val presenter = remember { TrainingPresenter(dispatcher) }
 
     Root(
         modifier = modifier.fillMaxSize(),
@@ -46,15 +36,7 @@ fun TrainingContent(
                     dispatcher(TrainingAction.ValidateExercises)
                     dispatcher(TrainingAction.CalculateDuration)
                     dispatcher(TrainingAction.CalculateValues)
-                    loader.call {
-                        api.setTraining(training = state.toTraining())
-                            .onEach {
-                                dispatcher(ReviewAction.FetchTrainings(selected = state))
-                                dispatcher(NavigatorAction.NAVIGATE(Direction.Review))
-                            }
-                            .catch { }
-                            .launchIn(this)
-                    }
+                    presenter.saveTraining(state)
                 }
             )
         },

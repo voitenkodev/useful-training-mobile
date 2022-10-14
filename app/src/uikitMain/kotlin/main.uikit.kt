@@ -45,7 +45,10 @@ class SkikoAppDelegate : UIResponder, UIApplicationDelegateProtocol {
         window = UIWindow(frame = UIScreen.mainScreen.bounds)
         val height = window?.bounds
         window!!.rootViewController = Application("UsefulTraining") {
-            Main(modifier = Modifier.padding(top = height?.size?.dp ?: 0.dp))
+            Main(
+                modifier = Modifier.padding(top = height?.size?.dp ?: 0.dp),
+                finalize = { application.finalize() }
+            )
         }
         window!!.makeKeyAndVisible()
         return true

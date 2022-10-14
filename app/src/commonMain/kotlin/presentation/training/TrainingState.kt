@@ -1,14 +1,14 @@
 package presentation.training
 
+import Action
+import DateTimeKtx
+import GlobalState
+import ReducerForActionType
+import ReduxGroups
 import com.benasher44.uuid.uuid4
 import dev.icerock.moko.parcelize.Parcelable
 import dev.icerock.moko.parcelize.Parcelize
 import kotlinx.serialization.Serializable
-import Action
-import ReduxGroups
-import DateTimeKtx
-import GlobalState
-import ReducerForActionType
 
 @Serializable
 @Parcelize
@@ -121,9 +121,10 @@ fun TrainingState.setRepeatOfIteration(exerciseId: String, numberOfIteration: In
         if (it.id != exerciseId) {
             it
         } else {
-            val iterations = it.iterations.mapIndexed { index, iteration ->
+            val iterations = it.iterations.mapIndexedNotNull { index, iteration ->
                 val newRepeat = if (numberOfIteration == index) repeat else iteration.repeat
-                TrainingState.Exercise.Iteration(weight = iteration.weight, repeat = newRepeat)
+                if (newRepeat == "" && iteration.weight == "") null
+                else TrainingState.Exercise.Iteration(weight = iteration.weight, repeat = newRepeat)
             }
             it.copy(iterations = iterations)
         }
@@ -136,9 +137,10 @@ fun TrainingState.setWeightOfIteration(exerciseId: String, numberOfIteration: In
         if (it.id != exerciseId) {
             it
         } else {
-            val iterations = it.iterations.mapIndexed { index, iteration ->
+            val iterations = it.iterations.mapIndexedNotNull { index, iteration ->
                 val newWeight = if (numberOfIteration == index) weight else iteration.weight
-                TrainingState.Exercise.Iteration(weight = newWeight, repeat = iteration.repeat)
+                if (newWeight == "" && iteration.repeat == "") null
+                else TrainingState.Exercise.Iteration(weight = newWeight, repeat = iteration.repeat)
             }
             it.copy(iterations = iterations)
         }

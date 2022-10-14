@@ -34,6 +34,7 @@ import presentation.map.toTrainingComponent
 import Direction
 import GlobalState
 import NavigatorAction
+import androidx.compose.runtime.remember
 import presentation.review.ReviewAction
 import presentation.training.TrainingAction
 import presentation.training.TrainingState
@@ -43,18 +44,11 @@ import selectState
 @Composable
 fun TrainingsContent() {
 
-    val api = KoinPlatformTools.defaultContext().get().get<TrainingRepository>()
-
     val state by selectState<GlobalState, TrainingsState> { this.trainingsState }
     val dispatcher = rememberDispatcher()
 
-    LaunchedEffect(Unit) {
-        api
-            .getTrainings()
-            .map { it.toTrainingStateList() }
-            .onEach { dispatcher(TrainingsAction.GetTrainings(it)) }
-            .launchIn(this)
-    }
+    val presenter = remember { TrainingsPresenter(dispatcher) }
+    LaunchedEffect(Unit) { presenter.fetchTrainings() }
 
     Root(
         modifier = Modifier.fillMaxSize(),

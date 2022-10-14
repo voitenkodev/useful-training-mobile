@@ -24,7 +24,10 @@ class MainActivity : ComponentActivity() {
 
             SideEffect { systemUiController.setSystemBarsColor(color = Color.Transparent, darkIcons = false) }
 
-            Main(modifier = Modifier.statusBarsPadding().navigationBarsPadding())
+            Main(
+                modifier = Modifier.statusBarsPadding().navigationBarsPadding(),
+                finalize = { finish() }
+            )
         }
     }
 }

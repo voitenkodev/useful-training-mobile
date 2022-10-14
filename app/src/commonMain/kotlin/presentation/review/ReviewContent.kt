@@ -1,7 +1,6 @@
 package presentation.review
 
 import DesignComponent
-import Direction
 import GlobalState
 import NavigatorAction
 import PointLine
@@ -21,6 +20,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -37,15 +37,9 @@ import controls.DividerPrimary
 import controls.IconPrimary
 import controls.TextFieldBody2
 import controls.secondaryBackground
-import data.repository.TrainingRepository
-import globalKoin
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
 import presentation.map.toExerciseComponent
 import presentation.map.toTrainingComponent
 import presentation.training.TrainingState
-import rememberComposeCoroutineContext
 import rememberDispatcher
 import selectState
 
@@ -53,11 +47,10 @@ import selectState
 fun ReviewContent(
     modifier: Modifier = Modifier,
 ) {
-    val api = globalKoin().get<TrainingRepository>()
-    val loader = rememberComposeCoroutineContext()
-
     val dispatcher = rememberDispatcher()
     val state by selectState<GlobalState, ReviewState> { this.reviewState }
+
+    val presenter = remember { ReviewPresenter(dispatcher) }
 
     Root(
         modifier = modifier.fillMaxSize(),
@@ -122,15 +115,7 @@ fun ReviewContent(
                 ButtonSecondary(
                     modifier = Modifier.fillMaxWidth(),
                     text = "Remove Training",
-                    onClick = {
-                        loader.call {
-                            api
-                                .removeTraining(trainingId = state.reviewTraining.id ?: error("invalid Training ID"))
-                                .onEach { dispatcher(NavigatorAction.NAVIGATE(Direction.Trainings)) }
-                                .catch { }
-                                .launchIn(this)
-                        }
-                    },
+                    onClick = { presenter.removeTraining(state.reviewTraining.id) }
                 )
             }
         }

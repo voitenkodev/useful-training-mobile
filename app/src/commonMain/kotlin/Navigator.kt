@@ -1,13 +1,14 @@
 data class NavigatorState(
     val stack: List<Direction> = listOf(Direction.Auth),
-    val added: Direction = Direction.Auth,
+    val added: Direction? = Direction.Auth,
     val removed: Direction? = null,
     val type: TransitionType? = TransitionType.FORWARD,
 )
 
 sealed class NavigatorAction(action: String) : Action(ReduxGroups.NAVIGATOR, action) {
 
-    data class NAVIGATE(val direction: Direction) : NavigatorAction(action = "NAVIGATE")
+    data class NAVIGATE(val direction: Direction, val popToInclusive: Boolean = false) : NavigatorAction(action = "NAVIGATE")
+
     object BACK : NavigatorAction(action = "BACK")
 }
 
@@ -27,7 +28,7 @@ val navigatorReducer: ReducerForActionType<NavigatorState, GlobalState, Navigato
 
             if (index == -1) {
                 val newList = buildList {
-                    addAll(state.stack)
+                    addAll(if (action.popToInclusive) state.stack.subList(0, state.stack.lastIndex) else state.stack)
                     add(action.direction)
                 }
                 val added = newList.lastOrNull() ?: state.added
@@ -39,7 +40,7 @@ val navigatorReducer: ReducerForActionType<NavigatorState, GlobalState, Navigato
                 )
             } else {
                 val newList = state.stack.subList(0, index + 1)
-                val added = newList.lastOrNull() ?: state.added
+                val added = newList.lastOrNull()
                 state.copy(
                     stack = newList,
                     added = added,
@@ -51,10 +52,10 @@ val navigatorReducer: ReducerForActionType<NavigatorState, GlobalState, Navigato
 
         NavigatorAction.BACK -> {
             val lastIndex = state.stack.lastIndex
-            val newList = state.stack.subList(0, lastIndex)
-            val added = newList.lastOrNull() ?: state.added
+            val newList = if (lastIndex == 0) emptyList() else state.stack.subList(0, lastIndex)
+            val added = newList.lastOrNull()
             state.copy(
-                stack = state.stack.subList(0, lastIndex),
+                stack = newList,
                 removed = state.stack.lastOrNull(),
                 added = added,
                 type = TransitionType.BACK
