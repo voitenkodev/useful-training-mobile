@@ -3,9 +3,9 @@ package presentation.map
 import models.ExerciseComponent
 import models.IterationComponent
 import models.TrainingComponent
-import presentation.training.TrainingState
+import presentation.training.Training
 
-fun TrainingState.toTrainingComponent() = TrainingComponent(
+fun Training.toTrainingComponent() = TrainingComponent(
     exercises = exercises.map { it.toExerciseComponent() },
     startDateTime = startDateTime,
     duration = duration,
@@ -20,7 +20,7 @@ fun TrainingState.toTrainingComponent() = TrainingComponent(
     endOfWeek = endOfWeek,
 )
 
-fun TrainingState.Exercise.toExerciseComponent() = ExerciseComponent(
+fun Training.Exercise.toExerciseComponent() = ExerciseComponent(
     name = name,
     iterations = iterations.map { it.toIterationComponent() },
     tonnage = tonnage.toString(),
@@ -28,7 +28,7 @@ fun TrainingState.Exercise.toExerciseComponent() = ExerciseComponent(
     intensity = intensity.toString()
 )
 
-fun TrainingState.Exercise.Iteration.toIterationComponent() = IterationComponent(
+fun Training.Exercise.Iteration.toIterationComponent() = IterationComponent(
     weight = weight,
     repeat = repeat
 )

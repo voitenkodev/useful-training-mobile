@@ -33,7 +33,6 @@ fun Root(
             end = DesignComponent.size.space,
             bottom = DesignComponent.size.space
         ),
-        verticalArrangement = Arrangement.spacedBy(DesignComponent.size.space)
     ) {
         LazyColumn(
             modifier = Modifier.weight(1f),

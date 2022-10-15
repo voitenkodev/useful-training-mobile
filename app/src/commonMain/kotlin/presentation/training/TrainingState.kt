@@ -9,10 +9,17 @@ import com.benasher44.uuid.uuid4
 import dev.icerock.moko.parcelize.Parcelable
 import dev.icerock.moko.parcelize.Parcelize
 import kotlinx.serialization.Serializable
+import presentation.review.ReviewAction
+
+data class TrainingState(
+    val training: Training = Training(),
+    val error: String? = null,
+    val loading: Boolean = false
+)
 
 @Serializable
 @Parcelize
-data class TrainingState(
+data class Training(
     val id: String? = null,
     val exercises: List<Exercise> = listOf(Exercise()),
     val startDateTime: String = DateTimeKtx().currentTime(),
@@ -58,7 +65,7 @@ data class TrainingState(
 
 sealed class TrainingAction(action: String) : Action(ReduxGroups.TRAINING, action) {
     data class PutTrainingAction(
-        val training: TrainingState
+        val training: Training
     ) : TrainingAction("PUT_TRAINING_ACTION")
 
     data class SetNameExerciseAction(
@@ -87,28 +94,32 @@ sealed class TrainingAction(action: String) : Action(ReduxGroups.TRAINING, actio
 
     object ProvideEmptyIterations : TrainingAction("PROVIDE_EMPTY_ITERATIONS_ACTION")
 
-    data class ProvideEmptyIteration(
-        val exerciseId: String,
-    ) : TrainingAction("PROVIDE_EMPTY_ITERATION_ACTION")
+    data class ProvideEmptyIteration(val exerciseId: String) : TrainingAction("PROVIDE_EMPTY_ITERATION_ACTION")
+
+    data class Error(val message: String? = null) : TrainingAction("ERROR_ACTION")
+
+    data class Loading(val value: Boolean) : TrainingAction("LOADING_ACTION")
 }
 
 val trainingReducer: ReducerForActionType<TrainingState, GlobalState, TrainingAction> = { state, _, action ->
     when (action) {
-        is TrainingAction.PutTrainingAction -> action.training
-        is TrainingAction.AddExerciseAction -> state.addExercise()
-        is TrainingAction.RemoveExerciseAction -> state.removeExercise(action.exerciseId)
-        is TrainingAction.SetNameExerciseAction -> state.setNameOfExercise(action.exerciseId, action.value)
-        is TrainingAction.SetRepeatExerciseIterationAction -> state.setRepeatOfIteration(action.exerciseId, action.number, action.value)
-        is TrainingAction.SetWeightExerciseIterationAction -> state.setWeightOfIteration(action.exerciseId, action.number, action.value)
-        is TrainingAction.ProvideEmptyIterations -> state.provideEmptyIterations()
-        is TrainingAction.ProvideEmptyIteration -> state.provideEmptyIteration(action.exerciseId)
-        is TrainingAction.ValidateExercises -> state.validate()
-        is TrainingAction.CalculateValues -> state.calculateValues()
-        is TrainingAction.CalculateDuration -> state.calculateDuration()
+        is TrainingAction.PutTrainingAction -> state.copy(training = action.training)
+        is TrainingAction.AddExerciseAction -> state.copy(training = state.training.addExercise())
+        is TrainingAction.RemoveExerciseAction -> state.copy(training = state.training.removeExercise(action.exerciseId))
+        is TrainingAction.SetNameExerciseAction -> state.copy(training = state.training.setNameOfExercise(action.exerciseId, action.value))
+        is TrainingAction.SetRepeatExerciseIterationAction -> state.copy(training = state.training.setRepeatOfIteration(action.exerciseId, action.number, action.value))
+        is TrainingAction.SetWeightExerciseIterationAction -> state.copy(training = state.training.setWeightOfIteration(action.exerciseId, action.number, action.value))
+        is TrainingAction.ProvideEmptyIterations -> state.copy(training = state.training.provideEmptyIterations())
+        is TrainingAction.ProvideEmptyIteration -> state.copy(training = state.training.provideEmptyIteration(action.exerciseId))
+        is TrainingAction.ValidateExercises -> state.copy(training = state.training.validate())
+        is TrainingAction.CalculateValues -> state.copy(training = state.training.calculateValues())
+        is TrainingAction.CalculateDuration -> state.copy(training = state.training.calculateDuration())
+        is TrainingAction.Error -> state.copy(error = action.message)
+        is TrainingAction.Loading -> state.copy(loading = action.value)
     }
 }
 
-fun TrainingState.setNameOfExercise(id: String, name: String): TrainingState {
+fun Training.setNameOfExercise(id: String, name: String): Training {
     return this.copy(exercises = this.exercises.map {
         if (it.id == id) {
             it.copy(name = name)
@@ -116,7 +127,7 @@ fun TrainingState.setNameOfExercise(id: String, name: String): TrainingState {
     })
 }
 
-fun TrainingState.setRepeatOfIteration(exerciseId: String, numberOfIteration: Int, repeat: String): TrainingState {
+fun Training.setRepeatOfIteration(exerciseId: String, numberOfIteration: Int, repeat: String): Training {
     val exercises = this.exercises.map {
         if (it.id != exerciseId) {
             it
@@ -124,7 +135,7 @@ fun TrainingState.setRepeatOfIteration(exerciseId: String, numberOfIteration: In
             val iterations = it.iterations.mapIndexedNotNull { index, iteration ->
                 val newRepeat = if (numberOfIteration == index) repeat else iteration.repeat
                 if (newRepeat == "" && iteration.weight == "") null
-                else TrainingState.Exercise.Iteration(weight = iteration.weight, repeat = newRepeat)
+                else Training.Exercise.Iteration(weight = iteration.weight, repeat = newRepeat)
             }
             it.copy(iterations = iterations)
         }
@@ -132,7 +143,7 @@ fun TrainingState.setRepeatOfIteration(exerciseId: String, numberOfIteration: In
     return copy(exercises = exercises)
 }
 
-fun TrainingState.setWeightOfIteration(exerciseId: String, numberOfIteration: Int, weight: String): TrainingState {
+fun Training.setWeightOfIteration(exerciseId: String, numberOfIteration: Int, weight: String): Training {
     val exercises = this.exercises.map {
         if (it.id != exerciseId) {
             it
@@ -140,7 +151,7 @@ fun TrainingState.setWeightOfIteration(exerciseId: String, numberOfIteration: In
             val iterations = it.iterations.mapIndexedNotNull { index, iteration ->
                 val newWeight = if (numberOfIteration == index) weight else iteration.weight
                 if (newWeight == "" && iteration.repeat == "") null
-                else TrainingState.Exercise.Iteration(weight = newWeight, repeat = iteration.repeat)
+                else Training.Exercise.Iteration(weight = newWeight, repeat = iteration.repeat)
             }
             it.copy(iterations = iterations)
         }
@@ -148,17 +159,17 @@ fun TrainingState.setWeightOfIteration(exerciseId: String, numberOfIteration: In
     return copy(exercises = exercises)
 }
 
-fun TrainingState.removeExercise(id: String): TrainingState {
+fun Training.removeExercise(id: String): Training {
     val newList = this.exercises.mapNotNull { old -> if (old.id == id) null else old }
     return this.copy(exercises = newList)
 }
 
-fun TrainingState.addExercise(): TrainingState {
-    val newExercises = this.exercises + TrainingState.Exercise()
+fun Training.addExercise(): Training {
+    val newExercises = this.exercises + Training.Exercise()
     return this.copy(exercises = newExercises)
 }
 
-fun TrainingState.validate(): TrainingState {
+fun Training.validate(): Training {
     val exercises = exercises.mapNotNull {
         val isNameValid = it.name.isNotBlank()
         val iterations = it.iterations.filter { iteration ->
@@ -174,7 +185,7 @@ fun TrainingState.validate(): TrainingState {
     return this.copy(exercises = exercises)
 }
 
-fun TrainingState.calculateValues(): TrainingState {
+fun Training.calculateValues(): Training {
     fun Double.round(decimals: Int): Double {
         var multiplier = 1.0
         repeat(decimals) { multiplier *= 10 }
@@ -208,26 +219,26 @@ fun TrainingState.calculateValues(): TrainingState {
     )
 }
 
-fun TrainingState.calculateDuration(): TrainingState {
+fun Training.calculateDuration(): Training {
     return if (duration == null) this.copy(duration = DateTimeKtx().durationFrom(this.startDateTime))
     else this
 }
 
-fun TrainingState.provideEmptyIterations(): TrainingState {
+fun Training.provideEmptyIterations(): Training {
     return this.copy(
         exercises = exercises.map {
             val lastIsNotEmpty = it.iterations.lastOrNull()?.weight != "" || it.iterations.lastOrNull()?.repeat != ""
-            if (lastIsNotEmpty) it.copy(iterations = it.iterations + TrainingState.Exercise.Iteration())
+            if (lastIsNotEmpty) it.copy(iterations = it.iterations + Training.Exercise.Iteration())
             else it
         }
     )
 }
 
-fun TrainingState.provideEmptyIteration(exerciseId: String): TrainingState {
+fun Training.provideEmptyIteration(exerciseId: String): Training {
     val exercise = this.exercises.find { it.id == exerciseId } ?: return this
     val lastIsNotEmpty = exercise.iterations.lastOrNull()?.weight != "" || exercise.iterations.lastOrNull()?.repeat != ""
     if (lastIsNotEmpty.not()) return this
-    val newExercise = exercise.copy(iterations = exercise.iterations + TrainingState.Exercise.Iteration())
+    val newExercise = exercise.copy(iterations = exercise.iterations + Training.Exercise.Iteration())
     val newExercises = this.exercises.map { if (it.id == exerciseId) newExercise else it }
     return this.copy(exercises = newExercises)
 }

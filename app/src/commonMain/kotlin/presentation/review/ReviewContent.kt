@@ -1,5 +1,6 @@
 package presentation.review
 
+import BackHandler
 import DesignComponent
 import GlobalState
 import NavigatorAction
@@ -26,8 +27,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import components.Error
 import components.Header
-import components.Root2
+import components.Loading
+import components.Root
 import components.items.ExerciseItem
 import components.items.LineChartItem
 import components.items.ShortTrainingItem
@@ -39,7 +42,7 @@ import controls.TextFieldBody2
 import controls.secondaryBackground
 import presentation.map.toExerciseComponent
 import presentation.map.toTrainingComponent
-import presentation.training.TrainingState
+import presentation.training.Training
 import rememberDispatcher
 import selectState
 
@@ -52,15 +55,24 @@ fun ReviewContent(
 
     val presenter = remember { ReviewPresenter(dispatcher) }
 
-    Root2(
+    Root(
         modifier = modifier.fillMaxSize(),
+        loading = {
+            Loading(state.loading)
+        },
+        error = {
+            Error(message = state.error, close = { dispatcher(ReviewAction.Error(null)) })
+        },
+        back = {
+            BackHandler(action = { dispatcher(NavigatorAction.BACK) })
+        },
         header = {
             Header(
                 title = "Review!",
                 exit = { dispatcher(NavigatorAction.BACK) }
             )
         },
-        content = {
+        scrollableContent = {
             item(key = "date") {
                 DateItem(
                     weekDay = state.reviewTraining.weekDay,
@@ -124,9 +136,9 @@ fun ReviewContent(
 
 @Composable
 private fun Comparing(
-    selected: TrainingState?,
-    list: List<TrainingState>,
-    compare: (TrainingState) -> Unit,
+    selected: Training?,
+    list: List<Training>,
+    compare: (Training) -> Unit,
     clear: () -> Unit
 ) = Column(
     verticalArrangement = Arrangement.spacedBy(DesignComponent.size.space)
@@ -238,7 +250,7 @@ private fun ChartSection(
 
 @Composable
 private fun Summary(
-    state: TrainingState
+    state: Training
 ) = Column(
     verticalArrangement = Arrangement.spacedBy(DesignComponent.size.space)
 ) {

@@ -1,16 +1,13 @@
 package data.mapping
 
-import data.dto.Training
-import presentation.training.TrainingState
-
-fun TrainingState.toTraining() = Training(
+fun presentation.training.Training.toTraining() = data.dto.Training(
     id = id,
     exercises = exercises.map {
-        Training.Exercise(
+        data.dto.Training.Exercise(
             id = it.id,
             name = it.name,
             iterations = it.iterations.map {
-                Training.Exercise.Iteration(
+                data.dto.Training.Exercise.Iteration(
                     weight = it.weight.toDoubleOrNull(),
                     repeat = it.repeat.toIntOrNull()
                 )

@@ -1,9 +1,12 @@
 package presentation.trainings
 
 import BackHandler
+import DesignComponent
+import Direction
+import GlobalState
+import NavigatorAction
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -13,26 +16,24 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import DesignComponent
 import atomic.icons.BarChart
+import components.Error
 import components.Header
-import components.Root2
+import components.Loading
+import components.Root
 import components.items.TrainingItem
 import controls.ButtonPrimary
 import controls.IconPrimary
 import controls.TextFieldBody2
 import presentation.map.toTrainingComponent
-import Direction
-import GlobalState
-import NavigatorAction
-import androidx.compose.runtime.remember
 import presentation.review.ReviewAction
+import presentation.training.Training
 import presentation.training.TrainingAction
-import presentation.training.TrainingState
 import rememberDispatcher
 import selectState
 
@@ -43,29 +44,40 @@ fun TrainingsContent() {
     val dispatcher = rememberDispatcher()
 
     val presenter = remember { TrainingsPresenter(dispatcher) }
-    LaunchedEffect(Unit) { presenter.fetchTrainings() }
 
-    Root2(
+    LaunchedEffect(Unit) {
+        presenter.fetchTrainings()
+    }
+
+    Root(
         modifier = Modifier.fillMaxSize(),
-        contentPadding = PaddingValues(
-            top = DesignComponent.size.space,
-            bottom = DesignComponent.size.space + 56.dp + DesignComponent.size.space,
-            start = DesignComponent.size.space,
-            end = DesignComponent.size.space
-        ),
-        header = { Header(title = "Trainings!") },
-        back = { BackHandler { dispatcher(NavigatorAction.BACK) } },
-        floating = {
-            FloatingMenu(
-                modifier = Modifier.fillMaxWidth().align(Alignment.BottomCenter).padding(DesignComponent.size.space),
-                add = {
-                    dispatcher(TrainingAction.PutTrainingAction(TrainingState()))
+        loading = {
+            Loading(state.loading)
+        },
+        error = {
+            Error(message = state.error, close = { dispatcher(TrainingsAction.Error(null)) })
+        },
+        back = {
+            BackHandler(action = { dispatcher(NavigatorAction.BACK) })
+        },
+        header = {
+            Header(title = "Trainings!")
+        },
+        footer = {
+            ButtonPrimary(
+                modifier = Modifier.fillMaxWidth()
+                    .background(
+                        color = DesignComponent.colors.accent_primary,
+                        shape = DesignComponent.shape.default
+                    ),
+                text = "New Training",
+                onClick = {
+                    dispatcher(TrainingAction.PutTrainingAction(Training()))
                     dispatcher(NavigatorAction.NAVIGATE(Direction.Training))
-                },
-                statistic = {}
+                }
             )
         },
-        content = {
+        scrollableContent = {
 
             state.trainings.groupBy { it.endOfWeek }.onEach {
 

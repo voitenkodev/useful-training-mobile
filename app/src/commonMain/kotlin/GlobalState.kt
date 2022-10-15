@@ -5,6 +5,7 @@ import presentation.review.ReviewAction
 import presentation.review.ReviewState
 import presentation.review.reviewReducer
 import presentation.training.TrainingAction
+import presentation.training.Training
 import presentation.training.TrainingState
 import presentation.training.trainingReducer
 import presentation.trainings.TrainingsAction

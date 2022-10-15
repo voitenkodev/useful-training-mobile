@@ -17,16 +17,16 @@ fun NavigatorRoot(
 
     val state by selectState<GlobalState, NavigatorState> { this.navigatorState }
 
-    // Exit app logic
-    if (state.added == null) {
-        finalize.invoke()
-        return
-    }
-
     NavigationHost(
         currentScreen = state.added?.route,
         screenToRemove = state.removed?.route,
         isForward = state.type == TransitionType.FORWARD,
         content = { direct -> Direction.values().find { it.route == direct }?.let { graph.invoke(it) } }
     )
+
+    // Exit app logic
+    if (state.stack.isEmpty()) {
+        finalize.invoke()
+        return
+    }
 }

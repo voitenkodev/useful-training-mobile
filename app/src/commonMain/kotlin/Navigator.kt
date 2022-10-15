@@ -53,11 +53,10 @@ val navigatorReducer: ReducerForActionType<NavigatorState, GlobalState, Navigato
         NavigatorAction.BACK -> {
             val lastIndex = state.stack.lastIndex
             val newList = if (lastIndex == 0) emptyList() else state.stack.subList(0, lastIndex)
-            val added = newList.lastOrNull()
             state.copy(
                 stack = newList,
                 removed = state.stack.lastOrNull(),
-                added = added,
+                added = state.added,
                 type = TransitionType.BACK
             )
         }

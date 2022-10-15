@@ -7,23 +7,29 @@ import ReduxGroups
 import dev.icerock.moko.parcelize.Parcelable
 import dev.icerock.moko.parcelize.Parcelize
 import kotlinx.serialization.Serializable
-import presentation.training.TrainingState
+import presentation.training.Training
 
 @Serializable
 @Parcelize
 data class TrainingsState(
-    val trainings: List<TrainingState> = emptyList()
+    val trainings: List<Training> = emptyList(),
+    val error: String? = null,
+    val loading: Boolean = false
 ) : Parcelable
 
 sealed class TrainingsAction(action: String) : Action(ReduxGroups.TRAININGS, action) {
 
-    data class GetTrainings(
-        val trainings: List<TrainingState>
-    ) : TrainingsAction("GET_TRAININGS_ACTION")
+    data class FetchTrainings(val trainings: List<Training>) : TrainingsAction("FETCH_TRAININGS_ACTION")
+
+    data class Error(val message: String? = null) : TrainingsAction("ERROR_ACTION")
+
+    data class Loading(val value: Boolean) : TrainingsAction("LOADING_ACTION")
 }
 
 val trainingsReducer: ReducerForActionType<TrainingsState, GlobalState, TrainingsAction> = { state, _, action ->
     when (action) {
-        is TrainingsAction.GetTrainings -> state.copy(trainings = action.trainings)
+        is TrainingsAction.FetchTrainings -> state.copy(trainings = action.trainings)
+        is TrainingsAction.Error -> state.copy(error = action.message)
+        is TrainingsAction.Loading -> state.copy(loading = action.value)
     }
 }

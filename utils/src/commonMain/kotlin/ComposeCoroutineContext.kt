@@ -1,17 +1,11 @@
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.RememberObserver
-import androidx.compose.runtime.remember
 import co.touchlab.kermit.Logger
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.cancelChildren
 import kotlinx.coroutines.launch
-
-@Composable
-fun rememberComposeCoroutineContext(): ComposeCoroutineContext {
-    return remember { ComposeCoroutineContext() }
-}
 
 open class ComposeCoroutineContext : RememberObserver {
 
@@ -24,24 +18,30 @@ open class ComposeCoroutineContext : RememberObserver {
         if (job?.isActive == true) {
             Logger.i { "job?.isActive == true launch" }
             scope.launch(block = task)
-        } else {
+        } else if (tasks.isNotEmpty()) {
             Logger.i { "job?.isActive == false launch" }
-            job = scope.launch { scope.launch(block = task) }
+            job = scope.launch {
+                launch(block = task).join()
+                tasks.remove(task)
+            }
         }
     }
 
     override fun onRemembered() {
         Logger.i { "ComposeCoroutineContext onRemembered" }
+        job?.cancelChildren()
         job?.cancel("Old job was still running!")
         job = scope.launch {
             tasks.forEach { task ->
-                scope.launch(block = task)
+                launch(block = task)
+                tasks.remove(task)
             }
         }
     }
 
     override fun onForgotten() {
         Logger.i { "ComposeCoroutineContext onForgotten" }
+        job?.cancelChildren()
         job?.cancel()
         job = null
     }

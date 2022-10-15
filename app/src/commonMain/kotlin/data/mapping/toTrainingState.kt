@@ -1,18 +1,17 @@
 package data.mapping
 
-import data.dto.Training
-import presentation.training.TrainingState
+import presentation.training.Training
 
-fun List<Training?>.toTrainingStateList() = this.mapNotNull { it?.toTrainingState() }
+fun List<data.dto.Training?>.toTrainingStateList() = this.mapNotNull { it?.toTrainingState() }
 
-fun Training.toTrainingState() = TrainingState(
+fun data.dto.Training.toTrainingState() = presentation.training.Training(
     id = id.toString(),
     exercises = exercises.map {
-        TrainingState.Exercise(
+        Training.Exercise(
             id = it.id ?: "",
             name = it.name ?: "",
             iterations = it.iterations.map {
-                TrainingState.Exercise.Iteration(
+                Training.Exercise.Iteration(
                     weight = it.weight?.toDoubleOrIntString() ?: "",
                     repeat = it.repeat?.toString() ?: ""
                 )

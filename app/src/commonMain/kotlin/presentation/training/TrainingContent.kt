@@ -3,6 +3,7 @@ package presentation.training
 import BackHandler
 import DesignComponent
 import GlobalState
+import NavigatorAction
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -11,7 +12,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import components.Error
 import components.Header
+import components.Loading
 import components.Root2
 import components.items.EditExerciseItem
 import controls.ButtonPrimary
@@ -30,7 +33,15 @@ fun TrainingContent(
 
     Root2(
         modifier = modifier.fillMaxSize(),
-        back = { BackHandler { dispatcher(NavigatorAction.BACK) } },
+        loading = {
+            Loading(state.loading)
+        },
+        error = {
+            Error(message = state.error, close = { dispatcher(TrainingAction.Error(null)) })
+        },
+        back = {
+            BackHandler(action = { dispatcher(NavigatorAction.BACK) })
+        },
         header = {
             Header(
                 title = "Exercises!",
@@ -38,7 +49,7 @@ fun TrainingContent(
                     dispatcher(TrainingAction.ValidateExercises)
                     dispatcher(TrainingAction.CalculateDuration)
                     dispatcher(TrainingAction.CalculateValues)
-                    presenter.saveTraining(state)
+                    presenter.saveTraining(state.training)
                 }
             )
         },
@@ -49,7 +60,7 @@ fun TrainingContent(
             )
         },
         content = {
-            itemsIndexed(state.exercises, key = { _, exercise -> exercise.id }) { index, exercise ->
+            itemsIndexed(state.training.exercises, key = { _, exercise -> exercise.id }) { index, exercise ->
                 EditExerciseItem(
                     modifier = Modifier.animateItemPlacement(),
                     number = index + 1,

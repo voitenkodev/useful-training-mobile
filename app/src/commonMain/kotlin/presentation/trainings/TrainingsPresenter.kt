@@ -1,8 +1,6 @@
 package presentation.trainings
 
 import ComposeCoroutineContext
-import Direction
-import NavigatorAction
 import data.mapping.toTrainingStateList
 import data.repository.TrainingRepository
 import globalKoin
@@ -17,10 +15,17 @@ class TrainingsPresenter(val dispatcher: (Any) -> Any) : ComposeCoroutineContext
     private val api = globalKoin().get<TrainingRepository>()
 
     fun fetchTrainings() = call {
-        api
-            .getTrainings()
-            .map { it.toTrainingStateList() }
-            .onEach { dispatcher(TrainingsAction.GetTrainings(it)) }
-            .launchIn(this)
+        api.getTrainings().onStart {
+                dispatcher(TrainingsAction.Loading(true))
+            }.map {
+                it.toTrainingStateList()
+            }.onEach {
+                dispatcher(TrainingsAction.Loading(false))
+                dispatcher(TrainingsAction.Error(null))
+                dispatcher(TrainingsAction.FetchTrainings(it))
+            }.catch {
+                dispatcher(TrainingsAction.Loading(false))
+                dispatcher(TrainingsAction.Error(it.message))
+            }.launchIn(this)
     }
 }
