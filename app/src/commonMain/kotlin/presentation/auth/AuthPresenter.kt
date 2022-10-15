@@ -45,5 +45,4 @@ class AuthPresenter(val dispatcher: (Any) -> Any) : ComposeCoroutineContext() {
                 dispatcher(AuthAction.Error(it.message))
             }.launchIn(this)
     }
-
 }

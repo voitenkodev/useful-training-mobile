@@ -1,5 +1,6 @@
 package presentation.training
 
+import BackHandler
 import DesignComponent
 import GlobalState
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,7 +12,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import components.Header
-import components.Root
+import components.Root2
 import components.items.EditExerciseItem
 import controls.ButtonPrimary
 import presentation.map.toExerciseComponent
@@ -27,8 +28,9 @@ fun TrainingContent(
 
     val presenter = remember { TrainingPresenter(dispatcher) }
 
-    Root(
+    Root2(
         modifier = modifier.fillMaxSize(),
+        back = { BackHandler { dispatcher(NavigatorAction.BACK) } },
         header = {
             Header(
                 title = "Exercises!",

@@ -1,7 +1,9 @@
 package presentation.auth
 
+import BackHandler
 import DesignComponent
 import GlobalState
+import NavigatorAction
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -35,35 +37,38 @@ fun AuthContent() {
 
     Root(
         modifier = Modifier.fillMaxSize(),
-        loading = { Loading(state.loading) },
-        error = { Error(message = state.error, close = { dispatcher(AuthAction.Error(null)) }) },
-        header = { Header(title = "\uD83D\uDC4B Welcome back!") },
+        loading = {
+            Loading(state.loading)
+        },
+        error = {
+            Error(message = state.error, close = { dispatcher(AuthAction.Error(null)) })
+        },
+        back = {
+            BackHandler(action = { dispatcher(NavigatorAction.BACK) })
+        },
+        header = {
+            Header(title = "\uD83D\uDC4B Welcome back!")
+        },
         content = {
 
-            item {
-                TextFieldH2(
-                    text = "Sign in to your account",
-                    color = DesignComponent.colors.caption
-                )
-            }
+            TextFieldH2(
+                text = "Sign in to your account",
+                color = DesignComponent.colors.caption
+            )
 
-            item("space_1") { Spacer(modifier = Modifier.size(16.dp)) }
+            Spacer(modifier = Modifier.size(16.dp))
 
-            item("email_input") {
-                InputEmail(
-                    modifier = Modifier.fillMaxWidth(),
-                    value = state.email,
-                    onValueChange = { dispatcher(AuthAction.SetEmailAction(it)) }
-                )
-            }
+            InputEmail(
+                modifier = Modifier.fillMaxWidth(),
+                value = state.email,
+                onValueChange = { dispatcher(AuthAction.SetEmailAction(it)) }
+            )
 
-            item("password_input") {
-                InputPassword(
-                    modifier = Modifier.fillMaxWidth(),
-                    value = state.password,
-                    onValueChange = { dispatcher(AuthAction.SetPasswordAction(it)) }
-                )
-            }
+            InputPassword(
+                modifier = Modifier.fillMaxWidth(),
+                value = state.password,
+                onValueChange = { dispatcher(AuthAction.SetPasswordAction(it)) }
+            )
         },
         footer = {
 

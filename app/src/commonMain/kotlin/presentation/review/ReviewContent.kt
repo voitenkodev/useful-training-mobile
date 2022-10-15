@@ -27,7 +27,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import components.Header
-import components.Root
+import components.Root2
 import components.items.ExerciseItem
 import components.items.LineChartItem
 import components.items.ShortTrainingItem
@@ -52,7 +52,7 @@ fun ReviewContent(
 
     val presenter = remember { ReviewPresenter(dispatcher) }
 
-    Root(
+    Root2(
         modifier = modifier.fillMaxSize(),
         header = {
             Header(

@@ -1,5 +1,6 @@
 package presentation.trainings
 
+import BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
@@ -19,17 +20,11 @@ import androidx.compose.ui.unit.dp
 import DesignComponent
 import atomic.icons.BarChart
 import components.Header
-import components.Root
+import components.Root2
 import components.items.TrainingItem
 import controls.ButtonPrimary
 import controls.IconPrimary
 import controls.TextFieldBody2
-import data.mapping.toTrainingStateList
-import data.repository.TrainingRepository
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.onEach
-import org.koin.mp.KoinPlatformTools
 import presentation.map.toTrainingComponent
 import Direction
 import GlobalState
@@ -50,7 +45,7 @@ fun TrainingsContent() {
     val presenter = remember { TrainingsPresenter(dispatcher) }
     LaunchedEffect(Unit) { presenter.fetchTrainings() }
 
-    Root(
+    Root2(
         modifier = Modifier.fillMaxSize(),
         contentPadding = PaddingValues(
             top = DesignComponent.size.space,
@@ -58,9 +53,8 @@ fun TrainingsContent() {
             start = DesignComponent.size.space,
             end = DesignComponent.size.space
         ),
-        header = {
-            Header(title = "Trainings!")
-        },
+        header = { Header(title = "Trainings!") },
+        back = { BackHandler { dispatcher(NavigatorAction.BACK) } },
         floating = {
             FloatingMenu(
                 modifier = Modifier.fillMaxWidth().align(Alignment.BottomCenter).padding(DesignComponent.size.space),

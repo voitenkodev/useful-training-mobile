@@ -51,11 +51,9 @@ fun AuthState.validate(): AuthState {
     val isEmailValid = newEmail.matches(emailAddressRegex)
     val isPasswordValid = newPassword.length > 5
 
-    val newError = if (isEmailValid.not()) {
-        "Invalid Email Field"
-    } else if (isPasswordValid.not()) {
-        "Invalid password field"
-    } else null
+    val newError = if (isEmailValid.not()) "Invalid Email Field"
+    else if (isPasswordValid.not()) "Invalid password field"
+    else null
 
     return this.copy(email = newEmail, password = newPassword, error = newError)
 }
