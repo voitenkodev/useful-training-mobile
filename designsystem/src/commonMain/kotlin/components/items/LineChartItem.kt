@@ -27,18 +27,21 @@ import controls.secondaryBackground
 @Composable
 fun LineChartItem(
     modifier: Modifier = Modifier,
-    lines: List<PointLine>
+    lines: List<PointLine>,
+    onClick: (PointLine, Int) -> Unit
 ) = LineChartBox(
     modifier = modifier
         .secondaryBackground()
         .padding(DesignComponent.size.space),
-    lines = lines
+    lines = lines,
+    onClick = onClick
 )
 
 @Composable
 private fun LineChartBox(
     modifier: Modifier = Modifier,
-    lines: List<PointLine>
+    lines: List<PointLine>,
+    onClick: (PointLine, Int) -> Unit
 ) {
 
     val minY = lines.minOfOrNull { it.yValue.min() }?.toInt() ?: 0
@@ -72,7 +75,8 @@ private fun LineChartBox(
             Column {
                 LineChart(
                     modifier = Modifier.weight(1f).fillMaxWidth(),
-                    lines = lines
+                    lines = lines,
+                    onClick = onClick
                 )
 
                 XLabels(

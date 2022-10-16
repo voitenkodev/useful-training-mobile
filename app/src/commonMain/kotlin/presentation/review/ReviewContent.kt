@@ -28,6 +28,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import co.touchlab.kermit.Logger
 import components.Error
 import components.Header
 import components.Loading
@@ -89,6 +90,8 @@ fun ReviewContent(
                     data = state.reviewTraining.exercises.map { it.tonnage.toFloat() },
                     compareData = state.compareTraining?.exercises?.map { it.tonnage.toFloat() },
                     color = DesignComponent.colors.unique.color1,
+                    onClick = { point, index ->
+                    }
                 )
             }
 
@@ -98,6 +101,8 @@ fun ReviewContent(
                     data = state.reviewTraining.exercises.map { it.intensity.toFloat() },
                     compareData = state.compareTraining?.exercises?.map { it.intensity.toFloat() },
                     color = DesignComponent.colors.unique.color4,
+                    onClick = { point, index ->
+                    }
                 )
             }
 
@@ -230,6 +235,7 @@ private fun ChartSection(
     color: Color,
     data: List<Float>,
     compareData: List<Float>? = null,
+    onClick: (PointLine, Int) -> Unit
 ) = LineChartItem(
     modifier = Modifier
         .fillMaxWidth()
@@ -251,7 +257,8 @@ private fun ChartSection(
                 label = "Compare"
             )
         )
-    }
+    },
+    onClick = onClick
 )
 
 @Composable

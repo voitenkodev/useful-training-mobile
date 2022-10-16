@@ -9,30 +9,28 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.input.pointer.PointerInputChange
 import androidx.compose.ui.unit.dp
-import co.touchlab.kermit.Logger
 import kotlin.math.absoluteValue
 
 @Composable
 fun LineChart(
     modifier: Modifier = Modifier,
-    lines: List<PointLine>
+    lines: List<PointLine>,
+    onClick: (PointLine, Int) -> Unit
 ) {
 
     val motionEvent = remember { mutableStateOf(MotionEvent.Idle) }
     val currentPosition = remember { mutableStateOf(Offset.Unspecified) }
 
     val drawModifier = modifier.pointerMotionEvents(
+        delayAfterDownInMillis = 25L,
         onUp = { pointerInputChange: PointerInputChange ->
             currentPosition.value = pointerInputChange.position
             motionEvent.value = MotionEvent.Up
             pointerInputChange.consume()
-        },
-        delayAfterDownInMillis = 25L
+        }
     )
 
     if (lines.isEmpty()) return
-
-
 
     Canvas(modifier = drawModifier) {
 
@@ -41,30 +39,19 @@ fun LineChart(
             height = size.height,
             lines = lines
         )
-        when (motionEvent.value) {
-            MotionEvent.Down -> {
-                innerLines.find {
-                    currentPosition.value.x + 20f
-
-                    val filtered = it.offsets.filter { ofs ->
-                        (ofs.x - currentPosition.value.x).absoluteValue < 20 && (ofs.y - currentPosition.value.y).absoluteValue < 20
-                    }
-
-                    Logger.i { "filtered = $filtered" }
-                    Logger.i { "currentPosition = ${currentPosition.value}" }
-
-                    val index = it.offsets.indexOf(currentPosition.value)
-                    index != -1
+        if (motionEvent.value == MotionEvent.Up) {
+            innerLines.onEach {
+                val index = it.offsets.indexOfFirst { ofs ->
+                    (ofs.x - currentPosition.value.x).absoluteValue < 20 && (ofs.y - currentPosition.value.y).absoluteValue < 20
                 }
-
+                if (index != -1) {
+                    onClick.invoke(it, index)
+                }
             }
-
-            else -> Unit
         }
 
         innerLines.forEach {
 
-            Logger.i { "line = ${it.yValue.size}" }
             // Line
             drawPath(
                 path = it.path,
