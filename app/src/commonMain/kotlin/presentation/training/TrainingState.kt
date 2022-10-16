@@ -29,7 +29,7 @@ data class Training(
     val intensity: Double? = null
 ) : Parcelable {
 
-    // UI date presentation
+    // UI date internal.presentation
     val weekDay: String
         get() = DateTimeKtx().formattedWeekDay(startDateTime) ?: ""
     val startTime: String

@@ -1,3 +1,6 @@
+package internal
+
+import AnimationType
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedContentScope
 import androidx.compose.animation.AnimatedVisibilityScope
@@ -19,13 +22,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveableStateHolder
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import co.touchlab.kermit.Logger
 
 @Composable
-fun NavigationHost(
+internal fun NavigationCore(
     currentScreen: String?,
     screenToRemove: String?,
-    animationTyper: AnimationTyper = AnimationTyper.Push(3000),
+    animationType: AnimationType = AnimationType.Push(2000),
     isForward: Boolean,
     onScreenRemove: ((String) -> Unit)? = null,
     content: @Composable (String) -> Unit
@@ -35,12 +37,10 @@ fun NavigationHost(
 
     AnimatedTransition(
         targetState = currentScreen,
-        animation = animationTyper,
+        animation = animationType,
         isForwardDirection = isForward,
         content = { direct ->
             if (direct != null) {
-                Logger.i { "current = $currentScreen remove = $screenToRemove" }
-                Logger.i { "direct = $direct" }
                 stateHolder.SaveableStateProvider(direct) { content(direct) }
             }
         }
@@ -57,7 +57,7 @@ fun NavigationHost(
 @Composable
 private fun <T> AnimatedTransition(
     targetState: T,
-    animation: AnimationTyper,
+    animation: AnimationType,
     isForwardDirection: Boolean,
     onAnimationEnd: (() -> Unit)? = null,
     content: @Composable (T) -> Unit
@@ -66,10 +66,10 @@ private fun <T> AnimatedTransition(
     onAnimationEnd = onAnimationEnd ?: { },
     content = { target -> content(target) },
     transitionSpec = when (animation) {
-        is AnimationTyper.Present -> presentation(isForwardDirection, animation.animationTime)
-        is AnimationTyper.Fade -> crossFade(animation.animationTime)
-        AnimationTyper.None -> presentation(isForwardDirection, 1)
-        is AnimationTyper.Push -> push(isForwardDirection, animation.animationTime)
+        is AnimationType.Present -> presentation(isForwardDirection, animation.animationTime)
+        is AnimationType.Fade -> crossFade(animation.animationTime)
+        is AnimationType.None -> presentation(isForwardDirection, 1)
+        is AnimationType.Push -> push(isForwardDirection, animation.animationTime)
     }
 )
 
@@ -100,19 +100,12 @@ private fun <S> AnimatedContentWithCallback(
 
 // __________________ ANIMATIONS __________________
 
-sealed class AnimationTyper {
-    object None : AnimationTyper()
-    data class Push(val animationTime: Int = 300) : AnimationTyper()
-    data class Present(val animationTime: Int = 300) : AnimationTyper()
-    data class Fade(val animationTime: Int = 300) : AnimationTyper()
-}
-
-fun <T> crossFade(transitionTime: Int): AnimatedContentScope<T>.() -> ContentTransform = {
+internal fun <T> crossFade(transitionTime: Int): AnimatedContentScope<T>.() -> ContentTransform = {
     (fadeIn(animationSpec = tween(transitionTime)) with fadeOut(animationSpec = tween(transitionTime)))
         .using(SizeTransform(clip = false))
 }
 
-fun <T> push(isForward: Boolean, transitionTime: Int): AnimatedContentScope<T>.() -> ContentTransform = {
+internal fun <T> push(isForward: Boolean, transitionTime: Int): AnimatedContentScope<T>.() -> ContentTransform = {
     if (isForward) {
         (slideInHorizontally(
             animationSpec = tween(transitionTime),
@@ -133,7 +126,7 @@ fun <T> push(isForward: Boolean, transitionTime: Int): AnimatedContentScope<T>.(
     }
 }
 
-fun <T> presentation(isOpen: Boolean, transitionTime: Int): AnimatedContentScope<T>.() -> ContentTransform = {
+internal fun <T> presentation(isOpen: Boolean, transitionTime: Int): AnimatedContentScope<T>.() -> ContentTransform = {
     if (isOpen) {
         (slideInVertically(
             animationSpec = tween(transitionTime),

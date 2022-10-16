@@ -4,7 +4,7 @@ import Direction
 import GlobalState
 import NavigationHost
 import NavigatorState
-import TransitionType
+import TransitionTypee
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import selectState
@@ -20,7 +20,7 @@ fun NavigatorRoot(
     NavigationHost(
         currentScreen = state.added?.route,
         screenToRemove = state.removed?.route,
-        isForward = state.type == TransitionType.FORWARD,
+        isForward = state.type == TransitionTypee.FORWARD,
         content = { direct -> Direction.values().find { it.route == direct }?.let { graph.invoke(it) } }
     )
 

@@ -2,7 +2,7 @@ data class NavigatorState(
     val stack: List<Direction> = listOf(Direction.Auth),
     val added: Direction? = Direction.Auth,
     val removed: Direction? = null,
-    val type: TransitionType? = TransitionType.FORWARD,
+    val type: TransitionTypee? = TransitionTypee.FORWARD,
 )
 
 sealed class NavigatorAction(action: String) : Action(ReduxGroups.NAVIGATOR, action) {
@@ -12,7 +12,7 @@ sealed class NavigatorAction(action: String) : Action(ReduxGroups.NAVIGATOR, act
     object BACK : NavigatorAction(action = "BACK")
 }
 
-enum class TransitionType { FORWARD, BACK }
+enum class TransitionTypee { FORWARD, BACK }
 
 enum class Direction(val route: String) {
     Auth(route = "auth_screen"),
@@ -36,7 +36,7 @@ val navigatorReducer: ReducerForActionType<NavigatorState, GlobalState, Navigato
                     stack = newList,
                     added = added,
                     removed = state.stack.lastOrNull(),
-                    type = TransitionType.FORWARD
+                    type = TransitionTypee.FORWARD
                 )
             } else {
                 val newList = state.stack.subList(0, index + 1)
@@ -45,7 +45,7 @@ val navigatorReducer: ReducerForActionType<NavigatorState, GlobalState, Navigato
                     stack = newList,
                     added = added,
                     removed = state.stack.lastOrNull(),
-                    type = TransitionType.BACK
+                    type = TransitionTypee.BACK
                 )
             }
         }
@@ -57,7 +57,7 @@ val navigatorReducer: ReducerForActionType<NavigatorState, GlobalState, Navigato
                 stack = newList,
                 removed = state.stack.lastOrNull(),
                 added = state.added,
-                type = TransitionType.BACK
+                type = TransitionTypee.BACK
             )
         }
     }
