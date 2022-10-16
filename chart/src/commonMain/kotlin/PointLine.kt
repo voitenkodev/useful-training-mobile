@@ -14,7 +14,8 @@ data class PointLine(
     val pathEffect: PathEffect? = null,
     val point: PointCircle? = null,
 ) {
-    // need to fill using canvas board
+
+    // Need to fill using canvas board
     var path: Path = Path()
     var offsets: MutableList<Offset> = mutableListOf()
 }

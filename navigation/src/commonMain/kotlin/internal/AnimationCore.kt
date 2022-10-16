@@ -25,7 +25,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 
 @Composable
-internal fun <T : Screen> NavigationCore(
+internal fun <T : Screen> AnimationCore(
     currentScreen: T?,
     screenToRemove: T?,
     animationType: AnimationType = AnimationType.Push(500),

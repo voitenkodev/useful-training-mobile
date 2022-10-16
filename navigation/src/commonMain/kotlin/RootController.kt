@@ -2,7 +2,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.collectAsState
 import internal.LocalAppNavigator
-import internal.NavigationCore
+import internal.AnimationCore
 import internal.NavigatorImpl
 
 @Composable
@@ -17,7 +17,7 @@ fun RootController(
     content = {
         val state = NavigationComponent.navigator.state.collectAsState()
 
-        NavigationCore(
+        AnimationCore(
             currentScreen = state.value.current,
             screenToRemove = state.value.previous,
             isForward = state.value.type == TransitionType.FORWARD,

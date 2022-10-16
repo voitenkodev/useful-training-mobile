@@ -22,30 +22,25 @@ fun LineChart(
     val currentPosition = remember { mutableStateOf(Offset.Unspecified) }
 
     val drawModifier = modifier.pointerMotionEvents(
-        onDown = { pointerInputChange: PointerInputChange ->
-            currentPosition.value = pointerInputChange.position
-            motionEvent.value = MotionEvent.Down
-            pointerInputChange.consume()
-        },
-        onMove = { pointerInputChange: PointerInputChange ->
-            currentPosition.value = pointerInputChange.position
-            motionEvent.value = MotionEvent.Move
-            pointerInputChange.consume()
-        },
         onUp = { pointerInputChange: PointerInputChange ->
+            currentPosition.value = pointerInputChange.position
             motionEvent.value = MotionEvent.Up
             pointerInputChange.consume()
         },
         delayAfterDownInMillis = 25L
     )
 
-
     if (lines.isEmpty()) return
+
+
 
     Canvas(modifier = drawModifier) {
 
-        val innerLines = calculatePath(lines = lines)
-
+        val innerLines = calculatePath(
+            width = size.width,
+            height = size.height,
+            lines = lines
+        )
         when (motionEvent.value) {
             MotionEvent.Down -> {
                 innerLines.find {
@@ -54,7 +49,8 @@ fun LineChart(
                     val filtered = it.offsets.filter { ofs ->
                         (ofs.x - currentPosition.value.x).absoluteValue < 20 && (ofs.y - currentPosition.value.y).absoluteValue < 20
                     }
-                    Logger.i { "filtered = ${filtered}" }
+
+                    Logger.i { "filtered = $filtered" }
                     Logger.i { "currentPosition = ${currentPosition.value}" }
 
                     val index = it.offsets.indexOf(currentPosition.value)
@@ -67,6 +63,8 @@ fun LineChart(
         }
 
         innerLines.forEach {
+
+            Logger.i { "line = ${it.yValue.size}" }
             // Line
             drawPath(
                 path = it.path,
