@@ -1,35 +1,32 @@
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import internal.LocalAppNavigator
-import internal.NavigationComponent
 import internal.NavigationCore
+import internal.NavigatorImpl
 
 @Composable
 fun RootController(
-    initial: Screen,
+    startScreen: Screen,
     finalize: () -> Unit,
-    content: (@Composable NavigationState.() -> Unit)
+    content: (@Composable Screen.() -> Unit)
 ) = CompositionLocalProvider(
 
-    LocalAppNavigator provides NavigationState().apply { this.direct(initial) },
+    LocalAppNavigator provides NavigatorImpl().apply { direct(startScreen) },
 
     content = {
-        val current = NavigationComponent.navigationState
-        val state: State<NavController> = current.state.collectAsState()
+        val state = NavigationComponent.navigator.state.collectAsState()
 
         NavigationCore(
-            currentScreen = state.value.current?.link,
-            screenToRemove = state.value.previous?.link,
+            currentScreen = state.value.current,
+            screenToRemove = state.value.previous,
             isForward = state.value.type == TransitionType.FORWARD,
-            content = { content.invoke(current) }
+            content = { content.invoke(it) }
         )
 
         // Exit app logic (for different OS)
         if (state.value.stack.isEmpty()) {
             finalize.invoke()
-            return@CompositionLocalProvider
         }
     }
 )

@@ -2,9 +2,9 @@ package presentation.trainings
 
 import BackHandler
 import DesignComponent
-import Direction
 import GlobalState
-import NavigatorAction
+import Graph
+import Navigator
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -38,7 +38,9 @@ import rememberDispatcher
 import selectState
 
 @Composable
-fun TrainingsContent() {
+fun TrainingsContent(
+    navigator: Navigator
+) {
 
     val state by selectState<GlobalState, TrainingsState> { this.trainingsState }
     val dispatcher = rememberDispatcher()
@@ -58,7 +60,7 @@ fun TrainingsContent() {
             Error(message = state.error, close = { dispatcher(TrainingsAction.Error(null)) })
         },
         back = {
-            BackHandler(action = { dispatcher(NavigatorAction.BACK) })
+            BackHandler(action = { navigator.back() })
         },
         header = {
             Header(title = "Trainings!")
@@ -73,7 +75,8 @@ fun TrainingsContent() {
                 text = "New Training",
                 onClick = {
                     dispatcher(TrainingAction.PutTrainingAction(Training()))
-                    dispatcher(NavigatorAction.NAVIGATE(Direction.Training))
+                    navigator.direct(Graph.Training)
+
                 }
             )
         },
@@ -91,11 +94,11 @@ fun TrainingsContent() {
                         edit = {
                             dispatcher(TrainingAction.PutTrainingAction(training))
                             dispatcher(TrainingAction.ProvideEmptyIterations)
-                            dispatcher(NavigatorAction.NAVIGATE(Direction.Training))
+                            navigator.direct(Graph.Training)
                         },
                         review = {
                             dispatcher(ReviewAction.FetchTrainings(selected = training))
-                            dispatcher(NavigatorAction.NAVIGATE(Direction.Review))
+                            navigator.direct(Graph.Review)
                         }
                     )
                 }

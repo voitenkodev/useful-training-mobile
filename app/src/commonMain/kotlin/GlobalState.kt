@@ -5,7 +5,6 @@ import presentation.review.ReviewAction
 import presentation.review.ReviewState
 import presentation.review.reviewReducer
 import presentation.training.TrainingAction
-import presentation.training.Training
 import presentation.training.TrainingState
 import presentation.training.trainingReducer
 import presentation.trainings.TrainingsAction
@@ -13,7 +12,6 @@ import presentation.trainings.TrainingsState
 import presentation.trainings.trainingsReducer
 
 data class GlobalState(
-    val navigatorState: NavigatorState = NavigatorState(),
     val authState: AuthState = AuthState(),
     val trainingState: TrainingState = TrainingState(),
     val trainingsState: TrainingsState = TrainingsState(),
@@ -22,7 +20,7 @@ data class GlobalState(
 
 abstract class Action(val group: ReduxGroups, val action: String)
 
-enum class ReduxGroups { NAVIGATOR, AUTH, TRAINING, TRAININGS, REVIEW }
+enum class ReduxGroups { AUTH, TRAINING, TRAININGS, REVIEW }
 
 val globalReducer: Reducer<GlobalState> = { state, action ->
     when (action) {
@@ -30,7 +28,6 @@ val globalReducer: Reducer<GlobalState> = { state, action ->
         is TrainingAction -> state.copy(trainingState = trainingReducer(state.trainingState, state, action))
         is TrainingsAction -> state.copy(trainingsState = trainingsReducer(state.trainingsState, state, action))
         is ReviewAction -> state.copy(reviewState = reviewReducer(state.reviewState, state, action))
-        is NavigatorAction -> state.copy(navigatorState = navigatorReducer(state.navigatorState, state, action))
         else -> state
     }
 }

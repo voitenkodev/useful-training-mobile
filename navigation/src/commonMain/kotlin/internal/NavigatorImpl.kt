@@ -1,25 +1,25 @@
+package internal
+
+import NavController
+import Navigator
+import Screen
+import TransitionType
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
-enum class TransitionType { FORWARD, BACK }
-
-data class NavigationState(
+internal data class NavigatorImpl(
     private val _state: MutableStateFlow<NavController> = MutableStateFlow(NavController()),
-    val state: StateFlow<NavController> = _state,
-) {
+    override val state: StateFlow<NavController> = _state,
+) : Navigator {
 
-    fun direct(screen: Screen, popToInclusive: Boolean = false) = _state.tryEmit(state.value.direct(screen, popToInclusive))
+    override fun direct(screen: Screen, popToInclusive: Boolean) {
+        _state.tryEmit(state.value.direct(screen, popToInclusive))
+    }
 
-    fun back() = _state.tryEmit(state.value.back())
-
+    override fun back() {
+        _state.tryEmit(state.value.back())
+    }
 }
-
-data class NavController(
-    val stack: List<Screen> = listOf(),
-    val current: Screen? = null,
-    val previous: Screen? = null,
-    val type: TransitionType? = TransitionType.FORWARD,
-)
 
 private fun NavController.direct(
     screen: Screen,
@@ -45,7 +45,7 @@ private fun NavController.direct(
 
         val newList = stack.subList(0, index + 1)
 
-        val added = newList.lastOrNull()
+        val added = newList.last()
 
         return this.copy(
             stack = newList,
@@ -61,7 +61,7 @@ private fun NavController.back(): NavController {
     val newList = if (lastIndex == 0) emptyList() else stack.subList(0, lastIndex)
     return this.copy(
         stack = newList,
-        current = if (newList.isNotEmpty()) newList.lastOrNull() else this.current,
+        current = if (newList.isNotEmpty()) newList.last() else this.current,
         previous = stack.lastOrNull(),
         type = TransitionType.BACK
     )

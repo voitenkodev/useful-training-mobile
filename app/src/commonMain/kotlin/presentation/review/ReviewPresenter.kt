@@ -1,8 +1,6 @@
 package presentation.review
 
 import ComposeCoroutineContext
-import Direction
-import NavigatorAction
 import data.repository.TrainingRepository
 import globalKoin
 import kotlinx.coroutines.flow.catch
@@ -13,10 +11,10 @@ class ReviewPresenter(val dispatcher: (Any) -> Any) : ComposeCoroutineContext() 
 
     private val api = globalKoin().get<TrainingRepository>()
 
-    fun removeTraining(trainingId: String?) = call {
+    fun removeTraining(trainingId: String?, success: () -> Unit) = call {
         api
             .removeTraining(trainingId = trainingId ?: error("invalid Training ID"))
-            .onEach { dispatcher(NavigatorAction.NAVIGATE(Direction.Trainings)) }
+            .onEach { success.invoke() }
             .catch { }
             .launchIn(this)
     }

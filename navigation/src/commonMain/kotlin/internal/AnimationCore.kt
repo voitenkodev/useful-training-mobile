@@ -1,6 +1,7 @@
 package internal
 
 import AnimationType
+import Screen
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedContentScope
 import androidx.compose.animation.AnimatedVisibilityScope
@@ -24,13 +25,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 
 @Composable
-internal fun NavigationCore(
-    currentScreen: String?,
-    screenToRemove: String?,
-    animationType: AnimationType = AnimationType.Push(2000),
+internal fun <T : Screen> NavigationCore(
+    currentScreen: T?,
+    screenToRemove: T?,
+    animationType: AnimationType = AnimationType.Push(500),
     isForward: Boolean,
-    onScreenRemove: ((String) -> Unit)? = null,
-    content: @Composable (String) -> Unit
+    onScreenRemove: ((T) -> Unit)? = null,
+    content: @Composable (T) -> Unit
 ) {
 
     val stateHolder = rememberSaveableStateHolder()
@@ -41,14 +42,16 @@ internal fun NavigationCore(
         isForwardDirection = isForward,
         content = { direct ->
             if (direct != null) {
-                stateHolder.SaveableStateProvider(direct) { content(direct) }
+                stateHolder.SaveableStateProvider(direct.link) {
+                    content(direct)
+                }
             }
         }
     )
 
     LaunchedEffect(currentScreen, screenToRemove) {
         screenToRemove?.let {
-            stateHolder.removeState(it)
+            stateHolder.removeState(it.link)
             onScreenRemove?.invoke(it)
         }
     }

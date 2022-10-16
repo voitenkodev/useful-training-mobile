@@ -1,8 +1,6 @@
 package presentation.auth
 
 import ComposeCoroutineContext
-import Direction
-import NavigatorAction
 import data.repository.AuthRepository
 import globalKoin
 import kotlinx.coroutines.flow.catch
@@ -14,32 +12,32 @@ class AuthPresenter(val dispatcher: (Any) -> Any) : ComposeCoroutineContext() {
 
     private val api = globalKoin().get<AuthRepository>()
 
-    fun checkAuthorization() = call {
-        if (api.isAuthorized) dispatcher(NavigatorAction.NAVIGATE(Direction.Trainings, popToInclusive = true))
+    fun checkAuthorization(success: () -> Unit) = call {
+        if (api.isAuthorized) success.invoke()
     }
 
-    fun login(email: String, password: String) = call {
+    fun login(email: String, password: String, success: () -> Unit) = call {
         api.login(email, password)
             .onStart {
                 dispatcher(AuthAction.Loading(true))
             }.onEach {
                 dispatcher(AuthAction.Loading(false))
                 dispatcher(AuthAction.Error(null))
-                dispatcher(NavigatorAction.NAVIGATE(Direction.Trainings, popToInclusive = true))
+                success.invoke()
             }.catch {
                 dispatcher(AuthAction.Loading(false))
                 dispatcher(AuthAction.Error(it.message))
             }.launchIn(this)
     }
 
-    fun registration(email: String, password: String) = call {
+    fun registration(email: String, password: String, success: () -> Unit) = call {
         api.registration(email, password)
             .onStart {
                 dispatcher(AuthAction.Loading(true))
             }.onEach {
                 dispatcher(AuthAction.Loading(false))
                 dispatcher(AuthAction.Error(null))
-                dispatcher(NavigatorAction.NAVIGATE(Direction.Trainings, popToInclusive = true))
+                success.invoke()
             }.catch {
                 dispatcher(AuthAction.Loading(false))
                 dispatcher(AuthAction.Error(it.message))

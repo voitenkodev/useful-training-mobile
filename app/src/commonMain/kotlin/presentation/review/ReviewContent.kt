@@ -3,7 +3,8 @@ package presentation.review
 import BackHandler
 import DesignComponent
 import GlobalState
-import NavigatorAction
+import Graph
+import Navigator
 import PointLine
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -49,6 +50,7 @@ import selectState
 @Composable
 fun ReviewContent(
     modifier: Modifier = Modifier,
+    navigator: Navigator
 ) {
     val dispatcher = rememberDispatcher()
     val state by selectState<GlobalState, ReviewState> { this.reviewState }
@@ -64,12 +66,12 @@ fun ReviewContent(
             Error(message = state.error, close = { dispatcher(ReviewAction.Error(null)) })
         },
         back = {
-            BackHandler(action = { dispatcher(NavigatorAction.BACK) })
+            BackHandler(action = { navigator.back() })
         },
         header = {
             Header(
                 title = "Review!",
-                exit = { dispatcher(NavigatorAction.BACK) }
+                exit = { navigator.back() }
             )
         },
         scrollableContent = {
@@ -127,7 +129,11 @@ fun ReviewContent(
                 ButtonSecondary(
                     modifier = Modifier.fillMaxWidth(),
                     text = "Remove Training",
-                    onClick = { presenter.removeTraining(state.reviewTraining.id) }
+                    onClick = {
+                        presenter.removeTraining(state.reviewTraining.id) {
+                            navigator.direct(Graph.Trainings)
+                        }
+                    }
                 )
             }
         }

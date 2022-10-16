@@ -3,7 +3,8 @@ package presentation.training
 import BackHandler
 import DesignComponent
 import GlobalState
-import NavigatorAction
+import Graph
+import Navigator
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -25,6 +26,7 @@ import selectState
 @Composable
 fun TrainingContent(
     modifier: Modifier = Modifier,
+    navigator: Navigator
 ) {
     val dispatcher = rememberDispatcher()
     val state by selectState<GlobalState, TrainingState> { this.trainingState }
@@ -40,7 +42,7 @@ fun TrainingContent(
             Error(message = state.error, close = { dispatcher(TrainingAction.Error(null)) })
         },
         back = {
-            BackHandler(action = { dispatcher(NavigatorAction.BACK) })
+            BackHandler(action = { navigator.back() })
         },
         header = {
             Header(
@@ -49,7 +51,9 @@ fun TrainingContent(
                     dispatcher(TrainingAction.ValidateExercises)
                     dispatcher(TrainingAction.CalculateDuration)
                     dispatcher(TrainingAction.CalculateValues)
-                    presenter.saveTraining(state.training)
+                    presenter.saveTraining(state.training) {
+                        navigator.direct(Graph.Review)
+                    }
                 }
             )
         },

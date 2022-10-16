@@ -3,7 +3,8 @@ package presentation.auth
 import BackHandler
 import DesignComponent
 import GlobalState
-import NavigatorAction
+import Graph
+import Navigator
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -27,13 +28,17 @@ import rememberDispatcher
 import selectState
 
 @Composable
-fun AuthContent() {
+fun AuthContent(
+    navigator: Navigator
+) {
 
     val state by selectState<GlobalState, AuthState> { this.authState }
     val dispatcher = rememberDispatcher()
 
     val presenter = remember { AuthPresenter(dispatcher) }
-    LaunchedEffect(Unit) { presenter.checkAuthorization() }
+    LaunchedEffect(Unit) {
+        presenter.checkAuthorization { navigator.direct(Graph.Trainings, true) }
+    }
 
     Root(
         modifier = Modifier.fillMaxSize(),
@@ -44,7 +49,7 @@ fun AuthContent() {
             Error(message = state.error, close = { dispatcher(AuthAction.Error(null)) })
         },
         back = {
-            BackHandler(action = { dispatcher(NavigatorAction.BACK) })
+            BackHandler(action = { navigator.back() })
         },
         header = {
             Header(title = "\uD83D\uDC4B Welcome back!")
@@ -77,7 +82,9 @@ fun AuthContent() {
                 text = "Log In",
                 onClick = {
                     dispatcher(AuthAction.Validate)
-                    if (state.error == null) presenter.login(email = state.email, password = state.password)
+                    if (state.error == null) presenter.login(email = state.email, password = state.password) {
+                        navigator.direct(Graph.Trainings, true)
+                    }
                 }
             )
 
@@ -87,7 +94,9 @@ fun AuthContent() {
                 answer = "Sign Up!",
                 onClick = {
                     dispatcher(AuthAction.Validate)
-                    if (state.error == null) presenter.registration(email = state.email, password = state.password)
+                    if (state.error == null) presenter.registration(email = state.email, password = state.password) {
+                        navigator.direct(Graph.Trainings, true)
+                    }
                 }
             )
         }
