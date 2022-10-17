@@ -7,6 +7,8 @@ plugins {
 }
 
 kotlin {
+    explicitApi()
+
     android()
     iosX64("uikitX64")
     iosArm64("uikitArm64")
@@ -31,7 +33,6 @@ kotlin {
         languageSettings.optIn("androidx.compose.ui.text.ExperimentalTextApi")
         languageSettings.optIn("androidx.compose.foundation.ExperimentalFoundationApi")
         languageSettings.optIn("androidx.compose.ui.ExperimentalComposeUiApi")
-        languageSettings.optIn("androidx.compose.material.ExperimentalMaterialApi")
         languageSettings.optIn("androidx.compose.animation.ExperimentalAnimationApi")
         languageSettings.optIn("kotlin.time.ExperimentalTime")
     }
@@ -42,4 +43,11 @@ android {
     compileSdk = 33
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     defaultConfig { minSdk = 21 }
+}
+
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+    kotlinOptions {
+        kotlinOptions.allWarningsAsErrors = true
+//        kotlinOptions.languageVersion = "1.9"
+    }
 }

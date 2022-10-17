@@ -6,11 +6,11 @@ import internal.AnimationCore
 import internal.NavigatorImpl
 
 @Composable
-fun RootController(
+public fun RootController(
     startScreen: Screen,
     finalize: () -> Unit,
     content: (@Composable Screen.() -> Unit)
-) = CompositionLocalProvider(
+): Unit = CompositionLocalProvider(
 
     LocalAppNavigator provides NavigatorImpl().apply { direct(startScreen) },
 

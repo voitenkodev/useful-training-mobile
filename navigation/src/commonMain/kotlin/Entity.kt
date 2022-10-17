@@ -1,10 +1,10 @@
-enum class TransitionType { FORWARD, BACK }
+public enum class TransitionType { FORWARD, BACK }
 
-data class NavController(
+public data class NavController(
     val stack: List<Screen> = listOf(),
     val current: Screen? = null,
     val previous: Screen? = null,
     val type: TransitionType? = TransitionType.FORWARD,
 )
 
-open class Screen(val link: String)
+public open class Screen(public val link: String)

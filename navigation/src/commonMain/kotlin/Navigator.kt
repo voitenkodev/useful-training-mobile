@@ -2,20 +2,18 @@ import androidx.compose.runtime.Composable
 import internal.LocalAppNavigator
 import kotlinx.coroutines.flow.StateFlow
 
-object NavigationComponent {
+public object NavigationComponent {
 
-    val navigator: Navigator
+    public val navigator: Navigator
         @Composable
         get() = LocalAppNavigator.current
-
 }
 
+public interface Navigator {
 
-interface Navigator {
+    public val state: StateFlow<NavController>
 
-    val state: StateFlow<NavController>
+    public fun direct(screen: Screen, popToInclusive: Boolean = false)
 
-    fun direct(screen: Screen, popToInclusive: Boolean = false)
-
-    fun back()
+    public fun back()
 }
