@@ -1,10 +1,11 @@
 package presentation.review
 
-import BackHandler
+import components.BackHandler
 import DesignComponent
 import GlobalState
 import Graph
 import Navigator
+import PointCircle
 import PointLine
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -246,7 +247,8 @@ private fun ChartSection(
                 yValue = data,
                 lineColor = color,
                 fillColor = color.copy(alpha = 0.2f),
-                label = label
+                label = label,
+                point = PointCircle(color = DesignComponent.colors.content)
             )
         )
         if (compareData != null) add(
@@ -254,7 +256,7 @@ private fun ChartSection(
                 yValue = compareData,
                 lineColor = DesignComponent.colors.caption,
                 fillColor = DesignComponent.colors.caption.copy(alpha = 0.2f),
-                label = "Compare"
+                label = "Compare",
             )
         )
     },

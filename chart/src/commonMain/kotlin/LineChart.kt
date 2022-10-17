@@ -73,12 +73,14 @@ fun LineChart(
                 )
             }
 
-            it.offsets.forEach { offset ->
-                if (offset != Offset.Unspecified) drawCircle(
-                    color = Color.Red,
-                    radius = 6.dp.toPx(),
-                    center = offset
-                )
+            it.point?.let {point->
+                it.offsets.forEach { offset ->
+                    if (offset != Offset.Unspecified) drawCircle(
+                        color = point.color,
+                        radius = point.radius.toPx(),
+                        center = offset
+                    )
+                }
             }
         }
     }

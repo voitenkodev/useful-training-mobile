@@ -1,6 +1,6 @@
 package presentation.trainings
 
-import BackHandler
+import components.BackHandler
 import DesignComponent
 import GlobalState
 import Graph

@@ -23,5 +23,4 @@ data class PointLine(
 data class PointCircle(
     val color: Color,
     val radius: Dp = 4.dp,
-    val onClick: () -> Unit
 )

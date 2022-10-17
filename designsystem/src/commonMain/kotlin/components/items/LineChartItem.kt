@@ -49,7 +49,7 @@ private fun LineChartBox(
     val middleY = ((minY + maxY) / 2)
     val threeQuartersY = ((maxY + middleY) / 2)
     val quarterY = ((minY + middleY) / 2)
-    val maxCount = lines.maxOfOrNull { it.yValue.size } ?: 0
+    val maxCount = lines.maxOfOrNull { it.yValue.lastIndex } ?: 0
 
     Column(
         modifier = modifier,

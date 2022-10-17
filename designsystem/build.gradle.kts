@@ -21,8 +21,14 @@ kotlin {
             }
         }
 
-        val androidMain by getting {}
+        val androidMain by getting {
+            dependencies {
+                implementation("androidx.activity:activity-compose:1.6.0")
+            }
+        }
         val uikitMain by creating { dependsOn(commonMain) }
+        val uikitX64Main by getting { dependsOn(uikitMain) }
+        val uikitArm64Main by getting { dependsOn(uikitMain) }
     }
 
     kotlin.sourceSets.all {
