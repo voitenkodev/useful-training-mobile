@@ -1,8 +1,10 @@
 package presentation.review
 
+import components.BackHandler
 import DesignComponent
 import GlobalState
 import Graph
+import Navigator
 import PointCircle
 import PointLine
 import androidx.compose.foundation.background
@@ -27,7 +29,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import components.BackHandler
+import co.touchlab.kermit.Logger
 import components.Error
 import components.Header
 import components.Loading
@@ -45,21 +47,20 @@ import presentation.map.toExerciseComponent
 import presentation.map.toTrainingComponent
 import presentation.training.Training
 import rememberDispatcher
-import ru.alexgladkov.odyssey.compose.extensions.push
-import ru.alexgladkov.odyssey.compose.local.LocalRootController
 import selectState
 
 @Composable
-fun ReviewContent() {
-    val rootController = LocalRootController.current
-
+fun ReviewContent(
+    modifier: Modifier = Modifier,
+    navigator: Navigator
+) {
     val dispatcher = rememberDispatcher()
     val state by selectState<GlobalState, ReviewState> { this.reviewState }
 
     val presenter = remember { ReviewPresenter(dispatcher) }
 
     Root(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         loading = {
             Loading(state.loading)
         },
@@ -67,12 +68,12 @@ fun ReviewContent() {
             Error(message = state.error, close = { dispatcher(ReviewAction.Error(null)) })
         },
         back = {
-            BackHandler(action = { rootController.popBackStack() })
+            BackHandler(action = { navigator.back() })
         },
         header = {
             Header(
                 title = "Review!",
-                exit = { rootController.popBackStack() }
+                exit = { navigator.back() }
             )
         },
         scrollableContent = {
@@ -136,7 +137,7 @@ fun ReviewContent() {
                     text = "Remove Training",
                     onClick = {
                         presenter.removeTraining(state.reviewTraining.id) {
-                            rootController.push(Graph.Trainings.link)
+                            navigator.direct(Graph.Trainings)
                         }
                     }
                 )

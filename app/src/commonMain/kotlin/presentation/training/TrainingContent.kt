@@ -1,8 +1,10 @@
 package presentation.training
 
+import components.BackHandler
 import DesignComponent
 import GlobalState
 import Graph
+import Navigator
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -11,7 +13,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import components.BackHandler
 import components.Error
 import components.Header
 import components.Loading
@@ -20,21 +21,20 @@ import components.items.EditExerciseItem
 import controls.ButtonPrimary
 import presentation.map.toExerciseComponent
 import rememberDispatcher
-import ru.alexgladkov.odyssey.compose.extensions.push
-import ru.alexgladkov.odyssey.compose.local.LocalRootController
 import selectState
 
 @Composable
-fun TrainingContent() {
-    val rootController = LocalRootController.current
-
+fun TrainingContent(
+    modifier: Modifier = Modifier,
+    navigator: Navigator
+) {
     val dispatcher = rememberDispatcher()
     val state by selectState<GlobalState, TrainingState> { this.trainingState }
 
     val presenter = remember { TrainingPresenter(dispatcher) }
 
     Root2(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         loading = {
             Loading(state.loading)
         },
@@ -42,7 +42,7 @@ fun TrainingContent() {
             Error(message = state.error, close = { dispatcher(TrainingAction.Error(null)) })
         },
         back = {
-            BackHandler(action = { rootController.popBackStack() })
+            BackHandler(action = { navigator.back() })
         },
         header = {
             Header(
@@ -52,7 +52,7 @@ fun TrainingContent() {
                     dispatcher(TrainingAction.CalculateDuration)
                     dispatcher(TrainingAction.CalculateValues)
                     presenter.saveTraining(state.training) {
-                        rootController.push(Graph.Review.link)
+                        navigator.direct(Graph.Review)
                     }
                 }
             )

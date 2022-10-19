@@ -47,8 +47,7 @@ class SkikoAppDelegate : UIResponder, UIApplicationDelegateProtocol {
         window!!.rootViewController = Application("UsefulTraining") {
             Main(
                 modifier = Modifier.padding(top = height?.size?.dp ?: 0.dp),
-                finalize = { application.finalize() },
-                content = {}
+                finalize = { application.finalize() }
             )
         }
         window!!.makeKeyAndVisible()

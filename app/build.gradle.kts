@@ -34,6 +34,7 @@ kotlin {
             dependencies {
                 implementation(project(":designsystem"))
                 implementation(project(":utils"))
+                implementation(project(":navigation"))
 
                 implementation(libs.coroutines)
                 implementation(libs.logger)
@@ -46,9 +47,7 @@ kotlin {
                 implementation(compose.foundation)
                 implementation(compose.material)
                 implementation(compose.runtime)
-
-                implementation("io.github.alexgladkov:odyssey-core:1.0.0")
-                implementation("io.github.alexgladkov:odyssey-compose:1.0.0")        }
+            }
         }
 
         val androidMain by getting {
@@ -57,9 +56,9 @@ kotlin {
                 implementation("androidx.appcompat:appcompat:1.5.1")
                 implementation("androidx.activity:activity-compose:1.6.0")
                 // Firebase
-                implementation("com.google.firebase:firebase-auth-ktx:21.1.0")
+                implementation("com.google.firebase:firebase-auth-ktx:21.0.8")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.6.4")
-                implementation("com.google.firebase:firebase-firestore:24.4.0")
+                implementation("com.google.firebase:firebase-firestore:24.3.1")
                 // Accompanist
                 implementation("com.google.accompanist:accompanist-systemuicontroller:0.23.1")
 

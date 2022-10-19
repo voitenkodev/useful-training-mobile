@@ -1,8 +1,10 @@
 package presentation.trainings
 
+import components.BackHandler
 import DesignComponent
 import GlobalState
 import Graph
+import Navigator
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -20,7 +22,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import atomic.icons.BarChart
-import components.BackHandler
 import components.Error
 import components.Header
 import components.Loading
@@ -34,13 +35,12 @@ import presentation.review.ReviewAction
 import presentation.training.Training
 import presentation.training.TrainingAction
 import rememberDispatcher
-import ru.alexgladkov.odyssey.compose.extensions.push
-import ru.alexgladkov.odyssey.compose.local.LocalRootController
 import selectState
 
 @Composable
-fun TrainingsContent() {
-    val rootController = LocalRootController.current
+fun TrainingsContent(
+    navigator: Navigator
+) {
 
     val state by selectState<GlobalState, TrainingsState> { this.trainingsState }
     val dispatcher = rememberDispatcher()
@@ -60,7 +60,7 @@ fun TrainingsContent() {
             Error(message = state.error, close = { dispatcher(TrainingsAction.Error(null)) })
         },
         back = {
-            BackHandler(action = { rootController.popBackStack() })
+            BackHandler(action = { navigator.back() })
         },
         header = {
             Header(title = "Trainings!")
@@ -75,7 +75,7 @@ fun TrainingsContent() {
                 text = "New Training",
                 onClick = {
                     dispatcher(TrainingAction.PutTrainingAction(Training()))
-                    rootController.push(Graph.Training.link)
+                    navigator.direct(Graph.Training)
 
                 }
             )
@@ -94,11 +94,11 @@ fun TrainingsContent() {
                         edit = {
                             dispatcher(TrainingAction.PutTrainingAction(training))
                             dispatcher(TrainingAction.ProvideEmptyIterations)
-                            rootController.push(Graph.Training.link)
+                            navigator.direct(Graph.Training)
                         },
                         review = {
                             dispatcher(ReviewAction.FetchTrainings(selected = training))
-                            rootController.push(Graph.Review.link)
+                            navigator.direct(Graph.Review)
                         }
                     )
                 }

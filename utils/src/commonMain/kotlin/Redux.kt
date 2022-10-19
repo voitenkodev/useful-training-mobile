@@ -22,10 +22,10 @@ import org.reduxkotlin.createStore
 typealias Reducer<State> = (state: State, action: Any) -> State
 typealias ReducerForActionType<TState, GState, TAction> = (state: TState, globalState: GState, action: TAction) -> TState
 
-private val LocalReduxStore: ProvidableCompositionLocal<Store<*>> = compositionLocalOf { error("undefined") }
+private val LocalStore: ProvidableCompositionLocal<Store<*>> = compositionLocalOf { error("undefined") }
 
 @Composable
-fun <S> ReduxStoreProvider(
+fun <S> StoreProvider(
     globalState: S,
     globalReducer: Reducer<S>,
     logging: (Any) -> Unit,
@@ -38,7 +38,7 @@ fun <S> ReduxStoreProvider(
             logging.invoke(action)
         })
     )
-    CompositionLocalProvider(LocalReduxStore provides store, content = content)
+    CompositionLocalProvider(LocalStore provides store, content = content)
 }
 
 @Composable
@@ -63,7 +63,7 @@ inline fun <TState, TSlice> Store<TState>.selectState(
 
 @Composable
 @Suppress("UNCHECKED_CAST")
-fun <TState> rememberStore(): Store<TState> = LocalReduxStore.current as Store<TState>
+fun <TState> rememberStore(): Store<TState> = LocalStore.current as Store<TState>
 
 inline fun <reified Action, State> createMiddleware(crossinline logic: (action: Action) -> Unit): Middleware<State> {
     return {
