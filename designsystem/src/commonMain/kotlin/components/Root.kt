@@ -24,6 +24,7 @@ fun Root(
 
     header: @Composable (LazyItemScope.() -> Unit)? = null,
     footer: (@Composable ColumnScope.() -> Unit)? = null,
+
     content: (@Composable ColumnScope.() -> Unit)? = null,
     scrollableContent: (LazyListScope.() -> Unit)? = null,
 ) {

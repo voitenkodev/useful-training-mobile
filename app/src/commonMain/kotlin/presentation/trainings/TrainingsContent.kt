@@ -1,10 +1,8 @@
 package presentation.trainings
 
-import components.BackHandler
 import DesignComponent
 import GlobalState
 import Graph
-import Navigator
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -22,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import atomic.icons.BarChart
+import components.BackHandler
 import components.Error
 import components.Header
 import components.Loading
@@ -30,6 +29,7 @@ import components.items.TrainingItem
 import controls.ButtonPrimary
 import controls.IconPrimary
 import controls.TextFieldBody2
+import findNavigator
 import presentation.map.toTrainingComponent
 import presentation.review.ReviewAction
 import presentation.training.Training
@@ -38,9 +38,9 @@ import rememberDispatcher
 import selectState
 
 @Composable
-fun TrainingsContent(
-    navigator: Navigator
-) {
+fun TrainingsContent() {
+
+    val navigator = findNavigator()
 
     val state by selectState<GlobalState, TrainingsState> { this.trainingsState }
     val dispatcher = rememberDispatcher()
@@ -60,10 +60,15 @@ fun TrainingsContent(
             Error(message = state.error, close = { dispatcher(TrainingsAction.Error(null)) })
         },
         back = {
-            BackHandler(action = { navigator.back() })
+            BackHandler(action = {
+//                navigator.back()
+            })
         },
         header = {
-            Header(title = "Trainings!")
+            Header(
+                title = "Trainings!",
+                back = { navigator.back() }
+            )
         },
         footer = {
             ButtonPrimary(
@@ -75,8 +80,7 @@ fun TrainingsContent(
                 text = "New Training",
                 onClick = {
                     dispatcher(TrainingAction.PutTrainingAction(Training()))
-                    navigator.direct(Graph.Training)
-
+//                    navigator.direct(Graph.Training)
                 }
             )
         },
@@ -94,11 +98,11 @@ fun TrainingsContent(
                         edit = {
                             dispatcher(TrainingAction.PutTrainingAction(training))
                             dispatcher(TrainingAction.ProvideEmptyIterations)
-                            navigator.direct(Graph.Training)
+//                            navigator.direct(Graph.Training)
                         },
                         review = {
                             dispatcher(ReviewAction.FetchTrainings(selected = training))
-                            navigator.direct(Graph.Review)
+//                            navigator.direct(Graph.Review)
                         }
                     )
                 }

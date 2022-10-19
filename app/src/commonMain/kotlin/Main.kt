@@ -1,5 +1,9 @@
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import presentation.auth.AuthContent
+import presentation.review.ReviewContent
+import presentation.training.TrainingContent
+import presentation.trainings.TrainingsContent
 
 @Composable
 fun Main(
@@ -10,14 +14,22 @@ fun Main(
 
         StoreProvider(store = store) {
 
-            RootController(
-                startScreen = Graph.Auth,
-                finalize = finalize,
-                content = {
-                    val navigator = NavigationComponent.navigator
-                    navigator.GlobalGraph(this)
+            CsRootController(
+                startScreen = Graph.Auth.link
+            ) {
+                screen(Graph.Auth.link) {
+                    AuthContent()
                 }
-            )
+                screen(Graph.Review.link) {
+                    ReviewContent()
+                }
+                screen(Graph.Training.link) {
+                    TrainingContent()
+                }
+                screen(Graph.Trainings.link) {
+                    TrainingsContent()
+                }
+            }
         }
     }
 }

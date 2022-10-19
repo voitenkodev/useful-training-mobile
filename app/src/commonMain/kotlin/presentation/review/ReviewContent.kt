@@ -1,10 +1,7 @@
 package presentation.review
 
-import components.BackHandler
 import DesignComponent
 import GlobalState
-import Graph
-import Navigator
 import PointCircle
 import PointLine
 import androidx.compose.foundation.background
@@ -29,7 +26,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import co.touchlab.kermit.Logger
+import components.BackHandler
 import components.Error
 import components.Header
 import components.Loading
@@ -50,17 +47,14 @@ import rememberDispatcher
 import selectState
 
 @Composable
-fun ReviewContent(
-    modifier: Modifier = Modifier,
-    navigator: Navigator
-) {
+fun ReviewContent() {
     val dispatcher = rememberDispatcher()
     val state by selectState<GlobalState, ReviewState> { this.reviewState }
 
     val presenter = remember { ReviewPresenter(dispatcher) }
 
     Root(
-        modifier = modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize(),
         loading = {
             Loading(state.loading)
         },
@@ -68,12 +62,16 @@ fun ReviewContent(
             Error(message = state.error, close = { dispatcher(ReviewAction.Error(null)) })
         },
         back = {
-            BackHandler(action = { navigator.back() })
+            BackHandler(action = {
+//                navigator.back()
+            })
         },
         header = {
             Header(
                 title = "Review!",
-                exit = { navigator.back() }
+                exit = {
+//                    navigator.back()
+                }
             )
         },
         scrollableContent = {
@@ -137,7 +135,7 @@ fun ReviewContent(
                     text = "Remove Training",
                     onClick = {
                         presenter.removeTraining(state.reviewTraining.id) {
-                            navigator.direct(Graph.Trainings)
+//                            navigator.direct(Graph.Trainings)
                         }
                     }
                 )

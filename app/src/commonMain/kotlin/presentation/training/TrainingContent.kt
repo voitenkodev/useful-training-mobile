@@ -3,8 +3,6 @@ package presentation.training
 import components.BackHandler
 import DesignComponent
 import GlobalState
-import Graph
-import Navigator
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -16,25 +14,24 @@ import androidx.compose.ui.Modifier
 import components.Error
 import components.Header
 import components.Loading
-import components.Root2
+import components.Root
 import components.items.EditExerciseItem
 import controls.ButtonPrimary
+import findNavigator
 import presentation.map.toExerciseComponent
 import rememberDispatcher
 import selectState
 
 @Composable
-fun TrainingContent(
-    modifier: Modifier = Modifier,
-    navigator: Navigator
-) {
+fun TrainingContent() {
+
     val dispatcher = rememberDispatcher()
     val state by selectState<GlobalState, TrainingState> { this.trainingState }
 
     val presenter = remember { TrainingPresenter(dispatcher) }
 
-    Root2(
-        modifier = modifier.fillMaxSize(),
+    Root(
+        modifier = Modifier.fillMaxSize(),
         loading = {
             Loading(state.loading)
         },
@@ -42,7 +39,9 @@ fun TrainingContent(
             Error(message = state.error, close = { dispatcher(TrainingAction.Error(null)) })
         },
         back = {
-            BackHandler(action = { navigator.back() })
+            BackHandler(action = {
+//                navigator.back()
+            })
         },
         header = {
             Header(
@@ -52,7 +51,7 @@ fun TrainingContent(
                     dispatcher(TrainingAction.CalculateDuration)
                     dispatcher(TrainingAction.CalculateValues)
                     presenter.saveTraining(state.training) {
-                        navigator.direct(Graph.Review)
+//                        navigator.direct(Graph.Review)
                     }
                 }
             )
@@ -63,7 +62,7 @@ fun TrainingContent(
                 onClick = { dispatcher(TrainingAction.AddExerciseAction) }
             )
         },
-        content = {
+        scrollableContent = {
             itemsIndexed(state.training.exercises, key = { _, exercise -> exercise.id }) { index, exercise ->
                 EditExerciseItem(
                     modifier = Modifier.animateItemPlacement(),

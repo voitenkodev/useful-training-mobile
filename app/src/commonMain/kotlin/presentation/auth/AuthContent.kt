@@ -1,10 +1,8 @@
 package presentation.auth
 
-import components.BackHandler
 import DesignComponent
 import GlobalState
 import Graph
-import Navigator
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -15,6 +13,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import components.BackHandler
 import components.Error
 import components.Header
 import components.Loading
@@ -24,20 +23,23 @@ import components.inputs.InputEmail
 import components.inputs.InputPassword
 import controls.ButtonPrimary
 import controls.TextFieldH2
+import findNavigator
 import rememberDispatcher
 import selectState
 
 @Composable
 fun AuthContent(
-    navigator: Navigator
 ) {
+    val navigator = findNavigator()
 
     val state by selectState<GlobalState, AuthState> { this.authState }
     val dispatcher = rememberDispatcher()
 
     val presenter = remember { AuthPresenter(dispatcher) }
     LaunchedEffect(Unit) {
-        presenter.checkAuthorization { navigator.direct(Graph.Trainings, true) }
+        presenter.checkAuthorization {
+//            navigator.direct(Graph.Trainings, true)
+        }
     }
 
     Root(
@@ -49,7 +51,9 @@ fun AuthContent(
             Error(message = state.error, close = { dispatcher(AuthAction.Error(null)) })
         },
         back = {
-            BackHandler(action = { navigator.back() })
+            BackHandler(action = {
+//                navigator.back()
+            })
         },
         header = {
             Header(title = "\uD83D\uDC4B Welcome back!")
@@ -83,7 +87,7 @@ fun AuthContent(
                 onClick = {
                     dispatcher(AuthAction.Validate)
                     if (state.error == null) presenter.login(email = state.email, password = state.password) {
-                        navigator.direct(Graph.Trainings, true)
+                        navigator.navigate(Graph.Trainings.link)
                     }
                 }
             )
@@ -95,7 +99,7 @@ fun AuthContent(
                 onClick = {
                     dispatcher(AuthAction.Validate)
                     if (state.error == null) presenter.registration(email = state.email, password = state.password) {
-                        navigator.direct(Graph.Trainings, true)
+//                        navigator.direct(Graph.Trainings, true)
                     }
                 }
             )

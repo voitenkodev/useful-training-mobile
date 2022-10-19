@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import DesignComponent
+import androidx.compose.material.icons.filled.ArrowBack
 import atomic.icons.BarChart
 import atomic.icons.Save
 import controls.IconPrimary
@@ -22,10 +23,19 @@ fun Header(
     forward: (() -> Unit)? = null,
     chart: (() -> Unit)? = null,
     exit: (() -> Unit)? = null,
+    back: (() -> Unit)? = null,
 ) = Row(
     modifier = Modifier.fillMaxWidth().height(56.dp).background(DesignComponent.colors.primary),
     horizontalArrangement = Arrangement.SpaceBetween
 ) {
+
+    back?.let {
+        Action(
+            imageVector = Icons.Default.ArrowBack,
+            onClick = it
+        )
+    }
+
     TextFieldH1(modifier = Modifier.weight(1f), text = title)
 
     save?.let {
