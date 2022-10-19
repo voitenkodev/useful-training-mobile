@@ -1,6 +1,5 @@
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import co.touchlab.kermit.Logger
 
 @Composable
 fun Main(
@@ -9,11 +8,7 @@ fun Main(
 ) {
     DesignTheme(modifier = modifier) {
 
-        StoreProvider(
-            globalReducer = globalReducer,
-            globalState = GlobalState(),
-            logging = { if (it is Action) Logger.i { "reduxLogger::DISPATCHED => \"${it.group}/${it.action}\"" } }
-        ) {
+        StoreProvider(store = store) {
 
             RootController(
                 startScreen = Graph.Auth,

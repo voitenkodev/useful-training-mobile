@@ -34,13 +34,13 @@ kotlin {
             dependencies {
                 implementation(project(":designsystem"))
                 implementation(project(":utils"))
-                implementation(project(":navigation"))
 
                 implementation(libs.coroutines)
                 implementation(libs.logger)
                 implementation(libs.serialization)
                 implementation(libs.uuid)
                 implementation(libs.parcelize)
+                implementation(libs.redux)
                 implementation(libs.koin.core)
 
                 implementation(compose.ui)
@@ -56,9 +56,9 @@ kotlin {
                 implementation("androidx.appcompat:appcompat:1.5.1")
                 implementation("androidx.activity:activity-compose:1.6.0")
                 // Firebase
-                implementation("com.google.firebase:firebase-auth-ktx:21.0.8")
+                implementation("com.google.firebase:firebase-auth-ktx:21.1.0")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.6.4")
-                implementation("com.google.firebase:firebase-firestore:24.3.1")
+                implementation("com.google.firebase:firebase-firestore:24.4.0")
                 // Accompanist
                 implementation("com.google.accompanist:accompanist-systemuicontroller:0.23.1")
 
