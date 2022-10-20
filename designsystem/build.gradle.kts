@@ -15,6 +15,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 api(project(":chart"))
+                implementation(libs.logger)
                 implementation(compose.ui)
                 implementation(compose.foundation)
                 implementation(compose.material)

@@ -7,9 +7,13 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import co.touchlab.kermit.Logger
 import org.reduxkotlin.Dispatcher
 import org.reduxkotlin.Middleware
+import org.reduxkotlin.Reducer
 import org.reduxkotlin.Store
+import org.reduxkotlin.applyMiddleware
+import org.reduxkotlin.createStore
 
 /**
  * val dispatcher = rememberDispatcher()
@@ -21,15 +25,36 @@ typealias ReducerForActionType<TState, GState, TAction> = (state: TState, global
 
 private val LocalStore: ProvidableCompositionLocal<Store<*>> = compositionLocalOf { error("undefined") }
 
+var store: Store<*>? = null
+private fun <State, Reduce : Reducer<State>> provideStore(state: State, reducer: Reduce) {
+    if (store == null)
+        store = createStore(
+            reducer,
+            state,
+            applyMiddleware(createMiddleware<Any, State> { action ->
+                Logger.i { "reduxLogger::DISPATCHED => \"$action" }
+            })
+        )
+}
+
+@Composable
+fun <State, Reduce : Reducer<State>> ReduxStoreProvider(
+    state: State, reducer: Reduce,
+    content: @Composable () -> Unit
+) {
+    provideStore(state, reducer)
+    val store = store ?: error("Store is not provided, please use `provideStore` to provide store")
+    CompositionLocalProvider(LocalStore provides store, content = content)
+}
+
+
 @Composable
 fun <T> StoreProvider(store: Store<T>, content: @Composable Store<T>.() -> Unit) {
     CompositionLocalProvider(LocalStore provides store) { store.content() }
 }
 
 @Composable
-inline fun <reified TState, TSlice> selectState(
-    crossinline selector: @DisallowComposableCalls TState.() -> TSlice
-): State<TSlice> {
+inline fun <reified TState, TSlice> selectState(crossinline selector: @DisallowComposableCalls TState.() -> TSlice): State<TSlice> {
     return rememberStore<TState>().selectState(selector)
 }
 
@@ -37,9 +62,7 @@ inline fun <reified TState, TSlice> selectState(
 fun rememberDispatcher(): Dispatcher = rememberStore<Any>().dispatch
 
 @Composable
-inline fun <TState, TSlice> Store<TState>.selectState(
-    crossinline selector: @DisallowComposableCalls TState.() -> TSlice
-): State<TSlice> {
+inline fun <TState, TSlice> Store<TState>.selectState(crossinline selector: @DisallowComposableCalls TState.() -> TSlice): State<TSlice> {
     val result = remember { mutableStateOf(state.selector()) }
     DisposableEffect(result) {
         val unsubscribe = subscribe { result.value = state.selector() }

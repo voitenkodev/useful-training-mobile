@@ -12,7 +12,7 @@ fun Main(
 ) {
     DesignTheme(modifier = modifier) {
 
-        StoreProvider(store = store) {
+        ReduxStoreProvider(GlobalState(), globalReducer) {
 
             CsRootController(
                 startScreen = Graph.Auth.link

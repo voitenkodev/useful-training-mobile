@@ -41,7 +41,6 @@ kotlin {
                 implementation(libs.serialization)
                 implementation(libs.uuid)
                 implementation(libs.parcelize)
-                implementation(libs.redux)
                 implementation(libs.koin.core)
 
                 implementation(compose.ui)
