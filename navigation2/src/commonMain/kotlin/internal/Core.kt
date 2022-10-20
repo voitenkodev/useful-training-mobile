@@ -101,4 +101,14 @@ internal data class Core(
 //            }
 //        )
     }
+
+    /* --------------------------- Internal --------------------------- */
+
+    fun addScreens(
+        screen: String,
+        content: Render
+    ) {
+        allowedScreens.add(screen)
+        _screenMap[screen] = content
+    }
 }

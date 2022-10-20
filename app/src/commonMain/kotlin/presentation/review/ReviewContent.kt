@@ -40,6 +40,7 @@ import controls.DividerPrimary
 import controls.IconPrimary
 import controls.TextFieldBody2
 import controls.secondaryBackground
+import findNavigator
 import presentation.map.toExerciseComponent
 import presentation.map.toTrainingComponent
 import presentation.training.Training
@@ -48,9 +49,9 @@ import selectState
 
 @Composable
 fun ReviewContent() {
+    val navigator = findNavigator()
     val dispatcher = rememberDispatcher()
     val state by selectState<GlobalState, ReviewState> { this.reviewState }
-
     val presenter = remember { ReviewPresenter(dispatcher) }
 
     Root(
@@ -62,16 +63,12 @@ fun ReviewContent() {
             Error(message = state.error, close = { dispatcher(ReviewAction.Error(null)) })
         },
         back = {
-            BackHandler(action = {
-//                navigator.back()
-            })
+            BackHandler(action = { navigator.back() })
         },
         header = {
             Header(
                 title = "Review!",
-                exit = {
-//                    navigator.back()
-                }
+                exit = { navigator.back() }
             )
         },
         scrollableContent = {
@@ -135,7 +132,7 @@ fun ReviewContent() {
                     text = "Remove Training",
                     onClick = {
                         presenter.removeTraining(state.reviewTraining.id) {
-//                            navigator.direct(Graph.Trainings)
+                            navigator.navigate(Graph.Trainings.link)
                         }
                     }
                 )

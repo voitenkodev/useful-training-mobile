@@ -60,9 +60,7 @@ fun TrainingsContent() {
             Error(message = state.error, close = { dispatcher(TrainingsAction.Error(null)) })
         },
         back = {
-            BackHandler(action = {
-//                navigator.back()
-            })
+            BackHandler(action = { navigator.back() })
         },
         header = {
             Header(
@@ -102,7 +100,7 @@ fun TrainingsContent() {
                         },
                         review = {
                             dispatcher(ReviewAction.FetchTrainings(selected = training))
-//                            navigator.direct(Graph.Review)
+                            navigator.navigate(Graph.Review.link)
                         }
                     )
                 }

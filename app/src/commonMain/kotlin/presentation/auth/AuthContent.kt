@@ -51,9 +51,7 @@ fun AuthContent(
             Error(message = state.error, close = { dispatcher(AuthAction.Error(null)) })
         },
         back = {
-            BackHandler(action = {
-//                navigator.back()
-            })
+            BackHandler(action = { navigator.back() })
         },
         header = {
             Header(title = "\uD83D\uDC4B Welcome back!")
@@ -87,7 +85,7 @@ fun AuthContent(
                 onClick = {
                     dispatcher(AuthAction.Validate)
                     if (state.error == null) presenter.login(email = state.email, password = state.password) {
-                        navigator.navigate(Graph.Trainings.link)
+                        navigator.navigate(Graph.Trainings.link, true)
                     }
                 }
             )
@@ -99,7 +97,7 @@ fun AuthContent(
                 onClick = {
                     dispatcher(AuthAction.Validate)
                     if (state.error == null) presenter.registration(email = state.email, password = state.password) {
-//                        navigator.direct(Graph.Trainings, true)
+                        navigator.navigate(Graph.Trainings.link, true)
                     }
                 }
             )
