@@ -28,8 +28,7 @@ import rememberDispatcher
 import selectState
 
 @Composable
-fun AuthContent(
-) {
+fun AuthContent() {
     val navigator = findNavigator()
 
     val state by selectState<GlobalState, AuthState> { this.authState }
@@ -38,7 +37,7 @@ fun AuthContent(
     val presenter = remember { AuthPresenter(dispatcher) }
     LaunchedEffect(Unit) {
         presenter.checkAuthorization {
-//            navigator.direct(Graph.Trainings, true)
+            navigator.navigate(Graph.Trainings.link, true)
         }
     }
 

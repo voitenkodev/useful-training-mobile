@@ -1,7 +1,6 @@
 package internal
 
 import Animation
-import ScreenBox
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedContentScope
 import androidx.compose.animation.AnimatedVisibilityScope
@@ -17,48 +16,13 @@ import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.animation.with
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveableStateHolder
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 
 @Composable
-internal fun AnimationCore(
-    currentScreen: String?,
-    screenToRemove: String?,
-    animation: Animation = Animation.Push(400),
-    isForward: Boolean,
-    onScreenRemove: ((String) -> Unit)? = null,
-    content: @Composable (String) -> Unit
-) {
-
-    val stateHolder = rememberSaveableStateHolder()
-
-    AnimatedTransition(
-        targetState = currentScreen,
-        animation = animation,
-        isForwardDirection = isForward,
-        content = { screen ->
-            if (screen != null) {
-                stateHolder.SaveableStateProvider(screen) {
-                    content(screen)
-                }
-            }
-        }
-    )
-
-    LaunchedEffect(currentScreen, screenToRemove) {
-        screenToRemove?.let {
-            stateHolder.removeState(it)
-            onScreenRemove?.invoke(it)
-        }
-    }
-}
-
-@Composable
-private fun <T> AnimatedTransition(
+internal fun <T> AnimatedTransition(
     targetState: T,
     animation: Animation,
     isForwardDirection: Boolean,
