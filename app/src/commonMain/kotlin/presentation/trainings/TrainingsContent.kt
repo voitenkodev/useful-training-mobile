@@ -78,7 +78,7 @@ fun TrainingsContent() {
                 text = "New Training",
                 onClick = {
                     dispatcher(TrainingAction.PutTrainingAction(Training()))
-//                    navigator.direct(Graph.Training)
+                    navigator.navigate(Graph.Training.link)
                 }
             )
         },
@@ -96,7 +96,7 @@ fun TrainingsContent() {
                         edit = {
                             dispatcher(TrainingAction.PutTrainingAction(training))
                             dispatcher(TrainingAction.ProvideEmptyIterations)
-//                            navigator.direct(Graph.Training)
+                            navigator.navigate(Graph.Training.link)
                         },
                         review = {
                             dispatcher(ReviewAction.FetchTrainings(selected = training))

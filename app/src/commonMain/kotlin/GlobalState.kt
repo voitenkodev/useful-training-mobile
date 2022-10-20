@@ -1,4 +1,3 @@
-import org.reduxkotlin.createStore
 import presentation.auth.AuthAction
 import presentation.auth.AuthState
 import presentation.auth.authReducer
@@ -32,8 +31,3 @@ val globalReducer: Reducer<GlobalState> = { state, action ->
         else -> state
     }
 }
-
-val store = createStore(
-    reducer = globalReducer,
-    preloadedState = GlobalState()
-)

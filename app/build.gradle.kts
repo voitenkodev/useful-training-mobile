@@ -34,7 +34,7 @@ kotlin {
             dependencies {
                 implementation(project(":designsystem"))
                 implementation(project(":utils"))
-                implementation(project(":navigation2"))
+                implementation(project(":navigation"))
 
                 implementation(libs.coroutines)
                 implementation(libs.logger)

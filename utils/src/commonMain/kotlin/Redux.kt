@@ -18,22 +18,22 @@ import org.reduxkotlin.createStore
 /**
  * val dispatcher = rememberDispatcher()
  * val state by selectState<GlobalState, ReviewState> { this.reviewState }
- *
- * */
+ **/
+
 typealias Reducer<State> = (state: State, action: Any) -> State
 typealias ReducerForActionType<TState, GState, TAction> = (state: TState, globalState: GState, action: TAction) -> TState
 
 private val LocalStore: ProvidableCompositionLocal<Store<*>> = compositionLocalOf { error("undefined") }
 
-var store: Store<*>? = null
+private var store: Store<*>? = null
+
 private fun <State, Reduce : Reducer<State>> provideStore(state: State, reducer: Reduce) {
     if (store == null)
         store = createStore(
             reducer,
             state,
-            applyMiddleware(createMiddleware<Any, State> { action ->
-                Logger.i { "reduxLogger::DISPATCHED => \"$action" }
-            })
+            applyMiddleware(createMiddleware<Any, State> { action -> Logger.i { "reduxLogger::DISPATCHED => \"$action" } }
+            )
         )
 }
 
