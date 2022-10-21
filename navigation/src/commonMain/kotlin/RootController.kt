@@ -33,9 +33,10 @@ public fun RootController(
     val core = core ?: error("need to provide core, please use `provideCore`")
 
     CompositionLocalProvider(LocalNavigator provides core) {
-        val impl = NavComponent.navigator
-        val state = NavComponent.navigator.session.collectAsState()
 
+        val impl = NavComponent.navigator
+
+        val state = NavComponent.navigator.session.collectAsState()
 
         val stateHolder = rememberSaveableStateHolder()
 
@@ -46,7 +47,7 @@ public fun RootController(
             content = { screen ->
                 if (screen != null) {
                     stateHolder.SaveableStateProvider(screen) {
-                        impl._screenMap[screen]?.invoke()
+                        impl.screenMap[screen]?.invoke()
                     }
                 }
             }

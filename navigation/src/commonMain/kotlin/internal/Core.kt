@@ -1,11 +1,9 @@
 package internal
 
-import Animation
 import GraphBuilder
 import NavigatorCore
 import Render
 import TransitionVariant
-import androidx.compose.runtime.Composable
 import kotlinx.coroutines.flow.MutableStateFlow
 
 public data class NavigationSession(
@@ -21,8 +19,9 @@ internal data class Core(
     private val _backStack: MutableList<String> = mutableListOf(),
     internal val backStack: List<String> = _backStack,
 
-    internal val allowedScreens: MutableList<String> = mutableListOf(),
-    internal val _screenMap: HashMap<String, Render> = hashMapOf()
+    private val allowedScreens: MutableList<String> = mutableListOf(),
+    private val _screenMap: HashMap<String, Render> = hashMapOf(),
+    internal val screenMap: Map<String, Render> = _screenMap
 
 ) : NavigatorCore, GraphBuilder {
 
@@ -77,34 +76,6 @@ internal data class Core(
     /* --------------------------- GraphBuilder --------------------------- */
 
     override fun screen(
-        screen: String,
-        content: Render
-    ) {
-        allowedScreens.add(screen)
-        _screenMap[screen] = content
-    }
-
-    @Composable
-    internal fun renderBackStack(session: NavigationSession) {
-        session.current
-//        backStack.onEach {
-//            _screenMap[it]?.invoke()
-//        }
-
-//        AnimationCore(
-//            currentScreen = session.current,
-//            screenToRemove = session.removed,
-//            isForward = session.type == TransitionVariant.FORWARD,
-//            animation = Animation.Push(300),
-//            content = {
-//                _screenMap[it]?.invoke()
-//            }
-//        )
-    }
-
-    /* --------------------------- Internal --------------------------- */
-
-    fun addScreens(
         screen: String,
         content: Render
     ) {

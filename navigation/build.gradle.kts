@@ -18,7 +18,6 @@ kotlin {
             dependencies {
                 implementation(compose.foundation)
                 implementation(compose.ui)
-                implementation(libs.logger)
             }
         }
 
