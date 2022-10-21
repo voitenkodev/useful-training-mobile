@@ -1,14 +1,13 @@
 package presentation.review
 
-import dev.icerock.moko.parcelize.Parcelable
-import dev.icerock.moko.parcelize.Parcelize
-import kotlinx.serialization.Serializable
-import presentation.training.Training
 import Action
 import GlobalState
 import ReducerForActionType
 import ReduxGroups
-import presentation.auth.AuthAction
+import dev.icerock.moko.parcelize.Parcelable
+import dev.icerock.moko.parcelize.Parcelize
+import kotlinx.serialization.Serializable
+import presentation.training.Training
 
 @Serializable
 @Parcelize
@@ -20,18 +19,15 @@ data class ReviewState(
     val loading: Boolean = false
 ) : Parcelable
 
-sealed class ReviewAction(action: String) : Action(ReduxGroups.REVIEW, action) {
+sealed class ReviewAction : Action(ReduxGroups.REVIEW) {
 
-    data class FetchTrainings(
-        val selected: Training
-    ) : ReviewAction("GET_TRAINING_ACTION")
+    data class FetchTrainings(val selected: Training) : ReviewAction()
 
-    data class CompareTrainings(
-        val training: Training? = null,
-    ) : ReviewAction("COMPARE_TRAINING_ACTION")
+    data class CompareTrainings(val training: Training? = null) : ReviewAction()
 
-    data class Error(val message: String? = null) : ReviewAction("ERROR_ACTION")
-    data class Loading(val value: Boolean) : ReviewAction("LOADING_ACTION")
+    data class Error(val message: String? = null) : ReviewAction()
+
+    data class Loading(val value: Boolean) : ReviewAction()
 }
 
 val reviewReducer: ReducerForActionType<ReviewState, GlobalState, ReviewAction> = { state, globalState, action ->
@@ -41,7 +37,6 @@ val reviewReducer: ReducerForActionType<ReviewState, GlobalState, ReviewAction> 
             otherTrainings = globalState.trainingsState.trainings.filterNot { action.selected.id == it.id },
             compareTraining = null
         )
-
         is ReviewAction.CompareTrainings -> state.copy(compareTraining = action.training)
         is ReviewAction.Error -> state.copy(error = action.message)
         is ReviewAction.Loading -> state.copy(loading = action.value)

@@ -63,44 +63,35 @@ data class Training(
     }
 }
 
-sealed class TrainingAction(action: String) : Action(ReduxGroups.TRAINING, action) {
-    data class PutTrainingAction(
-        val training: Training
-    ) : TrainingAction("PUT_TRAINING_ACTION")
+sealed class TrainingAction : Action(ReduxGroups.TRAINING) {
 
-    data class SetNameExerciseAction(
-        val exerciseId: String, val value: String
-    ) : TrainingAction("SET_NAME_EXERCISE_ACTION")
+    data class PutTrainingAction(val training: Training) : TrainingAction()
 
-    data class SetWeightExerciseIterationAction(
-        val exerciseId: String, val number: Int, val value: String
-    ) : TrainingAction("SET_WEIGHT_EXERCISE_ITERATION_ACTION")
+    data class SetNameExerciseAction(val exerciseId: String, val value: String) : TrainingAction()
 
-    data class SetRepeatExerciseIterationAction(
-        val exerciseId: String, val number: Int, val value: String
-    ) : TrainingAction("SET_REPEAT_EXERCISE_ITERATION_ACTION")
+    data class SetWeightExerciseIterationAction(val exerciseId: String, val number: Int, val value: String) : TrainingAction()
 
-    object AddExerciseAction : TrainingAction("ADD_EXERCISE_ACTION")
+    data class SetRepeatExerciseIterationAction(val exerciseId: String, val number: Int, val value: String) : TrainingAction()
 
-    data class RemoveExerciseAction(
-        val exerciseId: String,
-    ) : TrainingAction("REMOVE_EXERCISE_ACTION")
+    object AddExerciseAction : TrainingAction()
 
-    object ValidateExercises : TrainingAction("VALIDATE_EXERCISES_ACTION")
+    data class RemoveExerciseAction(val exerciseId: String) : TrainingAction()
 
-    object CalculateValues : TrainingAction("CALCULATE_VALUES_ACTION")
+    object ValidateExercises : TrainingAction()
 
-    object CalculateDuration : TrainingAction("CALCULATE_DURATION_ACTION")
+    object CalculateValues : TrainingAction()
 
-    object ProvideEmptyIterations : TrainingAction("PROVIDE_EMPTY_ITERATIONS_ACTION")
+    object CalculateDuration : TrainingAction()
 
-    data class ProvideEmptyIteration(val exerciseId: String) : TrainingAction("PROVIDE_EMPTY_ITERATION_ACTION")
+    object ProvideEmptyIterations : TrainingAction()
 
-    data class Error(val message: String? = null) : TrainingAction("ERROR_ACTION")
+    data class ProvideEmptyIteration(val exerciseId: String) : TrainingAction()
 
-    data class Loading(val value: Boolean) : TrainingAction("LOADING_ACTION")
+    data class Error(val message: String? = null) : TrainingAction()
 
-    data class AskExitFromTraining(val value: Boolean) : TrainingAction("ASK_EXIT_FROM_TRAINING_ACTION")
+    data class Loading(val value: Boolean) : TrainingAction()
+
+    data class AskExitFromTraining(val value: Boolean) : TrainingAction()
 }
 
 val trainingReducer: ReducerForActionType<TrainingState, GlobalState, TrainingAction> = { state, _, action ->
@@ -109,8 +100,22 @@ val trainingReducer: ReducerForActionType<TrainingState, GlobalState, TrainingAc
         is TrainingAction.AddExerciseAction -> state.copy(training = state.training.addExercise())
         is TrainingAction.RemoveExerciseAction -> state.copy(training = state.training.removeExercise(action.exerciseId))
         is TrainingAction.SetNameExerciseAction -> state.copy(training = state.training.setNameOfExercise(action.exerciseId, action.value))
-        is TrainingAction.SetRepeatExerciseIterationAction -> state.copy(training = state.training.setRepeatOfIteration(action.exerciseId, action.number, action.value))
-        is TrainingAction.SetWeightExerciseIterationAction -> state.copy(training = state.training.setWeightOfIteration(action.exerciseId, action.number, action.value))
+        is TrainingAction.SetRepeatExerciseIterationAction -> state.copy(
+            training = state.training.setRepeatOfIteration(
+                action.exerciseId,
+                action.number,
+                action.value
+            )
+        )
+
+        is TrainingAction.SetWeightExerciseIterationAction -> state.copy(
+            training = state.training.setWeightOfIteration(
+                action.exerciseId,
+                action.number,
+                action.value
+            )
+        )
+
         is TrainingAction.ProvideEmptyIterations -> state.copy(training = state.training.provideEmptyIterations())
         is TrainingAction.ProvideEmptyIteration -> state.copy(training = state.training.provideEmptyIteration(action.exerciseId))
         is TrainingAction.ValidateExercises -> state.copy(training = state.training.validate())

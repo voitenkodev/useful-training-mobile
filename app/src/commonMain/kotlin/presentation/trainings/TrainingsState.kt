@@ -17,13 +17,13 @@ data class TrainingsState(
     val loading: Boolean = false
 ) : Parcelable
 
-sealed class TrainingsAction(action: String) : Action(ReduxGroups.TRAININGS, action) {
+sealed class TrainingsAction : Action(ReduxGroups.TRAININGS) {
 
-    data class FetchTrainings(val trainings: List<Training>) : TrainingsAction("FETCH_TRAININGS_ACTION")
+    data class FetchTrainings(val trainings: List<Training>) : TrainingsAction()
 
-    data class Error(val message: String? = null) : TrainingsAction("ERROR_ACTION")
+    data class Error(val message: String? = null) : TrainingsAction()
 
-    data class Loading(val value: Boolean) : TrainingsAction("LOADING_ACTION")
+    data class Loading(val value: Boolean) : TrainingsAction()
 }
 
 val trainingsReducer: ReducerForActionType<TrainingsState, GlobalState, TrainingsAction> = { state, _, action ->

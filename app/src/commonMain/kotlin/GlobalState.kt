@@ -18,7 +18,7 @@ data class GlobalState(
     val reviewState: ReviewState = ReviewState(),
 )
 
-abstract class Action(val group: ReduxGroups, val action: String)
+abstract class Action(val group: ReduxGroups)
 
 enum class ReduxGroups { AUTH, TRAINING, TRAININGS, REVIEW }
 

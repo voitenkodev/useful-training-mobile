@@ -12,15 +12,17 @@ data class AuthState(
     val loading: Boolean = false
 )
 
-sealed class AuthAction(action: String) : Action(ReduxGroups.AUTH, action) {
+sealed class AuthAction : Action(ReduxGroups.AUTH) {
 
-    data class SetEmailAction(val email: String) : AuthAction("SET_EMAIL_ACTION")
+    data class SetEmailAction(val email: String) : AuthAction()
 
-    data class SetPasswordAction(val password: String) : AuthAction("SET_PASSWORD_ACTION")
+    data class SetPasswordAction(val password: String) : AuthAction()
 
-    object Validate : AuthAction("VALIDATE_ACTION")
-    data class Error(val message: String? = null) : AuthAction("ERROR_ACTION")
-    data class Loading(val value: Boolean) : AuthAction("LOADING_ACTION")
+    object Validate : AuthAction()
+
+    data class Error(val message: String? = null) : AuthAction()
+
+    data class Loading(val value: Boolean) : AuthAction()
 }
 
 
