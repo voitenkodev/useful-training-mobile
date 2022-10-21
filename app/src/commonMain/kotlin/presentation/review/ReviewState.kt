@@ -38,7 +38,8 @@ val reviewReducer: ReducerForActionType<ReviewState, GlobalState, ReviewAction> 
     when (action) {
         is ReviewAction.FetchTrainings -> state.copy(
             reviewTraining = action.selected,
-            otherTrainings = globalState.trainingsState.trainings.filterNot { action.selected.id == it.id }
+            otherTrainings = globalState.trainingsState.trainings.filterNot { action.selected.id == it.id },
+            compareTraining = null
         )
 
         is ReviewAction.CompareTrainings -> state.copy(compareTraining = action.training)

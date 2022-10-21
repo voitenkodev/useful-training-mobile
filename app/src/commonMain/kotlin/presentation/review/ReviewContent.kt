@@ -87,8 +87,7 @@ fun ReviewContent() {
                     data = state.reviewTraining.exercises.map { it.tonnage.toFloat() },
                     compareData = state.compareTraining?.exercises?.map { it.tonnage.toFloat() },
                     color = DesignComponent.colors.unique.color1,
-                    onClick = { point, index ->
-                    }
+                    onClick = { point, index -> }
                 )
             }
 

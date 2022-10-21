@@ -49,9 +49,10 @@ fun TrainingContent() {
                     dispatcher(TrainingAction.CalculateDuration)
                     dispatcher(TrainingAction.CalculateValues)
                     presenter.saveTraining(state.training) {
-                        navigator.navigate(Graph.Review.link)
+                        navigator.navigate(Graph.Review.link, popToInclusive = true)
                     }
-                }
+                },
+                back = { navigator.back() }
             )
         },
         footer = {

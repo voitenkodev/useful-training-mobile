@@ -4,11 +4,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.input.pointer.PointerInputChange
-import androidx.compose.ui.unit.dp
 import kotlin.math.absoluteValue
 
 @Composable
@@ -41,7 +39,7 @@ fun LineChart(
         )
         if (motionEvent.value == MotionEvent.Up) {
             innerLines.onEach {
-                val index = it.offsets.indexOfFirst { ofs ->
+                val index = it.offsets.filter { it != Offset.Unspecified }.indexOfFirst { ofs ->
                     (ofs.x - currentPosition.value.x).absoluteValue < 20 && (ofs.y - currentPosition.value.y).absoluteValue < 20
                 }
                 if (index != -1) {
@@ -73,7 +71,7 @@ fun LineChart(
                 )
             }
 
-            it.point?.let {point->
+            it.point?.let { point ->
                 it.offsets.forEach { offset ->
                     if (offset != Offset.Unspecified) drawCircle(
                         color = point.color,
