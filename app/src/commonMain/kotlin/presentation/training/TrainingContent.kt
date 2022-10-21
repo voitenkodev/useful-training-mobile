@@ -3,14 +3,18 @@ package presentation.training
 import DesignComponent
 import GlobalState
 import Graph
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import components.BackHandler
 import components.Error
 import components.Header
@@ -18,7 +22,8 @@ import components.Loading
 import components.Popup
 import components.Root
 import components.items.EditExerciseItem
-import controls.ButtonPrimary
+import controls.TextFieldH2
+import controls.dashedBorder
 import findNavigator
 import presentation.map.toExerciseComponent
 import rememberDispatcher
@@ -69,12 +74,6 @@ fun TrainingContent() {
                 back = { dispatcher(TrainingAction.AskExitFromTraining(true)) }
             )
         },
-        footer = {
-            NewExerciseItem(
-                modifier = Modifier.fillMaxWidth().padding(DesignComponent.size.space),
-                onClick = { dispatcher(TrainingAction.AddExerciseAction) }
-            )
-        },
         scrollableContent = {
             itemsIndexed(state.training.exercises, key = { _, exercise -> exercise.id }) { index, exercise ->
                 EditExerciseItem(
@@ -93,16 +92,36 @@ fun TrainingContent() {
                     }
                 )
             }
+            item(key = "new_exercise") {
+                NewExercise(
+                    modifier = Modifier.fillMaxWidth().animateItemPlacement(),
+                    onClick = { dispatcher(TrainingAction.AddExerciseAction) }
+                )
+            }
         }
     )
 }
 
 @Composable
-private fun NewExerciseItem(
+private fun NewExercise(
     modifier: Modifier = Modifier,
     onClick: () -> Unit
-) = ButtonPrimary(
-    modifier = modifier,
-    text = "Add Exercise",
-    onClick = { onClick.invoke() }
+) = Box(
+    modifier = modifier
+        .fillMaxWidth()
+        .height(128.dp)
+        .dashedBorder(
+            width = 2.dp,
+            color = DesignComponent.colors.accent_secondary,
+            shape = DesignComponent.shape.default, on = 4.dp, off = 4.dp
+        ).clickable {
+            onClick.invoke()
+        },
+    content = {
+        TextFieldH2(
+            modifier = Modifier.align(Alignment.Center),
+            text = "Add Exercise",
+            color = DesignComponent.colors.accent_secondary
+        )
+    }
 )
