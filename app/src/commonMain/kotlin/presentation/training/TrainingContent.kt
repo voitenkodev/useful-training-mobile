@@ -21,7 +21,6 @@ import components.items.EditExerciseItem
 import controls.ButtonPrimary
 import findNavigator
 import presentation.map.toExerciseComponent
-import presentation.review.ReviewAction
 import rememberDispatcher
 import selectState
 
@@ -41,7 +40,7 @@ fun TrainingContent() {
             Error(message = state.error, close = { dispatcher(TrainingAction.Error(null)) })
         },
         back = {
-            BackHandler(action = { dispatcher(TrainingAction.AskExitFromTraining(true)) })
+            BackHandler(action = { dispatcher(TrainingAction.AskExitFromTraining(state.exitWarningVisibility.not())) })
         },
         popup = {
             Popup(
@@ -64,7 +63,6 @@ fun TrainingContent() {
                     dispatcher(TrainingAction.CalculateDuration)
                     dispatcher(TrainingAction.CalculateValues)
                     presenter.saveTraining(state.training) {
-                        dispatcher(ReviewAction.FetchTrainings(selected = it))
                         navigator.navigate(Graph.Review.link, popToInclusive = true)
                     }
                 },

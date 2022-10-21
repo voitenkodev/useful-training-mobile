@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -19,7 +18,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import atomic.icons.BarChart
 import components.BackHandler
 import components.Error
 import components.Header
@@ -27,7 +25,6 @@ import components.Loading
 import components.Root
 import components.items.TrainingItem
 import controls.ButtonPrimary
-import controls.IconPrimary
 import controls.TextFieldBody2
 import findNavigator
 import presentation.map.toTrainingComponent
@@ -63,10 +60,7 @@ fun TrainingsContent() {
             BackHandler(action = { navigator.back() })
         },
         header = {
-            Header(
-                title = "Trainings!",
-                back = { navigator.back() }
-            )
+            Header(title = "Trainings!")
         },
         footer = {
             ButtonPrimary(
@@ -126,34 +120,5 @@ private fun WeekItem(startOfWeek: String) = Row(
         text = startOfWeek,
         color = DesignComponent.colors.content,
         fontWeight = FontWeight.Bold
-    )
-}
-
-@Composable
-private fun FloatingMenu(
-    modifier: Modifier = Modifier,
-    add: () -> Unit,
-    statistic: () -> Unit
-) = Row(
-    modifier = modifier,
-    horizontalArrangement = Arrangement.spacedBy(DesignComponent.size.space)
-) {
-    ButtonPrimary(
-        modifier = Modifier.background(
-            color = DesignComponent.colors.accent_primary,
-            shape = DesignComponent.shape.circleShape
-        ).weight(1f),
-        text = "New Training",
-        onClick = add
-    )
-    IconPrimary(
-        modifier = Modifier
-            .size(56.dp)
-            .background(
-                color = DesignComponent.colors.accent_secondary,
-                shape = DesignComponent.shape.default
-            ),
-        imageVector = BarChart,
-        onClick = statistic
     )
 }

@@ -30,11 +30,10 @@ import selectState
 @Composable
 fun AuthContent() {
     val navigator = findNavigator()
-
     val state by selectState<GlobalState, AuthState> { this.authState }
     val dispatcher = rememberDispatcher()
-
     val presenter = remember { AuthPresenter(dispatcher) }
+
     LaunchedEffect(Unit) {
         presenter.checkAuthorization {
             navigator.navigate(Graph.Trainings.link, true)

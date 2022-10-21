@@ -9,6 +9,7 @@ import data.source.TrainingProtocol
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
 import kotlin.coroutines.CoroutineContext
 
 class TrainingRepositoryImpl(
@@ -25,7 +26,7 @@ class TrainingRepositoryImpl(
         .getTrainings(userId = authSource.user?.uid)
         .flowOn(dispatcher)
 
-    override suspend fun setTraining(training: Training): Flow<Unit> {
+    override suspend fun setTraining(training: Training): Flow<Training> {
         val id = training.id ?: uuid4().toString()
 
         return trainingSource
@@ -40,6 +41,7 @@ class TrainingRepositoryImpl(
                     training = training.toShortTraining()
                 )
             ) { _, _ -> }
+            .map { training.copy(id = id) }
             .flowOn(dispatcher)
     }
 
