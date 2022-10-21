@@ -33,3 +33,10 @@ fun Main(
         }
     }
 }
+
+enum class Graph(val link: String) {
+    Auth("auth_screen"),
+    Trainings("trainings_screen"),
+    Training("training_screen"),
+    Review("review_screen")
+}
