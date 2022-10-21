@@ -9,12 +9,12 @@ import com.benasher44.uuid.uuid4
 import dev.icerock.moko.parcelize.Parcelable
 import dev.icerock.moko.parcelize.Parcelize
 import kotlinx.serialization.Serializable
-import presentation.review.ReviewAction
 
 data class TrainingState(
     val training: Training = Training(),
     val error: String? = null,
-    val loading: Boolean = false
+    val loading: Boolean = false,
+    val exitWarningVisibility: Boolean = false
 )
 
 @Serializable
@@ -99,6 +99,8 @@ sealed class TrainingAction(action: String) : Action(ReduxGroups.TRAINING, actio
     data class Error(val message: String? = null) : TrainingAction("ERROR_ACTION")
 
     data class Loading(val value: Boolean) : TrainingAction("LOADING_ACTION")
+
+    data class AskExitFromTraining(val value: Boolean) : TrainingAction("ASK_EXIT_FROM_TRAINING_ACTION")
 }
 
 val trainingReducer: ReducerForActionType<TrainingState, GlobalState, TrainingAction> = { state, _, action ->
@@ -116,6 +118,7 @@ val trainingReducer: ReducerForActionType<TrainingState, GlobalState, TrainingAc
         is TrainingAction.CalculateDuration -> state.copy(training = state.training.calculateDuration())
         is TrainingAction.Error -> state.copy(error = action.message)
         is TrainingAction.Loading -> state.copy(loading = action.value)
+        is TrainingAction.AskExitFromTraining -> state.copy(exitWarningVisibility = action.value)
     }
 }
 

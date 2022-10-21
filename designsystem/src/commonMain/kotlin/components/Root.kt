@@ -21,6 +21,7 @@ fun Root(
     loading: (@Composable () -> Unit)? = null,
     error: (@Composable () -> Unit)? = null,
     back: (@Composable () -> Unit)? = null,
+    popup: (@Composable () -> Unit)? = null,
 
     header: @Composable (LazyItemScope.() -> Unit)? = null,
     footer: (@Composable ColumnScope.() -> Unit)? = null,
@@ -60,6 +61,8 @@ fun Root(
     error?.invoke()
 
     loading?.invoke()
+
+    popup?.invoke()
 
     back?.invoke()
 }
