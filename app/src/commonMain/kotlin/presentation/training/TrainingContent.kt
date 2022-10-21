@@ -112,7 +112,7 @@ private fun NewExercise(
         .height(128.dp)
         .dashedBorder(
             width = 2.dp,
-            color = DesignComponent.colors.accent_secondary,
+            color = DesignComponent.colors.accent_secondary.copy(alpha = 0.5f),
             shape = DesignComponent.shape.default, on = 8.dp, off = 8.dp
         ).clickable {
             onClick.invoke()

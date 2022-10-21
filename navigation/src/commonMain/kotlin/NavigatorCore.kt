@@ -7,7 +7,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 public fun findNavigator(): NavigatorCore = LocalNavigator.current
 
 public interface NavigatorCore {
-    public val session: MutableStateFlow<NavigationSession>
     public fun navigate(screen: String, popToInclusive: Boolean = false)
     public fun back()
 }

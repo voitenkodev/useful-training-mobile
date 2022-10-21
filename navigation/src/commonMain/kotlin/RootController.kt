@@ -7,6 +7,7 @@ import internal.AnimatedTransition
 import internal.Core
 import internal.LocalNavigator
 import internal.NavComponent
+import internal.TransitionVariant
 
 
 private var core: Core? = null

@@ -2,19 +2,22 @@ package internal
 
 import GraphBuilder
 import NavigatorCore
-import Render
-import TransitionVariant
+import androidx.compose.runtime.Composable
 import kotlinx.coroutines.flow.MutableStateFlow
 
-public data class NavigationSession(
+internal enum class TransitionVariant { FORWARD, BACK }
+
+internal data class NavigationSession(
     val current: String? = null,
     val removed: String? = null,
     val type: TransitionVariant? = null
 )
 
+internal typealias Render = @Composable () -> Unit
+
 internal data class Core(
 
-    override val session: MutableStateFlow<NavigationSession> = MutableStateFlow(NavigationSession()),
+    internal val session: MutableStateFlow<NavigationSession> = MutableStateFlow(NavigationSession()),
 
     private val _backStack: MutableList<String> = mutableListOf(),
     internal val backStack: List<String> = _backStack,
