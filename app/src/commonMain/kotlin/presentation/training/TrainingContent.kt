@@ -94,7 +94,7 @@ fun TrainingContent() {
             }
             item(key = "new_exercise") {
                 NewExercise(
-                    modifier = Modifier.fillMaxWidth().animateItemPlacement(),
+                    modifier = Modifier.animateItemPlacement(),
                     onClick = { dispatcher(TrainingAction.AddExerciseAction) }
                 )
             }
@@ -113,7 +113,7 @@ private fun NewExercise(
         .dashedBorder(
             width = 2.dp,
             color = DesignComponent.colors.accent_secondary,
-            shape = DesignComponent.shape.default, on = 4.dp, off = 4.dp
+            shape = DesignComponent.shape.default, on = 8.dp, off = 8.dp
         ).clickable {
             onClick.invoke()
         },
