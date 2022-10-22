@@ -96,6 +96,13 @@ android {
         versionCode = 1
         versionName = "1.0"
     }
+
+    buildTypes.getByName("release") {
+        isMinifyEnabled = true
+        isShrinkResources = true
+        val defGuard = getDefaultProguardFile("proguard-android-optimize.txt")
+        proguardFiles(defGuard, ("proguard-rules.pro"))
+    }
 }
 
 compose.experimental.uikit.application {
