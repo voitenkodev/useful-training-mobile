@@ -178,7 +178,7 @@ private fun Comparing(
         horizontalArrangement = Arrangement.spacedBy(DesignComponent.size.space)
     ) {
 
-        items(list) {
+        items(list, key = { it.id ?: it.hashCode() }) {
             ShortTrainingItem(
                 training = it.toTrainingComponent(),
                 highlight = it == selected,

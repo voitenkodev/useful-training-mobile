@@ -14,7 +14,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -95,7 +95,7 @@ private fun NameLabels(
 ) = LazyRow(
     modifier = modifier,
     horizontalArrangement = Arrangement.spacedBy(DesignComponent.size.space),
-    content = { items(lines) { Label(label = it.label, color = it.lineColor) } }
+    content = { itemsIndexed(lines, key = { index, _ -> index }) { _, item -> Label(label = item.label, color = item.lineColor) } }
 )
 
 @Composable

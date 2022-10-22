@@ -84,7 +84,7 @@ fun TrainingsContent() {
                     WeekItem(startOfWeek = it.key)
                 }
 
-                items(it.value) { training ->
+                items(it.value, key = { it.id ?: it.hashCode() }) { training ->
                     TrainingItem(
                         training = training.toTrainingComponent(),
                         edit = {
