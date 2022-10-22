@@ -33,13 +33,13 @@ fun TrainingItem(
 ) = Column(
     modifier = modifier
         .secondaryBackground()
-        .padding(12.dp)
+        .padding(DesignComponent.size.space)
 ) {
 
     TrainingHeader(
         modifier = Modifier.fillMaxWidth(),
         weekDay = training.weekDay,
-        startTime = training.startTime,
+        date = training.shortStartDateTime,
         review = review,
         edit = edit
     )
@@ -66,7 +66,7 @@ fun TrainingItem(
 private fun TrainingHeader(
     modifier: Modifier = Modifier,
     weekDay: String,
-    startTime: String,
+    date: String,
     review: () -> Unit,
     edit: () -> Unit
 ) = Row(
@@ -81,14 +81,8 @@ private fun TrainingHeader(
     )
 
     TextFieldBody2(
-        modifier = Modifier.padding(end = 4.dp),
-        text = "Start Time",
+        text = date,
         color = DesignComponent.colors.caption,
-    )
-
-    TextFieldBody2(
-        text = startTime,
-        color = DesignComponent.colors.content,
         fontWeight = FontWeight.Bold
     )
 

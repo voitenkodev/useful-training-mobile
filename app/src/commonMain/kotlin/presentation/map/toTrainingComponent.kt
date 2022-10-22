@@ -14,6 +14,7 @@ fun Training.toTrainingComponent() = TrainingComponent(
     intensity = intensity?.toString(),
     weekDay = weekDay,
     startTime = startTime,
+    shortStartDateTime = shortStartDateTime,
     shortStartDate = shortStartDate,
     startLongDate = startLongDate,
     durationTime = durationTime,

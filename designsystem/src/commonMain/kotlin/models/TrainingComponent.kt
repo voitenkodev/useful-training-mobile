@@ -7,9 +7,12 @@ data class TrainingComponent(
     val tonnage: String? = null,
     val countOfLifting: Int? = null,
     val intensity: String? = null,
+
+    // UI
     val weekDay: String,
     val startTime: String,
     val shortStartDate: String,
+    val shortStartDateTime: String,
     val startLongDate: String,
     val durationTime: String?,
     val endOfWeek: String,

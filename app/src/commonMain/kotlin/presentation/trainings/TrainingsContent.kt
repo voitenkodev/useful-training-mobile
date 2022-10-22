@@ -5,6 +5,7 @@ import GlobalState
 import Graph
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -14,7 +15,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -24,8 +24,11 @@ import components.Header
 import components.Loading
 import components.Root
 import components.items.TrainingItem
+import components.labels.AccentLabel
 import controls.ButtonPrimary
+import controls.DividerPrimary
 import controls.TextFieldBody2
+import controls.secondaryBackground
 import findNavigator
 import presentation.map.toTrainingComponent
 import presentation.review.ReviewAction
@@ -79,7 +82,7 @@ fun TrainingsContent() {
             state.weekTrainings.onEach {
 
                 item(key = "week_by_${it.key}") {
-                    WeekItem(startOfWeek = it.key.date)
+                    WeekSummary(info = it.key)
                 }
 
                 items(it.value, key = { it.id ?: it.hashCode() }) { training ->
@@ -102,21 +105,39 @@ fun TrainingsContent() {
 }
 
 @Composable
-private fun WeekItem(startOfWeek: String) = Row(
-    modifier = Modifier.padding(DesignComponent.size.space),
-    horizontalArrangement = Arrangement.spacedBy(2.dp, Alignment.CenterHorizontally),
-    verticalAlignment = Alignment.CenterVertically,
+private fun WeekSummary(
+    modifier: Modifier = Modifier,
+    info: WeekInfo
+) = Column(
+    modifier = modifier
+        .secondaryBackground()
+        .fillMaxWidth()
+        .padding(DesignComponent.size.space),
+    verticalArrangement = Arrangement.spacedBy(DesignComponent.size.space),
 ) {
 
+    AccentLabel(text = "Week Summary")
+
+    DividerPrimary(modifier = Modifier.padding(bottom = 4.dp, top = 0.dp))
+
+    Section(label = "date", value = "${info.startWeekDate} to ${info.endWeekDate}")
+
+    Section(label = "Tonnage", value = "${info.tonnage}kg")
+
+    Section(label = "Intensity", value = info.intensity.toString())
+}
+
+@Composable
+private fun Section(label: String, value: String) = Row(
+    modifier = Modifier.fillMaxWidth(),
+    horizontalArrangement = Arrangement.SpaceBetween
+) {
     TextFieldBody2(
-        modifier = Modifier.padding(end = 4.dp),
-        text = "Week at",
+        text = label,
         color = DesignComponent.colors.caption,
     )
-
     TextFieldBody2(
-        text = startOfWeek,
-        color = DesignComponent.colors.content,
-        fontWeight = FontWeight.Bold
+        text = value,
+        fontWeight = FontWeight.Bold,
     )
 }

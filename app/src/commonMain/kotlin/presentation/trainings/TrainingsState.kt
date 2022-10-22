@@ -4,7 +4,6 @@ import Action
 import GlobalState
 import ReducerForActionType
 import ReduxGroups
-import co.touchlab.kermit.Logger
 import dev.icerock.moko.parcelize.Parcelable
 import dev.icerock.moko.parcelize.Parcelize
 import kotlinx.serialization.Serializable
@@ -17,12 +16,13 @@ data class TrainingsState(
     val weekTrainings: Map<WeekInfo, List<Training>> = emptyMap(),
     val error: String? = null,
     val loading: Boolean = false
-) : Parcelable {}
+) : Parcelable
 
 @Serializable
 @Parcelize
 data class WeekInfo(
-    val date: String,
+    val startWeekDate: String,
+    val endWeekDate: String,
     val tonnage: Double,
     val intensity: Double
 ) : Parcelable
@@ -38,19 +38,22 @@ sealed class TrainingsAction : Action(ReduxGroups.TRAININGS) {
 
 val trainingsReducer: ReducerForActionType<TrainingsState, GlobalState, TrainingsAction> = { state, _, action ->
     when (action) {
-        is TrainingsAction.FetchTrainings -> state.copy(
-            trainings = action.trainings,
-            weekTrainings = action.trainings.groupBy { it.endOfWeek }.mapKeys {
-                Logger.i { "CALL MAPPING FUCKING" }
-                WeekInfo(
-                    date = it.key,
-                    tonnage = it.value.mapNotNull { it.tonnage }.sum(),
-                    intensity = it.value.mapNotNull { it.intensity }.sum() / it.value.size
-                )
-            }
-        )
-
+        is TrainingsAction.FetchTrainings -> state.fetchTrainings(action)
         is TrainingsAction.Error -> state.copy(error = action.message)
         is TrainingsAction.Loading -> state.copy(loading = action.value)
     }
 }
+
+private fun TrainingsState.fetchTrainings(action: TrainingsAction.FetchTrainings) = copy(
+    trainings = action.trainings,
+    weekTrainings = action.trainings.groupBy { it.endOfWeek }.mapKeys { item ->
+        val startDate = item.value.firstOrNull()?.startOfWeek
+        val endDate = item.value.firstOrNull()?.endOfWeek
+        WeekInfo(
+            startWeekDate = startDate ?: "",
+            endWeekDate = endDate ?: "",
+            tonnage = item.value.mapNotNull { it.tonnage }.sum(),
+            intensity = item.value.mapNotNull { it.intensity }.sum() / item.value.size
+        )
+    }
+)

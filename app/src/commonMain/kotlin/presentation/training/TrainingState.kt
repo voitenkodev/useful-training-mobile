@@ -22,7 +22,7 @@ data class TrainingState(
 data class Training(
     val id: String? = null,
     val exercises: List<Exercise> = listOf(Exercise()),
-    val startDateTime: String = DateTimeKtx().currentTime(),
+    val startDateTime: String = DateTimeKtx.currentTime(),
     val duration: String? = null,
     val tonnage: Double? = null,
     val countOfLifting: Int? = null,
@@ -31,17 +31,21 @@ data class Training(
 
     // UI date internal.presentation
     val weekDay: String
-        get() = DateTimeKtx().formattedWeekDay(startDateTime) ?: ""
+        get() = DateTimeKtx.formattedWeekDay(startDateTime) ?: ""
     val startTime: String
-        get() = DateTimeKtx().formattedTime(startDateTime) ?: ""
+        get() = DateTimeKtx.formattedTime(startDateTime) ?: ""
     val shortStartDate: String
-        get() = DateTimeKtx().formattedShortDate(startDateTime) ?: ""
+        get() = DateTimeKtx.formattedShortDate(startDateTime) ?: ""
+    val shortStartDateTime: String
+        get() = DateTimeKtx.formattedDateTime(startDateTime) ?: ""
     val startLongDate: String
-        get() = DateTimeKtx().formattedLongDate(startDateTime) ?: ""
+        get() = DateTimeKtx.formattedLongDate(startDateTime) ?: ""
     val durationTime: String
-        get() = duration?.let { DateTimeKtx().formattedDuration(it) } ?: ""
+        get() = duration?.let { DateTimeKtx.formattedDuration(it) } ?: ""
     val endOfWeek: String
-        get() = DateTimeKtx().formattedEndOfWeek(startDateTime) ?: ""
+        get() = DateTimeKtx.formattedEndOfWeekLongDate(startDateTime) ?: ""
+    val startOfWeek: String
+        get() = DateTimeKtx.formattedStartOfWeekLongDate(startDateTime) ?: ""
 
     @Serializable
     @Parcelize
@@ -228,7 +232,7 @@ fun Training.calculateValues(): Training {
 }
 
 fun Training.calculateDuration(): Training {
-    return if (duration == null) this.copy(duration = DateTimeKtx().durationFrom(this.startDateTime))
+    return if (duration == null) this.copy(duration = DateTimeKtx.durationFrom(this.startDateTime))
     else this
 }
 

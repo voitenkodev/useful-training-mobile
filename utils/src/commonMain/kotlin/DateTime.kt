@@ -1,17 +1,42 @@
 import androidx.compose.ui.text.capitalize
 import androidx.compose.ui.text.intl.Locale
-import kotlinx.datetime.*
+import kotlinx.datetime.Clock
+import kotlinx.datetime.DateTimeUnit
+import kotlinx.datetime.DayOfWeek
+import kotlinx.datetime.Instant
+import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.minus
+import kotlinx.datetime.plus
+import kotlinx.datetime.toInstant
+import kotlinx.datetime.toLocalDateTime
 import kotlin.time.Duration
 
-class DateTimeKtx {
+object DateTimeKtx {
+
+    /**
+     * Output 2022-10-21T13:20:18.496Z
+     * */
 
     fun currentTime() = Clock.System.now().toString()
+
+    /**
+     * Input 2022-10-21T13:20:18.496Z
+     *
+     * Output 2h 18m 12.066s
+     * */
 
     fun durationFrom(iso8601Timestamp: String): String {
         val now: Instant = Clock.System.now()
         val result: Duration = (now - Instant.parse(iso8601Timestamp))
         return result.toString()
     }
+
+    /**
+     * Input 2022-10-21T13:20:18.496Z
+     *
+     * Output 21.10.2022
+     * */
 
     fun formattedShortDate(iso8601Timestamp: String): String? {
         val localDateTime = iso8601TimestampToLocalDateTime(iso8601Timestamp) ?: return null
@@ -22,6 +47,12 @@ class DateTimeKtx {
         return "${day.zeroPrefixed(2)}.${month.zeroPrefixed(2)}.${year}"
     }
 
+    /**
+     * Input 2022-10-21T13:20:18.496Z
+     *
+     * Output 21 October 2022
+     * */
+
     fun formattedLongDate(iso8601Timestamp: String): String? {
         val localDateTime = iso8601TimestampToLocalDateTime(iso8601Timestamp) ?: return null
         val date = localDateTime.date
@@ -31,10 +62,16 @@ class DateTimeKtx {
         return "${day.zeroPrefixed(2)} $month $year"
     }
 
-    fun formattedEndOfWeek(iso8601Timestamp: String): String? {
+    /**
+     * Input 2022-10-21T13:20:18.496Z
+     *
+     * Output 23 October 2022
+     * */
+
+    fun formattedEndOfWeekLongDate(iso8601Timestamp: String): String? {
         val currentLocalDateTime = iso8601TimestampToLocalDateTime(iso8601Timestamp) ?: return null
 
-        val dayOfWeek = DayOfWeek.values().size - currentLocalDateTime.dayOfWeek.ordinal
+        val dayOfWeek = DayOfWeek.values().lastIndex - currentLocalDateTime.dayOfWeek.ordinal
 
         val endOfWeek = currentLocalDateTime
             .toInstant(TimeZone.currentSystemDefault())
@@ -44,20 +81,31 @@ class DateTimeKtx {
         return formattedLongDate(endOfWeek)
     }
 
-    fun isPreviousWeek(currentIso8601Timestamp: String, lastIso8601Timestamp: String): Boolean {
-        val currentLocalDateTime = iso8601TimestampToLocalDateTime(currentIso8601Timestamp) ?: return false
-        val dayOfWeek = DayOfWeek.values().size - currentLocalDateTime.dayOfWeek.ordinal
+    /**
+     * Input 2022-10-21T13:20:18.496Z
+     *
+     * Output 17 October 2022
+     * */
 
-        val endWeek = currentLocalDateTime
+    fun formattedStartOfWeekLongDate(iso8601Timestamp: String): String? {
+        val currentLocalDateTime = iso8601TimestampToLocalDateTime(iso8601Timestamp) ?: return null
+
+        val dayOfWeek = currentLocalDateTime.dayOfWeek.ordinal
+
+        val endOfWeek = currentLocalDateTime
             .toInstant(TimeZone.currentSystemDefault())
-            .plus(dayOfWeek, DateTimeUnit.DAY, TimeZone.currentSystemDefault())
-            .toLocalDateTime(TimeZone.currentSystemDefault())
+            .minus(dayOfWeek, DateTimeUnit.DAY, TimeZone.currentSystemDefault())
+            .toString()
 
-        val result =
-            iso8601TimestampToLocalDateTime(lastIso8601Timestamp)?.let { endWeek.compareTo(it) }
-
-        return (result ?: 0) < 0
+        return formattedLongDate(endOfWeek)
     }
+
+    /**
+     * Input 2022-10-21T13:20:18.496Z
+     *
+     * Output 17h 44m
+     * */
+
 
     fun formattedTime(iso8601Timestamp: String): String? {
         val localDateTime = iso8601TimestampToLocalDateTime(iso8601Timestamp) ?: return null
@@ -66,10 +114,40 @@ class DateTimeKtx {
         return timeFormat(hour, min)
     }
 
+    /**
+     * Input 2022-10-21T13:20:18.496Z
+     *
+     * Output 17h 44m 21.10.2022
+     * */
+
+    fun formattedDateTime(iso8601Timestamp: String): String? {
+        val localDateTime = iso8601TimestampToLocalDateTime(iso8601Timestamp) ?: return null
+        val hour = localDateTime.hour
+        val min = localDateTime.minute
+
+        val date = localDateTime.date
+        val day = date.dayOfMonth
+        val month = date.monthNumber
+        val year = date.year
+        return "${timeFormat(hour, min)} ${day.zeroPrefixed(2)}.${month.zeroPrefixed(2)}.${year}"
+    }
+
+    /**
+     * Input 2022-10-21T13:20:18.496Z
+     *
+     * Output FRIDAY
+     * */
+
     fun formattedWeekDay(iso8601Timestamp: String): String? {
         val localDateTime = iso8601TimestampToLocalDateTime(iso8601Timestamp) ?: return null
         return localDateTime.dayOfWeek.name
     }
+
+    /**
+     * Input 1h 44m 4.875s
+     *
+     * Output 01h 44m
+     * */
 
     fun formattedDuration(duration: String): String? {
         return Duration.parseOrNull(duration)?.toComponents { hours, minutes, _, _ ->
