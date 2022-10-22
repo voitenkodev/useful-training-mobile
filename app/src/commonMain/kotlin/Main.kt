@@ -15,7 +15,7 @@ fun Main(
         ReduxStoreProvider(GlobalState(), globalReducer) {
 
             RootController(
-                startScreen = Graph.Auth.link
+                startScreen = Graph.Auth.link,
             ) {
                 screen(Graph.Auth.link) {
                     AuthContent()

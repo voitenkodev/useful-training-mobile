@@ -38,10 +38,8 @@ import selectState
 fun TrainingsContent() {
 
     val navigator = findNavigator()
-
     val state by selectState<GlobalState, TrainingsState> { this.trainingsState }
     val dispatcher = rememberDispatcher()
-
     val presenter = remember { TrainingsPresenter(dispatcher) }
 
     LaunchedEffect(Unit) {
@@ -78,10 +76,10 @@ fun TrainingsContent() {
         },
         scrollableContent = {
 
-            state.trainings.groupBy { it.endOfWeek }.onEach {
+            state.weekTrainings.onEach {
 
                 item(key = "week_by_${it.key}") {
-                    WeekItem(startOfWeek = it.key)
+                    WeekItem(startOfWeek = it.key.date)
                 }
 
                 items(it.value, key = { it.id ?: it.hashCode() }) { training ->
