@@ -30,22 +30,14 @@ data class Training(
 ) : Parcelable {
 
     // UI date internal.presentation
-    val weekDay: String
-        get() = DateTimeKtx.formattedWeekDay(startDateTime) ?: ""
-    val startTime: String
-        get() = DateTimeKtx.formattedTime(startDateTime) ?: ""
-    val shortStartDate: String
-        get() = DateTimeKtx.formattedShortDate(startDateTime) ?: ""
-    val shortStartDateTime: String
-        get() = DateTimeKtx.formattedDateTime(startDateTime) ?: ""
-    val startLongDate: String
-        get() = DateTimeKtx.formattedLongDate(startDateTime) ?: ""
-    val durationTime: String
-        get() = duration?.let { DateTimeKtx.formattedDuration(it) } ?: ""
-    val endOfWeek: String
-        get() = DateTimeKtx.formattedEndOfWeekLongDate(startDateTime) ?: ""
-    val startOfWeek: String
-        get() = DateTimeKtx.formattedStartOfWeekLongDate(startDateTime) ?: ""
+    val weekDay: String = DateTimeKtx.formattedWeekDay(startDateTime) ?: ""
+    val startTime: String  = DateTimeKtx.formattedTime(startDateTime) ?: ""
+    val shortStartDate: String = DateTimeKtx.formattedShortDate(startDateTime) ?: ""
+    val shortStartDateTime: String  = DateTimeKtx.formattedDateTime(startDateTime) ?: ""
+    val startLongDate: String = DateTimeKtx.formattedLongDate(startDateTime) ?: ""
+    val durationTime: String = duration?.let { DateTimeKtx.formattedDuration(it) } ?: ""
+    val endOfWeek: String = DateTimeKtx.formattedEndOfWeekLongDate(startDateTime) ?: ""
+    val startOfWeek: String = DateTimeKtx.formattedStartOfWeekLongDate(startDateTime) ?: ""
 
     @Serializable
     @Parcelize
