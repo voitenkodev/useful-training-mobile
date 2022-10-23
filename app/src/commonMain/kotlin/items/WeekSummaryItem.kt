@@ -4,9 +4,13 @@ import DesignComponent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredHeight
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -25,21 +29,33 @@ fun WeekSummary(
     modifier = modifier
         .secondaryBackground()
         .fillMaxWidth()
-        .padding(DesignComponent.size.space),
-    verticalArrangement = Arrangement.spacedBy(DesignComponent.size.space),
+        .padding(horizontal = DesignComponent.size.space),
 ) {
 
-    AccentLabel(text = "week summary")
+    Row(
+        modifier = modifier.requiredHeight(44.dp),
+        horizontalArrangement = Arrangement.spacedBy(2.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        AccentLabel(text = "week summary")
+    }
 
-    DividerPrimary(modifier = Modifier.padding(bottom = 4.dp, top = 0.dp))
+    Column(
+        verticalArrangement = Arrangement.spacedBy(DesignComponent.size.space),
+    ) {
 
-    Section(label = "start of week", value = info.startWeekDate)
+        DividerPrimary()
 
-    Section(label = "end of week", value = info.endWeekDate)
+        Section(label = "start of week", value = info.startWeekDate)
 
-    Section(label = "Tonnage", value = "${info.tonnage}kg")
+        Section(label = "end of week", value = info.endWeekDate)
 
-    Section(label = "Intensity", value = "${info.intensity.roundToInt()}%")
+        Section(label = "Tonnage", value = "${info.tonnage}kg")
+
+        Section(label = "Intensity", value = "${info.intensity.roundToInt()}%")
+    }
+
+    Spacer(Modifier.size(DesignComponent.size.space))
 }
 
 @Composable

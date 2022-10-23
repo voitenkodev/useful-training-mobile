@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
@@ -26,7 +27,7 @@ fun TrainingHeader(
     review: () -> Unit,
     edit: () -> Unit
 ) = Row(
-    modifier = modifier,
+    modifier = modifier.requiredHeight(44.dp),
     horizontalArrangement = Arrangement.spacedBy(2.dp),
     verticalAlignment = Alignment.CenterVertically,
 ) {

@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -18,7 +19,7 @@ fun TrainingFooter(
     durationTime: String?,
     tonnage: String?,
 ) = Row(
-    modifier = modifier,
+    modifier = modifier.requiredHeight(44.dp),
     horizontalArrangement = Arrangement.spacedBy(2.dp),
     verticalAlignment = Alignment.CenterVertically,
 ) {

@@ -21,7 +21,7 @@ fun TrainingItem(
 ) = Column(
     modifier = modifier
         .secondaryBackground()
-        .padding(DesignComponent.size.space)
+        .padding(horizontal = DesignComponent.size.space)
 ) {
 
     TrainingHeader(
@@ -32,7 +32,7 @@ fun TrainingItem(
         edit = edit
     )
 
-    DividerPrimary(modifier = Modifier.padding(bottom = 4.dp, top = 12.dp))
+    DividerPrimary(modifier = Modifier.padding(bottom = 4.dp))
 
     training.exercises.forEachIndexed { index, item ->
         ExerciseItem(
@@ -41,7 +41,7 @@ fun TrainingItem(
         )
     }
 
-    DividerPrimary(modifier = Modifier.padding(vertical = 12.dp))
+    DividerPrimary(modifier = Modifier.padding(top = 12.dp))
 
     TrainingFooter(
         modifier = Modifier.fillMaxWidth(),
