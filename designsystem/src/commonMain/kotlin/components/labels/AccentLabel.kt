@@ -21,6 +21,6 @@ fun AccentLabel(
             color = backgroundColor,
             shape = DesignComponent.shape.circleShape
         ).padding(horizontal = 8.dp, vertical = 2.dp),
-    text = text,
+    text = text.uppercase(),
     fontWeight = FontWeight.Bold
 )

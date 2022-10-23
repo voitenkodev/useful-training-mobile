@@ -1,5 +1,6 @@
 package items
 
+import DesignComponent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -14,6 +15,7 @@ import controls.DividerPrimary
 import controls.TextFieldBody2
 import controls.secondaryBackground
 import presentation.trainings.WeekInfo
+import kotlin.math.roundToInt
 
 @Composable
 fun WeekSummary(
@@ -27,15 +29,17 @@ fun WeekSummary(
     verticalArrangement = Arrangement.spacedBy(DesignComponent.size.space),
 ) {
 
-    AccentLabel(text = "Week Summary")
+    AccentLabel(text = "week summary")
 
     DividerPrimary(modifier = Modifier.padding(bottom = 4.dp, top = 0.dp))
 
-    Section(label = "date", value = "${info.startWeekDate} to ${info.endWeekDate}")
+    Section(label = "start of week", value = info.startWeekDate)
+
+    Section(label = "end of week", value = info.endWeekDate)
 
     Section(label = "Tonnage", value = "${info.tonnage}kg")
 
-    Section(label = "Intensity", value = info.intensity.toString())
+    Section(label = "Intensity", value = "${info.intensity.roundToInt()}%")
 }
 
 @Composable
