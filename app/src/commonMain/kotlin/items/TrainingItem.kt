@@ -27,7 +27,7 @@ fun TrainingItem(
     TrainingHeader(
         modifier = Modifier.fillMaxWidth(),
         weekDay = training.weekDay,
-        date = training.shortStartDateTime,
+        date = training.startTime,
         review = review,
         edit = edit
     )

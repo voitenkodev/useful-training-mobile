@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -38,10 +39,11 @@ fun ShortTrainingItem(
             color = if (highlight) DesignComponent.colors.accent_secondary else Color.Transparent,
             shape = DesignComponent.shape.default
         )
-        .padding(DesignComponent.size.space)
+        .padding(horizontal = DesignComponent.size.space)
         .clickable(onClick = onClick),
 ) {
     Row(
+        modifier = Modifier.requiredHeight(44.dp),
         horizontalArrangement = Arrangement.spacedBy(2.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -52,19 +54,13 @@ fun ShortTrainingItem(
         )
 
         TextFieldBody2(
-            modifier = Modifier.padding(end = 4.dp),
-            text = "at",
-            color = DesignComponent.colors.caption,
-        )
-
-        TextFieldBody2(
             text = training.startLongDate,
-            color = DesignComponent.colors.content,
+            color = DesignComponent.colors.caption,
             fontWeight = FontWeight.Bold
         )
     }
 
-    DividerPrimary(modifier = Modifier.padding(bottom = 4.dp, top = 12.dp))
+    DividerPrimary(modifier = Modifier.padding(bottom = 4.dp))
 
     training.exercises.take(4).map { it.name }.forEachIndexed { index, item ->
         TextFieldBody2(

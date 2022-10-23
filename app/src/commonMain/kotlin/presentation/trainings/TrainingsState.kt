@@ -24,7 +24,8 @@ data class WeekInfo(
     val startWeekDate: String,
     val endWeekDate: String,
     val tonnage: Double,
-    val intensity: Double
+    val intensity: Double,
+    val countOfTrainings: Int
 ) : Parcelable
 
 sealed class TrainingsAction : Action(ReduxGroups.TRAININGS) {
@@ -53,7 +54,8 @@ private fun TrainingsState.fetchTrainings(action: TrainingsAction.FetchTrainings
             startWeekDate = startDate ?: "",
             endWeekDate = endDate ?: "",
             tonnage = item.value.mapNotNull { it.tonnage }.sum(),
-            intensity = item.value.mapNotNull { it.intensity }.sum() / item.value.size
+            intensity = item.value.mapNotNull { it.intensity }.sum() / item.value.size,
+            countOfTrainings = item.value.size
         )
     }
 )

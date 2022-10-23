@@ -128,6 +128,7 @@ fun ReviewContent() {
                 ButtonSecondary(
                     modifier = Modifier.fillMaxWidth(),
                     text = "Remove Training",
+                    color = DesignComponent.colors.accent_tertiary,
                     onClick = {
                         presenter.removeTraining(state.reviewTraining.id) {
                             navigator.navigate(Graph.Trainings.link)

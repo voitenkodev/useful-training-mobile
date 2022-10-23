@@ -50,10 +50,11 @@ fun ButtonSecondary(
     text: String,
     onClick: () -> Unit,
     enabled: Boolean = true,
+    color: Color? = null,
     leadIcon: ImageVector? = null,
 ) {
 
-    val innerTextColor = DesignComponent.colors.accent_secondary
+    val innerTextColor = color ?: DesignComponent.colors.accent_secondary
     val innerBackgroundColor = Color.Companion.Transparent
 
     Button(

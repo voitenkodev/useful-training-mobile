@@ -37,7 +37,16 @@ fun WeekSummary(
         horizontalArrangement = Arrangement.spacedBy(2.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        AccentLabel(text = "week summary")
+        AccentLabel(
+            modifier = Modifier.padding(end = 4.dp),
+            text = "week summary"
+        )
+
+        TextFieldBody2(
+            text = "${info.countOfTrainings} Trainings",
+            color = DesignComponent.colors.caption,
+            fontWeight = FontWeight.Bold
+        )
     }
 
     Column(
