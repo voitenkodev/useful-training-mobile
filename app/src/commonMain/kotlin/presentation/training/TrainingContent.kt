@@ -21,11 +21,10 @@ import components.Header
 import components.Loading
 import components.Popup
 import components.Root
-import components.items.EditExerciseItem
 import controls.TextFieldH2
 import controls.dashedBorder
 import findNavigator
-import presentation.map.toExerciseComponent
+import items.EditExerciseItem
 import rememberDispatcher
 import selectState
 
@@ -79,7 +78,7 @@ fun TrainingContent() {
                 EditExerciseItem(
                     modifier = Modifier.animateItemPlacement(),
                     number = index + 1,
-                    exercise = exercise.toExerciseComponent(),
+                    exercise = exercise,
                     updateName = { dispatcher(TrainingAction.SetNameExerciseAction(exerciseId = exercise.id, value = it)) },
                     removeExercise = { dispatcher(TrainingAction.RemoveExerciseAction(exerciseId = exercise.id)) },
                     updateWeight = { num, value ->

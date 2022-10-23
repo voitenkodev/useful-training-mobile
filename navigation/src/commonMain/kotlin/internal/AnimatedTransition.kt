@@ -65,7 +65,7 @@ private fun <S> AnimatedContentWithCallback(
     )
 }
 
-// __________________ ANIMATIONS __________________
+/* --------------------------- Animations --------------------------- */
 
 internal fun <T> crossFade(transitionTime: Int): AnimatedContentScope<T>.() -> ContentTransform = {
     (fadeIn(animationSpec = tween(transitionTime)) with fadeOut(animationSpec = tween(transitionTime)))

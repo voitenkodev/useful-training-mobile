@@ -1,5 +1,6 @@
-package components.items
+package items
 
+import DesignComponent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -8,16 +9,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import DesignComponent
 import controls.IterationVerticalGrid
 import controls.TextFieldBody1
-import models.ExerciseComponent
+import presentation.training.Training
 
 @Composable
 fun ExerciseItem(
     modifier: Modifier = Modifier,
     number: Int,
-    exercise: ExerciseComponent
+    exercise: Training.Exercise
 ) = Row(
     modifier = modifier.padding(top = 8.dp),
     horizontalArrangement = Arrangement.spacedBy(4.dp)

@@ -32,9 +32,7 @@ import components.Error
 import components.Header
 import components.Loading
 import components.Root
-import components.items.ExerciseItem
 import components.items.LineChartItem
-import components.items.ShortTrainingItem
 import components.labels.WeekDayLabel
 import controls.ButtonSecondary
 import controls.DividerPrimary
@@ -42,8 +40,8 @@ import controls.IconPrimary
 import controls.TextFieldBody2
 import controls.secondaryBackground
 import findNavigator
-import presentation.map.toExerciseComponent
-import presentation.map.toTrainingComponent
+import items.ExerciseItem
+import items.ShortTrainingItem
 import presentation.training.Training
 import rememberDispatcher
 import selectState
@@ -121,7 +119,7 @@ fun ReviewContent() {
                 state.reviewTraining.exercises.forEachIndexed { index, item ->
                     ExerciseItem(
                         number = index + 1,
-                        exercise = item.toExerciseComponent()
+                        exercise = item
                     )
                 }
             }
@@ -180,7 +178,7 @@ private fun Comparing(
 
         items(list, key = { it.id ?: it.hashCode() }) {
             ShortTrainingItem(
-                training = it.toTrainingComponent(),
+                training = it,
                 highlight = it == selected,
                 onClick = { compare.invoke(it) }
             )

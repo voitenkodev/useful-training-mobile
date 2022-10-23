@@ -23,14 +23,13 @@ import components.Error
 import components.Header
 import components.Loading
 import components.Root
-import components.items.TrainingItem
 import components.labels.AccentLabel
 import controls.ButtonPrimary
 import controls.DividerPrimary
 import controls.TextFieldBody2
 import controls.secondaryBackground
 import findNavigator
-import presentation.map.toTrainingComponent
+import items.TrainingItem
 import presentation.review.ReviewAction
 import presentation.training.Training
 import presentation.training.TrainingAction
@@ -87,7 +86,7 @@ fun TrainingsContent() {
 
                 items(it.value, key = { it.id ?: it.hashCode() }) { training ->
                     TrainingItem(
-                        training = training.toTrainingComponent(),
+                        training = training,
                         edit = {
                             dispatcher(TrainingAction.PutTrainingAction(training))
                             dispatcher(TrainingAction.ProvideEmptyIterations)

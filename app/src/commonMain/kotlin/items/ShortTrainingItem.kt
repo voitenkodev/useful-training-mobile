@@ -1,4 +1,4 @@
-package components.items
+package items
 
 import DesignComponent
 import androidx.compose.foundation.border
@@ -20,12 +20,12 @@ import components.labels.WeekDayLabel
 import controls.DividerPrimary
 import controls.TextFieldBody2
 import controls.secondaryBackground
-import models.TrainingComponent
+import presentation.training.Training
 
 @Composable
 fun ShortTrainingItem(
     modifier: Modifier = Modifier,
-    training: TrainingComponent,
+    training: Training,
     highlight: Boolean = false,
     onClick: () -> Unit
 ) = Column(
