@@ -1,7 +1,5 @@
 import androidx.compose.runtime.Composable
 import internal.LocalNavigator
-import internal.NavigationSession
-import kotlinx.coroutines.flow.MutableStateFlow
 
 @Composable
 public fun findNavigator(): NavigatorCore = LocalNavigator.current
