@@ -44,7 +44,15 @@ fun TrainingContent() {
             Error(message = state.error, close = { dispatcher(TrainingAction.Error(null)) })
         },
         back = {
-            BackHandler(action = { dispatcher(TrainingAction.AskExitFromTraining(state.exitWarningVisibility.not())) })
+            BackHandler(
+                action = {
+                    if (state.removeExerciseId != null) {
+                        dispatcher(TrainingAction.AskRemoveExercise(null))
+                        return@BackHandler
+                    }
+                    dispatcher(TrainingAction.AskExitFromTraining(state.exitWarningVisibility.not()))
+                }
+            )
         },
         popup = {
             Popup(
@@ -57,6 +65,17 @@ fun TrainingContent() {
                     navigator.back()
                 },
                 back = { dispatcher(TrainingAction.AskExitFromTraining(false)) }
+            )
+            Popup(
+                visibility = state.removeExerciseId != null,
+                title = "Warning",
+                message = "Are you sure to remove exercise?",
+                button = "Yes",
+                click = {
+                    state.removeExerciseId?.let { dispatcher(TrainingAction.RemoveExerciseAction(exerciseId = it)) }
+                    dispatcher(TrainingAction.AskRemoveExercise(null))
+                },
+                back = { dispatcher(TrainingAction.AskRemoveExercise(null)) }
             )
         },
         header = {
@@ -80,7 +99,7 @@ fun TrainingContent() {
                     number = index + 1,
                     exercise = exercise,
                     updateName = { dispatcher(TrainingAction.SetNameExerciseAction(exerciseId = exercise.id, value = it)) },
-                    removeExercise = { dispatcher(TrainingAction.RemoveExerciseAction(exerciseId = exercise.id)) },
+                    removeExercise = { dispatcher(TrainingAction.AskRemoveExercise(exerciseId = exercise.id)) },
                     updateWeight = { num, value ->
                         dispatcher(TrainingAction.SetWeightExerciseIterationAction(exerciseId = exercise.id, number = num, value = value))
                         dispatcher(TrainingAction.ProvideEmptyIteration(exerciseId = exercise.id))

@@ -14,7 +14,8 @@ data class TrainingState(
     val training: Training = Training(),
     val error: String? = null,
     val loading: Boolean = false,
-    val exitWarningVisibility: Boolean = false
+    val exitWarningVisibility: Boolean = false,
+    val removeExerciseId: String? = null
 )
 
 @Serializable
@@ -31,9 +32,9 @@ data class Training(
 
     // UI date internal.presentation
     val weekDay: String = DateTimeKtx.formattedWeekDay(startDateTime) ?: ""
-    val startTime: String  = DateTimeKtx.formattedTime(startDateTime) ?: ""
+    val startTime: String = DateTimeKtx.formattedTime(startDateTime) ?: ""
     val shortStartDate: String = DateTimeKtx.formattedShortDate(startDateTime) ?: ""
-    val shortStartDateTime: String  = DateTimeKtx.formattedDateTime(startDateTime) ?: ""
+    val shortStartDateTime: String = DateTimeKtx.formattedDateTime(startDateTime) ?: ""
     val startLongDate: String = DateTimeKtx.formattedLongDate(startDateTime) ?: ""
     val durationTime: String = duration?.let { DateTimeKtx.formattedDuration(it) } ?: ""
     val endOfWeek: String = DateTimeKtx.formattedEndOfWeekLongDate(startDateTime) ?: ""
@@ -88,38 +89,56 @@ sealed class TrainingAction : Action(ReduxGroups.TRAINING) {
     data class Loading(val value: Boolean) : TrainingAction()
 
     data class AskExitFromTraining(val value: Boolean) : TrainingAction()
+
+    data class AskRemoveExercise(val exerciseId: String? = null) : TrainingAction()
 }
 
 val trainingReducer: ReducerForActionType<TrainingState, GlobalState, TrainingAction> = { state, _, action ->
     when (action) {
-        is TrainingAction.PutTrainingAction -> state.copy(training = action.training)
-        is TrainingAction.AddExerciseAction -> state.copy(training = state.training.addExercise())
-        is TrainingAction.RemoveExerciseAction -> state.copy(training = state.training.removeExercise(action.exerciseId))
-        is TrainingAction.SetNameExerciseAction -> state.copy(training = state.training.setNameOfExercise(action.exerciseId, action.value))
-        is TrainingAction.SetRepeatExerciseIterationAction -> state.copy(
-            training = state.training.setRepeatOfIteration(
-                action.exerciseId,
-                action.number,
-                action.value
-            )
-        )
+        is TrainingAction.PutTrainingAction ->
+            state.copy(training = action.training)
 
-        is TrainingAction.SetWeightExerciseIterationAction -> state.copy(
-            training = state.training.setWeightOfIteration(
-                action.exerciseId,
-                action.number,
-                action.value
-            )
-        )
+        is TrainingAction.AddExerciseAction ->
+            state.copy(training = state.training.addExercise())
 
-        is TrainingAction.ProvideEmptyIterations -> state.copy(training = state.training.provideEmptyIterations())
-        is TrainingAction.ProvideEmptyIteration -> state.copy(training = state.training.provideEmptyIteration(action.exerciseId))
-        is TrainingAction.ValidateExercises -> state.copy(training = state.training.validate())
-        is TrainingAction.CalculateValues -> state.copy(training = state.training.calculateValues())
-        is TrainingAction.CalculateDuration -> state.copy(training = state.training.calculateDuration())
-        is TrainingAction.Error -> state.copy(error = action.message)
-        is TrainingAction.Loading -> state.copy(loading = action.value)
-        is TrainingAction.AskExitFromTraining -> state.copy(exitWarningVisibility = action.value)
+        is TrainingAction.RemoveExerciseAction ->
+            state.copy(training = state.training.removeExercise(action.exerciseId))
+
+        is TrainingAction.SetNameExerciseAction ->
+            state.copy(training = state.training.setNameOfExercise(action.exerciseId, action.value))
+
+        is TrainingAction.SetRepeatExerciseIterationAction ->
+            state.copy(training = state.training.setRepeatOfIteration(action.exerciseId, action.number, action.value))
+
+        is TrainingAction.SetWeightExerciseIterationAction ->
+            state.copy(training = state.training.setWeightOfIteration(action.exerciseId, action.number, action.value))
+
+        is TrainingAction.ProvideEmptyIterations ->
+            state.copy(training = state.training.provideEmptyIterations())
+
+        is TrainingAction.ProvideEmptyIteration ->
+            state.copy(training = state.training.provideEmptyIteration(action.exerciseId))
+
+        is TrainingAction.ValidateExercises ->
+            state.copy(training = state.training.validate())
+
+        is TrainingAction.CalculateValues ->
+            state.copy(training = state.training.calculateValues())
+
+        is TrainingAction.CalculateDuration ->
+            state.copy(training = state.training.calculateDuration())
+
+        is TrainingAction.Error ->
+            state.copy(error = action.message)
+
+        is TrainingAction.Loading ->
+            state.copy(loading = action.value)
+
+        is TrainingAction.AskExitFromTraining ->
+            state.copy(exitWarningVisibility = action.value)
+
+        is TrainingAction.AskRemoveExercise ->
+            state.copy(removeExerciseId = action.exerciseId)
     }
 }
 
