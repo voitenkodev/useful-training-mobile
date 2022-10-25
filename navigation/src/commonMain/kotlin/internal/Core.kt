@@ -7,28 +7,6 @@ import ScreenScope
 import androidx.compose.runtime.Composable
 import kotlinx.coroutines.flow.MutableStateFlow
 
-private typealias Render = @Composable (ScreenScope) -> Unit
-
-internal enum class TransitionVariant { FORWARD, BACK }
-
-internal data class NavigationTransaction(
-    val current: String? = null,
-    val removed: String? = null,
-    val type: TransitionVariant? = null,
-    val animation: Animation
-)
-
-internal data class ScreenConfigurations(
-    val screen: String,
-    val render: Render,
-    val animation: Animation
-)
-
-internal data class ScopeStoreObject(
-    val value: Any,
-    val clearValue: (Any) -> Unit
-)
-
 private val DefaultAnimation = Animation.None
 
 internal data class Core(
@@ -57,14 +35,17 @@ internal data class Core(
             )
         } else {
             val removed = backStack.lastOrNull()
+
             backStack.removeAt(index)
+
             val animation = screenMap[removed]?.animation ?: DefaultAnimation
+
             transaction.tryEmit(
                 NavigationTransaction(
                     current = screen,
                     removed = removed,
                     type = TransitionVariant.BACK,
-                    animation = animation
+                    animation = animation,
                 )
             )
         }

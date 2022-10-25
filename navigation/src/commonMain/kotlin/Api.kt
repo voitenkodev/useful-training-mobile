@@ -16,7 +16,6 @@ public interface GraphBuilder {
     )
 }
 
-
 public interface ScreenScope {
     public fun <T : Any> getOrCreate(key: String, factory: () -> T, clear: (T) -> Unit): T
 }

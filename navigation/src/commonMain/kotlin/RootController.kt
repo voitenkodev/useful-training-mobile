@@ -3,6 +3,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.saveable.rememberSaveableStateHolder
+import co.touchlab.kermit.Logger
 import internal.AnimatedTransition
 import internal.Core
 import internal.LocalNavigator
@@ -37,6 +38,8 @@ public fun RootController(
         val navigator = NavComponent.navigator
 
         val transaction = NavComponent.navigator.transaction.collectAsState()
+
+        Logger.i { "transaction = ${transaction.value}" }
 
         val stateHolder = rememberSaveableStateHolder()
 

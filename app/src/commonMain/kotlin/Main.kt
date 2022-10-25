@@ -38,6 +38,10 @@ fun Main(
                     key = Graph.Review.link,
                     animation = Animation.Present(500)
                 ) { store ->
+
+                    val navigator = findNavigator()
+                    val dispatcher = rememberDispatcher()
+
                     ReviewContent()
                 }
 
@@ -45,6 +49,10 @@ fun Main(
                     key = Graph.Training.link,
                     animation = Animation.Push(300)
                 ) { store ->
+
+                    val navigator = findNavigator()
+                    val dispatcher = rememberDispatcher()
+
                     TrainingContent()
                 }
 
