@@ -9,7 +9,11 @@ public interface NavigatorCore {
 }
 
 public interface GraphBuilder {
-    public fun screen(screen: String, content: @Composable (ScreenScope) -> Unit)
+    public fun screen(
+        key: String,
+        animation: Animation? = null,
+        content: @Composable (ScreenScope) -> Unit
+    )
 }
 
 

@@ -18,7 +18,10 @@ fun Main(
 
             RootController(startScreen = Graph.Auth.link) {
 
-                screen(Graph.Auth.link) { store ->
+                screen(
+                    key = Graph.Auth.link,
+                    animation = Animation.Present(500)
+                ) { store ->
 
                     val navigator = findNavigator()
                     val dispatcher = rememberDispatcher()
@@ -31,15 +34,24 @@ fun Main(
                     AuthContent(viewModel)
 
                 }
-                screen(Graph.Review.link) {
+                screen(
+                    key = Graph.Review.link,
+                    animation = Animation.Present(500)
+                ) { store ->
                     ReviewContent()
                 }
 
-                screen(Graph.Training.link) {
+                screen(
+                    key = Graph.Training.link,
+                    animation = Animation.Push(300)
+                ) { store ->
                     TrainingContent()
                 }
 
-                screen(Graph.Trainings.link) { store ->
+                screen(
+                    key = Graph.Trainings.link,
+                    animation = Animation.Present(500)
+                ) { store ->
 
                     val navigator = findNavigator()
                     val dispatcher = rememberDispatcher()

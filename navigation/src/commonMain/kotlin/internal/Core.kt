@@ -1,5 +1,6 @@
 package internal
 
+import Animation
 import GraphBuilder
 import NavigatorCore
 import ScreenScope
@@ -13,7 +14,14 @@ internal enum class TransitionVariant { FORWARD, BACK }
 internal data class NavigationTransaction(
     val current: String? = null,
     val removed: String? = null,
-    val type: TransitionVariant? = null
+    val type: TransitionVariant? = null,
+    val animation: Animation
+)
+
+internal data class ScreenConfigurations(
+    val screen: String,
+    val render: Render,
+    val animation: Animation
 )
 
 internal data class ScopeStoreObject(
@@ -21,14 +29,12 @@ internal data class ScopeStoreObject(
     val clearValue: (Any) -> Unit
 )
 
+private val DefaultAnimation = Animation.None
+
 internal data class Core(
-    /** Last Navigation session **/
-    internal val transaction: MutableStateFlow<NavigationTransaction> = MutableStateFlow(NavigationTransaction()),
-    /** Backstack of screens **/
+    internal val transaction: MutableStateFlow<NavigationTransaction> = MutableStateFlow(NavigationTransaction(animation = DefaultAnimation)),
     private val backStack: MutableList<String> = mutableListOf(),
-    /** Pool of screens **/
-    private val screenMap: HashMap<String, Render> = hashMapOf(),
-    /** Pool of screen objects **/
+    private val screenMap: HashMap<String, ScreenConfigurations> = hashMapOf(),
     private val storeMap: MutableMap<String, ScopeStoreObject> = mutableMapOf()
 ) : NavigatorCore, GraphBuilder, ScreenScope {
 
@@ -40,72 +46,80 @@ internal data class Core(
             val removed = backStack.lastOrNull()
             if (popToInclusive) backStack.removeLastOrNull()
             backStack.add(screen)
+            val animation = screenMap[screen]?.animation ?: DefaultAnimation
             transaction.tryEmit(
                 NavigationTransaction(
                     current = screen,
                     removed = removed,
-                    type = TransitionVariant.FORWARD
+                    type = TransitionVariant.FORWARD,
+                    animation = animation
                 )
             )
         } else {
             val removed = backStack.lastOrNull()
             backStack.removeAt(index)
+            val animation = screenMap[removed]?.animation ?: DefaultAnimation
             transaction.tryEmit(
                 NavigationTransaction(
                     current = screen,
                     removed = removed,
-                    type = TransitionVariant.BACK
+                    type = TransitionVariant.BACK,
+                    animation = animation
                 )
             )
         }
     }
 
-
     override fun back() {
         val removed = backStack.removeLastOrNull()
+        val current = backStack.lastOrNull()
+        val animation = screenMap[removed]?.animation ?: DefaultAnimation
         transaction.tryEmit(
             NavigationTransaction(
-                current = backStack.lastOrNull(),
+                current = current,
                 removed = removed,
                 type = TransitionVariant.BACK,
+                animation = animation
             )
         )
     }
 
     /* --------------------------- GraphBuilder --------------------------- */
 
-    override fun screen(screen: String, content: @Composable (ScreenScope) -> Unit) {
-        screenMap[screen] = content
+    override fun screen(
+        key: String,
+        animation: Animation?,
+        content: @Composable (ScreenScope) -> Unit
+    ) {
+        screenMap[key] = ScreenConfigurations(
+            screen = key,
+            render = content,
+            animation = animation ?: DefaultAnimation
+        )
     }
 
     /* --------------------------- Store --------------------------- */
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : Any> getOrCreate(
-        key: String, factory: () -> T,
+        key: String,
+        factory: () -> T,
         clear: (T) -> Unit
-    ): T {
-        return storeMap.getOrPut(key) {
-            ScopeStoreObject(
-                value = factory.invoke(),
-                clearValue = (clear as (Any) -> Unit)
-            )
-        }.value as T
-    }
+    ): T = storeMap.getOrPut(key) {
+        ScopeStoreObject(value = factory.invoke(), clearValue = (clear as (Any) -> Unit))
+    }.value as T
 
     /* --------------------------- Internal --------------------------- */
 
     @Composable
-    internal fun render(screen: String) {
-        screenMap[screen]?.invoke(this)
+    internal fun draw(screen: String) {
+        screenMap[screen]?.render?.invoke(this)
     }
 
-    internal fun remove(screen: String) {
-        storeMap.forEach {
-            if (it.key.startsWith(screen)) {
-                it.value.clearValue.invoke(it.value.value)
-                storeMap -= it.key
-            }
+    internal fun drop(screen: String) = storeMap.forEach {
+        if (it.key.startsWith(screen)) {
+            it.value.clearValue.invoke(it.value.value)
+            storeMap -= it.key
         }
     }
 }

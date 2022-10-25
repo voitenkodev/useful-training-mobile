@@ -34,30 +34,30 @@ public fun RootController(
 
     CompositionLocalProvider(LocalNavigator provides core) {
 
-        val impl = NavComponent.navigator
+        val navigator = NavComponent.navigator
 
-        val state = NavComponent.navigator.transaction.collectAsState()
+        val transaction = NavComponent.navigator.transaction.collectAsState()
 
         val stateHolder = rememberSaveableStateHolder()
 
         AnimatedTransition(
-            targetState = state.value.current,
-            animation = Animation.Push(400),
-            isForwardDirection = state.value.type == TransitionVariant.FORWARD,
+            targetState = transaction.value.current,
+            animation = transaction.value.animation,
+            isForwardDirection = transaction.value.type == TransitionVariant.FORWARD,
             content = { screen ->
                 if (screen != null) {
                     stateHolder.SaveableStateProvider(screen) {
-                        impl.render(screen)
+                        navigator.draw(screen)
                     }
                 }
             }
         )
 
-        LaunchedEffect(state.value) {
-            if (state.value.type == TransitionVariant.BACK) {
-                state.value.removed?.let {
+        LaunchedEffect(transaction.value) {
+            if (transaction.value.type == TransitionVariant.BACK) {
+                transaction.value.removed?.let {
                     stateHolder.removeState(it)
-                    impl.remove(it)
+                    navigator.drop(it)
                 }
             }
         }
