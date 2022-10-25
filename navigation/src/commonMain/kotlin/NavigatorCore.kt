@@ -1,11 +1,8 @@
 import androidx.compose.runtime.Composable
 import internal.LocalNavigator
-import internal.StoreImpl
 
 @Composable
 public fun findNavigator(): NavigatorCore = LocalNavigator.current
-public fun findScreenStore(): StoreImpl = StoreImpl
-
 public interface NavigatorCore {
     public fun navigate(screen: String, popToInclusive: Boolean = false)
     public fun back()

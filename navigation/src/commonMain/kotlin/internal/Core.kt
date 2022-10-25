@@ -24,8 +24,8 @@ internal data class Core(
     /** Pool of screens **/
     private val screenMap: HashMap<String, Render> = hashMapOf(),
     /** Pool of screen objects **/
-    internal val storeMap: StoreImpl = StoreImpl
-) : NavigatorCore, GraphBuilder {
+    internal val storeMap: MutableMap<String, Pair<Any, ((Any) -> Unit)?>> = mutableMapOf()
+) : NavigatorCore, GraphBuilder, Store {
 
     /* --------------------------- NavigatorCore --------------------------- */
 
@@ -81,14 +81,26 @@ internal data class Core(
         screenMap[screen] = content
     }
 
+    /* --------------------------- Store --------------------------- */
+
+    @Suppress("UNCHECKED_CAST")
+    override fun <T : Any> provide(key: String, factory: () -> T, clear: (T) -> Unit): T {
+        return storeMap.getOrPut(key) { factory.invoke() to (clear as (Any) -> Unit) }.first as T
+    }
+
     /* --------------------------- Internal --------------------------- */
 
     @Composable
     internal fun render(screen: String) {
-        screenMap[screen]?.invoke(storeMap)
+        screenMap[screen]?.invoke(this)
     }
 
     internal fun remove(screen: String) {
-        storeMap.remove(screen)
+        storeMap.forEach {
+            if (it.key.startsWith(screen)) {
+                it.value.second?.invoke(it.value.first)
+                storeMap -= it.key
+            }
+        }
     }
 }
