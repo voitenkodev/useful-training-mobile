@@ -9,7 +9,6 @@ import internal.LocalNavigator
 import internal.NavComponent
 import internal.TransitionVariant
 
-
 private var core: Core? = null
 
 private fun provideCore(
@@ -48,7 +47,7 @@ public fun RootController(
             content = { screen ->
                 if (screen != null) {
                     stateHolder.SaveableStateProvider(screen) {
-                        impl.screenMap[screen]?.invoke()
+                        impl.render(screen)
                     }
                 }
             }
@@ -56,7 +55,10 @@ public fun RootController(
 
         LaunchedEffect(state.value) {
             if (state.value.type == TransitionVariant.BACK) {
-                state.value.removed?.let { stateHolder.removeState(it) }
+                state.value.removed?.let {
+                    stateHolder.removeState(it)
+                    impl.remove(it)
+                }
             }
         }
     }

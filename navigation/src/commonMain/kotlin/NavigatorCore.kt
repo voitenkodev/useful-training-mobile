@@ -1,8 +1,10 @@
 import androidx.compose.runtime.Composable
 import internal.LocalNavigator
+import internal.StoreImpl
 
 @Composable
 public fun findNavigator(): NavigatorCore = LocalNavigator.current
+public fun findScreenStore(): StoreImpl = StoreImpl
 
 public interface NavigatorCore {
     public fun navigate(screen: String, popToInclusive: Boolean = false)
@@ -10,5 +12,10 @@ public interface NavigatorCore {
 }
 
 public interface GraphBuilder {
-    public fun screen(screen: String, content: @Composable () -> Unit)
+    public fun screen(screen: String, content: @Composable (Store) -> Unit)
+}
+
+
+public interface Store {
+    public fun <T : Any> provide(key: String, factory: () -> T, clear: (T) -> Unit): T
 }

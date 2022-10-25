@@ -8,9 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import components.BackHandler
 import components.Error
@@ -28,16 +26,11 @@ import rememberDispatcher
 import selectState
 
 @Composable
-fun TrainingsContent() {
+fun TrainingsContent(vm: TrainingsViewModel) {
 
     val navigator = findNavigator()
     val state by selectState<GlobalState, TrainingsState> { this.trainingsState }
     val dispatcher = rememberDispatcher()
-    val presenter = remember { TrainingsPresenter(dispatcher) }
-
-    LaunchedEffect(Unit) {
-        presenter.fetchTrainings()
-    }
 
     Root(
         modifier = Modifier.fillMaxSize(),

@@ -12,20 +12,5 @@ import kotlinx.coroutines.flow.onStart
 
 class TrainingsPresenter(val dispatcher: (Any) -> Any) : ComposeCoroutineContext() {
 
-    private val api = globalKoin().get<TrainingRepository>()
 
-    fun fetchTrainings() = call {
-        api.getTrainings().onStart {
-                dispatcher(TrainingsAction.Loading(true))
-            }.map {
-                it.toTrainingStateList()
-            }.onEach {
-                dispatcher(TrainingsAction.Loading(false))
-                dispatcher(TrainingsAction.Error(null))
-                dispatcher(TrainingsAction.FetchTrainings(it))
-            }.catch {
-                dispatcher(TrainingsAction.Loading(false))
-                dispatcher(TrainingsAction.Error(it.message))
-            }.launchIn(this)
-    }
 }

@@ -35,6 +35,7 @@ kotlin {
                 implementation(project(":designsystem"))
                 implementation(project(":utils"))
                 implementation(project(":navigation"))
+                implementation(project(":viewmodel"))
 
                 implementation(libs.coroutines)
                 implementation(libs.logger)

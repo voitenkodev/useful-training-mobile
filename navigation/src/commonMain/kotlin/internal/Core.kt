@@ -2,8 +2,11 @@ package internal
 
 import GraphBuilder
 import NavigatorCore
+import Store
 import androidx.compose.runtime.Composable
 import kotlinx.coroutines.flow.MutableStateFlow
+
+private typealias Render = @Composable (Store) -> Unit
 
 internal enum class TransitionVariant { FORWARD, BACK }
 
@@ -13,19 +16,15 @@ internal data class NavigationSession(
     val type: TransitionVariant? = null
 )
 
-internal typealias Render = @Composable () -> Unit
-
 internal data class Core(
-
+    /** Last Navigation session **/
     internal val session: MutableStateFlow<NavigationSession> = MutableStateFlow(NavigationSession()),
-
-    private val _backStack: MutableList<String> = mutableListOf(),
-    internal val backStack: List<String> = _backStack,
-
-    private val allowedScreens: MutableList<String> = mutableListOf(),
-    private val _screenMap: HashMap<String, Render> = hashMapOf(),
-    internal val screenMap: Map<String, Render> = _screenMap
-
+    /** Backstack of screens **/
+    private val backStack: MutableList<String> = mutableListOf(),
+    /** Pool of screens **/
+    private val screenMap: HashMap<String, Render> = hashMapOf(),
+    /** Pool of screen objects **/
+    internal val storeMap: StoreImpl = StoreImpl
 ) : NavigatorCore, GraphBuilder {
 
     /* --------------------------- NavigatorCore --------------------------- */
@@ -36,11 +35,11 @@ internal data class Core(
 
         if (index == -1) {
 
-            val removed = _backStack.lastOrNull()
+            val removed = backStack.lastOrNull()
 
-            if (popToInclusive) _backStack.removeLastOrNull()
+            if (popToInclusive) backStack.removeLastOrNull()
 
-            _backStack.add(screen)
+            backStack.add(screen)
             session.tryEmit(
                 NavigationSession(
                     current = screen,
@@ -51,7 +50,7 @@ internal data class Core(
         } else {
             val removed = backStack.lastOrNull()
 
-            _backStack.removeAt(index)
+            backStack.removeAt(index)
 
             session.tryEmit(
                 NavigationSession(
@@ -65,11 +64,11 @@ internal data class Core(
 
 
     override fun back() {
-        val removed = _backStack.removeLastOrNull()
+        val removed = backStack.removeLastOrNull()
 
         session.tryEmit(
             NavigationSession(
-                current = _backStack.lastOrNull(),
+                current = backStack.lastOrNull(),
                 removed = removed,
                 type = TransitionVariant.BACK,
             )
@@ -78,11 +77,18 @@ internal data class Core(
 
     /* --------------------------- GraphBuilder --------------------------- */
 
-    override fun screen(
-        screen: String,
-        content: Render
-    ) {
-        allowedScreens.add(screen)
-        _screenMap[screen] = content
+    override fun screen(screen: String, content: @Composable (Store) -> Unit) {
+        screenMap[screen] = content
+    }
+
+    /* --------------------------- Internal --------------------------- */
+
+    @Composable
+    internal fun render(screen: String) {
+        screenMap[screen]?.invoke(storeMap)
+    }
+
+    internal fun remove(screen: String) {
+        storeMap.remove(screen)
     }
 }

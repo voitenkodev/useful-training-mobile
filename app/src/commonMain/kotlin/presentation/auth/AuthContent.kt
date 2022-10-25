@@ -2,15 +2,12 @@ package presentation.auth
 
 import DesignComponent
 import GlobalState
-import Graph
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import components.BackHandler
@@ -23,22 +20,12 @@ import components.inputs.InputEmail
 import components.inputs.InputPassword
 import controls.ButtonPrimary
 import controls.TextFieldH2
-import findNavigator
-import rememberDispatcher
 import selectState
 
 @Composable
-fun AuthContent() {
-    val navigator = findNavigator()
-    val state by selectState<GlobalState, AuthState> { this.authState }
-    val dispatcher = rememberDispatcher()
-    val presenter = remember { AuthPresenter(dispatcher) }
+fun AuthContent(vm: AuthViewModel) {
 
-    LaunchedEffect(Unit) {
-        presenter.checkAuthorization {
-            navigator.navigate(Graph.Trainings.link, true)
-        }
-    }
+    val state by selectState<GlobalState, AuthState> { this.authState }
 
     Root(
         modifier = Modifier.fillMaxSize(),
@@ -46,10 +33,10 @@ fun AuthContent() {
             Loading(state.loading)
         },
         error = {
-            Error(message = state.error, close = { dispatcher(AuthAction.Error(null)) })
+            Error(message = state.error, close = { vm.clearError() })
         },
         back = {
-            BackHandler(action = { navigator.back() })
+            BackHandler(action = { vm.back() })
         },
         header = {
             Header(title = "\uD83D\uDC4B Welcome back!")
@@ -66,13 +53,13 @@ fun AuthContent() {
             InputEmail(
                 modifier = Modifier.fillMaxWidth(),
                 value = state.email,
-                onValueChange = { dispatcher(AuthAction.SetEmailAction(it)) }
+                onValueChange = { vm.updateEmail(it) }
             )
 
             InputPassword(
                 modifier = Modifier.fillMaxWidth(),
                 value = state.password,
-                onValueChange = { dispatcher(AuthAction.SetPasswordAction(it)) }
+                onValueChange = { vm.updatePassword(it) }
             )
         },
         footer = {
@@ -80,24 +67,14 @@ fun AuthContent() {
             ButtonPrimary(
                 modifier = Modifier.fillMaxWidth(),
                 text = "Log In",
-                onClick = {
-                    dispatcher(AuthAction.Validate)
-                    if (state.error == null) presenter.login(email = state.email, password = state.password) {
-                        navigator.navigate(Graph.Trainings.link, true)
-                    }
-                }
+                onClick = { vm.login(email = state.email, password = state.password) }
             )
 
             QuestionButton(
                 modifier = Modifier.fillMaxWidth(),
                 question = "Don't have an account yet?",
                 answer = "Sign Up!",
-                onClick = {
-                    dispatcher(AuthAction.Validate)
-                    if (state.error == null) presenter.registration(email = state.email, password = state.password) {
-                        navigator.navigate(Graph.Trainings.link, true)
-                    }
-                }
+                onClick = { vm.registration(email = state.email, password = state.password) }
             )
         }
     )
