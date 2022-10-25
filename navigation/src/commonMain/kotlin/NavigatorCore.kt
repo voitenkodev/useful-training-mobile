@@ -9,10 +9,10 @@ public interface NavigatorCore {
 }
 
 public interface GraphBuilder {
-    public fun screen(screen: String, content: @Composable (Store) -> Unit)
+    public fun screen(screen: String, content: @Composable (ScreenScope) -> Unit)
 }
 
 
-public interface Store {
-    public fun <T : Any> provide(key: String, factory: () -> T, clear: (T) -> Unit): T
+public interface ScreenScope {
+    public fun <T : Any> getOrCreate(key: String, factory: () -> T, clear: (T) -> Unit): T
 }

@@ -36,7 +36,7 @@ public fun RootController(
 
         val impl = NavComponent.navigator
 
-        val state = NavComponent.navigator.session.collectAsState()
+        val state = NavComponent.navigator.transaction.collectAsState()
 
         val stateHolder = rememberSaveableStateHolder()
 

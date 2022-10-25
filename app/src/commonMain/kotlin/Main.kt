@@ -23,7 +23,7 @@ fun Main(
                     val navigator = findNavigator()
                     val dispatcher = rememberDispatcher()
 
-                    val viewModel = store.provide(
+                    val viewModel = store.getOrCreate(
                         key = Graph.Auth.link,
                         factory = { AuthViewModel(dispatcher, navigator) },
                         clear = { (it as? AuthViewModel)?.clear() }
@@ -44,7 +44,7 @@ fun Main(
                     val navigator = findNavigator()
                     val dispatcher = rememberDispatcher()
 
-                    val viewModel = store.provide(
+                    val viewModel = store.getOrCreate(
                         key = Graph.Trainings.link,
                         factory = { TrainingsViewModel(dispatcher, navigator) },
                         clear = { (it as? TrainingsViewModel)?.clear() }
