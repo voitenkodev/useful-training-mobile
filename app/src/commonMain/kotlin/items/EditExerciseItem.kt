@@ -18,10 +18,10 @@ fun EditExerciseItem(
     modifier: Modifier = Modifier,
     number: Int,
     exercise: Training.Exercise,
-    updateName: (String) -> Unit,
-    removeExercise: () -> Unit,
-    updateWeight: (Int, String) -> Unit,
-    updateRepeat: (Int, String) -> Unit
+    updateName: (id: String, value: String) -> Unit,
+    removeExercise: (id: String) -> Unit,
+    updateWeight: (id: String, num: Int, value: String) -> Unit,
+    updateRepeat: (id: String, num: Int, value: String) -> Unit
 ) = Column(
     modifier = modifier.secondaryBackground()
 ) {
@@ -30,8 +30,8 @@ fun EditExerciseItem(
         showHelp = {},
         isHelpShowed = false,
         name = exercise.name,
-        update = updateName,
-        remove = removeExercise
+        update = { updateName.invoke(exercise.id, it) },
+        remove = { removeExercise.invoke(exercise.id) }
     )
 
     DividerPrimary(modifier = Modifier.padding(horizontal = 12.dp))
@@ -47,8 +47,8 @@ fun EditExerciseItem(
             IterationInputItem(
                 weight = iteration.weight,
                 repeat = iteration.repeat,
-                updateWeight = { updateWeight.invoke(index, it) },
-                updateRepeat = { updateRepeat.invoke(index, it) }
+                updateWeight = { updateWeight.invoke(exercise.id, index, it) },
+                updateRepeat = { updateRepeat.invoke(exercise.id, index, it) }
             )
         }
     }

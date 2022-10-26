@@ -59,7 +59,7 @@ class TrainingViewModel(
     }
 
     fun back() {
-        dispatcher(TrainingAction.AskExitFromTraining(false))
+        closeExitScreenPopup()
         navigator.back()
     }
 

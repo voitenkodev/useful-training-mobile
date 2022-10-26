@@ -26,6 +26,7 @@ import selectState
 
 @Composable
 fun TrainingContent(vm: TrainingViewModel) {
+
     val state by selectState<GlobalState, TrainingState> { this.trainingState }
 
     Root(
@@ -34,7 +35,7 @@ fun TrainingContent(vm: TrainingViewModel) {
             Loading(state.loading)
         },
         error = {
-            Error(message = state.error, close = { vm.clearError() })
+            Error(message = state.error, close = vm::clearError)
         },
         back = {
             BackHandler(
@@ -60,11 +61,8 @@ fun TrainingContent(vm: TrainingViewModel) {
                 title = "Warning",
                 message = "Are you sure to exit from training?",
                 button = "Back",
-                click = {
-                    vm.closeExitScreenPopup()
-                    vm.back()
-                },
-                back = { vm.closeExitScreenPopup() }
+                click = vm::back,
+                back = vm::closeExitScreenPopup
             )
             Popup(
                 visibility = state.removeExerciseId != null,
@@ -75,7 +73,7 @@ fun TrainingContent(vm: TrainingViewModel) {
                     vm.removeExercise(state.removeExerciseId)
                     vm.closeRemoveExercisePopup()
                 },
-                back = { vm.closeRemoveExercisePopup() }
+                back = vm::closeRemoveExercisePopup
             )
         },
         header = {
@@ -85,7 +83,7 @@ fun TrainingContent(vm: TrainingViewModel) {
                     vm.processingTraining()
                     vm.saveTraining(state.training)
                 },
-                back = { vm.openExitScreenPopup() }
+                back = vm::openExitScreenPopup
             )
         },
         scrollableContent = {
@@ -94,16 +92,16 @@ fun TrainingContent(vm: TrainingViewModel) {
                     modifier = Modifier.animateItemPlacement(),
                     number = index + 1,
                     exercise = exercise,
-                    updateName = { vm.updateName(exerciseId = exercise.id, name = it) },
-                    removeExercise = { vm.openRemoveExercisePopup(exercise.id) },
-                    updateWeight = { num, value -> vm.updateWeight(exercise.id, num, value) },
-                    updateRepeat = { num, value -> vm.updateRepeat(exercise.id, num, value) }
+                    updateName = vm::updateName,
+                    removeExercise = vm::openRemoveExercisePopup,
+                    updateWeight = vm::updateWeight,
+                    updateRepeat = vm::updateRepeat
                 )
             }
             item(key = "new_exercise") {
                 NewExercise(
                     modifier = Modifier.animateItemPlacement(),
-                    onClick = { vm.addExercise() }
+                    onClick = vm::addExercise
                 )
             }
         }
@@ -122,9 +120,7 @@ private fun NewExercise(
             width = 2.dp,
             color = DesignComponent.colors.accent_secondary.copy(alpha = 0.5f),
             shape = DesignComponent.shape.default, on = 8.dp, off = 8.dp
-        ).clickable {
-            onClick.invoke()
-        },
+        ).clickable(onClick = onClick),
     content = {
         TextFieldH2(
             modifier = Modifier.align(Alignment.Center),
