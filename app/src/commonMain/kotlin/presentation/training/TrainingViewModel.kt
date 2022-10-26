@@ -23,13 +23,13 @@ class TrainingViewModel(
 
     fun saveTraining(training: Training) = viewModelScope.launch {
         api.setTraining(training = training.toTraining())
-            .onStart { dispatcher(TrainingAction.Loading(true)) }
-            .onEach {
+            .onStart {
+                dispatcher(TrainingAction.Loading(true))
+            }.onEach {
                 dispatcher(TrainingAction.Loading(false))
                 dispatcher(ReviewAction.FetchTrainings(selected = it.toTrainingState()))
                 navigator.navigate(Graph.Review.link, popToInclusive = true)
-            }
-            .catch {
+            }.catch {
                 dispatcher(TrainingAction.Error(it.message))
                 dispatcher(TrainingAction.Loading(false))
             }

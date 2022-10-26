@@ -3,7 +3,6 @@ package presentation.review
 import Graph
 import NavigatorCore
 import ViewModel
-import data.repository.AuthRepository
 import data.repository.TrainingRepository
 import globalKoin
 import kotlinx.coroutines.flow.catch
@@ -11,7 +10,6 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
-import presentation.auth.AuthAction
 import presentation.training.Training
 
 class ReviewViewModel(
@@ -24,10 +22,17 @@ class ReviewViewModel(
     fun removeTraining(trainingId: String?) = viewModelScope.launch {
         api
             .removeTraining(trainingId = trainingId ?: error("invalid Training ID"))
+            .onStart {
+                dispatcher(ReviewAction.Loading(true))
+            }
             .onEach {
+                dispatcher(ReviewAction.Loading(false))
                 navigator.navigate(Graph.Trainings.link)
             }
-            .catch { }
+            .catch {
+                dispatcher(ReviewAction.Error(it.message))
+                dispatcher(ReviewAction.Loading(false))
+            }
             .launchIn(this)
     }
 
@@ -43,7 +48,7 @@ class ReviewViewModel(
         dispatcher(ReviewAction.CompareTrainings(null))
     }
 
-    fun back(){
+    fun back() {
         navigator.back()
     }
 }

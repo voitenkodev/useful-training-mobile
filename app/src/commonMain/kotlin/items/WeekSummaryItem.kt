@@ -33,8 +33,8 @@ fun WeekSummary(
 ) {
 
     Row(
-        modifier = modifier.requiredHeight(44.dp),
-        horizontalArrangement = Arrangement.spacedBy(2.dp),
+        modifier = modifier.requiredHeight(44.dp).fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
     ) {
         AccentLabel(
