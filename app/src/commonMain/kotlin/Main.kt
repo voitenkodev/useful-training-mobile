@@ -3,7 +3,9 @@ import androidx.compose.ui.Modifier
 import presentation.auth.AuthContent
 import presentation.auth.AuthViewModel
 import presentation.review.ReviewContent
+import presentation.review.ReviewViewModel
 import presentation.training.TrainingContent
+import presentation.training.TrainingViewModel
 import presentation.trainings.TrainingsContent
 import presentation.trainings.TrainingsViewModel
 
@@ -42,7 +44,13 @@ fun Main(
                     val navigator = findNavigator()
                     val dispatcher = rememberDispatcher()
 
-                    ReviewContent()
+                    val viewModel = store.getOrCreate(
+                        key = Graph.Review.link,
+                        factory = { ReviewViewModel(dispatcher, navigator) },
+                        clear = { (it as? ReviewViewModel)?.clear() }
+                    )
+
+                    ReviewContent(viewModel)
                 }
 
                 screen(
@@ -53,7 +61,13 @@ fun Main(
                     val navigator = findNavigator()
                     val dispatcher = rememberDispatcher()
 
-                    TrainingContent()
+                    val viewModel = store.getOrCreate(
+                        key = Graph.Training.link,
+                        factory = { TrainingViewModel(dispatcher, navigator) },
+                        clear = { (it as? TrainingViewModel)?.clear() }
+                    )
+
+                    TrainingContent(viewModel)
                 }
 
                 screen(

@@ -47,11 +47,9 @@ import rememberDispatcher
 import selectState
 
 @Composable
-fun ReviewContent() {
-    val navigator = findNavigator()
-    val dispatcher = rememberDispatcher()
+fun ReviewContent(vm: ReviewViewModel) {
+
     val state by selectState<GlobalState, ReviewState> { this.reviewState }
-    val presenter = remember { ReviewPresenter(dispatcher) }
 
     Root(
         modifier = Modifier.fillMaxSize(),
@@ -59,15 +57,15 @@ fun ReviewContent() {
             Loading(state.loading)
         },
         error = {
-            Error(message = state.error, close = { dispatcher(ReviewAction.Error(null)) })
+            Error(message = state.error, close = { vm.clearError() })
         },
         back = {
-            BackHandler(action = { navigator.back() })
+            BackHandler(action = { vm.back() })
         },
         header = {
             Header(
                 title = "Review!",
-                exit = { navigator.back() }
+                exit = { vm.back() }
             )
         },
         scrollableContent = {
@@ -105,8 +103,8 @@ fun ReviewContent() {
                     Comparing(
                         list = state.otherTrainings,
                         selected = state.compareTraining,
-                        compare = { dispatcher(ReviewAction.CompareTrainings(it)) },
-                        clear = { dispatcher(ReviewAction.CompareTrainings(null)) }
+                        compare = { vm.compareWith(it) },
+                        clear = { vm.clearComparing() }
                     )
                 }
             }
@@ -130,9 +128,7 @@ fun ReviewContent() {
                     text = "Remove Training",
                     color = DesignComponent.colors.accent_tertiary,
                     onClick = {
-                        presenter.removeTraining(state.reviewTraining.id) {
-                            navigator.navigate(Graph.Trainings.link)
-                        }
+                        vm.removeTraining(state.reviewTraining.id)
                     }
                 )
             }

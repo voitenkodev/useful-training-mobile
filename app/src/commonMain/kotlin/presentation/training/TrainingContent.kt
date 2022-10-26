@@ -2,7 +2,6 @@ package presentation.training
 
 import DesignComponent
 import GlobalState
-import Graph
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,7 +10,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -23,17 +21,12 @@ import components.Popup
 import components.Root
 import controls.TextFieldH2
 import controls.dashedBorder
-import findNavigator
 import items.EditExerciseItem
-import rememberDispatcher
 import selectState
 
 @Composable
-fun TrainingContent() {
-    val navigator = findNavigator()
-    val dispatcher = rememberDispatcher()
+fun TrainingContent(vm: TrainingViewModel) {
     val state by selectState<GlobalState, TrainingState> { this.trainingState }
-    val presenter = remember { TrainingPresenter(dispatcher) }
 
     Root(
         modifier = Modifier.fillMaxSize(),
@@ -41,16 +34,23 @@ fun TrainingContent() {
             Loading(state.loading)
         },
         error = {
-            Error(message = state.error, close = { dispatcher(TrainingAction.Error(null)) })
+            Error(message = state.error, close = { vm.clearError() })
         },
         back = {
             BackHandler(
                 action = {
                     if (state.removeExerciseId != null) {
-                        dispatcher(TrainingAction.AskRemoveExercise(null))
+                        vm.closeRemoveExercisePopup()
                         return@BackHandler
                     }
-                    dispatcher(TrainingAction.AskExitFromTraining(state.exitWarningVisibility.not()))
+                    if (state.exitWarningVisibility.not()) {
+                        vm.openExitScreenPopup()
+                        return@BackHandler
+                    }
+                    if (state.exitWarningVisibility) {
+                        vm.closeExitScreenPopup()
+                        return@BackHandler
+                    }
                 }
             )
         },
@@ -61,10 +61,10 @@ fun TrainingContent() {
                 message = "Are you sure to exit from training?",
                 button = "Back",
                 click = {
-                    dispatcher(TrainingAction.AskExitFromTraining(false))
-                    navigator.back()
+                    vm.closeExitScreenPopup()
+                    vm.back()
                 },
-                back = { dispatcher(TrainingAction.AskExitFromTraining(false)) }
+                back = { vm.closeExitScreenPopup() }
             )
             Popup(
                 visibility = state.removeExerciseId != null,
@@ -72,24 +72,20 @@ fun TrainingContent() {
                 message = "Are you sure to remove exercise?",
                 button = "Yes",
                 click = {
-                    state.removeExerciseId?.let { dispatcher(TrainingAction.RemoveExerciseAction(exerciseId = it)) }
-                    dispatcher(TrainingAction.AskRemoveExercise(null))
+                    vm.removeExercise(state.removeExerciseId)
+                    vm.closeRemoveExercisePopup()
                 },
-                back = { dispatcher(TrainingAction.AskRemoveExercise(null)) }
+                back = { vm.closeRemoveExercisePopup() }
             )
         },
         header = {
             Header(
                 title = "Exercises!",
                 save = {
-                    dispatcher(TrainingAction.ValidateExercises)
-                    dispatcher(TrainingAction.CalculateDuration)
-                    dispatcher(TrainingAction.CalculateValues)
-                    presenter.saveTraining(state.training) {
-                        navigator.navigate(Graph.Review.link, popToInclusive = true)
-                    }
+                    vm.processingTraining()
+                    vm.saveTraining(state.training)
                 },
-                back = { dispatcher(TrainingAction.AskExitFromTraining(true)) }
+                back = { vm.openExitScreenPopup() }
             )
         },
         scrollableContent = {
@@ -98,22 +94,16 @@ fun TrainingContent() {
                     modifier = Modifier.animateItemPlacement(),
                     number = index + 1,
                     exercise = exercise,
-                    updateName = { dispatcher(TrainingAction.SetNameExerciseAction(exerciseId = exercise.id, value = it)) },
-                    removeExercise = { dispatcher(TrainingAction.AskRemoveExercise(exerciseId = exercise.id)) },
-                    updateWeight = { num, value ->
-                        dispatcher(TrainingAction.SetWeightExerciseIterationAction(exerciseId = exercise.id, number = num, value = value))
-                        dispatcher(TrainingAction.ProvideEmptyIteration(exerciseId = exercise.id))
-                    },
-                    updateRepeat = { num, value ->
-                        dispatcher(TrainingAction.SetRepeatExerciseIterationAction(exerciseId = exercise.id, number = num, value = value))
-                        dispatcher(TrainingAction.ProvideEmptyIteration(exerciseId = exercise.id))
-                    }
+                    updateName = { vm.updateName(exerciseId = exercise.id, name = it) },
+                    removeExercise = { vm.openRemoveExercisePopup(exercise.id) },
+                    updateWeight = { num, value -> vm.updateWeight(exercise.id, num, value) },
+                    updateRepeat = { num, value -> vm.updateRepeat(exercise.id, num, value) }
                 )
             }
             item(key = "new_exercise") {
                 NewExercise(
                     modifier = Modifier.animateItemPlacement(),
-                    onClick = { dispatcher(TrainingAction.AddExerciseAction) }
+                    onClick = { vm.addExercise() }
                 )
             }
         }
