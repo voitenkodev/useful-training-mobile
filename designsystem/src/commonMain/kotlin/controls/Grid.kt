@@ -15,6 +15,7 @@ fun IterationVerticalGrid(
     content = content,
     modifier = modifier
 ) { measure, constraints ->
+
     var currentRow = 0
     var currentOrigin = IntOffset.Zero
     val spacingValue = spacing.toPx().toInt()

@@ -1,5 +1,6 @@
 package components.inputs
 
+import DesignComponent
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -13,7 +14,6 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import DesignComponent
 import components.labels.InputLabel
 import controls.IconPrimary
 import controls.InputFieldPrimary

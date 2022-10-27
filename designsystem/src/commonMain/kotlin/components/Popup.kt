@@ -37,7 +37,9 @@ fun Popup(
 ) {
 
     if (visibility) {
+
         val interactionSource = remember { MutableInteractionSource() }
+
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -45,7 +47,7 @@ fun Popup(
                 .clickable(
                     interactionSource = interactionSource,
                     indication = null,
-                    onClick = { back.invoke() }
+                    onClick = back
                 )
         )
     }
@@ -75,13 +77,16 @@ fun Popup(
                 .padding(DesignComponent.size.space),
             verticalArrangement = Arrangement.spacedBy(DesignComponent.size.space),
             content = {
+
                 TextFieldH2(text = title, fontWeight = FontWeight.Bold)
+
                 TextFieldBody1(text = message)
+
                 button?.let {
                     ButtonPrimary(
                         modifier = Modifier.fillMaxWidth(),
                         text = button,
-                        onClick = { click.invoke() }
+                        onClick = click
                     )
                 }
             }

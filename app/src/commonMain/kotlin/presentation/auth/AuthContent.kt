@@ -53,13 +53,13 @@ fun AuthContent(vm: AuthViewModel) {
             InputEmail(
                 modifier = Modifier.fillMaxWidth(),
                 value = state.email,
-                onValueChange = { vm.updateEmail(it) }
+                onValueChange = vm::updateEmail
             )
 
             InputPassword(
                 modifier = Modifier.fillMaxWidth(),
                 value = state.password,
-                onValueChange = { vm.updatePassword(it) }
+                onValueChange = vm::updatePassword
             )
         },
         footer = {

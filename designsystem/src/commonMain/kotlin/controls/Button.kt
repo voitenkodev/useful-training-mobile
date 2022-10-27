@@ -11,6 +11,7 @@ import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
@@ -30,9 +31,11 @@ fun ButtonPrimary(
     val innerTextColor = DesignComponent.colors.content
     val innerBackgroundColor = DesignComponent.colors.accent_primary
 
+    val txt = remember(text) { text.uppercase() }
+
     Button(
         modifier = modifier,
-        text = text.uppercase(),
+        text = txt,
         textStyle = DesignComponent.typography.PrimaryButton.copy(color = innerTextColor, fontWeight = FontWeight.Bold),
         contentPadding = PaddingValues(16.dp),
         enabled = enabled,

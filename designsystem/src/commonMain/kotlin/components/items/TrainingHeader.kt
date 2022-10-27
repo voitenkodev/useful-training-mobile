@@ -1,5 +1,6 @@
 package components.items
 
+import DesignComponent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -49,7 +50,7 @@ fun TrainingHeader(
         modifier = Modifier.height(20.dp),
         imageVector = BarChart,
         color = DesignComponent.colors.caption,
-        onClick = { review.invoke() }
+        onClick = review
     )
 
     Spacer(modifier = Modifier.size(20.dp))
@@ -58,6 +59,6 @@ fun TrainingHeader(
         modifier = Modifier.height(20.dp),
         imageVector = Icons.Default.Edit,
         color = DesignComponent.colors.caption,
-        onClick = { edit.invoke() }
+        onClick = edit
     )
 }

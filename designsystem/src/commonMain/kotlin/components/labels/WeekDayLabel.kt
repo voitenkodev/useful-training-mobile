@@ -4,6 +4,7 @@ import DesignComponent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -14,15 +15,28 @@ fun WeekDayLabel(
     modifier: Modifier = Modifier,
     weekDayEnglish: String?,
 ) {
-    val backgroundColor = when (weekDayEnglish?.uppercase()) {
-        "MONDAY" -> DesignComponent.colors.unique.color1
-        "TUESDAY" -> DesignComponent.colors.unique.color2
-        "WEDNESDAY" -> DesignComponent.colors.unique.color3
-        "THURSDAY" -> DesignComponent.colors.unique.color4
-        "FRIDAY" -> DesignComponent.colors.unique.color5
-        "SATURDAY" -> DesignComponent.colors.unique.color6
-        "SUNDAY" -> DesignComponent.colors.unique.color7
-        else -> DesignComponent.colors.accent_primary
+    val c0 = DesignComponent.colors.accent_primary
+    val c1 = DesignComponent.colors.unique.color1
+    val c2 = DesignComponent.colors.unique.color2
+    val c3 = DesignComponent.colors.unique.color3
+    val c4 = DesignComponent.colors.unique.color4
+    val c5 = DesignComponent.colors.unique.color5
+    val c6 = DesignComponent.colors.unique.color6
+    val c7 = DesignComponent.colors.unique.color7
+
+    val txt = remember(weekDayEnglish) { weekDayEnglish?.uppercase() }
+
+    val backgroundColor = remember(weekDayEnglish) {
+        when (weekDayEnglish?.uppercase()) {
+            "MONDAY" -> c1
+            "TUESDAY" -> c2
+            "WEDNESDAY" -> c3
+            "THURSDAY" -> c4
+            "FRIDAY" -> c5
+            "SATURDAY" -> c6
+            "SUNDAY" -> c7
+            else -> c0
+        }
     }
 
     TextFieldBody1(
@@ -31,7 +45,7 @@ fun WeekDayLabel(
                 color = backgroundColor,
                 shape = DesignComponent.shape.circleShape
             ).padding(horizontal = 8.dp, vertical = 2.dp),
-        text = weekDayEnglish,
+        text = txt,
         fontWeight = FontWeight.Bold
     )
 }

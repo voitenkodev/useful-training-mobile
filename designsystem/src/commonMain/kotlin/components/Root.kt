@@ -11,6 +11,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
@@ -36,22 +37,30 @@ fun Root(
             bottom = DesignComponent.size.space
         ),
     ) {
+
         LazyColumn(
             modifier = Modifier.weight(1f),
             verticalArrangement = Arrangement.spacedBy(DesignComponent.size.space),
             content = {
                 if (header != null) {
-                    item(key = "header_spacer") { Spacer(modifier = Modifier.size(44.dp)) }
-                    stickyHeader(key = "header") { header.invoke(this) }
+                    item(key = "header_spacer") {
+                        Spacer(modifier = Modifier.size(44.dp))
+                    }
+                    stickyHeader(
+                        key = "header",
+                        content = header
+                    )
                 }
 
                 if (content != null) {
                     item(key = "content") {
-                        Column(verticalArrangement = Arrangement.spacedBy(DesignComponent.size.space)) {
-                            content.invoke(this)
-                        }
+                        Column(
+                            verticalArrangement = Arrangement.spacedBy(DesignComponent.size.space),
+                            content = content
+                        )
                     }
                 }
+
                 scrollableContent?.invoke(this)
             }
         )

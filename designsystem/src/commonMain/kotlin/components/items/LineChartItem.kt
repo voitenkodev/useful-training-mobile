@@ -16,6 +16,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -44,12 +46,12 @@ private fun LineChartBox(
     onClick: (PointLine, Int) -> Unit
 ) {
 
-    val minY = lines.minOfOrNull { it.yValue.min() }?.toInt() ?: 0
-    val maxY = lines.maxOfOrNull { it.yValue.max() }?.toInt() ?: 0
-    val middleY = ((minY + maxY) / 2)
-    val threeQuartersY = ((maxY + middleY) / 2)
-    val quarterY = ((minY + middleY) / 2)
-    val maxCount = lines.maxOfOrNull { it.yValue.lastIndex } ?: 0
+    val minY = remember(lines) { lines.minOfOrNull { it.yValue.min() }?.toInt() ?: 0 }
+    val maxY = remember(lines) { lines.maxOfOrNull { it.yValue.max() }?.toInt() ?: 0 }
+    val middleY = remember(lines) { ((minY + maxY) / 2) }
+    val threeQuartersY = remember(lines) { ((maxY + middleY) / 2) }
+    val quarterY = remember(lines) { ((minY + middleY) / 2) }
+    val maxCount = remember(lines) { lines.maxOfOrNull { it.yValue.lastIndex } ?: 0 }
 
     Column(
         modifier = modifier,
@@ -107,9 +109,14 @@ private fun XLabels(
     horizontalArrangement = Arrangement.SpaceBetween,
     verticalAlignment = Alignment.Bottom
 ) {
-    for (index in 0..maxCount step 1) {
-        TextFieldBody2(text = (index + 1).toString())
+    val texts = remember(maxCount) {
+        val l = mutableStateListOf<String>()
+        for (index in 0..maxCount step 1) {
+            l.add((index + 1).toString())
+        }
+        l
     }
+    texts.forEach { TextFieldBody2(text = it) }
 }
 
 @Composable
@@ -120,37 +127,45 @@ private fun YLabels(
     middleY: Int,
     quarterY: Int,
     minY: Int
-) = Column(
-    modifier = modifier,
-    verticalArrangement = Arrangement.SpaceBetween
 ) {
+    val max = remember(maxY) { maxY.toString() }
+    val min = remember(maxY) { minY.toString() }
+    val middle = remember(maxY) { middleY.toString() }
+    val quarter = remember(maxY) { quarterY.toString() }
+    val threeQuarters = remember(maxY) { threeQuartersY.toString() }
 
-    TextFieldBody2(
-        text = maxY.toString(),
-        textAlign = TextAlign.End
-    )
+    Column(
+        modifier = modifier,
+        verticalArrangement = Arrangement.SpaceBetween
+    ) {
 
-    TextFieldBody2(
-        text = threeQuartersY.toString(),
-        textAlign = TextAlign.End
-    )
+        TextFieldBody2(
+            text = max,
+            textAlign = TextAlign.End
+        )
 
-    TextFieldBody2(
-        text = middleY.toString(),
-        textAlign = TextAlign.End
-    )
+        TextFieldBody2(
+            text = threeQuarters,
+            textAlign = TextAlign.End
+        )
 
-    TextFieldBody2(
-        text = quarterY.toString(),
-        textAlign = TextAlign.End
-    )
+        TextFieldBody2(
+            text = middle,
+            textAlign = TextAlign.End
+        )
 
-    TextFieldBody2(
-        text = minY.toString(),
-        textAlign = TextAlign.End
-    )
+        TextFieldBody2(
+            text = quarter,
+            textAlign = TextAlign.End
+        )
 
-    Spacer(modifier = Modifier.size(20.dp))
+        TextFieldBody2(
+            text = min,
+            textAlign = TextAlign.End
+        )
+
+        Spacer(modifier = Modifier.size(20.dp))
+    }
 }
 
 @Composable

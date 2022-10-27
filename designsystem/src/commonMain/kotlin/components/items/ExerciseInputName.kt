@@ -1,5 +1,6 @@
 package components.items
 
+import DesignComponent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
@@ -8,6 +9,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
@@ -30,6 +32,7 @@ fun InputNameItem(
     horizontalArrangement = Arrangement.spacedBy(4.dp)
 ) {
 
+
     AccentLabel(
         modifier = Modifier.padding(bottom = 8.dp, top = 8.dp, end = 4.dp),
         text = "$number",
@@ -38,13 +41,13 @@ fun InputNameItem(
     InputExerciseName(
         modifier = Modifier.onFocusChanged { showHelp.invoke(it.hasFocus) }.weight(1f),
         value = name,
-        onValueChange = { update.invoke(it) },
+        onValueChange = update,
     )
 
     IconPrimary(
         modifier = Modifier.height(20.dp).width(50.dp),
         imageVector = Icons.Filled.Delete,
         color = DesignComponent.colors.caption,
-        onClick = { remove.invoke() },
+        onClick = remove,
     )
 }
