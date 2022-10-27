@@ -110,12 +110,9 @@ private fun XLabels(
     verticalAlignment = Alignment.Bottom
 ) {
     val texts = remember(maxCount) {
-        val l = mutableStateListOf<String>()
-        for (index in 0..maxCount step 1) {
-            l.add((index + 1).toString())
-        }
-        l
+        List(maxCount) { index -> (index + 1).toString() }
     }
+
     texts.forEach { TextFieldBody2(text = it) }
 }
 
