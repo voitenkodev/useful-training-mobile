@@ -32,6 +32,7 @@ fun InputNameItem(
     horizontalArrangement = Arrangement.spacedBy(4.dp)
 ) {
 
+    isHelpShowed.not() // todo remove it
 
     AccentLabel(
         modifier = Modifier.padding(bottom = 8.dp, top = 8.dp, end = 4.dp),

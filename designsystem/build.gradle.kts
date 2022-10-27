@@ -46,3 +46,9 @@ android {
     defaultConfig { minSdk = 21 }
     buildTypes.getByName("release") { isMinifyEnabled = true }
 }
+
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+    kotlinOptions {
+        kotlinOptions.allWarningsAsErrors = true
+    }
+}

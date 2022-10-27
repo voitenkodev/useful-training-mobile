@@ -8,8 +8,8 @@ import androidx.compose.runtime.Stable
 
 @Stable
 data class AuthState(
-    val email: String = "voitenko.dev@gmail.",
-    val password: String = "bboygasta37373",
+    val email: String = "",
+    val password: String = "",
     val error: String? = null,
     val loading: Boolean = false
 )
