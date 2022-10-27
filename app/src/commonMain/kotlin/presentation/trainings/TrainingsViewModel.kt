@@ -19,11 +19,7 @@ class TrainingsViewModel(
 
     private val api = globalKoin().get<TrainingRepository>()
 
-    init {
-        fetchTrainings()
-    }
-
-    private fun fetchTrainings() = viewModelScope.launch {
+    fun fetchTrainings() = viewModelScope.launch {
         api.getTrainings().onStart {
             dispatcher(TrainingsAction.Loading(true))
         }.map {

@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import components.BackHandler
@@ -31,6 +32,10 @@ fun TrainingsContent(vm: TrainingsViewModel) {
     val navigator = findNavigator()
     val state by selectState<GlobalState, TrainingsState> { this.trainingsState }
     val dispatcher = rememberDispatcher()
+
+    LaunchedEffect(Unit) {
+        vm.fetchTrainings()
+    }
 
     Root(
         modifier = Modifier.fillMaxSize(),

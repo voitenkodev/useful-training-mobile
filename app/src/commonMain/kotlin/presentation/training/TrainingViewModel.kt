@@ -3,6 +3,7 @@ package presentation.training
 import Graph
 import NavigatorCore
 import ViewModel
+import androidx.compose.runtime.Composable
 import data.mapping.toTraining
 import data.mapping.toTrainingState
 import data.repository.TrainingRepository
@@ -20,6 +21,11 @@ class TrainingViewModel(
 ) : ViewModel() {
 
     private val api = globalKoin().get<TrainingRepository>()
+
+    @Composable
+    fun state(){
+
+    }
 
     fun saveTraining(training: Training) = viewModelScope.launch {
         api.setTraining(training = training.toTraining())

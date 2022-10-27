@@ -19,9 +19,9 @@ class ReviewViewModel(
 
     private val api = globalKoin().get<TrainingRepository>()
 
-    fun removeTraining(trainingId: String?) = viewModelScope.launch {
+    fun removeTraining(trainingId: String) = viewModelScope.launch {
         api
-            .removeTraining(trainingId = trainingId ?: error("invalid Training ID"))
+            .removeTraining(trainingId = trainingId)
             .onStart {
                 dispatcher(ReviewAction.Loading(true))
             }
@@ -30,7 +30,7 @@ class ReviewViewModel(
                 navigator.navigate(Graph.Trainings.link)
             }
             .catch {
-                dispatcher(ReviewAction.Error(it.message))
+                showError(it.message)
                 dispatcher(ReviewAction.Loading(false))
             }
             .launchIn(this)
@@ -40,12 +40,25 @@ class ReviewViewModel(
         dispatcher(ReviewAction.Error(null))
     }
 
+    fun showError(message: String?) {
+        dispatcher(ReviewAction.Error(message))
+    }
+
     fun compareWith(training: Training) {
         dispatcher(ReviewAction.CompareTrainings(training))
     }
 
     fun clearComparing() {
         dispatcher(ReviewAction.CompareTrainings(null))
+    }
+
+    fun openRemoveTrainingPopup(id: String?) {
+        if (id == null) showError("Empty training")
+        else dispatcher(ReviewAction.AskToRemoveTraining(id))
+    }
+
+    fun closeRemoveTrainingPopup() {
+        dispatcher(ReviewAction.AskToRemoveTraining(null))
     }
 
     fun back() {

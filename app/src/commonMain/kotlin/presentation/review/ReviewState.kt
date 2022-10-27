@@ -16,7 +16,8 @@ data class ReviewState(
     val compareTraining: Training? = null,
     val otherTrainings: List<Training> = emptyList(),
     val error: String? = null,
-    val loading: Boolean = false
+    val loading: Boolean = false,
+    val removeTrainingId: String? = null,
 ) : Parcelable
 
 sealed class ReviewAction : Action(ReduxGroups.REVIEW) {
@@ -28,6 +29,8 @@ sealed class ReviewAction : Action(ReduxGroups.REVIEW) {
     data class Error(val message: String? = null) : ReviewAction()
 
     data class Loading(val value: Boolean) : ReviewAction()
+
+    data class AskToRemoveTraining(val trainingId: String? = null) : ReviewAction()
 }
 
 val reviewReducer: ReducerForActionType<ReviewState, GlobalState, ReviewAction> = { state, globalState, action ->
@@ -40,5 +43,6 @@ val reviewReducer: ReducerForActionType<ReviewState, GlobalState, ReviewAction> 
         is ReviewAction.CompareTrainings -> state.copy(compareTraining = action.training)
         is ReviewAction.Error -> state.copy(error = action.message)
         is ReviewAction.Loading -> state.copy(loading = action.value)
+        is ReviewAction.AskToRemoveTraining -> state.copy(removeTrainingId = action.trainingId)
     }
 }

@@ -2,7 +2,6 @@ package presentation.review
 
 import DesignComponent
 import GlobalState
-import Graph
 import PointCircle
 import PointLine
 import androidx.compose.foundation.background
@@ -21,7 +20,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -31,6 +29,7 @@ import components.BackHandler
 import components.Error
 import components.Header
 import components.Loading
+import components.Popup
 import components.Root
 import components.items.LineChartItem
 import components.labels.WeekDayLabel
@@ -39,11 +38,9 @@ import controls.DividerPrimary
 import controls.IconPrimary
 import controls.TextFieldBody2
 import controls.secondaryBackground
-import findNavigator
 import items.ExerciseItem
 import items.ShortTrainingItem
 import presentation.training.Training
-import rememberDispatcher
 import selectState
 
 @Composable
@@ -55,6 +52,24 @@ fun ReviewContent(vm: ReviewViewModel) {
         modifier = Modifier.fillMaxSize(),
         loading = {
             Loading(state.loading)
+        },
+        popup = {
+            Popup(
+                visibility = state.removeTrainingId != null,
+                title = "Warning",
+                message = "Are you sure to remove this training?",
+                button = "Yes",
+                click = {
+                    val id = state.removeTrainingId
+                    if (id == null) {
+                        vm.showError("Invalid Training ID")
+                        return@Popup
+                    }
+                    vm.closeRemoveTrainingPopup()
+                    vm.removeTraining(id)
+                },
+                back = vm::closeRemoveTrainingPopup
+            )
         },
         error = {
             Error(message = state.error, close = { vm.clearError() })
@@ -128,7 +143,7 @@ fun ReviewContent(vm: ReviewViewModel) {
                     text = "Remove Training",
                     color = DesignComponent.colors.accent_tertiary,
                     onClick = {
-                        vm.removeTraining(state.reviewTraining.id)
+                        vm.openRemoveTrainingPopup(state.reviewTraining.id)
                     }
                 )
             }
@@ -202,20 +217,14 @@ private fun DateItem(
 
     TextFieldBody2(
         modifier = Modifier.padding(end = 4.dp),
-        text = "Date",
-        color = DesignComponent.colors.caption,
-    )
-
-    TextFieldBody2(
-        modifier = Modifier.padding(end = 4.dp),
         text = startTime,
-        color = DesignComponent.colors.content,
+        color = DesignComponent.colors.caption,
         fontWeight = FontWeight.Bold
     )
 
     TextFieldBody2(
         text = startDate,
-        color = DesignComponent.colors.content,
+        color = DesignComponent.colors.caption,
         fontWeight = FontWeight.Bold
     )
 }
