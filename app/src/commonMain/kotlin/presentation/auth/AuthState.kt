@@ -4,7 +4,9 @@ import Action
 import GlobalState
 import ReducerForActionType
 import ReduxGroups
+import androidx.compose.runtime.Stable
 
+@Stable
 data class AuthState(
     val email: String = "voitenko.dev@gmail.",
     val password: String = "bboygasta37373",

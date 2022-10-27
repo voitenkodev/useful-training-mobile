@@ -5,6 +5,7 @@ import DateTimeKtx
 import GlobalState
 import ReducerForActionType
 import ReduxGroups
+import androidx.compose.runtime.Stable
 import com.benasher44.uuid.uuid4
 import dev.icerock.moko.parcelize.Parcelable
 import dev.icerock.moko.parcelize.Parcelize
@@ -20,6 +21,7 @@ data class TrainingState(
 
 @Serializable
 @Parcelize
+@Stable
 data class Training(
     val id: String? = null,
     val exercises: List<Exercise> = listOf(Exercise()),
@@ -42,6 +44,7 @@ data class Training(
 
     @Serializable
     @Parcelize
+    @Stable
     data class Exercise(
         val id: String = uuid4().toString(),
         val name: String = "",
@@ -53,6 +56,7 @@ data class Training(
 
         @Serializable
         @Parcelize
+        @Stable
         data class Iteration(
             val weight: String = "",
             val repeat: String = ""

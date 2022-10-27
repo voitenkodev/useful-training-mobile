@@ -4,6 +4,7 @@ import Action
 import GlobalState
 import ReducerForActionType
 import ReduxGroups
+import androidx.compose.runtime.Stable
 import dev.icerock.moko.parcelize.Parcelable
 import dev.icerock.moko.parcelize.Parcelize
 import kotlinx.serialization.Serializable
@@ -11,6 +12,7 @@ import presentation.training.Training
 
 @Serializable
 @Parcelize
+@Stable
 data class TrainingsState(
     val trainings: List<Training> = emptyList(),
     val weekTrainings: Map<WeekInfo, List<Training>> = emptyMap(),
@@ -20,6 +22,7 @@ data class TrainingsState(
 
 @Serializable
 @Parcelize
+@Stable
 data class WeekInfo(
     val startWeekDate: String,
     val endWeekDate: String,
