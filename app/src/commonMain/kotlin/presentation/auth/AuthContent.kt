@@ -33,16 +33,15 @@ fun AuthContent(vm: AuthViewModel) {
             Loading(state.loading)
         },
         error = {
-            Error(message = state.error, close = { vm.clearError() })
+            Error(message = state.error, close = vm::clearError)
         },
         back = {
-            BackHandler(action = { vm.back() })
+            BackHandler(action = vm::back)
         },
         header = {
             Header(title = "\uD83D\uDC4B Welcome back!")
         },
         content = {
-
             TextFieldH2(
                 text = "Sign in to your account",
                 color = DesignComponent.colors.caption

@@ -72,15 +72,15 @@ fun ReviewContent(vm: ReviewViewModel) {
             )
         },
         error = {
-            Error(message = state.error, close = { vm.clearError() })
+            Error(message = state.error, close = vm::clearError)
         },
         back = {
-            BackHandler(action = { vm.back() })
+            BackHandler(action = vm::back)
         },
         header = {
             Header(
                 title = "Review!",
-                exit = { vm.back() }
+                exit = vm::back
             )
         },
         scrollableContent = {
@@ -108,8 +108,7 @@ fun ReviewContent(vm: ReviewViewModel) {
                     data = state.reviewTraining.exercises.map { it.intensity.toFloat() },
                     compareData = state.compareTraining?.exercises?.map { it.intensity.toFloat() },
                     color = DesignComponent.colors.unique.color4,
-                    onClick = { point, index ->
-                    }
+                    onClick = { point, index -> }
                 )
             }
 

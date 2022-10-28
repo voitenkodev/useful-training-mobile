@@ -19,6 +19,7 @@ internal data class Core(
     /* --------------------------- NavigatorCore --------------------------- */
 
     override fun navigate(screen: String, popToInclusive: Boolean) {
+        if (backStack.lastOrNull() == screen) return
         val index = backStack.lastIndexOf(screen)
         if (index == -1) {
             val removed = backStack.lastOrNull()

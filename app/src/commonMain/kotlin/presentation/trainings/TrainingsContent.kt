@@ -2,7 +2,6 @@ package presentation.trainings
 
 import DesignComponent
 import GlobalState
-import Graph
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -17,21 +16,14 @@ import components.Header
 import components.Loading
 import components.Root
 import controls.ButtonPrimary
-import findNavigator
 import items.TrainingItem
 import items.WeekSummary
-import presentation.review.ReviewAction
-import presentation.training.Training
-import presentation.training.TrainingAction
-import rememberDispatcher
 import selectState
 
 @Composable
 fun TrainingsContent(vm: TrainingsViewModel) {
 
-    val navigator = findNavigator()
     val state by selectState<GlobalState, TrainingsState> { this.trainingsState }
-    val dispatcher = rememberDispatcher()
 
     LaunchedEffect(Unit) {
         vm.fetchTrainings()
@@ -43,10 +35,10 @@ fun TrainingsContent(vm: TrainingsViewModel) {
             Loading(state.loading)
         },
         error = {
-            Error(message = state.error, close = { dispatcher(TrainingsAction.Error(null)) })
+            Error(message = state.error, close = vm::clearError)
         },
         back = {
-            BackHandler(action = { navigator.back() })
+            BackHandler(action = vm::back)
         },
         header = {
             Header(title = "Trainings!")
@@ -59,10 +51,7 @@ fun TrainingsContent(vm: TrainingsViewModel) {
                         shape = DesignComponent.shape.default
                     ),
                 text = "New Training",
-                onClick = {
-                    dispatcher(TrainingAction.PutTrainingAction(Training()))
-                    navigator.navigate(Graph.Training.link)
-                }
+                onClick = vm::addTraining
             )
         },
         scrollableContent = {
@@ -76,15 +65,8 @@ fun TrainingsContent(vm: TrainingsViewModel) {
                 items(it.value, key = { it.id ?: it.hashCode() }) { training ->
                     TrainingItem(
                         training = training,
-                        edit = {
-                            dispatcher(TrainingAction.PutTrainingAction(training))
-                            dispatcher(TrainingAction.ProvideEmptyIterations)
-                            navigator.navigate(Graph.Training.link)
-                        },
-                        review = {
-                            dispatcher(ReviewAction.FetchTrainings(selected = training))
-                            navigator.navigate(Graph.Review.link)
-                        }
+                        edit = { vm.editTraining(training) },
+                        review = { vm.reviewTraining(training) }
                     )
                 }
             }
