@@ -33,8 +33,8 @@ fun Main(
                         factory = { AuthViewModel(dispatcher, navigator) },
                         clear = { (it as? AuthViewModel)?.clear() }
                     )
-                    AuthContent(viewModel)
 
+                    AuthContent(viewModel)
                 }
                 screen(
                     key = Graph.Review.link,
@@ -83,6 +83,7 @@ fun Main(
                         factory = { TrainingsViewModel(dispatcher, navigator) },
                         clear = { (it as? TrainingsViewModel)?.clear() }
                     )
+
                     TrainingsContent(viewModel)
                 }
             }

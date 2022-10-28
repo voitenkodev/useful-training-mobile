@@ -18,10 +18,6 @@ class AuthViewModel(
 
     private val api = globalKoin().get<AuthRepository>()
 
-    fun back() {
-        navigator.back()
-    }
-
     init {
         viewModelScope.launch {
             if (api.isAuthorized) navigator.navigate(Graph.Trainings.link, true)
@@ -61,6 +57,10 @@ class AuthViewModel(
                 dispatcher(AuthAction.Loading(false))
                 dispatcher(AuthAction.Error(it.message))
             }.launchIn(this)
+    }
+
+    fun back() {
+        navigator.back()
     }
 
     fun clearError() {

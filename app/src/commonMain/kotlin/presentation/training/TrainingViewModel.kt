@@ -3,7 +3,6 @@ package presentation.training
 import Graph
 import NavigatorCore
 import ViewModel
-import androidx.compose.runtime.Composable
 import data.mapping.toTraining
 import data.mapping.toTrainingState
 import data.repository.TrainingRepository
@@ -22,12 +21,12 @@ class TrainingViewModel(
 
     private val api = globalKoin().get<TrainingRepository>()
 
-    @Composable
-    fun state(){
-
-    }
-
     fun saveTraining(training: Training) = viewModelScope.launch {
+        if (training.exercises.isEmpty()) {
+            showError("Empty training")
+            return@launch
+        }
+
         api.setTraining(training = training.toTraining())
             .onStart {
                 dispatcher(TrainingAction.Loading(true))
@@ -50,6 +49,10 @@ class TrainingViewModel(
 
     fun clearError() {
         dispatcher(TrainingAction.Error(null))
+    }
+
+    fun showError(message: String) {
+        dispatcher(TrainingAction.Error(message))
     }
 
     fun openRemoveExercisePopup(exerciseId: String) {
