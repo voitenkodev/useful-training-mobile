@@ -11,6 +11,7 @@ import dev.icerock.moko.parcelize.Parcelable
 import dev.icerock.moko.parcelize.Parcelize
 import kotlinx.serialization.Serializable
 
+@Stable
 data class TrainingState(
     val training: Training = Training(),
     val error: String? = null,
