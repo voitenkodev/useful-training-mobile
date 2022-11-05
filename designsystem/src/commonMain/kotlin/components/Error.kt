@@ -1,6 +1,6 @@
 package components
 
-import DesignComponent
+import Design
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.tween
@@ -55,12 +55,12 @@ fun Error(
         )
     ) {
         Column(
-            modifier = Modifier.padding(DesignComponent.size.space)
+            modifier = Modifier.padding(Design.size.space)
                 .background(
-                    color = DesignComponent.colors.accent_tertiary,
-                    shape = DesignComponent.shape.default
-                ).padding(DesignComponent.size.space),
-            verticalArrangement = Arrangement.spacedBy(DesignComponent.size.space),
+                    color = Design.colors.accent_tertiary,
+                    shape = Design.shape.default
+                ).padding(Design.size.space),
+            verticalArrangement = Arrangement.spacedBy(Design.size.space),
             content = {
                 TextFieldH2(text = "Error!", fontWeight = FontWeight.Bold)
                 TextFieldBody1(text = value.value)

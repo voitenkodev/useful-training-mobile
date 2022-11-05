@@ -1,6 +1,6 @@
 package presentation.auth
 
-import DesignComponent
+import Design
 import GlobalState
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -42,9 +42,10 @@ fun AuthContent(vm: AuthViewModel) {
             Header(title = "\uD83D\uDC4B Welcome back!")
         },
         content = {
+
             TextFieldH2(
                 text = "Sign in to your account",
-                color = DesignComponent.colors.caption
+                color = Design.colors.caption
             )
 
             Spacer(modifier = Modifier.size(16.dp))

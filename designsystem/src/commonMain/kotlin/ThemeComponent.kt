@@ -5,7 +5,7 @@ import atomic.AppShape
 import atomic.AppSize
 import atomic.AppTypography
 
-object DesignComponent {
+object Design {
 
     val colors: AppColors
         @Composable

@@ -1,6 +1,6 @@
 package components
 
-import DesignComponent
+import Design
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.tween
@@ -72,10 +72,10 @@ fun Popup(
     ) {
         Column(
             modifier = Modifier
-                .padding(DesignComponent.size.space)
+                .padding(Design.size.space)
                 .secondaryBackground()
-                .padding(DesignComponent.size.space),
-            verticalArrangement = Arrangement.spacedBy(DesignComponent.size.space),
+                .padding(Design.size.space),
+            verticalArrangement = Arrangement.spacedBy(Design.size.space),
             content = {
 
                 TextFieldH2(text = title, fontWeight = FontWeight.Bold)

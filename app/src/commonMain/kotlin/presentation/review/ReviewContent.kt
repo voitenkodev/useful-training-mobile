@@ -1,6 +1,6 @@
 package presentation.review
 
-import DesignComponent
+import Design
 import GlobalState
 import PointCircle
 import PointLine
@@ -97,7 +97,7 @@ fun ReviewContent(vm: ReviewViewModel) {
                     label = "Tonnage",
                     data = state.reviewTraining.exercises.map { it.tonnage.toFloat() },
                     compareData = state.compareTraining?.exercises?.map { it.tonnage.toFloat() },
-                    color = DesignComponent.colors.unique.color1,
+                    color = Design.colors.unique.color1,
                     onClick = { point, index -> }
                 )
             }
@@ -107,7 +107,7 @@ fun ReviewContent(vm: ReviewViewModel) {
                     label = "Intensity",
                     data = state.reviewTraining.exercises.map { it.intensity.toFloat() },
                     compareData = state.compareTraining?.exercises?.map { it.intensity.toFloat() },
-                    color = DesignComponent.colors.unique.color4,
+                    color = Design.colors.unique.color4,
                     onClick = { point, index -> }
                 )
             }
@@ -140,7 +140,7 @@ fun ReviewContent(vm: ReviewViewModel) {
                 ButtonSecondary(
                     modifier = Modifier.fillMaxWidth(),
                     text = "Remove Training",
-                    color = DesignComponent.colors.accent_tertiary,
+                    color = Design.colors.accent_tertiary,
                     onClick = {
                         vm.openRemoveTrainingPopup(state.reviewTraining.id)
                     }
@@ -157,17 +157,17 @@ private fun Comparing(
     compare: (Training) -> Unit,
     clear: () -> Unit
 ) = Column(
-    verticalArrangement = Arrangement.spacedBy(DesignComponent.size.space)
+    verticalArrangement = Arrangement.spacedBy(Design.size.space)
 ) {
 
     Row(
-        horizontalArrangement = Arrangement.spacedBy(DesignComponent.size.space)
+        horizontalArrangement = Arrangement.spacedBy(Design.size.space)
     ) {
 
         TextFieldBody2(
-            modifier = Modifier.padding(start = DesignComponent.size.space),
+            modifier = Modifier.padding(start = Design.size.space),
             text = "Compare with...",
-            color = DesignComponent.colors.caption
+            color = Design.colors.caption
         )
 
         if (selected != null) IconPrimary(
@@ -175,8 +175,8 @@ private fun Comparing(
                 .width(16.dp)
                 .height(16.dp)
                 .background(
-                    color = DesignComponent.colors.accent_secondary,
-                    shape = DesignComponent.shape.default
+                    color = Design.colors.accent_secondary,
+                    shape = Design.shape.default
                 ),
             imageVector = Icons.Default.Clear,
             onClick = clear
@@ -184,7 +184,7 @@ private fun Comparing(
     }
 
     LazyRow(
-        horizontalArrangement = Arrangement.spacedBy(DesignComponent.size.space)
+        horizontalArrangement = Arrangement.spacedBy(Design.size.space)
     ) {
 
         items(list, key = { it.id ?: it.hashCode() }) {
@@ -217,13 +217,13 @@ private fun DateItem(
     TextFieldBody2(
         modifier = Modifier.padding(end = 4.dp),
         text = startTime,
-        color = DesignComponent.colors.caption,
+        color = Design.colors.caption,
         fontWeight = FontWeight.Bold
     )
 
     TextFieldBody2(
         text = startDate,
-        color = DesignComponent.colors.caption,
+        color = Design.colors.caption,
         fontWeight = FontWeight.Bold
     )
 }
@@ -246,14 +246,14 @@ private fun ChartSection(
                 lineColor = color,
                 fillColor = color.copy(alpha = 0.2f),
                 label = label,
-                point = PointCircle(color = DesignComponent.colors.content)
+                point = PointCircle(color = Design.colors.content)
             )
         )
         if (compareData != null) add(
             PointLine(
                 yValue = compareData,
-                lineColor = DesignComponent.colors.caption,
-                fillColor = DesignComponent.colors.caption.copy(alpha = 0.2f),
+                lineColor = Design.colors.caption,
+                fillColor = Design.colors.caption.copy(alpha = 0.2f),
                 label = "Compare",
             )
         )
@@ -265,19 +265,19 @@ private fun ChartSection(
 private fun Summary(
     state: Training
 ) = Column(
-    verticalArrangement = Arrangement.spacedBy(DesignComponent.size.space)
+    verticalArrangement = Arrangement.spacedBy(Design.size.space)
 ) {
 
     TextFieldBody2(
-        modifier = Modifier.padding(start = DesignComponent.size.space),
+        modifier = Modifier.padding(start = Design.size.space),
         text = "Summary",
-        color = DesignComponent.colors.caption
+        color = Design.colors.caption
     )
 
     Column(
         modifier = Modifier
             .secondaryBackground()
-            .padding(horizontal = DesignComponent.size.space),
+            .padding(horizontal = Design.size.space),
     ) {
 
         Section(
@@ -306,12 +306,12 @@ private fun Summary(
 
 @Composable
 private fun Section(label: String, value: String) = Row(
-    modifier = Modifier.fillMaxWidth().padding(vertical = DesignComponent.size.space),
+    modifier = Modifier.fillMaxWidth().padding(vertical = Design.size.space),
     horizontalArrangement = Arrangement.SpaceBetween
 ) {
     TextFieldBody2(
         text = label,
-        color = DesignComponent.colors.caption,
+        color = Design.colors.caption,
     )
     TextFieldBody2(
         text = value,

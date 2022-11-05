@@ -1,6 +1,6 @@
 package presentation.training
 
-import DesignComponent
+import Design
 import GlobalState
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -118,14 +118,14 @@ private fun NewExercise(
         .height(128.dp)
         .dashedBorder(
             width = 2.dp,
-            color = DesignComponent.colors.accent_secondary.copy(alpha = 0.5f),
-            shape = DesignComponent.shape.default, on = 8.dp, off = 8.dp
+            color = Design.colors.accent_secondary.copy(alpha = 0.5f),
+            shape = Design.shape.default, on = 8.dp, off = 8.dp
         ).clickable(onClick = onClick),
     content = {
         TextFieldH2(
             modifier = Modifier.align(Alignment.Center),
             text = "Add Exercise",
-            color = DesignComponent.colors.accent_secondary
+            color = Design.colors.accent_secondary
         )
     }
 )

@@ -1,6 +1,6 @@
 package controls
 
-import DesignComponent
+import Design
 import androidx.compose.foundation.background
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -27,10 +27,10 @@ import androidx.compose.ui.unit.Dp
 @Composable
 fun Modifier.secondaryBackground() = this
     .background(
-        color = DesignComponent.colors.secondary,
-        shape = DesignComponent.shape.default
+        color = Design.colors.secondary,
+        shape = Design.shape.default
     )
-    .clip(shape = DesignComponent.shape.default)
+    .clip(shape = Design.shape.default)
 
 fun Modifier.dashedBorder(width: Dp, color: Color, shape: Shape = RectangleShape, on: Dp, off: Dp) =
     dashedBorder(width, SolidColor(color), shape, on, off)

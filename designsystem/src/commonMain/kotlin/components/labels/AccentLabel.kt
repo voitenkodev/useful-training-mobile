@@ -1,6 +1,6 @@
 package components.labels
 
-import DesignComponent
+import Design
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -15,7 +15,7 @@ import controls.TextFieldBody1
 fun AccentLabel(
     modifier: Modifier = Modifier,
     text: String,
-    backgroundColor: Color = DesignComponent.colors.accent_primary
+    backgroundColor: Color = Design.colors.accent_primary
 ) {
     val txt = remember(text) { text.uppercase() }
 
@@ -23,7 +23,7 @@ fun AccentLabel(
         modifier = modifier
             .background(
                 color = backgroundColor,
-                shape = DesignComponent.shape.circleShape
+                shape = Design.shape.circleShape
             ).padding(horizontal = 8.dp, vertical = 2.dp),
         text = txt,
         fontWeight = FontWeight.Bold

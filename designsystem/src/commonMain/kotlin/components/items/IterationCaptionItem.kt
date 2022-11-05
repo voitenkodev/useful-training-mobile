@@ -1,6 +1,6 @@
 package components.items
 
-import DesignComponent
+import Design
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
@@ -21,7 +21,7 @@ fun IterationCaptionItem() = Column(modifier = Modifier.padding(vertical = 4.dp)
             .padding(top = 8.dp, start = 8.dp, end = 8.dp, bottom = 10.dp),
         text = "• Weight",
         textAlign = TextAlign.Center,
-        color = DesignComponent.colors.caption,
+        color = Design.colors.caption,
         maxLines = 1,
         fontWeight = FontWeight.Bold
     )
@@ -32,7 +32,7 @@ fun IterationCaptionItem() = Column(modifier = Modifier.padding(vertical = 4.dp)
             .wrapContentWidth()
             .padding(top = 10.dp, start = 8.dp, end = 8.dp, bottom = 8.dp),
         text = "• Repeat",
-        color = DesignComponent.colors.caption,
+        color = Design.colors.caption,
         textAlign = TextAlign.Center,
         maxLines = 1,
         fontWeight = FontWeight.Bold

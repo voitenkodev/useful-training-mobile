@@ -1,6 +1,6 @@
 package components.items
 
-import DesignComponent
+import Design
 import LineChart
 import PointLine
 import androidx.compose.foundation.background
@@ -16,7 +16,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -34,7 +33,7 @@ fun LineChartItem(
 ) = LineChartBox(
     modifier = modifier
         .secondaryBackground()
-        .padding(DesignComponent.size.space),
+        .padding(Design.size.space),
     lines = lines,
     onClick = onClick
 )
@@ -55,7 +54,7 @@ private fun LineChartBox(
 
     Column(
         modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(DesignComponent.size.space)
+        verticalArrangement = Arrangement.spacedBy(Design.size.space)
     ) {
 
         NameLabels(
@@ -63,7 +62,7 @@ private fun LineChartBox(
         )
 
         Row(
-            horizontalArrangement = Arrangement.spacedBy(DesignComponent.size.space)
+            horizontalArrangement = Arrangement.spacedBy(Design.size.space)
         ) {
             YLabels(
                 modifier = Modifier.fillMaxHeight(),
@@ -96,7 +95,7 @@ private fun NameLabels(
     lines: List<PointLine>
 ) = LazyRow(
     modifier = modifier,
-    horizontalArrangement = Arrangement.spacedBy(DesignComponent.size.space),
+    horizontalArrangement = Arrangement.spacedBy(Design.size.space),
     content = { itemsIndexed(lines, key = { index, _ -> index }) { _, item -> Label(label = item.label, color = item.lineColor) } }
 )
 
@@ -172,9 +171,9 @@ private fun Label(
     color: Color,
 ) = Row(
     modifier = modifier,
-    horizontalArrangement = Arrangement.spacedBy(DesignComponent.size.space),
+    horizontalArrangement = Arrangement.spacedBy(Design.size.space),
     verticalAlignment = Alignment.CenterVertically
 ) {
     Spacer(Modifier.size(14.dp).background(color))
-    TextFieldBody2(text = label, color = DesignComponent.colors.caption)
+    TextFieldBody2(text = label, color = Design.colors.caption)
 }

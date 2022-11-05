@@ -1,6 +1,6 @@
 package components.labels
 
-import DesignComponent
+import Design
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -15,7 +15,7 @@ fun InputLabel(
 ) = TextFieldBody1(
     modifier = modifier.width(64.dp),
     text = text,
-    color = DesignComponent.colors.caption,
+    color = Design.colors.caption,
     maxLines = 1,
     overflow = TextOverflow.Ellipsis
 )

@@ -1,6 +1,6 @@
 package components.inputs
 
-import DesignComponent
+import Design
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -37,7 +37,7 @@ fun InputEmail(
             {
                 IconPrimary(
                     imageVector = Icons.Default.Clear,
-                    color = DesignComponent.colors.caption,
+                    color = Design.colors.caption,
                     onClick = { onValueChange.invoke(String()) }
                 )
             }

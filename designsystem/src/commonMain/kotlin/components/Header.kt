@@ -9,7 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
-import DesignComponent
+import Design
 import androidx.compose.material.icons.filled.ArrowBack
 import atomic.icons.BarChart
 import atomic.icons.Save
@@ -25,7 +25,7 @@ fun Header(
     exit: (() -> Unit)? = null,
     back: (() -> Unit)? = null,
 ) = Row(
-    modifier = Modifier.fillMaxWidth().height(56.dp).background(DesignComponent.colors.primary),
+    modifier = Modifier.fillMaxWidth().height(56.dp).background(Design.colors.primary),
     horizontalArrangement = Arrangement.SpaceBetween
 ) {
 

@@ -1,6 +1,6 @@
 package components.labels
 
-import DesignComponent
+import Design
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -15,14 +15,14 @@ fun WeekDayLabel(
     modifier: Modifier = Modifier,
     weekDayEnglish: String?,
 ) {
-    val c0 = DesignComponent.colors.accent_primary
-    val c1 = DesignComponent.colors.unique.color1
-    val c2 = DesignComponent.colors.unique.color2
-    val c3 = DesignComponent.colors.unique.color3
-    val c4 = DesignComponent.colors.unique.color4
-    val c5 = DesignComponent.colors.unique.color5
-    val c6 = DesignComponent.colors.unique.color6
-    val c7 = DesignComponent.colors.unique.color7
+    val c0 = Design.colors.accent_primary
+    val c1 = Design.colors.unique.color1
+    val c2 = Design.colors.unique.color2
+    val c3 = Design.colors.unique.color3
+    val c4 = Design.colors.unique.color4
+    val c5 = Design.colors.unique.color5
+    val c6 = Design.colors.unique.color6
+    val c7 = Design.colors.unique.color7
 
     val txt = remember(weekDayEnglish) { weekDayEnglish?.uppercase() }
 
@@ -43,7 +43,7 @@ fun WeekDayLabel(
         modifier = modifier
             .background(
                 color = backgroundColor,
-                shape = DesignComponent.shape.circleShape
+                shape = Design.shape.circleShape
             ).padding(horizontal = 8.dp, vertical = 2.dp),
         text = txt,
         fontWeight = FontWeight.Bold

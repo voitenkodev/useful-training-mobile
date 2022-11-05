@@ -6,7 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import DesignComponent
+import Design
 import controls.ButtonSecondary
 import controls.TextFieldBody2
 
@@ -24,7 +24,7 @@ fun QuestionButton(
 
     TextFieldBody2(
         text = question,
-        color = DesignComponent.colors.caption
+        color = Design.colors.caption
     )
 
     ButtonSecondary(

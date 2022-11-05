@@ -1,6 +1,6 @@
 package controls
 
-import DesignComponent
+import Design
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.Orientation
@@ -51,9 +51,9 @@ fun InputFieldPrimary(
     modifier = modifier,
     value = value,
     onValueChange = onValueChange,
-    textStyle = DesignComponent.typography.Body,
+    textStyle = Design.typography.Body,
     maxLines = maxLines,
-    color = color ?: DesignComponent.colors.content,
+    color = color ?: Design.colors.content,
     textAlign = textAlign,
     placeholder = placeholder,
     enabled = enabled,
@@ -89,9 +89,9 @@ fun InputFieldSecondary(
     modifier = modifier.padding(8.dp),
     value = value,
     onValueChange = onValueChange,
-    textStyle = DesignComponent.typography.Body2,
+    textStyle = Design.typography.Body2,
     maxLines = maxLines,
-    color = color ?: DesignComponent.colors.content,
+    color = color ?: Design.colors.content,
     textAlign = textAlign,
     placeholder = placeholder,
     enabled = enabled,
@@ -150,7 +150,7 @@ internal fun InputField(
         textStyle = textStyle3,
         maxLines = maxLines,
         visualTransformation = visualTransformation,
-        cursorBrush = SolidColor(DesignComponent.colors.content),
+        cursorBrush = SolidColor(Design.colors.content),
         singleLine = maxLines == 1,
         keyboardOptions = keyboardOptions ?: KeyboardOptions.Default,
         keyboardActions = keyboardActions ?: KeyboardActions.Default,

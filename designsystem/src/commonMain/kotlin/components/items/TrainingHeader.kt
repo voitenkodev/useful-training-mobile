@@ -1,6 +1,6 @@
 package components.items
 
-import DesignComponent
+import Design
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -40,7 +40,7 @@ fun TrainingHeader(
 
     TextFieldBody2(
         text = date,
-        color = DesignComponent.colors.caption,
+        color = Design.colors.caption,
         fontWeight = FontWeight.Bold
     )
 
@@ -49,7 +49,7 @@ fun TrainingHeader(
     IconPrimary(
         modifier = Modifier.height(20.dp),
         imageVector = BarChart,
-        color = DesignComponent.colors.caption,
+        color = Design.colors.caption,
         onClick = review
     )
 
@@ -58,7 +58,7 @@ fun TrainingHeader(
     IconPrimary(
         modifier = Modifier.height(20.dp),
         imageVector = Icons.Default.Edit,
-        color = DesignComponent.colors.caption,
+        color = Design.colors.caption,
         onClick = edit
     )
 }

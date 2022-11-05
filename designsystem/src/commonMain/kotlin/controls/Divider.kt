@@ -9,13 +9,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import DesignComponent
+import Design
 
 @Composable
 fun DividerPrimary(
     modifier: Modifier = Modifier,
     thickness: Dp = 1.dp,
-    color: Color = DesignComponent.colors.caption.copy(alpha = 0.3f),
+    color: Color = Design.colors.caption.copy(alpha = 0.3f),
     orientation: Orientation = Orientation.Horizontal
 ) {
     if (orientation == Orientation.Horizontal) androidx.compose.material.Divider(

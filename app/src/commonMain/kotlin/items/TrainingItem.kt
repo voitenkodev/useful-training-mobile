@@ -21,7 +21,7 @@ fun TrainingItem(
 ) = Column(
     modifier = modifier
         .secondaryBackground()
-        .padding(horizontal = DesignComponent.size.space)
+        .padding(horizontal = Design.size.space)
 ) {
 
     TrainingHeader(

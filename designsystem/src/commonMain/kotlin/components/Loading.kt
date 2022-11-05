@@ -1,6 +1,6 @@
 package components
 
-import DesignComponent
+import Design
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.RepeatMode
@@ -32,7 +32,7 @@ fun Loading(
     visible: Boolean,
     modifier: Modifier = Modifier,
     circleSize: Dp = 25.dp,
-    circleColor: Color = DesignComponent.colors.accent_secondary,
+    circleColor: Color = Design.colors.accent_secondary,
     spaceBetween: Dp = 10.dp,
     travelDistance: Dp = 20.dp
 ) {

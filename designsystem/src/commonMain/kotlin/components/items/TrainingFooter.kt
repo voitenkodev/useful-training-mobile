@@ -1,6 +1,6 @@
 package components.items
 
-import DesignComponent
+import Design
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -32,12 +32,12 @@ fun TrainingFooter(
         TextFieldBody2(
             modifier = Modifier.padding(end = 4.dp),
             text = "Duration",
-            color = DesignComponent.colors.caption,
+            color = Design.colors.caption,
         )
 
         TextFieldBody2(
             text = durationTime,
-            color = DesignComponent.colors.content,
+            color = Design.colors.content,
             fontWeight = FontWeight.Bold
         )
 
@@ -46,12 +46,12 @@ fun TrainingFooter(
         TextFieldBody2(
             modifier = Modifier.padding(end = 4.dp),
             text = "Tonnage",
-            color = DesignComponent.colors.caption,
+            color = Design.colors.caption,
         )
 
         TextFieldBody2(
             text = tonnageKg,
-            color = DesignComponent.colors.content,
+            color = Design.colors.content,
             fontWeight = FontWeight.Bold
         )
     }

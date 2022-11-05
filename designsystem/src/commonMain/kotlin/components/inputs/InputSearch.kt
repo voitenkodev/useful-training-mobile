@@ -1,33 +1,31 @@
 package components.inputs
 
+import Design
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Clear
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.text.input.*
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardCapitalization
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import Design
-import atomic.icons.Eye
-import atomic.icons.EyeOff
-import components.labels.InputLabel
 import controls.IconPrimary
 import controls.InputFieldPrimary
 import controls.secondaryBackground
 
 @Composable
-fun InputPassword(
+fun InputSearch(
     modifier: Modifier = Modifier,
     value: String?,
     onValueChange: (String) -> Unit,
 ) {
     val focusManager = LocalFocusManager.current
-
-    val passwordVisibility = rememberSaveable { mutableStateOf(false) }
 
     InputFieldPrimary(
         modifier = modifier
@@ -35,13 +33,20 @@ fun InputPassword(
             .padding(16.dp),
         value = value,
         onValueChange = onValueChange,
-        visualTransformation = if (passwordVisibility.value) VisualTransformation.None else PasswordVisualTransformation(),
-        leading = { InputLabel(text = "Password") },
-        trailing = {
+        trailing = value?.isNotEmpty().takeIf { it == true }?.let {
+            {
+                IconPrimary(
+                    imageVector = Icons.Default.Clear,
+                    color = Design.colors.caption,
+                    onClick = { onValueChange.invoke(String()) }
+                )
+            }
+        },
+        leading = {
             IconPrimary(
-                imageVector = if (passwordVisibility.value) EyeOff else Eye,
+                imageVector = Icons.Default.Search,
                 color = Design.colors.caption,
-                onClick = { passwordVisibility.value = passwordVisibility.value.not() }
+                onClick = { onValueChange.invoke(String()) }
             )
         },
         maxLines = 1,
@@ -49,7 +54,7 @@ fun InputPassword(
         keyboardOptions = KeyboardOptions(
             capitalization = KeyboardCapitalization.Sentences,
             imeAction = ImeAction.Next,
-            keyboardType = KeyboardType.Password
+            keyboardType = KeyboardType.Email
         )
     )
 }

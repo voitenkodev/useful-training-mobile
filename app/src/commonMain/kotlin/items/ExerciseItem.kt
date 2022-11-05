@@ -1,6 +1,6 @@
 package items
 
-import DesignComponent
+import Design
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -41,7 +41,7 @@ fun ExerciseItem(
                     TextFieldBody1(
                         modifier = Modifier.padding(end = 4.dp),
                         text = it.weight + "x" + it.repeat,
-                        color = DesignComponent.colors.caption
+                        color = Design.colors.caption
                     )
                 }
             }

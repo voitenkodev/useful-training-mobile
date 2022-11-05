@@ -1,6 +1,6 @@
 package controls
 
-import DesignComponent
+import Design
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -24,9 +24,9 @@ fun TextFieldH1(
     text = text,
     modifier = modifier,
     placeholder = placeholder,
-    textStyle = DesignComponent.typography.H1,
+    textStyle = Design.typography.H1,
     maxLines = maxLines,
-    color = color ?: DesignComponent.colors.content,
+    color = color ?: Design.colors.content,
     textAlign = textAlign,
     fontWeight = fontWeight,
     overflow = overflow
@@ -46,9 +46,9 @@ fun TextFieldH2(
     text = text,
     modifier = modifier,
     placeholder = placeholder,
-    textStyle = DesignComponent.typography.H2,
+    textStyle = Design.typography.H2,
     maxLines = maxLines,
-    color = color ?: DesignComponent.colors.content,
+    color = color ?: Design.colors.content,
     textAlign = textAlign,
     fontWeight = fontWeight,
     overflow = overflow
@@ -69,9 +69,9 @@ fun TextFieldBody1(
     modifier = modifier,
     text = text,
     placeholder = placeholder,
-    textStyle = DesignComponent.typography.Body,
+    textStyle = Design.typography.Body,
     maxLines = maxLines,
-    color = color ?: DesignComponent.colors.content,
+    color = color ?: Design.colors.content,
     textAlign = textAlign,
     fontWeight = fontWeight,
     overflow = overflow
@@ -91,9 +91,9 @@ fun TextFieldBody2(
     modifier = modifier,
     text = text,
     placeholder = placeholder,
-    textStyle = DesignComponent.typography.Body2,
+    textStyle = Design.typography.Body2,
     maxLines = maxLines,
-    color = color ?: DesignComponent.colors.content,
+    color = color ?: Design.colors.content,
     textAlign = textAlign,
     fontWeight = fontWeight,
     overflow = overflow

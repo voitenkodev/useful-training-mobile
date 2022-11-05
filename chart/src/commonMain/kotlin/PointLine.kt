@@ -7,7 +7,7 @@ import androidx.compose.ui.unit.dp
 
 data class PointLine(
     val yValue: List<Float>,
-    val label: String,
+    val label: String = String(),
     val lineColor: Color,
     val fillColor: Color? = null,
     val width: Dp = 2.dp,

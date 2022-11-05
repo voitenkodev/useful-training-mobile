@@ -31,8 +31,8 @@ fun DesignTheme(
 
     content = {
         Surface(
-            modifier = Modifier.background(DesignComponent.colors.primary).then(modifier),
-            color = DesignComponent.colors.primary,
+            modifier = Modifier.background(Design.colors.primary).then(modifier),
+            color = Design.colors.primary,
             content = content
         )
     }

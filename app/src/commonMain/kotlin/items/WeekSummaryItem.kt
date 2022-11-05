@@ -1,6 +1,6 @@
 package items
 
-import DesignComponent
+import Design
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -29,7 +29,7 @@ fun WeekSummary(
     modifier = modifier
         .secondaryBackground()
         .fillMaxWidth()
-        .padding(horizontal = DesignComponent.size.space),
+        .padding(horizontal = Design.size.space),
 ) {
 
     Row(
@@ -44,13 +44,13 @@ fun WeekSummary(
 
         TextFieldBody2(
             text = "${info.countOfTrainings} Trainings",
-            color = DesignComponent.colors.caption,
+            color = Design.colors.caption,
             fontWeight = FontWeight.Bold
         )
     }
 
     Column(
-        verticalArrangement = Arrangement.spacedBy(DesignComponent.size.space),
+        verticalArrangement = Arrangement.spacedBy(Design.size.space),
     ) {
 
         DividerPrimary()
@@ -64,7 +64,7 @@ fun WeekSummary(
         Section(label = "Intensity", value = "${info.intensity.roundToInt()}%")
     }
 
-    Spacer(Modifier.size(DesignComponent.size.space))
+    Spacer(Modifier.size(Design.size.space))
 }
 
 @Composable
@@ -74,7 +74,7 @@ private fun Section(label: String, value: String) = Row(
 ) {
     TextFieldBody2(
         text = label,
-        color = DesignComponent.colors.caption,
+        color = Design.colors.caption,
     )
     TextFieldBody2(
         text = value,

@@ -4,6 +4,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.input.pointer.PointerInputChange
@@ -35,7 +37,7 @@ fun LineChart(
         val innerLines = calculatePath(
             width = size.width,
             height = size.height,
-            lines = lines
+            lines = lines,
         )
         if (motionEvent.value == MotionEvent.Up) {
             innerLines.onEach {
@@ -67,7 +69,10 @@ fun LineChart(
                         lineTo(size.width, size.height)
                         lineTo(0f, size.height)
                     },
-                    color = fillColor
+                    brush = Brush.verticalGradient(
+                        0.7f to fillColor,
+                        1.0f to Color.Transparent
+                    )
                 )
             }
 

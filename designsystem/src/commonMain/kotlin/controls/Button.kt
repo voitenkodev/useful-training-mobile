@@ -1,6 +1,6 @@
 package controls
 
-import DesignComponent
+import Design
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
@@ -28,20 +28,20 @@ fun ButtonPrimary(
     leadIcon: ImageVector? = null,
     onClick: () -> Unit,
 ) {
-    val innerTextColor = DesignComponent.colors.content
-    val innerBackgroundColor = DesignComponent.colors.accent_primary
+    val innerTextColor = Design.colors.content
+    val innerBackgroundColor = Design.colors.accent_primary
 
     val txt = remember(text) { text.uppercase() }
 
     Button(
         modifier = modifier,
         text = txt,
-        textStyle = DesignComponent.typography.PrimaryButton.copy(color = innerTextColor, fontWeight = FontWeight.Bold),
+        textStyle = Design.typography.PrimaryButton.copy(color = innerTextColor, fontWeight = FontWeight.Bold),
         contentPadding = PaddingValues(16.dp),
         enabled = enabled,
         onClick = onClick,
         colors = ButtonDefaults.buttonColors(backgroundColor = innerBackgroundColor),
-        shape = DesignComponent.shape.default,
+        shape = Design.shape.default,
         borderStroke = null,
         leadIcon = leadIcon
     )
@@ -57,18 +57,18 @@ fun ButtonSecondary(
     leadIcon: ImageVector? = null,
 ) {
 
-    val innerTextColor = color ?: DesignComponent.colors.accent_secondary
+    val innerTextColor = color ?: Design.colors.accent_secondary
     val innerBackgroundColor = Color.Companion.Transparent
 
     Button(
         modifier = modifier,
         text = text,
         contentPadding = PaddingValues(vertical = 0.dp),
-        textStyle = DesignComponent.typography.SecondaryButton.copy(color = innerTextColor, fontWeight = FontWeight.Bold),
+        textStyle = Design.typography.SecondaryButton.copy(color = innerTextColor, fontWeight = FontWeight.Bold),
         enabled = enabled,
         onClick = onClick,
         colors = ButtonDefaults.buttonColors(backgroundColor = innerBackgroundColor),
-        shape = DesignComponent.shape.default,
+        shape = Design.shape.default,
         borderStroke = null,
         leadIcon = leadIcon
     )
@@ -101,7 +101,7 @@ private fun Button(
                     imageVector = leadIcon,
                     modifier = Modifier.size(24.dp),
                     contentDescription = null,
-                    tint = DesignComponent.colors.content
+                    tint = Design.colors.content
                 )
             }
             TextField(

@@ -36,6 +36,7 @@ kotlin {
         languageSettings.optIn("androidx.compose.ui.text.ExperimentalTextApi")
         languageSettings.optIn("androidx.compose.foundation.ExperimentalFoundationApi")
         languageSettings.optIn("androidx.compose.ui.ExperimentalComposeUiApi")
+        languageSettings.optIn("androidx.compose.material.ExperimentalMaterialApi")
     }
 }
 

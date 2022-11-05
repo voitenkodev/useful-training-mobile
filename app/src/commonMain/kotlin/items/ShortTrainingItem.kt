@@ -1,6 +1,6 @@
 package items
 
-import DesignComponent
+import Design
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -36,10 +36,10 @@ fun ShortTrainingItem(
         .secondaryBackground()
         .border(
             width = 2.dp,
-            color = if (highlight) DesignComponent.colors.accent_secondary else Color.Transparent,
-            shape = DesignComponent.shape.default
+            color = if (highlight) Design.colors.accent_secondary else Color.Transparent,
+            shape = Design.shape.default
         )
-        .padding(horizontal = DesignComponent.size.space)
+        .padding(horizontal = Design.size.space)
         .clickable(onClick = onClick),
 ) {
     Row(
@@ -55,7 +55,7 @@ fun ShortTrainingItem(
 
         TextFieldBody2(
             text = training.startLongDate,
-            color = DesignComponent.colors.caption,
+            color = Design.colors.caption,
             fontWeight = FontWeight.Bold
         )
     }

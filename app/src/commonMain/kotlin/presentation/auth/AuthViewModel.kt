@@ -20,7 +20,7 @@ class AuthViewModel(
 
     init {
         viewModelScope.launch {
-            if (api.isAuthorized) navigator.navigate(Graph.Trainings.link, true)
+//            if (api.isAuthorized) navigator.navigate(Graph.Trainings.link, true)
         }
     }
 
