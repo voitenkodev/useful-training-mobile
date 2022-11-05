@@ -4,6 +4,7 @@ import Design
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.ButtonColors
 import androidx.compose.material.ButtonDefaults
@@ -34,10 +35,9 @@ fun ButtonPrimary(
     val txt = remember(text) { text.uppercase() }
 
     Button(
-        modifier = modifier,
+        modifier = modifier.requiredHeight(48.dp),
         text = txt,
         textStyle = Design.typography.PrimaryButton.copy(color = innerTextColor, fontWeight = FontWeight.Bold),
-        contentPadding = PaddingValues(16.dp),
         enabled = enabled,
         onClick = onClick,
         colors = ButtonDefaults.buttonColors(backgroundColor = innerBackgroundColor),

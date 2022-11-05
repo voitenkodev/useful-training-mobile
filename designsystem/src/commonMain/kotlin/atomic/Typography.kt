@@ -32,7 +32,7 @@ internal fun AppTypography() = AppTypography(
         fontStyle = FontStyle.Normal,
     ),
     PrimaryButton = TextStyle(
-        fontSize = 16.sp,
+        fontSize = 14.sp,
         fontWeight = FontWeight.Normal,
         fontStyle = FontStyle.Normal,
     ),

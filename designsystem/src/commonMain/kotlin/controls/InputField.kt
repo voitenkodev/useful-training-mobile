@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
@@ -139,7 +140,7 @@ internal fun InputField(
     } else textStyle2
 
     BasicTextField(
-        modifier = modifier.background(Color.Transparent).animateContentSize(),
+        modifier = modifier.requiredHeight(48.dp).background(Color.Transparent).animateContentSize(),
         value = value ?: String(),
         onValueChange = {
             val v = if (maxLength != null) it.take(maxLength) else it

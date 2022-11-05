@@ -10,6 +10,7 @@ fun LightPalette() = DarkPalette()
 fun DarkPalette() = AppColors(
     primary = color_black,
     secondary = color_black_50,
+    tertiary = color_black_100,
 
     accent_primary = color_blue,
     accent_secondary = color_yellow,
@@ -33,6 +34,7 @@ data class AppColors(
     // Background
     val primary: Color,
     val secondary: Color,
+    val tertiary: Color,
 
     // Actions, Labels
     val accent_primary: Color, // blue
@@ -45,7 +47,7 @@ data class AppColors(
     // Actions + content
     val caption: Color,
 
-    // Week colors
+    // Week colorsл
     val unique: Unique
 ) {
     data class Unique(
@@ -63,7 +65,9 @@ val color_white = Color(0xffffffff)
 val color_gray = Color(0xff7f8899)
 
 val color_black = Color(0xff000000)
-val color_black_50 = Color(0xff18181c)
+//val color_black_50 = Color(0xff181824)
+val color_black_50 = Color(0xff13131c)
+val color_black_100 = Color(0xff101014)
 
 val color_blue = Color(0xff335bff)
 val color_yellow = Color(0xffffb005)

@@ -13,11 +13,10 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.unit.dp
 import components.labels.InputLabel
 import controls.IconPrimary
 import controls.InputFieldPrimary
-import controls.secondaryBackground
+import controls.tertiaryBackground
 
 @Composable
 fun InputEmail(
@@ -29,8 +28,8 @@ fun InputEmail(
 
     InputFieldPrimary(
         modifier = modifier
-            .secondaryBackground()
-            .padding(16.dp),
+            .tertiaryBackground()
+            .padding(horizontal = Design.size.space),
         value = value,
         onValueChange = onValueChange,
         trailing = value?.isNotEmpty().takeIf { it == true }?.let {

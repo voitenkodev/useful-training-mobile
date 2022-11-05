@@ -32,6 +32,14 @@ fun Modifier.secondaryBackground() = this
     )
     .clip(shape = Design.shape.default)
 
+@Composable
+fun Modifier.tertiaryBackground() = this
+    .background(
+        color = Design.colors.tertiary,
+        shape = Design.shape.default
+    )
+    .clip(shape = Design.shape.default)
+
 fun Modifier.dashedBorder(width: Dp, color: Color, shape: Shape = RectangleShape, on: Dp, off: Dp) =
     dashedBorder(width, SolidColor(color), shape, on, off)
 

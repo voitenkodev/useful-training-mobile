@@ -20,7 +20,7 @@ class AuthViewModel(
 
     init {
         viewModelScope.launch {
-//            if (api.isAuthorized) navigator.navigate(Graph.Trainings.link, true)
+            if (api.isAuthorized) navigator.navigate(Graph.Trainings.link, true)
         }
     }
 
@@ -34,8 +34,7 @@ class AuthViewModel(
             }.onEach {
                 dispatcher(AuthAction.Loading(false))
                 dispatcher(AuthAction.Error(null))
-//                navigator.navigate(Graph.Trainings.link, true)
-                navigator.navigate(Graph.Trainings.link)
+                navigator.navigate(Graph.Trainings.link, true)
             }.catch {
                 dispatcher(AuthAction.Loading(false))
                 dispatcher(AuthAction.Error(it.message))

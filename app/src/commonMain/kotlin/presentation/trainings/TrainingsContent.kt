@@ -98,7 +98,7 @@ fun TrainingsContent(vm: TrainingsViewModel) {
                 IconPrimary(
                     imageVector = Icons.Default.Add,
                     modifier = Modifier
-                        .size(56.dp)
+                        .size(48.dp)
                         .background(
                             color = Design.colors.accent_primary,
                             shape = Design.shape.default
