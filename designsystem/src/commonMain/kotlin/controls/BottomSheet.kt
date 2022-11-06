@@ -1,4 +1,4 @@
-package components
+package controls
 
 import Design
 import androidx.compose.animation.core.Spring
@@ -24,18 +24,15 @@ import androidx.compose.material.rememberBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun Scaffold(
+fun BottomSheet(
     modifier: Modifier = Modifier,
-
-    loading: (@Composable () -> Unit)? = null,
-    error: (@Composable () -> Unit)? = null,
-    back: (@Composable () -> Unit)? = null,
-    popup: (@Composable () -> Unit)? = null,
-
-    header: @Composable BoxScope.(progress: Float) -> Unit,
+    collapsed: Dp,
+    expanded: Dp,
+    topBar: @Composable BoxScope.(progress: Float) -> Unit,
     content: LazyListScope.() -> Unit,
 ) {
 
@@ -52,15 +49,11 @@ fun Scaffold(
 
     BoxWithConstraints(modifier = modifier.fillMaxSize()) {
 
-        // 56 header + top padding + bottom padding = 80
-        val toolbarCollapse = 56.dp + (Design.dp.padding * 2)
-        val toolbarExpand = toolbarCollapse * 3
-
-        val contentExpandHeight = this.maxHeight - toolbarCollapse
-        val contentCollapseHeight = this.maxHeight - toolbarExpand
+        val contentExpandHeight = this.maxHeight - collapsed
+        val contentCollapseHeight = this.maxHeight - expanded
 
         val headerHeight = animateDpAsState(
-            targetValue = if (scaffoldState.bottomSheetState.targetValue == BottomSheetValue.Collapsed) toolbarExpand else toolbarCollapse,
+            targetValue = if (scaffoldState.bottomSheetState.targetValue == BottomSheetValue.Collapsed) expanded else collapsed,
             animationSpec = spring(stiffness = Spring.StiffnessLow)
         )
 
@@ -73,9 +66,10 @@ fun Scaffold(
             content = {
                 Box(
                     modifier = Modifier.fillMaxWidth().height(headerHeight.value),
-                    content = { header.invoke(this, progress.value) }
+                    content = { topBar.invoke(this, progress.value) }
                 )
             },
+
             sheetContent = {
                 LazyColumn(
                     state = listState,
@@ -87,12 +81,4 @@ fun Scaffold(
             }
         )
     }
-
-    error?.invoke()
-
-    loading?.invoke()
-
-    popup?.invoke()
-
-    back?.invoke()
 }

@@ -39,7 +39,7 @@ fun ShortTrainingItem(
             color = if (highlight) Design.colors.accent_secondary else Color.Transparent,
             shape = Design.shape.default
         )
-        .padding(horizontal = Design.size.space)
+        .padding(horizontal = Design.dp.padding)
         .clickable(onClick = onClick),
 ) {
     Row(

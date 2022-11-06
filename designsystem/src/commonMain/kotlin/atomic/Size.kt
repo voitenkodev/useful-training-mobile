@@ -5,14 +5,16 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun AppSize() = AppSize(
-    space = 12.dp,
-    footer = 56.dp,
-    header = 56.dp,
+fun AppDp() = AppDp(
+    padding = 12.dp,
+    collapsedAppBar = 80.dp,
+    expandedAppBar = 240.dp,
+    component = 48.dp,
 )
 
-data class AppSize(
-    val space: Dp,
-    val footer: Dp,
-    val header: Dp,
+data class AppDp(
+    val padding: Dp,
+    val collapsedAppBar: Dp,
+    val expandedAppBar: Dp,
+    val component: Dp,
 )

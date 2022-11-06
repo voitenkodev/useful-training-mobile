@@ -35,7 +35,7 @@ fun InputPassword(
     InputFieldPrimary(
         modifier = modifier
             .tertiaryBackground()
-            .padding(horizontal = Design.size.space),
+            .padding(horizontal = Design.dp.padding),
         value = value,
         onValueChange = onValueChange,
         visualTransformation = if (passwordVisibility.value) VisualTransformation.None else PasswordVisualTransformation(),

@@ -12,6 +12,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import controls.InputFieldSecondary
+import controls.tertiaryBackground
 
 @Composable
 fun InputWeight(
@@ -22,7 +23,8 @@ fun InputWeight(
     val focusManager = LocalFocusManager.current
 
     InputFieldSecondary(
-        modifier = modifier.padding(bottom = 2.dp),
+        modifier = modifier .tertiaryBackground()
+            .padding(horizontal = Design.dp.padding),
         value = value,
         onValueChange = onValueChange,
         textAlign = TextAlign.Center,

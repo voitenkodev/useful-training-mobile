@@ -29,7 +29,7 @@ fun WeekSummary(
     modifier = modifier
         .secondaryBackground()
         .fillMaxWidth()
-        .padding(horizontal = Design.size.space),
+        .padding(horizontal = Design.dp.padding),
 ) {
 
     Row(
@@ -50,7 +50,7 @@ fun WeekSummary(
     }
 
     Column(
-        verticalArrangement = Arrangement.spacedBy(Design.size.space),
+        verticalArrangement = Arrangement.spacedBy(Design.dp.padding),
     ) {
 
         DividerPrimary()
@@ -64,7 +64,7 @@ fun WeekSummary(
         Section(label = "Intensity", value = "${info.intensity.roundToInt()}%")
     }
 
-    Spacer(Modifier.size(Design.size.space))
+    Spacer(Modifier.size(Design.dp.padding))
 }
 
 @Composable

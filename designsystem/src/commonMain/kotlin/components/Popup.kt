@@ -72,10 +72,10 @@ fun Popup(
     ) {
         Column(
             modifier = Modifier
-                .padding(Design.size.space)
+                .padding(Design.dp.padding)
                 .secondaryBackground()
-                .padding(Design.size.space),
-            verticalArrangement = Arrangement.spacedBy(Design.size.space),
+                .padding(Design.dp.padding),
+            verticalArrangement = Arrangement.spacedBy(Design.dp.padding),
             content = {
 
                 TextFieldH2(text = title, fontWeight = FontWeight.Bold)

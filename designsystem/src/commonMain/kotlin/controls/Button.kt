@@ -35,7 +35,7 @@ fun ButtonPrimary(
     val txt = remember(text) { text.uppercase() }
 
     Button(
-        modifier = modifier.requiredHeight(48.dp),
+        modifier = modifier.requiredHeight(Design.dp.component),
         text = txt,
         textStyle = Design.typography.PrimaryButton.copy(color = innerTextColor, fontWeight = FontWeight.Bold),
         enabled = enabled,

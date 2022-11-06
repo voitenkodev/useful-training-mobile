@@ -33,7 +33,7 @@ fun LineChartItem(
 ) = LineChartBox(
     modifier = modifier
         .secondaryBackground()
-        .padding(Design.size.space),
+        .padding(Design.dp.padding),
     lines = lines,
     onClick = onClick
 )
@@ -54,7 +54,7 @@ private fun LineChartBox(
 
     Column(
         modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(Design.size.space)
+        verticalArrangement = Arrangement.spacedBy(Design.dp.padding)
     ) {
 
         NameLabels(
@@ -62,7 +62,7 @@ private fun LineChartBox(
         )
 
         Row(
-            horizontalArrangement = Arrangement.spacedBy(Design.size.space)
+            horizontalArrangement = Arrangement.spacedBy(Design.dp.padding)
         ) {
             YLabels(
                 modifier = Modifier.fillMaxHeight(),
@@ -95,7 +95,7 @@ private fun NameLabels(
     lines: List<PointLine>
 ) = LazyRow(
     modifier = modifier,
-    horizontalArrangement = Arrangement.spacedBy(Design.size.space),
+    horizontalArrangement = Arrangement.spacedBy(Design.dp.padding),
     content = { itemsIndexed(lines, key = { index, _ -> index }) { _, item -> Label(label = item.label, color = item.lineColor) } }
 )
 
@@ -171,7 +171,7 @@ private fun Label(
     color: Color,
 ) = Row(
     modifier = modifier,
-    horizontalArrangement = Arrangement.spacedBy(Design.size.space),
+    horizontalArrangement = Arrangement.spacedBy(Design.dp.padding),
     verticalAlignment = Alignment.CenterVertically
 ) {
     Spacer(Modifier.size(14.dp).background(color))

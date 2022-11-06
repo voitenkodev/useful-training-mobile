@@ -2,7 +2,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.staticCompositionLocalOf
 import atomic.AppColors
 import atomic.AppShape
-import atomic.AppSize
+import atomic.AppDp
 import atomic.AppTypography
 
 object Design {
@@ -15,9 +15,9 @@ object Design {
         @Composable
         get() = LocalAppTypography.current
 
-    val size: AppSize
+    val dp: AppDp
         @Composable
-        get() = LocalAppSize.current
+        get() = LocalAppDp.current
 
     val shape: AppShape
         @Composable
@@ -28,6 +28,6 @@ internal val LocalAppColors = staticCompositionLocalOf<AppColors> { error("No co
 
 internal val LocalAppTypography = staticCompositionLocalOf<AppTypography> { error("No font provided") }
 
-internal val LocalAppSize = staticCompositionLocalOf<AppSize> { error("No size provided") }
+internal val LocalAppDp = staticCompositionLocalOf<AppDp> { error("No dp provided") }
 
 internal val LocalAppShape = staticCompositionLocalOf<AppShape> { error("No shape provided") }

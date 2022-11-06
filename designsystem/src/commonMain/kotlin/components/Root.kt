@@ -31,15 +31,15 @@ fun Root(
 ) {
     Column(
         modifier = modifier.padding(
-            start = Design.size.space,
-            end = Design.size.space,
-            bottom = Design.size.space
+            start = Design.dp.padding,
+            end = Design.dp.padding,
+            bottom = Design.dp.padding
         ),
     ) {
 
         LazyColumn(
             modifier = Modifier.weight(1f),
-            verticalArrangement = Arrangement.spacedBy(Design.size.space),
+            verticalArrangement = Arrangement.spacedBy(Design.dp.padding),
             content = {
                 if (header != null) {
                     item(key = "header_spacer") {
@@ -54,7 +54,7 @@ fun Root(
                 if (content != null) {
                     item(key = "content") {
                         Column(
-                            verticalArrangement = Arrangement.spacedBy(Design.size.space),
+                            verticalArrangement = Arrangement.spacedBy(Design.dp.padding),
                             content = content
                         )
                     }

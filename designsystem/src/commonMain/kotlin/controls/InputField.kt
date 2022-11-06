@@ -87,7 +87,7 @@ fun InputFieldSecondary(
     keyboardActions: KeyboardActions? = null,
     visualTransformation: VisualTransformation = VisualTransformation.None,
 ) = InputField(
-    modifier = modifier.padding(8.dp),
+    modifier = modifier,
     value = value,
     onValueChange = onValueChange,
     textStyle = Design.typography.Body2,
@@ -140,7 +140,7 @@ internal fun InputField(
     } else textStyle2
 
     BasicTextField(
-        modifier = modifier.requiredHeight(48.dp).background(Color.Transparent).animateContentSize(),
+        modifier = modifier.requiredHeight(Design.dp.component).background(Color.Transparent).animateContentSize(),
         value = value ?: String(),
         onValueChange = {
             val v = if (maxLength != null) it.take(maxLength) else it

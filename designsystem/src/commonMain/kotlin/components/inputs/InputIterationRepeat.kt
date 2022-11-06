@@ -1,5 +1,6 @@
 package components.inputs
 
+import Design
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.runtime.Composable
@@ -7,8 +8,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
 import controls.InputFieldSecondary
+import controls.tertiaryBackground
 
 @Composable
 fun InputRepeat(
@@ -17,7 +18,8 @@ fun InputRepeat(
     onValueChange: (String) -> Unit,
 ) {
     InputFieldSecondary(
-        modifier = modifier.padding(top = 2.dp),
+        modifier = modifier.tertiaryBackground()
+            .padding(horizontal = Design.dp.padding),
         value = value,
         onValueChange = onValueChange,
         textAlign = TextAlign.Center,

@@ -18,7 +18,28 @@ object DateTimeKtx {
      * Output 2022-10-21T13:20:18.496Z
      * */
 
-    fun currentTime() = Clock.System.now().toString()
+    fun currentDateTime() = Clock.System.now().toString()
+
+    /**
+     * Output FRIDAY
+     * */
+    fun currentWeekDay(): String {
+        val localDateTime = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
+        return localDateTime.dayOfWeek.name
+    }
+
+    /**
+     * Output Output 23 October 2022
+     * */
+    fun currentDate(): String? {
+
+        val localDateTime = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
+        val date = localDateTime.date
+        val day = date.dayOfMonth
+        val month = date.month.name.lowercase().capitalize(Locale.current)
+        val year = date.year
+        return "${day.zeroPrefixed(2)} $month $year"
+    }
 
     /**
      * Input 2022-10-21T13:20:18.496Z

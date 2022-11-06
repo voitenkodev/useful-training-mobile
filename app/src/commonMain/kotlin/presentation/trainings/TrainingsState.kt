@@ -1,6 +1,7 @@
 package presentation.trainings
 
 import Action
+import DateTimeKtx
 import GlobalState
 import ReducerForActionType
 import ReduxGroups
@@ -14,6 +15,8 @@ import presentation.training.Training
 @Parcelize
 @Stable
 data class TrainingsState(
+    val weekDay: String = DateTimeKtx.currentWeekDay(),
+    val date: String = DateTimeKtx.currentDate() ?: "",
     val trainings: List<Training> = emptyList(),
     val weekTrainings: Map<WeekInfo, List<Training>> = emptyMap(),
     val error: String? = null,

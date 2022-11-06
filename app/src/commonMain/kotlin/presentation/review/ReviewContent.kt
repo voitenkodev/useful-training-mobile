@@ -157,15 +157,15 @@ private fun Comparing(
     compare: (Training) -> Unit,
     clear: () -> Unit
 ) = Column(
-    verticalArrangement = Arrangement.spacedBy(Design.size.space)
+    verticalArrangement = Arrangement.spacedBy(Design.dp.padding)
 ) {
 
     Row(
-        horizontalArrangement = Arrangement.spacedBy(Design.size.space)
+        horizontalArrangement = Arrangement.spacedBy(Design.dp.padding)
     ) {
 
         TextFieldBody2(
-            modifier = Modifier.padding(start = Design.size.space),
+            modifier = Modifier.padding(start = Design.dp.padding),
             text = "Compare with...",
             color = Design.colors.caption
         )
@@ -184,7 +184,7 @@ private fun Comparing(
     }
 
     LazyRow(
-        horizontalArrangement = Arrangement.spacedBy(Design.size.space)
+        horizontalArrangement = Arrangement.spacedBy(Design.dp.padding)
     ) {
 
         items(list, key = { it.id ?: it.hashCode() }) {
@@ -265,11 +265,11 @@ private fun ChartSection(
 private fun Summary(
     state: Training
 ) = Column(
-    verticalArrangement = Arrangement.spacedBy(Design.size.space)
+    verticalArrangement = Arrangement.spacedBy(Design.dp.padding)
 ) {
 
     TextFieldBody2(
-        modifier = Modifier.padding(start = Design.size.space),
+        modifier = Modifier.padding(start = Design.dp.padding),
         text = "Summary",
         color = Design.colors.caption
     )
@@ -277,7 +277,7 @@ private fun Summary(
     Column(
         modifier = Modifier
             .secondaryBackground()
-            .padding(horizontal = Design.size.space),
+            .padding(horizontal = Design.dp.padding),
     ) {
 
         Section(
@@ -306,7 +306,7 @@ private fun Summary(
 
 @Composable
 private fun Section(label: String, value: String) = Row(
-    modifier = Modifier.fillMaxWidth().padding(vertical = Design.size.space),
+    modifier = Modifier.fillMaxWidth().padding(vertical = Design.dp.padding),
     horizontalArrangement = Arrangement.SpaceBetween
 ) {
     TextFieldBody2(

@@ -55,12 +55,12 @@ fun Error(
         )
     ) {
         Column(
-            modifier = Modifier.padding(Design.size.space)
+            modifier = Modifier.padding(Design.dp.padding)
                 .background(
                     color = Design.colors.accent_tertiary,
                     shape = Design.shape.default
-                ).padding(Design.size.space),
-            verticalArrangement = Arrangement.spacedBy(Design.size.space),
+                ).padding(Design.dp.padding),
+            verticalArrangement = Arrangement.spacedBy(Design.dp.padding),
             content = {
                 TextFieldH2(text = "Error!", fontWeight = FontWeight.Bold)
                 TextFieldBody1(text = value.value)
