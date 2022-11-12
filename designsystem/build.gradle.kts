@@ -24,7 +24,7 @@ kotlin {
 
         val androidMain by getting {
             dependencies {
-                implementation("androidx.activity:activity-compose:1.6.0")
+                implementation("androidx.activity:activity-compose:1.6.1")
             }
         }
         val uikitMain by creating { dependsOn(commonMain) }

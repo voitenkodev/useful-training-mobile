@@ -187,7 +187,7 @@ private fun Comparing(
         horizontalArrangement = Arrangement.spacedBy(Design.dp.padding)
     ) {
 
-        items(list, key = { it.id ?: it.hashCode() }) {
+        items(list, key = { it.id!! }) {
             ShortTrainingItem(
                 training = it,
                 highlight = it == selected,

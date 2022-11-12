@@ -54,7 +54,7 @@ kotlin {
             dependencies {
                 // Common
                 implementation("androidx.appcompat:appcompat:1.5.1")
-                implementation("androidx.activity:activity-compose:1.6.0")
+                implementation("androidx.activity:activity-compose:1.6.1")
                 // Firebase
                 implementation("com.google.firebase:firebase-auth-ktx:21.1.0")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.6.4")
@@ -62,6 +62,7 @@ kotlin {
                 // Accompanist
                 implementation("com.google.accompanist:accompanist-systemuicontroller:0.23.1")
 
+                implementation(compose.uiTooling)
                 implementation(libs.koin.android)
             }
         }

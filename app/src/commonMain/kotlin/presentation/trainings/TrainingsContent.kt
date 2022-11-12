@@ -6,8 +6,8 @@ import LineChart
 import PointLine
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -17,14 +17,12 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import atomic.icons.BarChart
 import components.BackHandler
@@ -32,6 +30,7 @@ import components.Error
 import components.Loading
 import controls.BottomSheet
 import controls.IconPrimary
+import controls.TextFieldBody1
 import controls.TextFieldH1
 import items.TrainingItem
 import items.WeekSummary
@@ -72,23 +71,6 @@ fun TrainingsContent(vm: TrainingsViewModel) {
                 horizontalArrangement = Arrangement.spacedBy(Design.dp.padding, Alignment.End)
             ) {
 
-                Row(
-                    modifier = Modifier
-                        .size(Design.dp.component)
-                        .weight(1f)
-                ) {
-
-                    IconPrimary(
-                        imageVector = Icons.Default.DateRange,
-                        modifier = Modifier
-                            .fillMaxHeight()
-                            .background(
-                                color = Design.colors.tertiary,
-                                shape = Design.shape.default
-                            ),
-                        onClick = vm::addTraining
-                    )
-                }
                 IconPrimary(
                     imageVector = BarChart,
                     modifier = Modifier
@@ -110,25 +92,16 @@ fun TrainingsContent(vm: TrainingsViewModel) {
                         ),
                     onClick = vm::addTraining
                 )
+
             }
 
-            Row(
-                modifier = Modifier.height(Design.dp.collapsedAppBar).padding(start = Design.dp.padding),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(Design.dp.padding)
-            ) {
-
-                TextFieldH1(
-                    text = state.weekDay,
-                    textAlign = TextAlign.Center
-                )
-            }
+            Title(state, it)
         },
 
         content = {
             state.weekTrainings.onEach {
 
-                item(key = "week_by_${it.key}") {
+                stickyHeader(key = "week_by_${it.key}") {
                     WeekSummary(info = it.key)
                 }
 
@@ -147,4 +120,27 @@ fun TrainingsContent(vm: TrainingsViewModel) {
     Loading(state.loading)
     // todo popup
     BackHandler(action = vm::back)
+}
+
+@Composable
+private fun Title(
+    state: TrainingsState,
+    progress: Float
+) {
+    Box(
+        modifier = Modifier.padding(start = Design.dp.padding),
+    ) {
+
+        TextFieldH1(
+            modifier = Modifier.align(Alignment.CenterStart),
+            text = state.weekDay,
+        )
+
+        val header = Design.dp.collapsedAppBar - 20.dp
+
+        TextFieldBody1(
+            modifier = Modifier.alpha(progress).padding(top = header),
+            text = state.date,
+        )
+    }
 }
