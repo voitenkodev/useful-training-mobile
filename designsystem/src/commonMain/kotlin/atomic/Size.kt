@@ -7,7 +7,7 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun AppDp() = AppDp(
     padding = 12.dp,
-    collapsedAppBar = 80.dp,
+    collapsedAppBar = 60.dp,
     expandedAppBar = 240.dp,
     component = 48.dp,
 )

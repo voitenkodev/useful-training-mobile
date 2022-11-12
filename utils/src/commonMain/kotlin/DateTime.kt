@@ -74,13 +74,15 @@ object DateTimeKtx {
      * Output 21 October 2022
      * */
 
-    fun formattedLongDate(iso8601Timestamp: String): String? {
+    fun formattedLongDate(iso8601Timestamp: String, withYear: Boolean = true): String? {
         val localDateTime = iso8601TimestampToLocalDateTime(iso8601Timestamp) ?: return null
         val date = localDateTime.date
         val day = date.dayOfMonth
         val month = date.month.name.lowercase().capitalize(Locale.current)
         val year = date.year
-        return "${day.zeroPrefixed(2)} $month $year"
+
+        return if (withYear) "${day.zeroPrefixed(2)} $month $year"
+        else "${day.zeroPrefixed(2)} $month"
     }
 
     /**
@@ -89,7 +91,7 @@ object DateTimeKtx {
      * Output 23 October 2022
      * */
 
-    fun formattedEndOfWeekLongDate(iso8601Timestamp: String): String? {
+    fun formattedEndOfWeekLongDate(iso8601Timestamp: String, withYear: Boolean = true): String? {
         val currentLocalDateTime = iso8601TimestampToLocalDateTime(iso8601Timestamp) ?: return null
 
         val dayOfWeek = DayOfWeek.values().lastIndex - currentLocalDateTime.dayOfWeek.ordinal
@@ -99,7 +101,7 @@ object DateTimeKtx {
             .plus(dayOfWeek, DateTimeUnit.DAY, TimeZone.currentSystemDefault())
             .toString()
 
-        return formattedLongDate(endOfWeek)
+        return formattedLongDate(endOfWeek, withYear)
     }
 
     /**
@@ -108,7 +110,10 @@ object DateTimeKtx {
      * Output 17 October 2022
      * */
 
-    fun formattedStartOfWeekLongDate(iso8601Timestamp: String): String? {
+    fun formattedStartOfWeekLongDate(
+        iso8601Timestamp: String,
+        withYear: Boolean = true
+    ): String? {
         val currentLocalDateTime = iso8601TimestampToLocalDateTime(iso8601Timestamp) ?: return null
 
         val dayOfWeek = currentLocalDateTime.dayOfWeek.ordinal
@@ -118,7 +123,7 @@ object DateTimeKtx {
             .minus(dayOfWeek, DateTimeUnit.DAY, TimeZone.currentSystemDefault())
             .toString()
 
-        return formattedLongDate(endOfWeek)
+        return formattedLongDate(endOfWeek, withYear)
     }
 
     /**

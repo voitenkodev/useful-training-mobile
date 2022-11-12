@@ -47,9 +47,9 @@ data class Training(
     val durationTime: String
         get() = duration?.let { DateTimeKtx.formattedDuration(it) } ?: ""
     val endOfWeek: String
-        get() = DateTimeKtx.formattedEndOfWeekLongDate(startDateTime) ?: ""
+        get() = DateTimeKtx.formattedEndOfWeekLongDate(startDateTime, false) ?: ""
     val startOfWeek: String
-        get() = DateTimeKtx.formattedStartOfWeekLongDate(startDateTime) ?: ""
+        get() = DateTimeKtx.formattedStartOfWeekLongDate(startDateTime, false) ?: ""
 
 
     @Serializable

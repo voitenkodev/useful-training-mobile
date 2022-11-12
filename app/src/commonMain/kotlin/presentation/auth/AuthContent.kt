@@ -6,11 +6,14 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import components.BackHandler
 import components.Error
@@ -29,21 +32,24 @@ fun AuthContent(vm: AuthViewModel) {
     val state by selectState<GlobalState, AuthState> { this.authState }
 
     Column(
-        modifier = Modifier.padding(Design.dp.padding),
+        modifier = Modifier.padding(horizontal = Design.dp.padding),
         verticalArrangement = Arrangement.spacedBy(Design.dp.padding)
     ) {
 
         TextFieldH1(
-            modifier = Modifier.fillMaxWidth(),
-            text = "\uD83D\uDC4B Welcome back!"
+            modifier = Modifier
+                .height(Design.dp.collapsedAppBar)
+                .wrapContentHeight(),
+            text = "\uD83D\uDC4B Welcome back!",
+            textAlign = TextAlign.Center
         )
+
+        Spacer(modifier = Modifier.size(16.dp))
 
         TextFieldH2(
             text = "Sign in to your account",
             color = Design.colors.caption
         )
-
-        Spacer(modifier = Modifier.size(16.dp))
 
         InputEmail(
             modifier = Modifier.fillMaxWidth(),
@@ -72,6 +78,7 @@ fun AuthContent(vm: AuthViewModel) {
             onClick = { vm.registration(email = state.email, password = state.password) }
         )
 
+        Spacer(modifier = Modifier.size(Design.dp.padding))
     }
 
     Error(message = state.error, close = vm::clearError)
