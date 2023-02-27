@@ -21,6 +21,7 @@ fun LineChart(
     val motionEvent = remember { mutableStateOf(MotionEvent.Idle) }
     val currentPosition = remember { mutableStateOf(Offset.Unspecified) }
 
+
     val drawModifier = modifier.pointerMotionEvents(
         delayAfterDownInMillis = 25L,
         onUp = { pointerInputChange: PointerInputChange ->

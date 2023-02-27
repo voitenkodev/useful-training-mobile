@@ -36,6 +36,7 @@ import controls.TextFieldBody1
 import controls.TextFieldH1
 import items.TrainingItem
 import items.WeekSummary
+import kotlinx.coroutines.launch
 import selectState
 
 @Composable
@@ -52,6 +53,7 @@ fun TrainingsContent(vm: TrainingsViewModel) {
         modifier = Modifier.fillMaxSize(),
         collapsed = Design.dp.collapsedAppBar,
         expanded = Design.dp.expandedAppBar,
+        listState = listState,
         topBar = {
             LineChart(
                 modifier = Modifier.fillMaxWidth()
@@ -108,7 +110,11 @@ fun TrainingsContent(vm: TrainingsViewModel) {
             state.weekTrainings.onEach {
 
                 stickyHeader(key = "week_by_${it.key}") {
-                    WeekSummary(info = it.key)
+                    WeekSummary(info = it.key){
+                        coroutineScope.launch {
+                            listState.animateScrollToItem(index = 4)
+                        }
+                    }
                 }
 
                 items(it.value, key = { it.id ?: it.hashCode() }) { training ->

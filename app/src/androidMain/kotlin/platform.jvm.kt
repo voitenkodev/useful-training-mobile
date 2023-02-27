@@ -19,7 +19,6 @@ actual class AuthSource : AuthProtocol {
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 
-
     override fun login(email: String, password: String): Flow<User> =
         flow {
             emit(auth.signInWithEmailAndPassword(email, password).await())

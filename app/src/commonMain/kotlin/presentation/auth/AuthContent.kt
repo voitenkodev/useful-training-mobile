@@ -82,6 +82,8 @@ fun AuthContent(vm: AuthViewModel) {
     }
 
     Error(message = state.error, close = vm::clearError)
+
     Loading(state.loading)
+
     BackHandler(action = vm::back)
 }

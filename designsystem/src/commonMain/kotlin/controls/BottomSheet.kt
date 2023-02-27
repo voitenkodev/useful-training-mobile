@@ -33,10 +33,9 @@ fun BottomSheet(
     collapsed: Dp,
     expanded: Dp,
     topBar: @Composable BoxScope.(progress: Float) -> Unit,
+    listState: LazyListState = rememberLazyListState(),
     content: LazyListScope.() -> Unit,
 ) {
-
-    val listState: LazyListState = rememberLazyListState()
 
     val scaffoldState = rememberBottomSheetScaffoldState(
         bottomSheetState = rememberBottomSheetState(BottomSheetValue.Collapsed)

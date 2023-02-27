@@ -47,6 +47,8 @@ kotlin {
                 implementation(compose.foundation)
                 implementation(compose.material)
                 implementation(compose.runtime)
+
+//                implementation("dev.gitlive:firebase-auth:1.6.2")
             }
         }
 
