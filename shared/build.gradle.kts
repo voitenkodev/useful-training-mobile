@@ -5,7 +5,6 @@ plugins {
     id("com.android.library")
     id("org.jetbrains.compose")
     id("io.github.skeptick.libres")
-    id("app.cash.sqldelight")
 }
 
 version = "1.0-SNAPSHOT"
@@ -55,25 +54,10 @@ kotlin {
         val androidMain by getting {
             dependencies {
                 implementation("com.google.android.material:material:1.8.0")
-                implementation(libs.sqldelight.android)
             }
         }
-        val iosMain by getting {
-            dependencies {
-                implementation(libs.sqldelight.native)
-            }
-        }
+        val iosMain by getting { dependencies {} }
         val iosSimulatorArm64Main by getting { dependsOn(iosMain) }
-    }
-}
-
-sqldelight {
-    databases {
-        create("Database") {
-            packageName.set("")
-            schemaOutputDirectory.set(file("src/commonMain/sqldelight/data/schema"))
-            migrationOutputDirectory.set(file("src/commonMain/sqldelight/data/migrations"))
-        }
     }
 }
 
