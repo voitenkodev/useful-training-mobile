@@ -59,6 +59,14 @@ kotlin {
         val iosMain by getting { dependencies {} }
         val iosSimulatorArm64Main by getting { dependsOn(iosMain) }
     }
+
+    kotlin.sourceSets.all {
+        languageSettings.optIn("androidx.compose.ui.text.ExperimentalTextApi")
+        languageSettings.optIn("androidx.compose.foundation.ExperimentalFoundationApi")
+        languageSettings.optIn("androidx.compose.ui.ExperimentalComposeUiApi")
+        languageSettings.optIn("androidx.compose.material.ExperimentalMaterialApi")
+        languageSettings.optIn("androidx.compose.ui.unit.ExperimentalMaterialApi")
+    }
 }
 
 libres {
