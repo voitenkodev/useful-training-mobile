@@ -13,14 +13,13 @@ version = "1.0-SNAPSHOT"
 kotlin {
     android()
 
-    jvm("desktop")
-
     ios()
+
     iosSimulatorArm64()
 
     cocoapods {
         summary = "Shared Code"
-        homepage = "https://github.com/AlexGladkov/JetpackComposeDemo"
+        homepage = "https://github.com/voitenkodev/Useful-Training"
         ios.deploymentTarget = "14.1"
         podfile = project.file("../iosApp/Podfile")
 
@@ -55,7 +54,7 @@ kotlin {
 
         val androidMain by getting {
             dependencies {
-                implementation("com.google.android.material:material:1.7.0")
+                implementation("com.google.android.material:material:1.8.0")
                 implementation(libs.sqldelight.android)
             }
         }
@@ -64,9 +63,7 @@ kotlin {
                 implementation(libs.sqldelight.native)
             }
         }
-        val iosSimulatorArm64Main by getting {
-            dependsOn(iosMain)
-        }
+        val iosSimulatorArm64Main by getting { dependsOn(iosMain) }
     }
 }
 
@@ -90,7 +87,7 @@ android {
     compileSdk = 33
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
 
-    namespace = "tech.mobiledeveloper.JetHabit"
+    namespace = "com.voitenko.UsefulTraining"
 
     defaultConfig {
         minSdk = 24

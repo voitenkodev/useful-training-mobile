@@ -10,7 +10,7 @@ kotlin {
         val androidMain by getting {
             dependencies {
                 implementation(project(":shared"))
-                implementation("androidx.appcompat:appcompat:1.5.1")
+                implementation("androidx.appcompat:appcompat:1.6.1")
                 implementation("androidx.activity:activity-compose:1.6.1")
             }
         }
@@ -21,10 +21,10 @@ android {
     compileSdk = 33
     sourceSets["main"].manifest.srcFile("src/main/AndroidManifest.xml")
 
-    namespace = "tech.mobiledeveloper.jethabit"
+    namespace = "com.voitenko.usefultraining"
 
     defaultConfig {
-        applicationId = "tech.mobiledeveloper.JetHabit"
+        applicationId = "com.voitenko.usefultraining"
         minSdk = 24
         targetSdk = 33
         versionCode = 1

@@ -2,7 +2,7 @@ package di
 
 actual class PlatformConfiguration {
     actual val appName: String
-        get() = "JetHabit"
+        get() = "UsefulTraining"
 
     actual val platform: Platform
         get() = Platform.iOS

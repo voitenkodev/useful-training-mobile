@@ -1,4 +1,4 @@
-package tech.mobiledeveloper.jethabit
+package com.voitenko.usefultraining
 
 import MainView
 import android.os.Bundle
@@ -10,11 +10,9 @@ import di.PlatformSDK
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        PlatformSDK.init(PlatformConfiguration(activityContext = applicationContext,
-            appName = getString(R.string.app_name)))
 
-        setContent {
-            MainView(this)
-        }
+        PlatformSDK.init(PlatformConfiguration(activityContext = applicationContext, appName = getString(R.string.app_name)))
+
+        setContent { MainView(this) }
     }
 }
