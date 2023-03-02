@@ -2,22 +2,46 @@ package screens.settings
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material.Card
+import androidx.compose.material.Checkbox
+import androidx.compose.material.CheckboxDefaults
+import androidx.compose.material.Divider
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.Surface
+import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.voitenko.UsefulTraining.AppRes
 import data.features.settings.LocalSettingsEventBus
-import di.LocalPlatform
-import di.Platform
 import screens.daily.views.HabitCardItem
 import screens.daily.views.HabitCardItemModel
 import screens.settings.views.MenuItem
 import screens.settings.views.MenuItemModel
-import tech.mobiledeveloper.JetHabit.AppRes
-import ui.themes.*
+import ui.themes.JetHabitCorners
+import ui.themes.JetHabitSize
+import ui.themes.JetHabitStyle
+import ui.themes.JetHabitTheme
+import ui.themes.blueDarkPalette
+import ui.themes.blueLightPalette
+import ui.themes.greenDarkPalette
+import ui.themes.greenLightPalette
+import ui.themes.orangeDarkPalette
+import ui.themes.orangeLightPalette
+import ui.themes.purpleDarkPalette
+import ui.themes.purpleLightPalette
+import ui.themes.redDarkPalette
+import ui.themes.redLightPalette
 
 @ExperimentalMaterialApi
 @ExperimentalFoundationApi

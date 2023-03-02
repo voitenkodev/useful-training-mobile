@@ -8,10 +8,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.voitenko.UsefulTraining.AppRes
 import di.LocalPlatform
 import di.Platform
 import screens.compose.models.ComposeError
-import tech.mobiledeveloper.JetHabit.AppRes
 import ui.themes.JetHabitTheme
 
 @Composable

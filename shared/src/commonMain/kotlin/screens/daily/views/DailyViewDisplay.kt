@@ -22,12 +22,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.voitenko.UsefulTraining.AppRes
 import di.LocalPlatform
 import di.Platform
 import screens.daily.models.DailyViewState
 import ru.alexgladkov.odyssey.compose.extensions.present
 import ru.alexgladkov.odyssey.compose.local.LocalRootController
-import tech.mobiledeveloper.JetHabit.AppRes
 import ui.themes.JetHabitTheme
 
 @ExperimentalFoundationApi

@@ -20,9 +20,7 @@ import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import di.LocalPlatform
-import di.Platform
-import tech.mobiledeveloper.JetHabit.AppRes
+import com.voitenko.UsefulTraining.AppRes
 import ui.themes.JetHabitTheme
 
 @Composable

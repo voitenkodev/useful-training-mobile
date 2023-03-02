@@ -29,10 +29,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import di.LocalPlatform
-import di.Platform
+import com.voitenko.UsefulTraining.AppRes
 import screens.compose.models.ComposeViewState
-import tech.mobiledeveloper.JetHabit.AppRes
 import ui.themes.JetHabitTheme
 
 @ExperimentalFoundationApi
