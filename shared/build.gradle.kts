@@ -18,25 +18,6 @@ kotlin {
     ios()
     iosSimulatorArm64()
 
-    js(IR) {
-        browser()
-    }
-
-    macosX64 {
-        binaries {
-            executable {
-                entryPoint = "main"
-            }
-        }
-    }
-    macosArm64 {
-        binaries {
-            executable {
-                entryPoint = "main"
-            }
-        }
-    }
-
     cocoapods {
         summary = "Shared Code"
         homepage = "https://github.com/AlexGladkov/JetpackComposeDemo"
