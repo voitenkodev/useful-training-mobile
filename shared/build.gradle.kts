@@ -5,6 +5,7 @@ plugins {
     id("com.android.library")
     id("org.jetbrains.compose")
     id("io.github.skeptick.libres")
+    id("org.jetbrains.kotlin.plugin.parcelize")
 }
 
 version = "1.0-SNAPSHOT"
@@ -14,7 +15,7 @@ kotlin {
 
     ios()
 
-    iosSimulatorArm64()
+//    iosSimulatorArm64() todo redux doesnt work
 
     cocoapods {
         summary = "Shared Code"
@@ -37,27 +38,29 @@ kotlin {
                 implementation(compose.material)
                 implementation(compose.runtime)
 
-                implementation(libs.odyssey.core)
-                implementation(libs.odyssey.compose)
+                // app
+                implementation(libs.uuid)
+                implementation(libs.parcelize)
+                implementation(libs.serialization)
+                implementation(libs.koin.core)
 
-                implementation(libs.kviewmodel.core)
-                implementation(libs.kviewmodel.compose)
-                implementation(libs.kviewmodel.odyssey)
+                //utils
+                implementation(libs.datetime)
+                implementation(libs.redux)
+                implementation(libs.logger)
 
                 implementation(libs.kodein)
-                implementation(libs.libres.compose)
-                implementation(libs.kotlin.serialization)
-                implementation(libs.kotlin.datetime)
             }
         }
 
         val androidMain by getting {
             dependencies {
+                implementation(libs.koin.android)
                 implementation("com.google.android.material:material:1.8.0")
             }
         }
         val iosMain by getting { dependencies {} }
-        val iosSimulatorArm64Main by getting { dependsOn(iosMain) }
+//        val iosSimulatorArm64Main by getting { dependsOn(iosMain) } todo redux doesnt work
     }
 
     kotlin.sourceSets.all {
