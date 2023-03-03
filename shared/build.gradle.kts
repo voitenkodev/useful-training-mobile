@@ -66,6 +66,10 @@ kotlin {
         languageSettings.optIn("androidx.compose.ui.ExperimentalComposeUiApi")
         languageSettings.optIn("androidx.compose.material.ExperimentalMaterialApi")
         languageSettings.optIn("androidx.compose.ui.unit.ExperimentalMaterialApi")
+        languageSettings.optIn("kotlinx.coroutines.ExperimentalCoroutinesApi")
+        languageSettings.optIn("androidx.compose.ui.unit.ExperimentalUnitApi")
+        languageSettings.optIn("androidx.compose.animation.ExperimentalAnimationApi")
+        languageSettings.optIn("kotlin.time.ExperimentalTime")
     }
 }
 
