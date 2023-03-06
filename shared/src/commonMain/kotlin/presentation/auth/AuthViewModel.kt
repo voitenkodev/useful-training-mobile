@@ -2,17 +2,25 @@ package presentation.auth
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
+import data.repository.AuthRepository
+import globalKoin
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import navigation.NavigatorCore
 import utils.ViewModel
 
 internal class AuthViewModel(private val navigator: NavigatorCore) : ViewModel() {
 
+//    private val api = globalKoin().get<AuthRepository>()
+
     private val _state = mutableStateOf(AuthState())
     val state: State<AuthState> = _state
 
     fun login(email: String, password: String) = viewModelScope.launch {
-        _state.value = state.value.validate()
+//        _state.value = state.value.validate()
 //        api.login(email, password)
 //            .onStart {
 ////                dispatcher(AuthAction.Loading(true))

@@ -48,8 +48,8 @@ kotlin {
                 implementation(libs.datetime)
                 implementation(libs.logger)
 
-                implementation("com.adeo:kviewmodel:0.13")
-                implementation("com.adeo:kviewmodel-compose:0.13")
+                implementation("dev.gitlive:firebase-auth:1.6.2")
+                implementation("dev.gitlive:firebase-firestore:1.6.2")
             }
         }
 
@@ -86,7 +86,7 @@ android {
     compileSdk = 33
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
 
-    namespace = "com.voitenko.UsefulTraining"
+    namespace = "com.voitenko.usefultraining"
 
     defaultConfig {
         minSdk = 24

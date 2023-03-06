@@ -28,5 +28,4 @@ internal abstract class ViewModel {
     public companion object {
         private const val MAIN_JOB_KEY = "main.viewmodel.shared.coroutine.job"
     }
-
 }

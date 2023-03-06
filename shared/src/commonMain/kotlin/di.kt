@@ -14,7 +14,7 @@ internal fun initCommonKoin(
     appDeclaration: KoinAppDeclaration = {},
 ) = KoinPlatformTools.defaultContext().startKoin {
     appDeclaration()
-//    modules(appModule)
+    modules(appModule)
 }
 
 internal fun globalKoin() = KoinPlatformTools.defaultContext().get()
