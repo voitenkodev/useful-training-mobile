@@ -48,7 +48,8 @@ kotlin {
                 implementation(libs.datetime)
                 implementation(libs.logger)
 
-                implementation(libs.kodein)
+                implementation("com.adeo:kviewmodel:0.13")
+                implementation("com.adeo:kviewmodel-compose:0.13")
             }
         }
 

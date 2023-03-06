@@ -1,25 +1,16 @@
 package presentation.auth
 
-import androidx.compose.animation.animateContentSize
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import design.Design
@@ -29,16 +20,13 @@ import design.components.buttons.QuestionButton
 import design.components.inputs.InputEmail
 import design.components.inputs.InputPassword
 import design.controls.ButtonPrimary
-import design.controls.TextField
 import design.controls.TextFieldH1
 import design.controls.TextFieldH2
 
 @Composable
-internal fun AuthContent(
-    vm: AuthViewModel
-) {
+internal fun AuthContent(vm: AuthViewModel) {
 
-    val state by vm.state.collectAsState()
+    val state by vm.state
 
     Column(
         modifier = Modifier.padding(horizontal = Design.dp.padding),
@@ -60,16 +48,10 @@ internal fun AuthContent(
             color = Design.colors.caption
         )
 
-        val email = remember { mutableStateOf("") }
-//        BasicTextField(
-//            modifier = Modifier.fillMaxWidth().height(56.dp).background(Color.Cyan),
-//            value = email.value,
-//            onValueChange = { email.value = it })
-
         InputEmail(
             modifier = Modifier.fillMaxWidth(),
-            value = email.value,
-            onValueChange ={ email.value = it }
+            value = state.email,
+            onValueChange = vm::updateEmail
         )
 
         InputPassword(

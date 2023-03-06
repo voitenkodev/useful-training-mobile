@@ -1,28 +1,18 @@
 package presentation.auth
 
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
 import kotlinx.coroutines.launch
 import navigation.NavigatorCore
 import utils.ViewModel
 
-internal class AuthViewModel(
-    private val navigator: NavigatorCore,
-) : ViewModel() {
+internal class AuthViewModel(private val navigator: NavigatorCore) : ViewModel() {
 
-    private val _state = MutableStateFlow(AuthState())
-    val state = _state
+    private val _state = mutableStateOf(AuthState())
+    val state: State<AuthState> = _state
 
-    init {
-        viewModelScope.launch {
-//            if (api.isAuthorized) navigator.navigate(Graph.Trainings.link, true)
-        }
-    }
-
-    fun login(
-        email: String,
-        password: String,
-    ) = viewModelScope.launch {
+    fun login(email: String, password: String) = viewModelScope.launch {
+        _state.value = state.value.validate()
 //        api.login(email, password)
 //            .onStart {
 ////                dispatcher(AuthAction.Loading(true))
@@ -69,19 +59,19 @@ internal class AuthViewModel(
         _state.value = state.value.copy(password = value)
     }
 
-    fun validate(): AuthState {
+    private fun AuthState.validate(): AuthState {
         val emailAddressRegex = Regex(
             "[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" +
                     "\\@" +
                     "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" +
                     "(" +
                     "\\." +
-                    "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}" +
-                    ")+"
+                    "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}"
+                    + ")+"
         )
 
-        val newEmail = state.value.email.trim()
-        val newPassword = state.value.password.trim()
+        val newEmail = this.email.trim()
+        val newPassword = this.password.trim()
 
         val isEmailValid = newEmail.matches(emailAddressRegex)
         val isPasswordValid = newPassword.length > 5
@@ -90,6 +80,6 @@ internal class AuthViewModel(
         else if (isPasswordValid.not()) "Invalid password field"
         else null
 
-        return state.value.copy(email = newEmail, password = newPassword, error = newError)
+        return this.copy(email = newEmail, password = newPassword, error = newError)
     }
 }

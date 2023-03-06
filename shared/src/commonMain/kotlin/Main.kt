@@ -28,6 +28,7 @@ internal fun Main(
                     factory = { AuthViewModel(navigator) },
                     clear = { (it as? AuthViewModel)?.clear() }
                 )
+
                 AuthContent(viewModel)
             }
 
