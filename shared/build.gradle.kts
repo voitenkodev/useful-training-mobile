@@ -15,7 +15,7 @@ kotlin {
 
     ios()
 
-//    iosSimulatorArm64() todo redux doesnt work
+    iosSimulatorArm64()
 
     cocoapods {
         summary = "Shared Code"
@@ -46,7 +46,6 @@ kotlin {
 
                 //utils
                 implementation(libs.datetime)
-                implementation(libs.redux)
                 implementation(libs.logger)
 
                 implementation(libs.kodein)

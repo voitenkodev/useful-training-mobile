@@ -15,16 +15,16 @@ import kotlin.coroutines.CoroutineContext
 internal class TrainingRepositoryImpl(
     private val authSource: AuthProtocol,
     private val trainingSource: TrainingProtocol,
-    private val dispatcher: CoroutineContext
+//    private val dispatcher: CoroutineContext
 ) : TrainingRepository {
 
     override suspend fun getShortTrainings(): Flow<List<ShortTrainingDto>> = trainingSource
         .getShortTrainings(userId = authSource.userDto?.uid)
-        .flowOn(dispatcher)
+        //.flowOn(dispatcher)
 
     override suspend fun getTrainings(): Flow<List<TrainingDto>> = trainingSource
         .getTrainings(userId = authSource.userDto?.uid)
-        .flowOn(dispatcher)
+        //.flowOn(dispatcher)
 
     override suspend fun setTraining(trainingDto: TrainingDto): Flow<TrainingDto> {
         val id = trainingDto.id ?: uuid4().toString()
@@ -42,7 +42,7 @@ internal class TrainingRepositoryImpl(
                 )
             ) { _, _ -> }
             .map { trainingDto.copy(id = id) }
-            .flowOn(dispatcher)
+         //   .flowOn(dispatcher)
     }
 
     override suspend fun removeTraining(trainingId: String): Flow<Unit> = trainingSource
@@ -55,5 +55,5 @@ internal class TrainingRepositoryImpl(
                 trainingId = trainingId
             )
         ) { _, _ -> }
-        .flowOn(dispatcher)
+        //.flowOn(dispatcher)
 }

@@ -8,14 +8,14 @@ import kotlin.coroutines.CoroutineContext
 
 internal class AuthRepositoryImpl(
     private val authSource: AuthProtocol,
-    private val dispatcher: CoroutineContext
+//    private val dispatcher: CoroutineContext
 ) : AuthRepository {
 
-    override fun login(email: String, password: String): Flow<UserDto> = authSource.login(email, password).flowOn(dispatcher)
+    override fun login(email: String, password: String): Flow<UserDto> = authSource.login(email, password) // .flowOn(dispatcher)
 
-    override fun registration(email: String, password: String): Flow<UserDto> = authSource.registration(email, password).flowOn(dispatcher)
+    override fun registration(email: String, password: String): Flow<UserDto> = authSource.registration(email, password) // .flowOn(dispatcher)
 
-    override fun logout(): Flow<Unit> = authSource.logout().flowOn(dispatcher)
+    override fun logout(): Flow<Unit> = authSource.logout() // .flowOn(dispatcher)
 
     override val isAuthorized: Boolean = authSource.isAuthorized
 

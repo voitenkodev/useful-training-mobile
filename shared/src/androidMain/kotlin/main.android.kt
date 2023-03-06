@@ -3,5 +3,5 @@ import androidx.compose.runtime.Composable
 
 @Composable
 fun MainView(activity: ComponentActivity) {
-
+    Main {}
 }
