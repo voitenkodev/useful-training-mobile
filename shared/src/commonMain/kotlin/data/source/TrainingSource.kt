@@ -1,14 +1,11 @@
+package data.source
+
 import data.dto.ShortTrainingDto
 import data.dto.TrainingDto
-import data.dto.UserDto
-import data.source.AuthProtocol
-import data.source.TrainingProtocol
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import kotlin.coroutines.CoroutineContext
 
-internal actual class TrainingSource : TrainingProtocol {
+internal class TrainingSource : TrainingProtocol {
     override suspend fun setTraining(
         userId: String?,
         trainingId: String,

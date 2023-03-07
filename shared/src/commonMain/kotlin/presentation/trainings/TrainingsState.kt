@@ -1,8 +1,5 @@
 package presentation.trainings
 
-import Action
-import GlobalState
-import ReduxGroups
 import androidx.compose.runtime.Stable
 import dev.icerock.moko.parcelize.Parcelable
 import dev.icerock.moko.parcelize.Parcelize
@@ -33,7 +30,7 @@ internal data class WeekInfo(
     val trainingWeekDays: List<String>,
 ) : Parcelable
 
-internal sealed class TrainingsAction : Action(ReduxGroups.TRAININGS) {
+internal sealed class TrainingsAction {
 
     data class FetchTrainings(val trainings: List<Training>) : TrainingsAction()
 

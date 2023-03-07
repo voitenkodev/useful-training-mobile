@@ -3,8 +3,9 @@ import data.repository.AuthRepositoryImpl
 import data.repository.TrainingRepository
 import data.repository.TrainingRepositoryImpl
 import data.source.AuthProtocol
+import data.source.AuthSource
 import data.source.TrainingProtocol
-import org.koin.core.qualifier.named
+import data.source.TrainingSource
 import org.koin.dsl.KoinAppDeclaration
 import org.koin.dsl.bind
 import org.koin.dsl.module

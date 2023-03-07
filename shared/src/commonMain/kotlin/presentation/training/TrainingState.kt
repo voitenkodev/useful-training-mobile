@@ -1,8 +1,5 @@
 package presentation.training
 
-import Action
-import GlobalState
-import ReduxGroups
 import androidx.compose.runtime.Stable
 import com.benasher44.uuid.uuid4
 import dev.icerock.moko.parcelize.Parcelable
@@ -73,7 +70,7 @@ internal data class Training(
     }
 }
 
-internal sealed class TrainingAction : Action(ReduxGroups.TRAINING) {
+internal sealed class TrainingAction {
 
     data class PutTrainingAction(val training: Training) : TrainingAction()
 

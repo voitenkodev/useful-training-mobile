@@ -1,7 +1,5 @@
 package presentation.review
 
-import Action
-import ReduxGroups
 import androidx.compose.runtime.Stable
 import dev.icerock.moko.parcelize.Parcelable
 import dev.icerock.moko.parcelize.Parcelize
@@ -20,7 +18,7 @@ internal data class ReviewState(
     val removeTrainingId: String? = null,
 ) : Parcelable
 
-internal sealed class ReviewAction : Action(ReduxGroups.REVIEW) {
+internal sealed class ReviewAction {
 
     data class FetchTrainings(val selected: Training) : ReviewAction()
 

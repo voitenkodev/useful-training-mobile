@@ -47,9 +47,6 @@ kotlin {
                 //utils
                 implementation(libs.datetime)
                 implementation(libs.logger)
-
-                implementation("dev.gitlive:firebase-auth:1.6.2")
-                implementation("dev.gitlive:firebase-firestore:1.6.2")
             }
         }
 
@@ -60,7 +57,7 @@ kotlin {
             }
         }
         val iosMain by getting { dependencies {} }
-//        val iosSimulatorArm64Main by getting { dependsOn(iosMain) } todo redux doesnt work
+        val iosSimulatorArm64Main by getting { dependsOn(iosMain) }
     }
 
     kotlin.sourceSets.all {
