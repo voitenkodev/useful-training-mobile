@@ -1,11 +1,11 @@
 package data.mapping
 
-import data.dto.TrainingDto
+import data.dto.TrainingBody
 import presentation.training.Training
 
-internal fun List<TrainingDto?>.toTrainingStateList() = this.mapNotNull { it?.toTrainingState() }
+internal fun List<TrainingBody?>.toTrainingStateList() = this.mapNotNull { it?.toTrainingState() }
 
-internal fun TrainingDto.toTrainingState() = Training(
+internal fun TrainingBody.toTrainingState() = Training(
     id = id.toString(),
     exercises = exercises.map {
         Training.Exercise(

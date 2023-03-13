@@ -1,16 +1,7 @@
 package data.repository
 
-import com.benasher44.uuid.uuid4
-import data.dto.ShortTrainingDto
-import data.dto.TrainingDto
-import data.mapping.toShortTraining
 import data.source.AuthProtocol
 import data.source.TrainingProtocol
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.map
-import kotlin.coroutines.CoroutineContext
 
 internal class TrainingRepositoryImpl(
     private val authSource: AuthProtocol,

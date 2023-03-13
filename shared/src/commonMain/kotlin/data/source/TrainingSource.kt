@@ -1,34 +1,32 @@
 package data.source
 
-import data.dto.ShortTrainingDto
-import data.dto.TrainingDto
+import data.dto.TrainingBody
 import io.ktor.client.HttpClient
+import io.ktor.client.call.body
+import io.ktor.client.request.post
+import io.ktor.client.request.setBody
+import io.ktor.http.path
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
 internal class TrainingSource(private val client: HttpClient) : TrainingProtocol {
 
-    override suspend fun setTraining(
-        userId: String?,
-        trainingId: String,
-        trainingDto: TrainingDto
-    ): Flow<Unit> = flow { emit(Unit) }
+    override suspend fun setTraining(userId: String?, training: TrainingBody): Flow<Unit> = flow {
+        val result = client.post {
+            url {
+                path("/training")
+                setBody(training)
+            }
+        }
+        emit(Unit)
+    }
 
-    override suspend fun removeTraining(userId: String?, trainingId: String): Flow<Unit> = flow { emit(Unit) }
-
-    override suspend fun removeShortTraining(userId: String?, trainingId: String): Flow<Unit> = flow { emit(Unit) }
-
-    override suspend fun getTrainings(
-        userId: String?,
-    ): Flow<List<TrainingDto>> = flow { emit(emptyList()) }
-
-    override suspend fun getShortTrainings(
-        userId: String?,
-    ): Flow<List<ShortTrainingDto>> = flow { emit(emptyList()) }
-
-    override suspend fun setShortTraining(
-        userId: String?,
-        trainingId: String,
-        training: ShortTrainingDto
-    ): Flow<Unit> = flow { emit(Unit) }
+    override suspend fun getTrainings(userId: String?): Flow<List<TrainingBody>> = flow {
+        val result = client.post {
+            url {
+                path("/trainings")
+            }
+        }
+        emit(result.body())
+    }
 }

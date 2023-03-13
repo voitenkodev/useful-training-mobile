@@ -1,9 +1,5 @@
 package data.repository
 
-import data.dto.ShortTrainingDto
-import data.dto.TrainingDto
-import kotlinx.coroutines.flow.Flow
-
 internal interface TrainingRepository {
 //    suspend fun getShortTrainings(): Flow<List<ShortTrainingDto>>
 //    suspend fun getTrainings(): Flow<List<TrainingDto>>

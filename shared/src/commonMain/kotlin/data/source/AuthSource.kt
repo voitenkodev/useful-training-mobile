@@ -32,10 +32,6 @@ internal class AuthSource(private val client: HttpClient) : AuthProtocol {
         emit(result.body())
     }
 
-//    override fun registration(email: String, password: String): Flow<UserDto> = flow {
-//        emit(UserDto(uid = "123", displayName = "Test Name", email = "example@com.dev"))
-//    }
-//
 //    override fun logout(): Flow<Unit> = flow { emit(Unit) }
 //
 //    override val isAuthorized: Boolean = true
