@@ -2,10 +2,12 @@ package data.source
 
 import data.dto.ShortTrainingDto
 import data.dto.TrainingDto
+import io.ktor.client.HttpClient
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
-internal class TrainingSource : TrainingProtocol {
+internal class TrainingSource(private val client: HttpClient) : TrainingProtocol {
+
     override suspend fun setTraining(
         userId: String?,
         trainingId: String,

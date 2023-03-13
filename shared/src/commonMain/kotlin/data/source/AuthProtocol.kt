@@ -1,17 +1,17 @@
 package data.source
 
-import data.dto.UserDto
+import data.dto.AuthResponse
 import kotlinx.coroutines.flow.Flow
 
 internal interface AuthProtocol {
 
-    fun login(email: String, password: String): Flow<UserDto>
+    fun login(email: String, password: String): Flow<AuthResponse>
 
-    fun registration(email: String, password: String): Flow<UserDto>
+    fun registration(email: String, password: String): Flow<AuthResponse>
 
-    fun logout(): Flow<Unit>
+//    fun logout(): Flow<Unit>
 
-    val isAuthorized: Boolean
+//    val isAuthorized: Boolean
 
-    val userDto: UserDto?
+//    val userDto: UserDto?
 }

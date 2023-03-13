@@ -47,6 +47,11 @@ kotlin {
                 //utils
                 implementation(libs.datetime)
                 implementation(libs.logger)
+
+                implementation(libs.ktor.core)
+                implementation(libs.ktor.logging)
+                implementation(libs.ktor.serialization)
+                implementation(libs.ktor.negotiation)
             }
         }
 
@@ -54,9 +59,14 @@ kotlin {
             dependencies {
                 implementation(libs.koin.android)
                 implementation("com.google.android.material:material:1.8.0")
+                implementation(libs.ktor.okhttp)
             }
         }
-        val iosMain by getting { dependencies {} }
+        val iosMain by getting {
+            dependencies {
+                implementation(libs.ktor.darwin)
+            }
+        }
         val iosSimulatorArm64Main by getting { dependsOn(iosMain) }
     }
 

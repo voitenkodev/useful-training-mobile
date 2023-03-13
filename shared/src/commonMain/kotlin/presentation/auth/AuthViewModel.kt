@@ -2,9 +2,17 @@ package presentation.auth
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
+import data.dto.AuthBody
+import data.dto.AuthResponse
 import data.repository.AuthRepository
 import globalKoin
+import io.ktor.client.call.body
+import io.ktor.client.request.get
+import io.ktor.client.request.setBody
+import io.ktor.http.path
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
@@ -14,24 +22,24 @@ import utils.ViewModel
 
 internal class AuthViewModel(private val navigator: NavigatorCore) : ViewModel() {
 
-//    private val api = globalKoin().get<AuthRepository>()
+    private val api = globalKoin().get<AuthRepository>()
 
     private val _state = mutableStateOf(AuthState())
     val state: State<AuthState> = _state
 
     fun login(email: String, password: String) = viewModelScope.launch {
-//        _state.value = state.value.validate()
-//        api.login(email, password)
-//            .onStart {
-////                dispatcher(AuthAction.Loading(true))
-//            }.onEach {
-////                dispatcher(AuthAction.Loading(false))
-////                dispatcher(AuthAction.Error(null))
-////                navigator.navigate(Graph.Trainings.link, true)
-//            }.catch {
-////                dispatcher(AuthAction.Loading(false))
-////                dispatcher(AuthAction.Error(it.message))
-//            }.launchIn(this)
+        _state.value = state.value.validate()
+        api.login(email, password)
+            .onStart {
+//                dispatcher(AuthAction.Loading(true))
+            }.onEach {
+//                dispatcher(AuthAction.Loading(false))
+//                dispatcher(AuthAction.Error(null))
+//                navigator.navigate(Graph.Trainings.link, true)
+            }.catch {
+//                dispatcher(AuthAction.Loading(false))
+//                dispatcher(AuthAction.Error(it.message))
+            }.launchIn(this)
     }
 
     fun registration(
