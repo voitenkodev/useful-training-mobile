@@ -1,18 +1,11 @@
 package presentation.auth
 
+import Graph
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
-import data.dto.AuthBody
-import data.dto.AuthResponse
 import data.repository.AuthRepository
 import globalKoin
-import io.ktor.client.call.body
-import io.ktor.client.request.get
-import io.ktor.client.request.setBody
-import io.ktor.http.path
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
@@ -31,32 +24,25 @@ internal class AuthViewModel(private val navigator: NavigatorCore) : ViewModel()
         _state.value = state.value.validate()
         api.login(email, password)
             .onStart {
-//                dispatcher(AuthAction.Loading(true))
+                _state.value = state.value.copy(loading = true)
             }.onEach {
-//                dispatcher(AuthAction.Loading(false))
-//                dispatcher(AuthAction.Error(null))
-//                navigator.navigate(Graph.Trainings.link, true)
+                _state.value = state.value.copy(loading = false, error = null)
+                navigator.navigate(Graph.Trainings.link, true)
             }.catch {
-//                dispatcher(AuthAction.Loading(false))
-//                dispatcher(AuthAction.Error(it.message))
+                _state.value = state.value.copy(loading = false, error = it.message)
             }.launchIn(this)
     }
 
-    fun registration(
-        email: String,
-        password: String,
-    ) = viewModelScope.launch {
-//        api.registration(email, password)
-//            .onStart {
-////                dispatcher(AuthAction.Loading(true))
-//            }.onEach {
-////                dispatcher(AuthAction.Loading(false))
-////                dispatcher(AuthAction.Error(null))
-//                navigator.navigate(Graph.Trainings.link, true)
-//            }.catch {
-////                dispatcher(AuthAction.Loading(false))
-////                dispatcher(AuthAction.Error(it.message))
-//            }.launchIn(this)
+    fun registration(email: String, password: String) = viewModelScope.launch {
+        api.registration(email, password)
+            .onStart {
+                _state.value = state.value.copy(loading = true)
+            }.onEach {
+                _state.value = state.value.copy(loading = false, error = null)
+                navigator.navigate(Graph.Trainings.link, true)
+            }.catch {
+                _state.value = state.value.copy(loading = false, error = it.message)
+            }.launchIn(this)
     }
 
     fun back() {
