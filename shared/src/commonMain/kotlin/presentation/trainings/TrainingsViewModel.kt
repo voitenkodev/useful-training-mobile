@@ -4,8 +4,10 @@ import Graph
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import data.mapping.toTrainingStateList
-import data.repository.TrainingRepository
-import globalKoin
+import data.repository.TrainingRepositoryImpl
+import data.source.AuthSource
+import data.source.Client
+import data.source.TrainingSource
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
@@ -21,7 +23,7 @@ internal class TrainingsViewModel(private val navigator: NavigatorCore) : ViewMo
     private val _state = mutableStateOf(TrainingsState())
     val state: State<TrainingsState> = _state
 
-    private val api = globalKoin().get<TrainingRepository>()
+    private val api = TrainingRepositoryImpl(AuthSource(Client.address()), TrainingSource(Client.address()))
 
     fun fetchTrainings() = viewModelScope.launch {
         api.getTrainings().onStart {

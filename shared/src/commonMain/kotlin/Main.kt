@@ -24,15 +24,12 @@ internal fun Main(
                 key = Graph.Auth.link,
                 animation = Animation.Present(500)
             ) { store ->
-
                 val navigator = findNavigator()
-
                 val viewModel = store.getOrCreate(
                     key = Graph.Auth.link,
                     factory = { AuthViewModel(navigator) },
                     clear = { (it as? AuthViewModel)?.clear() }
                 )
-
                 AuthContent(viewModel)
             }
 
@@ -40,15 +37,12 @@ internal fun Main(
                 key = Graph.Trainings.link,
                 animation = Animation.Present(500)
             ) { store ->
-
                 val navigator = findNavigator()
-
                 val viewModel = store.getOrCreate(
                     key = Graph.Trainings.link,
                     factory = { TrainingsViewModel(navigator) },
                     clear = { (it as? TrainingsViewModel)?.clear() }
                 )
-
                 TrainingsContent(viewModel)
             }
 
@@ -56,15 +50,12 @@ internal fun Main(
                 key = Graph.Training.link,
                 animation = Animation.Push(300)
             ) { store ->
-
                 val navigator = findNavigator()
-
                 val viewModel = store.getOrCreate(
                     key = Graph.Training.link,
                     factory = { TrainingViewModel(navigator) },
                     clear = { (it as? TrainingViewModel)?.clear() }
                 )
-
                 TrainingContent(viewModel)
             }
         }
@@ -85,11 +76,9 @@ internal fun Main(
 //
 //                    ReviewContent(viewModel)
 //                }
-
 //
     }
 }
-
 
 internal enum class Graph(val link: String) {
     Auth("auth_screen"),

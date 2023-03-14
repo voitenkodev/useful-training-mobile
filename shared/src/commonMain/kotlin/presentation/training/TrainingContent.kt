@@ -23,7 +23,6 @@ import design.components.items.EditExerciseItem
 import design.controls.TextFieldH2
 import design.controls.dashedBorder
 
-
 @Composable
 internal fun TrainingContent(vm: TrainingViewModel) {
 
@@ -127,4 +126,5 @@ private fun NewExercise(
             text = "Add Exercise",
             color = Design.colors.accent_secondary
         )
-    })
+    }
+)

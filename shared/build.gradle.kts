@@ -42,7 +42,6 @@ kotlin {
                 implementation(libs.uuid)
                 implementation(libs.parcelize)
                 implementation(libs.serialization)
-                implementation(libs.koin.core)
 
                 //utils
                 implementation(libs.datetime)
@@ -57,7 +56,6 @@ kotlin {
 
         val androidMain by getting {
             dependencies {
-                implementation(libs.koin.android)
                 implementation("com.google.android.material:material:1.8.0")
                 implementation(libs.ktor.okhttp)
             }

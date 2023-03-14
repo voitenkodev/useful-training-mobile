@@ -29,34 +29,3 @@ internal data class WeekInfo(
     val intensity: Double,
     val trainingWeekDays: List<String>,
 ) : Parcelable
-
-internal sealed class TrainingsAction {
-
-    data class FetchTrainings(val trainings: List<Training>) : TrainingsAction()
-
-    data class Error(val message: String? = null) : TrainingsAction()
-
-    data class Loading(val value: Boolean) : TrainingsAction()
-}
-//internal val trainingsReducer: ReducerForActionType<TrainingsState, GlobalState, TrainingsAction> = { state, _, action ->
-//    when (action) {
-//        is TrainingsAction.FetchTrainings -> state.fetchTrainings(action)
-//        is TrainingsAction.Error -> state.copy(error = action.message)
-//        is TrainingsAction.Loading -> state.copy(loading = action.value)
-//    }
-//}
-
-private fun TrainingsState.fetchTrainings(action: TrainingsAction.FetchTrainings) = copy(
-    trainings = action.trainings,
-    weekTrainings = action.trainings.groupBy { it.endOfWeek }.mapKeys { item ->
-        val startDate = item.value.firstOrNull()?.startOfWeek
-        val endDate = item.value.firstOrNull()?.endOfWeek
-        WeekInfo(
-            startWeekDate = startDate ?: "",
-            endWeekDate = endDate ?: "",
-            tonnage = item.value.mapNotNull { it.tonnage }.sum(),
-            intensity = item.value.mapNotNull { it.intensity }.sum() / item.value.size,
-            trainingWeekDays = item.value.map { it.weekDay }
-        )
-    }
-)

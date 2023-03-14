@@ -4,16 +4,16 @@ import Graph
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import data.mapping.toBody
-import data.mapping.toTrainingState
-import data.repository.TrainingRepository
-import globalKoin
+import data.repository.TrainingRepositoryImpl
+import data.source.AuthSource
+import data.source.Client
+import data.source.TrainingSource
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import navigation.NavigatorCore
-import presentation.review.ReviewAction
 import utils.DateTimeKtx
 import utils.ViewModel
 
@@ -22,7 +22,7 @@ internal class TrainingViewModel(private val navigator: NavigatorCore) : ViewMod
     private val _state = mutableStateOf(TrainingState())
     val state: State<TrainingState> = _state
 
-    private val api = globalKoin().get<TrainingRepository>()
+    private val api = TrainingRepositoryImpl(AuthSource(Client.address()), TrainingSource(Client.address()))
 
     fun saveTraining(training: Training) = viewModelScope.launch {
         if (training.exercises.isEmpty()) {
@@ -55,7 +55,7 @@ internal class TrainingViewModel(private val navigator: NavigatorCore) : ViewMod
         _state.value = state.value.copy(error = null)
     }
 
-    fun showError(message: String) {
+    private fun showError(message: String) {
         _state.value = state.value.copy(error = message)
     }
 
@@ -117,7 +117,6 @@ internal class TrainingViewModel(private val navigator: NavigatorCore) : ViewMod
         _state.value = state.value.copy(training = training)
     }
 
-
     private fun Training.setNameOfExercise(id: String, name: String): Training {
         return this.copy(exercises = this.exercises.map {
             if (it.id == id) {
@@ -168,7 +167,7 @@ internal class TrainingViewModel(private val navigator: NavigatorCore) : ViewMod
         return this.copy(exercises = newExercises)
     }
 
-    fun Training.validate(): Training {
+    private fun Training.validate(): Training {
         val exercises = exercises.mapNotNull {
             val isNameValid = it.name.isNotBlank()
             val iterations = it.iterations.filter { iteration ->
@@ -184,7 +183,7 @@ internal class TrainingViewModel(private val navigator: NavigatorCore) : ViewMod
         return this.copy(exercises = exercises)
     }
 
-    fun Training.calculateValues(): Training {
+    private fun Training.calculateValues(): Training {
         fun Double.round(decimals: Int): Double {
             var multiplier = 1.0
             repeat(decimals) { multiplier *= 10 }
@@ -218,7 +217,7 @@ internal class TrainingViewModel(private val navigator: NavigatorCore) : ViewMod
         )
     }
 
-    fun Training.calculateDuration(): Training {
+    private fun Training.calculateDuration(): Training {
         return if (duration == null) this.copy(duration = DateTimeKtx.durationFrom(this.startDateTime))
         else this
     }
@@ -233,7 +232,7 @@ internal class TrainingViewModel(private val navigator: NavigatorCore) : ViewMod
         )
     }
 
-    fun Training.provideEmptyIteration(exerciseId: String): Training {
+    private fun Training.provideEmptyIteration(exerciseId: String): Training {
         val exercise = this.exercises.find { it.id == exerciseId } ?: return this
         val lastIsNotEmpty = exercise.iterations.lastOrNull()?.weight != "" || exercise.iterations.lastOrNull()?.repeat != ""
         if (lastIsNotEmpty.not()) return this
