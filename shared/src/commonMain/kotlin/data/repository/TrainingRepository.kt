@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.Flow
 internal interface TrainingRepository {
     suspend fun getTrainings(): Flow<List<TrainingBody>>
 
-//    suspend fun setTraining(trainingDto: TrainingDto): Flow<TrainingDto>
+    suspend fun setTraining(training: TrainingBody): Flow<TrainingBody>
+
 //    suspend fun removeTraining(trainingId: String): Flow<Unit>
 }

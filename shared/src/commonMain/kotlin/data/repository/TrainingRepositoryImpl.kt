@@ -12,26 +12,13 @@ internal class TrainingRepositoryImpl(
 
     override suspend fun getTrainings(): Flow<List<TrainingBody>> = trainingSource
         .getTrainings(userId = "e86eedac-5bfc-4f25-9dc9-f83148fdb7f0")
-//
-//    override suspend fun setTraining(trainingDto: TrainingDto): Flow<TrainingDto> {
-//        val id = trainingDto.id ?: uuid4().toString()
-//
-//        return trainingSource
-//            .setTraining(
-//                userId = authSource.userDto?.uid,
-//                trainingId = id,
-//                trainingDto = trainingDto
-//            ).combine(
-//                trainingSource.setShortTraining(
-//                    authSource.userDto?.uid,
-//                    trainingId = id,
-//                    training = trainingDto.toShortTraining()
-//                )
-//            ) { _, _ -> }
-//            .map { trainingDto.copy(id = id) }
-//         //   .flowOn(dispatcher)
-//    }
-//
+
+    override suspend fun setTraining(training: TrainingBody): Flow<TrainingBody> = trainingSource
+        .setTraining(
+            userId = "e86eedac-5bfc-4f25-9dc9-f83148fdb7f0",
+            training = training
+        )
+
 //    override suspend fun removeTraining(trainingId: String): Flow<Unit> = trainingSource
 //        .removeTraining(
 //            userId = authSource.userDto?.uid,
