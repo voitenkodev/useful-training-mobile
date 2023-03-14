@@ -3,6 +3,8 @@ package data.source
 import data.dto.TrainingBody
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
+import io.ktor.client.request.get
+import io.ktor.client.request.header
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
 import io.ktor.http.path
@@ -22,9 +24,10 @@ internal class TrainingSource(private val client: HttpClient) : TrainingProtocol
     }
 
     override suspend fun getTrainings(userId: String?): Flow<List<TrainingBody>> = flow {
-        val result = client.post {
+        val result = client.get {
             url {
                 path("/trainings")
+                header("Authorization", "Bearer $userId")
             }
         }
         emit(result.body())

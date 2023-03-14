@@ -6,6 +6,8 @@ import navigation.RootController
 import navigation.findNavigator
 import presentation.auth.AuthContent
 import presentation.auth.AuthViewModel
+import presentation.trainings.TrainingsContent
+import presentation.trainings.TrainingsViewModel
 
 @Composable
 internal fun Main(
@@ -32,6 +34,22 @@ internal fun Main(
                 AuthContent(viewModel)
             }
 
+            screen(
+                key = Graph.Trainings.link,
+                animation = Animation.Present(500)
+            ) { store ->
+
+                val navigator = findNavigator()
+
+                val viewModel = store.getOrCreate(
+                    key = Graph.Trainings.link,
+                    factory = { TrainingsViewModel(navigator) },
+                    clear = { (it as? TrainingsViewModel)?.clear() }
+                )
+
+                TrainingsContent(viewModel)
+            }
+        }
 //                screen(
 //                    key = Graph.Review.link,
 //                    animation = Animation.Present(500)
@@ -66,26 +84,9 @@ internal fun Main(
 //                    TrainingContent(viewModel)
 //                }
 //
-//                screen(
-//                    key = Graph.Trainings.link,
-//                    animation = Animation.Present(500)
-//                ) { store ->
-//
-//                    val navigator = findNavigator()
-//                    val dispatcher = rememberDispatcher()
-//
-//                    val viewModel = store.getOrCreate(
-//                        key = Graph.Trainings.link,
-//                        factory = { TrainingsViewModel(dispatcher, navigator) },
-//                        clear = { (it as? TrainingsViewModel)?.clear() }
-//                    )
-//
-//                    TrainingsContent(viewModel)
-//                }
-//            }
-        }
     }
 }
+
 
 internal enum class Graph(val link: String) {
     Auth("auth_screen"),

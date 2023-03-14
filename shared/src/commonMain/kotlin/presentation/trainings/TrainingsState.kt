@@ -38,7 +38,6 @@ internal sealed class TrainingsAction {
 
     data class Loading(val value: Boolean) : TrainingsAction()
 }
-
 //internal val trainingsReducer: ReducerForActionType<TrainingsState, GlobalState, TrainingsAction> = { state, _, action ->
 //    when (action) {
 //        is TrainingsAction.FetchTrainings -> state.fetchTrainings(action)
