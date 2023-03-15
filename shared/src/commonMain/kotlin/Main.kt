@@ -6,6 +6,8 @@ import navigation.RootController
 import navigation.findNavigator
 import presentation.auth.AuthContent
 import presentation.auth.AuthViewModel
+import presentation.review.ReviewContent
+import presentation.review.ReviewViewModel
 import presentation.training.TrainingContent
 import presentation.training.TrainingViewModel
 import presentation.trainings.TrainingsContent
@@ -58,25 +60,23 @@ internal fun Main(
                 )
                 TrainingContent(viewModel)
             }
-        }
 
-//                screen(
-//                    key = Graph.Review.link,
-//                    animation = Animation.Present(500)
-//                ) { store ->
-//
-//                    val navigator = findNavigator()
-//                    val dispatcher = rememberDispatcher()
-//
-//                    val viewModel = store.getOrCreate(
-//                        key = Graph.Review.link,
-//                        factory = { ReviewViewModel(dispatcher, navigator) },
-//                        clear = { (it as? ReviewViewModel)?.clear() }
-//                    )
-//
-//                    ReviewContent(viewModel)
-//                }
-//
+            screen(
+                key = Graph.Review.link,
+                animation = Animation.Present(500)
+            ) { store ->
+
+                val navigator = findNavigator()
+
+                val viewModel = store.getOrCreate(
+                    key = Graph.Review.link,
+                    factory = { ReviewViewModel(navigator) },
+                    clear = { (it as? ReviewViewModel)?.clear() }
+                )
+
+                ReviewContent(viewModel)
+            }
+        }
     }
 }
 

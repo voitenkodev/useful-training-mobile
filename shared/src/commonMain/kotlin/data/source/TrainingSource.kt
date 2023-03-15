@@ -33,4 +33,18 @@ internal class TrainingSource(private val client: HttpClient) : TrainingProtocol
         }
         emit(result.body())
     }
+
+    override suspend fun getTraining(userId: String?, trainingId: String): Flow<TrainingBody> = flow {
+        val result = client.get {
+            url {
+                path("/training/$trainingId")
+                header("Authorization", "Bearer $userId")
+            }
+        }
+        emit(result.body())
+    }
+
+    override suspend fun deleteTraining(userId: String?, trainingId: String): Flow<Unit> {
+        TODO("Not yet implemented")
+    }
 }

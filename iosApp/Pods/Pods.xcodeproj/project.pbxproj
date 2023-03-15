@@ -17,6 +17,7 @@
 				507A5F5DF3EF1D216BC6456A0D96CE1B /* PBXTargetDependency */,
 			);
 			name = shared;
+			productName = shared;
 		};
 /* End PBXAggregateTarget section */
 
@@ -50,17 +51,17 @@
 		3B289646976FEDB573401365348857A9 /* Pods-JetHabit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-JetHabit.debug.xcconfig"; sourceTree = "<group>"; };
 		3E50BB0FDE09C2166C9AE2ABF620DF9A /* Pods-JetHabit-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-JetHabit-dummy.m"; sourceTree = "<group>"; };
 		4D915FA796BC2700ADC736C505817F0E /* ResourceBundle-LibresShared-shared-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ResourceBundle-LibresShared-shared-Info.plist"; sourceTree = "<group>"; };
-		543BAB555D5B478B3A8B08F012A73112 /* shared.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = shared.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		543BAB555D5B478B3A8B08F012A73112 /* shared.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; path = shared.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		590239EAFE12A8201CE38294E1F0D2A7 /* Pods-JetHabit.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-JetHabit.modulemap"; sourceTree = "<group>"; };
 		63A4855F94A0F683D02DEA402ADF5030 /* Pods-JetHabit-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-JetHabit-acknowledgements.markdown"; sourceTree = "<group>"; };
-		64D860DAFE5936B97CEDCB84A843DBCD /* Pods-JetHabit */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-JetHabit"; path = Pods_JetHabit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		64D860DAFE5936B97CEDCB84A843DBCD /* Pods_JetHabit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JetHabit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E83AC257B1A2566F2E06F704CC476B3 /* Pods-JetHabit-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-JetHabit-umbrella.h"; sourceTree = "<group>"; };
 		73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		82596F6A1DE995D6CDB9C2F9C7CD365D /* Pods-JetHabit-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-JetHabit-Info.plist"; sourceTree = "<group>"; };
 		8CC135EF3FFB4CE57F23C20DDA8272EE /* shared.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = shared.release.xcconfig; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		BFD306627797FAD8C7F4FF5D53AEE0B2 /* LibresShared.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; name = LibresShared.xcassets; path = build/generated/libres/apple/resources/images/LibresShared.xcassets; sourceTree = "<group>"; };
-		CBE1CA77E40D429A8F259966135D8247 /* shared-LibresShared */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = "shared-LibresShared"; path = LibresShared.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		CBE1CA77E40D429A8F259966135D8247 /* LibresShared.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LibresShared.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		D517715DDB8B6F69A4F09A51F5FB76DA /* shared.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = shared.debug.xcconfig; sourceTree = "<group>"; };
 		D899CB7A358A6AEF8D0DF4161C760467 /* shared.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = shared.framework; path = build/cocoapods/framework/shared.framework; sourceTree = "<group>"; };
 		ED8BF95632ACBADD0A0ADF9973AE2CEE /* Pods-JetHabit-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-JetHabit-resources.sh"; sourceTree = "<group>"; };
@@ -168,8 +169,8 @@
 		BA00F25B544F68579221DDA83842F8AF /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				64D860DAFE5936B97CEDCB84A843DBCD /* Pods-JetHabit */,
-				CBE1CA77E40D429A8F259966135D8247 /* shared-LibresShared */,
+				64D860DAFE5936B97CEDCB84A843DBCD /* Pods_JetHabit.framework */,
+				CBE1CA77E40D429A8F259966135D8247 /* LibresShared.bundle */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -221,7 +222,7 @@
 			);
 			name = "shared-LibresShared";
 			productName = LibresShared;
-			productReference = CBE1CA77E40D429A8F259966135D8247 /* shared-LibresShared */;
+			productReference = CBE1CA77E40D429A8F259966135D8247 /* LibresShared.bundle */;
 			productType = "com.apple.product-type.bundle";
 		};
 		B5A33DF89A8FB29D071F1CD02616905B /* Pods-JetHabit */ = {
@@ -240,7 +241,7 @@
 			);
 			name = "Pods-JetHabit";
 			productName = Pods_JetHabit;
-			productReference = 64D860DAFE5936B97CEDCB84A843DBCD /* Pods-JetHabit */;
+			productReference = 64D860DAFE5936B97CEDCB84A843DBCD /* Pods_JetHabit.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -343,11 +344,11 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = DX5S9N43GF;
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = DX5S9N43GF;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -442,6 +443,7 @@
 			baseConfigurationReference = D517715DDB8B6F69A4F09A51F5FB76DA /* shared.debug.xcconfig */;
 			buildSettings = {
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/shared";
+				DEVELOPMENT_TEAM = DX5S9N43GF;
 				IBSC_MODULE = shared;
 				INFOPLIST_FILE = "Target Support Files/shared/ResourceBundle-LibresShared-shared-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
@@ -543,11 +545,11 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = DX5S9N43GF;
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = DX5S9N43GF;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -596,6 +598,7 @@
 			baseConfigurationReference = 8CC135EF3FFB4CE57F23C20DDA8272EE /* shared.release.xcconfig */;
 			buildSettings = {
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/shared";
+				DEVELOPMENT_TEAM = DX5S9N43GF;
 				IBSC_MODULE = shared;
 				INFOPLIST_FILE = "Target Support Files/shared/ResourceBundle-LibresShared-shared-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
