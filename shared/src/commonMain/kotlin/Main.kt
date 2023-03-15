@@ -1,3 +1,4 @@
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import design.DesignTheme
@@ -14,8 +15,8 @@ import presentation.trainings.TrainingsContent
 import presentation.trainings.TrainingsViewModel
 
 @Composable
-internal fun Main(
-    modifier: Modifier = Modifier,
+internal fun ColumnScope.Main(
+    modifier: Modifier = Modifier.weight(1f),
     finalize: () -> Unit
 ) {
     DesignTheme(modifier = modifier) {

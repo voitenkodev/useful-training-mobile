@@ -13,6 +13,6 @@ fun MainViewController(): UIViewController = Application("UsefulTraining") {
     Column {
         Box(modifier = Modifier.fillMaxWidth().height(44.dp).background(Color.Black))
         Main { }
-        Box(modifier = Modifier.fillMaxWidth().height(44.dp).background(Color.Black))
+        Box(modifier = Modifier.fillMaxWidth().height(30.dp).background(Color.Black))
     }
 }
