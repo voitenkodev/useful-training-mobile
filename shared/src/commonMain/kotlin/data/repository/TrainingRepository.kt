@@ -9,7 +9,7 @@ internal interface TrainingRepository {
 
     suspend fun getTraining(trainingId: String): Flow<TrainingBody>
 
-    suspend fun setTraining(training: TrainingBody): Flow<TrainingBody>
+    suspend fun setTraining(training: TrainingBody): Flow<String>
 
     suspend fun removeTraining(trainingId: String): Flow<Unit>
 }

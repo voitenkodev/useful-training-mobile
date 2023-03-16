@@ -35,7 +35,7 @@ internal class TrainingViewModel(private val navigator: NavigatorCore) : ViewMod
                 _state.value = state.value.copy(loading = true)
             }.onEach {
                 _state.value = state.value.copy(loading = false, error = null)
-                navigator.navigate(Graph.Review.link, popToInclusive = true)
+                navigator.navigate(Graph.Review.link, popToInclusive = true, args = mapOf("trainingId" to it))
             }.catch {
                 _state.value = state.value.copy(loading = false, error = it.message)
             }

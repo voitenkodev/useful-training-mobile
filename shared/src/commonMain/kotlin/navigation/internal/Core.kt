@@ -11,24 +11,25 @@ private val DefaultAnimation = Animation.None
 
 internal data class Core(
     internal val transaction: MutableStateFlow<NavigationTransaction> = MutableStateFlow(NavigationTransaction(animation = DefaultAnimation)),
-    private val backStack: MutableList<String> = mutableListOf(),
+    private val backStack: MutableList<BackStack> = mutableListOf(),
     private val screenMap: HashMap<String, ScreenConfigurations> = hashMapOf(),
     private val storeMap: MutableMap<String, ScopeStoreObject> = mutableMapOf()
 ) : NavigatorCore, GraphBuilder, ScreenScope {
 
     /* --------------------------- NavigatorCore --------------------------- */
 
-    override fun navigate(screen: String, popToInclusive: Boolean) {
-        if (backStack.lastOrNull() == screen) return
-        val index = backStack.lastIndexOf(screen)
+    override fun navigate(screen: String, popToInclusive: Boolean, args: Map<String, Any>) {
+        if (backStack.lastOrNull()?.route == screen) return
+        val index = backStack.map { it.route }.lastIndexOf(screen)
         if (index == -1) {
+            val newScreen = BackStack(screen, args)
             val removed = backStack.lastOrNull()
             if (popToInclusive) backStack.removeLastOrNull()
-            backStack.add(screen)
+            backStack.add(newScreen)
             val animation = screenMap[screen]?.animation ?: DefaultAnimation
             transaction.tryEmit(
                 NavigationTransaction(
-                    current = screen,
+                    current = newScreen,
                     removed = removed,
                     type = TransitionVariant.FORWARD,
                     animation = animation
@@ -39,11 +40,13 @@ internal data class Core(
 
             backStack.removeAt(index)
 
-            val animation = screenMap[removed]?.animation ?: DefaultAnimation
+            val animation = screenMap[removed?.route]?.animation ?: DefaultAnimation
+
+            val newScreen = BackStack(screen, args)
 
             transaction.tryEmit(
                 NavigationTransaction(
-                    current = screen,
+                    current = newScreen,
                     removed = removed,
                     type = TransitionVariant.BACK,
                     animation = animation,
@@ -55,7 +58,7 @@ internal data class Core(
     override fun back() {
         val removed = backStack.removeLastOrNull()
         val current = backStack.lastOrNull()
-        val animation = screenMap[removed]?.animation ?: DefaultAnimation
+        val animation = screenMap[removed?.route]?.animation ?: DefaultAnimation
         transaction.tryEmit(
             NavigationTransaction(
                 current = current,
@@ -64,6 +67,7 @@ internal data class Core(
                 animation = animation
             )
         )
+        screenMap[removed?.route]
     }
 
     /* --------------------------- GraphBuilder --------------------------- */
@@ -81,27 +85,34 @@ internal data class Core(
     }
 
     /* --------------------------- Store --------------------------- */
-
     @Suppress("UNCHECKED_CAST")
     override fun <T : Any> getOrCreate(
         key: String,
         factory: () -> T,
         clear: (T) -> Unit
     ): T = storeMap.getOrPut(key) {
-        ScopeStoreObject(value = factory.invoke(), clearValue = (clear as (Any) -> Unit))
+        ScopeStoreObject(
+            value = factory.invoke(),
+            clearValue = (clear as (Any) -> Unit)
+        )
     }.value as T
+
+    override val args: Map<String, Any>
+        get() = backStack.lastOrNull()?.values ?: emptyMap()
 
     /* --------------------------- Internal --------------------------- */
 
     @Composable
-    internal fun draw(screen: String) {
-        screenMap[screen]?.render?.invoke(this)
+    internal fun draw(backStack: BackStack) {
+        screenMap[backStack.route]?.render?.invoke(this)
     }
 
-    internal fun drop(screen: String) = storeMap.forEach {
-        if (it.key.startsWith(screen)) {
-            it.value.clearValue.invoke(it.value.value)
-            storeMap -= it.key
+    internal fun drop(backStack: BackStack) {
+        storeMap.forEach {
+            if (it.key.startsWith(backStack.route)) {
+                it.value.clearValue.invoke(it.value.value)
+                storeMap -= it.key
+            }
         }
     }
 }

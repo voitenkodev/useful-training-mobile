@@ -3,6 +3,7 @@ package presentation.review
 import Graph
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
+import data.mapping.toTrainingState
 import data.repository.TrainingRepositoryImpl
 import data.source.AuthSource
 import data.source.Client
@@ -29,8 +30,11 @@ internal class ReviewViewModel(private val navigator: NavigatorCore) : ViewModel
             .onStart {
                 _state.value = state.value.copy(loading = true)
             }.onEach {
-                _state.value = state.value.copy(loading = false, error = null)
-                navigator.navigate(Graph.Trainings.link)
+                _state.value = state.value.copy(
+                    loading = false,
+                    error = null,
+                    reviewTraining = it.toTrainingState()
+                )
             }.catch {
                 _state.value = state.value.copy(loading = false, error = it.message)
             }

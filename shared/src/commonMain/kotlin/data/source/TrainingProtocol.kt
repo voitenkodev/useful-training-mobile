@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.Flow
 
 internal interface TrainingProtocol {
 
-    suspend fun setTraining(userId: String?, training: TrainingBody): Flow<TrainingBody>
+    suspend fun setTraining(userId: String?, training: TrainingBody): Flow<String>
 
     suspend fun getTrainings(userId: String?): Flow<List<TrainingBody>>
 

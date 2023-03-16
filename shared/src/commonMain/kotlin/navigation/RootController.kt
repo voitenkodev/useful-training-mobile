@@ -5,7 +5,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.saveable.rememberSaveableStateHolder
-import internal.AnimatedTransition
+import navigation.internal.AnimatedTransition
 import navigation.internal.Core
 import navigation.internal.LocalNavigator
 import navigation.internal.NavComponent
@@ -48,7 +48,7 @@ internal fun RootController(
             isForwardDirection = transaction.value.type == TransitionVariant.FORWARD,
             content = { screen ->
                 if (screen != null) {
-                    stateHolder.SaveableStateProvider(screen) {
+                    stateHolder.SaveableStateProvider(screen.route) {
                         navigator.draw(screen)
                     }
                 }
@@ -58,7 +58,7 @@ internal fun RootController(
         LaunchedEffect(transaction.value) {
             if (transaction.value.type == TransitionVariant.BACK) {
                 transaction.value.removed?.let {
-                    stateHolder.removeState(it)
+                    stateHolder.removeState(it.route)
                     navigator.drop(it)
                 }
             }

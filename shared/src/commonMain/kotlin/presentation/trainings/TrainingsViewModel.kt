@@ -57,7 +57,8 @@ internal class TrainingsViewModel(private val navigator: NavigatorCore) : ViewMo
     }
 
     fun reviewTraining(training: Training) {
-        navigator.navigate(Graph.Review.link)
+        val id = training.id ?: return
+        navigator.navigate(Graph.Review.link, args = mapOf("trainingId" to id))
     }
 
     private fun TrainingsState.processingTrainings(trainings: List<Training>) = copy(

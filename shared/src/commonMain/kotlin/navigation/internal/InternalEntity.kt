@@ -9,8 +9,8 @@ private typealias Render = @Composable (ScreenScope) -> Unit
 internal enum class TransitionVariant { FORWARD, BACK }
 
 internal data class NavigationTransaction(
-    val current: String? = null,
-    val removed: String? = null,
+    val current: BackStack? = null,
+    val removed: BackStack? = null,
     val type: TransitionVariant? = null,
     val animation: Animation,
 )
@@ -24,4 +24,9 @@ internal data class ScreenConfigurations(
 internal data class ScopeStoreObject(
     val value: Any,
     val clearValue: (Any) -> Unit
+)
+
+internal data class BackStack(
+    val route: String,
+    val values: Map<String, Any> = emptyMap()
 )

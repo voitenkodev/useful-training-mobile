@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.flow
 
 internal class TrainingSource(private val client: HttpClient) : TrainingProtocol {
 
-    override suspend fun setTraining(userId: String?, training: TrainingBody): Flow<TrainingBody> = flow {
+    override suspend fun setTraining(userId: String?, training: TrainingBody): Flow<String> = flow {
         val result = client.post {
             url {
                 path("/training")
@@ -21,7 +21,7 @@ internal class TrainingSource(private val client: HttpClient) : TrainingProtocol
                 header("Authorization", "Bearer $userId")
             }
         }
-        emit(training)
+        emit(result.body())
     }
 
     override suspend fun getTrainings(userId: String?): Flow<List<TrainingBody>> = flow {

@@ -1,4 +1,4 @@
-package internal
+package navigation.internal
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedContentScope

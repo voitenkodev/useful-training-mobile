@@ -65,16 +65,15 @@ internal fun Main(
                 key = Graph.Review.link,
                 animation = Animation.Present(500)
             ) { store ->
-
                 val navigator = findNavigator()
-
+                val trainingId = store.args.getOrElse("trainingId") { "" } as String
                 val viewModel = store.getOrCreate(
                     key = Graph.Review.link,
                     factory = { ReviewViewModel(navigator) },
                     clear = { (it as? ReviewViewModel)?.clear() }
                 )
 
-                ReviewContent(viewModel)
+                ReviewContent(viewModel, trainingId)
             }
         }
     }
