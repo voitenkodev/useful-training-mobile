@@ -72,7 +72,6 @@ internal fun Main(
                     factory = { ReviewViewModel(navigator) },
                     clear = { (it as? ReviewViewModel)?.clear() }
                 )
-
                 ReviewContent(viewModel, trainingId)
             }
         }

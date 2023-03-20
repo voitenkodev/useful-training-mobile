@@ -6,10 +6,7 @@ import io.ktor.client.plugins.defaultRequest
 import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
-import io.ktor.client.request.header
 import io.ktor.http.ContentType
-import io.ktor.http.HttpHeaders
-import io.ktor.http.HttpMethod
 import io.ktor.http.URLProtocol
 import io.ktor.http.contentType
 import io.ktor.serialization.kotlinx.json.json
@@ -38,9 +35,7 @@ internal object Client {
         }
 
         defaultRequest {
-            // command to check host IP
-            // ifconfig | grep "inet " | grep -v 127.0.0.1
-            host = "192.168.0.103:8080"
+            host = "13.49.6.12"
             url { protocol = URLProtocol.HTTP }
             contentType(ContentType.Application.Json)
         }
