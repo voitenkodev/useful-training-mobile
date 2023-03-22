@@ -14,18 +14,13 @@ import presentation.trainings.TrainingsContent
 import presentation.trainings.TrainingsViewModel
 
 @Composable
-internal fun Main(
-    modifier: Modifier = Modifier,
-    finalize: () -> Unit
-) {
+internal fun Main(modifier: Modifier = Modifier) {
+
     DesignTheme(modifier = modifier) {
 
         RootController(startScreen = Graph.Auth.link) {
 
-            screen(
-                key = Graph.Auth.link,
-                animation = Animation.Present(500)
-            ) { store ->
+            screen(key = Graph.Auth.link, animation = Animation.Present(500)) { store ->
                 val navigator = findNavigator()
                 val viewModel = store.getOrCreate(
                     key = Graph.Auth.link,
@@ -35,10 +30,7 @@ internal fun Main(
                 AuthContent(viewModel)
             }
 
-            screen(
-                key = Graph.Trainings.link,
-                animation = Animation.Present(500)
-            ) { store ->
+            screen(key = Graph.Trainings.link, animation = Animation.Present(500)) { store ->
                 val navigator = findNavigator()
                 val viewModel = store.getOrCreate(
                     key = Graph.Trainings.link,
@@ -48,10 +40,7 @@ internal fun Main(
                 TrainingsContent(viewModel)
             }
 
-            screen(
-                key = Graph.Training.link,
-                animation = Animation.Push(300)
-            ) { store ->
+            screen(key = Graph.Training.link, animation = Animation.Push(300)) { store ->
                 val navigator = findNavigator()
                 val viewModel = store.getOrCreate(
                     key = Graph.Training.link,
@@ -61,10 +50,7 @@ internal fun Main(
                 TrainingContent(viewModel)
             }
 
-            screen(
-                key = Graph.Review.link,
-                animation = Animation.Present(500)
-            ) { store ->
+            screen(key = Graph.Review.link, animation = Animation.Present(500)) { store ->
                 val navigator = findNavigator()
                 val trainingId = store.args.getOrElse("trainingId") { "" } as String
                 val viewModel = store.getOrCreate(

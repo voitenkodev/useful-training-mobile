@@ -1,11 +1,12 @@
 package presentation.auth
 
+import DataStoreFactory
 import Graph
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import data.repository.AuthRepositoryImpl
-import data.source.AuthSource
-import data.source.Client
+import data.source.network.AuthSource
+import data.source.network.Client
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -16,7 +17,13 @@ import utils.ViewModel
 
 internal class AuthViewModel(private val navigator: NavigatorCore) : ViewModel() {
 
-    private val api = AuthRepositoryImpl(AuthSource(Client.address()))
+    private val datastore = DataStoreFactory.client
+    private val api = AuthRepositoryImpl(
+        AuthSource(
+            network = Client(dataStore = datastore).address(),
+            dataStore = datastore
+        )
+    )
 
     private val _state = mutableStateOf(AuthState())
     val state: State<AuthState> = _state

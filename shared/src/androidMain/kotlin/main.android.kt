@@ -1,7 +1,8 @@
-import androidx.activity.ComponentActivity
+import android.content.Context
 import androidx.compose.runtime.Composable
 
 @Composable
-fun MainView(activity: ComponentActivity) {
-    Main {}
+fun MainView(appContext: Context) {
+    platformAppContext = appContext
+    Main()
 }

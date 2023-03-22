@@ -50,7 +50,10 @@ kotlin {
                 implementation(libs.ktor.core)
                 implementation(libs.ktor.logging)
                 implementation(libs.ktor.serialization)
+                implementation(libs.ktor.auth)
                 implementation(libs.ktor.negotiation)
+
+                implementation("androidx.datastore:datastore-preferences-core:1.1.0-dev01")
             }
         }
 
@@ -90,15 +93,15 @@ libres {
 android {
     compileSdk = 33
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
-
     namespace = "com.voitenko.usefultraining"
 
     defaultConfig {
         minSdk = 24
-        targetSdk = 33
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+
 }

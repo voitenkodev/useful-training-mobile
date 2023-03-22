@@ -5,9 +5,9 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import data.mapping.toBody
 import data.repository.TrainingRepositoryImpl
-import data.source.AuthSource
-import data.source.Client
-import data.source.TrainingSource
+import data.source.network.AuthSource
+import data.source.network.Client
+import data.source.network.TrainingSource
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -22,7 +22,9 @@ internal class TrainingViewModel(private val navigator: NavigatorCore) : ViewMod
     private val _state = mutableStateOf(TrainingState())
     val state: State<TrainingState> = _state
 
-    private val api = TrainingRepositoryImpl(AuthSource(Client.address()), TrainingSource(Client.address()))
+    private val datastore = DataStoreFactory.client
+    private val network = Client(dataStore = datastore).address()
+    private val api = TrainingRepositoryImpl(TrainingSource(network))
 
     fun saveTraining(training: Training) = viewModelScope.launch {
         if (training.exercises.isEmpty()) {

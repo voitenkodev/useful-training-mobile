@@ -28,4 +28,5 @@ ktor-logging = { module ="io.ktor:ktor-client-logging", version.ref = "ktor-vers
 ktor-okhttp = { module ="io.ktor:ktor-client-okhttp", version.ref = "ktor-vers"}
 ktor-darwin = { module ="io.ktor:ktor-client-darwin", version.ref = "ktor-vers"}
 ktor-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor-vers" }
+ktor-auth = { module = "io.ktor:ktor-client-auth", version.ref = "ktor-vers" }
 ktor-serialization = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor-vers" }

@@ -5,5 +5,5 @@ import androidx.compose.ui.window.Application
 import platform.UIKit.UIViewController
 
 fun MainViewController(): UIViewController = Application("UsefulTraining") {
-    Main(modifier = Modifier.padding(top = 44.dp, bottom = 30.dp)) { }
+    Main(modifier = Modifier.padding(top = 44.dp, bottom = 30.dp))
 }
