@@ -17,49 +17,48 @@ kotlin {
 
     iosSimulatorArm64()
 
-    cocoapods {
-        summary = "Shared Code"
-        homepage = "https://github.com/voitenkodev/Useful-Training"
-        ios.deploymentTarget = "14.1"
-        podfile = project.file("../iosApp/Podfile")
-
-        framework {
-            baseName = "shared"
-            isStatic = true
-        }
-        extraSpecAttributes["resources"] = "['src/commonMain/resources/**', 'src/iosMain/resources/**']"
-    }
+//    cocoapods {
+//        summary = "Shared Code"
+//        homepage = "https://github.com/voitenkodev/Useful-Training"
+//        ios.deploymentTarget = "14.1"
+//        podfile = project.file("../iosApp/Podfile")
+//
+//        framework {
+//            baseName = "shared"
+//            isStatic = true
+//        }
+//        extraSpecAttributes["resources"] = "['src/commonMain/resources/**', 'src/iosMain/resources/**']"
+//    }
 
     sourceSets {
         val commonMain by getting {
             dependencies {
+                //compose
                 implementation(compose.ui)
                 implementation(compose.foundation)
                 implementation(compose.material)
                 implementation(compose.runtime)
 
-                // app
+                //utils
                 implementation(libs.uuid)
                 implementation(libs.parcelize)
                 implementation(libs.serialization)
-
-                //utils
                 implementation(libs.datetime)
                 implementation(libs.logger)
+                implementation(libs.datetime)
+                implementation(libs.datastore)
 
+                //ktor
                 implementation(libs.ktor.core)
                 implementation(libs.ktor.logging)
                 implementation(libs.ktor.serialization)
                 implementation(libs.ktor.auth)
                 implementation(libs.ktor.negotiation)
-
-                implementation("androidx.datastore:datastore-preferences-core:1.1.0-dev01")
             }
         }
 
         val androidMain by getting {
             dependencies {
-                implementation("com.google.android.material:material:1.8.0")
                 implementation(libs.ktor.okhttp)
             }
         }
