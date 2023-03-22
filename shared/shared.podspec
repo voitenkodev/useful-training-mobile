@@ -1,14 +1,14 @@
 Pod::Spec.new do |spec|
     spec.name                     = 'shared'
     spec.version                  = '1.0-SNAPSHOT'
-    spec.homepage                 = ''
+    spec.homepage                 = 'https://github.com/voitenkodev/Useful-Training'
     spec.source                   = { :http=> ''}
     spec.authors                  = ''
     spec.license                  = ''
-    spec.summary                  = ''
+    spec.summary                  = 'Shared Code'
     spec.vendored_frameworks      = 'build/cocoapods/framework/shared.framework'
     spec.libraries                = 'c++'
-                
+    spec.ios.deployment_target = '14.1'
                 
                 
     spec.pod_target_xcconfig = {
@@ -35,6 +35,7 @@ Pod::Spec.new do |spec|
             SCRIPT
         }
     ]
+    spec.resources = ['src/commonMain/resources/**', 'src/iosMain/resources/**']
     spec.resource_bundles = {
         'LibresShared' => ['build/generated/libres/apple/resources/images/LibresShared.xcassets']
     }

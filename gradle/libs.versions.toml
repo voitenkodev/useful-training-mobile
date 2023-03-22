@@ -1,13 +1,12 @@
 [versions]
 libres = "1.1.5"
-serialization-vers = "1.4.1"
+serialization-vers = "1.5.0"
 datetime-vers = "0.4.0"
 parcelize-vers = "0.8.0"
-logger-vers = "1.0.0"
-kodein = "7.17.0"
-ktor-vers = "2.2.3"
+logger-vers = "2.0.0-RC3"
+ktor-vers = "2.2.4"
 datastore-vers = "1.1.0-dev01"
-uuid-vers = "0.5.0"
+uuid-vers = "0.7.0"
 
 [libraries]
 libres-compose = { module = "io.github.skeptick.libres:libres-compose", version.ref = "libres" }
