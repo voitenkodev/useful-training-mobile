@@ -8,7 +8,7 @@ kotlin {
     android()
     sourceSets {
         val androidMain by getting {
-            dependencies { л
+            dependencies {
                 implementation(project(":shared"))
                 implementation("androidx.appcompat:appcompat:1.6.1")
                 implementation("androidx.activity:activity-compose:1.6.1")
