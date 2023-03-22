@@ -28,7 +28,6 @@ internal class TrainingSource(private val client: HttpClient) : TrainingProtocol
             url {
                 path("/training")
                 setBody(training)
-//                header("Authorization", "Bearer $userId")
             }
         }
         emit(result.body())
@@ -38,7 +37,6 @@ internal class TrainingSource(private val client: HttpClient) : TrainingProtocol
         val result = client.get {
             url {
                 path("/trainings")
-//                header("Authorization", "Bearer $userId")
             }
         }
         emit(result.body())
@@ -48,7 +46,6 @@ internal class TrainingSource(private val client: HttpClient) : TrainingProtocol
         val result = client.get {
             url {
                 path("/training/$trainingId")
-//                header("Authorization", "Bearer $userId")
             }
         }
         emit(result.body())

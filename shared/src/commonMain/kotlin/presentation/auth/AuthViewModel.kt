@@ -5,10 +5,13 @@ import Graph
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import data.repository.AuthRepositoryImpl
+import data.source.datastore.DataStoreKeys
 import data.source.network.AuthSource
 import data.source.network.Client
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
@@ -27,6 +30,16 @@ internal class AuthViewModel(private val navigator: NavigatorCore) : ViewModel()
 
     private val _state = mutableStateOf(AuthState())
     val state: State<AuthState> = _state
+
+    init {
+        viewModelScope.launch {
+            datastore.data
+                .map { it[DataStoreKeys.KEY_TOKEN] }
+                .filterNotNull()
+                .onEach { navigator.navigate(Graph.Trainings.link, true) }
+                .launchIn(this)
+        }
+    }
 
     fun login(email: String, password: String) = viewModelScope.launch {
         _state.value = state.value.validate()

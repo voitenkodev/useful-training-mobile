@@ -1,5 +1,3 @@
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
 import data.source.datastore.createDataStore
 import data.source.datastore.dataStoreFileName
 import io.ktor.client.HttpClient
@@ -19,21 +17,8 @@ internal actual object KtorFactory {
 
 internal actual object DataStoreFactory {
 
-    internal actual val client =   createDataStore(
+    internal actual val client = createDataStore(
         coroutineScope = CoroutineScope(Dispatchers.Default),
-        producePath = {
-            val documentDirectory: NSURL? = NSFileManager.defaultManager.URLForDirectory(
-                directory = NSDocumentDirectory,
-                inDomain = NSUserDomainMask,
-                appropriateForURL = null,
-                create = false,
-                error = null,
-            )
-            requireNotNull(documentDirectory).path + "/$dataStoreFileName"
-        }
-    )
-    internal actual fun client(scope: CoroutineScope): DataStore<Preferences> = createDataStore(
-        coroutineScope = scope,
         producePath = {
             val documentDirectory: NSURL? = NSFileManager.defaultManager.URLForDirectory(
                 directory = NSDocumentDirectory,
