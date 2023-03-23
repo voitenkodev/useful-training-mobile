@@ -1,6 +1,7 @@
 package design.components.items
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -32,9 +33,10 @@ internal fun WeekSummary(
     onClick: () -> Unit
 ) = Column(
     modifier = modifier
-        .background(color = Design.colors.primary)
+        .background(color = Design.colors.primary, shape = Design.shape.default)
+        .border(2.dp, Design.colors.tertiary, shape = Design.shape.default)
         .fillMaxWidth()
-        .padding(vertical = Design.dp.padding)
+        .padding(Design.dp.padding)
         .clickable { onClick.invoke() }
 ) {
 
