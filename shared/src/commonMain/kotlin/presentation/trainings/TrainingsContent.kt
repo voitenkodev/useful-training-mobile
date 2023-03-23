@@ -2,6 +2,7 @@ package presentation.trainings
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -25,13 +26,12 @@ import androidx.compose.ui.draw.alpha
 import chart.LineChart
 import chart.PointLine
 import design.Design
-import design.atomic.icons.BarChart
 import design.components.Error
 import design.components.Loading
-import design.controls.BottomSheet
-import design.controls.IconPrimary
 import design.components.items.TrainingItem
 import design.components.items.WeekSummary
+import design.controls.BottomSheet
+import design.controls.IconPrimary
 import design.controls.TextFieldBody1
 import design.controls.TextFieldH1
 import kotlinx.coroutines.launch
@@ -67,40 +67,10 @@ internal fun TrainingsContent(vm: TrainingsViewModel) {
                 onClick = { p0, p1 -> }
             )
 
-            Row(
-                modifier = Modifier.height(Design.dp.collapsedAppBar).align(Alignment.BottomEnd).padding(horizontal = Design.dp.padding),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(Design.dp.padding, Alignment.End)
-            ) {
+            HeaderButtons(vm)
 
-                IconPrimary(
-                    imageVector = BarChart,
-                    modifier = Modifier
-                        .size(Design.dp.component)
-                        .background(
-                            color = Design.colors.accent_secondary,
-                            shape = Design.shape.default
-                        ),
-                    onClick = vm::addTraining
-                )
+            Title(weekDay = state.weekDay, date = state.date, progress = it)
 
-                IconPrimary(
-                    imageVector = Icons.Default.Add,
-                    modifier = Modifier
-                        .size(Design.dp.component)
-                        .background(
-                            color = Design.colors.accent_primary,
-                            shape = Design.shape.default
-                        ),
-                    onClick = vm::addTraining
-                )
-
-            }
-
-            Title(
-                state = state,
-                progress = it
-            )
         },
 
         content = {
@@ -122,32 +92,65 @@ internal fun TrainingsContent(vm: TrainingsViewModel) {
                     )
                 }
             }
-        },
+        }
     )
 
     Error(message = state.error, close = vm::clearError)
+
     Loading(state.loading)
-    // todo popup
-//    BackHandler(action = vm::back)
+}
+
+@Composable
+private fun BoxScope.HeaderButtons(vm: TrainingsViewModel) = Row(
+    modifier = Modifier
+        .height(Design.dp.collapsedAppBar)
+        .align(Alignment.BottomEnd)
+        .padding(end = Design.dp.padding),
+    verticalAlignment = Alignment.Bottom,
+    horizontalArrangement = Arrangement.spacedBy(Design.dp.padding, Alignment.End)
+) {
+
+//    IconPrimary(
+//        imageVector = BarChart,
+//        modifier = Modifier
+//            .size(Design.dp.component)
+//            .background(
+//                color = Design.colors.accent_secondary,
+//                shape = Design.shape.default
+//            ),
+//        onClick = vm::addTraining
+//    )
+
+    IconPrimary(
+        imageVector = Icons.Default.Add,
+        modifier = Modifier
+            .size(Design.dp.component)
+            .background(
+                color = Design.colors.accent_primary,
+                shape = Design.shape.default
+            ),
+        onClick = vm::addTraining
+    )
 }
 
 @Composable
 private fun Title(
-    state: TrainingsState,
+    weekDay: String,
+    date: String,
     progress: Float
+) = Column(
+    modifier = Modifier.padding(start = Design.dp.padding)
 ) {
-    Column(modifier = Modifier.padding(start = Design.dp.padding)) {
 
-        TextFieldH1(
-            modifier = Modifier
-                .height(Design.dp.collapsedAppBar)
-                .wrapContentHeight(),
-            text = state.weekDay,
-        )
+    TextFieldH1(
+        modifier = Modifier
+            .height(Design.dp.collapsedAppBar)
+            .wrapContentHeight(),
+        text = weekDay,
+    )
 
-        TextFieldBody1(
-            modifier = Modifier.alpha(progress),
-            text = state.date,
-        )
-    }
+    TextFieldBody1(
+        modifier = Modifier.alpha(progress),
+        text = date,
+    )
 }

@@ -37,7 +37,7 @@ internal fun WeekSummary(
         .border(2.dp, Design.colors.tertiary, shape = Design.shape.default)
         .fillMaxWidth()
         .padding(Design.dp.padding)
-        .clickable { onClick.invoke() }
+        .clickable(onClick = onClick::invoke)
 ) {
 
     Row(
@@ -52,12 +52,13 @@ internal fun WeekSummary(
         ) {
 
             TextFieldBody2(
-                text = info.startWeekDate,
+                text = info.startWeekDate + " →",
                 fontWeight = FontWeight.Bold,
             )
 
             TextFieldBody2(
-                text = info.endWeekDate,
+                modifier = modifier.padding(start = Design.dp.padding),
+                text = "← " + info.endWeekDate,
                 fontWeight = FontWeight.Bold,
             )
         }
@@ -75,35 +76,32 @@ private fun WeekDayStatusLine(
     modifier: Modifier = Modifier,
     listOfWeekDaysEnglish: List<String>,
     availableList: List<String>
+) = Column(
+    modifier = modifier,
+    verticalArrangement = Arrangement.SpaceAround
 ) {
-
-    Column(
-        modifier = modifier,
-        verticalArrangement = Arrangement.SpaceAround
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceAround
     ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceAround
-        ) {
-            listOfWeekDaysEnglish.forEach {
-                val weekShort by remember(it) { mutableStateOf(toShortWeek(it)) }
-                TextFieldBody2(text = weekShort)
-            }
+        listOfWeekDaysEnglish.forEach {
+            val weekShort by remember(it) { mutableStateOf(toShortWeek(it)) }
+            TextFieldBody2(text = weekShort)
         }
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceAround
-        ) {
-            listOfWeekDaysEnglish.forEach {
-                Spacer(
-                    modifier = Modifier
-                        .size(14.dp)
-                        .background(
-                            color = if (availableList.contains(it)) Design.colors.accent_secondary else Design.colors.caption,
-                            shape = CircleShape
-                        )
-                )
-            }
+    }
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceAround
+    ) {
+        listOfWeekDaysEnglish.forEach {
+            Spacer(
+                modifier = Modifier
+                    .size(14.dp)
+                    .background(
+                        color = if (availableList.contains(it)) Design.colors.accent_secondary else Design.colors.caption,
+                        shape = CircleShape
+                    )
+            )
         }
     }
 }
@@ -117,19 +115,4 @@ private fun toShortWeek(weekDayEnglish: String) = when (weekDayEnglish.uppercase
     "SATURDAY" -> "Sat"
     "SUNDAY" -> "Sun"
     else -> ""
-}
-
-@Composable
-private fun Section(label: String, value: String) = Row(
-    modifier = Modifier.fillMaxWidth(),
-    horizontalArrangement = Arrangement.SpaceBetween
-) {
-    TextFieldBody2(
-        text = label,
-        color = Design.colors.caption,
-    )
-    TextFieldBody2(
-        text = value,
-        fontWeight = FontWeight.Bold,
-    )
 }
