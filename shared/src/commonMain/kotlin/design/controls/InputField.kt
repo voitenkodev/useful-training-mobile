@@ -181,7 +181,8 @@ internal fun InputField(
 
                 trailing?.invoke()
             }
-        })
+        }
+    )
 }
 
 @Composable

@@ -43,7 +43,7 @@ internal class AuthViewModel(private val navigator: NavigatorCore) : ViewModel()
 
     fun login(email: String, password: String) = viewModelScope.launch {
         _state.value = state.value.validate()
-        api.login(email, password)
+        if (state.value.error == null) api.login(email, password)
             .onStart {
                 _state.value = state.value.copy(loading = true)
             }.onEach {

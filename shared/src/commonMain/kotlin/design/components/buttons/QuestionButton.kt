@@ -11,7 +11,7 @@ import design.controls.ButtonSecondary
 import design.controls.TextFieldBody2
 
 @Composable
-internal fun QuestionButton(
+internal fun ButtonQuestion(
     modifier: Modifier = Modifier,
     question: String,
     answer: String,
@@ -31,4 +31,5 @@ internal fun QuestionButton(
         text = answer,
         onClick = onClick
     )
+
 }
