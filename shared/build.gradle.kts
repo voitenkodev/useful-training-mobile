@@ -16,18 +16,18 @@ kotlin {
     ios()
     iosSimulatorArm64()
 
-//    cocoapods {
-//        summary = "Shared Code"
-//        homepage = "https://github.com/voitenkodev/Useful-Training"
-//        ios.deploymentTarget = "14.1"
-//        podfile = project.file("../iosApp/Podfile")
-//
-//        framework {
-//            baseName = "shared"
-//            isStatic = true
-//        }
-//        extraSpecAttributes["resources"] = "['src/commonMain/resources/**', 'src/iosMain/resources/**']"
-//    }
+    cocoapods {
+        summary = "Shared Code"
+        homepage = "https://github.com/voitenkodev/Useful-Training"
+        ios.deploymentTarget = "14.1"
+        podfile = project.file("../iosApp/Podfile")
+
+        framework {
+            baseName = "shared"
+            isStatic = true
+        }
+        extraSpecAttributes["resources"] = "['src/commonMain/resources/**', 'src/iosMain/resources/**']"
+    }
 
     sourceSets {
         val commonMain by getting {
