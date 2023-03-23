@@ -13,6 +13,7 @@ internal actual object KtorFactory {
 lateinit var platformAppContext: Context
 
 internal actual object DataStoreFactory {
+
     internal actual val client = createDataStore(
         coroutineScope = CoroutineScope(Dispatchers.Default),
         producePath = { platformAppContext.filesDir.resolve(dataStoreFileName).absolutePath }

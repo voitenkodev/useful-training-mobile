@@ -14,21 +14,20 @@ kotlin {
     android()
 
     ios()
-
     iosSimulatorArm64()
 
-    cocoapods {
-        summary = "Shared Code"
-        homepage = "https://github.com/voitenkodev/Useful-Training"
-        ios.deploymentTarget = "14.1"
-        podfile = project.file("../iosApp/Podfile")
-
-        framework {
-            baseName = "shared"
-            isStatic = true
-        }
-        extraSpecAttributes["resources"] = "['src/commonMain/resources/**', 'src/iosMain/resources/**']"
-    }
+//    cocoapods {
+//        summary = "Shared Code"
+//        homepage = "https://github.com/voitenkodev/Useful-Training"
+//        ios.deploymentTarget = "14.1"
+//        podfile = project.file("../iosApp/Podfile")
+//
+//        framework {
+//            baseName = "shared"
+//            isStatic = true
+//        }
+//        extraSpecAttributes["resources"] = "['src/commonMain/resources/**', 'src/iosMain/resources/**']"
+//    }
 
     sourceSets {
         val commonMain by getting {
@@ -91,12 +90,8 @@ libres {
 
 android {
     compileSdk = 33
-    sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     namespace = "com.voitenko.usefultraining"
-
-    defaultConfig {
-        minSdk = 24
-    }
+    defaultConfig { minSdk = 24 }
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
