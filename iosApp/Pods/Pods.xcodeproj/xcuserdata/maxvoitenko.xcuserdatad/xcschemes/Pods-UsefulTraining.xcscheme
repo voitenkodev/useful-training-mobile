@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "B5A33DF89A8FB29D071F1CD02616905B"
-               BuildableName = "Pods_JetHabit.framework"
-               BlueprintName = "Pods-JetHabit"
+               BlueprintIdentifier = "44328F4D95DD59E67220A42E1C4542C7"
+               BuildableName = "Pods_UsefulTraining.framework"
+               BlueprintName = "Pods-UsefulTraining"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>

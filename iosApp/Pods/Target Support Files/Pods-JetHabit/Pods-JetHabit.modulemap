@@ -1,6 +1,0 @@
-framework module Pods_JetHabit {
-  umbrella header "Pods-JetHabit-umbrella.h"
-
-  export *
-  module * { export * }
-}

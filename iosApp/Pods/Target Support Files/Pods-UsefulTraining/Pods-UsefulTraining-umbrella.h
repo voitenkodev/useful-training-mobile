@@ -11,6 +11,6 @@
 #endif
 
 
-FOUNDATION_EXPORT double Pods_JetHabitVersionNumber;
-FOUNDATION_EXPORT const unsigned char Pods_JetHabitVersionString[];
+FOUNDATION_EXPORT double Pods_UsefulTrainingVersionNumber;
+FOUNDATION_EXPORT const unsigned char Pods_UsefulTrainingVersionString[];
 
