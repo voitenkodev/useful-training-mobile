@@ -53,11 +53,14 @@ kotlin {
                 implementation(libs.ktor.serialization)
                 implementation(libs.ktor.auth)
                 implementation(libs.ktor.negotiation)
+
+                implementation("io.insert-koin:koin-core:3.2.0")
             }
         }
 
         val androidMain by getting {
             dependencies {
+                implementation("io.insert-koin:koin-android:3.2.0")
                 implementation(libs.ktor.okhttp)
             }
         }

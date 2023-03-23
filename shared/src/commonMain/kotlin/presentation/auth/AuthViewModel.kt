@@ -1,13 +1,13 @@
 package presentation.auth
 
-import DataStoreFactory
 import Graph
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
-import data.repository.AuthRepositoryImpl
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import data.repository.AuthRepository
 import data.source.datastore.DataStoreKeys
-import data.source.network.AuthSource
-import data.source.network.Client
+import globalKoin
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.launchIn
@@ -20,13 +20,8 @@ import utils.ViewModel
 
 internal class AuthViewModel(private val navigator: NavigatorCore) : ViewModel() {
 
-    private val datastore = DataStoreFactory.client
-    private val api = AuthRepositoryImpl(
-        AuthSource(
-            network = Client(dataStore = datastore).address(),
-            dataStore = datastore
-        )
-    )
+    private val datastore = globalKoin().get<DataStore<Preferences>>()
+    private val api = globalKoin().get<AuthRepository>()
 
     private val _state = mutableStateOf(AuthState())
     val state: State<AuthState> = _state

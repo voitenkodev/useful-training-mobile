@@ -1,13 +1,3 @@
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import io.ktor.client.HttpClient
+import org.koin.core.module.Module
 
-internal expect object KtorFactory {
-    internal fun client(): HttpClient
-}
-
-internal expect object DataStoreFactory {
-
-    internal val client: DataStore<Preferences>
-}
-
+internal expect val platformModule: Module

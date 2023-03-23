@@ -1,21 +1,24 @@
-import android.content.Context
 import data.source.datastore.createDataStore
 import data.source.datastore.dataStoreFileName
+import data.source.network.Client
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.okhttp.OkHttp
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import org.koin.android.ext.koin.androidContext
+import org.koin.dsl.module
 
-internal actual object KtorFactory {
-    internal actual fun client() = HttpClient(OkHttp)
-}
+internal actual val platformModule = module {
 
-lateinit var platformAppContext: Context
+    single {
+        val engine = HttpClient(OkHttp)
+        Client(get(), engine).address()
+    }
 
-internal actual object DataStoreFactory {
-
-    internal actual val client = createDataStore(
-        coroutineScope = CoroutineScope(Dispatchers.Default),
-        producePath = { platformAppContext.filesDir.resolve(dataStoreFileName).absolutePath }
-    )
+    single {
+        createDataStore(
+            coroutineScope = CoroutineScope(Dispatchers.Default),
+            producePath = { androidContext().filesDir.resolve(dataStoreFileName).absolutePath }
+        )
+    }
 }

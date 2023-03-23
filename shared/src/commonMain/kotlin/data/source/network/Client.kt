@@ -1,9 +1,9 @@
 package data.source.network
 
-import KtorFactory
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import data.source.datastore.DataStoreKeys
+import io.ktor.client.HttpClient
 import io.ktor.client.plugins.auth.Auth
 import io.ktor.client.plugins.auth.providers.BearerTokens
 import io.ktor.client.plugins.auth.providers.bearer
@@ -21,10 +21,11 @@ import kotlinx.coroutines.flow.map
 import kotlinx.serialization.json.Json
 
 internal class Client(
-    private val dataStore: DataStore<Preferences>
+    private val dataStore: DataStore<Preferences>,
+    private val client: HttpClient
 ) {
 
-    fun address() = KtorFactory.client().config {
+    fun address() = client.config {
         install(Logging) {
             level = LogLevel.ALL
             logger = object : Logger {

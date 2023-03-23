@@ -1,13 +1,11 @@
 package presentation.trainings
 
-import DataStoreFactory
 import Graph
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import data.mapping.toTrainingStateList
-import data.repository.TrainingRepositoryImpl
-import data.source.network.Client
-import data.source.network.TrainingSource
+import data.repository.TrainingRepository
+import globalKoin
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
@@ -23,9 +21,7 @@ internal class TrainingsViewModel(private val navigator: NavigatorCore) : ViewMo
     private val _state = mutableStateOf(TrainingsState())
     val state: State<TrainingsState> = _state
 
-    private val datastore = DataStoreFactory.client
-    private val network = Client(dataStore = datastore).address()
-    private val api = TrainingRepositoryImpl(TrainingSource(network))
+    private val api = globalKoin().get<TrainingRepository>()
 
     fun fetchTrainings() = viewModelScope.launch {
         api.getTrainings().onStart {
