@@ -4,6 +4,7 @@ import Graph
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import data.mapping.toTrainingState
+import data.mapping.toTrainingStateList
 import data.repository.TrainingRepository
 import globalKoin
 import kotlinx.coroutines.flow.catch
@@ -32,6 +33,23 @@ internal class ReviewViewModel(private val navigator: NavigatorCore) : ViewModel
                     loading = false,
                     error = null,
                     reviewTraining = it.toTrainingState()
+                )
+            }.catch {
+                _state.value = state.value.copy(loading = false, error = it.message)
+            }
+            .launchIn(this)
+    }
+
+  fun getTrainings() = viewModelScope.launch {
+        api
+            .getTrainings()
+            .onStart {
+                _state.value = state.value.copy(loading = true)
+            }.onEach {
+                _state.value = state.value.copy(
+                    loading = false,
+                    error = null,
+                    otherTrainings = it.toTrainingStateList()
                 )
             }.catch {
                 _state.value = state.value.copy(loading = false, error = it.message)

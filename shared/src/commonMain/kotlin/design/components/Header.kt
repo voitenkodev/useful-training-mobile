@@ -11,6 +11,7 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
@@ -30,7 +31,8 @@ internal fun Header(
     back: (() -> Unit)? = null,
 ) = Row(
     modifier = Modifier.fillMaxWidth().height(56.dp).background(Design.colors.primary),
-    horizontalArrangement = Arrangement.SpaceBetween
+    horizontalArrangement = Arrangement.SpaceBetween,
+    verticalAlignment = Alignment.CenterVertically
 ) {
 
     back?.let {

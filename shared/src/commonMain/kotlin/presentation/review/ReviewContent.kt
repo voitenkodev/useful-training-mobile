@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -46,16 +47,17 @@ internal fun ReviewContent(vm: ReviewViewModel, trainingId: String) {
 
     val state by vm.state
 
-    LaunchedEffect(Unit){
+    LaunchedEffect(Unit) {
         vm.getTraining(trainingId)
+        vm.getTrainings()
     }
 
     Root(
         modifier = Modifier.fillMaxSize(),
-        loading = {
-            Loading(state.loading)
-        },
-        popup = {
+        loading = { Loading(state.loading) },
+        error = { Error(message = state.error, close = vm::clearError) },
+        back = {},
+        popups = {
             Popup(
                 visibility = state.removeTrainingId != null,
                 title = "Warning",
@@ -72,12 +74,6 @@ internal fun ReviewContent(vm: ReviewViewModel, trainingId: String) {
                 },
                 back = vm::closeRemoveTrainingPopup
             )
-        },
-        error = {
-            Error(message = state.error, close = vm::clearError)
-        },
-        back = {
-//            BackHandler(action = vm::back)
         },
         header = {
             Header(
@@ -114,19 +110,11 @@ internal fun ReviewContent(vm: ReviewViewModel, trainingId: String) {
                 )
             }
 
-            if (state.otherTrainings.isNotEmpty()) {
-                item(key = "comparing") {
-                    Comparing(
-                        list = state.otherTrainings,
-                        selected = state.compareTraining,
-                        compare = { vm.compareWith(it) },
-                        clear = { vm.clearComparing() }
-                    )
-                }
-            }
-
             item(key = "summary") {
-                Summary(state = state.reviewTraining)
+                Summary(
+                    training = state.reviewTraining,
+                    compareTraining = state.compareTraining
+                )
             }
 
             item(key = "exercises") {
@@ -134,6 +122,17 @@ internal fun ReviewContent(vm: ReviewViewModel, trainingId: String) {
                     ExerciseItem(
                         number = index + 1,
                         exercise = item
+                    )
+                }
+            }
+
+            if (state.otherTrainings.isNotEmpty()) {
+                item(key = "comparing") {
+                    Comparing(
+                        list = state.otherTrainings,
+                        selected = state.compareTraining,
+                        compare = { vm.compareWith(it) },
+                        clear = { vm.clearComparing() }
                     )
                 }
             }
@@ -265,7 +264,8 @@ private fun ChartSection(
 
 @Composable
 private fun Summary(
-    state: Training
+    training: Training,
+    compareTraining: Training?
 ) = Column(
     verticalArrangement = Arrangement.spacedBy(Design.dp.padding)
 ) {
@@ -282,41 +282,62 @@ private fun Summary(
             .padding(horizontal = Design.dp.padding),
     ) {
 
+
         Section(
-            label = "Tonnage", value = "${state.tonnage}kg"
+            label = "Tonnage",
+            value = "${training.tonnage}kg",
+            compareValue = compareTraining?.tonnage?.let { " / ${it}kg" }
         )
 
         DividerPrimary()
 
         Section(
-            label = "Repeats", value = "${state.countOfLifting}"
+            label = "Repeats",
+            value = "${training.countOfLifting}",
+            compareValue = compareTraining?.countOfLifting?.let { " / $it" }
         )
 
         DividerPrimary()
 
         Section(
-            label = "Intensity", value = "${state.intensity}%"
+            label = "Intensity",
+            value = "${training.intensity}%",
+            compareValue = compareTraining?.intensity?.let { " / ${it}%" }
         )
 
         DividerPrimary()
 
         Section(
-            label = "Duration", value = state.durationTime
+            label = "Duration",
+            value = training.durationTime,
+            compareValue = compareTraining?.durationTime?.let { " / $it" }
         )
     }
 }
 
 @Composable
-private fun Section(label: String, value: String) = Row(
+private fun Section(
+    label: String,
+    value: String,
+    compareValue: String?
+) = Row(
     modifier = Modifier.fillMaxWidth().padding(vertical = Design.dp.padding),
-    horizontalArrangement = Arrangement.SpaceBetween
 ) {
+
     TextFieldBody2(
         text = label,
         color = Design.colors.caption,
     )
+
+    Spacer(Modifier.weight(1f))
+
     TextFieldBody2(
         text = value,
         fontWeight = FontWeight.Bold,
+    )
+    if (compareValue != null) TextFieldBody2(
+        text = compareValue,
+        fontWeight = FontWeight.Bold,
+        color = Design.colors.caption
     )
 }

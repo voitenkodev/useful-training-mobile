@@ -52,6 +52,7 @@ internal fun TrainingsContent(vm: TrainingsViewModel) {
         expanded = Design.dp.expandedAppBar,
         listState = listState,
         topBar = {
+
             LineChart(
                 modifier = Modifier.fillMaxWidth()
                     .requiredHeight(Design.dp.expandedAppBar)
@@ -105,7 +106,7 @@ private fun BoxScope.HeaderButtons(vm: TrainingsViewModel) = Row(
     modifier = Modifier
         .height(Design.dp.collapsedAppBar)
         .align(Alignment.BottomEnd)
-        .padding(end = Design.dp.padding),
+        .padding(end = Design.dp.padding, bottom = Design.dp.padding),
     verticalAlignment = Alignment.Bottom,
     horizontalArrangement = Arrangement.spacedBy(Design.dp.padding, Alignment.End)
 ) {
