@@ -61,10 +61,10 @@ internal class ReviewViewModel(private val navigator: NavigatorCore) : ViewModel
         api
             .removeTraining(trainingId = trainingId)
             .onStart {
-                _state.value = state.value.copy(loading = false, error = null)
+                _state.value = state.value.copy(loading = true, error = null)
             }.onEach {
                 _state.value = state.value.copy(loading = false, error = null)
-                navigator.navigate(Graph.Trainings.link)
+                navigator.back()
             }.catch {
                 _state.value = state.value.copy(loading = false, error = it.message)
             }

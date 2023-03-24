@@ -3,6 +3,7 @@ package data.source.network
 import data.dto.TrainingBody
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
+import io.ktor.client.request.delete
 import io.ktor.client.request.get
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
@@ -51,7 +52,13 @@ internal class TrainingSource(private val client: HttpClient) : TrainingProtocol
         emit(result.body())
     }
 
-    override suspend fun deleteTraining(trainingId: String): Flow<Unit> {
-        TODO("Not yet implemented")
+    override suspend fun deleteTraining(trainingId: String): Flow<Unit> = flow {
+        client.delete {
+            url {
+                path("/training")
+                parameters.append("id", trainingId)
+            }
+        }
+        emit(Unit)
     }
 }
