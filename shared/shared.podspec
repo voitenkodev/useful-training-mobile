@@ -36,7 +36,4 @@ Pod::Spec.new do |spec|
         }
     ]
     spec.resources = ['src/commonMain/resources/**', 'src/iosMain/resources/**']
-    spec.resource_bundles = {
-        'LibresShared' => ['build/generated/libres/apple/resources/images/LibresShared.xcassets']
-    }
 end

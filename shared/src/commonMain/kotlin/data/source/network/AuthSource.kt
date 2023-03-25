@@ -3,23 +3,25 @@ package data.source.network
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
+import co.touchlab.kermit.Logger
 import data.dto.AuthBody
 import data.dto.AuthResponse
+import data.source.datastore.DataStoreKeys
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
 import io.ktor.http.path
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 
 internal interface AuthProtocol {
     fun login(email: String, password: String): Flow<Unit>
     fun registration(email: String, password: String): Flow<AuthResponse>
-//    fun logout(): Flow<Unit>
-//    val isAuthorized: Boolean
-//    val userDto: UserDto?
+
 }
 
 internal class AuthSource(
@@ -34,13 +36,9 @@ internal class AuthSource(
                 setBody(AuthBody(email, password))
             }
         }
-        emit(result.body<AuthResponse>())
-    }.flatMapConcat { r ->
-        flow {
-            val token = r.token
-            if (token != null) dataStore.edit { it[data.source.datastore.DataStoreKeys.KEY_TOKEN] = token }
-            emit(Unit)
-        }
+        val token = result.body<AuthResponse>().token
+        if (token != null) dataStore.edit { it[DataStoreKeys.KEY_TOKEN] = token }
+        emit(Unit)
     }
 
     override fun registration(email: String, password: String): Flow<AuthResponse> = flow {

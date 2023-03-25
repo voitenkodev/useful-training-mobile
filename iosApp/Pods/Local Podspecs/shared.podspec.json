@@ -28,10 +28,5 @@
   "resources": [
     "src/commonMain/resources/**",
     "src/iosMain/resources/**"
-  ],
-  "resource_bundles": {
-    "LibresShared": [
-      "build/generated/libres/apple/resources/images/LibresShared.xcassets"
-    ]
-  }
+  ]
 }

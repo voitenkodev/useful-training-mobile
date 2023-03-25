@@ -4,7 +4,6 @@ plugins {
     kotlin("plugin.serialization")
     id("com.android.library")
     id("org.jetbrains.compose")
-    id("io.github.skeptick.libres")
     id("org.jetbrains.kotlin.plugin.parcelize")
 }
 
@@ -83,12 +82,6 @@ kotlin {
         languageSettings.optIn("androidx.compose.animation.ExperimentalAnimationApi")
         languageSettings.optIn("kotlin.time.ExperimentalTime")
     }
-}
-
-libres {
-    generatedClassName = "AppRes"
-    generateNamedArguments = true
-    baseLocaleLanguageCode = "en"
 }
 
 android {

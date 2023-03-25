@@ -50,3 +50,4 @@ data class AppTypography(
     val PrimaryButton: TextStyle,
     val SecondaryButton: TextStyle,
 )
+

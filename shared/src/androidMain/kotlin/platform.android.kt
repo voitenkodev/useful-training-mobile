@@ -10,7 +10,7 @@ import org.koin.dsl.module
 
 internal actual val platformModule = module {
 
-    single {
+    factory {
         val engine = HttpClient(OkHttp)
         Client(get(), engine).address()
     }

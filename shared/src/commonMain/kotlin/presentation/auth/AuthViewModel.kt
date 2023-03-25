@@ -43,7 +43,6 @@ internal class AuthViewModel(private val navigator: NavigatorCore) : ViewModel()
                 _state.value = state.value.copy(loading = true)
             }.onEach {
                 _state.value = state.value.copy(loading = false, error = null)
-                navigator.navigate(Graph.Trainings.link, true)
             }.catch {
                 _state.value = state.value.copy(loading = false, error = it.message)
             }.launchIn(this)
@@ -55,7 +54,6 @@ internal class AuthViewModel(private val navigator: NavigatorCore) : ViewModel()
                 _state.value = state.value.copy(loading = true)
             }.onEach {
                 _state.value = state.value.copy(loading = false, error = null)
-                navigator.navigate(Graph.Trainings.link, true)
             }.catch {
                 _state.value = state.value.copy(loading = false, error = it.message)
             }.launchIn(this)
