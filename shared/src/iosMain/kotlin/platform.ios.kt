@@ -38,32 +38,5 @@ internal actual val platformModule = module {
 }
 
 @Composable
-internal actual fun BackHandler(action: () -> Unit) {
-//    val triggerBackPressDragDistance = 40f
-//    val dragDistance = remember { mutableStateOf(0f) }
-//    val state = rememberDraggableState { dragDistance.value = min(dragDistance.value + it, triggerBackPressDragDistance * 2) }
-//
-//    Box(
-//        modifier = Modifier.fillMaxHeight().widthIn(min = 20.dp)
-//            .draggable(state = state, orientation = Orientation.Horizontal, onDragStopped = {
-//                if (dragDistance.value > triggerBackPressDragDistance) {
-//                    action.invoke()
-//                    dragDistance.value = 0f
-//                }
-//            }), contentAlignment = Alignment.CenterStart
-//    ) {
-//
-//        AnimatedVisibility(visible = dragDistance.value > triggerBackPressDragDistance,
-//            enter = slideInHorizontally(initialOffsetX = { -it }, animationSpec = tween(durationMillis = 100)),
-//            exit = slideOutHorizontally(targetOffsetX = { -it }),
-//            content = {
-//                Icon(
-//                    imageVector = Icons.Default.KeyboardArrowLeft,
-//                    contentDescription = null,
-//                    modifier = Modifier.size(40.dp),
-//                    tint = Color.White,
-//                )
-//            }
-//        )
-//    }
+internal actual fun PlatformBackHandler(action: () -> Unit) {
 }

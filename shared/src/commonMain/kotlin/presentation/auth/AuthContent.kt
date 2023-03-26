@@ -1,6 +1,6 @@
 package presentation.auth
 
-import BackHandler
+import PlatformBackHandler
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.wrapContentHeight
@@ -28,7 +28,7 @@ internal fun AuthContent(vm: AuthViewModel) {
         modifier = Modifier.fillMaxWidth(),
         loading = { Loading(state.loading) },
         error = { Error(message = state.error, close = vm::clearError) },
-        back = { BackHandler(vm::back) },
+        back = { PlatformBackHandler(vm::back) },
         header = {
             TextFieldH1(
                 modifier = Modifier

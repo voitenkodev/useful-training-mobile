@@ -1,3 +1,4 @@
+import android.app.Application
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import androidx.compose.runtime.Composable
@@ -13,7 +14,6 @@ import io.ktor.client.HttpClient
 import io.ktor.client.engine.okhttp.OkHttp
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 
 internal actual val platformModule = module {
@@ -26,13 +26,13 @@ internal actual val platformModule = module {
     single {
         createDataStore(
             coroutineScope = CoroutineScope(Dispatchers.Default),
-            producePath = { androidContext().filesDir.resolve(dataStoreFileName).absolutePath }
+            producePath = { get<Application>().filesDir.resolve(dataStoreFileName).absolutePath }
         )
     }
 }
 
 @Composable
-internal actual fun BackHandler(action: () -> Unit) {
+internal actual fun PlatformBackHandler(action: () -> Unit) {
 
     val currentOnBack by rememberUpdatedState(action)
 

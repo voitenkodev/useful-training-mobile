@@ -1,6 +1,6 @@
 package presentation.training
 
-import BackHandler
+import PlatformBackHandler
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -31,7 +31,7 @@ internal fun TrainingContent(vm: TrainingViewModel) {
         modifier = Modifier.fillMaxWidth(),
         loading = { Loading(state.loading) },
         error = { Error(message = state.error, close = vm::clearError) },
-        back = { BackHandler(vm::tryBack) },
+        back = { PlatformBackHandler(vm::tryBack) },
         popups = {
             Popup(
                 visibility = state.exitWarningVisibility,

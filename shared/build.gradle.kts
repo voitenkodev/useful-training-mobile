@@ -53,14 +53,13 @@ kotlin {
                 implementation(libs.ktor.auth)
                 implementation(libs.ktor.negotiation)
 
-                implementation("io.insert-koin:koin-core:3.2.0")
+                implementation(libs.koin.core)
             }
         }
 
         val androidMain by getting {
             dependencies {
                 implementation("androidx.activity:activity-compose:1.6.1")
-                implementation("io.insert-koin:koin-android:3.2.0")
                 implementation(libs.ktor.okhttp)
             }
         }
@@ -94,5 +93,4 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
-
 }

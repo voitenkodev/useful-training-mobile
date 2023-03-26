@@ -12,7 +12,7 @@ kotlin {
                 implementation(project(":shared"))
                 implementation("androidx.appcompat:appcompat:1.6.1")
                 implementation("androidx.activity:activity-compose:1.6.1")
-                implementation("io.insert-koin:koin-android:3.2.0")
+                implementation(libs.koin.android)
             }
         }
     }
