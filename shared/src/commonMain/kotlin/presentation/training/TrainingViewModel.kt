@@ -69,6 +69,20 @@ internal class TrainingViewModel(private val navigator: NavigatorCore) : ViewMod
         _state.value = state.value.copy(exitWarningVisibility = false)
     }
 
+    fun tryBack() {
+        if (state.value.removeExerciseId != null) {
+            closeRemoveExercisePopup()
+            return
+        }
+        if (state.value.exitWarningVisibility.not()) {
+            openExitScreenPopup()
+            return
+        }
+        if (state.value.exitWarningVisibility) {
+            closeExitScreenPopup()
+        }
+    }
+
     fun back() {
         closeExitScreenPopup()
         navigator.back()

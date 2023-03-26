@@ -1,5 +1,7 @@
 package presentation.training
 
+import BackHandler
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -18,7 +20,7 @@ import design.components.Popup
 import design.components.Root
 import design.components.items.EditExerciseItem
 import design.controls.TextFieldH2
-import design.controls.dashedBorder
+import design.controls.tertiaryBackground
 
 @Composable
 internal fun TrainingContent(vm: TrainingViewModel) {
@@ -29,7 +31,7 @@ internal fun TrainingContent(vm: TrainingViewModel) {
         modifier = Modifier.fillMaxWidth(),
         loading = { Loading(state.loading) },
         error = { Error(message = state.error, close = vm::clearError) },
-        back = {},
+        back = { BackHandler(vm::tryBack) },
         popups = {
             Popup(
                 visibility = state.exitWarningVisibility,
@@ -105,12 +107,9 @@ private fun NewExercise(
     modifier = modifier
         .fillMaxWidth()
         .height(128.dp)
-        .dashedBorder(
-            width = 2.dp, color = Design.colors.accent_secondary.copy(alpha = 0.5f),
-            shape = Design.shape.default,
-            on = 8.dp,
-            off = 8.dp
-        ).clickable(onClick = onClick),
+        .tertiaryBackground()
+        .border(width = 1.dp, shape = Design.shape.default, color = Design.colors.accent_secondary)
+        .clickable(onClick = onClick),
     content = {
         TextFieldH2(
             modifier = Modifier.align(Alignment.Center),

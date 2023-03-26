@@ -59,6 +59,7 @@ kotlin {
 
         val androidMain by getting {
             dependencies {
+                implementation("androidx.activity:activity-compose:1.6.1")
                 implementation("io.insert-koin:koin-android:3.2.0")
                 implementation(libs.ktor.okhttp)
             }

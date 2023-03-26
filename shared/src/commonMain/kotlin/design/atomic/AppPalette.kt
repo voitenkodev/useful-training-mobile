@@ -61,7 +61,6 @@ val color_gray = Color(0xff7f8899)
 
 val color_black = Color(0xff000000)
 
-//val color_black_50 = Color(0xff181824)
 val color_black_50 = Color(0xff13131c)
 val color_black_100 = Color(0xff101014)
 

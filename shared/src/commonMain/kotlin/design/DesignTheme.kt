@@ -13,7 +13,7 @@ import design.atomic.darkPalette
 @Composable
 internal fun DesignTheme(
     modifier: Modifier = Modifier,
-    darkTheme: Boolean = false, // need isSystemInDarkTheme()
+    darkTheme: Boolean = false,
     content: @Composable () -> Unit
 ) = CompositionLocalProvider(
 
