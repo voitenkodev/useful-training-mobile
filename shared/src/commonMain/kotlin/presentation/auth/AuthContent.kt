@@ -11,7 +11,7 @@ import androidx.compose.ui.text.style.TextAlign
 import design.Design
 import design.components.Error
 import design.components.Loading
-import design.components.Root
+import design.components.roots.Root
 import design.components.buttons.ButtonQuestion
 import design.components.inputs.InputEmail
 import design.components.inputs.InputPassword

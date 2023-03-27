@@ -17,8 +17,8 @@ import design.components.Error
 import design.components.Header
 import design.components.Loading
 import design.components.Popup
-import design.components.Root
 import design.components.items.EditExerciseItem
+import design.components.roots.ScrollableRoot
 import design.controls.TextFieldH2
 import design.controls.tertiaryBackground
 
@@ -27,7 +27,7 @@ internal fun TrainingContent(vm: TrainingViewModel) {
 
     val state by vm.state
 
-    Root(
+    ScrollableRoot(
         modifier = Modifier.fillMaxWidth(),
         loading = { Loading(state.loading) },
         error = { Error(message = state.error, close = vm::clearError) },
@@ -63,7 +63,7 @@ internal fun TrainingContent(vm: TrainingViewModel) {
                 },
             )
         },
-        scrollableContent = {
+        content = {
             itemsIndexed(state.training.exercises, key = { _, exercise -> exercise.id }) { index, exercise ->
                 EditExerciseItem(
                     modifier = Modifier.animateItemPlacement(),

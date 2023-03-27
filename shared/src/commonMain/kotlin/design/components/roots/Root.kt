@@ -1,4 +1,4 @@
-package design.components
+package design.components.roots
 
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
@@ -6,15 +6,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyItemScope
-import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.unit.dp
 import design.Design
 
 @Composable
@@ -26,11 +21,10 @@ internal fun Root(
     back: (@Composable () -> Unit)? = null,
     popups: (@Composable () -> Unit)? = null,
 
-    header: @Composable (LazyItemScope.() -> Unit)? = null,
+    header: @Composable (ColumnScope.() -> Unit)? = null,
     footer: (@Composable ColumnScope.() -> Unit)? = null,
 
     content: (@Composable ColumnScope.() -> Unit)? = null,
-    scrollableContent: (LazyListScope.() -> Unit)? = null,
 ) {
 
     val focusManager = LocalFocusManager.current
@@ -43,35 +37,16 @@ internal fun Root(
                 bottom = Design.dp.padding
             ).pointerInput(Unit) {
                 detectTapGestures(onTap = { focusManager.clearFocus() })
-            }
+            },
+        verticalArrangement = Arrangement.spacedBy(Design.dp.padding)
     ) {
 
-        LazyColumn(
-            modifier = Modifier.weight(1f),
-            verticalArrangement = Arrangement.spacedBy(Design.dp.padding),
-            content = {
-                if (header != null) {
-                    item(key = "header_spacer") {
-                        Spacer(modifier = Modifier.size(44.dp))
-                    }
-                    stickyHeader(
-                        key = "header",
-                        content = header
-                    )
-                }
+        header?.invoke(this)
 
-                if (content != null) {
-                    item(key = "content") {
-                        Column(
-                            verticalArrangement = Arrangement.spacedBy(Design.dp.padding),
-                            content = content
-                        )
-                    }
-                }
+        content?.invoke(this)
 
-                scrollableContent?.invoke(this)
-            }
-        )
+        Spacer(modifier = Modifier.weight(1f))
+
         footer?.invoke(this)
     }
 

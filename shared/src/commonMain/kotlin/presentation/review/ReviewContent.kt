@@ -30,11 +30,11 @@ import design.components.Error
 import design.components.Header
 import design.components.Loading
 import design.components.Popup
-import design.components.Root
 import design.components.items.ExerciseItem
 import design.components.items.LineChartItem
 import design.components.items.ShortTrainingItem
 import design.components.labels.WeekDayLabel
+import design.components.roots.ScrollableRoot
 import design.controls.ButtonSecondary
 import design.controls.DividerPrimary
 import design.controls.IconPrimary
@@ -52,7 +52,7 @@ internal fun ReviewContent(vm: ReviewViewModel, trainingId: String) {
         vm.getTrainings()
     }
 
-    Root(
+    ScrollableRoot(
         modifier = Modifier.fillMaxSize(),
         loading = { Loading(state.loading) },
         error = { Error(message = state.error, close = vm::clearError) },
@@ -81,7 +81,7 @@ internal fun ReviewContent(vm: ReviewViewModel, trainingId: String) {
                 exit = vm::back
             )
         },
-        scrollableContent = {
+        content = {
             item(key = "date") {
                 DateItem(
                     weekDay = state.reviewTraining.weekDay,
@@ -96,7 +96,6 @@ internal fun ReviewContent(vm: ReviewViewModel, trainingId: String) {
                     data = state.reviewTraining.exercises.map { it.tonnage.toFloat() },
                     compareData = state.compareTraining?.exercises?.map { it.tonnage.toFloat() },
                     color = Design.colors.unique.color1,
-                    onClick = { point, index -> }
                 )
             }
 
@@ -106,7 +105,6 @@ internal fun ReviewContent(vm: ReviewViewModel, trainingId: String) {
                     data = state.reviewTraining.exercises.map { it.intensity.toFloat() },
                     compareData = state.compareTraining?.exercises?.map { it.intensity.toFloat() },
                     color = Design.colors.unique.color4,
-                    onClick = { point, index -> }
                 )
             }
 
@@ -235,7 +233,6 @@ private fun ChartSection(
     color: Color,
     data: List<Float>,
     compareData: List<Float>? = null,
-    onClick: (PointLine, Int) -> Unit
 ) = LineChartItem(
     modifier = Modifier
         .fillMaxWidth()
@@ -258,8 +255,7 @@ private fun ChartSection(
                 label = "Compare",
             )
         )
-    },
-    onClick = onClick
+    }
 )
 
 @Composable

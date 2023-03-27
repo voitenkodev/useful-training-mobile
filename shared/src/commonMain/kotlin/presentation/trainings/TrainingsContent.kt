@@ -1,5 +1,6 @@
 package presentation.trainings
 
+import PlatformBackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxScope
@@ -30,7 +31,7 @@ import design.components.Error
 import design.components.Loading
 import design.components.items.TrainingItem
 import design.components.items.WeekSummary
-import design.controls.BottomSheet
+import design.components.roots.BottomSheetRoot
 import design.controls.IconPrimary
 import design.controls.TextFieldBody1
 import design.controls.TextFieldH1
@@ -46,8 +47,11 @@ internal fun TrainingsContent(vm: TrainingsViewModel) {
     val listState = rememberLazyListState()
     val coroutineScope = rememberCoroutineScope()
 
-    BottomSheet(
+    BottomSheetRoot(
         modifier = Modifier.fillMaxSize(),
+        loading = { Loading(state.loading) },
+        error = { Error(message = state.error, close = vm::clearError) },
+        back = { PlatformBackHandler(vm::back) },
         collapsed = Design.dp.collapsedAppBar,
         expanded = Design.dp.expandedAppBar,
         listState = listState,
@@ -64,8 +68,7 @@ internal fun TrainingsContent(vm: TrainingsViewModel) {
                         lineColor = Design.colors.accent_secondary,
                         fillColor = Design.colors.accent_secondary.copy(alpha = 0.15f)
                     )
-                ),
-                onClick = { p0, p1 -> }
+                )
             )
 
             HeaderButtons(vm)
@@ -110,17 +113,6 @@ private fun BoxScope.HeaderButtons(vm: TrainingsViewModel) = Row(
     verticalAlignment = Alignment.Bottom,
     horizontalArrangement = Arrangement.spacedBy(Design.dp.padding, Alignment.End)
 ) {
-
-//    IconPrimary(
-//        imageVector = BarChart,
-//        modifier = Modifier
-//            .size(Design.dp.component)
-//            .background(
-//                color = Design.colors.accent_secondary,
-//                shape = Design.shape.default
-//            ),
-//        onClick = vm::addTraining
-//    )
 
     IconPrimary(
         imageVector = Icons.Default.Add,

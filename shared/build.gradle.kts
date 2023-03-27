@@ -43,7 +43,6 @@ kotlin {
                 implementation(libs.serialization)
                 implementation(libs.datetime)
                 implementation(libs.logger)
-                implementation(libs.datetime)
                 implementation(libs.datastore)
 
                 //ktor
