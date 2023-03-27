@@ -1,6 +1,5 @@
 package presentation.review
 
-import Graph
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import data.mapping.toTrainingState
@@ -40,7 +39,7 @@ internal class ReviewViewModel(private val navigator: NavigatorCore) : ViewModel
             .launchIn(this)
     }
 
-  fun getTrainings() = viewModelScope.launch {
+    fun getTrainings() = viewModelScope.launch {
         api
             .getTrainings()
             .onStart {

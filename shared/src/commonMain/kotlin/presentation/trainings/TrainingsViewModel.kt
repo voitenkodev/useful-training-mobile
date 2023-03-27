@@ -23,7 +23,7 @@ internal class TrainingsViewModel(private val navigator: NavigatorCore) : ViewMo
 
     private val api = globalKoin().get<TrainingRepository>()
 
-    fun fetchTrainings() = viewModelScope.launch {
+    fun getTrainings() = viewModelScope.launch {
         api.getTrainings().onStart {
             _state.value = state.value.copy(loading = true)
         }.map {
@@ -44,14 +44,17 @@ internal class TrainingsViewModel(private val navigator: NavigatorCore) : ViewMo
         navigator.navigate(Graph.Training.link)
     }
 
+    fun moveToSummary() {
+        navigator.navigate(Graph.Summary.link)
+    }
+
     fun back() {
         navigator.back()
     }
 
     fun editTraining(training: Training) {
-//        dispatcher(TrainingAction.PutTrainingAction(training))
-//        dispatcher(TrainingAction.ProvideEmptyIterations)
-//        navigator.navigate(Graph.Training.link)
+        val id = training.id ?: return
+        navigator.navigate(Graph.Training.link, args = mapOf("trainingId" to id))
     }
 
     fun reviewTraining(training: Training) {

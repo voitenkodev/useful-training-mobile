@@ -1,5 +1,6 @@
 package presentation.review
 
+import PlatformBackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -56,7 +57,7 @@ internal fun ReviewContent(vm: ReviewViewModel, trainingId: String) {
         modifier = Modifier.fillMaxSize(),
         loading = { Loading(state.loading) },
         error = { Error(message = state.error, close = vm::clearError) },
-        back = {},
+        back = { PlatformBackHandler(vm::back) },
         popups = {
             Popup(
                 visibility = state.removeTrainingId != null,

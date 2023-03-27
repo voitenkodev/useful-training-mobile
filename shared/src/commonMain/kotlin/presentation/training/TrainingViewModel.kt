@@ -4,6 +4,7 @@ import Graph
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import data.mapping.toBody
+import data.mapping.toTrainingState
 import data.repository.TrainingRepository
 import globalKoin
 import kotlinx.coroutines.flow.catch
@@ -39,6 +40,24 @@ internal class TrainingViewModel(private val navigator: NavigatorCore) : ViewMod
             }
             .launchIn(this)
     }
+
+    fun getTraining(trainingId: String) = viewModelScope.launch {
+        api
+            .getTraining(trainingId = trainingId)
+            .onStart {
+                _state.value = state.value.copy(loading = true)
+            }.onEach {
+                _state.value = state.value.copy(
+                    loading = false,
+                    error = null,
+                    training = it.toTrainingState().provideEmptyIterations()
+                )
+            }.catch {
+                _state.value = state.value.copy(loading = false, error = it.message)
+            }
+            .launchIn(this)
+    }
+
 
     fun processingTraining() {
         val training = state.value.training

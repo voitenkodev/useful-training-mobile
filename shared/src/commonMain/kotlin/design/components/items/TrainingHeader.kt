@@ -53,12 +53,12 @@ internal fun TrainingHeader(
         onClick = review
     )
 
-//    Spacer(modifier = Modifier.size(20.dp))
+    Spacer(modifier = Modifier.size(12.dp))
 
-//    IconPrimary(
-//        modifier = Modifier.height(20.dp),
-//        imageVector = Icons.Default.Edit,
-//        color = Design.colors.caption,
-//        onClick = edit
-//    )
+    IconPrimary(
+        modifier = Modifier.height(20.dp),
+        imageVector = Icons.Default.Edit,
+        color = Design.colors.caption,
+        onClick = edit
+    )
 }

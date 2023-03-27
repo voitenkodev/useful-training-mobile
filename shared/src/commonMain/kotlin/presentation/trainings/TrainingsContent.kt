@@ -17,6 +17,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -42,7 +43,7 @@ internal fun TrainingsContent(vm: TrainingsViewModel) {
 
     val state by vm.state
 
-    LaunchedEffect(Unit) { vm.fetchTrainings() }
+    LaunchedEffect(Unit) { vm.getTrainings() }
 
     val listState = rememberLazyListState()
     val coroutineScope = rememberCoroutineScope()
@@ -98,10 +99,6 @@ internal fun TrainingsContent(vm: TrainingsViewModel) {
             }
         }
     )
-
-    Error(message = state.error, close = vm::clearError)
-
-    Loading(state.loading)
 }
 
 @Composable
@@ -113,6 +110,17 @@ private fun BoxScope.HeaderButtons(vm: TrainingsViewModel) = Row(
     verticalAlignment = Alignment.Bottom,
     horizontalArrangement = Arrangement.spacedBy(Design.dp.padding, Alignment.End)
 ) {
+
+    IconPrimary(
+        imageVector = Icons.Default.Search,
+        modifier = Modifier
+            .size(Design.dp.component)
+            .background(
+                color = Design.colors.accent_secondary,
+                shape = Design.shape.default
+            ),
+        onClick = vm::moveToSummary
+    )
 
     IconPrimary(
         imageVector = Icons.Default.Add,

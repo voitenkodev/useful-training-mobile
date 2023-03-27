@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -21,11 +22,19 @@ import design.components.items.EditExerciseItem
 import design.components.roots.ScrollableRoot
 import design.controls.TextFieldH2
 import design.controls.tertiaryBackground
+import kotlinx.coroutines.delay
 
 @Composable
-internal fun TrainingContent(vm: TrainingViewModel) {
+internal fun TrainingContent(vm: TrainingViewModel, trainingId: String?) {
 
     val state by vm.state
+
+    LaunchedEffect(trainingId) {
+        if (trainingId != null) {
+            delay(500)
+            vm.getTraining(trainingId)
+        }
+    }
 
     ScrollableRoot(
         modifier = Modifier.fillMaxWidth(),
@@ -83,26 +92,12 @@ internal fun TrainingContent(vm: TrainingViewModel) {
             }
         }
     )
-
-//    BackHandler(action = {
-//        if (state.removeExerciseId != null) {
-//            vm.closeRemoveExercisePopup()
-//            return@BackHandler
-//        }
-//        if (state.exitWarningVisibility.not()) {
-//            vm.openExitScreenPopup()
-//            return@BackHandler
-//        }
-//        if (state.exitWarningVisibility) {
-//            vm.closeExitScreenPopup()
-//            return@BackHandler
-//        }
-//    })
 }
 
 @Composable
 private fun NewExercise(
-    modifier: Modifier = Modifier, onClick: () -> Unit
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit
 ) = Box(
     modifier = modifier
         .fillMaxWidth()
