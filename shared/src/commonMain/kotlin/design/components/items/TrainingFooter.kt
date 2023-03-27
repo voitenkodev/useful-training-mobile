@@ -25,13 +25,13 @@ internal fun TrainingFooter(
 
     Row(
         modifier = modifier.requiredHeight(44.dp),
-        horizontalArrangement = Arrangement.spacedBy(2.dp),
+        horizontalArrangement = Arrangement.spacedBy(4.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
 
         TextFieldBody2(
             modifier = Modifier.padding(end = 4.dp),
-            text = "Duration",
+            text = "Duration:",
             color = Design.colors.caption,
         )
 
@@ -45,7 +45,7 @@ internal fun TrainingFooter(
 
         TextFieldBody2(
             modifier = Modifier.padding(end = 4.dp),
-            text = "Tonnage",
+            text = "Tonnage:",
             color = Design.colors.caption,
         )
 

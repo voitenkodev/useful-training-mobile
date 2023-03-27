@@ -29,7 +29,7 @@ internal fun TrainingHeader(
     edit: () -> Unit
 ) = Row(
     modifier = modifier.requiredHeight(44.dp),
-    horizontalArrangement = Arrangement.spacedBy(2.dp),
+    horizontalArrangement = Arrangement.spacedBy(4.dp),
     verticalAlignment = Alignment.CenterVertically,
 ) {
 

@@ -44,7 +44,7 @@ internal fun ShortTrainingItem(
 ) {
     Row(
         modifier = Modifier.requiredHeight(44.dp),
-        horizontalArrangement = Arrangement.spacedBy(2.dp),
+        horizontalArrangement = Arrangement.spacedBy(4.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
 

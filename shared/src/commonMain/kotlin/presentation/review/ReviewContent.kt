@@ -140,9 +140,7 @@ internal fun ReviewContent(vm: ReviewViewModel, trainingId: String) {
                     modifier = Modifier.fillMaxWidth(),
                     text = "Remove Training",
                     color = Design.colors.accent_tertiary,
-                    onClick = {
-                        vm.openRemoveTrainingPopup(state.reviewTraining.id)
-                    }
+                    onClick = { vm.openRemoveTrainingPopup(state.reviewTraining.id) }
                 )
             }
         }
@@ -204,7 +202,7 @@ private fun DateItem(
     startDate: String
 ) = Row(
     modifier = modifier,
-    horizontalArrangement = Arrangement.spacedBy(2.dp),
+    horizontalArrangement = Arrangement.spacedBy(4.dp),
     verticalAlignment = Alignment.CenterVertically,
 ) {
 
@@ -325,7 +323,9 @@ private fun Section(
         color = Design.colors.caption,
     )
 
-    Spacer(Modifier.weight(1f))
+    Spacer(
+        modifier = Modifier.weight(1f)
+    )
 
     TextFieldBody2(
         text = value,
