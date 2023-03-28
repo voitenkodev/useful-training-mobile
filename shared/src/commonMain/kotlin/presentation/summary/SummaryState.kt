@@ -11,7 +11,16 @@ import presentation.training.Exercise
 @Stable
 internal data class SummaryState(
     val query: String = "",
-    val exercises: List<Exercise> = listOf(Exercise()),
+    val exercises: List<ExerciseDate> = listOf(),
     val error: String? = null,
     val loading: Boolean = false,
+) : Parcelable
+
+@Serializable
+@Parcelize
+@Stable
+data class ExerciseDate(
+    val trainingId: String? = null,
+    val exercise: Exercise? = null,
+    val date: String,
 ) : Parcelable

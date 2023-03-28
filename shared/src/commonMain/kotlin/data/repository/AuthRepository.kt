@@ -9,7 +9,4 @@ internal interface AuthRepository {
 
     fun registration(email: String, password: String): Flow<TokenDTO>
 
-//    fun logout(): Flow<Unit>
-//    val isAuthorized: Boolean
-//    val userDto: UserDto?
 }

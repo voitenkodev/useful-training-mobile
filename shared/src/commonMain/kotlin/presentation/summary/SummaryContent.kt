@@ -32,15 +32,18 @@ internal fun SummaryContent(vm: SummaryViewModel) {
             item(key = "search_input") {
                 InputSearch(
                     value = state.query,
-                    onValueChange = {}
+                    onValueChange = vm::setQuery
                 )
             }
 
             item(key = "exercises") {
                 state.exercises.forEachIndexed { index, item ->
+
+                    if (item.exercise == null) return@item
+
                     ExerciseItem(
                         number = index + 1,
-                        exercise = item
+                        exercise = item.exercise
                     )
                 }
             }

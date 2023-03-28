@@ -2,6 +2,7 @@ package presentation.summary
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
+import data.mapping.toExerciseDateStateList
 import data.repository.TrainingRepository
 import globalKoin
 import kotlinx.coroutines.flow.catch
@@ -19,7 +20,7 @@ internal class SummaryViewModel(private val navigator: NavigatorCore) : ViewMode
 
     private val api = globalKoin().get<TrainingRepository>()
 
-    fun getExercisesBy(name: String) = viewModelScope.launch {
+    private fun getExercisesBy(name: String) = viewModelScope.launch {
         api
             .getExercises(name = name)
             .onStart {
@@ -28,12 +29,19 @@ internal class SummaryViewModel(private val navigator: NavigatorCore) : ViewMode
                 _state.value = state.value.copy(
                     loading = false,
                     error = null,
+                    exercises = it.toExerciseDateStateList()
                 )
 
             }.catch {
                 _state.value = state.value.copy(loading = false, error = it.message)
             }
             .launchIn(this)
+    }
+
+    fun setQuery(query: String){
+        _state.value = state.value.copy(query = query)
+
+        getExercisesBy(query)
     }
 
     fun clearError() {
