@@ -18,7 +18,7 @@ internal interface TrainingProtocol {
 
     suspend fun getTrainings(): Flow<List<TrainingDTO>>
 
-    suspend fun getExercises(name: String): Flow<List<ExerciseDateDTO>>
+    suspend fun getExercises(query: String): Flow<List<ExerciseDateDTO>>
 
     suspend fun getTraining(trainingId: String): Flow<TrainingDTO>
 
@@ -46,11 +46,11 @@ internal class TrainingSource(private val client: HttpClient) : TrainingProtocol
         emit(result.body())
     }
 
-    override suspend fun getExercises(name: String): Flow<List<ExerciseDateDTO>> = flow {
+    override suspend fun getExercises(query: String): Flow<List<ExerciseDateDTO>> = flow {
         val result = client.get {
             url {
                 path("/exercises")
-                parameters.append("name", name)
+                parameters.append("name", query)
             }
         }
         emit(result.body())

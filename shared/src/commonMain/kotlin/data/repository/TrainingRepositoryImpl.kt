@@ -13,8 +13,8 @@ internal class TrainingRepositoryImpl(private val trainingSource: TrainingProtoc
     override suspend fun getTraining(trainingId: String): Flow<TrainingDTO> = trainingSource
         .getTraining(trainingId)
 
-    override suspend fun getExercises(name: String): Flow<List<ExerciseDateDTO>> = trainingSource
-        .getExercises(name)
+    override suspend fun getExercises(query: String): Flow<List<ExerciseDateDTO>> = trainingSource
+        .getExercises(query)
 
     override suspend fun setTraining(training: TrainingDTO): Flow<String> = trainingSource
         .setTraining(training = training)

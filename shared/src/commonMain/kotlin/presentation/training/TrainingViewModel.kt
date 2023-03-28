@@ -144,16 +144,20 @@ internal class TrainingViewModel(private val navigator: NavigatorCore) : ViewMod
     }
 
     fun addExercise() {
-        val training = state.value.training.addExercise()
+        val training = state.value.training
+            .addExercise()
+
         _state.value = state.value.copy(training = training)
     }
 
     private fun Training.setNameOfExercise(id: String, name: String): Training {
-        return this.copy(exercises = this.exercises.map {
-            if (it.id == id) {
-                it.copy(name = name)
-            } else it
-        })
+        return this.copy(
+            exercises = this.exercises.map {
+                if (it.id == id) {
+                    it.copy(name = name)
+                } else it
+            }
+        )
     }
 
     private fun Training.setRepeatOfIteration(exerciseId: String, numberOfIteration: Int, repeat: String): Training {
@@ -253,7 +257,7 @@ internal class TrainingViewModel(private val navigator: NavigatorCore) : ViewMod
         else this
     }
 
-    fun Training.provideEmptyIterations(): Training {
+    private fun Training.provideEmptyIterations(): Training {
         return this.copy(
             exercises = exercises.map {
                 val lastIsNotEmpty = it.iterations.lastOrNull()?.weight != "" || it.iterations.lastOrNull()?.repeat != ""
