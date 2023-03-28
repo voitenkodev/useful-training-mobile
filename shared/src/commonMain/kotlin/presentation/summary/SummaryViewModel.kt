@@ -2,7 +2,8 @@ package presentation.summary
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
-import data.mapping.toExerciseDateStateList
+import data.dto.ExerciseDateDTO
+import data.mapping.toExerciseState
 import data.repository.TrainingRepository
 import globalKoin
 import kotlinx.coroutines.Job
@@ -28,7 +29,7 @@ internal class SummaryViewModel(private val navigator: NavigatorCore) : ViewMode
         searchJob?.cancel()
         searchJob = viewModelScope.launch {
             if (query.isBlank()) {
-                _state.value = state.value.copy(exercises = emptyList())
+                _state.value = state.value.copy(exercises = emptyMap())
                 return@launch
             }
             delay(500)
@@ -45,7 +46,7 @@ internal class SummaryViewModel(private val navigator: NavigatorCore) : ViewMode
                 _state.value = state.value.copy(
                     loading = false,
                     error = null,
-                    exercises = it.toExerciseDateStateList()
+                    exercises = it.processingExercises()
                 )
             }.catch {
                 _state.value = state.value.copy(loading = false, error = it.message)
@@ -70,4 +71,12 @@ internal class SummaryViewModel(private val navigator: NavigatorCore) : ViewMode
         searchJob?.cancel()
         searchJob = null
     }
+
+    private fun List<ExerciseDateDTO>.processingExercises() = this.groupBy(
+        {
+            ExerciseInfo(trainingId = it.trainingId, date = it.date)
+        }, {
+            it.exercise.toExerciseState()
+        }
+    )
 }

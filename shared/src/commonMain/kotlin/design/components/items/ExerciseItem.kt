@@ -12,7 +12,6 @@ import design.Design
 import design.controls.IterationVerticalGrid
 import design.controls.TextFieldBody1
 import presentation.training.Exercise
-import presentation.training.Training
 
 @Composable
 internal fun ExerciseItem(
@@ -20,7 +19,7 @@ internal fun ExerciseItem(
     number: Int,
     exercise: Exercise
 ) = Row(
-    modifier = modifier.padding(top = 8.dp),
+    modifier = modifier.padding(horizontal = 4.dp),
     horizontalArrangement = Arrangement.spacedBy(4.dp)
 ) {
     Row(

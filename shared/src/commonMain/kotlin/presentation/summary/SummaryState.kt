@@ -5,22 +5,33 @@ import dev.icerock.moko.parcelize.Parcelable
 import dev.icerock.moko.parcelize.Parcelize
 import kotlinx.serialization.Serializable
 import presentation.training.Exercise
+import utils.DateTimeKtx
 
 @Serializable
 @Parcelize
 @Stable
 internal data class SummaryState(
     val query: String = "",
-    val exercises: List<ExerciseDate> = listOf(),
+    val exercises: Map<ExerciseInfo, List<Exercise>> = mapOf(),
     val error: String? = null,
     val loading: Boolean = false,
-) : Parcelable
+) : Parcelable {
+    val listOfTonnage: List<Float>
+        get() = exercises
+            .flatMap { it.value }
+            .map { it.tonnage.toFloat() }
+}
 
 @Serializable
 @Parcelize
 @Stable
-data class ExerciseDate(
+data class ExerciseInfo(
     val trainingId: String? = null,
-    val exercise: Exercise? = null,
     val date: String,
-) : Parcelable
+) : Parcelable {
+    val weekDay: String
+        get() = DateTimeKtx.formattedWeekDay(date) ?: ""
+
+    val dateTime: String
+        get() = DateTimeKtx.formattedDateTime(date) ?: ""
+}
