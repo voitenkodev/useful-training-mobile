@@ -46,26 +46,24 @@ internal data class Training(
         get() = DateTimeKtx.formattedEndOfWeekLongDate(startDateTime, false) ?: ""
     val startOfWeek: String
         get() = DateTimeKtx.formattedStartOfWeekLongDate(startDateTime, false) ?: ""
-
-
-    @Serializable
-    @Parcelize
-    @Stable
-    data class Exercise(
-        val id: String = uuid4().toString(),
-        val name: String = "",
-        val iterations: List<Iteration> = listOf(Iteration()),
-        val tonnage: Double = 0.0,
-        val countOfLifting: Int = 0,
-        val intensity: Double = 0.0
-    ) : Parcelable {
-
-        @Serializable
-        @Parcelize
-        @Stable
-        data class Iteration(
-            val weight: String = "",
-            val repeat: String = ""
-        ) : Parcelable
-    }
 }
+
+@Serializable
+@Parcelize
+@Stable
+data class Exercise(
+    val id: String = uuid4().toString(),
+    val name: String = "",
+    val iterations: List<Iteration> = listOf(Iteration()),
+    val tonnage: Double = 0.0,
+    val countOfLifting: Int = 0,
+    val intensity: Double = 0.0
+) : Parcelable
+
+@Serializable
+@Parcelize
+@Stable
+data class Iteration(
+    val weight: String = "",
+    val repeat: String = ""
+) : Parcelable

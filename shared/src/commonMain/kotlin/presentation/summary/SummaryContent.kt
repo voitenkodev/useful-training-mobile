@@ -2,7 +2,6 @@ package presentation.summary
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import design.components.Error
@@ -16,11 +15,6 @@ import design.components.roots.ScrollableRoot
 internal fun SummaryContent(vm: SummaryViewModel) {
 
     val state by vm.state
-
-    LaunchedEffect(Unit) {
-//        vm.getTraining(trainingId)
-//        vm.getTrainings()
-    }
 
     ScrollableRoot(
         modifier = Modifier.fillMaxSize(),

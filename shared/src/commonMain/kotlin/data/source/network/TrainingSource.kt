@@ -1,6 +1,7 @@
 package data.source.network
 
-import data.dto.TrainingBody
+import data.dto.ExerciseDateDTO
+import data.dto.TrainingDTO
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.delete
@@ -13,18 +14,20 @@ import kotlinx.coroutines.flow.flow
 
 internal interface TrainingProtocol {
 
-    suspend fun setTraining(training: TrainingBody): Flow<String>
+    suspend fun setTraining(training: TrainingDTO): Flow<String>
 
-    suspend fun getTrainings(): Flow<List<TrainingBody>>
+    suspend fun getTrainings(): Flow<List<TrainingDTO>>
 
-    suspend fun getTraining(trainingId: String): Flow<TrainingBody>
+    suspend fun getExercises(name: String): Flow<List<ExerciseDateDTO>>
+
+    suspend fun getTraining(trainingId: String): Flow<TrainingDTO>
 
     suspend fun deleteTraining(trainingId: String): Flow<Unit>
 }
 
 internal class TrainingSource(private val client: HttpClient) : TrainingProtocol {
 
-    override suspend fun setTraining(training: TrainingBody): Flow<String> = flow {
+    override suspend fun setTraining(training: TrainingDTO): Flow<String> = flow {
         val result = client.post {
             url {
                 path("/training")
@@ -34,7 +37,7 @@ internal class TrainingSource(private val client: HttpClient) : TrainingProtocol
         emit(result.body())
     }
 
-    override suspend fun getTrainings(): Flow<List<TrainingBody>> = flow {
+    override suspend fun getTrainings(): Flow<List<TrainingDTO>> = flow {
         val result = client.get {
             url {
                 path("/trainings")
@@ -43,7 +46,17 @@ internal class TrainingSource(private val client: HttpClient) : TrainingProtocol
         emit(result.body())
     }
 
-    override suspend fun getTraining(trainingId: String): Flow<TrainingBody> = flow {
+    override suspend fun getExercises(name: String): Flow<List<ExerciseDateDTO>> = flow {
+        val result = client.get {
+            url {
+                path("/exercises")
+                parameters.append("name", name)
+            }
+        }
+        emit(result.body())
+    }
+
+    override suspend fun getTraining(trainingId: String): Flow<TrainingDTO> = flow {
         val result = client.get {
             url {
                 path("/training/$trainingId")

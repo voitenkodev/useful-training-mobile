@@ -15,6 +15,14 @@ import presentation.training.TrainingViewModel
 import presentation.trainings.TrainingsContent
 import presentation.trainings.TrainingsViewModel
 
+internal enum class Graph(val link: String) {
+    Auth("auth_screen"),
+    Trainings("trainings_screen"),
+    Training("training_screen"),
+    Review("review_screen"),
+    Summary("summary_screen")
+}
+
 @Composable
 internal fun Main(modifier: Modifier = Modifier) {
 
@@ -63,6 +71,7 @@ internal fun Main(modifier: Modifier = Modifier) {
                 )
                 ReviewContent(viewModel, trainingId)
             }
+
             screen(key = Graph.Summary.link, animation = Animation.Present(500)) { store ->
                 val navigator = findNavigator()
                 val viewModel = store.getOrCreate(
@@ -74,12 +83,4 @@ internal fun Main(modifier: Modifier = Modifier) {
             }
         }
     }
-}
-
-internal enum class Graph(val link: String) {
-    Auth("auth_screen"),
-    Trainings("trainings_screen"),
-    Training("training_screen"),
-    Review("review_screen"),
-    Summary("summary_screen")
 }

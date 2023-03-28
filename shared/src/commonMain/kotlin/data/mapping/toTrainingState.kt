@@ -1,18 +1,20 @@
 package data.mapping
 
-import data.dto.TrainingBody
+import data.dto.TrainingDTO
+import presentation.training.Exercise
+import presentation.training.Iteration
 import presentation.training.Training
 
-internal fun List<TrainingBody?>.toTrainingStateList() = this.mapNotNull { it?.toTrainingState() }
+internal fun List<TrainingDTO?>.toTrainingStateList() = this.mapNotNull { it?.toTrainingState() }
 
-internal fun TrainingBody.toTrainingState() = Training(
+internal fun TrainingDTO.toTrainingState() = Training(
     id = id.toString(),
     exercises = exercises.map {
-        Training.Exercise(
+        Exercise(
             id = it.id ?: "",
             name = it.name ?: "",
             iterations = it.iterations.map {
-                Training.Exercise.Iteration(
+                Iteration(
                     weight = it.weight?.toDoubleOrIntString() ?: "",
                     repeat = it.repeat?.toString() ?: ""
                 )

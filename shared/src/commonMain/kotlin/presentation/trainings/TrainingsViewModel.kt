@@ -24,16 +24,17 @@ internal class TrainingsViewModel(private val navigator: NavigatorCore) : ViewMo
     private val api = globalKoin().get<TrainingRepository>()
 
     fun getTrainings() = viewModelScope.launch {
-        api.getTrainings().onStart {
-            _state.value = state.value.copy(loading = true)
-        }.map {
-            it.toTrainingStateList()
-        }.onEach {
-            _state.value = state.value.copy(loading = false, error = null)
-            _state.value = state.value.processingTrainings(it)
-        }.catch {
-            _state.value = state.value.copy(loading = false, error = it.message)
-        }.launchIn(this)
+        api.getTrainings()
+            .onStart {
+                _state.value = state.value.copy(loading = true)
+            }.map {
+                it.toTrainingStateList()
+            }.onEach {
+                _state.value = state.value.copy(loading = false, error = null)
+                _state.value = state.value.processingTrainings(it)
+            }.catch {
+                _state.value = state.value.copy(loading = false, error = it.message)
+            }.launchIn(this)
     }
 
     fun clearError() {

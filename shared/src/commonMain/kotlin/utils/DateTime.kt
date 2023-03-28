@@ -33,7 +33,7 @@ internal object DateTimeKtx {
     /**
      * Output Output 23 October 2022
      * */
-    fun currentDate(): String? {
+    fun currentDate(): String {
 
         val localDateTime = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
         val date = localDateTime.date

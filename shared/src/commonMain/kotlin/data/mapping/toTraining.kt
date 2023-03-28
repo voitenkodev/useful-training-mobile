@@ -1,16 +1,18 @@
 package data.mapping
 
-import data.dto.TrainingBody
+import data.dto.ExerciseDTO
+import data.dto.IterationDTO
+import data.dto.TrainingDTO
 import presentation.training.Training
 
-internal fun Training.toBody() = TrainingBody(
+internal fun Training.toBody() = TrainingDTO(
     id = id,
     exercises = exercises.map {
-        TrainingBody.Exercise(
+        ExerciseDTO(
             id = it.id,
             name = it.name,
             iterations = it.iterations.map {
-                TrainingBody.Exercise.Iteration(
+                IterationDTO(
                     weight = it.weight.toDoubleOrNull(),
                     repeat = it.repeat.toIntOrNull()
                 )

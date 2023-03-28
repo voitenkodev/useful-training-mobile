@@ -164,7 +164,7 @@ internal class TrainingViewModel(private val navigator: NavigatorCore) : ViewMod
                 val iterations = it.iterations.mapIndexedNotNull { index, iteration ->
                     val newRepeat = if (numberOfIteration == index) repeat else iteration.repeat
                     if (newRepeat == "" && iteration.weight == "") null
-                    else Training.Exercise.Iteration(weight = iteration.weight, repeat = newRepeat)
+                    else Iteration(weight = iteration.weight, repeat = newRepeat)
                 }
                 it.copy(iterations = iterations)
             }
@@ -180,7 +180,7 @@ internal class TrainingViewModel(private val navigator: NavigatorCore) : ViewMod
                 val iterations = it.iterations.mapIndexedNotNull { index, iteration ->
                     val newWeight = if (numberOfIteration == index) weight else iteration.weight
                     if (newWeight == "" && iteration.repeat == "") null
-                    else Training.Exercise.Iteration(weight = newWeight, repeat = iteration.repeat)
+                    else Iteration(weight = newWeight, repeat = iteration.repeat)
                 }
                 it.copy(iterations = iterations)
             }
@@ -194,7 +194,7 @@ internal class TrainingViewModel(private val navigator: NavigatorCore) : ViewMod
     }
 
     private fun Training.addExercise(): Training {
-        val newExercises = this.exercises + Training.Exercise()
+        val newExercises = this.exercises + Exercise()
         return this.copy(exercises = newExercises)
     }
 
@@ -257,7 +257,7 @@ internal class TrainingViewModel(private val navigator: NavigatorCore) : ViewMod
         return this.copy(
             exercises = exercises.map {
                 val lastIsNotEmpty = it.iterations.lastOrNull()?.weight != "" || it.iterations.lastOrNull()?.repeat != ""
-                if (lastIsNotEmpty) it.copy(iterations = it.iterations + Training.Exercise.Iteration())
+                if (lastIsNotEmpty) it.copy(iterations = it.iterations + Iteration())
                 else it
             }
         )
@@ -267,7 +267,7 @@ internal class TrainingViewModel(private val navigator: NavigatorCore) : ViewMod
         val exercise = this.exercises.find { it.id == exerciseId } ?: return this
         val lastIsNotEmpty = exercise.iterations.lastOrNull()?.weight != "" || exercise.iterations.lastOrNull()?.repeat != ""
         if (lastIsNotEmpty.not()) return this
-        val newExercise = exercise.copy(iterations = exercise.iterations + Training.Exercise.Iteration())
+        val newExercise = exercise.copy(iterations = exercise.iterations + Iteration())
         val newExercises = this.exercises.map { if (it.id == exerciseId) newExercise else it }
         return this.copy(exercises = newExercises)
     }

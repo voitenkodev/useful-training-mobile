@@ -139,9 +139,7 @@ private fun Title(
     weekDay: String,
     date: String,
     progress: Float
-) = Column(
-    modifier = Modifier.padding(start = Design.dp.padding)
-) {
+) = Column(modifier = Modifier.padding(start = Design.dp.padding)) {
 
     TextFieldH1(
         modifier = Modifier

@@ -4,6 +4,10 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import data.repository.TrainingRepository
 import globalKoin
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import navigation.NavigatorCore
 import utils.ViewModel
@@ -15,21 +19,21 @@ internal class SummaryViewModel(private val navigator: NavigatorCore) : ViewMode
 
     private val api = globalKoin().get<TrainingRepository>()
 
-    fun getExercisesBy(query: String) = viewModelScope.launch {
-//        api
-//            .getTraining(trainingId = trainingId)
-//            .onStart {
-//                _state.value = state.value.copy(loading = true)
-//            }.onEach {
-//                _state.value = state.value.copy(
-//                    loading = false,
-//                    error = null,
-//                    reviewTraining = it.toTrainingState()
-//                )
-//            }.catch {
-//                _state.value = state.value.copy(loading = false, error = it.message)
-//            }
-//            .launchIn(this)
+    fun getExercisesBy(name: String) = viewModelScope.launch {
+        api
+            .getExercises(name = name)
+            .onStart {
+                _state.value = state.value.copy(loading = true)
+            }.onEach {
+                _state.value = state.value.copy(
+                    loading = false,
+                    error = null,
+                )
+
+            }.catch {
+                _state.value = state.value.copy(loading = false, error = it.message)
+            }
+            .launchIn(this)
     }
 
     fun clearError() {

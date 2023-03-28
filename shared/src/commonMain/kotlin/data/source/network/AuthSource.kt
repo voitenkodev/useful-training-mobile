@@ -3,9 +3,8 @@ package data.source.network
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
-import co.touchlab.kermit.Logger
-import data.dto.AuthBody
-import data.dto.AuthResponse
+import data.dto.AuthDTO
+import data.dto.TokenDTO
 import data.source.datastore.DataStoreKeys
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
@@ -13,14 +12,11 @@ import io.ktor.client.request.post
 import io.ktor.client.request.setBody
 import io.ktor.http.path
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.firstOrNull
-import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.map
 
 internal interface AuthProtocol {
     fun login(email: String, password: String): Flow<Unit>
-    fun registration(email: String, password: String): Flow<AuthResponse>
+    fun registration(email: String, password: String): Flow<TokenDTO>
 
 }
 
@@ -33,22 +29,22 @@ internal class AuthSource(
         val result = network.post {
             url {
                 path("/login")
-                setBody(AuthBody(email, password))
+                setBody(AuthDTO(email, password))
             }
         }
-        val token = result.body<AuthResponse>().token
+        val token = result.body<TokenDTO>().token
         if (token != null) dataStore.edit { it[DataStoreKeys.KEY_TOKEN] = token }
         emit(Unit)
     }
 
-    override fun registration(email: String, password: String): Flow<AuthResponse> = flow {
+    override fun registration(email: String, password: String): Flow<TokenDTO> = flow {
         val result = network.post {
             url {
                 path("/register")
-                setBody(AuthBody(email, password))
+                setBody(AuthDTO(email, password))
             }
         }
-        emit(result.body<AuthResponse>())
+        emit(result.body<TokenDTO>())
     }
 
 //    override fun logout(): Flow<Unit> = flow { emit(Unit) }

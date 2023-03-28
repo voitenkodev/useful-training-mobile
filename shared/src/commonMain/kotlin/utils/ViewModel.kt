@@ -20,12 +20,12 @@ internal abstract class ViewModel {
     }
 
     // Launch view model scope except you provide a new key
-    fun launchNewScope(key: String = MAIN_JOB_KEY): CoroutineScope =
+    private fun launchNewScope(key: String = MAIN_JOB_KEY): CoroutineScope =
         coroutineTags.getOrPut(key) {
             CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
         }
 
-    public companion object {
+    companion object {
         private const val MAIN_JOB_KEY = "main.viewmodel.shared.coroutine.job"
     }
 }

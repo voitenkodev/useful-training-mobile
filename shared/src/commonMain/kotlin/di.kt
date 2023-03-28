@@ -21,10 +21,8 @@ fun initCommonKoin(
 fun globalKoin() = KoinPlatformTools.defaultContext().get()
 
 val appModule = module {
-
     single { AuthSource(get(), get()) } bind AuthProtocol::class
     single { TrainingSource(get()) } bind TrainingProtocol::class
-
     single { TrainingRepositoryImpl(get()) } bind TrainingRepository::class
     single { AuthRepositoryImpl(get()) } bind AuthRepository::class
 }

@@ -8,13 +8,13 @@ import androidx.compose.ui.unit.dp
 import design.controls.DividerPrimary
 import design.controls.IterationVerticalGrid
 import design.controls.secondaryBackground
-import presentation.training.Training
+import presentation.training.Exercise
 
 @Composable
 internal fun EditExerciseItem(
     modifier: Modifier = Modifier,
     number: Int,
-    exercise: Training.Exercise,
+    exercise: Exercise,
     updateName: (id: String, value: String) -> Unit,
     removeExercise: (id: String) -> Unit,
     updateWeight: (id: String, num: Int, value: String) -> Unit,

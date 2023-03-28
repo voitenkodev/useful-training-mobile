@@ -1,10 +1,10 @@
 package data.dto
 
-import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 @Serializable
-data class AuthBody(
+data class AuthDTO(
     @SerialName("email")
     val email: String? = null,
     @SerialName("password")
