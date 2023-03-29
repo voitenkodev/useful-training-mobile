@@ -2,9 +2,8 @@ package data.mapping
 
 import data.dto.ExerciseDTO
 import presentation.training.Exercise
-import presentation.training.Iteration
 
-internal fun List<ExerciseDTO?>.toExerciseStateList() = this.sortedBy { it?.id }.mapNotNull { it?.toExerciseState() }
+internal fun List<ExerciseDTO>.toExerciseStateList() = this.sortedBy { it.id?.toIntOrNull() }.map { it.toExerciseState() }
 
 internal fun ExerciseDTO.toExerciseState() = Exercise(
     id = id ?: "",
