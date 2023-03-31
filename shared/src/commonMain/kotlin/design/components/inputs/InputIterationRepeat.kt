@@ -1,13 +1,11 @@
 package design.components.inputs
 
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
-import design.Design
 import design.controls.InputFieldSecondary
 import design.controls.tertiaryBackground
 
@@ -18,8 +16,7 @@ internal fun InputRepeat(
     onValueChange: (String) -> Unit,
 ) {
     InputFieldSecondary(
-        modifier = modifier.tertiaryBackground()
-            .padding(horizontal = Design.dp.padding),
+        modifier = modifier.tertiaryBackground(),
         value = value,
         onValueChange = onValueChange,
         textAlign = TextAlign.Center,

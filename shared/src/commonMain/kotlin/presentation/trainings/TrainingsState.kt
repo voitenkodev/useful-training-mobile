@@ -12,7 +12,7 @@ import utils.DateTimeKtx
 @Stable
 internal data class TrainingsState(
     val weekDay: String = DateTimeKtx.currentWeekDay(),
-    val date: String = DateTimeKtx.currentDate() ?: "",
+    val date: String = DateTimeKtx.currentDate(),
     val trainings: List<Training> = emptyList(),
     val weekTrainings: Map<WeekInfo, List<Training>> = emptyMap(),
     val error: String? = null,
