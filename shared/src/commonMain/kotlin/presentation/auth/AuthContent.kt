@@ -11,10 +11,10 @@ import androidx.compose.ui.text.style.TextAlign
 import design.Design
 import design.components.Error
 import design.components.Loading
-import design.components.roots.Root
 import design.components.buttons.ButtonQuestion
 import design.components.inputs.InputEmail
 import design.components.inputs.InputPassword
+import design.components.roots.ScrollableRoot
 import design.controls.ButtonPrimary
 import design.controls.TextFieldH1
 import design.controls.TextFieldH2
@@ -24,7 +24,7 @@ internal fun AuthContent(vm: AuthViewModel) {
 
     val state by vm.state
 
-    Root(
+    ScrollableRoot(
         modifier = Modifier.fillMaxWidth(),
         loading = { Loading(state.loading) },
         error = { Error(message = state.error, close = vm::clearError) },
@@ -54,23 +54,26 @@ internal fun AuthContent(vm: AuthViewModel) {
             )
         },
         content = {
-
-            TextFieldH2(
-                text = "Sign in to your account",
-                color = Design.colors.caption
-            )
-
-            InputEmail(
-                modifier = Modifier.fillMaxWidth(),
-                value = state.email,
-                onValueChange = vm::updateEmail
-            )
-
-            InputPassword(
-                modifier = Modifier.fillMaxWidth(),
-                value = state.password,
-                onValueChange = vm::updatePassword
-            )
+            item {
+                TextFieldH2(
+                    text = "Sign in to your account",
+                    color = Design.colors.caption
+                )
+            }
+            item {
+                InputEmail(
+                    modifier = Modifier.fillMaxWidth(),
+                    value = state.email,
+                    onValueChange = vm::updateEmail
+                )
+            }
+            item {
+                InputPassword(
+                    modifier = Modifier.fillMaxWidth(),
+                    value = state.password,
+                    onValueChange = vm::updatePassword
+                )
+            }
         }
     )
 }

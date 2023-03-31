@@ -1,16 +1,13 @@
 package design.controls
 
-import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.requiredHeight
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -138,51 +135,53 @@ internal fun InputField(
         textStyle2.copy(fontWeight = fontWeight)
     } else textStyle2
 
-    BasicTextField(
-        modifier = modifier.requiredHeight(Design.dp.component).background(Color.Transparent).animateContentSize(),
-        value = value ?: String(),
-        onValueChange = {
-            val v = if (maxLength != null) it.take(maxLength) else it
-            val digitsFilter = if (digits.isNotEmpty()) v.filter { char -> digits.contains(char) } else v
-            onValueChange.invoke(digitsFilter)
-        },
-        enabled = enabled,
-        textStyle = textStyle3,
-        maxLines = maxLines,
-        visualTransformation = visualTransformation,
-        cursorBrush = SolidColor(Design.colors.content),
-        singleLine = maxLines == 1,
-        keyboardOptions = keyboardOptions ?: KeyboardOptions.Default,
-        keyboardActions = keyboardActions ?: KeyboardActions.Default,
-        decorationBox = { innerTextField ->
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
+    Row(
+        modifier = modifier.requiredHeight(Design.dp.component),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(4.dp),
+    ) {
 
-                leading?.let {
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(8.dp),
-                        modifier = Modifier.wrapContentSize().height(IntrinsicSize.Min)
-                    ) {
-                        it.invoke()
-                        DividerPrimary(orientation = Orientation.Vertical)
-                    }
-                }
+        if (leading != null) {
+            leading.invoke()
+            DividerPrimary(
+                modifier = Modifier.requiredHeight(Design.dp.component - Design.dp.padding - Design.dp.padding),
+                orientation = Orientation.Vertical
+            )
+        }
 
-                Box(modifier = Modifier.weight(1f)) {
+        BasicTextField(
+            modifier = modifier
+                .requiredHeight(Design.dp.component)
+                .background(Color.Transparent)
+                .weight(1f),
+            value = value ?: String(),
+            onValueChange = {
+                val v = if (maxLength != null) it.take(maxLength) else it
+                val digitsFilter = if (digits.isNotEmpty()) v.filter { char -> digits.contains(char) } else v
+                onValueChange.invoke(digitsFilter)
+            },
+            enabled = enabled,
+            textStyle = textStyle3,
+            maxLines = maxLines,
+            visualTransformation = visualTransformation,
+            cursorBrush = SolidColor(Design.colors.content),
+            singleLine = maxLines == 1,
+            keyboardOptions = keyboardOptions ?: KeyboardOptions.Default,
+            keyboardActions = keyboardActions ?: KeyboardActions.Default,
+            decorationBox = { innerTextField ->
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.CenterStart
+                ) {
                     innerTextField()
                     if (placeholder?.isNotEmpty() == true && value.isNullOrEmpty()) {
                         Inner(style = textStyle3, text = placeholder)
                     }
                 }
-
-                trailing?.invoke()
             }
-        }
-    )
+        )
+        trailing?.invoke()
+    }
 }
 
 @Composable
