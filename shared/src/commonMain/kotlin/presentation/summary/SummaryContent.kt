@@ -17,6 +17,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import design.Design
+import design.calendara.Calendar
 import design.chart.PointCircle
 import design.chart.PointLine
 import design.components.Error
@@ -28,6 +29,7 @@ import design.components.items.LineChartItem
 import design.components.labels.WeekDayLabel
 import design.components.roots.ScrollableRoot
 import design.controls.TextFieldBody2
+import design.controls.secondaryBackground
 
 @Composable
 internal fun SummaryContent(vm: SummaryViewModel) {
@@ -51,6 +53,18 @@ internal fun SummaryContent(vm: SummaryViewModel) {
                 InputSearch(
                     value = state.query,
                     onValueChange = vm::setQuery
+                )
+            }
+
+            item {
+                Calendar(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .aspectRatio(1.5f)
+                        .secondaryBackground()
+                        .padding(Design.dp.padding),
+                    month = 4,
+                    year = 2022
                 )
             }
 
