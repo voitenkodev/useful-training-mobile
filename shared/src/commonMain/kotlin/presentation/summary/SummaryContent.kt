@@ -55,25 +55,25 @@ internal fun SummaryContent(vm: SummaryViewModel) {
                 )
             }
 
-//            if (state.listOfTonnage.isNotEmpty()) {
+            if (state.listOfSelectedDays.isNotEmpty())
                 item(key = "calendar_view") {
                     Calendar(
                         modifier = Modifier
                             .fillMaxWidth()
                             .aspectRatio(1.5f),
-                        month = 2,
-                        year = 2022
+                        month = 3,
+                        year = 2022,
+                        listOfValues = state.listOfSelectedDays
                     )
                 }
-                if (state.listOfTonnage.isNotEmpty()) {
-                    item(key = "tonnage_chart") {
+            if (state.listOfTonnage.isNotEmpty())
+                item(key = "tonnage_chart") {
                     ChartSection(
                         label = "Tonnage",
                         data = state.listOfTonnage,
                         color = Design.colors.unique.color1,
                     )
                 }
-            }
 
             item(key = "exercises") {
 

@@ -30,6 +30,7 @@ internal fun Calendar(
     modifier: Modifier,
     month: Int,
     year: Int,
+    listOfValues: List<Int>
 ) {
 
     // OTHER
@@ -40,6 +41,7 @@ internal fun Calendar(
     val radius = 10.dp
     val backgroundMain = Design.colors.secondary
     val backgroundHeader = Design.colors.accent_primary
+    val selectedColor = Design.colors.accent_secondary
     val monthLabelHeight = 30.dp
     val weekDayLabelHeight = 22.dp
 
@@ -125,15 +127,22 @@ internal fun Calendar(
             val x = column * dayWidth + padding.toPx()
             val y = (row * dayHeight) + labelsHeight + padding.toPx()
 
-// background card
-//            drawRoundRect(
-//                color = Color.Cyan.copy(alpha = 0.2f),
-//                topLeft = Offset(x = x, y = y),
-//                size = Size(
-//                    width = dayWidth,
-//                    height = dayHeight
-//                )
-//            )
+            val innerBackgroundPadding = 6
+
+            listOfValues
+                .count { it == dayOfMonth }
+                .takeIf { it > 0 }
+                ?.let {
+                    drawRoundRect(
+                        color = selectedColor,
+                        topLeft = Offset(x = x + innerBackgroundPadding, y = y + innerBackgroundPadding),
+                        size = Size(
+                            width = dayWidth - innerBackgroundPadding - innerBackgroundPadding,
+                            height = dayHeight - innerBackgroundPadding - innerBackgroundPadding
+                        ),
+                        cornerRadius = CornerRadius(x = radius.toPx(), y = radius.toPx())
+                    )
+                }
 
             drawText(
                 textMeasurer = textMeasurer,
@@ -149,18 +158,6 @@ internal fun Calendar(
                 )
             )
         }
-        // CENTER RED LINE
-//        drawRect(
-//            color = Color.Red,
-//            topLeft = Offset(
-//                x = (size.width - 4) / 2,
-//                y= 0f
-//            ),
-//            size = Size(
-//                width = 4f,
-//                height = size.height
-//            )
-//        )
     }
 }
 

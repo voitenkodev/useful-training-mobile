@@ -17,9 +17,10 @@ internal data class SummaryState(
     val loading: Boolean = false,
 ) : Parcelable {
     val listOfTonnage: List<Float>
-        get() = exercises
-            .flatMap { it.value }
-            .map { it.tonnage.toFloat() }
+        get() = exercises.flatMap { it.value }.map { it.tonnage.toFloat() }
+
+    val listOfSelectedDays: List<Int>
+        get() = exercises.map { it.key.day }
 }
 
 @Serializable
@@ -34,4 +35,6 @@ data class ExerciseInfo(
 
     val dateTime: String
         get() = DateTimeKtx.formattedDateTime(date) ?: ""
+    val day: Int
+        get() = DateTimeKtx.formattedMonthDay(date) ?: -1
 }

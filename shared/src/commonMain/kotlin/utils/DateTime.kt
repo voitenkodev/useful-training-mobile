@@ -171,6 +171,17 @@ internal object DateTimeKtx {
         return localDateTime.dayOfWeek.name
     }
 
+  /**
+     * Input 2022-10-21T13:20:18.496Z
+     *
+     * Output 21
+     * */
+
+    fun formattedMonthDay(iso8601Timestamp: String): Int? {
+        val localDateTime = iso8601TimestampToLocalDateTime(iso8601Timestamp) ?: return null
+        return localDateTime.dayOfMonth
+    }
+
     /**
      * Input 1h 44m 4.875s
      *
