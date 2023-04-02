@@ -24,8 +24,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import chart.PointCircle
-import chart.PointLine
+import design.chart.PointCircle
+import design.chart.PointLine
 import design.Design
 import design.components.Error
 import design.components.Header

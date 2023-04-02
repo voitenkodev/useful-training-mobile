@@ -25,8 +25,8 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
-import chart.LineChart
-import chart.PointLine
+import design.chart.LineChart
+import design.chart.PointLine
 import design.Design
 import design.components.Error
 import design.components.Loading

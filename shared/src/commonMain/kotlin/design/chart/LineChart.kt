@@ -1,4 +1,4 @@
-package chart
+package design.chart
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.runtime.Composable
