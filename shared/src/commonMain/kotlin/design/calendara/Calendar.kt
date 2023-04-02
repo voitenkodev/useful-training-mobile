@@ -8,6 +8,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.geometry.RoundRect
 import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.text.drawText
 import androidx.compose.ui.text.rememberTextMeasurer
@@ -27,7 +28,7 @@ import kotlin.math.roundToInt
 internal fun Calendar(
     modifier: Modifier,
     month: Int,
-    year: Int
+    year: Int,
 ) {
 
     // OTHER
@@ -38,7 +39,7 @@ internal fun Calendar(
     val radius = 10.dp
     val backgroundMain = Design.colors.secondary
     val backgroundHeader = Design.colors.accent_primary
-    val labelHeight = 24.dp
+    val labelHeight = 28.dp
 
     // CALENDAR UTILS
     val daysOfWeek = listOf("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat")
@@ -53,7 +54,7 @@ internal fun Calendar(
         val labelsHeight = ceil((labelHeight + padding + labelHeight).toPx())
 
         val dayWidth = (size.width - padding.toPx() - padding.toPx()) / 7f
-        val dayHeight = (size.height - labelsHeight) / 5f
+        val dayHeight = (size.height - labelsHeight - padding.toPx() - padding.toPx()) / 5f
 
         // Main background
         drawRoundRect(
@@ -109,12 +110,12 @@ internal fun Calendar(
             val column = (dayOfMonth - 1 + firstDayOfMonth.ordinal) % 7
             val row = (dayOfMonth - 1 + firstDayOfMonth.ordinal) / 7
             val x = column * dayWidth + padding.toPx()
-            val y = (row * dayHeight) + labelsHeight
+            val y = (row * dayHeight) + labelsHeight + padding.toPx()
 
-            // background card
-//            drawRect(
+// background card
+//            drawRoundRect(
 //                color = Color.Cyan.copy(alpha = 0.2f),
-//                topLeft = Offset(x = x, y = y),
+//                topLeft = Offset(x = x + 30f, y = y),
 //                size = Size(width = dayWidth, height = dayHeight)
 //            )
 

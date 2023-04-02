@@ -11,7 +11,7 @@ import utils.DateTimeKtx
 @Parcelize
 @Stable
 internal data class SummaryState(
-    val query: String = "",
+    val query: String = "Жи",
     val exercises: Map<ExerciseInfo, List<Exercise>> = mapOf(),
     val error: String? = null,
     val loading: Boolean = false,

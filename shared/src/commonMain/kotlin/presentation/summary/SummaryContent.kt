@@ -55,7 +55,16 @@ internal fun SummaryContent(vm: SummaryViewModel) {
                 )
             }
 
-            if (state.listOfTonnage.isNotEmpty())
+            if (state.listOfTonnage.isNotEmpty()) {
+                item(key = "calendar_view") {
+                    Calendar(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .aspectRatio(1.6f),
+                        month = 4,
+                        year = 2022
+                    )
+                }
                 item(key = "tonnage_chart") {
                     ChartSection(
                         label = "Tonnage",
@@ -63,6 +72,7 @@ internal fun SummaryContent(vm: SummaryViewModel) {
                         color = Design.colors.unique.color1,
                     )
                 }
+            }
 
             item(key = "exercises") {
 
@@ -85,17 +95,6 @@ internal fun SummaryContent(vm: SummaryViewModel) {
                     }
                 }
             }
-
-            if (state.listOfTonnage.isNotEmpty())
-                item(key = "calendar_view") {
-                    Calendar(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .aspectRatio(1.6f),
-                        month = 4,
-                        year = 2022
-                    )
-                }
         }
     )
 }
