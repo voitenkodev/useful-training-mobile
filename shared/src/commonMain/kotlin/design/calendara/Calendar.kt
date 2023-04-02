@@ -8,8 +8,9 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.geometry.RoundRect
 import androidx.compose.ui.geometry.Size
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.text.drawText
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.unit.IntSize
@@ -39,7 +40,8 @@ internal fun Calendar(
     val radius = 10.dp
     val backgroundMain = Design.colors.secondary
     val backgroundHeader = Design.colors.accent_primary
-    val labelHeight = 28.dp
+    val monthLabelHeight = 30.dp
+    val weekDayLabelHeight = 22.dp
 
     // CALENDAR UTILS
     val daysOfWeek = listOf("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat")
@@ -51,8 +53,7 @@ internal fun Calendar(
 
     Canvas(modifier = modifier) {
 
-        val labelsHeight = ceil((labelHeight + padding + labelHeight).toPx())
-
+        val labelsHeight = ceil((monthLabelHeight + padding + weekDayLabelHeight).toPx())
         val dayWidth = (size.width - padding.toPx() - padding.toPx()) / 7f
         val dayHeight = (size.height - labelsHeight - padding.toPx() - padding.toPx()) / 5f
 
@@ -82,31 +83,43 @@ internal fun Calendar(
         drawPath(path, color = backgroundHeader)
 
         // Draw month title
+        val textLayoutResult: TextLayoutResult = textMeasurer.measure(text = AnnotatedString(monthTitle))
+
         drawText(
             textMeasurer = textMeasurer,
             text = monthTitle,
             style = titleStyle,
-            topLeft = Offset(padding.toPx(), padding.toPx()),
+            topLeft = Offset(
+                x = (size.width - textLayoutResult.size.width) / 2,
+                y = padding.toPx()
+            ),
             maxSize = IntSize(
                 width = ceil(this.size.width - padding.toPx()).roundToInt(),
-                height = ceil(labelHeight.toPx()).roundToInt()
+                height = ceil(monthLabelHeight.toPx()).roundToInt()
             )
         )
 
         // Draw days of the week
         daysOfWeek.forEachIndexed { index, day ->
+            val daysOfWeekTextLayoutResult: TextLayoutResult = textMeasurer.measure(text = AnnotatedString(day))
+
             drawText(
                 textMeasurer = textMeasurer,
                 text = day,
                 style = labelStyle,
                 topLeft = Offset(
-                    x = dayWidth * index + padding.toPx(),
-                    y = labelHeight.toPx() + padding.toPx()
+                    x = dayWidth * index + padding.toPx() + ((dayWidth - daysOfWeekTextLayoutResult.size.width) / 2f),
+                    y = monthLabelHeight.toPx() + padding.toPx()
+                ),
+                maxSize = IntSize(
+                    width = ceil(this.size.width - padding.toPx()).roundToInt(),
+                    height = ceil(weekDayLabelHeight.toPx()).roundToInt()
                 )
             )
         }
 
         for (dayOfMonth in 1..daysInMonth) {
+            val dayTextLayoutResult: TextLayoutResult = textMeasurer.measure(text = AnnotatedString(dayOfMonth.toString()))
             val column = (dayOfMonth - 1 + firstDayOfMonth.ordinal) % 7
             val row = (dayOfMonth - 1 + firstDayOfMonth.ordinal) / 7
             val x = column * dayWidth + padding.toPx()
@@ -115,21 +128,39 @@ internal fun Calendar(
 // background card
 //            drawRoundRect(
 //                color = Color.Cyan.copy(alpha = 0.2f),
-//                topLeft = Offset(x = x + 30f, y = y),
-//                size = Size(width = dayWidth, height = dayHeight)
+//                topLeft = Offset(x = x, y = y),
+//                size = Size(
+//                    width = dayWidth,
+//                    height = dayHeight
+//                )
 //            )
 
             drawText(
                 textMeasurer = textMeasurer,
                 text = dayOfMonth.toString(),
                 style = dayStyle,
-                topLeft = Offset(x = x, y = y),
+                topLeft = Offset(
+                    x = x + ((dayWidth - dayTextLayoutResult.size.width) / 2f),
+                    y = y + ((dayHeight - dayTextLayoutResult.size.height) / 2f),
+                ),
                 maxSize = IntSize(
                     width = ceil(this.size.width - padding.toPx()).roundToInt(),
-                    height = ceil(labelHeight.toPx()).roundToInt()
+                    height = ceil(monthLabelHeight.toPx()).roundToInt()
                 )
             )
         }
+        // CENTER RED LINE
+//        drawRect(
+//            color = Color.Red,
+//            topLeft = Offset(
+//                x = (size.width - 4) / 2,
+//                y= 0f
+//            ),
+//            size = Size(
+//                width = 4f,
+//                height = size.height
+//            )
+//        )
     }
 }
 
