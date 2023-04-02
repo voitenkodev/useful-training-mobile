@@ -3,9 +3,15 @@ package design.calendara
 import androidx.compose.foundation.Canvas
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Rect
+import androidx.compose.ui.geometry.RoundRect
+import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.text.drawText
 import androidx.compose.ui.text.rememberTextMeasurer
+import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import design.Design
 import kotlinx.datetime.DateTimeUnit
@@ -14,9 +20,11 @@ import kotlinx.datetime.LocalDate
 import kotlinx.datetime.Month
 import kotlinx.datetime.minus
 import kotlinx.datetime.plus
+import kotlin.math.ceil
+import kotlin.math.roundToInt
 
 @Composable
-fun Calendar(
+internal fun Calendar(
     modifier: Modifier,
     month: Int,
     year: Int
@@ -27,7 +35,10 @@ fun Calendar(
     val titleStyle = Design.typography.H2.copy(color = Design.colors.content)
     val labelStyle = Design.typography.Body2.copy(color = Design.colors.content)
     val dayStyle = Design.typography.Body.copy(color = Design.colors.content)
-    val labelHeight = 30.dp
+    val radius = 10.dp
+    val backgroundMain = Design.colors.secondary
+    val backgroundHeader = Design.colors.accent_primary
+    val labelHeight = 24.dp
 
     // CALENDAR UTILS
     val daysOfWeek = listOf("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat")
@@ -35,16 +46,50 @@ fun Calendar(
     val firstDayOfMonth = firstDayOfMonth(month, year)
     val lastDayOfMonth = lastDayOfMonth(month, year)
     val monthTitle = monthTitle(month)
+    val padding = Design.dp.padding
 
     Canvas(modifier = modifier) {
-        val dayWidth = size.width / 7f
-        val dayHeight = size.height / 7f
+
+        val labelsHeight = ceil((labelHeight + padding + labelHeight).toPx())
+
+        val dayWidth = (size.width - padding.toPx() - padding.toPx()) / 7f
+        val dayHeight = (size.height - labelsHeight) / 5f
+
+        // Main background
+        drawRoundRect(
+            color = backgroundMain,
+            size = Size(width = size.width, height = size.height),
+            cornerRadius = CornerRadius(x = radius.toPx(), y = radius.toPx())
+        )
+
+        // HEADER background
+        val path = Path().apply {
+            addRoundRect(
+                RoundRect(
+                    rect = Rect(
+                        offset = Offset.Zero,
+                        size = Size(
+                            size.width,
+                            labelsHeight
+                        )
+                    ),
+                    topLeft = CornerRadius(radius.toPx(), radius.toPx()),
+                    topRight = CornerRadius(radius.toPx(), radius.toPx()),
+                )
+            )
+        }
+        drawPath(path, color = backgroundHeader)
 
         // Draw month title
         drawText(
             textMeasurer = textMeasurer,
             text = monthTitle,
             style = titleStyle,
+            topLeft = Offset(padding.toPx(), padding.toPx()),
+            maxSize = IntSize(
+                width = ceil(this.size.width - padding.toPx()).roundToInt(),
+                height = ceil(labelHeight.toPx()).roundToInt()
+            )
         )
 
         // Draw days of the week
@@ -53,23 +98,35 @@ fun Calendar(
                 textMeasurer = textMeasurer,
                 text = day,
                 style = labelStyle,
-                topLeft = Offset(x = dayWidth * index, y = labelHeight.toPx())
+                topLeft = Offset(
+                    x = dayWidth * index + padding.toPx(),
+                    y = labelHeight.toPx() + padding.toPx()
+                )
             )
         }
-
-        val topPadding = (labelHeight + labelHeight).toPx()
 
         for (dayOfMonth in 1..daysInMonth) {
             val column = (dayOfMonth - 1 + firstDayOfMonth.ordinal) % 7
             val row = (dayOfMonth - 1 + firstDayOfMonth.ordinal) / 7
-            val x = column * dayWidth
-            val y = (row * dayHeight) + topPadding
+            val x = column * dayWidth + padding.toPx()
+            val y = (row * dayHeight) + labelsHeight
+
+            // background card
+//            drawRect(
+//                color = Color.Cyan.copy(alpha = 0.2f),
+//                topLeft = Offset(x = x, y = y),
+//                size = Size(width = dayWidth, height = dayHeight)
+//            )
 
             drawText(
                 textMeasurer = textMeasurer,
                 text = dayOfMonth.toString(),
                 style = dayStyle,
-                topLeft = Offset(x = x, y = y)
+                topLeft = Offset(x = x, y = y),
+                maxSize = IntSize(
+                    width = ceil(this.size.width - padding.toPx()).roundToInt(),
+                    height = ceil(labelHeight.toPx()).roundToInt()
+                )
             )
         }
     }
