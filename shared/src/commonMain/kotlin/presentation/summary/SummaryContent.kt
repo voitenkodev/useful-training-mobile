@@ -9,9 +9,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.KeyboardArrowLeft
-import androidx.compose.material.icons.filled.KeyboardArrowRight
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -31,9 +30,7 @@ import design.components.items.ExerciseItem
 import design.components.items.LineChartItem
 import design.components.labels.WeekDayLabel
 import design.components.roots.ScrollableRoot
-import design.controls.IconPrimary
 import design.controls.TextFieldBody2
-import design.controls.TextFieldH2
 
 @Composable
 internal fun SummaryContent(vm: SummaryViewModel) {
@@ -60,45 +57,24 @@ internal fun SummaryContent(vm: SummaryViewModel) {
                 )
             }
 
-            if (state.listOfSelectedDays.isNotEmpty()) {
-                item {
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.SpaceBetween
+            if (state.listOfSelectedDays.isNotEmpty())
+                item(key = "calendar_view") {
+                    LazyRow(
+                        Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(Design.dp.padding)
                     ) {
-
-                        IconPrimary(
-                            modifier = Modifier.padding(start = Design.dp.padding),
-                            imageVector = Icons.Default.KeyboardArrowLeft,
-                            onClick = {}
-                        )
-
-                        TextFieldH2(
-                            text = "September",
-                            fontWeight = FontWeight.Bold
-                        )
-
-                        IconPrimary(
-                            modifier = Modifier.padding(end = Design.dp.padding),
-                            imageVector = Icons.Default.KeyboardArrowRight,
-                            onClick = {}
-                        )
-
+                        items(12) {
+                            Calendar(
+                                modifier = Modifier
+                                    .width(300.dp)
+                                    .aspectRatio(1.4f),
+                                month = it + 1,
+                                year = 2022,
+                                listOfValues = state.listOfSelectedDays
+                            )
+                        }
                     }
                 }
-
-                item(key = "calendar_view") {
-                    Calendar(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .aspectRatio(1.5f),
-                        month = 3,
-                        year = 2022,
-                        listOfValues = state.listOfSelectedDays
-                    )
-                }
-            }
 
             if (state.listOfTonnage.isNotEmpty())
                 item(key = "tonnage_chart") {
