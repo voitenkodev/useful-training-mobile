@@ -42,8 +42,7 @@ internal fun Calendar(
     val backgroundMain = Design.colors.secondary
     val backgroundHeader = Design.colors.accent_primary
     val selectedColor = Design.colors.accent_secondary
-    val monthLabelHeight = 30.dp
-    val weekDayLabelHeight = 22.dp
+    val weekDayLabelHeight = 24.dp
 
     // CALENDAR UTILS
     val daysOfWeek = listOf("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat")
@@ -55,7 +54,7 @@ internal fun Calendar(
 
     Canvas(modifier = modifier) {
 
-        val labelsHeight = ceil((monthLabelHeight + padding + weekDayLabelHeight).toPx())
+        val labelsHeight = ceil((padding + weekDayLabelHeight).toPx())
         val dayWidth = (size.width - padding.toPx() - padding.toPx()) / 7f
         val dayHeight = (size.height - labelsHeight - padding.toPx() - padding.toPx()) / 5f
 
@@ -84,23 +83,6 @@ internal fun Calendar(
         }
         drawPath(path, color = backgroundHeader)
 
-        // Draw month title
-        val textLayoutResult: TextLayoutResult = textMeasurer.measure(text = AnnotatedString(monthTitle))
-
-        drawText(
-            textMeasurer = textMeasurer,
-            text = monthTitle,
-            style = titleStyle,
-            topLeft = Offset(
-                x = (size.width - textLayoutResult.size.width) / 2,
-                y = padding.toPx()
-            ),
-            maxSize = IntSize(
-                width = ceil(this.size.width - padding.toPx()).roundToInt(),
-                height = ceil(monthLabelHeight.toPx()).roundToInt()
-            )
-        )
-
         // Draw days of the week
         daysOfWeek.forEachIndexed { index, day ->
             val daysOfWeekTextLayoutResult: TextLayoutResult = textMeasurer.measure(text = AnnotatedString(day))
@@ -111,7 +93,7 @@ internal fun Calendar(
                 style = labelStyle,
                 topLeft = Offset(
                     x = dayWidth * index + padding.toPx() + ((dayWidth - daysOfWeekTextLayoutResult.size.width) / 2f),
-                    y = monthLabelHeight.toPx() + padding.toPx()
+                    y = padding.toPx()
                 ),
                 maxSize = IntSize(
                     width = ceil(this.size.width - padding.toPx()).roundToInt(),
@@ -154,7 +136,7 @@ internal fun Calendar(
                 ),
                 maxSize = IntSize(
                     width = ceil(this.size.width - padding.toPx()).roundToInt(),
-                    height = ceil(monthLabelHeight.toPx()).roundToInt()
+                    height = ceil(dayHeight).roundToInt()
                 )
             )
         }
