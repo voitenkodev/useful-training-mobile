@@ -76,6 +76,7 @@ internal fun SummaryContent(vm: SummaryViewModel) {
                     }
                 }
 
+
             if (state.listOfTonnage.isNotEmpty())
                 item(key = "tonnage_chart") {
                     ChartSection(
