@@ -85,6 +85,7 @@ internal fun SummaryContent(vm: SummaryViewModel) {
                     )
                 }
 
+
             item(key = "exercises") {
 
                 state.exercises.forEach { item ->
