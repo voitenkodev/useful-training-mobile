@@ -1,31 +1,16 @@
-# Jet Habit
+# Useful-Training
 
-This is Demo repository for Jetpack Compose features demonstration
-Feel free to make issues, forks and pull requests
-
-Adopted to full Compose Multiplatform and Kotlin Multiplatform
-**WARNING!** Compose Multiplatform doesn't work for Web until Compose Multiplatform bugs fixed
 
 ### Tech Stack:
-- Navigation. Odyssey
-- Presentation: KViewModel
-- Database: SqlDelight
-- Resources: LibRes
-- DI: Kodein
+- Navigation. Custom
+- Presentation: Custom
+- Database: Kotlin Data-Store
+- DI: Koin
 - UI: Compose Multiplatform
+- Networking: Ktor
 
 ### Supported Platforms
-Android | iOS | Web | Windows | MacOS | Linux (In Progress)
+Android | iOS
 
-### iOS Run
-Just launch xcode workspace as usual
+https://user-images.githubusercontent.com/93656470/230635539-460748d0-d985-44cc-a9f0-78ed6efd3dc0.mp4
 
-### Youtube support
-
-All this code has video support on YouTube (only in Russian)
-
-* [UI. Basics](https://youtu.be/CAOM-Kq9MKY)
-* [Navigation. Basics](https://youtu.be/cX7RVGj19iU)
-* [State. Basics](https://youtu.be/ND-OA_9L1vo)
-* [Side Effects. Basics](https://youtu.be/NxwkaPdLQPk)
-* [ViewModel. Basics](https://youtu.be/o4EQnWfegoE)
