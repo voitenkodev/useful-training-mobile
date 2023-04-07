@@ -12,6 +12,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.geometry.RoundRect
 import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextLayoutResult
@@ -36,7 +37,8 @@ internal fun Calendar(
     modifier: Modifier,
     month: Int,
     year: Int,
-    listOfValues: List<Int>
+    listOfValues: List<Int>,
+    headerColor: Color
 ) {
 
     // OTHER
@@ -45,7 +47,7 @@ internal fun Calendar(
     val dayStyle = Design.typography.Body.copy(color = Design.colors.content)
     val radius = 10.dp
     val backgroundMain = Design.colors.secondary
-    val backgroundHeader = Design.colors.accent_primary
+    val backgroundHeader = headerColor
     val selectedColor = Design.colors.accent_secondary
     val weekDayLabelHeight = 24.dp
 

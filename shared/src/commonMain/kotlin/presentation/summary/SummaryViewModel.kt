@@ -4,16 +4,21 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import data.dto.ExerciseDateDTO
 import data.mapping.toExerciseState
+import data.mapping.toTrainingStateList
 import data.repository.TrainingRepository
 import globalKoin
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import navigation.NavigatorCore
+import presentation.training.Training
+import presentation.trainings.TrainingsState
+import presentation.trainings.WeekInfo
 import utils.ViewModel
 
 internal class SummaryViewModel(private val navigator: NavigatorCore) : ViewModel() {
@@ -35,6 +40,20 @@ internal class SummaryViewModel(private val navigator: NavigatorCore) : ViewMode
             delay(500)
             getExercisesBy(query)
         }
+    }
+
+    fun getTrainings() = viewModelScope.launch {
+        api.getTrainings()
+            .onStart {
+                _state.value = state.value.copy(loading = true)
+            }.map {
+                it.toTrainingStateList()
+            }.onEach { trainings ->
+                _state.value = state.value.copy(loading = false, error = null)
+                _state.value = state.value.copy(trainings = trainings)
+            }.catch {
+                _state.value = state.value.copy(loading = false, error = it.message)
+            }.launchIn(this)
     }
 
     private fun getExercisesBy(query: String) = viewModelScope.launch {

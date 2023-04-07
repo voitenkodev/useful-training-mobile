@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -36,6 +37,10 @@ import design.controls.TextFieldBody2
 internal fun SummaryContent(vm: SummaryViewModel) {
 
     val state by vm.state
+
+    LaunchedEffect(Unit) {
+        vm.getTrainings()
+    }
 
     ScrollableRoot(
         modifier = Modifier.fillMaxSize(),
@@ -70,7 +75,8 @@ internal fun SummaryContent(vm: SummaryViewModel) {
                                     .aspectRatio(1.4f),
                                 month = it + 1,
                                 year = 2022,
-                                listOfValues = state.listOfSelectedDays
+                                listOfValues = state.listOfSelectedDays,
+                                Design.colors.unique.asList().getOrElse(it) { Design.colors.accent_primary }
                             )
                         }
                     }

@@ -5,6 +5,7 @@ import dev.icerock.moko.parcelize.Parcelable
 import dev.icerock.moko.parcelize.Parcelize
 import kotlinx.serialization.Serializable
 import presentation.training.Exercise
+import presentation.training.Training
 import utils.DateTimeKtx
 
 @Serializable
@@ -13,14 +14,24 @@ import utils.DateTimeKtx
 internal data class SummaryState(
     val query: String = "",
     val exercises: Map<ExerciseInfo, List<Exercise>> = mapOf(),
+    val trainings: List<Training> = emptyList(),
     val error: String? = null,
     val loading: Boolean = false,
 ) : Parcelable {
     val listOfTonnage: List<Float>
-        get() = exercises.flatMap { it.value }.map { it.tonnage.toFloat() }
+        get() = exercises
+            .flatMap { it.value }
+            .map { it.tonnage.toFloat() }
+            .takeIf { it.isNotEmpty() } ?:
+            trainings
+                .mapNotNull { it.tonnage?.toFloat() }
 
     val listOfSelectedDays: List<Int>
-        get() = exercises.map { it.key.day }
+        get() = exercises
+            .map { it.key.day }
+            .takeIf { it.isNotEmpty() }
+            ?: trainings
+                .map { it.day }
 }
 
 @Serializable
