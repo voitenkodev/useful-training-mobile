@@ -1,4 +1,6 @@
 [versions]
+activity-compose-vers = "1.7.0"
+appcompat-vers = "1.6.1"
 libres = "1.1.5"
 serialization-vers = "1.5.0"
 datetime-vers = "0.4.0"
@@ -9,6 +11,7 @@ datastore-vers = "1.1.0-dev01"
 uuid-vers = "0.7.0"
 koin-vers = "3.2.0"
 
+
 [libraries]
 libres-compose = { module = "io.github.skeptick.libres:libres-compose", version.ref = "libres" }
 serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization-vers" }
@@ -18,6 +21,9 @@ logger = { module = "co.touchlab:kermit", version.ref = "logger-vers" }
 datastore = { module = "androidx.datastore:datastore-preferences-core", version.ref = "datastore-vers" }
 uuid = { module = "com.benasher44:uuid", version.ref = "uuid-vers" }
 
+# ANDROID
+activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activity-compose-vers" }
+appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat-vers" }
 
 ktor-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor-vers" }
 ktor-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor-vers" }
