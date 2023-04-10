@@ -6,7 +6,9 @@ import kotlinx.datetime.Clock
 import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.DayOfWeek
 import kotlinx.datetime.Instant
+import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.Month
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.minus
 import kotlinx.datetime.plus
@@ -31,7 +33,7 @@ internal object DateTimeKtx {
     }
 
     /**
-     * Output Output 23 October 2022
+     * Output 23 October 2022
      * */
     fun currentDate(): String {
 
@@ -41,6 +43,41 @@ internal object DateTimeKtx {
         val month = date.month.name.lowercase().capitalize(Locale.current)
         val year = date.year
         return "${day.zeroPrefixed(2)} $month $year"
+    }
+
+    /**
+     * Output 23
+     * */
+    fun currentRealMonthDay(): Int {
+        val localDateTime = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
+        val date = localDateTime.date
+        return date.dayOfMonth
+    }
+
+    /**
+     * Output 10
+     * p.s. from 0 to 11
+     * */
+    fun currentMonth(): Int {
+        val localDateTime = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
+        return localDateTime.date.month.ordinal
+    }
+
+    /**
+     * Output 10
+     * p.s. from 1 to 12
+     * */
+    fun currentRealMonth(): Int {
+        val localDateTime = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
+        return localDateTime.date.month.ordinal + 1
+    }
+
+    /**
+     * Output 2023
+     * */
+    fun currentYear(): Int {
+        val localDateTime = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
+        return localDateTime.date.year
     }
 
     /**
@@ -171,15 +208,48 @@ internal object DateTimeKtx {
         return localDateTime.dayOfWeek.name
     }
 
-  /**
+    /**
      * Input 2022-10-21T13:20:18.496Z
      *
-     * Output 21
+     * Output 9
      * */
 
-    fun formattedMonthDay(iso8601Timestamp: String): Int? {
+    fun formattedRealMonthDay(iso8601Timestamp: String): Int? {
         val localDateTime = iso8601TimestampToLocalDateTime(iso8601Timestamp) ?: return null
         return localDateTime.dayOfMonth
+    }
+
+    /**
+     * Input 2022-10-21T13:20:18.496Z
+     *
+     * Output 9
+     * */
+
+    fun formattedMonth(iso8601Timestamp: String): Int? {
+        val localDateTime = iso8601TimestampToLocalDateTime(iso8601Timestamp) ?: return null
+        return localDateTime.month.ordinal
+    }
+
+    /**
+     * Input 2022-10-21T13:20:18.496Z
+     *
+     * Output 10
+     * */
+
+    fun formattedRealMonth(iso8601Timestamp: String): Int? {
+        val localDateTime = iso8601TimestampToLocalDateTime(iso8601Timestamp) ?: return null
+        return localDateTime.month.ordinal + 1
+    }
+
+    /**
+     * Input 2022
+     *
+     * Output 12
+     * */
+
+    fun formattedYear(iso8601Timestamp: String): Int? {
+        val localDateTime = iso8601TimestampToLocalDateTime(iso8601Timestamp) ?: return null
+        return localDateTime.year
     }
 
     /**
@@ -192,6 +262,44 @@ internal object DateTimeKtx {
         return Duration.parseOrNull(duration)?.toComponents { hours, minutes, _, _ ->
             timeFormat(hours.toInt(), minutes)
         }
+    }
+
+    fun firstDayOfMonth(month: Int, year: Int): DayOfWeek {
+        return LocalDate(year, month, 1).dayOfWeek
+    }
+
+    fun lastDayOfMonth(month: Int, year: Int): Int {
+        return LocalDate(year, month, 1)
+            .plus(1, DateTimeUnit.MONTH)
+            .minus(1, DateTimeUnit.DAY)
+            .dayOfMonth
+    }
+
+    fun monthTitle(month: Int): String {
+        return Month.values()[month - 1].name
+    }
+
+    fun getDaysInMonth(month: Int, year: Int): Int {
+        val daysInMonth = when (month) {
+            1 -> 31
+            2 -> if (isLeapYear(year)) 29 else 28
+            3 -> 31
+            4 -> 30
+            5 -> 31
+            6 -> 30
+            7 -> 31
+            8 -> 31
+            9 -> 30
+            10 -> 31
+            11 -> 30
+            12 -> 31
+            else -> throw IllegalArgumentException("Invalid month: $month")
+        }
+        return daysInMonth
+    }
+
+    fun isLeapYear(year: Int): Boolean {
+        return year % 4 == 0 && (year % 100 != 0 || year % 400 == 0)
     }
 
     //___________________________ INTERNAL API ___________________________

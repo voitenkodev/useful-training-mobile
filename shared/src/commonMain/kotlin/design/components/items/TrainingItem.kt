@@ -15,8 +15,8 @@ import presentation.training.Training
 internal fun TrainingItem(
     modifier: Modifier = Modifier,
     training: Training,
-    edit: () -> Unit,
-    review: () -> Unit,
+    edit: (() -> Unit)? = null,
+    review: (() -> Unit)? = null,
 ) = Column(
     modifier = modifier
         .secondaryBackground()

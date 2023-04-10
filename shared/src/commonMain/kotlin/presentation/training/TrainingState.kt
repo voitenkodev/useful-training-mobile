@@ -46,9 +46,12 @@ internal data class Training(
         get() = DateTimeKtx.formattedEndOfWeekLongDate(startDateTime, false) ?: ""
     val startOfWeek: String
         get() = DateTimeKtx.formattedStartOfWeekLongDate(startDateTime, false) ?: ""
-
     val day: Int
-        get() = DateTimeKtx.formattedMonthDay(startDateTime) ?: -1
+        get() = DateTimeKtx.formattedRealMonthDay(startDateTime) ?: -1
+    val month: Int
+        get() = DateTimeKtx.formattedRealMonth(startDateTime) ?: -1
+    val year: Int
+        get() = DateTimeKtx.formattedYear(startDateTime) ?: -1
 }
 
 @Serializable

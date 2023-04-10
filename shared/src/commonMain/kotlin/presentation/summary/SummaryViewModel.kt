@@ -16,9 +16,6 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import navigation.NavigatorCore
-import presentation.training.Training
-import presentation.trainings.TrainingsState
-import presentation.trainings.WeekInfo
 import utils.ViewModel
 
 internal class SummaryViewModel(private val navigator: NavigatorCore) : ViewModel() {
@@ -43,33 +40,28 @@ internal class SummaryViewModel(private val navigator: NavigatorCore) : ViewMode
     }
 
     fun getTrainings() = viewModelScope.launch {
-        api.getTrainings()
-            .onStart {
-                _state.value = state.value.copy(loading = true)
-            }.map {
-                it.toTrainingStateList()
-            }.onEach { trainings ->
-                _state.value = state.value.copy(loading = false, error = null)
-                _state.value = state.value.copy(trainings = trainings)
-            }.catch {
-                _state.value = state.value.copy(loading = false, error = it.message)
-            }.launchIn(this)
+        api.getTrainings().onStart {
+            _state.value = state.value.copy(loading = true)
+        }.map {
+            it.toTrainingStateList()
+        }.onEach { trainings ->
+            _state.value = state.value.copy(loading = false, error = null)
+            _state.value = state.value.copy(trainings = trainings)
+        }.catch {
+            _state.value = state.value.copy(loading = false, error = it.message)
+        }.launchIn(this)
     }
 
     private fun getExercisesBy(query: String) = viewModelScope.launch {
-        api
-            .getExercises(query = query)
-            .onStart {
-                _state.value = state.value.copy(loading = true) // don't need loader
-            }.onEach {
-                _state.value = state.value.copy(
-                    loading = false,
-                    error = null,
-                    exercises = it.processingExercises()
-                )
-            }.catch {
-                _state.value = state.value.copy(loading = false, error = it.message)
-            }.launchIn(viewModelScope)
+        api.getExercises(query = query).onStart {
+            _state.value = state.value.copy(loading = true) // don't need loader
+        }.onEach {
+            _state.value = state.value.copy(
+                loading = false, error = null, exercises = it.processingExercises()
+            )
+        }.catch {
+            _state.value = state.value.copy(loading = false, error = it.message)
+        }.launchIn(viewModelScope)
     }
 
     fun setQuery(query: String) {
@@ -79,6 +71,26 @@ internal class SummaryViewModel(private val navigator: NavigatorCore) : ViewMode
 
     fun clearError() {
         _state.value = state.value.copy(error = null)
+    }
+
+    fun decreaseMonth() {
+        val isPreviousYear = state.value.selectedMonth == 1
+        val newMonth = if (isPreviousYear) 12
+        else state.value.selectedMonth - 1
+        val newYear = if (isPreviousYear) state.value.selectedYear - 1
+        else state.value.selectedYear
+
+        _state.value = state.value.copy(selectedYear = newYear, selectedMonth = newMonth)
+    }
+
+    fun increaseMonth() {
+        val isNextYear = state.value.selectedMonth == 12
+        val newMonth = if (isNextYear) 1
+        else state.value.selectedMonth + 1
+        val newYear = if (isNextYear) state.value.selectedYear + 1
+        else state.value.selectedYear
+
+        _state.value = state.value.copy(selectedYear = newYear, selectedMonth = newMonth)
     }
 
     fun back() {
@@ -91,11 +103,9 @@ internal class SummaryViewModel(private val navigator: NavigatorCore) : ViewMode
         searchJob = null
     }
 
-    private fun List<ExerciseDateDTO>.processingExercises() = this.groupBy(
-        {
-            ExerciseInfo(trainingId = it.trainingId, date = it.date)
-        }, {
-            it.exercise.toExerciseState()
-        }
-    )
+    private fun List<ExerciseDateDTO>.processingExercises() = this.groupBy({
+        ExerciseInfo(trainingId = it.trainingId, date = it.date)
+    }, {
+        it.exercise.toExerciseState()
+    })
 }

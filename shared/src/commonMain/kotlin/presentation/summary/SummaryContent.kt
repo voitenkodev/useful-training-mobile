@@ -2,6 +2,7 @@ package presentation.summary
 
 import PlatformBackHandler
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
@@ -9,8 +10,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -29,9 +32,13 @@ import design.components.Loading
 import design.components.inputs.InputSearch
 import design.components.items.ExerciseItem
 import design.components.items.LineChartItem
+import design.components.items.TrainingItem
 import design.components.labels.WeekDayLabel
 import design.components.roots.ScrollableRoot
+import design.controls.IconPrimary
 import design.controls.TextFieldBody2
+import design.controls.TextFieldH2
+import utils.DateTimeKtx.monthTitle
 
 @Composable
 internal fun SummaryContent(vm: SummaryViewModel) {
@@ -62,25 +69,19 @@ internal fun SummaryContent(vm: SummaryViewModel) {
                 )
             }
 
-            if (state.listOfSelectedDays.isNotEmpty())
-                item(key = "calendar_view") {
-                    LazyRow(
-                        Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.spacedBy(Design.dp.padding)
-                    ) {
-                        items(12) {
-                            Calendar(
-                                modifier = Modifier
-                                    .width(300.dp)
-                                    .aspectRatio(1.4f),
-                                month = it + 1,
-                                year = 2022,
-                                listOfValues = state.listOfSelectedDays,
-                                Design.colors.unique.asList().getOrElse(it) { Design.colors.accent_primary }
-                            )
-                        }
-                    }
-                }
+            item(key = "calendar_component") {
+                CalendarSection(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .aspectRatio(1.4f)
+                        .animateItemPlacement(),
+                    month = state.selectedMonth,
+                    year = state.selectedYear,
+                    trainingDays = state.currentMonthTrainings,
+                    leftMonth = vm::decreaseMonth,
+                    rightMonth = vm::increaseMonth
+                )
+            }
 
             if (state.listOfTonnage.isNotEmpty())
                 item(key = "tonnage_chart") {
@@ -91,6 +92,12 @@ internal fun SummaryContent(vm: SummaryViewModel) {
                     )
                 }
 
+            if (state.query.isBlank())
+                items(state.trainings, key = { it.id ?: it.hashCode() }) { training ->
+                    TrainingItem(
+                        training = training,
+                    )
+                }
 
             item(key = "exercises") {
 
@@ -114,6 +121,54 @@ internal fun SummaryContent(vm: SummaryViewModel) {
                 }
             }
         }
+    )
+}
+
+@Composable
+private fun CalendarSection(
+    modifier: Modifier,
+    month: Int,
+    year: Int,
+    trainingDays: List<Int>,
+    leftMonth: () -> Unit,
+    rightMonth: () -> Unit
+) = Column(
+    modifier = modifier,
+    horizontalAlignment = Alignment.CenterHorizontally,
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(Design.dp.padding),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween,
+    ) {
+
+        IconPrimary(
+            imageVector = Icons.Default.ArrowBack,
+            onClick = leftMonth
+        )
+
+        TextFieldH2(
+            modifier = Modifier,
+            text = "${monthTitle(month)} $year",
+            fontWeight = FontWeight.Bold
+        )
+
+        IconPrimary(
+            imageVector = Icons.Default.ArrowForward,
+            onClick = rightMonth
+        )
+    }
+
+    Calendar(
+        month = month,
+        year = year,
+        listOfDays = trainingDays,
+        headerColor = Color.Transparent,
+        daysColor = Design.colors.content,
+        labelsColor = Design.colors.accent_secondary,
+        selectedColor = Design.colors.accent_primary,
     )
 }
 

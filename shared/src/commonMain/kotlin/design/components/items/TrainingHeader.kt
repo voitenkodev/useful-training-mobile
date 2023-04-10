@@ -25,8 +25,8 @@ internal fun TrainingHeader(
     modifier: Modifier = Modifier,
     weekDay: String,
     date: String,
-    review: () -> Unit,
-    edit: () -> Unit
+    review: (() -> Unit)? = null,
+    edit: (() -> Unit)? = null
 ) = Row(
     modifier = modifier.requiredHeight(44.dp),
     horizontalArrangement = Arrangement.spacedBy(4.dp),
@@ -46,19 +46,22 @@ internal fun TrainingHeader(
 
     Spacer(modifier = Modifier.weight(1f))
 
-    IconPrimary(
-        modifier = Modifier.height(20.dp),
-        imageVector = BarChart,
-        color = Design.colors.caption,
-        onClick = review
-    )
-
+    review?.let {
+        IconPrimary(
+            modifier = Modifier.height(20.dp),
+            imageVector = BarChart,
+            color = Design.colors.caption,
+            onClick = it
+        )
+    }
     Spacer(modifier = Modifier.size(12.dp))
 
-    IconPrimary(
-        modifier = Modifier.height(20.dp),
-        imageVector = Icons.Default.Edit,
-        color = Design.colors.caption,
-        onClick = edit
-    )
+    edit?.let {
+        IconPrimary(
+            modifier = Modifier.height(20.dp),
+            imageVector = Icons.Default.Edit,
+            color = Design.colors.caption,
+            onClick = it
+        )
+    }
 }
