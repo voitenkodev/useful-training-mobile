@@ -9,7 +9,7 @@ internal fun Training.toBody() = TrainingDTO(
     id = id,
     exercises = exercises.map {
         ExerciseDTO(
-            id = it.id,
+            id = null,
             name = it.name,
             iterations = it.iterations.map {
                 IterationDTO(
