@@ -1,6 +1,7 @@
 package design.calendara
 
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -11,6 +12,7 @@ import androidx.compose.ui.geometry.RoundRect
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.text.drawText
@@ -37,6 +39,7 @@ internal fun Calendar(
     labelsColor: Color,
     daysColor: Color,
     selectedColor: Color,
+    dayClick: (Int) -> Unit
 ) {
 
     // OTHER
@@ -53,8 +56,26 @@ internal fun Calendar(
     val firstDayOfMonth = firstDayOfMonth(month, year)
     val padding = Design.dp.padding
 
+    val dayRects = ArrayList<Pair<Int, Rect>>()
 
-    Canvas(modifier = Modifier.fillMaxSize()) {
+    Canvas(
+        modifier = Modifier
+            .fillMaxSize()
+            .pointerInput(month, listOfDays) {
+                detectTapGestures(
+                    onTap = { tapOffset ->
+                        var index = 0
+                        for (rect in dayRects) {
+                            if (rect.second.contains(tapOffset)) {
+                                dayClick.invoke(rect.first)
+                                break
+                            }
+                            index++
+                        }
+                    }
+                )
+            }
+    ) {
 
         val labelsHeight = ceil((padding + weekDayLabelHeight).toPx())
         val dayWidth = (size.width - padding.toPx() - padding.toPx()) / 7f
@@ -111,6 +132,17 @@ internal fun Calendar(
             val y = (row * dayHeight) + labelsHeight + (padding.toPx() / 2)
 
             val innerBackgroundPadding = 6
+
+            // Rect for click
+            dayRects.add(
+                dayOfMonth to Rect(
+                    offset = Offset(x = x + innerBackgroundPadding, y = y + innerBackgroundPadding),
+                    size = Size(
+                        width = dayWidth - innerBackgroundPadding - innerBackgroundPadding,
+                        height = dayHeight - innerBackgroundPadding - innerBackgroundPadding
+                    )
+                )
+            )
 
             listOfDays
                 .count { it == dayOfMonth }

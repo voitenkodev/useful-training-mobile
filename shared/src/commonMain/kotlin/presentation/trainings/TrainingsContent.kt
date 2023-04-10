@@ -21,13 +21,12 @@ import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import design.Design
 import design.chart.LineChart
 import design.chart.PointLine
-import design.Design
 import design.components.Error
 import design.components.Loading
 import design.components.items.TrainingItem
@@ -36,7 +35,6 @@ import design.components.roots.BottomSheetRoot
 import design.controls.IconPrimary
 import design.controls.TextFieldBody1
 import design.controls.TextFieldH1
-import kotlinx.coroutines.launch
 
 @Composable
 internal fun TrainingsContent(vm: TrainingsViewModel) {
@@ -46,7 +44,6 @@ internal fun TrainingsContent(vm: TrainingsViewModel) {
     LaunchedEffect(Unit) { vm.getTrainings() }
 
     val listState = rememberLazyListState()
-    val coroutineScope = rememberCoroutineScope()
 
     BottomSheetRoot(
         modifier = Modifier.fillMaxSize(),
@@ -82,11 +79,7 @@ internal fun TrainingsContent(vm: TrainingsViewModel) {
             state.weekTrainings.onEach {
 
                 stickyHeader(key = "week_by_${it.key}") {
-                    WeekSummary(info = it.key) {
-                        coroutineScope.launch {
-                            listState.animateScrollToItem(index = 4)
-                        }
-                    }
+                    WeekSummary(info = it.key)
                 }
 
                 items(it.value, key = { it.id ?: it.hashCode() }) { training ->

@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.foundation.lazy.LazyListScope
+import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
@@ -29,6 +31,7 @@ internal fun ScrollableRoot(
     header: @Composable (LazyItemScope.() -> Unit)? = null,
     footer: (@Composable ColumnScope.() -> Unit)? = null,
 
+    listState: LazyListState = rememberLazyListState(),
     content: (LazyListScope.() -> Unit)? = null,
 ) {
 
@@ -48,6 +51,7 @@ internal fun ScrollableRoot(
         LazyColumn(
             modifier = Modifier.weight(1f),
             verticalArrangement = Arrangement.spacedBy(Design.dp.padding),
+            state = listState,
             content = {
                 if (header != null) {
                     item(key = "header_spacer") {

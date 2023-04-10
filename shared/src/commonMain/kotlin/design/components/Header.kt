@@ -30,7 +30,7 @@ internal fun Header(
     exit: (() -> Unit)? = null,
     back: (() -> Unit)? = null,
 ) = Row(
-    modifier = Modifier.fillMaxWidth().height(56.dp).background(Design.colors.primary),
+    modifier = Modifier.fillMaxWidth().height(Design.dp.header).background(Design.colors.primary),
     horizontalArrangement = Arrangement.SpaceBetween,
     verticalAlignment = Alignment.CenterVertically
 ) {

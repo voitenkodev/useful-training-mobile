@@ -13,6 +13,8 @@ import utils.DateTimeKtx
 @Stable
 internal data class SummaryState(
     val query: String = "",
+    val autoScrollIndex: Int = -1,
+
     val exercises: Map<ExerciseInfo, List<Exercise>> = mapOf(),
     val trainings: List<Training> = emptyList(),
 

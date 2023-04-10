@@ -2,7 +2,6 @@ package design.components.items
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -29,15 +28,13 @@ import presentation.trainings.WeekInfo
 @Composable
 internal fun WeekSummary(
     modifier: Modifier = Modifier,
-    info: WeekInfo,
-    onClick: () -> Unit
+    info: WeekInfo
 ) = Column(
     modifier = modifier
         .background(color = Design.colors.primary, shape = Design.shape.default)
-        .border(2.dp, Design.colors.tertiary, shape = Design.shape.default)
+        .border(0.5.dp, Design.colors.accent_primary, shape = Design.shape.default)
         .fillMaxWidth()
         .padding(Design.dp.padding)
-        .clickable(onClick = onClick::invoke)
 ) {
 
     Row(

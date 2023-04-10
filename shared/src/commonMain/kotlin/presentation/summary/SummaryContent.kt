@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowForward
@@ -20,6 +21,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import design.Design
@@ -43,14 +45,30 @@ import utils.DateTimeKtx.monthTitle
 @Composable
 internal fun SummaryContent(vm: SummaryViewModel) {
 
+    val listState = rememberLazyListState()
+
     val state by vm.state
 
     LaunchedEffect(Unit) {
         vm.getTrainings()
     }
 
+    val stickyHeaderSize = with(LocalDensity.current) { Design.dp.header.toPx() }
+
+    LaunchedEffect(state.autoScrollIndex) {
+        // spacer + header + search view + chart + calendar
+        val constantItemCount = 5
+        if (state.autoScrollIndex == -1) return@LaunchedEffect
+        val realIndex = state.autoScrollIndex + constantItemCount
+        if (realIndex in 0..listState.layoutInfo.totalItemsCount) {
+            listState.animateScrollToItem(index = realIndex, scrollOffset = -stickyHeaderSize.toInt())
+            vm.clearAutoScrollIndex()
+        }
+    }
+
     ScrollableRoot(
         modifier = Modifier.fillMaxSize(),
+        listState = listState,
         loading = { Loading(state.loading) },
         error = { Error(message = state.error, close = vm::clearError) },
         back = { PlatformBackHandler(vm::back) },
@@ -69,19 +87,21 @@ internal fun SummaryContent(vm: SummaryViewModel) {
                 )
             }
 
-            item(key = "calendar_component") {
-                CalendarSection(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .aspectRatio(1.4f)
-                        .animateItemPlacement(),
-                    month = state.selectedMonth,
-                    year = state.selectedYear,
-                    trainingDays = state.currentMonthTrainings,
-                    leftMonth = vm::decreaseMonth,
-                    rightMonth = vm::increaseMonth
-                )
-            }
+            if (state.exercises.isEmpty())
+                item(key = "calendar_component") {
+                    CalendarSection(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .aspectRatio(1.4f)
+                            .animateItemPlacement(),
+                        month = state.selectedMonth,
+                        year = state.selectedYear,
+                        trainingDays = state.currentMonthTrainings,
+                        leftMonth = vm::decreaseMonth,
+                        rightMonth = vm::increaseMonth,
+                        dayClick = { vm.findIndexOfTraining(day = it, month = state.selectedMonth) }
+                    )
+                }
 
             if (state.listOfTonnage.isNotEmpty())
                 item(key = "tonnage_chart") {
@@ -131,7 +151,8 @@ private fun CalendarSection(
     year: Int,
     trainingDays: List<Int>,
     leftMonth: () -> Unit,
-    rightMonth: () -> Unit
+    rightMonth: () -> Unit,
+    dayClick: (Int) -> Unit
 ) = Column(
     modifier = modifier,
     horizontalAlignment = Alignment.CenterHorizontally,
@@ -169,6 +190,7 @@ private fun CalendarSection(
         daysColor = Design.colors.content,
         labelsColor = Design.colors.accent_secondary,
         selectedColor = Design.colors.accent_primary,
+        dayClick = dayClick
     )
 }
 

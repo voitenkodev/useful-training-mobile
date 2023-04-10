@@ -54,7 +54,7 @@ internal class SummaryViewModel(private val navigator: NavigatorCore) : ViewMode
 
     private fun getExercisesBy(query: String) = viewModelScope.launch {
         api.getExercises(query = query).onStart {
-            _state.value = state.value.copy(loading = true) // don't need loader
+            _state.value = state.value.copy(loading = false) // don't need loader
         }.onEach {
             _state.value = state.value.copy(
                 loading = false, error = null, exercises = it.processingExercises()
@@ -71,6 +71,17 @@ internal class SummaryViewModel(private val navigator: NavigatorCore) : ViewMode
 
     fun clearError() {
         _state.value = state.value.copy(error = null)
+    }
+
+    fun findIndexOfTraining(day: Int, month: Int) {
+        val index = state.value.trainings
+            .indexOfFirst { it.day == day && it.month == month }
+
+        _state.value = state.value.copy(autoScrollIndex = index)
+    }
+
+    fun clearAutoScrollIndex() {
+        _state.value = state.value.copy(autoScrollIndex = -1)
     }
 
     fun decreaseMonth() {
