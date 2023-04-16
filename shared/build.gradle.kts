@@ -7,26 +7,15 @@ plugins {
     id("org.jetbrains.kotlin.plugin.parcelize")
 }
 
+apply(from = "../config/gradle/build-scripts/android.gradle")
+apply(from = "../config/gradle/build-scripts/ios.gradle")
+
 version = "1.0-SNAPSHOT"
 
 kotlin {
     android()
-
     ios()
     iosSimulatorArm64()
-
-    cocoapods {
-        summary = "Shared Code"
-        homepage = "https://github.com/voitenkodev/Useful-Training"
-        ios.deploymentTarget = "14.1"
-        podfile = project.file("../iosApp/Podfile")
-
-        framework {
-            baseName = "shared"
-            isStatic = true
-        }
-        extraSpecAttributes["resources"] = "['src/commonMain/resources/**', 'src/iosMain/resources/**']"
-    }
 
     sourceSets {
         val commonMain by getting {
@@ -36,6 +25,8 @@ kotlin {
                 implementation(compose.foundation)
                 implementation(compose.material)
                 implementation(compose.runtime)
+                @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
+                implementation(compose.components.resources)
 
                 //utils
                 implementation(libs.uuid)
@@ -52,6 +43,7 @@ kotlin {
                 implementation(libs.ktor.auth)
                 implementation(libs.ktor.negotiation)
 
+                //koin
                 implementation(libs.koin.core)
             }
         }
@@ -67,7 +59,9 @@ kotlin {
                 implementation(libs.ktor.darwin)
             }
         }
-        val iosSimulatorArm64Main by getting { dependsOn(iosMain) }
+        val iosSimulatorArm64Main by getting {
+            dependsOn(iosMain)
+        }
     }
 
     kotlin.sourceSets.all {
@@ -80,16 +74,5 @@ kotlin {
         languageSettings.optIn("androidx.compose.ui.unit.ExperimentalUnitApi")
         languageSettings.optIn("androidx.compose.animation.ExperimentalAnimationApi")
         languageSettings.optIn("kotlin.time.ExperimentalTime")
-    }
-}
-
-android {
-    compileSdk = 33
-    namespace = "com.voitenko.usefultraining"
-    defaultConfig { minSdk = 24 }
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
     }
 }

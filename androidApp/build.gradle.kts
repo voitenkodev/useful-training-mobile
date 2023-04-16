@@ -4,6 +4,8 @@ plugins {
     id("org.jetbrains.compose")
 }
 
+apply(from = "../config/gradle/build-scripts/android.gradle")
+
 kotlin {
     android()
     sourceSets {
@@ -18,21 +20,6 @@ kotlin {
     }
 }
 
-android {
-    compileSdk = 33
-    sourceSets["main"].manifest.srcFile("src/main/AndroidManifest.xml")
-
-    namespace = "com.voitenko.usefultraining"
-
-    defaultConfig {
-        applicationId = "com.voitenko.usefultraining"
-        minSdk = 24
-        targetSdk = 33
-        versionCode = 1
-        versionName = "1.0"
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
+android.defaultConfig {
+    applicationId = "com.voitenko.usefultraining"
 }

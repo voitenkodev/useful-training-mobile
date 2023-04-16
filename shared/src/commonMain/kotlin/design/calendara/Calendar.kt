@@ -18,13 +18,11 @@ import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.text.drawText
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.rememberTextMeasurer
-import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import design.Design
 import utils.DateTimeKtx.firstDayOfMonth
 import utils.DateTimeKtx.getDaysInMonth
 import kotlin.math.ceil
-import kotlin.math.roundToInt
 
 /*
 * P.S. Use Real values (Month: 1 - 12), (Days 1 - 28/31)
@@ -114,9 +112,9 @@ internal fun Calendar(
                     x = dayWidth * index + padding.toPx() + ((dayWidth - daysOfWeekTextLayoutResult.size.width) / 2f),
                     y = padding.toPx()
                 ),
-                maxSize = IntSize(
-                    width = ceil(this.size.width - padding.toPx()).roundToInt(),
-                    height = ceil(weekDayLabelHeight.toPx()).roundToInt()
+                size = Size(
+                    width = ceil(this.size.width - padding.toPx()),
+                    height = ceil(weekDayLabelHeight.toPx())
                 )
             )
         }
@@ -167,9 +165,9 @@ internal fun Calendar(
                     x = x + ((dayWidth - dayTextLayoutResult.size.width) / 2f),
                     y = y + ((dayHeight - dayTextLayoutResult.size.height) / 2f),
                 ),
-                maxSize = IntSize(
-                    width = ceil(this.size.width - padding.toPx()).roundToInt(),
-                    height = ceil(dayHeight).roundToInt()
+                size = Size(
+                    width = ceil(this.size.width - padding.toPx()),
+                    height = ceil(dayHeight)
                 )
             )
         }

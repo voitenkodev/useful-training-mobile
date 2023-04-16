@@ -1,14 +1,12 @@
 package presentation.review
 
-import androidx.compose.runtime.Stable
+import androidx.compose.runtime.Immutable
 import dev.icerock.moko.parcelize.Parcelable
 import dev.icerock.moko.parcelize.Parcelize
-import kotlinx.serialization.Serializable
 import presentation.training.Training
 
-@Serializable
 @Parcelize
-@Stable
+@Immutable
 internal data class ReviewState(
     val reviewTraining: Training = Training(),
     val compareTraining: Training? = null,

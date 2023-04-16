@@ -21,6 +21,7 @@ import androidx.compose.material.BottomSheetValue
 import androidx.compose.material.rememberBottomSheetScaffoldState
 import androidx.compose.material.rememberBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
@@ -42,7 +43,7 @@ internal fun BottomSheet(
     )
 
     val progress = animateFloatAsState(
-        targetValue = if (scaffoldState.bottomSheetState.targetValue == BottomSheetValue.Collapsed) 1.0f else 0.0f,
+        targetValue = if (scaffoldState.bottomSheetState.isCollapsed) 1.0f else 0.0f,
         animationSpec = spring(stiffness = Spring.StiffnessLow)
     )
 
@@ -52,7 +53,7 @@ internal fun BottomSheet(
         val contentCollapseHeight = this.maxHeight - expanded
 
         val headerHeight = animateDpAsState(
-            targetValue = if (scaffoldState.bottomSheetState.targetValue == BottomSheetValue.Collapsed) expanded else collapsed,
+            targetValue = if (scaffoldState.bottomSheetState.progress < 0.5f) expanded else collapsed,
             animationSpec = spring(stiffness = Spring.StiffnessLow)
         )
 

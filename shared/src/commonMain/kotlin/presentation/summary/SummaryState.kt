@@ -1,16 +1,14 @@
 package presentation.summary
 
-import androidx.compose.runtime.Stable
+import androidx.compose.runtime.Immutable
 import dev.icerock.moko.parcelize.Parcelable
 import dev.icerock.moko.parcelize.Parcelize
-import kotlinx.serialization.Serializable
 import presentation.training.Exercise
 import presentation.training.Training
 import utils.DateTimeKtx
 
-@Serializable
 @Parcelize
-@Stable
+@Immutable
 internal data class SummaryState(
     val query: String = "",
     val autoScrollIndex: Int = -1,
@@ -46,9 +44,8 @@ internal data class SummaryState(
             ?: emptyList()
 }
 
-@Serializable
 @Parcelize
-@Stable
+@Immutable
 data class ExerciseInfo(
     val trainingId: String? = null,
     val date: String,

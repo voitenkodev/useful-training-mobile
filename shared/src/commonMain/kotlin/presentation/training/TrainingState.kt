@@ -1,5 +1,6 @@
 package presentation.training
 
+import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
 import com.benasher44.uuid.uuid4
 import dev.icerock.moko.parcelize.Parcelable
@@ -7,7 +8,7 @@ import dev.icerock.moko.parcelize.Parcelize
 import kotlinx.serialization.Serializable
 import utils.DateTimeKtx
 
-@Stable
+@Immutable
 internal data class TrainingState(
     val training: Training = Training(),
     val error: String? = null,
@@ -16,9 +17,8 @@ internal data class TrainingState(
     val removeExerciseId: String? = null
 )
 
-@Serializable
 @Parcelize
-@Stable
+@Immutable
 internal data class Training(
     val id: String? = null,
     val exercises: List<Exercise> = listOf(Exercise()),
@@ -30,6 +30,7 @@ internal data class Training(
 ) : Parcelable {
 
     // UI date internal.presentation
+
     val weekDay: String
         get() = DateTimeKtx.formattedWeekDay(startDateTime) ?: ""
     val startTime: String

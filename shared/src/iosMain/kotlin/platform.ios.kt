@@ -38,5 +38,4 @@ internal actual val platformModule = module {
 }
 
 @Composable
-internal actual fun PlatformBackHandler(action: () -> Unit) {
-}
+internal actual fun PlatformBackHandler(action: () -> Unit) {}
