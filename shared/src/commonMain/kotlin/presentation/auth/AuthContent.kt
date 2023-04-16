@@ -16,8 +16,8 @@ import design.components.inputs.InputEmail
 import design.components.inputs.InputPassword
 import design.components.roots.ScrollableRoot
 import design.controls.ButtonPrimary
+import design.controls.TextFieldBody1
 import design.controls.TextFieldH1
-import design.controls.TextFieldH2
 
 @Composable
 internal fun AuthContent(vm: AuthViewModel) {
@@ -55,7 +55,7 @@ internal fun AuthContent(vm: AuthViewModel) {
         },
         content = {
             item {
-                TextFieldH2(
+                TextFieldBody1(
                     text = "Sign in to your account",
                     color = Design.colors.caption
                 )

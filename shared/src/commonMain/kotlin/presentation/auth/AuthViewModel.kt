@@ -49,7 +49,9 @@ internal class AuthViewModel(private val navigator: NavigatorCore) : ViewModel()
     }
 
     fun registration(email: String, password: String) = viewModelScope.launch {
-        api.registration(email, password)
+        _state.value = state.value.validate()
+
+        if (state.value.error == null) api.registration(email, password)
             .onStart {
                 _state.value = state.value.copy(loading = true)
             }.onEach {

@@ -1,8 +1,8 @@
 package presentation.auth
 
-import androidx.compose.runtime.Stable
+import androidx.compose.runtime.Immutable
 
-@Stable
+@Immutable
 internal data class AuthState(
     val email: String = "",
     val password: String = "",
