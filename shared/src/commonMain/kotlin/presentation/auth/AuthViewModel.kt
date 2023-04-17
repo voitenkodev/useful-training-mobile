@@ -36,29 +36,33 @@ internal class AuthViewModel(private val navigator: NavigatorCore) : ViewModel()
         }
     }
 
-    fun login() = viewModelScope.launch {
-        _state.value = state.value.validate()
-        if (state.value.error == null) api.login(state.value.email, state.value.password)
-            .onStart {
-                _state.value = state.value.copy(loading = true)
-            }.onEach {
-                _state.value = state.value.copy(loading = false, error = null)
-            }.catch {
-                _state.value = state.value.copy(loading = false, error = it.message)
-            }.launchIn(this)
+    fun login() {
+        viewModelScope.launch {
+            _state.value = state.value.validate()
+            if (state.value.error == null) api.login(state.value.email, state.value.password)
+                .onStart {
+                    _state.value = state.value.copy(loading = true)
+                }.onEach {
+                    _state.value = state.value.copy(loading = false, error = null)
+                }.catch {
+                    _state.value = state.value.copy(loading = false, error = it.message)
+                }.launchIn(this)
+        }
     }
 
-    fun registration() = viewModelScope.launch {
-        _state.value = state.value.validate()
+    fun registration() {
+        viewModelScope.launch {
+            _state.value = state.value.validate()
 
-        if (state.value.error == null) api.registration(state.value.email, state.value.password)
-            .onStart {
-                _state.value = state.value.copy(loading = true)
-            }.onEach {
-                _state.value = state.value.copy(loading = false, error = null)
-            }.catch {
-                _state.value = state.value.copy(loading = false, error = it.message)
-            }.launchIn(this)
+            if (state.value.error == null) api.registration(state.value.email, state.value.password)
+                .onStart {
+                    _state.value = state.value.copy(loading = true)
+                }.onEach {
+                    _state.value = state.value.copy(loading = false, error = null)
+                }.catch {
+                    _state.value = state.value.copy(loading = false, error = it.message)
+                }.launchIn(this)
+        }
     }
 
     fun back() {

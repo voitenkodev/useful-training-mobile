@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import design.Design
@@ -43,17 +45,24 @@ internal fun AuthContent(vm: AuthViewModel) {
         },
         footer = {
 
+            val login by remember {
+                mutableStateOf(vm::login)
+            }
+
             ButtonPrimary(
                 modifier = Modifier.fillMaxWidth().recomposeHighlighter(),
                 text = "Log In",
-                onClick = vm::login
+                onClick = login
             )
 
+            val registration by remember {
+                mutableStateOf(vm::registration)
+            }
             ButtonQuestion(
                 modifier = Modifier.fillMaxWidth().recomposeHighlighter(),
                 question = "Don't have an account yet?",
                 answer = "Sign Up!",
-                onClick = vm::registration
+                onClick = registration
             )
         },
         content = {
@@ -65,17 +74,25 @@ internal fun AuthContent(vm: AuthViewModel) {
                 )
             }
             item(key = "input_email") {
+                val updater by remember {
+                    mutableStateOf(vm::updateEmail)
+                }
+
                 InputEmail(
-                    modifier = Modifier.fillMaxWidth().recomposeHighlighter(),
+                    modifier = Modifier.fillMaxWidth(),
                     value = state.email,
-                    onValueChange = vm::updateEmail
+                    onValueChange = updater
                 )
             }
             item(key = "input_password") {
+                val updater by remember {
+                    mutableStateOf(vm::updatePassword)
+                }
+
                 InputPassword(
                     modifier = Modifier.fillMaxWidth().recomposeHighlighter(),
                     value = state.password,
-                    onValueChange = vm::updatePassword
+                    onValueChange = updater
                 )
             }
         }
