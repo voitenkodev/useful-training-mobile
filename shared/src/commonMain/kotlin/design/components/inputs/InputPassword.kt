@@ -6,13 +6,13 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
@@ -26,6 +26,7 @@ import design.components.labels.InputLabel
 import design.controls.IconPrimary
 import design.controls.InputFieldPrimary
 import design.controls.tertiaryBackground
+import utils.recomposeHighlighter
 
 @Composable
 internal fun InputPassword(
@@ -33,15 +34,16 @@ internal fun InputPassword(
     value: String,
     onValueChange: (String) -> Unit,
 ) {
-    val focusManager = LocalFocusManager.current
     val passwordVisibility = rememberSaveable { mutableStateOf(false) }
+
+    val action by remember { mutableStateOf({ s: String -> onValueChange.invoke(s) }) }
 
     InputFieldPrimary(
         modifier = modifier
             .tertiaryBackground()
             .padding(horizontal = Design.dp.padding),
         value = value,
-        onValueChange = onValueChange,
+        onValueChange = action,
         visualTransformation = if (passwordVisibility.value) VisualTransformation.None else PasswordVisualTransformation(),
         leading = { InputLabel(text = "Password") },
         trailing = {
@@ -58,9 +60,8 @@ internal fun InputPassword(
             }
         },
         maxLines = 1,
-        keyboardActions = KeyboardActions { focusManager.moveFocus(FocusDirection.Next) },
         keyboardOptions = KeyboardOptions(
-            capitalization = KeyboardCapitalization.Sentences,
+            capitalization = KeyboardCapitalization.None,
             imeAction = ImeAction.Next,
             keyboardType = KeyboardType.Password
         )

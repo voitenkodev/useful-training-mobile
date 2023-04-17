@@ -21,7 +21,6 @@ import design.components.roots.ScrollableRoot
 import design.controls.ButtonPrimary
 import design.controls.TextFieldBody1
 import design.controls.TextFieldH1
-import utils.recomposeHighlighter
 
 @Composable
 internal fun AuthContent(vm: AuthViewModel) {
@@ -29,7 +28,7 @@ internal fun AuthContent(vm: AuthViewModel) {
     val state by vm.state.collectAsState()
 
     ScrollableRoot(
-        modifier = Modifier.fillMaxWidth().recomposeHighlighter(),
+        modifier = Modifier.fillMaxWidth(),
         loading = { Loading(state.loading) },
         error = { Error(message = state.error, close = vm::clearError) },
         back = { PlatformBackHandler(vm::back) },
@@ -37,8 +36,7 @@ internal fun AuthContent(vm: AuthViewModel) {
             TextFieldH1(
                 modifier = Modifier
                     .height(Design.dp.collapsedAppBar)
-                    .wrapContentHeight()
-                    .recomposeHighlighter(),
+                    .wrapContentHeight(),
                 text = "\uD83D\uDC4B Welcome back!",
                 textAlign = TextAlign.Center
             )
@@ -50,7 +48,7 @@ internal fun AuthContent(vm: AuthViewModel) {
             }
 
             ButtonPrimary(
-                modifier = Modifier.fillMaxWidth().recomposeHighlighter(),
+                modifier = Modifier.fillMaxWidth(),
                 text = "Log In",
                 onClick = login
             )
@@ -59,7 +57,7 @@ internal fun AuthContent(vm: AuthViewModel) {
                 mutableStateOf(vm::registration)
             }
             ButtonQuestion(
-                modifier = Modifier.fillMaxWidth().recomposeHighlighter(),
+                modifier = Modifier.fillMaxWidth(),
                 question = "Don't have an account yet?",
                 answer = "Sign Up!",
                 onClick = registration
@@ -68,7 +66,7 @@ internal fun AuthContent(vm: AuthViewModel) {
         content = {
             item(key = "notes") {
                 TextFieldBody1(
-                    modifier = Modifier.recomposeHighlighter(),
+                    modifier = Modifier,
                     text = "Sign in to your account",
                     color = Design.colors.caption
                 )
@@ -90,7 +88,7 @@ internal fun AuthContent(vm: AuthViewModel) {
                 }
 
                 InputPassword(
-                    modifier = Modifier.fillMaxWidth().recomposeHighlighter(),
+                    modifier = Modifier.fillMaxWidth(),
                     value = state.password,
                     onValueChange = updater
                 )
