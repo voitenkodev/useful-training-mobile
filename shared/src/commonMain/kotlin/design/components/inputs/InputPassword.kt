@@ -30,7 +30,7 @@ import design.controls.tertiaryBackground
 @Composable
 internal fun InputPassword(
     modifier: Modifier = Modifier,
-    value: String?,
+    value: String,
     onValueChange: (String) -> Unit,
 ) {
     val focusManager = LocalFocusManager.current
@@ -46,7 +46,7 @@ internal fun InputPassword(
         leading = { InputLabel(text = "Password") },
         trailing = {
             AnimatedVisibility(
-                visible = value?.isNotEmpty() == true,
+                visible = value.isNotEmpty(),
                 enter = fadeIn() + scaleIn(),
                 exit = scaleOut() + fadeOut(),
             ) {

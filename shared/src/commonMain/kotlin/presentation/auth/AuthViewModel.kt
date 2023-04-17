@@ -1,13 +1,13 @@
 package presentation.auth
 
 import Graph
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import data.repository.AuthRepository
 import data.source.datastore.DataStoreKeys
 import globalKoin
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.launchIn
@@ -23,8 +23,8 @@ internal class AuthViewModel(private val navigator: NavigatorCore) : ViewModel()
     private val datastore = globalKoin().get<DataStore<Preferences>>()
     private val api = globalKoin().get<AuthRepository>()
 
-    private val _state = mutableStateOf(AuthState())
-    val state: State<AuthState> = _state
+    private val _state = MutableStateFlow(AuthState())
+    val state: StateFlow<AuthState> = _state
 
     init {
         viewModelScope.launch {
@@ -36,9 +36,9 @@ internal class AuthViewModel(private val navigator: NavigatorCore) : ViewModel()
         }
     }
 
-    fun login(email: String, password: String) = viewModelScope.launch {
+    fun login() = viewModelScope.launch {
         _state.value = state.value.validate()
-        if (state.value.error == null) api.login(email, password)
+        if (state.value.error == null) api.login(state.value.email, state.value.password)
             .onStart {
                 _state.value = state.value.copy(loading = true)
             }.onEach {
@@ -48,10 +48,10 @@ internal class AuthViewModel(private val navigator: NavigatorCore) : ViewModel()
             }.launchIn(this)
     }
 
-    fun registration(email: String, password: String) = viewModelScope.launch {
+    fun registration() = viewModelScope.launch {
         _state.value = state.value.validate()
 
-        if (state.value.error == null) api.registration(email, password)
+        if (state.value.error == null) api.registration(state.value.email, state.value.password)
             .onStart {
                 _state.value = state.value.copy(loading = true)
             }.onEach {

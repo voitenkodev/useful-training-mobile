@@ -35,6 +35,7 @@ kotlin {
                 implementation(libs.datetime)
                 implementation(libs.logger)
                 implementation(libs.datastore)
+                implementation("org.jetbrains.kotlinx:kotlinx-collections-immutable:0.3.5")
 
                 //ktor
                 implementation(libs.ktor.core)

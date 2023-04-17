@@ -26,7 +26,7 @@ import design.controls.tertiaryBackground
 @Composable
 internal fun InputEmail(
     modifier: Modifier = Modifier,
-    value: String?,
+    value: String,
     onValueChange: (String) -> Unit,
 ) {
 
@@ -38,7 +38,7 @@ internal fun InputEmail(
         onValueChange = onValueChange,
         trailing = {
             AnimatedVisibility(
-                visible = value?.isNotEmpty() == true,
+                visible = value.isNotEmpty(),
                 enter = fadeIn() + scaleIn(),
                 exit = scaleOut() + fadeOut(),
             ) {

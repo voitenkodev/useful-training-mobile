@@ -4,7 +4,7 @@ appcompat-vers = "1.6.1"
 serialization-vers = "1.5.0"
 datetime-vers = "0.4.0"
 parcelize-vers = "0.8.0"
-logger-vers = "2.0.0-RC3"
+logger-vers = "2.6.1"
 ktor-vers = "2.2.4"
 datastore-vers = "1.1.0-dev01"
 uuid-vers = "0.7.0"
@@ -14,7 +14,7 @@ koin-vers = "3.2.0"
 serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization-vers" }
 datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "datetime-vers" }
 parcelize = { module = "dev.icerock.moko:parcelize", version.ref = "parcelize-vers" }
-logger = { module = "co.touchlab:kermit", version.ref = "logger-vers" }
+logger = { module = "io.github.aakira:napier", version.ref = "logger-vers" }
 datastore = { module = "androidx.datastore:datastore-preferences-core", version.ref = "datastore-vers" }
 uuid = { module = "com.benasher44:uuid", version.ref = "uuid-vers" }
 

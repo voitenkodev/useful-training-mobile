@@ -25,7 +25,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import design.Design
-import design.calendara.Calendar
+import design.calendar.Calendar
 import design.chart.PointCircle
 import design.chart.PointLine
 import design.components.Error

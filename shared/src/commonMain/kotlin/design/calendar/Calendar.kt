@@ -1,4 +1,4 @@
-package design.calendara
+package design.calendar
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.gestures.detectTapGestures

@@ -69,7 +69,10 @@ internal fun TrainingsContent(vm: TrainingsViewModel) {
                 )
             )
 
-            HeaderButtons(vm)
+            HeaderButtons(
+                moveToSummary = vm::moveToSummary,
+                addTraining = vm::addTraining
+            )
 
             Title(weekDay = state.weekDay, date = state.date, progress = it)
 
@@ -95,7 +98,10 @@ internal fun TrainingsContent(vm: TrainingsViewModel) {
 }
 
 @Composable
-private fun BoxScope.HeaderButtons(vm: TrainingsViewModel) = Row(
+private fun BoxScope.HeaderButtons(
+    moveToSummary: () -> Unit,
+    addTraining: () -> Unit,
+) = Row(
     modifier = Modifier
         .height(Design.dp.collapsedAppBar)
         .align(Alignment.BottomEnd)
@@ -112,7 +118,7 @@ private fun BoxScope.HeaderButtons(vm: TrainingsViewModel) = Row(
                 color = Design.colors.accent_secondary,
                 shape = Design.shape.default
             ),
-        onClick = vm::moveToSummary
+        onClick = moveToSummary
     )
 
     IconPrimary(
@@ -123,7 +129,7 @@ private fun BoxScope.HeaderButtons(vm: TrainingsViewModel) = Row(
                 color = Design.colors.accent_primary,
                 shape = Design.shape.default
             ),
-        onClick = vm::addTraining
+        onClick = addTraining
     )
 }
 
@@ -132,7 +138,9 @@ private fun Title(
     weekDay: String,
     date: String,
     progress: Float
-) = Column(modifier = Modifier.padding(start = Design.dp.padding)) {
+) = Column(
+    modifier = Modifier.padding(start = Design.dp.padding)
+) {
 
     TextFieldH1(
         modifier = Modifier
