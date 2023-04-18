@@ -15,14 +15,14 @@ import design.controls.tertiaryBackground
 @Composable
 internal fun InputWeight(
     modifier: Modifier = Modifier,
-    value: String?,
+    provideValue: () -> String,
     onValueChange: (String) -> Unit,
 ) {
     val focusManager = LocalFocusManager.current
 
     InputFieldSecondary(
         modifier = modifier.tertiaryBackground(),
-        value = value,
+        provideValue = provideValue,
         onValueChange = onValueChange,
         textAlign = TextAlign.Center,
         maxLines = 1,

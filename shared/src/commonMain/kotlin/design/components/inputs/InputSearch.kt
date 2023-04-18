@@ -32,7 +32,7 @@ import design.controls.tertiaryBackground
 @Composable
 internal fun InputSearch(
     modifier: Modifier = Modifier,
-    value: String?,
+    value: String,
     onValueChange: (String) -> Unit,
 ) {
     val focusManager = LocalFocusManager.current
@@ -41,7 +41,7 @@ internal fun InputSearch(
         modifier = modifier
             .tertiaryBackground()
             .padding(horizontal = Design.dp.padding),
-        value = value,
+        provideValue ={ value},
         onValueChange = onValueChange,
         trailing = {
             AnimatedVisibility(

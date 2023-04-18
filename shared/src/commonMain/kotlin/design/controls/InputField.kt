@@ -14,6 +14,9 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.ProvideTextStyle
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -29,7 +32,7 @@ import design.Design
 @Composable
 internal fun InputFieldPrimary(
     modifier: Modifier = Modifier,
-    value: String?,
+    provideValue: () -> String,
     onValueChange: (String) -> Unit,
     placeholder: String? = null,
     color: Color? = null,
@@ -46,7 +49,7 @@ internal fun InputFieldPrimary(
     visualTransformation: VisualTransformation = VisualTransformation.None,
 ) = InputField(
     modifier = modifier,
-    value = value,
+    provideValue = provideValue,
     onValueChange = onValueChange,
     textStyle = Design.typography.Body,
     maxLines = maxLines,
@@ -67,7 +70,7 @@ internal fun InputFieldPrimary(
 @Composable
 internal fun InputFieldSecondary(
     modifier: Modifier = Modifier,
-    value: String?,
+    provideValue: () -> String,
     onValueChange: (String) -> Unit,
     placeholder: String? = null,
     color: Color? = null,
@@ -84,7 +87,7 @@ internal fun InputFieldSecondary(
     visualTransformation: VisualTransformation = VisualTransformation.None,
 ) = InputField(
     modifier = modifier,
-    value = value,
+    provideValue = provideValue,
     onValueChange = onValueChange,
     textStyle = Design.typography.Body2,
     maxLines = maxLines,
@@ -105,7 +108,7 @@ internal fun InputFieldSecondary(
 @Composable
 internal fun InputField(
     modifier: Modifier = Modifier,
-    value: String?,
+    provideValue: () -> String,
     onValueChange: (String) -> Unit,
     color: Color? = null,
     placeholder: String? = null,
@@ -149,39 +152,78 @@ internal fun InputField(
             )
         }
 
-        BasicTextField(
-            modifier = modifier
+        InnerInputField(
+            modifier
                 .requiredHeight(Design.dp.component)
                 .background(Color.Transparent)
                 .weight(1f),
-            value = value ?: String(),
-            onValueChange = {
-                val v = if (maxLength != null) it.take(maxLength) else it
-                val digitsFilter = if (digits.isNotEmpty()) v.filter { char -> digits.contains(char) } else v
-                onValueChange.invoke(digitsFilter)
-            },
-            enabled = enabled,
+            provideValue = provideValue,
+            onValueChange = onValueChange,
             textStyle = textStyle3,
-            maxLines = maxLines,
+            keyboardActions = keyboardActions,
+            keyboardOptions = keyboardOptions,
+            maxLength = maxLength,
             visualTransformation = visualTransformation,
-            cursorBrush = SolidColor(Design.colors.content),
-            singleLine = maxLines == 1,
-            keyboardOptions = keyboardOptions ?: KeyboardOptions.Default,
-            keyboardActions = keyboardActions ?: KeyboardActions.Default,
-            decorationBox = { innerTextField ->
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.CenterStart
-                ) {
-                    innerTextField()
-                    if (placeholder?.isNotEmpty() == true && value.isNullOrEmpty()) {
-                        Inner(style = textStyle3, text = placeholder)
-                    }
-                }
-            }
+            digits = digits,
+            maxLines = maxLines,
+            enabled = enabled,
+            placeholder = placeholder
         )
+
         trailing?.invoke()
     }
+}
+
+@Composable
+private fun InnerInputField(
+    modifier: Modifier,
+    provideValue: () -> String,
+    onValueChange: (String) -> Unit,
+    placeholder: String?,
+    enabled: Boolean,
+    textStyle: TextStyle,
+    maxLines: Int,
+    digits: Array<Char>,
+    visualTransformation: VisualTransformation,
+    maxLength: Int?,
+    keyboardOptions: KeyboardOptions?,
+    keyboardActions: KeyboardActions?
+) {
+
+    val updater by remember {
+        mutableStateOf(
+            { s: String ->
+                val v = if (maxLength != null) s.take(maxLength) else s
+                val digitsFilter = if (digits.isNotEmpty()) v.filter { char -> digits.contains(char) } else v
+                onValueChange.invoke(digitsFilter)
+            }
+        )
+    }
+
+    BasicTextField(
+        modifier = modifier,
+        value = provideValue(),
+        onValueChange = updater,
+        enabled = enabled,
+        textStyle = textStyle,
+        maxLines = maxLines,
+        visualTransformation = visualTransformation,
+        cursorBrush = SolidColor(Design.colors.content),
+        singleLine = maxLines == 1,
+        keyboardOptions = keyboardOptions ?: KeyboardOptions.Default,
+        keyboardActions = keyboardActions ?: KeyboardActions.Default,
+        decorationBox = { innerTextField ->
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.CenterStart
+            ) {
+                innerTextField()
+                if (placeholder?.isNotEmpty() == true && provideValue().isEmpty()) {
+                    Inner(style = textStyle, text = placeholder)
+                }
+            }
+        }
+    )
 }
 
 @Composable

@@ -42,8 +42,8 @@ internal fun EditExerciseItem(
 
         exercise.iterations.forEachIndexed { index, iteration ->
             IterationInputItem(
-                weight = iteration.weight,
-                repeat = iteration.repeat,
+                provideWeight = { iteration.weight },
+                provideRepeat = { iteration.repeat },
                 updateWeight = { updateWeight.invoke(exercise.id, index, it) },
                 updateRepeat = { updateRepeat.invoke(exercise.id, index, it) }
             )

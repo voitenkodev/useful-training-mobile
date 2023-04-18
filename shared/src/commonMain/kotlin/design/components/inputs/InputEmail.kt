@@ -14,9 +14,6 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.platform.LocalFocusManager
@@ -28,30 +25,28 @@ import design.components.labels.InputLabel
 import design.controls.IconPrimary
 import design.controls.InputFieldPrimary
 import design.controls.tertiaryBackground
+import utils.recomposeHighlighter
 
 @Composable
 internal fun InputEmail(
     modifier: Modifier = Modifier,
-    value: String,
+    provideValue: () -> String,
     onValueChange: (String) -> Unit,
 ) {
 
     val focusManager = LocalFocusManager.current
 
-    val action by remember { mutableStateOf({ s: String -> onValueChange.invoke(s) }) }
-
-    val clean by remember { mutableStateOf({ onValueChange.invoke("") }) }
-
     InputFieldPrimary(
         modifier = modifier
             .tertiaryBackground()
-            .padding(horizontal = Design.dp.padding),
-        value = value,
-        onValueChange = action,
+            .padding(horizontal = Design.dp.padding)
+            .recomposeHighlighter(),
+        provideValue = provideValue,
+        onValueChange = onValueChange,
         trailing = {
 
             AnimatedVisibility(
-                visible = value.isNotEmpty(),
+                visible = provideValue().isNotEmpty(),
                 enter = fadeIn() + scaleIn(),
                 exit = scaleOut() + fadeOut(),
             ) {
@@ -59,7 +54,7 @@ internal fun InputEmail(
                     modifier = Modifier.wrapContentSize().height(IntrinsicSize.Min),
                     imageVector = Icons.Default.Clear,
                     color = Design.colors.caption,
-                    onClick = clean
+                    onClick = { onValueChange.invoke("") }
                 )
             }
         },

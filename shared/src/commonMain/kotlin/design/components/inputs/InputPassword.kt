@@ -8,12 +8,9 @@ import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
@@ -31,28 +28,29 @@ import utils.recomposeHighlighter
 @Composable
 internal fun InputPassword(
     modifier: Modifier = Modifier,
-    value: String,
+    provideValue: () -> String,
     onValueChange: (String) -> Unit,
 ) {
     val passwordVisibility = rememberSaveable { mutableStateOf(false) }
 
-    val action by remember { mutableStateOf({ s: String -> onValueChange.invoke(s) }) }
-
     InputFieldPrimary(
         modifier = modifier
             .tertiaryBackground()
-            .padding(horizontal = Design.dp.padding),
-        value = value,
-        onValueChange = action,
+            .padding(horizontal = Design.dp.padding)
+            .recomposeHighlighter(),
+        provideValue = provideValue,
+        onValueChange = onValueChange,
         visualTransformation = if (passwordVisibility.value) VisualTransformation.None else PasswordVisualTransformation(),
         leading = { InputLabel(text = "Password") },
         trailing = {
             AnimatedVisibility(
-                visible = value.isNotEmpty(),
+                modifier = Modifier,
+                visible = provideValue().isNotEmpty(),
                 enter = fadeIn() + scaleIn(),
                 exit = scaleOut() + fadeOut(),
             ) {
                 IconPrimary(
+                    modifier = Modifier,
                     imageVector = if (passwordVisibility.value) EyeOff else Eye,
                     color = Design.colors.caption,
                     onClick = { passwordVisibility.value = passwordVisibility.value.not() }

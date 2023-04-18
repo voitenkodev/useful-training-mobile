@@ -15,14 +15,14 @@ import design.controls.InputFieldPrimary
 @Composable
 internal fun InputExerciseName(
     modifier: Modifier = Modifier,
-    value: String?,
+    value: String,
     onValueChange: (String) -> Unit,
 ) {
     val focusManager = LocalFocusManager.current
 
     InputFieldPrimary(
         modifier = modifier.fillMaxHeight(),
-        value = value,
+        provideValue ={ value},
         placeholder = "Name of exercise",
         maxLines = 1,
         keyboardActions = KeyboardActions { focusManager.moveFocus(FocusDirection.Next) },

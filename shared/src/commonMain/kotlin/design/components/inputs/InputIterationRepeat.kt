@@ -12,12 +12,12 @@ import design.controls.tertiaryBackground
 @Composable
 internal fun InputRepeat(
     modifier: Modifier = Modifier,
-    value: String?,
+    provideValue: () -> String,
     onValueChange: (String) -> Unit,
 ) {
     InputFieldSecondary(
         modifier = modifier.tertiaryBackground(),
-        value = value,
+        provideValue = provideValue,
         onValueChange = onValueChange,
         textAlign = TextAlign.Center,
         maxLines = 1,

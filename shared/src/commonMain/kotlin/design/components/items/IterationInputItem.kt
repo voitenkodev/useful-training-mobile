@@ -13,14 +13,14 @@ import design.controls.DividerPrimary
 @Composable
 internal fun IterationInputItem(
     modifier: Modifier = Modifier,
-    weight: String,
-    repeat: String,
+    provideWeight: () -> String,
+    provideRepeat: () -> String,
     updateWeight: (value: String) -> Unit,
     updateRepeat: (value: String) -> Unit
 ) = Column(modifier = modifier.width(60.dp).padding(vertical = 4.dp)) {
 
     InputWeight(
-        value = weight,
+        provideValue = provideWeight,
         onValueChange = updateWeight
     )
 
@@ -29,7 +29,7 @@ internal fun IterationInputItem(
     )
 
     InputRepeat(
-        value = repeat,
+        provideValue = provideRepeat,
         onValueChange = updateRepeat
     )
 }
