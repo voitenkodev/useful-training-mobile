@@ -25,7 +25,6 @@ import design.components.labels.InputLabel
 import design.controls.IconPrimary
 import design.controls.InputFieldPrimary
 import design.controls.tertiaryBackground
-import utils.recomposeHighlighter
 
 @Composable
 internal fun InputEmail(
@@ -39,8 +38,7 @@ internal fun InputEmail(
     InputFieldPrimary(
         modifier = modifier
             .tertiaryBackground()
-            .padding(horizontal = Design.dp.padding)
-            .recomposeHighlighter(),
+            .padding(horizontal = Design.dp.padding),
         provideValue = provideValue,
         onValueChange = onValueChange,
         trailing = {
