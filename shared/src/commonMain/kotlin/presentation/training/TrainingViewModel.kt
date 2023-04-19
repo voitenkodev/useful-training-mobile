@@ -23,7 +23,13 @@ internal class TrainingViewModel(private val navigator: NavigatorCore) : ViewMod
 
     private val api = globalKoin().get<TrainingRepository>()
 
-    fun saveTraining(training: Training) = viewModelScope.launch {
+    fun saveTraining() = viewModelScope.launch {
+
+        val training = state.value.training
+            .validate()
+            .calculateDuration()
+            .calculateValues()
+
         if (training.exercises.isEmpty()) {
             showError("Empty training")
             return@launch
@@ -50,22 +56,14 @@ internal class TrainingViewModel(private val navigator: NavigatorCore) : ViewMod
                 _state.value = state.value.copy(
                     loading = false,
                     error = null,
-                    training = it.toTrainingState().provideEmptyIterations()
+                    training = it
+                        .toTrainingState()
+                        .provideEmptyIterations()
                 )
             }.catch {
                 _state.value = state.value.copy(loading = false, error = it.message)
             }
             .launchIn(this)
-    }
-
-
-    fun processingTraining() {
-        val training = state.value.training
-            .validate()
-            .calculateDuration()
-            .calculateValues()
-
-        _state.value = state.value.copy(training = training)
     }
 
     fun clearError() {

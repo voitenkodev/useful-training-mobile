@@ -29,7 +29,7 @@ fun EditExerciseItem(
         modifier = modifier.secondaryBackground().recomposeHighlighter()
     ) {
         InputNameItem(
-            modifier = Modifier.recomposeHighlighter(),
+            modifier = Modifier.padding(start = 8.dp).recomposeHighlighter(),
             provideNumber = provideNumber,
             provideName = provideName,
             update = updateName,

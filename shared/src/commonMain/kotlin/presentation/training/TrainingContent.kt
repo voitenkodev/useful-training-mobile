@@ -70,10 +70,7 @@ internal fun TrainingContent(vm: TrainingViewModel, trainingId: String?) {
             Header(
                 title = "Exercises!",
                 back = vm::openExitScreenPopup,
-                save = {
-                    vm.processingTraining()
-                    vm.saveTraining(state.training)
-                },
+                save = vm::saveTraining
             )
         },
         content = {
