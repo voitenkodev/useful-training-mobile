@@ -55,9 +55,8 @@ internal data class Training(
         get() = DateTimeKtx.formattedYear(startDateTime) ?: -1
 }
 
-@Serializable
 @Parcelize
-@Stable
+@Immutable
 data class Exercise(
     val id: String = uuid4().toString(),
     val name: String = "",
@@ -67,9 +66,8 @@ data class Exercise(
     val intensity: Double = 0.0
 ) : Parcelable
 
-@Serializable
 @Parcelize
-@Stable
+@Immutable
 data class Iteration(
     val weight: String = "",
     val repeat: String = ""

@@ -1,52 +1,59 @@
 package design.components.items
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import design.controls.DividerPrimary
-import design.controls.IterationVerticalGrid
 import design.controls.secondaryBackground
-import presentation.training.Exercise
+import presentation.training.Iteration
+import utils.recomposeHighlighter
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
-internal fun EditExerciseItem(
+fun EditExerciseItem(
     modifier: Modifier = Modifier,
-    number: Int,
-    exercise: Exercise,
-    updateName: (id: String, value: String) -> Unit,
-    removeExercise: (id: String) -> Unit,
-    updateWeight: (id: String, num: Int, value: String) -> Unit,
-    updateRepeat: (id: String, num: Int, value: String) -> Unit
-) = Column(
-    modifier = modifier.secondaryBackground()
+    provideNumber: () -> Int,
+    provideIterations: () -> List<Iteration>,
+    provideName: () -> String,
+    updateName: (String) -> Unit,
+    updateWeight: (Int, String) -> Unit,
+    updateRepeat: (Int, String) -> Unit,
+    remove: () -> Unit,
 ) {
-    InputNameItem(
-        number = number,
-        showHelp = {},
-        isHelpShowed = false,
-        name = exercise.name,
-        update = { updateName.invoke(exercise.id, it) },
-        remove = { removeExercise.invoke(exercise.id) }
-    )
-
-    DividerPrimary(modifier = Modifier.padding(horizontal = 12.dp))
-
-    IterationVerticalGrid(
-        modifier = Modifier.padding(top = 4.dp, bottom = 8.dp, start = 4.dp, end = 4.dp),
-        spacing = 4.dp
+    Column(
+        modifier = modifier.secondaryBackground().recomposeHighlighter()
     ) {
+        InputNameItem(
+            modifier = Modifier.recomposeHighlighter(),
+            provideNumber = provideNumber,
+            provideName = provideName,
+            update = updateName,
+            remove = remove
+        )
 
-        IterationCaptionItem()
+        DividerPrimary(modifier = Modifier.padding(horizontal = 12.dp))
 
-        exercise.iterations.forEachIndexed { index, iteration ->
-            IterationInputItem(
-                provideWeight = { iteration.weight },
-                provideRepeat = { iteration.repeat },
-                updateWeight = { updateWeight.invoke(exercise.id, index, it) },
-                updateRepeat = { updateRepeat.invoke(exercise.id, index, it) }
-            )
+        FlowRow(
+            modifier = Modifier.padding(top = 4.dp, bottom = 8.dp, start = 4.dp, end = 4.dp).recomposeHighlighter(),
+            horizontalArrangement = Arrangement.spacedBy(4.dp),
+        ) {
+
+            IterationCaptionItem()
+
+            provideIterations().forEachIndexed { index, iteration ->
+                IterationInputItem(
+                    modifier = Modifier.recomposeHighlighter(),
+                    provideWeight = { iteration.weight },
+                    provideRepeat = { iteration.repeat },
+                    updateWeight = { updateWeight.invoke(index, it) },
+                    updateRepeat = { updateRepeat.invoke(index, it) }
+                )
+            }
         }
     }
 }

@@ -9,7 +9,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -23,11 +26,12 @@ import design.components.roots.ScrollableRoot
 import design.controls.TextFieldH2
 import design.controls.tertiaryBackground
 import kotlinx.coroutines.delay
+import utils.recomposeHighlighter
 
 @Composable
 internal fun TrainingContent(vm: TrainingViewModel, trainingId: String?) {
 
-    val state by vm.state
+    val state by vm.state.collectAsState()
 
     LaunchedEffect(trainingId) {
         if (trainingId != null) {
@@ -37,7 +41,7 @@ internal fun TrainingContent(vm: TrainingViewModel, trainingId: String?) {
     }
 
     ScrollableRoot(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth().recomposeHighlighter(),
         loading = { Loading(state.loading) },
         error = { Error(message = state.error, close = vm::clearError) },
         back = { PlatformBackHandler(vm::tryBack) },
@@ -73,17 +77,42 @@ internal fun TrainingContent(vm: TrainingViewModel, trainingId: String?) {
             )
         },
         content = {
+
             itemsIndexed(state.training.exercises, key = { _, exercise -> exercise.id }) { index, exercise ->
+
+                val updateNameProvider by remember {
+                    mutableStateOf({ value: String ->
+                        vm.updateName(exercise.id, value)
+                    })
+                }
+                val removeExerciseProvider by remember {
+                    mutableStateOf({
+                        vm.openRemoveExercisePopup(exercise.id)
+                    })
+                }
+                val updateWeightProvider by remember {
+                    mutableStateOf({ number: Int, value: String ->
+                        vm.updateWeight(exercise.id, number, value)
+                    })
+                }
+                val updateRepeatProvider by remember {
+                    mutableStateOf({ number: Int, value: String ->
+                        vm.updateRepeat(exercise.id, number, value)
+                    })
+                }
+
                 EditExerciseItem(
-                    modifier = Modifier.animateItemPlacement(),
-                    number = index + 1,
-                    exercise = exercise,
-                    updateName = vm::updateName,
-                    removeExercise = vm::openRemoveExercisePopup,
-                    updateWeight = vm::updateWeight,
-                    updateRepeat = vm::updateRepeat
+                    modifier = Modifier.recomposeHighlighter(),
+                    provideNumber = { (index + 1) },
+                    provideName = { exercise.name },
+                    updateName = updateNameProvider,
+                    updateWeight = updateWeightProvider,
+                    updateRepeat = updateRepeatProvider,
+                    provideIterations = { exercise.iterations },
+                    remove = removeExerciseProvider,
                 )
             }
+
             item(key = "new_exercise") {
                 NewExercise(
                     modifier = Modifier.animateItemPlacement(),

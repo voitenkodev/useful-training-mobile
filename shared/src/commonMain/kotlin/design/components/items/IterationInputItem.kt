@@ -9,6 +9,7 @@ import androidx.compose.ui.unit.dp
 import design.components.inputs.InputRepeat
 import design.components.inputs.InputWeight
 import design.controls.DividerPrimary
+import utils.recomposeHighlighter
 
 @Composable
 internal fun IterationInputItem(
@@ -20,6 +21,7 @@ internal fun IterationInputItem(
 ) = Column(modifier = modifier.width(60.dp).padding(vertical = 4.dp)) {
 
     InputWeight(
+        modifier = Modifier.recomposeHighlighter(),
         provideValue = provideWeight,
         onValueChange = updateWeight
     )
@@ -29,6 +31,7 @@ internal fun IterationInputItem(
     )
 
     InputRepeat(
+        modifier = Modifier.recomposeHighlighter(),
         provideValue = provideRepeat,
         onValueChange = updateRepeat
     )

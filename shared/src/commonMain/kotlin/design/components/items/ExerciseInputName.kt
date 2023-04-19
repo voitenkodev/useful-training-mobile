@@ -10,37 +10,33 @@ import androidx.compose.material.icons.filled.Delete
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.unit.dp
-import design.components.inputs.InputExerciseName
 import design.Design
+import design.components.inputs.InputExerciseName
 import design.components.labels.AccentLabel
 import design.controls.IconPrimary
 
 @Composable
 internal fun InputNameItem(
-    number: Int,
-    isHelpShowed: Boolean,
-    showHelp: (Boolean) -> Unit,
-    name: String,
+    modifier: Modifier = Modifier,
+    provideNumber: () -> Int,
+    provideName: () -> String,
     update: (String) -> Unit,
     remove: () -> Unit
 ) = Row(
-    modifier = Modifier.padding(start = 8.dp),
+    modifier = modifier.padding(start = 8.dp),
     verticalAlignment = Alignment.CenterVertically,
     horizontalArrangement = Arrangement.spacedBy(4.dp)
 ) {
 
-    isHelpShowed.not() // todo remove it
-
     AccentLabel(
         modifier = Modifier.padding(bottom = 8.dp, top = 8.dp, end = 4.dp),
-        text = "$number",
+        text = "${provideNumber()}",
     )
 
     InputExerciseName(
-        modifier = Modifier.onFocusChanged { showHelp.invoke(it.hasFocus) }.weight(1f),
-        value = name,
+        modifier = Modifier.weight(1f),
+        provideName = provideName,
         onValueChange = update,
     )
 
