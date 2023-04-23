@@ -2,13 +2,18 @@ package presentation.summary
 
 import PlatformBackHandler
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -33,6 +38,7 @@ import design.components.Error
 import design.components.Header
 import design.components.Loading
 import design.components.inputs.InputSearch
+import design.components.items.ExerciseItem
 import design.components.items.LineChartItem
 import design.components.labels.WeekDayLabel
 import design.components.roots.ScrollableRoot
@@ -63,12 +69,12 @@ internal fun SummaryContent(vm: SummaryViewModel) {
 
     Content(
         listState = listState,
-        provideLoading = { state.loading },
-        provideError = { state.error },
+        loading = { state.loading },
+        error = { state.error },
         clearError = vm::clearError,
         back = vm::back,
 
-        provideSearch = { state.query },
+        query = { state.query },
         search = vm::setQuery,
 
         month = state.selectedMonth,
@@ -78,9 +84,8 @@ internal fun SummaryContent(vm: SummaryViewModel) {
         rightMonth = vm::decreaseMonth,
         dayClick = vm::findIndexOfTraining,
 
-        exercises = state.exercises,
-        trainings = state.trainings,
-
+        exercises = { state.exercises },
+        trainings = { state.trainings },
         listOfTonnage = { state.listOfTonnage }
     )
 }
@@ -88,13 +93,13 @@ internal fun SummaryContent(vm: SummaryViewModel) {
 @Composable
 private fun Content(
     listState: LazyListState,
-    provideLoading: () -> Boolean,
-    provideError: () -> String?,
+    loading: () -> Boolean,
+    error: () -> String?,
     clearError: () -> Unit,
     back: () -> Unit,
 
     // Search
-    provideSearch: () -> String,
+    query: () -> String,
     search: (String) -> Unit,
 
     // Calendar
@@ -106,21 +111,22 @@ private fun Content(
     dayClick: (day: Int, month: Int) -> Unit,
 
     // Trainings + Exercises
-    exercises: Map<ExerciseInfo, List<Exercise>>,
-    trainings: List<Training>,
+    exercises: () -> Map<ExerciseInfo, List<Exercise>>,
+    trainings: () -> List<Training>,
 
     // Charts
     listOfTonnage: () -> List<Float>
 ) {
 
-    val isEmptyExercises by remember(exercises) { mutableStateOf(exercises.isEmpty()) }
+    val isEmptyExercises by remember(exercises()) { mutableStateOf(exercises().isEmpty()) }
     val isNotEmptyTonnage by remember(listOfTonnage()) { mutableStateOf(listOfTonnage().isNotEmpty()) }
+    val isSearchBlank by remember(query()) { mutableStateOf(query().isBlank()) }
 
     ScrollableRoot(
         modifier = Modifier.fillMaxSize(),
         listState = listState,
-        loading = { Loading(provideLoading()) },
-        error = { Error(message = provideError(), close = clearError) },
+        loading = { Loading(loading()) },
+        error = { Error(message = error(), close = clearError) },
         back = { PlatformBackHandler(back) },
         popups = {},
         header = {
@@ -132,7 +138,7 @@ private fun Content(
         content = {
             item(key = "input_search") {
                 InputSearch(
-                    value = provideSearch,
+                    value = query,
                     onValueChange = search
                 )
             }
@@ -162,34 +168,35 @@ private fun Content(
                     )
                 }
 //
-//            if (state.query.isBlank())
-//                items(trainings, key = { it.id ?: it.hashCode() }) { training ->
-//                    TrainingItem(
-//                        training = training,
-//                    )
+//            if (isSearchBlank)
+//                items(trainings(), key = { it.id!! }) { training ->
+//                    Box(modifier = Modifier.size(40.dp).recomposeHighlighter())
+////                    TrainingItem(
+////                        training = training,
+////                    )
 //                }
-//
-//            item(key = "exercises") {
-//
-//                exercises.forEach { item ->
-//
-//                    Spacer(
-//                        modifier = Modifier.height(Design.dp.padding)
-//                    )
-//
-//                    ExerciseHeader(
-//                        weekDay = item.key.weekDay,
-//                        date = item.key.dateTime
-//                    )
-//
-//                    item.value.forEachIndexed { index, exercise ->
-//                        ExerciseItem(
-//                            number = index + 1,
-//                            exercise = exercise
-//                        )
-//                    }
-//                }
-//            }
+
+            item(key = "exercises") {
+
+                exercises().forEach { item ->
+
+                    Spacer(
+                        modifier = Modifier.height(Design.dp.padding).recomposeHighlighter()
+                    )
+
+                    ExerciseHeader(
+                        weekDay = item.key.weekDay,
+                        date = item.key.dateTime
+                    )
+
+                    item.value.forEachIndexed { index, exercise ->
+                        ExerciseItem(
+                            number = index + 1,
+                            exercise = exercise
+                        )
+                    }
+                }
+            }
         }
     )
 }
@@ -273,7 +280,7 @@ private fun ExerciseHeader(
     weekDay: String,
     date: String,
 ) = Row(
-    modifier = modifier,
+    modifier = modifier.recomposeHighlighter(),
     horizontalArrangement = Arrangement.spacedBy(4.dp),
     verticalAlignment = Alignment.CenterVertically,
 ) {

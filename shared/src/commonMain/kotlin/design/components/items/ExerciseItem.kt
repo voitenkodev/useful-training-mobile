@@ -12,6 +12,7 @@ import design.Design
 import design.controls.IterationVerticalGrid
 import design.controls.TextFieldBody1
 import presentation.training.Exercise
+import utils.recomposeHighlighter
 
 @Composable
 internal fun ExerciseItem(
@@ -19,7 +20,7 @@ internal fun ExerciseItem(
     number: Int,
     exercise: Exercise
 ) = Row(
-    modifier = modifier.padding(horizontal = 4.dp),
+    modifier = modifier.padding(horizontal = 4.dp).recomposeHighlighter(),
     horizontalArrangement = Arrangement.spacedBy(4.dp)
 ) {
     Row(
