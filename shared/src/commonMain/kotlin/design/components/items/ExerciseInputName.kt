@@ -20,7 +20,6 @@ import design.Design
 import design.components.labels.AccentLabel
 import design.controls.IconPrimary
 import design.controls.InputFieldPrimary
-import utils.recomposeHighlighter
 
 @Composable
 internal fun InputNameItem(
@@ -43,14 +42,14 @@ internal fun InputNameItem(
         fontWeight = FontWeight.Bold,
         leading = {
             AccentLabel(
-                modifier = Modifier.padding(bottom = 8.dp, top = 8.dp, end = 4.dp, start = 4.dp).recomposeHighlighter(),
+                modifier = Modifier.padding(bottom = 8.dp, top = 8.dp, end = 4.dp, start = 4.dp),
                 text = "${provideNumber()}",
             )
 
         },
         trailing = {
             IconPrimary(
-                modifier = Modifier.height(20.dp).width(50.dp).recomposeHighlighter(),
+                modifier = Modifier.height(20.dp).width(50.dp),
                 imageVector = Icons.Filled.Delete,
                 color = Design.colors.caption,
                 onClick = remove,

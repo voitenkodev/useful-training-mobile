@@ -2,7 +2,6 @@ package presentation.summary
 
 import PlatformBackHandler
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -11,7 +10,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -40,6 +38,7 @@ import design.components.Loading
 import design.components.inputs.InputSearch
 import design.components.items.ExerciseItem
 import design.components.items.LineChartItem
+import design.components.items.TrainingItem
 import design.components.labels.WeekDayLabel
 import design.components.roots.ScrollableRoot
 import design.controls.IconPrimary
@@ -48,7 +47,6 @@ import design.controls.TextFieldH2
 import presentation.training.Exercise
 import presentation.training.Training
 import utils.DateTimeKtx.monthTitle
-import utils.recomposeHighlighter
 
 @Composable
 internal fun SummaryContent(vm: SummaryViewModel) {
@@ -60,12 +58,6 @@ internal fun SummaryContent(vm: SummaryViewModel) {
     LaunchedEffect(Unit) {
         vm.getTrainings()
     }
-
-    AutoScrollStateHandler(
-        provideScrollIndex = { state.autoScrollIndex },
-        listState = listState,
-        doAfterScroll = vm::clearAutoScrollIndex
-    )
 
     Content(
         listState = listState,
@@ -80,13 +72,19 @@ internal fun SummaryContent(vm: SummaryViewModel) {
         month = state.selectedMonth,
         year = state.selectedYear,
         trainingDays = { state.currentMonthTrainings },
-        leftMonth = vm::increaseMonth,
-        rightMonth = vm::decreaseMonth,
+        leftMonth = vm::decreaseMonth,
+        rightMonth = vm::increaseMonth,
         dayClick = vm::findIndexOfTraining,
 
         exercises = { state.exercises },
         trainings = { state.trainings },
         listOfTonnage = { state.listOfTonnage }
+    )
+
+    AutoScrollStateHandler(
+        provideScrollIndex = { state.autoScrollIndex },
+        listState = listState,
+        doAfterScroll = vm::clearAutoScrollIndex
     )
 }
 
@@ -167,21 +165,20 @@ private fun Content(
                         color = Design.colors.unique.color1,
                     )
                 }
-//
-//            if (isSearchBlank)
-//                items(trainings(), key = { it.id!! }) { training ->
-//                    Box(modifier = Modifier.size(40.dp).recomposeHighlighter())
-////                    TrainingItem(
-////                        training = training,
-////                    )
-//                }
+
+            if (isSearchBlank)
+                items(trainings(), key = { it.id!! }) { training ->
+                    TrainingItem(
+                        training = training,
+                    )
+                }
 
             item(key = "exercises") {
 
                 exercises().forEach { item ->
 
                     Spacer(
-                        modifier = Modifier.height(Design.dp.padding).recomposeHighlighter()
+                        modifier = Modifier.height(Design.dp.padding)
                     )
 
                     ExerciseHeader(
@@ -210,7 +207,7 @@ fun AutoScrollStateHandler(
 
     val stickyHeaderSize = with(LocalDensity.current) { Design.dp.header.toPx() }
 
-    LaunchedEffect(provideScrollIndex) {
+    LaunchedEffect(provideScrollIndex()) {
         // spacer + header + search view + chart + calendar
         val constantItemCount = 5
         if (provideScrollIndex() == -1) return@LaunchedEffect
@@ -233,7 +230,7 @@ private fun CalendarSection(
     dayClick: (Int) -> Unit
 ) {
     Column(
-        modifier = modifier.recomposeHighlighter(),
+        modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Row(
@@ -280,7 +277,7 @@ private fun ExerciseHeader(
     weekDay: String,
     date: String,
 ) = Row(
-    modifier = modifier.recomposeHighlighter(),
+    modifier = modifier,
     horizontalArrangement = Arrangement.spacedBy(4.dp),
     verticalAlignment = Alignment.CenterVertically,
 ) {
@@ -324,7 +321,7 @@ private fun ChartSection(
         modifier = Modifier
             .fillMaxWidth()
             .aspectRatio(1.7f)
-            .recomposeHighlighter(),
+            ,
         lines = { items }
     )
 }

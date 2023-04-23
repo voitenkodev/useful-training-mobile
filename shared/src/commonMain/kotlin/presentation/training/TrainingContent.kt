@@ -26,7 +26,6 @@ import design.components.roots.ScrollableRoot
 import design.controls.TextFieldH2
 import design.controls.tertiaryBackground
 import kotlinx.coroutines.delay
-import utils.recomposeHighlighter
 
 @Composable
 internal fun TrainingContent(vm: TrainingViewModel, trainingId: String?) {
@@ -41,7 +40,7 @@ internal fun TrainingContent(vm: TrainingViewModel, trainingId: String?) {
     }
 
     ScrollableRoot(
-        modifier = Modifier.fillMaxWidth().recomposeHighlighter(),
+        modifier = Modifier.fillMaxWidth(),
         loading = { Loading(state.loading) },
         error = { Error(message = state.error, close = vm::clearError) },
         back = { PlatformBackHandler(vm::tryBack) },
@@ -99,7 +98,7 @@ internal fun TrainingContent(vm: TrainingViewModel, trainingId: String?) {
                 }
 
                 EditExerciseItem(
-                    modifier = Modifier.recomposeHighlighter(),
+                    modifier = Modifier,
                     provideNumber = { (index + 1) },
                     provideName = { exercise.name },
                     updateName = updateNameProvider,

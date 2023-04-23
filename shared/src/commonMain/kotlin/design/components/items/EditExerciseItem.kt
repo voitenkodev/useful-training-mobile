@@ -11,7 +11,6 @@ import androidx.compose.ui.unit.dp
 import design.controls.DividerPrimary
 import design.controls.secondaryBackground
 import presentation.training.Iteration
-import utils.recomposeHighlighter
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -26,10 +25,10 @@ fun EditExerciseItem(
     remove: () -> Unit,
 ) {
     Column(
-        modifier = modifier.secondaryBackground().recomposeHighlighter()
+        modifier = modifier.secondaryBackground()
     ) {
         InputNameItem(
-            modifier = Modifier.padding(start = 8.dp).recomposeHighlighter(),
+            modifier = Modifier.padding(start = 8.dp),
             provideNumber = provideNumber,
             provideName = provideName,
             update = updateName,
@@ -39,7 +38,7 @@ fun EditExerciseItem(
         DividerPrimary(modifier = Modifier.padding(horizontal = 12.dp))
 
         FlowRow(
-            modifier = Modifier.padding(top = 4.dp, bottom = 8.dp, start = 4.dp, end = 4.dp).recomposeHighlighter(),
+            modifier = Modifier.padding(top = 4.dp, bottom = 8.dp, start = 4.dp, end = 4.dp),
             horizontalArrangement = Arrangement.spacedBy(4.dp),
         ) {
 
@@ -47,7 +46,7 @@ fun EditExerciseItem(
 
             provideIterations().forEachIndexed { index, iteration ->
                 IterationInputItem(
-                    modifier = Modifier.recomposeHighlighter(),
+                    modifier = Modifier,
                     provideWeight = { iteration.weight },
                     provideRepeat = { iteration.repeat },
                     updateWeight = { updateWeight.invoke(index, it) },
