@@ -28,13 +28,16 @@ import design.controls.secondaryBackground
 @Composable
 internal fun LineChartItem(
     modifier: Modifier = Modifier,
-    lines: List<PointLine>,
-) = LineChartBox(
-    modifier = modifier
-        .secondaryBackground()
-        .padding(Design.dp.padding),
-    lines = lines,
-)
+    lines: () -> List<PointLine>,
+) {
+    LineChartBox(
+        modifier = modifier
+            .secondaryBackground()
+            .padding(Design.dp.padding),
+        lines = lines(),
+    )
+
+}
 
 @Composable
 private fun LineChartBox(

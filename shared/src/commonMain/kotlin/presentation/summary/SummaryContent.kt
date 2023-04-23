@@ -17,6 +17,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -77,7 +79,9 @@ internal fun SummaryContent(vm: SummaryViewModel) {
         dayClick = vm::findIndexOfTraining,
 
         exercises = state.exercises,
-        trainings = state.trainings
+        trainings = state.trainings,
+
+        listOfTonnage = { state.listOfTonnage }
     )
 }
 
@@ -101,10 +105,16 @@ private fun Content(
     rightMonth: () -> Unit,
     dayClick: (day: Int, month: Int) -> Unit,
 
-    // Trainings
+    // Trainings + Exercises
     exercises: Map<ExerciseInfo, List<Exercise>>,
-    trainings: List<Training>
+    trainings: List<Training>,
+
+    // Charts
+    listOfTonnage: () -> List<Float>
 ) {
+
+    val isEmptyExercises by remember(exercises) { mutableStateOf(exercises.isEmpty()) }
+    val isNotEmptyTonnage by remember(listOfTonnage()) { mutableStateOf(listOfTonnage().isNotEmpty()) }
 
     ScrollableRoot(
         modifier = Modifier.fillMaxSize(),
@@ -127,30 +137,30 @@ private fun Content(
                 )
             }
 
-//            if (isEmptyExercises)
-            item(key = "calendar_component") {
-                CalendarSection(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .aspectRatio(1.4f)
-                        .animateItemPlacement(),
-                    provideMonth = { month },
-                    provideYear = { year },
-                    provideTrainingDays = trainingDays,
-                    leftMonth = leftMonth,
-                    rightMonth = rightMonth,
-                    dayClick = { dayClick(it, month) }
-                )
-            }
-//
-//            if (isNotEmptyTonnage)
-//                item(key = "tonnage_chart") {
-//                    ChartSection(
-//                        label = "Tonnage",
-//                        provideData = { state.listOfTonnage },
-//                        color = Design.colors.unique.color1,
-//                    )
-//                }
+            if (isEmptyExercises)
+                item(key = "calendar_component") {
+                    CalendarSection(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .aspectRatio(1.4f)
+                            .animateItemPlacement(),
+                        provideMonth = { month },
+                        provideYear = { year },
+                        provideTrainingDays = trainingDays,
+                        leftMonth = leftMonth,
+                        rightMonth = rightMonth,
+                        dayClick = { dayClick(it, month) }
+                    )
+                }
+
+            if (isNotEmptyTonnage)
+                item(key = "tonnage_chart") {
+                    ChartSection(
+                        label = "Tonnage",
+                        provideData = listOfTonnage,
+                        color = Design.colors.unique.color1,
+                    )
+                }
 //
 //            if (state.query.isBlank())
 //                items(trainings, key = { it.id ?: it.hashCode() }) { training ->
@@ -285,19 +295,29 @@ private fun ChartSection(
     label: String,
     color: Color,
     provideData: () -> List<Float>,
-) = LineChartItem(
-    modifier = Modifier
-        .fillMaxWidth()
-        .aspectRatio(1.7f),
-    lines = buildList {
-        add(
-            PointLine(
-                yValue = provideData(),
-                lineColor = color,
-                fillColor = color.copy(alpha = 0.2f),
-                label = label,
-                point = PointCircle(color = Design.colors.content)
+) {
+    val pointColor = Design.colors.content
+
+    val items by remember(provideData()) {
+        mutableStateOf(buildList {
+            add(
+                PointLine(
+                    yValue = provideData(),
+                    lineColor = color,
+                    fillColor = color.copy(alpha = 0.2f),
+                    label = label,
+                    point = PointCircle(color = pointColor)
+                )
             )
+        }
         )
     }
-)
+
+    LineChartItem(
+        modifier = Modifier
+            .fillMaxWidth()
+            .aspectRatio(1.7f)
+            .recomposeHighlighter(),
+        lines = { items }
+    )
+}

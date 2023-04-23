@@ -98,6 +98,7 @@ internal class SummaryViewModel(private val navigator: NavigatorCore) : ViewMode
 
     fun setQuery(query: String) {
         _state.value = state.value.copy(query = query)
+
         debounceGetExercises(query)
     }
 
@@ -172,9 +173,7 @@ internal class SummaryViewModel(private val navigator: NavigatorCore) : ViewMode
             ?: emptyList()
     }
 
-    private fun calculateListOfTonnage(
-        exercises: Map<ExerciseInfo, List<Exercise>>
-    ): List<Float> {
+    private fun calculateListOfTonnage(exercises: Map<ExerciseInfo, List<Exercise>>): List<Float> {
         return exercises
             .flatMap { it.value }
             .map { it.tonnage.toFloat() }
@@ -193,9 +192,8 @@ internal class SummaryViewModel(private val navigator: NavigatorCore) : ViewMode
     }
 
     private fun List<ExerciseDateDTO>.processingExercises() = this
-        .groupBy({
-            ExerciseInfo(trainingId = it.trainingId, date = it.date)
-        }, {
-            it.exercise.toExerciseState()
-        })
+        .groupBy(
+            { ExerciseInfo(trainingId = it.trainingId, date = it.date) },
+            { it.exercise.toExerciseState() }
+        )
 }

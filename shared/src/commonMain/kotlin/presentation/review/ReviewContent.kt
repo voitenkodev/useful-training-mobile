@@ -19,6 +19,8 @@ import androidx.compose.material.icons.filled.Clear
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -232,30 +234,40 @@ private fun ChartSection(
     color: Color,
     data: List<Float>,
     compareData: List<Float>? = null,
-) = LineChartItem(
-    modifier = Modifier
-        .fillMaxWidth()
-        .aspectRatio(1.7f),
-    lines = buildList {
-        add(
-            PointLine(
-                yValue = data,
-                lineColor = color,
-                fillColor = color.copy(alpha = 0.2f),
-                label = label,
-                point = PointCircle(color = Design.colors.content)
+) {
+
+    val colorDataPoint = Design.colors.content
+    val colorCompareDataPoint = Design.colors.caption
+
+    val lines by remember(data, compareData) {
+        mutableStateOf(buildList {
+            add(
+                PointLine(
+                    yValue = data,
+                    lineColor = color,
+                    fillColor = color.copy(alpha = 0.2f),
+                    label = label,
+                    point = PointCircle(color = colorDataPoint)
+                )
             )
-        )
-        if (compareData != null) add(
-            PointLine(
-                yValue = compareData,
-                lineColor = Design.colors.caption,
-                fillColor = Design.colors.caption.copy(alpha = 0.2f),
-                label = "Compare",
+            if (compareData != null) add(
+                PointLine(
+                    yValue = compareData,
+                    lineColor = colorCompareDataPoint,
+                    fillColor = colorCompareDataPoint.copy(alpha = 0.2f),
+                    label = "Compare",
+                )
             )
-        )
+        })
     }
-)
+
+    LineChartItem(
+        modifier = Modifier
+            .fillMaxWidth()
+            .aspectRatio(1.7f),
+        lines = { lines }
+    )
+}
 
 @Composable
 private fun Summary(
