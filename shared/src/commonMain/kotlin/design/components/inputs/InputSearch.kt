@@ -28,11 +28,12 @@ import design.components.labels.InputLabel
 import design.controls.IconPrimary
 import design.controls.InputFieldPrimary
 import design.controls.tertiaryBackground
+import utils.recomposeHighlighter
 
 @Composable
 internal fun InputSearch(
     modifier: Modifier = Modifier,
-    value: String,
+    value: ()-> String,
     onValueChange: (String) -> Unit,
 ) {
     val focusManager = LocalFocusManager.current
@@ -40,23 +41,28 @@ internal fun InputSearch(
     InputFieldPrimary(
         modifier = modifier
             .tertiaryBackground()
-            .padding(horizontal = Design.dp.padding),
-        provideValue ={ value},
+            .padding(horizontal = Design.dp.padding)
+            .recomposeHighlighter(),
+        provideValue =value,
         onValueChange = onValueChange,
         trailing = {
             AnimatedVisibility(
-                visible = value?.isNotEmpty() == true,
+                modifier = Modifier.recomposeHighlighter(),
+                visible = value().isNotEmpty(),
                 enter = fadeIn() + scaleIn(),
                 exit = scaleOut() + fadeOut(),
             ) {
                 IconPrimary(
                     imageVector = Icons.Default.Clear,
                     color = Design.colors.caption,
-                    onClick = { onValueChange.invoke(String()) }
+                    onClick = { onValueChange.invoke("") }
                 )
             }
         },
-        leading = { InputLabel(text = "Exercise") },
+        leading = { InputLabel(
+            modifier = Modifier.recomposeHighlighter(),
+            text = "Exercise"
+        ) },
         maxLines = 1,
         keyboardActions = KeyboardActions { focusManager.moveFocus(FocusDirection.Next) },
         keyboardOptions = KeyboardOptions(

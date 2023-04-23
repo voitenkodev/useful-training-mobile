@@ -4,19 +4,18 @@ import PlatformBackHandler
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -32,166 +31,221 @@ import design.components.Error
 import design.components.Header
 import design.components.Loading
 import design.components.inputs.InputSearch
-import design.components.items.ExerciseItem
 import design.components.items.LineChartItem
-import design.components.items.TrainingItem
 import design.components.labels.WeekDayLabel
 import design.components.roots.ScrollableRoot
 import design.controls.IconPrimary
 import design.controls.TextFieldBody2
 import design.controls.TextFieldH2
 import utils.DateTimeKtx.monthTitle
+import utils.recomposeHighlighter
 
 @Composable
 internal fun SummaryContent(vm: SummaryViewModel) {
 
     val listState = rememberLazyListState()
 
-    val state by vm.state
+    val state by vm.state.collectAsState()
 
     LaunchedEffect(Unit) {
         vm.getTrainings()
     }
 
-    val stickyHeaderSize = with(LocalDensity.current) { Design.dp.header.toPx() }
-
-    LaunchedEffect(state.autoScrollIndex) {
-        // spacer + header + search view + chart + calendar
-        val constantItemCount = 5
-        if (state.autoScrollIndex == -1) return@LaunchedEffect
-        val realIndex = state.autoScrollIndex + constantItemCount
-        if (realIndex in 0..listState.layoutInfo.totalItemsCount) {
-            listState.animateScrollToItem(index = realIndex, scrollOffset = -stickyHeaderSize.toInt())
-            vm.clearAutoScrollIndex()
-        }
-    }
-
-    ScrollableRoot(
-        modifier = Modifier.fillMaxSize(),
+    AutoScrollStateHandler(
+        provideScrollIndex = { state.autoScrollIndex },
         listState = listState,
-        loading = { Loading(state.loading) },
-        error = { Error(message = state.error, close = vm::clearError) },
-        back = { PlatformBackHandler(vm::back) },
-        popups = {},
-        header = {
-            Header(
-                title = "Summary!",
-                exit = vm::back
-            )
-        },
-        content = {
-            item(key = "search_input") {
-                InputSearch(
-                    value = state.query,
-                    onValueChange = vm::setQuery
-                )
-            }
+        doAfterScroll = vm::clearAutoScrollIndex
+    )
 
-            if (state.exercises.isEmpty())
-                item(key = "calendar_component") {
-                    CalendarSection(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .aspectRatio(1.4f)
-                            .animateItemPlacement(),
-                        month = state.selectedMonth,
-                        year = state.selectedYear,
-                        trainingDays = state.currentMonthTrainings,
-                        leftMonth = vm::decreaseMonth,
-                        rightMonth = vm::increaseMonth,
-                        dayClick = { vm.findIndexOfTraining(day = it, month = state.selectedMonth) }
-                    )
-                }
+    Content(
+        listState = listState,
+        provideLoading = { state.loading },
+        provideError = { state.error },
+        clearError = vm::clearError,
+        back = vm::back,
 
-            if (state.listOfTonnage.isNotEmpty())
-                item(key = "tonnage_chart") {
-                    ChartSection(
-                        label = "Tonnage",
-                        data = state.listOfTonnage,
-                        color = Design.colors.unique.color1,
-                    )
-                }
+        provideSearch = { state.query },
+        search = vm::setQuery,
 
-            if (state.query.isBlank())
-                items(state.trainings, key = { it.id ?: it.hashCode() }) { training ->
-                    TrainingItem(
-                        training = training,
-                    )
-                }
-
-            item(key = "exercises") {
-
-                state.exercises.forEach { item ->
-
-                    Spacer(
-                        modifier = Modifier.height(Design.dp.padding)
-                    )
-
-                    ExerciseHeader(
-                        weekDay = item.key.weekDay,
-                        date = item.key.dateTime
-                    )
-
-                    item.value.forEachIndexed { index, exercise ->
-                        ExerciseItem(
-                            number = index + 1,
-                            exercise = exercise
-                        )
-                    }
-                }
-            }
-        }
+        month = state.selectedMonth,
+        year = state.selectedYear,
+        trainingDays = state.currentMonthTrainings, // TODO
+        leftMonth = vm::increaseMonth,
+        rightMonth = vm::decreaseMonth,
+        dayClick = vm::findIndexOfTraining
     )
 }
 
 @Composable
-private fun CalendarSection(
-    modifier: Modifier,
+private fun Content(
+    listState: LazyListState,
+    provideLoading: () -> Boolean,
+    provideError: () -> String?,
+    clearError: () -> Unit,
+    back: () -> Unit,
+
+    // Search
+    provideSearch: () -> String,
+    search: (String) -> Unit,
+
+    // Calendar
     month: Int,
     year: Int,
     trainingDays: List<Int>,
     leftMonth: () -> Unit,
     rightMonth: () -> Unit,
-    dayClick: (Int) -> Unit
-) = Column(
-    modifier = modifier,
-    horizontalAlignment = Alignment.CenterHorizontally,
+    dayClick: (day: Int, month: Int) -> Unit
 ) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(Design.dp.padding),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween,
+
+    ScrollableRoot(
+        modifier = Modifier.fillMaxSize(),
+        listState = listState,
+        loading = { Loading(provideLoading()) },
+        error = { Error(message = provideError(), close = clearError) },
+        back = { PlatformBackHandler(back) },
+        popups = {},
+        header = {
+            Header(
+                title = "Summary!",
+                exit = back
+            )
+        },
+        content = {
+            item(key = "input_search") {
+                InputSearch(
+                    value = provideSearch,
+                    onValueChange = search
+                )
+            }
+
+//            if (isEmptyExercises)
+            item(key = "calendar_component") {
+                CalendarSection(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .aspectRatio(1.4f)
+                        .animateItemPlacement(),
+                    provideMonth = { month },
+                    provideYear = { year },
+                    provideTrainingDays = { trainingDays },
+                    leftMonth = leftMonth,
+                    rightMonth = rightMonth,
+                    dayClick = { dayClick(it, month) }
+                )
+            }
+//
+//            if (isNotEmptyTonnage)
+//                item(key = "tonnage_chart") {
+//                    ChartSection(
+//                        label = "Tonnage",
+//                        provideData = { state.listOfTonnage },
+//                        color = Design.colors.unique.color1,
+//                    )
+//                }
+//
+//            if (state.query.isBlank())
+//                items(state.trainings, key = { it.id ?: it.hashCode() }) { training ->
+//                    TrainingItem(
+//                        training = training,
+//                    )
+//                }
+//
+//            item(key = "exercises") {
+//
+//                state.exercises.forEach { item ->
+//
+//                    Spacer(
+//                        modifier = Modifier.height(Design.dp.padding)
+//                    )
+//
+//                    ExerciseHeader(
+//                        weekDay = item.key.weekDay,
+//                        date = item.key.dateTime
+//                    )
+//
+//                    item.value.forEachIndexed { index, exercise ->
+//                        ExerciseItem(
+//                            number = index + 1,
+//                            exercise = exercise
+//                        )
+//                    }
+//                }
+//            }
+        }
+    )
+}
+
+@Composable
+fun AutoScrollStateHandler(
+    listState: LazyListState,
+    provideScrollIndex: () -> Int,
+    doAfterScroll: () -> Unit
+) {
+
+    val stickyHeaderSize = with(LocalDensity.current) { Design.dp.header.toPx() }
+
+    LaunchedEffect(provideScrollIndex) {
+        // spacer + header + search view + chart + calendar
+        val constantItemCount = 5
+        if (provideScrollIndex() == -1) return@LaunchedEffect
+        val realIndex = provideScrollIndex() + constantItemCount
+        if (realIndex in 0..listState.layoutInfo.totalItemsCount) {
+            listState.animateScrollToItem(index = realIndex, scrollOffset = -stickyHeaderSize.toInt())
+            doAfterScroll.invoke()
+        }
+    }
+}
+
+@Composable
+private fun CalendarSection(
+    modifier: Modifier,
+    provideMonth: () -> Int,
+    provideYear: () -> Int,
+    provideTrainingDays: () -> List<Int>,
+    leftMonth: () -> Unit,
+    rightMonth: () -> Unit,
+    dayClick: (Int) -> Unit
+) {
+    Column(
+        modifier = modifier.recomposeHighlighter(),
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(Design.dp.padding),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween,
+        ) {
 
-        IconPrimary(
-            imageVector = Icons.Default.ArrowBack,
-            onClick = leftMonth
-        )
+            IconPrimary(
+                imageVector = Icons.Default.ArrowBack,
+                onClick = leftMonth
+            )
 
-        TextFieldH2(
-            modifier = Modifier,
-            text = "${monthTitle(month)} $year",
-            fontWeight = FontWeight.Bold
-        )
+            TextFieldH2(
+                modifier = Modifier,
+                text = "${monthTitle(provideMonth())} ${provideYear()}",
+                fontWeight = FontWeight.Bold
+            )
 
-        IconPrimary(
-            imageVector = Icons.Default.ArrowForward,
-            onClick = rightMonth
+            IconPrimary(
+                imageVector = Icons.Default.ArrowForward,
+                onClick = rightMonth
+            )
+        }
+
+        Calendar(
+            month = provideMonth(),
+            year = provideYear(),
+            listOfDays = provideTrainingDays(),
+            headerColor = Color.Transparent,
+            daysColor = Design.colors.content,
+            labelsColor = Design.colors.accent_secondary,
+            selectedColor = Design.colors.accent_primary,
+            dayClick = dayClick
         )
     }
-
-    Calendar(
-        month = month,
-        year = year,
-        listOfDays = trainingDays,
-        headerColor = Color.Transparent,
-        daysColor = Design.colors.content,
-        labelsColor = Design.colors.accent_secondary,
-        selectedColor = Design.colors.accent_primary,
-        dayClick = dayClick
-    )
 }
 
 @Composable
@@ -221,7 +275,7 @@ private fun ExerciseHeader(
 private fun ChartSection(
     label: String,
     color: Color,
-    data: List<Float>,
+    provideData: () -> List<Float>,
 ) = LineChartItem(
     modifier = Modifier
         .fillMaxWidth()
@@ -229,7 +283,7 @@ private fun ChartSection(
     lines = buildList {
         add(
             PointLine(
-                yValue = data,
+                yValue = provideData(),
                 lineColor = color,
                 fillColor = color.copy(alpha = 0.2f),
                 label = label,

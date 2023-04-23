@@ -31,7 +31,7 @@ internal data class SummaryState(
             .takeIf { it.isNotEmpty() } ?: trainings
             .mapNotNull { it.tonnage?.toFloat() }
 
-    val currentMonthTrainings
+    val currentMonthTrainings: List<Int>
         get() = exercises
             .flatMap { flat -> flat.value.map { flat.key to flat.value } }
             .filter { it.first.month == selectedMonth && it.first.year == selectedYear }

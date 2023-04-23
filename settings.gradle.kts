@@ -22,6 +22,14 @@ pluginManagement {
     }
 }
 
+dependencyResolutionManagement {
+    versionCatalogs {
+        create("libs") {
+            from(files("gradle/wrapper/libs.versions.toml"))
+        }
+    }
+}
+
 rootProject.name = "Useful Training"
 
 include(":androidApp")

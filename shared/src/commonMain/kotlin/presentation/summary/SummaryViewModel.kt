@@ -1,7 +1,5 @@
 package presentation.summary
 
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
 import data.dto.ExerciseDateDTO
 import data.mapping.toExerciseState
 import data.mapping.toTrainingStateList
@@ -9,6 +7,8 @@ import data.repository.TrainingRepository
 import globalKoin
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
@@ -20,8 +20,8 @@ import utils.ViewModel
 
 internal class SummaryViewModel(private val navigator: NavigatorCore) : ViewModel() {
 
-    private val _state = mutableStateOf(SummaryState())
-    val state: State<SummaryState> = _state
+    private val _state = MutableStateFlow(SummaryState())
+    val state: StateFlow<SummaryState> = _state
 
     private val api = globalKoin().get<TrainingRepository>()
 
@@ -66,7 +66,7 @@ internal class SummaryViewModel(private val navigator: NavigatorCore) : ViewMode
 
     fun setQuery(query: String) {
         _state.value = state.value.copy(query = query)
-        debounceGetExercises(query)
+//        debounceGetExercises(query)
     }
 
     fun clearError() {
