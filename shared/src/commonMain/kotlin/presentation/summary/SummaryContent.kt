@@ -37,6 +37,8 @@ import design.components.roots.ScrollableRoot
 import design.controls.IconPrimary
 import design.controls.TextFieldBody2
 import design.controls.TextFieldH2
+import presentation.training.Exercise
+import presentation.training.Training
 import utils.DateTimeKtx.monthTitle
 import utils.recomposeHighlighter
 
@@ -69,10 +71,13 @@ internal fun SummaryContent(vm: SummaryViewModel) {
 
         month = state.selectedMonth,
         year = state.selectedYear,
-        trainingDays = state.currentMonthTrainings, // TODO
+        trainingDays = { state.currentMonthTrainings },
         leftMonth = vm::increaseMonth,
         rightMonth = vm::decreaseMonth,
-        dayClick = vm::findIndexOfTraining
+        dayClick = vm::findIndexOfTraining,
+
+        exercises = state.exercises,
+        trainings = state.trainings
     )
 }
 
@@ -91,10 +96,14 @@ private fun Content(
     // Calendar
     month: Int,
     year: Int,
-    trainingDays: List<Int>,
+    trainingDays: () -> List<Int>,
     leftMonth: () -> Unit,
     rightMonth: () -> Unit,
-    dayClick: (day: Int, month: Int) -> Unit
+    dayClick: (day: Int, month: Int) -> Unit,
+
+    // Trainings
+    exercises: Map<ExerciseInfo, List<Exercise>>,
+    trainings: List<Training>
 ) {
 
     ScrollableRoot(
@@ -127,7 +136,7 @@ private fun Content(
                         .animateItemPlacement(),
                     provideMonth = { month },
                     provideYear = { year },
-                    provideTrainingDays = { trainingDays },
+                    provideTrainingDays = trainingDays,
                     leftMonth = leftMonth,
                     rightMonth = rightMonth,
                     dayClick = { dayClick(it, month) }
@@ -144,7 +153,7 @@ private fun Content(
 //                }
 //
 //            if (state.query.isBlank())
-//                items(state.trainings, key = { it.id ?: it.hashCode() }) { training ->
+//                items(trainings, key = { it.id ?: it.hashCode() }) { training ->
 //                    TrainingItem(
 //                        training = training,
 //                    )
@@ -152,7 +161,7 @@ private fun Content(
 //
 //            item(key = "exercises") {
 //
-//                state.exercises.forEach { item ->
+//                exercises.forEach { item ->
 //
 //                    Spacer(
 //                        modifier = Modifier.height(Design.dp.padding)
@@ -238,7 +247,7 @@ private fun CalendarSection(
         Calendar(
             month = provideMonth(),
             year = provideYear(),
-            listOfDays = provideTrainingDays(),
+            listOfDays = provideTrainingDays,
             headerColor = Color.Transparent,
             daysColor = Design.colors.content,
             labelsColor = Design.colors.accent_secondary,

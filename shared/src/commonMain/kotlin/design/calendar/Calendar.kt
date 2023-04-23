@@ -32,7 +32,7 @@ import kotlin.math.ceil
 internal fun Calendar(
     month: Int,
     year: Int,
-    listOfDays: List<Int>,
+    listOfDays: () -> List<Int>,
     headerColor: Color,
     labelsColor: Color,
     daysColor: Color,
@@ -59,7 +59,7 @@ internal fun Calendar(
     Canvas(
         modifier = Modifier
             .fillMaxSize()
-            .pointerInput(month, listOfDays) {
+            .pointerInput(month, listOfDays()) {
                 detectTapGestures(
                     onTap = { tapOffset ->
                         var index = 0
@@ -142,7 +142,7 @@ internal fun Calendar(
                 )
             )
 
-            listOfDays
+            listOfDays()
                 .count { it == dayOfMonth }
                 .takeIf { it > 0 }
                 ?.let {
