@@ -56,7 +56,6 @@ internal fun AuthContent(vm: AuthViewModel) {
         content = {
             item(key = "notes") {
                 TextFieldBody1(
-                    modifier = Modifier,
                     text = "Sign in to your account",
                     color = Design.colors.caption
                 )

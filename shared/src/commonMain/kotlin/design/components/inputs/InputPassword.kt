@@ -31,7 +31,7 @@ internal fun InputPassword(
     onValueChange: (String) -> Unit,
 ) {
     val passwordVisibility = rememberSaveable { mutableStateOf(false) }
-
+    
     InputFieldPrimary(
         modifier = modifier
             .tertiaryBackground()
@@ -42,13 +42,11 @@ internal fun InputPassword(
         leading = { InputLabel(text = "Password") },
         trailing = {
             AnimatedVisibility(
-                modifier = Modifier,
                 visible = provideValue().isNotEmpty(),
                 enter = fadeIn() + scaleIn(),
                 exit = scaleOut() + fadeOut(),
             ) {
                 IconPrimary(
-                    modifier = Modifier,
                     imageVector = if (passwordVisibility.value) EyeOff else Eye,
                     color = Design.colors.caption,
                     onClick = { passwordVisibility.value = passwordVisibility.value.not() }

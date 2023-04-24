@@ -22,6 +22,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -76,8 +77,8 @@ internal fun SummaryContent(vm: SummaryViewModel) {
         rightMonth = vm::increaseMonth,
         dayClick = vm::findIndexOfTraining,
 
-        exercises = { state.exercises },
-        trainings = { state.trainings },
+        exercises = state.exercises,
+        trainings = state.trainings,
         listOfTonnage = { state.listOfTonnage }
     )
 
@@ -86,6 +87,7 @@ internal fun SummaryContent(vm: SummaryViewModel) {
         listState = listState,
         doAfterScroll = vm::clearAutoScrollIndex
     )
+
 }
 
 @Composable
@@ -109,28 +111,33 @@ private fun Content(
     dayClick: (day: Int, month: Int) -> Unit,
 
     // Trainings + Exercises
-    exercises: () -> Map<ExerciseInfo, List<Exercise>>,
-    trainings: () -> List<Training>,
+    exercises: Map<ExerciseInfo, List<Exercise>>,
+    trainings: List<Training>,
 
     // Charts
     listOfTonnage: () -> List<Float>
 ) {
 
-    val isEmptyExercises by remember(exercises()) { mutableStateOf(exercises().isEmpty()) }
-    val isNotEmptyTonnage by remember(listOfTonnage()) { mutableStateOf(listOfTonnage().isNotEmpty()) }
-    val isSearchBlank by remember(query()) { mutableStateOf(query().isBlank()) }
+    val backProvider by remember { mutableStateOf(back) }
+
+    val trainingProvider by rememberUpdatedState(trainings)
+    val exercisesProvider by rememberUpdatedState(exercises)
+
+    val isEmptyExercises by rememberUpdatedState(exercisesProvider.isEmpty())
+    val isSearchBlank by rememberUpdatedState(query().isBlank())
+    val isNotEmptyTonnage by rememberUpdatedState(listOfTonnage().isNotEmpty())
 
     ScrollableRoot(
         modifier = Modifier.fillMaxSize(),
         listState = listState,
         loading = { Loading(loading()) },
         error = { Error(message = error(), close = clearError) },
-        back = { PlatformBackHandler(back) },
+        back = { PlatformBackHandler(backProvider) },
         popups = {},
         header = {
             Header(
                 title = "Summary!",
-                exit = back
+                exit = backProvider
             )
         },
         content = {
@@ -146,10 +153,9 @@ private fun Content(
                     CalendarSection(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .aspectRatio(1.4f)
-                            .animateItemPlacement(),
-                        provideMonth = { month },
-                        provideYear = { year },
+                            .aspectRatio(1.4f),
+                        month = month,
+                        year = year,
                         provideTrainingDays = trainingDays,
                         leftMonth = leftMonth,
                         rightMonth = rightMonth,
@@ -167,15 +173,15 @@ private fun Content(
                 }
 
             if (isSearchBlank)
-                items(trainings(), key = { it.id!! }) { training ->
+                items(trainingProvider, key = { it.id ?: it.hashCode() }) { training ->
                     TrainingItem(
-                        training = training,
+                        training = training
                     )
                 }
 
             item(key = "exercises") {
 
-                exercises().forEach { item ->
+                exercisesProvider.forEach { item ->
 
                     Spacer(
                         modifier = Modifier.height(Design.dp.padding)
@@ -222,8 +228,8 @@ fun AutoScrollStateHandler(
 @Composable
 private fun CalendarSection(
     modifier: Modifier,
-    provideMonth: () -> Int,
-    provideYear: () -> Int,
+    month: Int,
+    year: Int,
     provideTrainingDays: () -> List<Int>,
     leftMonth: () -> Unit,
     rightMonth: () -> Unit,
@@ -248,7 +254,7 @@ private fun CalendarSection(
 
             TextFieldH2(
                 modifier = Modifier,
-                text = "${monthTitle(provideMonth())} ${provideYear()}",
+                text = "${monthTitle(month)} $year",
                 fontWeight = FontWeight.Bold
             )
 
@@ -259,8 +265,8 @@ private fun CalendarSection(
         }
 
         Calendar(
-            month = provideMonth(),
-            year = provideYear(),
+            month = month,
+            year = year,
             listOfDays = provideTrainingDays,
             headerColor = Color.Transparent,
             daysColor = Design.colors.content,
@@ -320,8 +326,7 @@ private fun ChartSection(
     LineChartItem(
         modifier = Modifier
             .fillMaxWidth()
-            .aspectRatio(1.7f)
-            ,
+            .aspectRatio(1.7f),
         lines = { items }
     )
 }

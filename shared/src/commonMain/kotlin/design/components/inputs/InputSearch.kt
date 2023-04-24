@@ -1,7 +1,6 @@
 package design.components.inputs
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.expandIn
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleIn
@@ -12,13 +11,8 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
-import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
@@ -32,7 +26,7 @@ import design.controls.tertiaryBackground
 @Composable
 internal fun InputSearch(
     modifier: Modifier = Modifier,
-    value: ()-> String,
+    value: () -> String,
     onValueChange: (String) -> Unit,
 ) {
     val focusManager = LocalFocusManager.current
@@ -41,7 +35,7 @@ internal fun InputSearch(
         modifier = modifier
             .tertiaryBackground()
             .padding(horizontal = Design.dp.padding),
-        provideValue =value,
+        provideValue = value,
         onValueChange = onValueChange,
         trailing = {
             AnimatedVisibility(
@@ -57,10 +51,12 @@ internal fun InputSearch(
                 )
             }
         },
-        leading = { InputLabel(
-            modifier = Modifier,
-            text = "Exercise"
-        ) },
+        leading = {
+            InputLabel(
+                modifier = Modifier,
+                text = "Exercise"
+            )
+        },
         maxLines = 1,
         keyboardActions = KeyboardActions { focusManager.moveFocus(FocusDirection.Next) },
         keyboardOptions = KeyboardOptions(
