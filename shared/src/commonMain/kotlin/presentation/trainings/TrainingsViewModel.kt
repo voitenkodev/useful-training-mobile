@@ -1,11 +1,11 @@
 package presentation.trainings
 
 import Graph
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
 import data.mapping.toTrainingStateList
 import data.repository.TrainingRepository
 import globalKoin
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
@@ -18,8 +18,8 @@ import utils.ViewModel
 
 internal class TrainingsViewModel(private val navigator: NavigatorCore) : ViewModel() {
 
-    private val _state = mutableStateOf(TrainingsState())
-    val state: State<TrainingsState> = _state
+    private val _state = MutableStateFlow(TrainingsState())
+    val state: StateFlow<TrainingsState> = _state
 
     private val api = globalKoin().get<TrainingRepository>()
 

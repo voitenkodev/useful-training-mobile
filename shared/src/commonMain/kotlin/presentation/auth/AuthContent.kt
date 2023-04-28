@@ -33,7 +33,7 @@ internal fun AuthContent(vm: AuthViewModel) {
         header = {
             TextFieldH1(
                 modifier = Modifier
-                    .height(Design.dp.collapsedAppBar)
+                    .height(Design.dp.bigHeader)
                     .wrapContentHeight(),
                 text = "\uD83D\uDC4B Welcome back!",
                 textAlign = TextAlign.Center

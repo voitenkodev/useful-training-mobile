@@ -21,7 +21,6 @@ import androidx.compose.material.BottomSheetValue
 import androidx.compose.material.rememberBottomSheetScaffoldState
 import androidx.compose.material.rememberBottomSheetState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
@@ -64,9 +63,10 @@ internal fun BottomSheet(
             sheetPeekHeight = contentCollapseHeight,
             sheetElevation = 0.dp,
             content = {
+
                 Box(
                     modifier = Modifier.fillMaxWidth().height(headerHeight.value),
-                    content = { topBar.invoke(this, progress.value) }
+                    content = { /*topBar.invoke(this, progress.value)*/ }
                 )
             },
 
