@@ -106,7 +106,7 @@ internal fun InputFieldSecondary(
 )
 
 @Composable
-internal fun InputField(
+private fun InputField(
     modifier: Modifier = Modifier,
     provideValue: () -> String,
     onValueChange: (String) -> Unit,
@@ -213,20 +213,39 @@ private fun InnerInputField(
         keyboardOptions = keyboardOptions ?: KeyboardOptions.Default,
         keyboardActions = keyboardActions ?: KeyboardActions.Default,
         decorationBox = { innerTextField ->
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.CenterStart
-            ) {
-                innerTextField()
-                if (placeholder?.isNotEmpty() == true && provideValue().isEmpty()) {
-                    Inner(style = textStyle, text = placeholder)
-                }
-            }
+            InputFieldBox(
+                innerTextField = innerTextField,
+                placeholder = placeholder,
+                provideValue = provideValue,
+                textStyle = textStyle
+            )
         }
     )
 }
 
 @Composable
+private fun InputFieldBox(
+    innerTextField: @Composable () -> Unit,
+    placeholder: String?,
+    provideValue: () -> String,
+    textStyle: TextStyle
+) {
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.CenterStart
+    ) {
+        innerTextField()
+        if (placeholder?.isNotEmpty() == true && provideValue().isEmpty()) {
+            Inner(style = textStyle, text = placeholder)
+        }
+    }
+}
+
+@Composable
 private fun Inner(style: TextStyle, text: String) = ProvideTextStyle(value = style) {
-    Text(modifier = Modifier.fillMaxWidth().alpha(0.5f), text = text, maxLines = 1)
+    Text(
+        modifier = Modifier.fillMaxWidth().alpha(0.5f),
+        text = text,
+        maxLines = 1
+    )
 }
