@@ -9,7 +9,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import design.Design
-import utils.Logger
 
 @Composable
 internal fun TextFieldH1(
@@ -22,8 +21,6 @@ internal fun TextFieldH1(
     fontWeight: FontWeight? = null,
     overflow: TextOverflow = TextOverflow.Clip
 ) {
-    Logger.l { provideText.hashCode().toString() }
-
     TextField(
         provideText = provideText,
         modifier = modifier,
