@@ -106,7 +106,7 @@ private fun Button(
             }
             TextField(
                 modifier = Modifier.padding(horizontal = 0.dp),
-                text = text,
+                provideText = { text },
                 textStyle = textStyle
             )
         }

@@ -19,9 +19,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import design.Design
 import design.chart.LineChart
 import design.chart.PointLine
-import design.Design
 import design.controls.TextFieldBody2
 import design.controls.secondaryBackground
 
@@ -111,7 +111,7 @@ private fun XLabels(
         List(maxCount) { index -> (index + 1).toString() }
     }
 
-    texts.forEach { TextFieldBody2(text = it) }
+    texts.forEach { TextFieldBody2(provideText = { it }) }
 }
 
 @Composable
@@ -135,27 +135,27 @@ private fun YLabels(
     ) {
 
         TextFieldBody2(
-            text = max,
+            provideText = { max },
             textAlign = TextAlign.End
         )
 
         TextFieldBody2(
-            text = threeQuarters,
+            provideText = { threeQuarters },
             textAlign = TextAlign.End
         )
 
         TextFieldBody2(
-            text = middle,
+            provideText = { middle },
             textAlign = TextAlign.End
         )
 
         TextFieldBody2(
-            text = quarter,
+            provideText = { quarter },
             textAlign = TextAlign.End
         )
 
         TextFieldBody2(
-            text = min,
+            provideText = { min },
             textAlign = TextAlign.End
         )
 
@@ -174,5 +174,8 @@ private fun Label(
     verticalAlignment = Alignment.CenterVertically
 ) {
     Spacer(Modifier.size(14.dp).background(color))
-    TextFieldBody2(text = label, color = Design.colors.caption)
+    TextFieldBody2(
+        provideText = { label },
+        color = Design.colors.caption
+    )
 }

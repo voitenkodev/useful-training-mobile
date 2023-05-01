@@ -54,7 +54,7 @@ internal fun ShortTrainingItem(
         )
 
         TextFieldBody2(
-            text = training.startLongDate,
+            provideText = { training.startLongDate },
             color = Design.colors.caption,
             fontWeight = FontWeight.Bold
         )
@@ -64,14 +64,14 @@ internal fun ShortTrainingItem(
 
     training.exercises.take(4).map { it.name }.forEachIndexed { index, item ->
         TextFieldBody2(
-            text = "${index + 1}.  $item",
+            provideText = { "${index + 1}.  $item" },
             fontWeight = FontWeight.Bold,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis
         )
     }
     if (training.exercises.size > 4) TextFieldBody2(
-        text = "...",
+        provideText = { "..." },
         fontWeight = FontWeight.Bold,
         maxLines = 1,
         overflow = TextOverflow.Ellipsis

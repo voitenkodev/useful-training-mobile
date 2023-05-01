@@ -26,9 +26,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import design.Design
 import design.chart.PointCircle
 import design.chart.PointLine
-import design.Design
 import design.components.Error
 import design.components.Header
 import design.components.Loading
@@ -166,7 +166,7 @@ private fun Comparing(
 
         TextFieldBody2(
             modifier = Modifier.padding(start = Design.dp.padding),
-            text = "Compare with...",
+            provideText = { "Compare with..." },
             color = Design.colors.caption
         )
 
@@ -216,13 +216,13 @@ private fun DateItem(
 
     TextFieldBody2(
         modifier = Modifier.padding(end = 4.dp),
-        text = startTime,
+        provideText = { startTime },
         color = Design.colors.caption,
         fontWeight = FontWeight.Bold
     )
 
     TextFieldBody2(
-        text = startDate,
+        provideText = { startDate },
         color = Design.colors.caption,
         fontWeight = FontWeight.Bold
     )
@@ -279,7 +279,7 @@ private fun Summary(
 
     TextFieldBody2(
         modifier = Modifier.padding(start = Design.dp.padding),
-        text = "Summary",
+        provideText = { "Summary" },
         color = Design.colors.caption
     )
 
@@ -332,7 +332,7 @@ private fun Section(
 ) {
 
     TextFieldBody2(
-        text = label,
+        provideText = { label },
         color = Design.colors.caption,
     )
 
@@ -341,11 +341,11 @@ private fun Section(
     )
 
     TextFieldBody2(
-        text = value,
+        provideText = { value },
         fontWeight = FontWeight.Bold,
     )
     if (compareValue != null) TextFieldBody2(
-        text = compareValue,
+        provideText = { compareValue },
         fontWeight = FontWeight.Bold,
         color = Design.colors.caption
     )

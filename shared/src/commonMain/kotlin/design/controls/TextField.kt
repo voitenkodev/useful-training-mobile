@@ -9,10 +9,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import design.Design
+import utils.Logger
 
 @Composable
 internal fun TextFieldH1(
-    text: String?,
+    provideText: () -> String?,
     modifier: Modifier = Modifier,
     placeholder: String? = null,
     color: Color? = null,
@@ -20,21 +21,25 @@ internal fun TextFieldH1(
     maxLines: Int = Int.MAX_VALUE,
     fontWeight: FontWeight? = null,
     overflow: TextOverflow = TextOverflow.Clip
-) = TextField(
-    text = text,
-    modifier = modifier,
-    placeholder = placeholder,
-    textStyle = Design.typography.H1,
-    maxLines = maxLines,
-    color = color ?: Design.colors.content,
-    textAlign = textAlign,
-    fontWeight = fontWeight,
-    overflow = overflow
-)
+) {
+    Logger.l { provideText.hashCode().toString() }
+
+    TextField(
+        provideText = provideText,
+        modifier = modifier,
+        placeholder = placeholder,
+        textStyle = Design.typography.H1,
+        maxLines = maxLines,
+        color = color ?: Design.colors.content,
+        textAlign = textAlign,
+        fontWeight = fontWeight,
+        overflow = overflow
+    )
+}
 
 @Composable
 internal fun TextFieldH2(
-    text: String?,
+    provideText: () -> String?,
     modifier: Modifier = Modifier,
     placeholder: String? = null,
     color: Color? = null,
@@ -43,7 +48,7 @@ internal fun TextFieldH2(
     fontWeight: FontWeight? = null,
     overflow: TextOverflow = TextOverflow.Clip
 ) = TextField(
-    text = text,
+    provideText = provideText,
     modifier = modifier,
     placeholder = placeholder,
     textStyle = Design.typography.H2,
@@ -57,7 +62,7 @@ internal fun TextFieldH2(
 
 @Composable
 internal fun TextFieldBody1(
-    text: String?,
+    provideText: () -> String?,
     modifier: Modifier = Modifier,
     placeholder: String? = null,
     color: Color? = null,
@@ -67,7 +72,7 @@ internal fun TextFieldBody1(
     overflow: TextOverflow = TextOverflow.Clip
 ) = TextField(
     modifier = modifier,
-    text = text,
+    provideText = provideText,
     placeholder = placeholder,
     textStyle = Design.typography.Body,
     maxLines = maxLines,
@@ -79,7 +84,7 @@ internal fun TextFieldBody1(
 
 @Composable
 internal fun TextFieldBody2(
-    text: String?,
+    provideText: () -> String?,
     modifier: Modifier = Modifier,
     placeholder: String? = null,
     color: Color? = null,
@@ -89,7 +94,7 @@ internal fun TextFieldBody2(
     overflow: TextOverflow = TextOverflow.Clip
 ) = TextField(
     modifier = modifier,
-    text = text,
+    provideText = provideText,
     placeholder = placeholder,
     textStyle = Design.typography.Body2,
     maxLines = maxLines,
@@ -101,7 +106,7 @@ internal fun TextFieldBody2(
 
 @Composable
 internal fun TextField(
-    text: String?,
+    provideText: () -> String?,
     modifier: Modifier = Modifier,
     placeholder: String? = null,
     color: Color? = null,
@@ -111,7 +116,7 @@ internal fun TextField(
     fontWeight: FontWeight? = null,
     overflow: TextOverflow = TextOverflow.Clip
 ) {
-    val isPlaceholder = text == null
+    val isPlaceholder = provideText() == null
 
     val innerColor = if (isPlaceholder) color?.copy(alpha = 0.8f) else color
 
@@ -129,7 +134,7 @@ internal fun TextField(
 
     BasicText(
         modifier = modifier,
-        text = text ?: placeholder ?: "",
+        text = provideText() ?: placeholder ?: "",
         style = textStyle3,
         maxLines = maxLines,
         overflow = overflow

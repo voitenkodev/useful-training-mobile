@@ -23,7 +23,7 @@ internal fun ButtonQuestion(
 ) {
 
     TextFieldBody1(
-        text = question,
+        provideText = { question },
         color = Design.colors.caption
     )
 

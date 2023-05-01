@@ -45,7 +45,7 @@ internal fun WeekDayLabel(
                 color = backgroundColor,
                 shape = Design.shape.circleShape
             ).padding(horizontal = 8.dp, vertical = 2.dp),
-        text = txt,
+        provideText = { txt },
         fontWeight = FontWeight.Bold
     )
 }

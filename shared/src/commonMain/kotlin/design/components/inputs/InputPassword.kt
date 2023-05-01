@@ -23,6 +23,7 @@ import design.components.labels.InputLabel
 import design.controls.IconPrimary
 import design.controls.InputFieldPrimary
 import design.controls.tertiaryBackground
+import utils.recomposeHighlighter
 
 @Composable
 internal fun InputPassword(
@@ -31,7 +32,7 @@ internal fun InputPassword(
     onValueChange: (String) -> Unit,
 ) {
     val passwordVisibility = rememberSaveable { mutableStateOf(false) }
-    
+
     InputFieldPrimary(
         modifier = modifier
             .tertiaryBackground()
@@ -39,7 +40,7 @@ internal fun InputPassword(
         provideValue = provideValue,
         onValueChange = onValueChange,
         visualTransformation = if (passwordVisibility.value) VisualTransformation.None else PasswordVisualTransformation(),
-        leading = { InputLabel(text = "Password") },
+        leading = { InputLabel(provideText = { "Password" }) },
         trailing = {
             AnimatedVisibility(
                 visible = provideValue().isNotEmpty(),

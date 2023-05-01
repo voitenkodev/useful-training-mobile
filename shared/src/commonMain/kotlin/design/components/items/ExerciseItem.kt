@@ -27,11 +27,11 @@ internal fun ExerciseItem(
         horizontalArrangement = Arrangement.spacedBy(4.dp)
     ) {
 
-        TextFieldBody1(text = "${number}.", fontWeight = FontWeight.Bold)
+        TextFieldBody1(provideText = { "${number}." }, fontWeight = FontWeight.Bold)
 
         Column {
 
-            TextFieldBody1(text = exercise.name, fontWeight = FontWeight.Bold)
+            TextFieldBody1(provideText = { exercise.name }, fontWeight = FontWeight.Bold)
 
             IterationVerticalGrid(
                 modifier = Modifier.padding(top = 6.dp, bottom = 4.dp),
@@ -40,7 +40,7 @@ internal fun ExerciseItem(
                 exercise.iterations.forEach {
                     TextFieldBody1(
                         modifier = Modifier.padding(end = 4.dp),
-                        text = it.weight + "x" + it.repeat,
+                        provideText = { it.weight + "x" + it.repeat },
                         color = Design.colors.caption
                     )
                 }

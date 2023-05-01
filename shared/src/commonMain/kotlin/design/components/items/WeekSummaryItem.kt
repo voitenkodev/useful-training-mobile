@@ -49,13 +49,13 @@ internal fun WeekSummary(
         ) {
 
             TextFieldBody2(
-                text = info.startWeekDate + " →",
+                provideText = { info.startWeekDate + " →" },
                 fontWeight = FontWeight.Bold,
             )
 
             TextFieldBody2(
                 modifier = modifier.padding(start = Design.dp.padding),
-                text = "← " + info.endWeekDate,
+                provideText = { "← " + info.endWeekDate },
                 fontWeight = FontWeight.Bold,
             )
         }
@@ -83,7 +83,7 @@ private fun WeekDayStatusLine(
     ) {
         listOfWeekDaysEnglish.forEach {
             val weekShort by remember(it) { mutableStateOf(toShortWeek(it)) }
-            TextFieldBody2(text = weekShort)
+            TextFieldBody2(provideText = { weekShort })
         }
     }
     Row(

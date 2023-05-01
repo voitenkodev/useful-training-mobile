@@ -20,7 +20,7 @@ internal fun IterationCaptionItem() = Column(modifier = Modifier.padding(vertica
             .height(Design.dp.component)
             .wrapContentWidth()
             .wrapContentHeight(),
-        text = "• Weight",
+        provideText = { "• Weight" },
         textAlign = TextAlign.Center,
         color = Design.colors.caption,
         maxLines = 1,
@@ -32,7 +32,7 @@ internal fun IterationCaptionItem() = Column(modifier = Modifier.padding(vertica
             .height(Design.dp.component)
             .wrapContentWidth()
             .wrapContentHeight(),
-        text = "• Repeat",
+        provideText = { "• Repeat" },
         color = Design.colors.caption,
         textAlign = TextAlign.Center,
         maxLines = 1,

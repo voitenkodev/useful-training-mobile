@@ -11,10 +11,10 @@ import design.controls.TextFieldBody1
 @Composable
 internal fun InputLabel(
     modifier: Modifier = Modifier,
-    text: String
+    provideText: () -> String
 ) = TextFieldBody1(
     modifier = modifier.width(64.dp),
-    text = text,
+    provideText = provideText,
     color = Design.colors.caption,
     maxLines = 1,
     overflow = TextOverflow.Ellipsis

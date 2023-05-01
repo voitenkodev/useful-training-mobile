@@ -54,7 +54,7 @@ internal fun InputSearch(
         leading = {
             InputLabel(
                 modifier = Modifier,
-                text = "Exercise"
+                provideText = { "Exercise" }
             )
         },
         maxLines = 1,

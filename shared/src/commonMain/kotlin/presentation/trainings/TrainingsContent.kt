@@ -207,11 +207,11 @@ private fun Title(
     TextFieldH1(
         modifier = Modifier
             .wrapContentHeight(),
-        text = weekDay,
+        provideText = { weekDay },
     )
 
     TextFieldBody1(
         modifier = Modifier,
-        text = date,
+        provideText = { date },
     )
 }

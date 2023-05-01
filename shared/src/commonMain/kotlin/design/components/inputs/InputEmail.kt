@@ -25,6 +25,7 @@ import design.components.labels.InputLabel
 import design.controls.IconPrimary
 import design.controls.InputFieldPrimary
 import design.controls.tertiaryBackground
+import utils.recomposeHighlighter
 
 @Composable
 internal fun InputEmail(
@@ -56,7 +57,7 @@ internal fun InputEmail(
                 )
             }
         },
-        leading = { InputLabel(text = "Email") },
+        leading = { InputLabel(provideText = { "Email" }) },
         maxLines = 1,
         keyboardActions = KeyboardActions { focusManager.moveFocus(FocusDirection.Next) },
         keyboardOptions = KeyboardOptions(

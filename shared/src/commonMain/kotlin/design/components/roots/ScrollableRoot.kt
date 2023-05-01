@@ -18,6 +18,7 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
 import design.Design
+import utils.recomposeHighlighter
 
 @Composable
 internal fun ScrollableRoot(

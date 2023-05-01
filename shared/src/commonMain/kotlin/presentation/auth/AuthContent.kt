@@ -3,7 +3,6 @@ package presentation.auth
 import PlatformBackHandler
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -19,6 +18,7 @@ import design.components.roots.ScrollableRoot
 import design.controls.ButtonPrimary
 import design.controls.TextFieldBody1
 import design.controls.TextFieldH1
+import utils.recomposeHighlighter
 
 @Composable
 internal fun AuthContent(vm: AuthViewModel) {
@@ -33,9 +33,8 @@ internal fun AuthContent(vm: AuthViewModel) {
         header = {
             TextFieldH1(
                 modifier = Modifier
-                    .height(Design.dp.bigHeader)
-                    .wrapContentHeight(),
-                text = "\uD83D\uDC4B Welcome back!",
+                    .height(Design.dp.bigHeader),
+                provideText = { "\uD83D\uDC4B Welcome back!" },
                 textAlign = TextAlign.Center
             )
         },
@@ -56,7 +55,8 @@ internal fun AuthContent(vm: AuthViewModel) {
         content = {
             item(key = "notes") {
                 TextFieldBody1(
-                    text = "Sign in to your account",
+                    modifier = Modifier,
+                    provideText = { "Sign in to your account" },
                     color = Design.colors.caption
                 )
             }

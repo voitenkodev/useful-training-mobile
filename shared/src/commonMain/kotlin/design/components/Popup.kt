@@ -78,9 +78,9 @@ internal fun Popup(
             verticalArrangement = Arrangement.spacedBy(Design.dp.padding),
             content = {
 
-                TextFieldH2(text = title, fontWeight = FontWeight.Bold)
+                TextFieldH2(provideText = { title }, fontWeight = FontWeight.Bold)
 
-                TextFieldBody1(text = message)
+                TextFieldBody1(provideText = { message })
 
                 button?.let {
                     ButtonPrimary(

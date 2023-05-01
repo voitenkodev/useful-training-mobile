@@ -39,7 +39,7 @@ internal fun TrainingHeader(
     )
 
     TextFieldBody2(
-        text = date,
+        provideText = { date },
         color = Design.colors.caption,
         fontWeight = FontWeight.Bold
     )

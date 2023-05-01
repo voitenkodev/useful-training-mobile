@@ -254,7 +254,7 @@ private fun CalendarSection(
 
             TextFieldH2(
                 modifier = Modifier,
-                text = "${monthTitle(month)} $year",
+                provideText = { "${monthTitle(month)} $year" },
                 fontWeight = FontWeight.Bold
             )
 
@@ -294,7 +294,7 @@ private fun ExerciseHeader(
     )
 
     TextFieldBody2(
-        text = date,
+        provideText = { date },
         color = Design.colors.caption,
         fontWeight = FontWeight.Bold
     )

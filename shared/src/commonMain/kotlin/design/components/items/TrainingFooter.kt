@@ -31,12 +31,12 @@ internal fun TrainingFooter(
 
         TextFieldBody2(
             modifier = Modifier.padding(end = 4.dp),
-            text = "Duration:",
+            provideText = { "Duration:" },
             color = Design.colors.caption,
         )
 
         TextFieldBody2(
-            text = durationTime,
+            provideText = { durationTime },
             color = Design.colors.content,
             fontWeight = FontWeight.Bold
         )
@@ -45,12 +45,12 @@ internal fun TrainingFooter(
 
         TextFieldBody2(
             modifier = Modifier.padding(end = 4.dp),
-            text = "Tonnage:",
+            provideText = { "Tonnage:" },
             color = Design.colors.caption,
         )
 
         TextFieldBody2(
-            text = tonnageKg,
+            provideText = { tonnageKg },
             color = Design.colors.content,
             fontWeight = FontWeight.Bold
         )

@@ -62,8 +62,8 @@ internal fun Error(
                 ).padding(Design.dp.padding),
             verticalArrangement = Arrangement.spacedBy(Design.dp.padding),
             content = {
-                TextFieldH2(text = "Error!", fontWeight = FontWeight.Bold)
-                TextFieldBody1(text = value.value)
+                TextFieldH2(provideText = { "Error!" }, fontWeight = FontWeight.Bold)
+                TextFieldBody1(provideText = { value.value })
             }
         )
     }

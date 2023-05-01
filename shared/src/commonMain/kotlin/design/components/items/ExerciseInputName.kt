@@ -43,7 +43,7 @@ internal fun InputNameItem(
         leading = {
             AccentLabel(
                 modifier = Modifier.padding(bottom = 8.dp, top = 8.dp, end = 4.dp, start = 4.dp),
-                text = "${provideNumber()}",
+                provideText = { "${provideNumber()}" },
             )
 
         },

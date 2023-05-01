@@ -42,7 +42,10 @@ internal fun Header(
         )
     }
 
-    TextFieldH1(modifier = Modifier.weight(1f), text = title)
+    TextFieldH1(
+        modifier = Modifier.weight(1f),
+        provideText = { title }
+    )
 
     save?.let {
         Action(

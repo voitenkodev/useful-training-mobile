@@ -175,7 +175,7 @@ private fun NewExercise(
         content = {
             TextFieldH2(
                 modifier = Modifier.align(Alignment.Center),
-                text = "Add Exercise",
+                provideText = { "Add Exercise" },
                 color = Design.colors.accent_secondary
             )
         }
