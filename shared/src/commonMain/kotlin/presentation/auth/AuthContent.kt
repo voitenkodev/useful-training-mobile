@@ -18,7 +18,6 @@ import design.components.roots.ScrollableRoot
 import design.controls.ButtonPrimary
 import design.controls.TextFieldBody1
 import design.controls.TextFieldH1
-import utils.recomposeHighlighter
 
 @Composable
 internal fun AuthContent(vm: AuthViewModel) {

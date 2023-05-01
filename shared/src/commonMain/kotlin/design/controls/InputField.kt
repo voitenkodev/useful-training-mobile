@@ -48,25 +48,28 @@ internal fun InputFieldPrimary(
     digits: Array<Char> = emptyArray(),
     keyboardActions: KeyboardActions? = null,
     visualTransformation: VisualTransformation = VisualTransformation.None,
-) = InputField(
-    modifier = modifier,
-    provideValue = provideValue,
-    onValueChange = onValueChange,
-    textStyle = Design.typography.Body,
-    maxLines = maxLines,
-    color = color ?: Design.colors.content,
-    textAlign = textAlign,
-    placeholder = placeholder,
-    enabled = enabled,
-    keyboardOptions = keyboardOptions,
-    leading = leading,
-    trailing = trailing,
-    maxLength = maxLength,
-    digits = digits,
-    keyboardActions = keyboardActions,
-    fontWeight = fontWeight,
-    visualTransformation = visualTransformation
-)
+) {
+
+    InputField(
+        modifier = modifier.recomposeHighlighter(),
+        provideValue = provideValue,
+        onValueChange = onValueChange,
+        textStyle = Design.typography.Body,
+        maxLines = maxLines,
+        color = color ?: Design.colors.content,
+        textAlign = textAlign,
+        placeholder = placeholder,
+        enabled = enabled,
+        keyboardOptions = keyboardOptions,
+        leading = leading,
+        trailing = trailing,
+        maxLength = maxLength,
+        digits = digits,
+        keyboardActions = keyboardActions,
+        fontWeight = fontWeight,
+        visualTransformation = visualTransformation
+    )
+}
 
 @Composable
 internal fun InputFieldSecondary(
@@ -154,7 +157,7 @@ private fun InputField(
         }
 
         InnerInputField(
-            modifier
+            Modifier
                 .requiredHeight(Design.dp.component)
                 .background(Color.Transparent)
                 .weight(1f),
