@@ -17,21 +17,23 @@ internal fun IterationInputItem(
     provideRepeat: () -> String,
     updateWeight: (value: String) -> Unit,
     updateRepeat: (value: String) -> Unit
-) = Column(modifier = modifier.width(60.dp).padding(vertical = 4.dp)) {
+) {
+    Column(modifier = modifier.width(60.dp).padding(vertical = 4.dp)) {
 
-    InputWeight(
-        modifier = Modifier,
-        provideValue = provideWeight,
-        onValueChange = updateWeight
-    )
+        InputWeight(
+            modifier = Modifier,
+            provideValue = provideWeight,
+            onValueChange = updateWeight
+        )
 
-    DividerPrimary(
-        modifier = Modifier.padding(horizontal = 8.dp)
-    )
+        DividerPrimary(
+            modifier = Modifier.padding(horizontal = 8.dp)
+        )
 
-    InputRepeat(
-        modifier = Modifier,
-        provideValue = provideRepeat,
-        onValueChange = updateRepeat
-    )
+        InputRepeat(
+            modifier = Modifier,
+            provideValue = provideRepeat,
+            onValueChange = updateRepeat
+        )
+    }
 }

@@ -9,10 +9,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -39,80 +39,121 @@ internal fun TrainingContent(vm: TrainingViewModel, trainingId: String?) {
         }
     }
 
+    val exercisesProvider = rememberUpdatedState(state.training.exercises)
+
+    Content(
+        loading = state.loading,
+        error = state.error,
+        clearError = vm::clearError,
+        tryBack = vm::tryBack,
+
+        exitWarningVisibility = state.exitWarningVisibility,
+        closeExitScreenPopup = vm::closeExitScreenPopup,
+        back = vm::back,
+
+        removeExerciseId = state.removeExerciseId,
+        removeExercise = vm::removeExercise,
+        closeRemoveExercisePopup = vm::closeRemoveExercisePopup,
+
+        openExitScreenPopup = vm::openExitScreenPopup,
+        saveTraining = vm::saveTraining,
+
+        exercises = exercisesProvider,
+        updateName = vm::updateName,
+        updateWeight = vm::updateWeight,
+        updateRepeat = vm::updateRepeat,
+        openRemoveExercisePopup = vm::openRemoveExercisePopup,
+        addExercise = vm::addExercise
+    )
+}
+
+@Composable
+private fun Content(
+    loading: Boolean,
+    error: String?,
+    clearError: () -> Unit,
+    tryBack: () -> Unit,
+    back: () -> Unit,
+
+    // POPUPS
+    exitWarningVisibility: Boolean,
+    closeExitScreenPopup: () -> Unit,
+
+    removeExerciseId: String?,
+    removeExercise: (id: String?) -> Unit,
+    closeRemoveExercisePopup: () -> Unit,
+
+    // HEADER
+    openExitScreenPopup: () -> Unit,
+    saveTraining: () -> Unit,
+
+    // CONTENT
+    exercises: State<List<Exercise>>,
+    updateName: (id: String, value: String) -> Unit,
+    updateWeight: (id: String, number: Int, value: String) -> Unit,
+    updateRepeat: (id: String, number: Int, value: String) -> Unit,
+    openRemoveExercisePopup: (id: String) -> Unit,
+    addExercise: () -> Unit,
+) {
+
     ScrollableRoot(
         modifier = Modifier.fillMaxWidth(),
-        loading = { Loading(state.loading) },
-        error = { Error(message = state.error, close = vm::clearError) },
-        back = { PlatformBackHandler(vm::tryBack) },
+        loading = { Loading(loading) },
+        error = { Error(message = error, close = clearError) },
+        back = { PlatformBackHandler(tryBack) },
         popups = {
             Popup(
-                visibility = state.exitWarningVisibility,
+                visibility = exitWarningVisibility,
                 title = "Warning",
                 message = "Are you sure to exit from training?",
                 button = "Back",
-                click = vm::back,
-                back = vm::closeExitScreenPopup
+                click = back,
+                back = closeExitScreenPopup
             )
             Popup(
-                visibility = state.removeExerciseId != null,
+                visibility = removeExerciseId != null,
                 title = "Warning",
                 message = "Are you sure to remove exercise?",
                 button = "Yes",
                 click = {
-                    vm.removeExercise(state.removeExerciseId)
-                    vm.closeRemoveExercisePopup()
+                    removeExercise(removeExerciseId)
+                    closeRemoveExercisePopup()
                 },
-                back = vm::closeRemoveExercisePopup
+                back = closeRemoveExercisePopup
             )
         },
         header = {
             Header(
                 title = "Exercises!",
-                back = vm::openExitScreenPopup,
-                save = vm::saveTraining
+                back = openExitScreenPopup,
+                save = saveTraining
             )
         },
         content = {
 
-            itemsIndexed(state.training.exercises, key = { _, exercise -> exercise.id }) { index, exercise ->
+            itemsIndexed(exercises.value, key = { _, exercise -> exercise.id }) { index, exercise ->
 
-                val updateNameProvider by remember {
-                    mutableStateOf({ value: String ->
-                        vm.updateName(exercise.id, value)
-                    })
-                }
-                val removeExerciseProvider by remember {
-                    mutableStateOf({
-                        vm.openRemoveExercisePopup(exercise.id)
-                    })
-                }
-                val updateWeightProvider by remember {
-                    mutableStateOf({ number: Int, value: String ->
-                        vm.updateWeight(exercise.id, number, value)
-                    })
-                }
-                val updateRepeatProvider by remember {
-                    mutableStateOf({ number: Int, value: String ->
-                        vm.updateRepeat(exercise.id, number, value)
-                    })
-                }
+                val id by rememberUpdatedState(exercise.id)
+                val name by rememberUpdatedState(exercise.name)
+                val number by rememberUpdatedState(index + 1)
+                val iterations by rememberUpdatedState(exercise.iterations)
 
                 EditExerciseItem(
                     modifier = Modifier,
-                    provideNumber = { (index + 1) },
-                    provideName = { exercise.name },
-                    updateName = updateNameProvider,
-                    updateWeight = updateWeightProvider,
-                    updateRepeat = updateRepeatProvider,
-                    provideIterations = { exercise.iterations },
-                    remove = removeExerciseProvider,
+                    number = { number },
+                    name = { name },
+                    updateName = { updateName(id, it) },
+                    updateWeight = { num, value -> updateWeight(id, num, value) },
+                    updateRepeat = { num, value -> updateRepeat(id, num, value) },
+                    iterations = { iterations },
+                    remove = { openRemoveExercisePopup(id) },
                 )
             }
 
             item(key = "new_exercise") {
                 NewExercise(
                     modifier = Modifier.animateItemPlacement(),
-                    onClick = vm::addExercise
+                    onClick = addExercise
                 )
             }
         }
@@ -123,18 +164,20 @@ internal fun TrainingContent(vm: TrainingViewModel, trainingId: String?) {
 private fun NewExercise(
     modifier: Modifier = Modifier,
     onClick: () -> Unit
-) = Box(
-    modifier = modifier
-        .fillMaxWidth()
-        .height(128.dp)
-        .tertiaryBackground()
-        .border(width = 1.dp, shape = Design.shape.default, color = Design.colors.accent_secondary)
-        .clickable(onClick = onClick),
-    content = {
-        TextFieldH2(
-            modifier = Modifier.align(Alignment.Center),
-            text = "Add Exercise",
-            color = Design.colors.accent_secondary
-        )
-    }
-)
+) {
+    Box(
+        modifier = modifier
+            .fillMaxWidth()
+            .height(128.dp)
+            .tertiaryBackground()
+            .border(width = 1.dp, shape = Design.shape.default, color = Design.colors.accent_secondary)
+            .clickable(onClick = onClick),
+        content = {
+            TextFieldH2(
+                modifier = Modifier.align(Alignment.Center),
+                text = "Add Exercise",
+                color = Design.colors.accent_secondary
+            )
+        }
+    )
+}

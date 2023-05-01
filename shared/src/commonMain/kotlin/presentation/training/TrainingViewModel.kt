@@ -116,6 +116,8 @@ internal class TrainingViewModel(private val navigator: NavigatorCore) : ViewMod
 
             _state.value = state.value.copy(training = training)
         }
+
+        closeRemoveExercisePopup()
     }
 
     fun updateName(exerciseId: String, name: String) {
