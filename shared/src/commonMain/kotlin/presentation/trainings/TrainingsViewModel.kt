@@ -15,6 +15,7 @@ import kotlinx.coroutines.launch
 import navigation.NavigatorCore
 import presentation.training.Training
 import utils.ViewModel
+import utils.round
 
 internal class TrainingsViewModel(private val navigator: NavigatorCore) : ViewModel() {
 
@@ -71,8 +72,8 @@ internal class TrainingsViewModel(private val navigator: NavigatorCore) : ViewMo
             WeekInfo(
                 startWeekDate = startDate ?: "",
                 endWeekDate = endDate ?: "",
-                tonnage = item.value.mapNotNull { it.tonnage }.sum(),
-                intensity = item.value.mapNotNull { it.intensity }.sum() / item.value.size,
+                tonnage = item.value.mapNotNull { it.tonnage }.sum().round(2),
+                intensity = (item.value.mapNotNull { it.intensity }.sum() / item.value.size).round(1),
                 trainingWeekDays = item.value.map { it.weekDay }
             )
         }

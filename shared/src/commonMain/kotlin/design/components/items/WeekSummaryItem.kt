@@ -3,9 +3,11 @@ package design.components.items
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -15,13 +17,16 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import design.Design
+import design.chart.LineChart
+import design.chart.PointLine
 import design.controls.TextFieldBody2
 import presentation.trainings.WeekInfo
 
@@ -29,41 +34,62 @@ import presentation.trainings.WeekInfo
 internal fun WeekSummary(
     modifier: Modifier = Modifier,
     info: WeekInfo
-) = Column(
+) = Box(
     modifier = modifier
-        .background(color = Design.colors.primary, shape = Design.shape.default)
-        .border(0.5.dp, Design.colors.accent_primary, shape = Design.shape.default)
+        .requiredHeight(114.dp)
+        .background(color = Design.colors.secondary, shape = Design.shape.default)
+        .border(0.5.dp, Design.colors.accent_secondary, shape = Design.shape.default)
         .fillMaxWidth()
-        .padding(Design.dp.padding)
 ) {
 
-    Row(
-        modifier = modifier.requiredHeight(44.dp).fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically,
-    ) {
+    LineChart(
+        modifier = Modifier.fillMaxSize().alpha(0.15f).padding(bottom = 10.dp),
+        lines = listOf(
+            PointLine(
+                yValue = listOf(1f, 3f, 5f, 4f, 6f, 8f, 7f, 12f, 13f),
+                lineColor = Design.colors.accent_secondary,
+                fillColor = Design.colors.accent_secondary.copy(alpha = 0.15f)
+            )
+        )
+    )
 
-        Column(
-            modifier = Modifier.height(44.dp),
-            verticalArrangement = Arrangement.SpaceAround
+    Column(
+        modifier = Modifier.fillMaxSize().padding(Design.dp.padding),
+        verticalArrangement = Arrangement.SpaceBetween
+    ) {
+        Row(
+            modifier = modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically,
         ) {
 
-            TextFieldBody2(
-                provideText = { info.startWeekDate + " →" },
-                fontWeight = FontWeight.Bold,
-            )
+            Column(
+                modifier = Modifier.height(44.dp),
+                verticalArrangement = Arrangement.SpaceAround
+            ) {
 
-            TextFieldBody2(
-                modifier = modifier.padding(start = Design.dp.padding),
-                provideText = { "← " + info.endWeekDate },
-                fontWeight = FontWeight.Bold,
+                TextFieldBody2(
+                    provideText = { info.startWeekDate + " →" },
+                    fontWeight = FontWeight.Bold,
+                )
+
+                TextFieldBody2(
+                    modifier = modifier.padding(start = Design.dp.padding),
+                    provideText = { "← " + info.endWeekDate },
+                    fontWeight = FontWeight.Bold,
+                )
+            }
+
+            WeekDayStatusLine(
+                modifier = Modifier.width(180.dp).height(44.dp),
+                listOfWeekDaysEnglish = listOf("MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY"),
+                availableList = info.trainingWeekDays
             )
         }
 
-        WeekDayStatusLine(
-            modifier = Modifier.width(180.dp).height(44.dp),
-            listOfWeekDaysEnglish = listOf("MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY"),
-            availableList = info.trainingWeekDays
+        WeekInfoFooter(
+            intensity = info.intensity,
+            tonnage = info.tonnage
         )
     }
 }
@@ -82,8 +108,12 @@ private fun WeekDayStatusLine(
         horizontalArrangement = Arrangement.SpaceAround
     ) {
         listOfWeekDaysEnglish.forEach {
-            val weekShort by remember(it) { mutableStateOf(toShortWeek(it)) }
-            TextFieldBody2(provideText = { weekShort })
+
+            val weekShort by rememberUpdatedState(toShortWeek(it))
+
+            TextFieldBody2(
+                provideText = { weekShort }
+            )
         }
     }
     Row(
@@ -100,6 +130,51 @@ private fun WeekDayStatusLine(
                     )
             )
         }
+    }
+}
+
+@Composable
+internal fun WeekInfoFooter(
+    modifier: Modifier = Modifier,
+    intensity: Double?,
+    tonnage: Double?,
+) {
+    val tonnageKg = remember(tonnage) { "${tonnage}kg" }
+    val intensityPercents = remember(intensity) { "${intensity}%" }
+
+    Row(
+        modifier = modifier,
+        horizontalArrangement = Arrangement.spacedBy(4.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+
+        TextFieldBody2(
+            modifier = Modifier.padding(end = 4.dp),
+            provideText = { "Intensity:" },
+            color = Design.colors.caption,
+        )
+
+        TextFieldBody2(
+            provideText = { intensityPercents },
+            color = Design.colors.content,
+            fontWeight = FontWeight.Bold
+        )
+
+        Spacer(
+            modifier = Modifier.weight(1f)
+        )
+
+        TextFieldBody2(
+            modifier = Modifier.padding(end = 4.dp),
+            provideText = { "Tonnage:" },
+            color = Design.colors.caption,
+        )
+
+        TextFieldBody2(
+            provideText = { tonnageKg },
+            color = Design.colors.content,
+            fontWeight = FontWeight.Bold
+        )
     }
 }
 

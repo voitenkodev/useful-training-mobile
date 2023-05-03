@@ -40,9 +40,11 @@ internal fun TrainingsContent(vm: TrainingsViewModel) {
 
     val state by vm.state.collectAsState()
 
-    LaunchedEffect(Unit) { vm.getTrainings() }
-
     val listState = rememberLazyListState()
+
+    LaunchedEffect(Unit) {
+        vm.getTrainings()
+    }
 
     Content(
         listState = listState,
@@ -111,7 +113,7 @@ private fun Content(
                     WeekSummary(info = it.key)
                 }
 
-                items(it.value, key = { it.id ?: it.hashCode() }) { training ->
+                items(it.value, key = { item-> item.id ?: item.hashCode() }) { training ->
 
                     val trainingProvider by rememberUpdatedState(training)
 
@@ -143,13 +145,11 @@ private fun Header(
     ) {
 
         Title(
-            modifier = Modifier,
             weekDay = weekDay,
             date = date,
         )
 
         HeaderButtons(
-            modifier = Modifier,
             moveToSummary = moveToSummary,
             addTraining = addTraining
         )
@@ -211,7 +211,6 @@ private fun Title(
     )
 
     TextFieldBody1(
-        modifier = Modifier,
         provideText = { date },
     )
 }

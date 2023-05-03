@@ -15,6 +15,7 @@ import kotlinx.coroutines.launch
 import navigation.NavigatorCore
 import utils.DateTimeKtx
 import utils.ViewModel
+import utils.round
 
 internal class TrainingViewModel(private val navigator: NavigatorCore) : ViewModel() {
 
@@ -219,12 +220,6 @@ internal class TrainingViewModel(private val navigator: NavigatorCore) : ViewMod
     }
 
     private fun Training.calculateValues(): Training {
-        fun Double.round(decimals: Int): Double {
-            var multiplier = 1.0
-            repeat(decimals) { multiplier *= 10 }
-            return kotlin.math.round(this * multiplier) / multiplier
-        }
-
         val calculatedExercises = exercises.map {
             val exTonnage = it.iterations.sumOf { iteration ->
                 (iteration.repeat.toIntOrNull() ?: 0) * (iteration.weight.toDoubleOrNull() ?: 0.0)

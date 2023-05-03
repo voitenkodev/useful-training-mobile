@@ -17,7 +17,7 @@ object Logger {
     fun compose(vararg values: Any?) {
         Column {
             values.map { it.hashCode().toString() }.forEach {
-                Text(text = it ?: "null", color = Color.Red)
+                Text(text = it, color = Color.Red)
             }
         }
     }
