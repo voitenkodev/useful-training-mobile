@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import design.Design
@@ -24,11 +25,45 @@ internal fun AuthContent(vm: AuthViewModel) {
 
     val state by vm.state.collectAsState()
 
+    Content(
+        loading = state.loading,
+        error = state.error,
+        clearError = vm::clearError,
+        back = vm::back,
+
+        login = vm::login,
+        registration = vm::registration,
+
+        email = { state.email },
+        updateEmail = vm::updateEmail,
+        password = { state.password },
+        updatePassword = vm::updatePassword
+    )
+}
+
+@Composable
+private fun Content(
+    loading: Boolean,
+    error: String?,
+    clearError: () -> Unit,
+    back: () -> Unit,
+
+    // FOOTER
+    login: () -> Unit,
+    registration: () -> Unit,
+
+    //CONTENT
+    email: () -> String,
+    updateEmail: (String) -> Unit,
+    password: () -> String,
+    updatePassword: (String) -> Unit,
+) {
+
     ScrollableRoot(
         modifier = Modifier.fillMaxWidth(),
-        loading = { Loading(state.loading) },
-        error = { Error(message = state.error, close = vm::clearError) },
-        back = { PlatformBackHandler(vm::back) },
+        loading = { Loading(loading) },
+        error = { Error(message = error, close = clearError) },
+        back = { PlatformBackHandler(back) },
         header = {
             TextFieldH1(
                 modifier = Modifier
@@ -38,17 +73,20 @@ internal fun AuthContent(vm: AuthViewModel) {
             )
         },
         footer = {
+            val loginProvider by rememberUpdatedState(login)
+            val registrationProvider by rememberUpdatedState(registration)
+
             ButtonPrimary(
                 modifier = Modifier.fillMaxWidth(),
                 text = "Log In",
-                onClick = vm::login
+                onClick = loginProvider
             )
 
             ButtonQuestion(
                 modifier = Modifier.fillMaxWidth(),
                 question = "Don't have an account yet?",
                 answer = "Sign Up!",
-                onClick = vm::registration
+                onClick = registrationProvider
             )
         },
         content = {
@@ -62,15 +100,15 @@ internal fun AuthContent(vm: AuthViewModel) {
             item(key = "input_email") {
                 InputEmail(
                     modifier = Modifier.fillMaxWidth(),
-                    provideValue = { state.email },
-                    onValueChange = vm::updateEmail
+                    provideValue = email,
+                    onValueChange = updateEmail
                 )
             }
             item(key = "input_password") {
                 InputPassword(
                     modifier = Modifier.fillMaxWidth(),
-                    provideValue = { state.password },
-                    onValueChange = vm::updatePassword
+                    provideValue = password,
+                    onValueChange = updatePassword
                 )
             }
         }

@@ -14,9 +14,9 @@ object Logger {
     }
 
     @Composable
-    fun compose(vararg values: String?) {
+    fun compose(vararg values: Any?) {
         Column {
-            values.forEach {
+            values.map { it.hashCode().toString() }.forEach {
                 Text(text = it ?: "null", color = Color.Red)
             }
         }

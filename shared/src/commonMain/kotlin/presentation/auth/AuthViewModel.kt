@@ -83,6 +83,7 @@ internal class AuthViewModel(private val navigator: NavigatorCore) : ViewModel()
     }
 
     private fun AuthState.validate(): AuthState {
+
         val emailAddressRegex = Regex(
             "[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" +
                     "\\@" +
@@ -93,7 +94,7 @@ internal class AuthViewModel(private val navigator: NavigatorCore) : ViewModel()
                     + ")+"
         )
 
-        val newEmail = this.email.trim()
+        val newEmail = this.email.trim().lowercase()
         val newPassword = this.password.trim()
 
         val isEmailValid = newEmail.matches(emailAddressRegex)
