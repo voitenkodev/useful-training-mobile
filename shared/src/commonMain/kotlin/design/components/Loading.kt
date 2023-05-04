@@ -39,7 +39,10 @@ internal fun Loading(
     if (!visible) return
 
     Box(
-        modifier = Modifier.fillMaxSize().background(Color.Black.copy(alpha = 0.5f)).clickable(enabled = false) {},
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.Black.copy(alpha = 0.5f))
+            .clickable(enabled = false) {},
         contentAlignment = Alignment.Center,
         content = {
 

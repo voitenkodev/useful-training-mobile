@@ -21,7 +21,6 @@ internal fun IterationInputItem(
     Column(modifier = modifier.width(60.dp).padding(vertical = 4.dp)) {
 
         InputWeight(
-            modifier = Modifier,
             provideValue = provideWeight,
             onValueChange = updateWeight
         )
@@ -31,7 +30,6 @@ internal fun IterationInputItem(
         )
 
         InputRepeat(
-            modifier = Modifier,
             provideValue = provideRepeat,
             onValueChange = updateRepeat
         )

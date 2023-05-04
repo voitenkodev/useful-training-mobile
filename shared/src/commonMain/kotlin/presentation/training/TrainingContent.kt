@@ -139,7 +139,6 @@ private fun Content(
                 val iterations by rememberUpdatedState(exercise.iterations)
 
                 EditExerciseItem(
-                    modifier = Modifier,
                     number = { number },
                     name = { name },
                     updateName = { updateName(id, it) },
