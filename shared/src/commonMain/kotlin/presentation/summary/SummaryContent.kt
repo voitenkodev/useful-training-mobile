@@ -25,8 +25,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import design.Design
@@ -38,6 +40,7 @@ import design.components.Header
 import design.components.Loading
 import design.components.inputs.InputSearch
 import design.components.items.ExerciseItem
+import design.components.items.HelpExerciseNameItem
 import design.components.items.LineChartItem
 import design.components.items.TrainingItem
 import design.components.labels.WeekDayLabel
@@ -142,9 +145,23 @@ private fun Content(
         },
         content = {
             item(key = "input_search") {
+                val focusManager = LocalFocusManager.current
+
+                val helpVisible = remember { mutableStateOf(false) }
+
                 InputSearch(
+                    modifier = Modifier.onFocusChanged { helpVisible.value = it.hasFocus },
                     value = query,
                     onValueChange = search
+                )
+
+                HelpExerciseNameItem(
+                    querySort = query,
+                    visibility = { helpVisible.value },
+                    select = {
+                        search.invoke(it)
+                        focusManager.clearFocus()
+                    }
                 )
             }
 

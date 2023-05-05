@@ -36,7 +36,6 @@ internal fun LineChartItem(
             .padding(Design.dp.padding),
         lines = lines(),
     )
-
 }
 
 @Composable

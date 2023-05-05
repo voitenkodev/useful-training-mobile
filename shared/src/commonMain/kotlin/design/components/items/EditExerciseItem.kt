@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
+import design.components.inputs.InputExerciseName
 import design.controls.DividerPrimary
 import design.controls.secondaryBackground
 import presentation.training.Iteration
@@ -36,7 +37,7 @@ fun EditExerciseItem(
 
         val helpVisible = remember { mutableStateOf(false) }
 
-        InputNameItem(
+        InputExerciseName(
             modifier = Modifier
                 .padding(start = 8.dp)
                 .onFocusChanged { helpVisible.value = it.hasFocus },

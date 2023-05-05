@@ -10,6 +10,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material.icons.filled.Clear
+import androidx.compose.material.icons.filled.Done
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -17,7 +18,6 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import design.Design
 import design.atomic.icons.BarChart
-import design.atomic.icons.Save
 import design.controls.IconPrimary
 import design.controls.TextFieldH1
 
@@ -49,7 +49,7 @@ internal fun Header(
 
     save?.let {
         Action(
-            imageVector = Save,
+            imageVector = Icons.Default.Done,
             onClick = it
         )
     }

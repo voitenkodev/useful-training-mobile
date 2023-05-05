@@ -38,7 +38,7 @@ internal fun WeekSummary(
     modifier = modifier
         .requiredHeight(114.dp)
         .background(color = Design.colors.secondary, shape = Design.shape.default)
-        .border(0.5.dp, Design.colors.accent_secondary, shape = Design.shape.default)
+//        .border(0.5.dp, Design.colors.accent_secondary, shape = Design.shape.default)
         .fillMaxWidth()
 ) {
 
