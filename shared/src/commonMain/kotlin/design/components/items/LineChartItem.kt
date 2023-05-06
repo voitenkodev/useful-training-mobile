@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -91,11 +92,17 @@ private fun LineChartBox(
 private fun NameLabels(
     modifier: Modifier = Modifier,
     lines: List<PointLine>
-) = LazyRow(
-    modifier = modifier,
-    horizontalArrangement = Arrangement.spacedBy(Design.dp.padding),
-    content = { itemsIndexed(lines, key = { index, _ -> index }) { _, item -> Label(label = item.label, color = item.lineColor) } }
-)
+) {
+    LazyRow(
+        modifier = modifier,
+        horizontalArrangement = Arrangement.spacedBy(Design.dp.padding),
+        content = {
+            itemsIndexed(lines, key = { index, _ -> index }) { _, item ->
+                Label(label = item.label, color = item.lineColor)
+            }
+        }
+    )
+}
 
 @Composable
 private fun XLabels(
@@ -172,7 +179,15 @@ private fun Label(
     horizontalArrangement = Arrangement.spacedBy(Design.dp.padding),
     verticalAlignment = Alignment.CenterVertically
 ) {
-    Spacer(Modifier.size(14.dp).background(color))
+    Spacer(
+        Modifier
+            .size(14.dp)
+            .background(
+                color = color,
+                shape = CircleShape
+            )
+    )
+
     TextFieldBody2(
         provideText = { label },
         color = Design.colors.caption

@@ -210,7 +210,7 @@ private fun Comparing(
     ) {
 
         TextFieldBody2(
-            modifier = Modifier.padding(start = Design.dp.padding),
+            modifier = Modifier.padding(start = Design.dp.padding).height(24.dp),
             provideText = { "Compare with..." },
             color = Design.colors.caption
         )
@@ -228,7 +228,7 @@ private fun Comparing(
         horizontalArrangement = Arrangement.spacedBy(Design.dp.padding)
     ) {
 
-        items(provideList(), key = { it.id!! }) {
+        items(provideList(), key = { it.id?:it.hashCode() }) {
             ShortTrainingItem(
                 training = it,
                 highlight = it == provideSelected(),
