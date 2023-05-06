@@ -1,7 +1,6 @@
 package presentation.review
 
 import PlatformBackHandler
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -21,6 +20,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -55,71 +55,87 @@ internal fun ReviewContent(vm: ReviewViewModel, trainingId: String) {
         vm.getTrainings()
     }
 
+    Content(
+        loading = state.loading,
+        error = state.error,
+        clearError = vm::clearError,
+        back = vm::back,
+
+        removeTrainingId = state.removeTrainingId,
+        showError = vm::showError,
+        closeRemoveTrainingPopup = vm::closeRemoveTrainingPopup,
+        removeTraining = vm::removeTraining,
+
+        provideReviewTraining = { state.reviewTraining },
+        provideCompareTraining = { state.compareTraining },
+        provideOtherTrainings = { state.otherTrainings },
+        clearComparing = vm::clearComparing,
+        compareWith = vm::compareWith,
+        openRemoveTrainingPopup = vm::openRemoveTrainingPopup
+    )
+}
+
+@Composable
+private fun Content(
+    loading: Boolean,
+    error: String?,
+    clearError: () -> Unit,
+    back: () -> Unit,
+
+    // POPUPS
+    removeTrainingId: String?,
+    showError: (String) -> Unit,
+    closeRemoveTrainingPopup: () -> Unit,
+    removeTraining: (String) -> Unit,
+
+    // CONTENT
+    provideReviewTraining: () -> Training,
+    provideCompareTraining: () -> Training?,
+    provideOtherTrainings: () -> List<Training>,
+    clearComparing: () -> Unit,
+    compareWith: (Training) -> Unit,
+    openRemoveTrainingPopup: (String?) -> Unit
+) {
     ScrollableRoot(
         modifier = Modifier.fillMaxSize(),
-        loading = { Loading(state.loading) },
-        error = { Error(message = state.error, close = vm::clearError) },
-        back = { PlatformBackHandler(vm::back) },
+        loading = { Loading(loading) },
+        error = { Error(message = error, close = clearError) },
+        back = { PlatformBackHandler(back) },
         popups = {
             Popup(
-                visibility = state.removeTrainingId != null,
+                visibility = removeTrainingId != null,
                 title = "Warning",
                 message = "Are you sure to remove this training?",
                 button = "Yes",
                 click = {
-                    val id = state.removeTrainingId
+                    val id = removeTrainingId
                     if (id == null) {
-                        vm.showError("Invalid Training ID")
+                        showError("Invalid Training ID")
                         return@Popup
                     }
-                    vm.closeRemoveTrainingPopup()
-                    vm.removeTraining(id)
+                    closeRemoveTrainingPopup()
+                    removeTraining(id)
                 },
-                back = vm::closeRemoveTrainingPopup
+                back = closeRemoveTrainingPopup
             )
         },
         header = {
             Header(
                 title = "Review!",
-                exit = vm::back
+                exit = back
             )
         },
         content = {
             item(key = "date") {
                 DateItem(
-                    weekDay = state.reviewTraining.weekDay,
-                    startTime = state.reviewTraining.startTime,
-                    startDate = state.reviewTraining.shortStartDate
-                )
-            }
-
-            item(key = "tonnage_chart") {
-                ChartSection(
-                    label = "Tonnage",
-                    data = state.reviewTraining.exercises.map { it.tonnage.toFloat() },
-                    compareData = state.compareTraining?.exercises?.map { it.tonnage.toFloat() },
-                    color = Design.colors.unique.color1,
-                )
-            }
-
-            item(key = "intensity_chart") {
-                ChartSection(
-                    label = "Intensity",
-                    data = state.reviewTraining.exercises.map { it.intensity.toFloat() },
-                    compareData = state.compareTraining?.exercises?.map { it.intensity.toFloat() },
-                    color = Design.colors.unique.color4,
-                )
-            }
-
-            item(key = "summary") {
-                Summary(
-                    training = state.reviewTraining,
-                    compareTraining = state.compareTraining
+                    weekDay = provideReviewTraining().weekDay,
+                    startTime = provideReviewTraining().startTime,
+                    startDate = provideReviewTraining().shortStartDate
                 )
             }
 
             item(key = "exercises") {
-                state.reviewTraining.exercises.forEachIndexed { index, item ->
+                provideReviewTraining().exercises.forEachIndexed { index, item ->
                     ExerciseItem(
                         number = index + 1,
                         exercise = item
@@ -127,13 +143,38 @@ internal fun ReviewContent(vm: ReviewViewModel, trainingId: String) {
                 }
             }
 
-            if (state.otherTrainings.isNotEmpty()) {
+            item(key = "tonnage_chart") {
+                ChartSection(
+                    label = "Tonnage",
+                    data = provideReviewTraining().exercises.map { it.tonnage.toFloat() },
+                    compareData = provideCompareTraining()?.exercises?.map { it.tonnage.toFloat() },
+                    color = Design.colors.unique.color1,
+                )
+            }
+
+            item(key = "intensity_chart") {
+                ChartSection(
+                    label = "Intensity",
+                    data = provideReviewTraining().exercises.map { it.intensity.toFloat() },
+                    compareData = provideCompareTraining()?.exercises?.map { it.intensity.toFloat() },
+                    color = Design.colors.unique.color4,
+                )
+            }
+
+            item(key = "summary") {
+                Summary(
+                    training = provideReviewTraining(),
+                    compareTraining = provideCompareTraining()
+                )
+            }
+
+            if (provideOtherTrainings().isNotEmpty()) {
                 item(key = "comparing") {
                     Comparing(
-                        list = state.otherTrainings,
-                        selected = state.compareTraining,
-                        compare = { vm.compareWith(it) },
-                        clear = { vm.clearComparing() }
+                        provideList = provideOtherTrainings,
+                        provideSelected = provideCompareTraining,
+                        compare = compareWith,
+                        clear = clearComparing
                     )
                 }
             }
@@ -143,7 +184,7 @@ internal fun ReviewContent(vm: ReviewViewModel, trainingId: String) {
                     modifier = Modifier.fillMaxWidth(),
                     text = "Remove Training",
                     color = Design.colors.accent_tertiary,
-                    onClick = { vm.openRemoveTrainingPopup(state.reviewTraining.id) }
+                    onClick = { openRemoveTrainingPopup(provideReviewTraining().id) }
                 )
             }
         }
@@ -152,16 +193,20 @@ internal fun ReviewContent(vm: ReviewViewModel, trainingId: String) {
 
 @Composable
 private fun Comparing(
-    selected: Training?,
-    list: List<Training>,
+    provideSelected: () -> Training?,
+    provideList: () -> List<Training>,
     compare: (Training) -> Unit,
     clear: () -> Unit
 ) = Column(
     verticalArrangement = Arrangement.spacedBy(Design.dp.padding)
 ) {
 
+    val provideClear by rememberUpdatedState(clear)
+
     Row(
-        horizontalArrangement = Arrangement.spacedBy(Design.dp.padding)
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
     ) {
 
         TextFieldBody2(
@@ -170,16 +215,12 @@ private fun Comparing(
             color = Design.colors.caption
         )
 
-        if (selected != null) IconPrimary(
+        if (provideSelected() != null) IconPrimary(
             modifier = Modifier
-                .width(16.dp)
-                .height(16.dp)
-                .background(
-                    color = Design.colors.accent_secondary,
-                    shape = Design.shape.default
-                ),
+                .width(24.dp)
+                .height(24.dp),
             imageVector = Icons.Default.Clear,
-            onClick = clear
+            onClick = provideClear
         )
     }
 
@@ -187,10 +228,10 @@ private fun Comparing(
         horizontalArrangement = Arrangement.spacedBy(Design.dp.padding)
     ) {
 
-        items(list, key = { it.id!! }) {
+        items(provideList(), key = { it.id!! }) {
             ShortTrainingItem(
                 training = it,
-                highlight = it == selected,
+                highlight = it == provideSelected(),
                 onClick = { compare.invoke(it) }
             )
         }
@@ -288,7 +329,6 @@ private fun Summary(
             .secondaryBackground()
             .padding(horizontal = Design.dp.padding),
     ) {
-
 
         Section(
             label = "Tonnage",
