@@ -31,7 +31,7 @@ internal fun ShortTrainingItem(
     onClick: () -> Unit
 ) = Column(
     modifier = modifier
-        .width(250.dp)
+        .width(Design.dp.fixedWidth)
         .height(150.dp)
         .secondaryBackground()
         .border(

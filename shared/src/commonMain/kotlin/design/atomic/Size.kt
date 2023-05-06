@@ -8,6 +8,7 @@ fun appDp() = AppDp(
     header = 56.dp,
     bigHeader = 74.dp,
     component = 48.dp,
+    fixedWidth = 300.dp
 )
 
 data class AppDp(
@@ -15,4 +16,5 @@ data class AppDp(
     val header: Dp,
     val bigHeader: Dp,
     val component: Dp,
+    val fixedWidth: Dp,
 )

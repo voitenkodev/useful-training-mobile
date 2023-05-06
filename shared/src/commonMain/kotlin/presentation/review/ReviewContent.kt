@@ -13,6 +13,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.PageSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.runtime.Composable
@@ -143,21 +145,28 @@ private fun Content(
                 }
             }
 
-            item(key = "tonnage_chart") {
-                ChartSection(
-                    label = "Tonnage",
-                    data = provideReviewTraining().exercises.map { it.tonnage.toFloat() },
-                    compareData = provideCompareTraining()?.exercises?.map { it.tonnage.toFloat() },
-                    color = Design.colors.unique.color1,
-                )
-            }
+            item(key = "charts") {
+                HorizontalPager(
+                    pageCount = 2,
+                    pageSpacing = 8.dp,
+                    pageSize = PageSize.Fixed(Design.dp.fixedWidth),
+                    pageContent = { page ->
+                        when (page) {
+                            0 -> ChartSection(
+                                label = "Tonnage",
+                                data = provideReviewTraining().exercises.map { it.tonnage.toFloat() },
+                                compareData = provideCompareTraining()?.exercises?.map { it.tonnage.toFloat() },
+                                color = Design.colors.unique.color1,
+                            )
 
-            item(key = "intensity_chart") {
-                ChartSection(
-                    label = "Intensity",
-                    data = provideReviewTraining().exercises.map { it.intensity.toFloat() },
-                    compareData = provideCompareTraining()?.exercises?.map { it.intensity.toFloat() },
-                    color = Design.colors.unique.color4,
+                            1 -> ChartSection(
+                                label = "Intensity",
+                                data = provideReviewTraining().exercises.map { it.intensity.toFloat() },
+                                compareData = provideCompareTraining()?.exercises?.map { it.intensity.toFloat() },
+                                color = Design.colors.unique.color4,
+                            )
+                        }
+                    }
                 )
             }
 
@@ -228,7 +237,7 @@ private fun Comparing(
         horizontalArrangement = Arrangement.spacedBy(Design.dp.padding)
     ) {
 
-        items(provideList(), key = { it.id?:it.hashCode() }) {
+        items(provideList(), key = { it.id ?: it.hashCode() }) {
             ShortTrainingItem(
                 training = it,
                 highlight = it == provideSelected(),
@@ -315,6 +324,7 @@ private fun Summary(
     training: Training,
     compareTraining: Training?
 ) = Column(
+    modifier = Modifier.padding(vertical = Design.dp.padding),
     verticalArrangement = Arrangement.spacedBy(Design.dp.padding)
 ) {
 
