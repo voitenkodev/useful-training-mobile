@@ -146,34 +146,9 @@ private fun Content(
             }
 
             item(key = "charts") {
-                HorizontalPager(
-                    pageCount = 2,
-                    pageSpacing = 8.dp,
-                    pageSize = PageSize.Fixed(Design.dp.fixedWidth),
-                    pageContent = { page ->
-                        when (page) {
-                            0 -> ChartSection(
-                                label = "Tonnage",
-                                data = provideReviewTraining().exercises.map { it.tonnage.toFloat() },
-                                compareData = provideCompareTraining()?.exercises?.map { it.tonnage.toFloat() },
-                                color = Design.colors.unique.color1,
-                            )
-
-                            1 -> ChartSection(
-                                label = "Intensity",
-                                data = provideReviewTraining().exercises.map { it.intensity.toFloat() },
-                                compareData = provideCompareTraining()?.exercises?.map { it.intensity.toFloat() },
-                                color = Design.colors.unique.color4,
-                            )
-                        }
-                    }
-                )
-            }
-
-            item(key = "summary") {
-                Summary(
-                    training = provideReviewTraining(),
-                    compareTraining = provideCompareTraining()
+                Charts(
+                    provideCompareTraining = provideCompareTraining,
+                    provideReviewTraining = provideReviewTraining
                 )
             }
 
@@ -200,6 +175,52 @@ private fun Content(
     )
 }
 
+
+@Composable
+private fun Charts(
+    provideCompareTraining: () -> Training?,
+    provideReviewTraining: () -> Training,
+) = Column(
+    verticalArrangement = Arrangement.spacedBy(Design.dp.padding)
+) {
+    HorizontalPager(
+        pageCount = 3,
+        pageSpacing = 8.dp,
+        pageSize = PageSize.Fixed(Design.dp.fixedWidth),
+        pageContent = { page ->
+            when (page) {
+                0 -> Summary(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .aspectRatio(1.7f),
+                    provideTraining = provideReviewTraining,
+                    provideCompareTraining = provideCompareTraining
+                )
+
+                1 -> ChartSection(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .aspectRatio(1.7f),
+                    label = "Tonnage",
+                    data = provideReviewTraining().exercises.map { it.tonnage.toFloat() },
+                    compareData = provideCompareTraining()?.exercises?.map { it.tonnage.toFloat() },
+                    color = Design.colors.unique.color1,
+                )
+
+                2 -> ChartSection(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .aspectRatio(1.7f),
+                    label = "Intensity",
+                    data = provideReviewTraining().exercises.map { it.intensity.toFloat() },
+                    compareData = provideCompareTraining()?.exercises?.map { it.intensity.toFloat() },
+                    color = Design.colors.unique.color4,
+                )
+            }
+        }
+    )
+}
+
 @Composable
 private fun Comparing(
     provideSelected: () -> Training?,
@@ -213,21 +234,20 @@ private fun Comparing(
     val provideClear by rememberUpdatedState(clear)
 
     Row(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth().padding(horizontal = Design.dp.padding),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
 
         TextFieldBody2(
-            modifier = Modifier.padding(start = Design.dp.padding).height(24.dp),
             provideText = { "Compare with..." },
             color = Design.colors.caption
         )
 
         if (provideSelected() != null) IconPrimary(
             modifier = Modifier
-                .width(24.dp)
-                .height(24.dp),
+                .width(14.dp)
+                .height(14.dp),
             imageVector = Icons.Default.Clear,
             onClick = provideClear
         )
@@ -280,6 +300,7 @@ private fun DateItem(
 
 @Composable
 private fun ChartSection(
+    modifier: Modifier = Modifier,
     label: String,
     color: Color,
     data: List<Float>,
@@ -312,32 +333,26 @@ private fun ChartSection(
     }
 
     LineChartItem(
-        modifier = Modifier
-            .fillMaxWidth()
-            .aspectRatio(1.7f),
+        modifier = modifier,
         lines = { lines }
     )
 }
 
 @Composable
 private fun Summary(
-    training: Training,
-    compareTraining: Training?
-) = Column(
-    modifier = Modifier.padding(vertical = Design.dp.padding),
-    verticalArrangement = Arrangement.spacedBy(Design.dp.padding)
+    modifier: Modifier = Modifier,
+    provideTraining: () -> Training,
+    provideCompareTraining: () -> Training?
 ) {
 
-    TextFieldBody2(
-        modifier = Modifier.padding(start = Design.dp.padding),
-        provideText = { "Summary" },
-        color = Design.colors.caption
-    )
+    val training by rememberUpdatedState(provideTraining())
+    val compareTraining by rememberUpdatedState(provideCompareTraining())
 
     Column(
-        modifier = Modifier
+        modifier = modifier
             .secondaryBackground()
             .padding(horizontal = Design.dp.padding),
+        verticalArrangement = Arrangement.SpaceAround
     ) {
 
         Section(

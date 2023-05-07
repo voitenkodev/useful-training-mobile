@@ -1,7 +1,6 @@
 package design.components.items
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -38,19 +37,22 @@ internal fun WeekSummary(
     modifier = modifier
         .requiredHeight(114.dp)
         .background(color = Design.colors.secondary, shape = Design.shape.default)
-//        .border(0.5.dp, Design.colors.accent_secondary, shape = Design.shape.default)
         .fillMaxWidth()
 ) {
 
+    val lineColor = Design.colors.accent_secondary
+
     LineChart(
         modifier = Modifier.fillMaxSize().alpha(0.15f).padding(bottom = 10.dp),
-        lines = listOf(
-            PointLine(
-                yValue = listOf(1f, 3f, 5f, 4f, 6f, 8f, 7f, 12f, 13f),
-                lineColor = Design.colors.accent_secondary,
-                fillColor = Design.colors.accent_secondary.copy(alpha = 0.15f)
+        lines = {
+            listOf(
+                PointLine(
+                    yValue = listOf(1f, 3f, 5f, 4f, 6f, 8f, 7f, 12f, 13f),
+                    lineColor = lineColor,
+                    fillColor = lineColor.copy(alpha = 0.15f)
+                )
             )
-        )
+        }
     )
 
     Column(

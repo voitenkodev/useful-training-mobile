@@ -8,6 +8,7 @@ import androidx.compose.ui.graphics.Color
 
 object Logger {
 
+    // System.out
     fun l(msg: () -> String?) {
         print(msg.invoke())
         println(msg.invoke())

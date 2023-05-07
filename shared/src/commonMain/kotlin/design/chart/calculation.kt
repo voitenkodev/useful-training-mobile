@@ -17,6 +17,7 @@ internal fun calculatePath(
     val spacyY = height / (maxY - minY)
 
     val result = lines.map {
+
         val p = Path().apply {
             for (i in it.yValue.indices) {
                 val currentX = i * spaceX
@@ -39,8 +40,11 @@ internal fun calculatePath(
                         y3 = currentY
                     )
                 }
+
                 val offset = Offset(currentX, currentY)
+
                 it.offsets.add(offset)
+
                 onEach?.invoke(offset)
             }
         }

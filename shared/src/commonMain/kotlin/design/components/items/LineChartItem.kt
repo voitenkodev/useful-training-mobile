@@ -35,22 +35,22 @@ internal fun LineChartItem(
         modifier = modifier
             .secondaryBackground()
             .padding(Design.dp.padding),
-        lines = lines(),
+        lines = lines,
     )
 }
 
 @Composable
 private fun LineChartBox(
     modifier: Modifier = Modifier,
-    lines: List<PointLine>,
+    lines: () -> List<PointLine>,
 ) {
 
-    val minY = remember(lines) { lines.minOfOrNull { it.yValue.min() }?.toInt() ?: 0 }
-    val maxY = remember(lines) { lines.maxOfOrNull { it.yValue.max() }?.toInt() ?: 0 }
-    val middleY = remember(lines) { ((minY + maxY) / 2) }
-    val threeQuartersY = remember(lines) { ((maxY + middleY) / 2) }
-    val quarterY = remember(lines) { ((minY + middleY) / 2) }
-    val maxCount = remember(lines) { lines.maxOfOrNull { it.yValue.lastIndex } ?: 0 }
+    val minY = remember(lines()) { lines().minOfOrNull { it.yValue.min() }?.toInt() ?: 0 }
+    val maxY = remember(lines()) { lines().maxOfOrNull { it.yValue.max() }?.toInt() ?: 0 }
+    val middleY = remember(lines()) { ((minY + maxY) / 2) }
+    val threeQuartersY = remember(lines()) { ((maxY + middleY) / 2) }
+    val quarterY = remember(lines()) { ((minY + middleY) / 2) }
+    val maxCount = remember(lines()) { lines().maxOfOrNull { it.yValue.lastIndex } ?: 0 }
 
     Column(
         modifier = modifier,
@@ -62,6 +62,7 @@ private fun LineChartBox(
         )
 
         Row(
+            modifier = Modifier,
             horizontalArrangement = Arrangement.spacedBy(Design.dp.padding)
         ) {
             YLabels(
@@ -91,13 +92,13 @@ private fun LineChartBox(
 @Composable
 private fun NameLabels(
     modifier: Modifier = Modifier,
-    lines: List<PointLine>
+    lines: () -> List<PointLine>
 ) {
     LazyRow(
         modifier = modifier,
         horizontalArrangement = Arrangement.spacedBy(Design.dp.padding),
         content = {
-            itemsIndexed(lines, key = { index, _ -> index }) { _, item ->
+            itemsIndexed(lines(), key = { index, _ -> index }) { _, item ->
                 Label(label = item.label, color = item.lineColor)
             }
         }
