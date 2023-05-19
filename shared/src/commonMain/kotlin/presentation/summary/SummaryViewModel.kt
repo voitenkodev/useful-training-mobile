@@ -84,6 +84,7 @@ internal class SummaryViewModel(private val navigator: NavigatorCore) : ViewMode
                     error = null,
                     exercises = exercises,
                     listOfTonnage = calculateListOfTonnage(exercises),
+                    listOfIntensity = calculateListOfIntensity(exercises),
                     currentMonthTrainings = calculateMonthTrainings(
                         month = state.value.selectedMonth,
                         year = state.value.selectedYear,
@@ -179,6 +180,14 @@ internal class SummaryViewModel(private val navigator: NavigatorCore) : ViewMode
             .map { it.tonnage.toFloat() }
             .takeIf { it.isNotEmpty() } ?: state.value.trainings
             .mapNotNull { it.tonnage?.toFloat() }
+    }
+
+    private fun calculateListOfIntensity(exercises: Map<ExerciseInfo, List<Exercise>>): List<Float> {
+        return exercises
+            .flatMap { it.value }
+            .map { it.intensity.toFloat() }
+            .takeIf { it.isNotEmpty() } ?: state.value.trainings
+            .mapNotNull { it.intensity?.toFloat() }
     }
 
     fun back() {

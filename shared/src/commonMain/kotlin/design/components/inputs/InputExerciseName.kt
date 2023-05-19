@@ -42,7 +42,7 @@ internal fun InputExerciseName(
         fontWeight = FontWeight.Bold,
         leading = {
             AccentLabel(
-                modifier = Modifier.padding(bottom = 8.dp, top = 8.dp, end = 4.dp, start = 4.dp),
+                modifier = Modifier.padding(bottom = 8.dp, top = 8.dp, end = 6.dp, start = 6.dp),
                 provideText = { "${provideNumber()}" },
             )
         },

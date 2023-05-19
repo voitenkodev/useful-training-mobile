@@ -24,6 +24,7 @@ internal data class SummaryState(
     val loading: Boolean = false,
 
     val listOfTonnage: List<Float> = emptyList(),
+    val listOfIntensity: List<Float> = emptyList(),
     val currentMonthTrainings: List<Int> = emptyList()
 ) : Parcelable
 

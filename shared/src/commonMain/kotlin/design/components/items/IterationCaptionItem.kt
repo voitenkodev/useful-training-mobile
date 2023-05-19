@@ -1,8 +1,10 @@
 package design.components.items
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.runtime.Composable
@@ -14,13 +16,17 @@ import design.Design
 import design.controls.TextFieldBody2
 
 @Composable
-internal fun IterationCaptionItem() = Column(modifier = Modifier.padding(vertical = 4.dp)) {
+internal fun IterationCaptionItem() = Column(
+    modifier = Modifier
+        .padding(vertical = 4.dp)
+        .width(60.dp)
+) {
     TextFieldBody2(
         modifier = Modifier
             .height(Design.dp.component)
-            .wrapContentWidth()
+            .fillMaxWidth()
             .wrapContentHeight(),
-        provideText = { "• Weight" },
+        provideText = { "Weight" },
         textAlign = TextAlign.Center,
         color = Design.colors.caption,
         maxLines = 1,
@@ -30,9 +36,9 @@ internal fun IterationCaptionItem() = Column(modifier = Modifier.padding(vertica
     TextFieldBody2(
         modifier = Modifier
             .height(Design.dp.component)
-            .wrapContentWidth()
+            .fillMaxWidth()
             .wrapContentHeight(),
-        provideText = { "• Repeat" },
+        provideText = { "Repeat" },
         color = Design.colors.caption,
         textAlign = TextAlign.Center,
         maxLines = 1,

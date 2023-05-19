@@ -13,6 +13,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.PageSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowForward
@@ -33,15 +35,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import design.Design
 import design.calendar.Calendar
-import design.chart.PointCircle
-import design.chart.PointLine
 import design.components.Error
 import design.components.Header
 import design.components.Loading
+import design.components.charts.IntensityChart
+import design.components.charts.TonnageChart
 import design.components.inputs.InputSearch
 import design.components.items.ExerciseItem
 import design.components.items.HelpExerciseNameItem
-import design.components.items.LineChartItem
 import design.components.items.TrainingItem
 import design.components.labels.WeekDayLabel
 import design.components.roots.ScrollableRoot
@@ -82,7 +83,8 @@ internal fun SummaryContent(vm: SummaryViewModel) {
 
         exercises = state.exercises,
         trainings = state.trainings,
-        listOfTonnage = { state.listOfTonnage }
+        listOfTonnage = { state.listOfTonnage },
+        listOfIntensity = { state.listOfIntensity }
     )
 
     AutoScrollStateHandler(
@@ -90,7 +92,6 @@ internal fun SummaryContent(vm: SummaryViewModel) {
         listState = listState,
         doAfterScroll = vm::clearAutoScrollIndex
     )
-
 }
 
 @Composable
@@ -118,7 +119,8 @@ private fun Content(
     trainings: List<Training>,
 
     // Charts
-    listOfTonnage: () -> List<Float>
+    listOfTonnage: () -> List<Float>,
+    listOfIntensity: () -> List<Float>
 ) {
 
     val backProvider by remember { mutableStateOf(back) }
@@ -170,7 +172,8 @@ private fun Content(
                     CalendarSection(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .aspectRatio(1.4f),
+                            .aspectRatio(1.4f)
+                            .animateItemPlacement(),
                         month = month,
                         year = year,
                         provideTrainingDays = trainingDays,
@@ -182,16 +185,16 @@ private fun Content(
 
             if (isNotEmptyTonnage)
                 item(key = "tonnage_chart") {
-                    ChartSection(
-                        label = "Tonnage",
-                        provideData = listOfTonnage,
-                        color = Design.colors.unique.color1,
+                    Charts(
+                        provideTonnageData = listOfTonnage,
+                        provideIntensityData = listOfIntensity
                     )
                 }
 
             if (isSearchBlank)
                 items(trainingProvider, key = { it.id ?: it.hashCode() }) { training ->
                     TrainingItem(
+                        modifier = Modifier.animateItemPlacement(),
                         training = training
                     )
                 }
@@ -205,17 +208,52 @@ private fun Content(
                     )
 
                     ExerciseHeader(
+                        modifier = Modifier.animateItemPlacement(),
                         weekDay = item.key.weekDay,
                         date = item.key.dateTime
                     )
 
                     item.value.forEachIndexed { index, exercise ->
                         ExerciseItem(
+                            modifier = Modifier.animateItemPlacement(),
                             number = index + 1,
                             exercise = exercise
                         )
                     }
                 }
+            }
+        }
+    )
+}
+
+@Composable
+private fun Charts(
+    modifier: Modifier = Modifier,
+    provideTonnageData: () -> List<Float>,
+    provideIntensityData: () -> List<Float>,
+) = Column(
+    modifier = modifier,
+    verticalArrangement = Arrangement.spacedBy(Design.dp.padding)
+) {
+    HorizontalPager(
+        pageCount = 2,
+        pageSpacing = 8.dp,
+        pageSize = PageSize.Fixed(Design.dp.fixedWidth),
+        pageContent = { page ->
+            when (page) {
+                0 -> TonnageChart(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .aspectRatio(1.7f),
+                    provideData = provideTonnageData,
+                )
+
+                1 -> IntensityChart(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .aspectRatio(1.7f),
+                    provideData = provideIntensityData,
+                )
             }
         }
     )
@@ -314,36 +352,5 @@ private fun ExerciseHeader(
         provideText = { date },
         color = Design.colors.caption,
         fontWeight = FontWeight.Bold
-    )
-}
-
-@Composable
-private fun ChartSection(
-    label: String,
-    color: Color,
-    provideData: () -> List<Float>,
-) {
-    val pointColor = Design.colors.content
-
-    val items by remember(provideData()) {
-        mutableStateOf(buildList {
-            add(
-                PointLine(
-                    yValue = provideData(),
-                    lineColor = color,
-                    fillColor = color.copy(alpha = 0.2f),
-                    label = label,
-                    point = PointCircle(color = pointColor)
-                )
-            )
-        }
-        )
-    }
-
-    LineChartItem(
-        modifier = Modifier
-            .fillMaxWidth()
-            .aspectRatio(1.7f),
-        lines = { items }
     )
 }

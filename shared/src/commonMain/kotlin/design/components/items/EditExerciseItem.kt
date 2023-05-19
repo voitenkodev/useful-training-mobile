@@ -73,8 +73,8 @@ private fun WeightRepeatSection(
     updateRepeat: (Int, String) -> Unit
 ) {
     FlowRow(
-        modifier = Modifier.padding(top = 4.dp, bottom = 8.dp, start = 4.dp, end = 4.dp),
-        horizontalArrangement = Arrangement.spacedBy(4.dp),
+        modifier = Modifier.padding(top = 4.dp, bottom = 8.dp, start = 12.dp, end = 12.dp),
+        horizontalArrangement = Arrangement.spacedBy(6.dp),
     ) {
 
         IterationCaptionItem()

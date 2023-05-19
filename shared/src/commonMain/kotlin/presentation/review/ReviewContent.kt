@@ -20,23 +20,19 @@ import androidx.compose.material.icons.filled.Clear
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import design.Design
-import design.chart.PointCircle
-import design.chart.PointLine
 import design.components.Error
 import design.components.Header
 import design.components.Loading
 import design.components.Popup
+import design.components.charts.IntensityChart
+import design.components.charts.TonnageChart
 import design.components.items.ExerciseItem
-import design.components.items.LineChartItem
 import design.components.items.ShortTrainingItem
 import design.components.labels.WeekDayLabel
 import design.components.roots.ScrollableRoot
@@ -139,6 +135,7 @@ private fun Content(
             item(key = "exercises") {
                 provideReviewTraining().exercises.forEachIndexed { index, item ->
                     ExerciseItem(
+                        modifier = Modifier.animateItemPlacement(),
                         number = index + 1,
                         exercise = item
                     )
@@ -146,7 +143,8 @@ private fun Content(
             }
 
             item(key = "charts") {
-                Charts(
+                ChartsSection(
+                    modifier = Modifier.animateItemPlacement(),
                     provideCompareTraining = provideCompareTraining,
                     provideReviewTraining = provideReviewTraining
                 )
@@ -155,6 +153,7 @@ private fun Content(
             if (provideOtherTrainings().isNotEmpty()) {
                 item(key = "comparing") {
                     Comparing(
+                        modifier = Modifier.animateItemPlacement(),
                         provideList = provideOtherTrainings,
                         provideSelected = provideCompareTraining,
                         compare = compareWith,
@@ -165,7 +164,7 @@ private fun Content(
 
             item(key = "remove_action") {
                 ButtonSecondary(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier.fillMaxWidth().animateItemPlacement(),
                     text = "Remove Training",
                     color = Design.colors.accent_tertiary,
                     onClick = { openRemoveTrainingPopup(provideReviewTraining().id) }
@@ -175,12 +174,13 @@ private fun Content(
     )
 }
 
-
 @Composable
-private fun Charts(
+private fun ChartsSection(
+    modifier: Modifier = Modifier,
     provideCompareTraining: () -> Training?,
     provideReviewTraining: () -> Training,
 ) = Column(
+    modifier = modifier,
     verticalArrangement = Arrangement.spacedBy(Design.dp.padding)
 ) {
     HorizontalPager(
@@ -197,24 +197,28 @@ private fun Charts(
                     provideCompareTraining = provideCompareTraining
                 )
 
-                1 -> ChartSection(
+                1 -> TonnageChart(
                     modifier = Modifier
                         .fillMaxWidth()
                         .aspectRatio(1.7f),
-                    label = "Tonnage",
-                    data = provideReviewTraining().exercises.map { it.tonnage.toFloat() },
-                    compareData = provideCompareTraining()?.exercises?.map { it.tonnage.toFloat() },
-                    color = Design.colors.unique.color1,
+                    provideData = {
+                        provideReviewTraining().exercises.map { it.tonnage.toFloat() }
+                    },
+                    compareData = {
+                        provideCompareTraining()?.exercises?.map { it.tonnage.toFloat() } ?: emptyList()
+                    }
                 )
 
-                2 -> ChartSection(
+                2 -> IntensityChart(
                     modifier = Modifier
                         .fillMaxWidth()
                         .aspectRatio(1.7f),
-                    label = "Intensity",
-                    data = provideReviewTraining().exercises.map { it.intensity.toFloat() },
-                    compareData = provideCompareTraining()?.exercises?.map { it.intensity.toFloat() },
-                    color = Design.colors.unique.color4,
+                    provideData = {
+                        provideReviewTraining().exercises.map { it.intensity.toFloat() }
+                    },
+                    compareData = {
+                        provideCompareTraining()?.exercises?.map { it.intensity.toFloat() } ?: emptyList()
+                    },
                 )
             }
         }
@@ -223,11 +227,13 @@ private fun Charts(
 
 @Composable
 private fun Comparing(
+    modifier: Modifier = Modifier,
     provideSelected: () -> Training?,
     provideList: () -> List<Training>,
     compare: (Training) -> Unit,
     clear: () -> Unit
 ) = Column(
+    modifier = modifier,
     verticalArrangement = Arrangement.spacedBy(Design.dp.padding)
 ) {
 
@@ -295,46 +301,6 @@ private fun DateItem(
         provideText = { startDate },
         color = Design.colors.caption,
         fontWeight = FontWeight.Bold
-    )
-}
-
-@Composable
-private fun ChartSection(
-    modifier: Modifier = Modifier,
-    label: String,
-    color: Color,
-    data: List<Float>,
-    compareData: List<Float>? = null,
-) {
-
-    val colorDataPoint = Design.colors.content
-    val colorCompareDataPoint = Design.colors.caption
-
-    val lines by remember(data, compareData) {
-        mutableStateOf(buildList {
-            add(
-                PointLine(
-                    yValue = data,
-                    lineColor = color,
-                    fillColor = color.copy(alpha = 0.2f),
-                    label = label,
-                    point = PointCircle(color = colorDataPoint)
-                )
-            )
-            if (compareData != null) add(
-                PointLine(
-                    yValue = compareData,
-                    lineColor = colorCompareDataPoint,
-                    fillColor = colorCompareDataPoint.copy(alpha = 0.2f),
-                    label = "Compare",
-                )
-            )
-        })
-    }
-
-    LineChartItem(
-        modifier = modifier,
-        lines = { lines }
     )
 }
 
