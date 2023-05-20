@@ -19,6 +19,7 @@ import design.atomic.icons.BarChart
 import design.components.labels.WeekDayLabel
 import design.controls.IconPrimary
 import design.controls.TextFieldBody2
+import utils.recomposeHighlighter
 
 @Composable
 internal fun TrainingHeader(
@@ -34,31 +35,46 @@ internal fun TrainingHeader(
 ) {
 
     WeekDayLabel(
-        modifier = Modifier.padding(end = 4.dp),
+        modifier = Modifier
+            .padding(end = 4.dp)
+            .recomposeHighlighter(),
         weekDayEnglish = weekDay,
     )
 
     TextFieldBody2(
+        modifier = Modifier.recomposeHighlighter(),
         provideText = { date },
         color = Design.colors.caption,
         fontWeight = FontWeight.Bold
     )
 
-    Spacer(modifier = Modifier.weight(1f))
+    Spacer(
+        modifier = Modifier
+            .weight(1f)
+            .recomposeHighlighter()
+    )
 
     review?.let {
         IconPrimary(
-            modifier = Modifier.height(20.dp),
+            modifier = Modifier
+                .height(20.dp)
+                .recomposeHighlighter(),
             imageVector = BarChart,
             color = Design.colors.caption,
             onClick = it
         )
     }
-    Spacer(modifier = Modifier.size(12.dp))
+    Spacer(
+        modifier = Modifier
+            .size(12.dp)
+            .recomposeHighlighter()
+    )
 
     edit?.let {
         IconPrimary(
-            modifier = Modifier.height(20.dp),
+            modifier = Modifier
+                .height(20.dp)
+                .recomposeHighlighter(),
             imageVector = Icons.Default.Edit,
             color = Design.colors.caption,
             onClick = it

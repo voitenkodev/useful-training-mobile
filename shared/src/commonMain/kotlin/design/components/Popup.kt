@@ -24,6 +24,7 @@ import design.controls.ButtonPrimary
 import design.controls.TextFieldBody1
 import design.controls.TextFieldH2
 import design.controls.secondaryBackground
+import utils.recomposeHighlighter
 
 @Composable
 internal fun Popup(
@@ -48,13 +49,13 @@ internal fun Popup(
                     interactionSource = interactionSource,
                     indication = null,
                     onClick = back
-                )
+                ).recomposeHighlighter()
         )
     }
 
     AnimatedVisibility(
         visible = visibility,
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier.fillMaxWidth().recomposeHighlighter(),
         enter = slideInVertically(
             initialOffsetY = { fullHeight -> -fullHeight },
             animationSpec = tween(
@@ -74,17 +75,25 @@ internal fun Popup(
             modifier = Modifier
                 .padding(Design.dp.padding)
                 .secondaryBackground()
-                .padding(Design.dp.padding),
+                .padding(Design.dp.padding)
+                .recomposeHighlighter(),
             verticalArrangement = Arrangement.spacedBy(Design.dp.padding),
             content = {
 
-                TextFieldH2(provideText = { title }, fontWeight = FontWeight.Bold)
+                TextFieldH2(
+                    modifier = Modifier.recomposeHighlighter(),
+                    provideText = { title },
+                    fontWeight = FontWeight.Bold
+                )
 
-                TextFieldBody1(provideText = { message })
+                TextFieldBody1(
+                    modifier = Modifier.recomposeHighlighter(),
+                    provideText = { message }
+                )
 
                 button?.let {
                     ButtonPrimary(
-                        modifier = Modifier.fillMaxWidth(),
+                        modifier = Modifier.fillMaxWidth().recomposeHighlighter(),
                         text = button,
                         onClick = click
                     )

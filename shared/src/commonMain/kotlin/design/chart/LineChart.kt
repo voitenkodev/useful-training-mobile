@@ -10,6 +10,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
+import utils.recomposeHighlighter
 
 @Composable
 internal fun LineChart(
@@ -21,7 +22,7 @@ internal fun LineChart(
 
     if (line.isEmpty()) return
 
-    Canvas(modifier = modifier) {
+    Canvas(modifier = modifier.recomposeHighlighter()) {
 
         val innerLines = calculatePath(
             width = size.width,

@@ -25,6 +25,7 @@ import design.chart.LineChart
 import design.chart.PointLine
 import design.controls.TextFieldBody2
 import design.controls.secondaryBackground
+import utils.recomposeHighlighter
 
 @Composable
 internal fun LineChartItem(
@@ -53,7 +54,7 @@ private fun LineChartBox(
     val maxCount = remember(lines()) { lines().maxOfOrNull { it.yValue.lastIndex } ?: 0 }
 
     Column(
-        modifier = modifier,
+        modifier = modifier.recomposeHighlighter(),
         verticalArrangement = Arrangement.spacedBy(Design.dp.padding)
     ) {
 
@@ -62,11 +63,13 @@ private fun LineChartBox(
         )
 
         Row(
-            modifier = Modifier,
+            modifier = Modifier.recomposeHighlighter(),
             horizontalArrangement = Arrangement.spacedBy(Design.dp.padding)
         ) {
             YLabels(
-                modifier = Modifier.fillMaxHeight(),
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .recomposeHighlighter(),
                 maxY = maxY,
                 threeQuartersY = threeQuartersY,
                 middleY = middleY,
@@ -76,12 +79,17 @@ private fun LineChartBox(
 
             Column {
                 LineChart(
-                    modifier = Modifier.weight(1f).fillMaxWidth(),
+                    modifier = Modifier
+                        .weight(1f)
+                        .fillMaxWidth()
+                        .recomposeHighlighter(),
                     lines = lines,
                 )
 
                 XLabels(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .recomposeHighlighter(),
                     maxCount = maxCount
                 )
             }
@@ -95,7 +103,7 @@ private fun NameLabels(
     lines: () -> List<PointLine>
 ) {
     LazyRow(
-        modifier = modifier,
+        modifier = modifier.recomposeHighlighter(),
         horizontalArrangement = Arrangement.spacedBy(Design.dp.padding),
         content = {
             itemsIndexed(lines(), key = { index, _ -> index }) { _, item ->
@@ -110,7 +118,9 @@ private fun XLabels(
     modifier: Modifier = Modifier,
     maxCount: Int
 ) = Row(
-    modifier = modifier.height(24.dp),
+    modifier = modifier
+        .height(24.dp)
+        .recomposeHighlighter(),
     horizontalArrangement = Arrangement.SpaceBetween,
     verticalAlignment = Alignment.Bottom
 ) {
@@ -118,7 +128,11 @@ private fun XLabels(
         List(maxCount) { index -> (index + 1).toString() }
     }
 
-    texts.forEach { TextFieldBody2(provideText = { it }) }
+    texts.forEach {
+        TextFieldBody2(
+            modifier = Modifier.recomposeHighlighter(),
+            provideText = { it })
+    }
 }
 
 @Composable
@@ -137,36 +151,45 @@ private fun YLabels(
     val threeQuarters = remember(maxY) { threeQuartersY.toString() }
 
     Column(
-        modifier = modifier,
+        modifier = modifier.recomposeHighlighter(),
         verticalArrangement = Arrangement.SpaceBetween
     ) {
 
         TextFieldBody2(
+            modifier =Modifier.recomposeHighlighter(),
             provideText = { max },
             textAlign = TextAlign.End
         )
 
         TextFieldBody2(
+            modifier = Modifier.recomposeHighlighter(),
             provideText = { threeQuarters },
             textAlign = TextAlign.End
         )
 
         TextFieldBody2(
+            modifier = Modifier.recomposeHighlighter(),
             provideText = { middle },
             textAlign = TextAlign.End
         )
 
         TextFieldBody2(
+            modifier = Modifier.recomposeHighlighter(),
             provideText = { quarter },
             textAlign = TextAlign.End
         )
 
         TextFieldBody2(
+            modifier = Modifier.recomposeHighlighter(),
             provideText = { min },
             textAlign = TextAlign.End
         )
 
-        Spacer(modifier = Modifier.size(20.dp))
+        Spacer(
+            modifier = Modifier
+                .size(20.dp)
+                .recomposeHighlighter(),
+        )
     }
 }
 
@@ -176,7 +199,7 @@ private fun Label(
     label: String,
     color: Color,
 ) = Row(
-    modifier = modifier,
+    modifier = modifier.recomposeHighlighter(),
     horizontalArrangement = Arrangement.spacedBy(Design.dp.padding),
     verticalAlignment = Alignment.CenterVertically
 ) {
@@ -186,10 +209,11 @@ private fun Label(
             .background(
                 color = color,
                 shape = CircleShape
-            )
+            ).recomposeHighlighter(),
     )
 
     TextFieldBody2(
+        modifier = Modifier.recomposeHighlighter(),
         provideText = { label },
         color = Design.colors.caption
     )

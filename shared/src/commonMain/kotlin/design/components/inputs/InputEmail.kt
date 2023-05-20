@@ -25,6 +25,7 @@ import design.components.labels.InputLabel
 import design.controls.IconPrimary
 import design.controls.InputFieldPrimary
 import design.controls.tertiaryBackground
+import utils.recomposeHighlighter
 
 @Composable
 internal fun InputEmail(
@@ -38,7 +39,8 @@ internal fun InputEmail(
     InputFieldPrimary(
         modifier = modifier
             .tertiaryBackground()
-            .padding(horizontal = Design.dp.padding),
+            .padding(horizontal = Design.dp.padding)
+            .recomposeHighlighter(),
         provideValue = provideValue,
         onValueChange = onValueChange,
         trailing = {
@@ -49,14 +51,21 @@ internal fun InputEmail(
                 exit = scaleOut() + fadeOut(),
             ) {
                 IconPrimary(
-                    modifier = Modifier.wrapContentSize().height(IntrinsicSize.Min),
+                    modifier = Modifier
+                        .wrapContentSize()
+                        .height(IntrinsicSize.Min)
+                        .recomposeHighlighter(),
                     imageVector = Icons.Default.Clear,
                     color = Design.colors.caption,
                     onClick = { onValueChange.invoke("") }
                 )
             }
         },
-        leading = { InputLabel(provideText = { "Email" }) },
+        leading = {
+            InputLabel(
+                modifier = Modifier.recomposeHighlighter(),
+                provideText = { "Email" })
+        },
         maxLines = 1,
         keyboardActions = KeyboardActions { focusManager.moveFocus(FocusDirection.Next) },
         keyboardOptions = KeyboardOptions(

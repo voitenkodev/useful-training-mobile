@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import design.Design
 import utils.DateTimeKtx.firstDayOfMonth
 import utils.DateTimeKtx.getDaysInMonth
+import utils.recomposeHighlighter
 import kotlin.math.ceil
 
 /*
@@ -59,6 +60,7 @@ internal fun Calendar(
     Canvas(
         modifier = Modifier
             .fillMaxSize()
+            .recomposeHighlighter()
             .pointerInput(month, listOfDays()) {
                 detectTapGestures(
                     onTap = { tapOffset ->

@@ -20,6 +20,7 @@ import design.Design
 import design.controls.TextFieldBody1
 import design.controls.TextFieldH2
 import kotlinx.coroutines.delay
+import utils.recomposeHighlighter
 
 @Composable
 internal fun Error(
@@ -36,9 +37,25 @@ internal fun Error(
         if (message != null) close.invoke()
     }
 
+    InnerError(
+        provideMessage = { value.value },
+        modifier = modifier,
+        visibility = message != null
+    )
+}
+
+@Composable
+private fun InnerError(
+    provideMessage: () -> String?,
+    modifier: Modifier,
+    visibility: Boolean,
+) {
+
     AnimatedVisibility(
-        visible = message != null,
-        modifier = modifier.fillMaxWidth(),
+        visible = visibility,
+        modifier = modifier
+            .fillMaxWidth()
+            .recomposeHighlighter(),
         enter = slideInVertically(
             initialOffsetY = { fullHeight -> -fullHeight },
             animationSpec = tween(
@@ -55,15 +72,25 @@ internal fun Error(
         )
     ) {
         Column(
-            modifier = Modifier.padding(Design.dp.padding)
+            modifier = Modifier
+                .padding(Design.dp.padding)
                 .background(
                     color = Design.colors.accent_tertiary,
                     shape = Design.shape.default
-                ).padding(Design.dp.padding),
+                )
+                .padding(Design.dp.padding)
+                .recomposeHighlighter(),
             verticalArrangement = Arrangement.spacedBy(Design.dp.padding),
             content = {
-                TextFieldH2(provideText = { "Error!" }, fontWeight = FontWeight.Bold)
-                TextFieldBody1(provideText = { value.value })
+                TextFieldH2(
+                    modifier = Modifier.recomposeHighlighter(),
+                    provideText = { "Error!" },
+                    fontWeight = FontWeight.Bold
+                )
+                TextFieldBody1(
+                    modifier = Modifier.recomposeHighlighter(),
+                    provideText = provideMessage
+                )
             }
         )
     }

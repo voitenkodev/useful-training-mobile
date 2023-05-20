@@ -19,6 +19,7 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
 import design.Design
+import utils.recomposeHighlighter
 
 @Composable
 internal fun ScrollableRoot(
@@ -46,17 +47,17 @@ internal fun ScrollableRoot(
                 bottom = Design.dp.padding
             ).pointerInput(Unit) {
                 detectTapGestures(onTap = { focusManager.clearFocus() })
-            }
+            }.recomposeHighlighter()
     ) {
 
         LazyColumn(
-            modifier = Modifier.weight(1f),
+            modifier = Modifier.weight(1f).recomposeHighlighter(),
             verticalArrangement = Arrangement.spacedBy(Design.dp.padding),
             state = listState,
             content = {
                 if (header != null) {
                     item(key = "header_spacer") {
-                        Spacer(modifier = Modifier.size(44.dp))
+                        Spacer(modifier = Modifier.size(44.dp).recomposeHighlighter())
                     }
                     stickyHeader(
                         key = "header",

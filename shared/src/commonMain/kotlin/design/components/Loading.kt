@@ -26,11 +26,11 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import design.Design
 import kotlinx.coroutines.delay
+import utils.recomposeHighlighter
 
 @Composable
 internal fun Loading(
     visible: Boolean,
-    modifier: Modifier = Modifier,
     circleSize: Dp = 25.dp,
     circleColor: Color = Design.colors.accent_secondary,
     spaceBetween: Dp = 10.dp,
@@ -42,7 +42,8 @@ internal fun Loading(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.Black.copy(alpha = 0.5f))
-            .clickable(enabled = false) {},
+            .clickable(enabled = false) {}
+            .recomposeHighlighter(),
         contentAlignment = Alignment.Center,
         content = {
 
@@ -75,14 +76,15 @@ internal fun Loading(
             val distance = with(LocalDensity.current) { travelDistance.toPx() }
             val lastCircle = circleValues.size - 1
 
-            Row(modifier = modifier) {
+            Row(modifier = Modifier.recomposeHighlighter()) {
                 circleValues.forEachIndexed { index, value ->
                     Box(modifier = Modifier
                         .size(circleSize)
                         .graphicsLayer { translationY = -value * distance }
                         .background(color = circleColor, shape = CircleShape)
+                        .recomposeHighlighter()
                     )
-                    if (index != lastCircle) Spacer(modifier = Modifier.width(spaceBetween))
+                    if (index != lastCircle) Spacer(modifier = Modifier.width(spaceBetween).recomposeHighlighter())
                 }
             }
         }

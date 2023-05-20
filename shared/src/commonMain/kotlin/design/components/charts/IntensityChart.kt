@@ -9,6 +9,7 @@ import design.Design
 import design.chart.PointCircle
 import design.chart.PointLine
 import design.components.items.LineChartItem
+import utils.recomposeHighlighter
 
 @Composable
 fun IntensityChart(
@@ -44,7 +45,7 @@ fun IntensityChart(
     }
 
     LineChartItem(
-        modifier = modifier,
+        modifier = modifier.recomposeHighlighter(),
         lines = { lines }
     )
 }

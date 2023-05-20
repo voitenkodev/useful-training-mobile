@@ -9,6 +9,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import design.Design
 import design.controls.TextFieldBody1
+import utils.recomposeHighlighter
 
 @Composable
 internal fun WeekDayLabel(
@@ -44,7 +45,9 @@ internal fun WeekDayLabel(
             .background(
                 color = backgroundColor,
                 shape = Design.shape.circleShape
-            ).padding(horizontal = 8.dp, vertical = 2.dp),
+            )
+            .padding(horizontal = 8.dp, vertical = 2.dp)
+            .recomposeHighlighter(),
         provideText = { txt },
         fontWeight = FontWeight.Bold
     )

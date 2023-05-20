@@ -14,18 +14,21 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import design.Design
 import design.controls.TextFieldBody2
+import utils.recomposeHighlighter
 
 @Composable
 internal fun IterationCaptionItem() = Column(
     modifier = Modifier
         .padding(vertical = 4.dp)
         .width(60.dp)
+        .recomposeHighlighter()
 ) {
     TextFieldBody2(
         modifier = Modifier
             .height(Design.dp.component)
             .fillMaxWidth()
-            .wrapContentHeight(),
+            .wrapContentHeight()
+            .recomposeHighlighter(),
         provideText = { "Weight" },
         textAlign = TextAlign.Center,
         color = Design.colors.caption,
@@ -37,7 +40,8 @@ internal fun IterationCaptionItem() = Column(
         modifier = Modifier
             .height(Design.dp.component)
             .fillMaxWidth()
-            .wrapContentHeight(),
+            .wrapContentHeight()
+            .recomposeHighlighter(),
         provideText = { "Repeat" },
         color = Design.colors.caption,
         textAlign = TextAlign.Center,

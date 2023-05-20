@@ -20,6 +20,7 @@ import design.Design
 import design.atomic.icons.BarChart
 import design.controls.IconPrimary
 import design.controls.TextFieldH1
+import utils.recomposeHighlighter
 
 @Composable
 internal fun Header(
@@ -30,7 +31,7 @@ internal fun Header(
     exit: (() -> Unit)? = null,
     back: (() -> Unit)? = null,
 ) = Row(
-    modifier = Modifier.fillMaxWidth().height(Design.dp.header).background(Design.colors.primary),
+    modifier = Modifier.fillMaxWidth().height(Design.dp.header).background(Design.colors.primary).recomposeHighlighter(),
     horizontalArrangement = Arrangement.SpaceBetween,
     verticalAlignment = Alignment.CenterVertically
 ) {
@@ -43,7 +44,7 @@ internal fun Header(
     }
 
     TextFieldH1(
-        modifier = Modifier.weight(1f),
+        modifier = Modifier.weight(1f).recomposeHighlighter(),
         provideText = { title }
     )
 
@@ -78,7 +79,7 @@ private fun Action(
     imageVector: ImageVector,
     onClick: () -> Unit
 ) = IconPrimary(
-    modifier = Modifier.size(56.dp),
+    modifier = Modifier.size(56.dp).recomposeHighlighter(),
     imageVector = imageVector,
     onClick = onClick
 )

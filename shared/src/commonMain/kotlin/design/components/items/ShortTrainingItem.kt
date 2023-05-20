@@ -22,6 +22,7 @@ import design.controls.DividerPrimary
 import design.controls.TextFieldBody2
 import design.controls.secondaryBackground
 import presentation.training.Training
+import utils.recomposeHighlighter
 
 @Composable
 internal fun ShortTrainingItem(
@@ -40,30 +41,33 @@ internal fun ShortTrainingItem(
             shape = Design.shape.default
         )
         .padding(horizontal = Design.dp.padding)
-        .clickable(onClick = onClick),
+        .clickable(onClick = onClick)
+        .recomposeHighlighter(),
 ) {
     Row(
-        modifier = Modifier.requiredHeight(44.dp),
+        modifier = Modifier.requiredHeight(44.dp).recomposeHighlighter(),
         horizontalArrangement = Arrangement.spacedBy(4.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
 
         WeekDayLabel(
-            modifier = Modifier.padding(end = 4.dp),
+            modifier = Modifier.padding(end = 4.dp).recomposeHighlighter(),
             weekDayEnglish = training.weekDay,
         )
 
         TextFieldBody2(
+            modifier =Modifier.recomposeHighlighter(),
             provideText = { training.startLongDate },
             color = Design.colors.caption,
             fontWeight = FontWeight.Bold
         )
     }
 
-    DividerPrimary(modifier = Modifier.padding(bottom = 4.dp))
+    DividerPrimary(modifier = Modifier.padding(bottom = 4.dp).recomposeHighlighter())
 
     training.exercises.take(4).map { it.name }.forEachIndexed { index, item ->
         TextFieldBody2(
+            modifier = Modifier.recomposeHighlighter(),
             provideText = { "${index + 1}.  $item" },
             fontWeight = FontWeight.Bold,
             maxLines = 1,
@@ -71,6 +75,7 @@ internal fun ShortTrainingItem(
         )
     }
     if (training.exercises.size > 4) TextFieldBody2(
+        modifier = Modifier.recomposeHighlighter(),
         provideText = { "..." },
         fontWeight = FontWeight.Bold,
         maxLines = 1,

@@ -13,6 +13,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import design.Design
 import design.controls.TextFieldBody1
+import utils.recomposeHighlighter
 
 @Composable
 fun ChipLabel(
@@ -29,7 +30,7 @@ fun ChipLabel(
                 interactionSource = remember { MutableInteractionSource() },
                 indication = rememberRipple(bounded = true),
                 onClick = { onClick.invoke(txt) }
-            ),
+            ).recomposeHighlighter(),
         provideText = provideText,
         color = Design.colors.content.copy(alpha = 0.5f),
         fontWeight = FontWeight.Bold

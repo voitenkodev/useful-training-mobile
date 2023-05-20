@@ -12,8 +12,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
 import design.Design
 import design.components.labels.ChipLabel
+import utils.recomposeHighlighter
 
 @Composable
 fun HelpExerciseNameItem(
@@ -68,6 +70,7 @@ fun HelpExerciseNameItem(
         ) {
             items(opts) {
                 ChipLabel(
+                    modifier = Modifier.recomposeHighlighter(),
                     provideText = { it },
                     onClick = select,
                 )

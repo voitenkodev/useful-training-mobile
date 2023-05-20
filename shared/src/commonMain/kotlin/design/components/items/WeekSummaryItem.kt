@@ -28,6 +28,7 @@ import design.chart.LineChart
 import design.chart.PointLine
 import design.controls.TextFieldBody2
 import presentation.trainings.WeekInfo
+import utils.recomposeHighlighter
 
 @Composable
 internal fun WeekSummary(
@@ -38,12 +39,17 @@ internal fun WeekSummary(
         .requiredHeight(114.dp)
         .background(color = Design.colors.secondary, shape = Design.shape.default)
         .fillMaxWidth()
+        .recomposeHighlighter()
 ) {
 
     val lineColor = Design.colors.accent_secondary
 
     LineChart(
-        modifier = Modifier.fillMaxSize().alpha(0.15f).padding(bottom = 10.dp),
+        modifier = Modifier
+            .fillMaxSize()
+            .alpha(0.15f)
+            .padding(bottom = 10.dp)
+            .recomposeHighlighter(),
         lines = {
             listOf(
                 PointLine(
@@ -56,40 +62,54 @@ internal fun WeekSummary(
     )
 
     Column(
-        modifier = Modifier.fillMaxSize().padding(Design.dp.padding),
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(Design.dp.padding)
+            .recomposeHighlighter(),
         verticalArrangement = Arrangement.SpaceBetween
     ) {
         Row(
-            modifier = modifier.fillMaxWidth(),
+            modifier = modifier
+                .fillMaxWidth()
+                .recomposeHighlighter(),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
         ) {
 
             Column(
-                modifier = Modifier.height(44.dp),
+                modifier = Modifier
+                    .height(44.dp)
+                    .recomposeHighlighter(),
                 verticalArrangement = Arrangement.SpaceAround
             ) {
 
                 TextFieldBody2(
+                    modifier = Modifier.recomposeHighlighter(),
                     provideText = { info.startWeekDate + " →" },
                     fontWeight = FontWeight.Bold,
                 )
 
                 TextFieldBody2(
-                    modifier = modifier.padding(start = Design.dp.padding),
+                    modifier = modifier
+                        .padding(start = Design.dp.padding)
+                        .recomposeHighlighter(),
                     provideText = { "← " + info.endWeekDate },
                     fontWeight = FontWeight.Bold,
                 )
             }
 
             WeekDayStatusLine(
-                modifier = Modifier.width(180.dp).height(44.dp),
+                modifier = Modifier
+                    .width(180.dp)
+                    .height(44.dp)
+                    .recomposeHighlighter(),
                 listOfWeekDaysEnglish = listOf("MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY"),
                 availableList = info.trainingWeekDays
             )
         }
 
         WeekInfoFooter(
+            modifier = Modifier.recomposeHighlighter(),
             intensity = info.intensity,
             tonnage = info.tonnage
         )
@@ -102,11 +122,13 @@ private fun WeekDayStatusLine(
     listOfWeekDaysEnglish: List<String>,
     availableList: List<String>
 ) = Column(
-    modifier = modifier,
+    modifier = modifier.recomposeHighlighter(),
     verticalArrangement = Arrangement.SpaceAround
 ) {
     Row(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .recomposeHighlighter(),
         horizontalArrangement = Arrangement.SpaceAround
     ) {
         listOfWeekDaysEnglish.forEach {
@@ -114,12 +136,15 @@ private fun WeekDayStatusLine(
             val weekShort by rememberUpdatedState(toShortWeek(it))
 
             TextFieldBody2(
+                modifier = Modifier.recomposeHighlighter(),
                 provideText = { weekShort }
             )
         }
     }
     Row(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .recomposeHighlighter(),
         horizontalArrangement = Arrangement.SpaceAround
     ) {
         listOfWeekDaysEnglish.forEach {
@@ -129,7 +154,7 @@ private fun WeekDayStatusLine(
                     .background(
                         color = if (availableList.contains(it)) Design.colors.accent_secondary else Design.colors.caption,
                         shape = CircleShape
-                    )
+                    ).recomposeHighlighter()
             )
         }
     }
@@ -145,34 +170,43 @@ internal fun WeekInfoFooter(
     val intensityPercents = remember(intensity) { "${intensity}%" }
 
     Row(
-        modifier = modifier,
+        modifier = modifier.recomposeHighlighter(),
         horizontalArrangement = Arrangement.spacedBy(4.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
 
         TextFieldBody2(
-            modifier = Modifier.padding(end = 4.dp),
+            modifier = Modifier
+                .padding(end = 4.dp)
+                .recomposeHighlighter(),
             provideText = { "Intensity:" },
             color = Design.colors.caption,
         )
 
         TextFieldBody2(
+            modifier = Modifier.recomposeHighlighter(),
             provideText = { intensityPercents },
             color = Design.colors.content,
             fontWeight = FontWeight.Bold
         )
 
         Spacer(
-            modifier = Modifier.weight(1f)
+            modifier = Modifier
+                .weight(1f)
+                .recomposeHighlighter()
         )
 
         TextFieldBody2(
-            modifier = Modifier.padding(end = 4.dp),
+            modifier = Modifier
+                .padding(end = 4.dp)
+                .recomposeHighlighter(),
             provideText = { "Tonnage:" },
             color = Design.colors.caption,
         )
 
         TextFieldBody2(
+            modifier = Modifier
+                .recomposeHighlighter(),
             provideText = { tonnageKg },
             color = Design.colors.content,
             fontWeight = FontWeight.Bold

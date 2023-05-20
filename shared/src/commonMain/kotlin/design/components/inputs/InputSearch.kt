@@ -22,6 +22,7 @@ import design.components.labels.InputLabel
 import design.controls.IconPrimary
 import design.controls.InputFieldPrimary
 import design.controls.tertiaryBackground
+import utils.recomposeHighlighter
 
 @Composable
 internal fun InputSearch(
@@ -34,17 +35,19 @@ internal fun InputSearch(
     InputFieldPrimary(
         modifier = modifier
             .tertiaryBackground()
-            .padding(horizontal = Design.dp.padding),
+            .padding(horizontal = Design.dp.padding)
+            .recomposeHighlighter(),
         provideValue = value,
         onValueChange = onValueChange,
         trailing = {
             AnimatedVisibility(
-                modifier = Modifier,
+                modifier = Modifier.recomposeHighlighter(),
                 visible = value().isNotEmpty(),
                 enter = fadeIn() + scaleIn(),
                 exit = scaleOut() + fadeOut(),
             ) {
                 IconPrimary(
+                    modifier = Modifier.recomposeHighlighter(),
                     imageVector = Icons.Default.Clear,
                     color = Design.colors.caption,
                     onClick = { onValueChange.invoke("") }
@@ -53,7 +56,7 @@ internal fun InputSearch(
         },
         leading = {
             InputLabel(
-                modifier = Modifier,
+                modifier = Modifier.recomposeHighlighter(),
                 provideText = { "Exercise" }
             )
         },

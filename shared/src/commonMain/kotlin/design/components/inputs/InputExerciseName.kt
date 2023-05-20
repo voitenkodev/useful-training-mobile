@@ -20,6 +20,7 @@ import design.Design
 import design.components.labels.AccentLabel
 import design.controls.IconPrimary
 import design.controls.InputFieldPrimary
+import utils.recomposeHighlighter
 
 @Composable
 internal fun InputExerciseName(
@@ -32,7 +33,9 @@ internal fun InputExerciseName(
     val focusManager = LocalFocusManager.current
 
     InputFieldPrimary(
-        modifier = modifier.fillMaxHeight(),
+        modifier = modifier
+            .fillMaxHeight()
+            .recomposeHighlighter(),
         provideValue = provideName,
         placeholder = "Name of exercise",
         maxLines = 1,
@@ -42,13 +45,18 @@ internal fun InputExerciseName(
         fontWeight = FontWeight.Bold,
         leading = {
             AccentLabel(
-                modifier = Modifier.padding(bottom = 8.dp, top = 8.dp, end = 6.dp, start = 6.dp),
+                modifier = Modifier
+                    .padding(bottom = 8.dp, top = 8.dp, end = 6.dp, start = 6.dp)
+                    .recomposeHighlighter(),
                 provideText = { "${provideNumber()}" },
             )
         },
         trailing = {
             IconPrimary(
-                modifier = Modifier.height(20.dp).width(50.dp),
+                modifier = Modifier
+                    .height(20.dp)
+                    .width(50.dp)
+                    .recomposeHighlighter(),
                 imageVector = Icons.Filled.Delete,
                 color = Design.colors.caption,
                 onClick = remove,

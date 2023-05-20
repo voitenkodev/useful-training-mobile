@@ -12,6 +12,7 @@ import androidx.compose.ui.unit.dp
 import design.Design
 import design.controls.TextFieldBody1
 import presentation.training.Exercise
+import utils.recomposeHighlighter
 
 @Composable
 internal fun ExerciseItem(
@@ -20,23 +21,35 @@ internal fun ExerciseItem(
     exercise: Exercise
 ) {
     Row(
-        modifier = modifier.padding(top = 8.dp, start = 4.dp, end = 4.dp),
+        modifier = modifier
+            .padding(top = 8.dp, start = 4.dp, end = 4.dp)
+            .recomposeHighlighter(),
         horizontalArrangement = Arrangement.spacedBy(4.dp)
     ) {
 
-        TextFieldBody1(provideText = { "${number}." }, fontWeight = FontWeight.Bold)
+        TextFieldBody1(
+            modifier = Modifier.recomposeHighlighter(),
+            provideText = { "${number}." },
+            fontWeight = FontWeight.Bold
+        )
 
         Column {
 
-            TextFieldBody1(provideText = { exercise.name }, fontWeight = FontWeight.Bold)
+            TextFieldBody1(
+                modifier = Modifier.recomposeHighlighter(),
+                provideText = { exercise.name },
+                fontWeight = FontWeight.Bold
+            )
 
             FlowRow(
-                modifier = Modifier.padding(top = 6.dp, bottom = 4.dp),
+                modifier = Modifier
+                    .padding(top = 6.dp, bottom = 4.dp)
+                    .recomposeHighlighter(),
                 horizontalArrangement = Arrangement.spacedBy(4.dp),
             ) {
                 exercise.iterations.forEach {
                     TextFieldBody1(
-                        modifier = Modifier.padding(end = 4.dp),
+                        modifier = Modifier.padding(end = 4.dp).recomposeHighlighter(),
                         provideText = { it.weight + "x" + it.repeat },
                         color = Design.colors.caption
                     )

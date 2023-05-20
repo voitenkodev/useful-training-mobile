@@ -9,6 +9,7 @@ import androidx.compose.ui.unit.dp
 import design.Design
 import design.controls.ButtonSecondary
 import design.controls.TextFieldBody1
+import utils.recomposeHighlighter
 
 @Composable
 internal fun ButtonQuestion(
@@ -17,17 +18,19 @@ internal fun ButtonQuestion(
     answer: String,
     onClick: () -> Unit
 ) = Row(
-    modifier = modifier,
+    modifier = modifier.recomposeHighlighter(),
     horizontalArrangement = Arrangement.spacedBy(0.dp, Alignment.CenterHorizontally),
     verticalAlignment = Alignment.CenterVertically
 ) {
 
     TextFieldBody1(
+        modifier = Modifier.recomposeHighlighter(),
         provideText = { question },
         color = Design.colors.caption
     )
 
     ButtonSecondary(
+        modifier = Modifier.recomposeHighlighter(),
         text = answer,
         onClick = onClick
     )

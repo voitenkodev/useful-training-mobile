@@ -10,6 +10,7 @@ import design.Design
 import design.controls.DividerPrimary
 import design.controls.secondaryBackground
 import presentation.training.Training
+import utils.recomposeHighlighter
 
 @Composable
 internal fun TrainingItem(
@@ -21,29 +22,41 @@ internal fun TrainingItem(
     modifier = modifier
         .secondaryBackground()
         .padding(horizontal = Design.dp.padding)
+        .recomposeHighlighter()
 ) {
 
     TrainingHeader(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth().recomposeHighlighter(),
         weekDay = training.weekDay,
         date = training.startTime,
         review = review,
         edit = edit
     )
 
-    DividerPrimary(modifier = Modifier.padding(bottom = 4.dp))
+    DividerPrimary(
+        modifier = Modifier
+            .padding(bottom = 4.dp)
+            .recomposeHighlighter()
+    )
 
     training.exercises.forEachIndexed { index, item ->
         ExerciseItem(
+            modifier = Modifier.recomposeHighlighter(),
             number = index + 1,
             exercise = item
         )
     }
 
-    DividerPrimary(modifier = Modifier.padding(top = 12.dp))
+    DividerPrimary(
+        modifier = Modifier
+            .padding(top = 12.dp)
+            .recomposeHighlighter()
+    )
 
     TrainingFooter(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .recomposeHighlighter(),
         tonnage = training.tonnage.toString(),
         durationTime = training.durationTime
     )

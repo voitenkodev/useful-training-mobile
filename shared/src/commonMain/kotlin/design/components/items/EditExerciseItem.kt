@@ -17,6 +17,7 @@ import design.components.inputs.InputExerciseName
 import design.controls.DividerPrimary
 import design.controls.secondaryBackground
 import presentation.training.Iteration
+import utils.recomposeHighlighter
 
 @Composable
 fun EditExerciseItem(
@@ -40,7 +41,8 @@ fun EditExerciseItem(
         InputExerciseName(
             modifier = Modifier
                 .padding(start = 8.dp)
-                .onFocusChanged { helpVisible.value = it.hasFocus },
+                .onFocusChanged { helpVisible.value = it.hasFocus }
+                .recomposeHighlighter(),
             provideNumber = number,
             provideName = name,
             update = updateName,
@@ -56,7 +58,11 @@ fun EditExerciseItem(
             }
         )
 
-        DividerPrimary(modifier = Modifier.padding(horizontal = 12.dp))
+        DividerPrimary(
+            modifier = Modifier
+                .padding(horizontal = 12.dp)
+                .recomposeHighlighter()
+        )
 
         WeightRepeatSection(
             iterations = iterations,
@@ -73,7 +79,9 @@ private fun WeightRepeatSection(
     updateRepeat: (Int, String) -> Unit
 ) {
     FlowRow(
-        modifier = Modifier.padding(top = 4.dp, bottom = 8.dp, start = 12.dp, end = 12.dp),
+        modifier = Modifier
+            .padding(top = 4.dp, bottom = 8.dp, start = 12.dp, end = 12.dp)
+            .recomposeHighlighter(),
         horizontalArrangement = Arrangement.spacedBy(6.dp),
     ) {
 
@@ -86,6 +94,7 @@ private fun WeightRepeatSection(
             val repeatProvider by rememberUpdatedState(iteration.repeat)
 
             IterationInputItem(
+                modifier = Modifier.recomposeHighlighter(),
                 provideWeight = { weightProvider },
                 provideRepeat = { repeatProvider },
                 updateWeight = { updateWeight.invoke(indexProvider, it) },
