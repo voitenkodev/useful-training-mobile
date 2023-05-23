@@ -24,7 +24,6 @@ import utils.recomposeHighlighter
 
 @Composable
 internal fun Error(
-    modifier: Modifier = Modifier,
     message: String?,
     close: () -> Unit
 ) {
@@ -39,7 +38,6 @@ internal fun Error(
 
     InnerError(
         provideMessage = { value.value },
-        modifier = modifier,
         visibility = message != null
     )
 }
@@ -47,13 +45,11 @@ internal fun Error(
 @Composable
 private fun InnerError(
     provideMessage: () -> String?,
-    modifier: Modifier,
     visibility: Boolean,
 ) {
-
     AnimatedVisibility(
         visible = visibility,
-        modifier = modifier
+        modifier = Modifier
             .fillMaxWidth()
             .recomposeHighlighter(),
         enter = slideInVertically(
@@ -71,27 +67,36 @@ private fun InnerError(
             )
         )
     ) {
-        Column(
-            modifier = Modifier
-                .padding(Design.dp.padding)
-                .background(
-                    color = Design.colors.accent_tertiary,
-                    shape = Design.shape.default
-                )
-                .padding(Design.dp.padding)
-                .recomposeHighlighter(),
-            verticalArrangement = Arrangement.spacedBy(Design.dp.padding),
-            content = {
-                TextFieldH2(
-                    modifier = Modifier.recomposeHighlighter(),
-                    provideText = { "Error!" },
-                    fontWeight = FontWeight.Bold
-                )
-                TextFieldBody1(
-                    modifier = Modifier.recomposeHighlighter(),
-                    provideText = provideMessage
-                )
-            }
+        ErrorContent(
+            provideMessage = provideMessage
         )
     }
+}
+
+@Composable
+private fun ErrorContent(
+    provideMessage: () -> String?
+) {
+    Column(
+        modifier = Modifier
+            .padding(Design.dp.padding)
+            .background(
+                color = Design.colors.accent_tertiary,
+                shape = Design.shape.default
+            )
+            .padding(Design.dp.padding)
+            .recomposeHighlighter(),
+        verticalArrangement = Arrangement.spacedBy(Design.dp.padding),
+        content = {
+            TextFieldH2(
+                modifier = Modifier.recomposeHighlighter(),
+                provideText = { "Error!" },
+                fontWeight = FontWeight.Bold
+            )
+            TextFieldBody1(
+                modifier = Modifier.recomposeHighlighter(),
+                provideText = provideMessage
+            )
+        }
+    )
 }
