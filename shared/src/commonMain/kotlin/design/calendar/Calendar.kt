@@ -4,6 +4,10 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
@@ -31,8 +35,8 @@ import kotlin.math.ceil
 
 @Composable
 internal fun Calendar(
-    month: Int,
-    year: Int,
+    provideMonth: () -> Int,
+    provideYear: () -> Int,
     listOfDays: () -> List<Int>,
     headerColor: Color,
     labelsColor: Color,
@@ -40,6 +44,10 @@ internal fun Calendar(
     selectedColor: Color,
     dayClick: (Int) -> Unit
 ) {
+
+    val month by rememberUpdatedState(provideMonth())
+    val year by rememberUpdatedState(provideYear())
+    val filledDays by rememberUpdatedState(listOfDays())
 
     // OTHER
     val textMeasurer = rememberTextMeasurer()
@@ -50,31 +58,37 @@ internal fun Calendar(
     val weekDayLabelHeight = 24.dp
 
     // CALENDAR UTILS
-    val daysOfWeek = listOf("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")
-    val daysInMonth = getDaysInMonth(month, year)
-    val firstDayOfMonth = firstDayOfMonth(month, year)
+    val daysOfWeek by rememberUpdatedState(listOf("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"))
+
+    val daysInMonth by remember(month, year) {
+        mutableStateOf(getDaysInMonth(month, year))
+    }
+    val firstDayOfMonth by remember(month, year) {
+        mutableStateOf(firstDayOfMonth(month, year))
+    }
+
     val padding = Design.dp.padding
 
-    val dayRects = ArrayList<Pair<Int, Rect>>()
+    val dayRects by rememberUpdatedState(ArrayList<Pair<Int, Rect>>())
 
     Canvas(
         modifier = Modifier
             .fillMaxSize()
             .recomposeHighlighter()
-            .pointerInput(month, listOfDays()) {
-                detectTapGestures(
-                    onTap = { tapOffset ->
-                        var index = 0
-                        for (rect in dayRects) {
-                            if (rect.second.contains(tapOffset)) {
-                                dayClick.invoke(rect.first)
-                                break
-                            }
-                            index++
-                        }
-                    }
-                )
-            }
+//            .pointerInput(month, filledDays) { // TODO BUG WITH RECOMPOSITION ALL TIME
+//                detectTapGestures(
+//                    onTap = { tapOffset ->
+//                        var index = 0
+//                        for (rect in dayRects) {
+//                            if (rect.second.contains(tapOffset)) {
+//                                dayClick.invoke(rect.first)
+//                                break
+//                            }
+//                            index++
+//                        }
+//                    }
+//                )
+//            }
     ) {
 
         val labelsHeight = ceil((padding + weekDayLabelHeight).toPx())
@@ -144,7 +158,7 @@ internal fun Calendar(
                 )
             )
 
-            listOfDays()
+            filledDays
                 .count { it == dayOfMonth }
                 .takeIf { it > 0 }
                 ?.let {

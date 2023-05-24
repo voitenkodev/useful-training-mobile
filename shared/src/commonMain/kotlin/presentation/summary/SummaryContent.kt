@@ -74,8 +74,8 @@ internal fun SummaryContent(vm: SummaryViewModel) {
         query = { state.query },
         search = vm::setQuery,
 
-        month = state.selectedMonth,
-        year = state.selectedYear,
+        month = { state.selectedMonth },
+        year = { state.selectedYear },
         trainingDays = { state.currentMonthTrainings },
         leftMonth = vm::decreaseMonth,
         rightMonth = vm::increaseMonth,
@@ -107,8 +107,8 @@ private fun Content(
     search: (String) -> Unit,
 
     // Calendar
-    month: Int,
-    year: Int,
+    month: () -> Int,
+    year: () -> Int,
     trainingDays: () -> List<Int>,
     leftMonth: () -> Unit,
     rightMonth: () -> Unit,
@@ -169,17 +169,17 @@ private fun Content(
 
             if (isEmptyExercises)
                 item(key = "calendar_component") {
+                    val monthProvider by rememberUpdatedState(month())
                     CalendarSection(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .aspectRatio(1.4f)
-                            .animateItemPlacement(),
+                            .aspectRatio(1.4f),
                         month = month,
                         year = year,
                         provideTrainingDays = trainingDays,
                         leftMonth = leftMonth,
                         rightMonth = rightMonth,
-                        dayClick = { dayClick(it, month) }
+                        dayClick = { dayClick(it, monthProvider) }
                     )
                 }
 
@@ -283,8 +283,8 @@ fun AutoScrollStateHandler(
 @Composable
 private fun CalendarSection(
     modifier: Modifier,
-    month: Int,
-    year: Int,
+    month: () -> Int,
+    year: () -> Int,
     provideTrainingDays: () -> List<Int>,
     leftMonth: () -> Unit,
     rightMonth: () -> Unit,
@@ -309,7 +309,7 @@ private fun CalendarSection(
 
             TextFieldH2(
                 modifier = Modifier,
-                provideText = { "${monthTitle(month)} $year" },
+                provideText = { "${monthTitle(month())} ${year()}" },
                 fontWeight = FontWeight.Bold
             )
 
@@ -320,8 +320,8 @@ private fun CalendarSection(
         }
 
         Calendar(
-            month = month,
-            year = year,
+            provideMonth = month,
+            provideYear = year,
             listOfDays = provideTrainingDays,
             headerColor = Color.Transparent,
             daysColor = Design.colors.content,
