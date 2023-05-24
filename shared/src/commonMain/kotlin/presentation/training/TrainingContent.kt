@@ -12,6 +12,8 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -51,7 +53,7 @@ internal fun TrainingContent(vm: TrainingViewModel, trainingId: String?) {
         closeExitScreenPopup = vm::closeExitScreenPopup,
         back = vm::back,
 
-        removeExerciseId = state.removeExerciseId,
+        removeExerciseId = { state.removeExerciseId },
         removeExercise = vm::removeExercise,
         closeRemoveExercisePopup = vm::closeRemoveExercisePopup,
 
@@ -79,7 +81,7 @@ private fun Content(
     exitWarningVisibility: Boolean,
     closeExitScreenPopup: () -> Unit,
 
-    removeExerciseId: String?,
+    removeExerciseId: () -> String?,
     removeExercise: (id: String?) -> Unit,
     closeRemoveExercisePopup: () -> Unit,
 
@@ -96,11 +98,16 @@ private fun Content(
     addExercise: () -> Unit,
 ) {
 
+    val tryBackProvider by remember { mutableStateOf(tryBack) }
+    val saveTrainingProvider by remember { mutableStateOf(saveTraining) }
+    val openExitScreenPopupProvider by remember { mutableStateOf(openExitScreenPopup) }
+
+
     ScrollableRoot(
         modifier = Modifier.fillMaxWidth(),
         loading = { Loading(loading) },
         error = { Error(message = error, close = clearError) },
-        back = { PlatformBackHandler(tryBack) },
+        back = { PlatformBackHandler(tryBackProvider) },
         popups = {
             Popup(
                 visibility = exitWarningVisibility,
@@ -111,12 +118,12 @@ private fun Content(
                 back = closeExitScreenPopup
             )
             Popup(
-                visibility = removeExerciseId != null,
+                visibility = removeExerciseId() != null,
                 title = "Warning",
                 message = "Are you sure to remove exercise?",
                 button = "Yes",
                 click = {
-                    removeExercise(removeExerciseId)
+                    removeExercise(removeExerciseId())
                     closeRemoveExercisePopup()
                 },
                 back = closeRemoveExercisePopup
@@ -125,11 +132,12 @@ private fun Content(
         header = {
             Header(
                 title = "Exercises!",
-                back = openExitScreenPopup,
-                save = saveTraining
+                back = openExitScreenPopupProvider,
+                save = saveTrainingProvider
             )
         },
         content = {
+
 
             itemsIndexed(exercises.value, key = { _, exercise -> exercise.id }) { index, exercise ->
 

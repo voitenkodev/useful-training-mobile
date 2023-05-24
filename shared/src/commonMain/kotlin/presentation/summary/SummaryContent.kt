@@ -66,8 +66,8 @@ internal fun SummaryContent(vm: SummaryViewModel) {
 
     Content(
         listState = listState,
-        loading = { state.loading },
-        error = { state.error },
+        loading = state.loading,
+        error = state.error,
         clearError = vm::clearError,
         back = vm::back,
 
@@ -97,8 +97,8 @@ internal fun SummaryContent(vm: SummaryViewModel) {
 @Composable
 private fun Content(
     listState: LazyListState,
-    loading: () -> Boolean,
-    error: () -> String?,
+    loading: Boolean,
+    error: String?,
     clearError: () -> Unit,
     back: () -> Unit,
 
@@ -135,8 +135,8 @@ private fun Content(
     ScrollableRoot(
         modifier = Modifier.fillMaxSize(),
         listState = listState,
-        loading = { Loading(loading()) },
-        error = { Error(message = error(), close = clearError) },
+        loading = { Loading(loading) },
+        error = { Error(message = error, close = clearError) },
         back = { PlatformBackHandler(backProvider) },
         popups = {},
         header = {
