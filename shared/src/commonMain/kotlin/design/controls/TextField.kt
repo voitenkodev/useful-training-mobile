@@ -9,6 +9,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import design.Design
+import utils.recomposeHighlighter
 
 @Composable
 internal fun TextFieldH1(
@@ -130,7 +131,7 @@ internal fun TextField(
     } else textStyle2
 
     BasicText(
-        modifier = modifier,
+        modifier = modifier.recomposeHighlighter(),
         text = provideText() ?: placeholder ?: "",
         style = textStyle3,
         maxLines = maxLines,
