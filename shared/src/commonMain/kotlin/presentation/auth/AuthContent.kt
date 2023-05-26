@@ -19,6 +19,7 @@ import design.components.roots.ScrollableRoot
 import design.controls.ButtonPrimary
 import design.controls.TextFieldBody1
 import design.controls.TextFieldH1
+import utils.recomposeHighlighter
 
 @Composable
 internal fun AuthContent(vm: AuthViewModel) {
@@ -60,14 +61,17 @@ private fun Content(
 ) {
 
     ScrollableRoot(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .recomposeHighlighter(),
         loading = { Loading(loading) },
         error = { Error(message = error, close = clearError) },
         back = { PlatformBackHandler(back) },
         header = {
             TextFieldH1(
                 modifier = Modifier
-                    .height(Design.dp.bigHeader),
+                    .height(Design.dp.bigHeader)
+                    .recomposeHighlighter(),
                 provideText = { "\uD83D\uDC4B Welcome back!" },
                 textAlign = TextAlign.Center
             )
@@ -77,13 +81,17 @@ private fun Content(
             val registrationProvider by rememberUpdatedState(registration)
 
             ButtonPrimary(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .recomposeHighlighter(),
                 text = "Log In",
                 onClick = loginProvider
             )
 
             ButtonQuestion(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .recomposeHighlighter(),
                 question = "Don't have an account yet?",
                 answer = "Sign Up!",
                 onClick = registrationProvider
@@ -92,21 +100,26 @@ private fun Content(
         content = {
             item(key = "notes") {
                 TextFieldBody1(
-                    modifier = Modifier,
+                    modifier = Modifier
+                        .recomposeHighlighter(),
                     provideText = { "Sign in to your account" },
                     color = Design.colors.caption
                 )
             }
             item(key = "input_email") {
                 InputEmail(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .recomposeHighlighter(),
                     provideValue = email,
                     onValueChange = updateEmail
                 )
             }
             item(key = "input_password") {
                 InputPassword(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .recomposeHighlighter(),
                     provideValue = password,
                     onValueChange = updatePassword
                 )

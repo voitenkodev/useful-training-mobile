@@ -52,11 +52,11 @@ internal fun ShortTrainingItem(
 
         WeekDayLabel(
             modifier = Modifier.padding(end = 4.dp).recomposeHighlighter(),
-            weekDayEnglish = training.weekDay,
+            weekDayEnglish = { training.weekDay },
         )
 
         TextFieldBody2(
-            modifier =Modifier.recomposeHighlighter(),
+            modifier = Modifier.recomposeHighlighter(),
             provideText = { training.startLongDate },
             color = Design.colors.caption,
             fontWeight = FontWeight.Bold

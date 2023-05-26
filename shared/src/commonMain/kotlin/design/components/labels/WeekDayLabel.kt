@@ -14,7 +14,7 @@ import utils.recomposeHighlighter
 @Composable
 internal fun WeekDayLabel(
     modifier: Modifier = Modifier,
-    weekDayEnglish: String?,
+    weekDayEnglish: () -> String?,
 ) {
     val c0 = Design.colors.accent_primary
     val c1 = Design.colors.unique.color1
@@ -25,10 +25,10 @@ internal fun WeekDayLabel(
     val c6 = Design.colors.unique.color6
     val c7 = Design.colors.unique.color7
 
-    val txt = remember(weekDayEnglish) { weekDayEnglish?.uppercase() }
+    val txt = remember(weekDayEnglish) { weekDayEnglish()?.uppercase() }
 
     val backgroundColor = remember(weekDayEnglish) {
-        when (weekDayEnglish?.uppercase()) {
+        when (weekDayEnglish()?.uppercase()) {
             "MONDAY" -> c1
             "TUESDAY" -> c2
             "WEDNESDAY" -> c3

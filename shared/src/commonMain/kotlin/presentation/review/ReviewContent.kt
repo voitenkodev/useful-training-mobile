@@ -20,6 +20,8 @@ import androidx.compose.material.icons.filled.Clear
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -42,6 +44,7 @@ import design.controls.IconPrimary
 import design.controls.TextFieldBody2
 import design.controls.secondaryBackground
 import presentation.training.Training
+import utils.recomposeHighlighter
 
 @Composable
 internal fun ReviewContent(vm: ReviewViewModel, trainingId: String) {
@@ -94,6 +97,11 @@ private fun Content(
     compareWith: (Training) -> Unit,
     openRemoveTrainingPopup: (String?) -> Unit
 ) {
+
+    val backProvider by remember { mutableStateOf(back) }
+    val exercisesProvider by rememberUpdatedState(provideReviewTraining().exercises)
+    val idProvider by rememberUpdatedState(provideReviewTraining().id)
+
     ScrollableRoot(
         modifier = Modifier.fillMaxSize(),
         loading = { Loading(loading) },
@@ -120,31 +128,35 @@ private fun Content(
         header = {
             Header(
                 title = "Review!",
-                exit = back
+                exit = backProvider
             )
         },
         content = {
             item(key = "date") {
                 DateItem(
-                    weekDay = provideReviewTraining().weekDay,
-                    startTime = provideReviewTraining().startTime,
-                    startDate = provideReviewTraining().shortStartDate
+                    provideWeekDay = { provideReviewTraining().weekDay },
+                    startTime = { provideReviewTraining().startTime },
+                    startDate = { provideReviewTraining().shortStartDate }
                 )
             }
 
             item(key = "exercises") {
-                provideReviewTraining().exercises.forEachIndexed { index, item ->
+                exercisesProvider.forEachIndexed { index, item ->
+
                     ExerciseItem(
-                        modifier = Modifier.animateItemPlacement(),
-                        number = index + 1,
-                        exercise = item
+                        modifier = Modifier
+                            .recomposeHighlighter(),
+                        provideNumber = { index + 1 },
+                        exercise = { item }
                     )
                 }
             }
 
             item(key = "charts") {
                 ChartsSection(
-                    modifier = Modifier.animateItemPlacement(),
+                    modifier = Modifier
+                        .animateItemPlacement()
+                        .recomposeHighlighter(),
                     provideCompareTraining = provideCompareTraining,
                     provideReviewTraining = provideReviewTraining
                 )
@@ -153,7 +165,9 @@ private fun Content(
             if (provideOtherTrainings().isNotEmpty()) {
                 item(key = "comparing") {
                     Comparing(
-                        modifier = Modifier.animateItemPlacement(),
+                        modifier = Modifier
+                            .animateItemPlacement()
+                            .recomposeHighlighter(),
                         provideList = provideOtherTrainings,
                         provideSelected = provideCompareTraining,
                         compare = compareWith,
@@ -164,10 +178,13 @@ private fun Content(
 
             item(key = "remove_action") {
                 ButtonSecondary(
-                    modifier = Modifier.fillMaxWidth().animateItemPlacement(),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .animateItemPlacement()
+                        .recomposeHighlighter(),
                     text = "Remove Training",
                     color = Design.colors.accent_tertiary,
-                    onClick = { openRemoveTrainingPopup(provideReviewTraining().id) }
+                    onClick = { openRemoveTrainingPopup(idProvider) }
                 )
             }
         }
@@ -177,13 +194,15 @@ private fun Content(
 @Composable
 private fun ChartsSection(
     modifier: Modifier = Modifier,
-    provideCompareTraining: () -> Training?,
     provideReviewTraining: () -> Training,
+    provideCompareTraining: () -> Training?,
 ) = Column(
     modifier = modifier,
     verticalArrangement = Arrangement.spacedBy(Design.dp.padding)
 ) {
+
     HorizontalPager(
+        modifier = Modifier.recomposeHighlighter(),
         pageCount = 3,
         pageSpacing = 8.dp,
         pageSize = PageSize.Fixed(Design.dp.fixedWidth),
@@ -192,7 +211,8 @@ private fun ChartsSection(
                 0 -> Summary(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .aspectRatio(1.7f),
+                        .aspectRatio(1.7f)
+                        .recomposeHighlighter(),
                     provideTraining = provideReviewTraining,
                     provideCompareTraining = provideCompareTraining
                 )
@@ -200,7 +220,8 @@ private fun ChartsSection(
                 1 -> TonnageChart(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .aspectRatio(1.7f),
+                        .aspectRatio(1.7f)
+                        .recomposeHighlighter(),
                     provideData = {
                         provideReviewTraining().exercises.map { it.tonnage.toFloat() }
                     },
@@ -212,7 +233,8 @@ private fun ChartsSection(
                 2 -> IntensityChart(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .aspectRatio(1.7f),
+                        .aspectRatio(1.7f)
+                        .recomposeHighlighter(),
                     provideData = {
                         provideReviewTraining().exercises.map { it.intensity.toFloat() }
                     },
@@ -276,9 +298,9 @@ private fun Comparing(
 @Composable
 private fun DateItem(
     modifier: Modifier = Modifier,
-    weekDay: String,
-    startTime: String,
-    startDate: String
+    provideWeekDay: () -> String,
+    startTime: () -> String,
+    startDate: () -> String
 ) = Row(
     modifier = modifier,
     horizontalArrangement = Arrangement.spacedBy(4.dp),
@@ -286,19 +308,20 @@ private fun DateItem(
 ) {
 
     WeekDayLabel(
-        modifier = Modifier.padding(end = 4.dp),
-        weekDayEnglish = weekDay
+        modifier = Modifier.padding(end = 4.dp).recomposeHighlighter(),
+        weekDayEnglish = provideWeekDay
     )
 
     TextFieldBody2(
-        modifier = Modifier.padding(end = 4.dp),
-        provideText = { startTime },
+        modifier = Modifier.padding(end = 4.dp).recomposeHighlighter(),
+        provideText = startTime,
         color = Design.colors.caption,
         fontWeight = FontWeight.Bold
     )
 
     TextFieldBody2(
-        provideText = { startDate },
+        modifier = Modifier.recomposeHighlighter(),
+        provideText = startDate,
         color = Design.colors.caption,
         fontWeight = FontWeight.Bold
     )
@@ -317,53 +340,55 @@ private fun Summary(
     Column(
         modifier = modifier
             .secondaryBackground()
-            .padding(horizontal = Design.dp.padding),
+            .padding(horizontal = Design.dp.padding)
+            .recomposeHighlighter(),
         verticalArrangement = Arrangement.SpaceAround
     ) {
 
         Section(
-            label = "Tonnage",
-            value = "${training.tonnage}kg",
-            compareValue = compareTraining?.tonnage?.let { " / ${it}kg" }
+            provideLabel = { "Tonnage" },
+            provideValue = { "${training.tonnage}kg" },
+            compareValue = { compareTraining?.tonnage?.let { " / ${it}kg" } }
         )
 
         DividerPrimary()
 
         Section(
-            label = "Repeats",
-            value = "${training.countOfLifting}",
-            compareValue = compareTraining?.countOfLifting?.let { " / $it" }
+            provideLabel = { "Repeats" },
+            provideValue = { "${training.countOfLifting}" },
+            compareValue = { compareTraining?.countOfLifting?.let { " / $it" } }
         )
 
         DividerPrimary()
 
         Section(
-            label = "Intensity",
-            value = "${training.intensity}%",
-            compareValue = compareTraining?.intensity?.let { " / ${it}%" }
+            provideLabel = { "Intensity" },
+            provideValue = { "${training.intensity}%" },
+            compareValue = { compareTraining?.intensity?.let { " / ${it}%" } }
         )
 
         DividerPrimary()
 
         Section(
-            label = "Duration",
-            value = training.durationTime,
-            compareValue = compareTraining?.durationTime?.let { " / $it" }
+            provideLabel = { "Duration" },
+            provideValue = { training.durationTime },
+            compareValue = { compareTraining?.durationTime?.let { " / $it" } }
         )
     }
 }
 
 @Composable
 private fun Section(
-    label: String,
-    value: String,
-    compareValue: String?
+    provideLabel: () -> String,
+    provideValue: () -> String,
+    compareValue: () -> String?
 ) = Row(
     modifier = Modifier.fillMaxWidth().padding(vertical = Design.dp.padding),
 ) {
 
     TextFieldBody2(
-        provideText = { label },
+        modifier = Modifier.recomposeHighlighter(),
+        provideText = provideLabel,
         color = Design.colors.caption,
     )
 
@@ -372,11 +397,14 @@ private fun Section(
     )
 
     TextFieldBody2(
-        provideText = { value },
+        modifier = Modifier.recomposeHighlighter(),
+        provideText = provideValue,
         fontWeight = FontWeight.Bold,
     )
-    if (compareValue != null) TextFieldBody2(
-        provideText = { compareValue },
+
+    TextFieldBody2(
+        modifier = Modifier.recomposeHighlighter(),
+        provideText = compareValue,
         fontWeight = FontWeight.Bold,
         color = Design.colors.caption
     )

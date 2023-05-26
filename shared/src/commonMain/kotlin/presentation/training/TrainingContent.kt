@@ -28,6 +28,7 @@ import design.components.roots.ScrollableRoot
 import design.controls.TextFieldH2
 import design.controls.tertiaryBackground
 import kotlinx.coroutines.delay
+import utils.recomposeHighlighter
 
 @Composable
 internal fun TrainingContent(vm: TrainingViewModel, trainingId: String?) {
@@ -101,10 +102,13 @@ private fun Content(
     val tryBackProvider by remember { mutableStateOf(tryBack) }
     val saveTrainingProvider by remember { mutableStateOf(saveTraining) }
     val openExitScreenPopupProvider by remember { mutableStateOf(openExitScreenPopup) }
+    val addExerciseProvider by rememberUpdatedState(addExercise)
 
 
     ScrollableRoot(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .recomposeHighlighter(),
         loading = { Loading(loading) },
         error = { Error(message = error, close = clearError) },
         back = { PlatformBackHandler(tryBackProvider) },
@@ -147,6 +151,7 @@ private fun Content(
                 val iterations by rememberUpdatedState(exercise.iterations)
 
                 EditExerciseItem(
+                    modifier = Modifier.recomposeHighlighter(),
                     number = { number },
                     name = { name },
                     updateName = { updateName(id, it) },
@@ -157,10 +162,12 @@ private fun Content(
                 )
             }
 
-            item(key = "new_exercise") {
+            item(key = "new_exercise_btn") {
                 NewExercise(
-                    modifier = Modifier.animateItemPlacement(),
-                    onClick = addExercise
+                    modifier = Modifier
+                        .animateItemPlacement()
+                        .recomposeHighlighter(),
+                    onClick = addExerciseProvider
                 )
             }
         }
@@ -178,10 +185,13 @@ private fun NewExercise(
             .height(128.dp)
             .tertiaryBackground()
             .border(width = 1.dp, shape = Design.shape.default, color = Design.colors.accent_secondary)
-            .clickable(onClick = onClick),
+            .clickable(onClick = onClick)
+            .recomposeHighlighter(),
         content = {
             TextFieldH2(
-                modifier = Modifier.align(Alignment.Center),
+                modifier = Modifier
+                    .align(Alignment.Center)
+                    .recomposeHighlighter(),
                 provideText = { "Add Exercise" },
                 color = Design.colors.accent_secondary
             )

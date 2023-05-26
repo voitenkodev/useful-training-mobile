@@ -38,7 +38,7 @@ internal fun TrainingHeader(
         modifier = Modifier
             .padding(end = 4.dp)
             .recomposeHighlighter(),
-        weekDayEnglish = weekDay,
+        weekDayEnglish = { weekDay },
     )
 
     TextFieldBody2(

@@ -34,6 +34,7 @@ import design.controls.IconPrimary
 import design.controls.TextFieldBody1
 import design.controls.TextFieldH1
 import presentation.training.Training
+import utils.recomposeHighlighter
 
 @Composable
 internal fun TrainingsContent(vm: TrainingsViewModel) {
@@ -87,7 +88,9 @@ private fun Content(
     val weekTrainingsProvider by rememberUpdatedState(weekTrainings)
 
     ScrollableRoot(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize()
+            .recomposeHighlighter(),
         listState = listState,
         loading = { Loading(loading) },
         error = { Error(message = error, close = clearError) },
@@ -110,7 +113,11 @@ private fun Content(
             weekTrainingsProvider.onEach {
 
                 item(key = "week_by_${it.key}") {
-                    WeekSummary(info = it.key)
+                    WeekSummary(
+                        modifier = Modifier
+                            .recomposeHighlighter(),
+                        info = it.key
+                    )
                 }
 
                 items(it.value, key = { item-> item.id ?: item.hashCode() }) { training ->
@@ -118,6 +125,8 @@ private fun Content(
                     val trainingProvider by rememberUpdatedState(training)
 
                     TrainingItem(
+                        modifier = Modifier
+                            .recomposeHighlighter(),
                         training = training,
                         edit = { editTraining(trainingProvider) },
                         review = { reviewTraining(trainingProvider) }
@@ -139,7 +148,8 @@ private fun Header(
         modifier = Modifier
             .fillMaxWidth()
             .height(Design.dp.bigHeader)
-            .background(Design.colors.primary),
+            .background(Design.colors.primary)
+            .recomposeHighlighter(),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -165,7 +175,8 @@ private fun HeaderButtons(
     Row(
         modifier = modifier
             .height(Design.dp.bigHeader)
-            .padding(end = Design.dp.padding, bottom = Design.dp.padding),
+            .padding(end = Design.dp.padding, bottom = Design.dp.padding)
+            .recomposeHighlighter(),
         verticalAlignment = Alignment.Bottom,
         horizontalArrangement = Arrangement.spacedBy(Design.dp.padding, Alignment.End)
     ) {
@@ -177,7 +188,7 @@ private fun HeaderButtons(
                 .background(
                     color = Design.colors.accent_secondary,
                     shape = Design.shape.default
-                ),
+                ).recomposeHighlighter(),
             onClick = moveToSummary
         )
 
@@ -188,7 +199,7 @@ private fun HeaderButtons(
                 .background(
                     color = Design.colors.accent_primary,
                     shape = Design.shape.default
-                ),
+                ).recomposeHighlighter(),
             onClick = addTraining
         )
     }
@@ -202,15 +213,19 @@ private fun Title(
 ) = Column(
     modifier = modifier
         .padding(start = Design.dp.padding)
+        .recomposeHighlighter()
 ) {
 
     TextFieldH1(
         modifier = Modifier
-            .wrapContentHeight(),
+            .wrapContentHeight()
+            .recomposeHighlighter(),
         provideText = { weekDay },
     )
 
     TextFieldBody1(
+        modifier = Modifier
+            .recomposeHighlighter(),
         provideText = { date },
     )
 }

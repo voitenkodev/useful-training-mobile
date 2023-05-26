@@ -17,9 +17,10 @@ import utils.recomposeHighlighter
 @Composable
 internal fun ExerciseItem(
     modifier: Modifier = Modifier,
-    number: Int,
-    exercise: Exercise
+    provideNumber: () -> Int,
+    exercise: () -> Exercise
 ) {
+
     Row(
         modifier = modifier
             .padding(top = 8.dp, start = 4.dp, end = 4.dp)
@@ -29,31 +30,43 @@ internal fun ExerciseItem(
 
         TextFieldBody1(
             modifier = Modifier.recomposeHighlighter(),
-            provideText = { "${number}." },
+            provideText = { "${provideNumber()}." },
             fontWeight = FontWeight.Bold
         )
 
-        Column {
+        InternalExercise(
+            exercise = exercise
+        )
+    }
+}
 
-            TextFieldBody1(
-                modifier = Modifier.recomposeHighlighter(),
-                provideText = { exercise.name },
-                fontWeight = FontWeight.Bold
-            )
+@Composable
+private fun InternalExercise(
+    exercise: () -> Exercise
+) {
 
-            FlowRow(
-                modifier = Modifier
-                    .padding(top = 6.dp, bottom = 4.dp)
-                    .recomposeHighlighter(),
-                horizontalArrangement = Arrangement.spacedBy(4.dp),
-            ) {
-                exercise.iterations.forEach {
-                    TextFieldBody1(
-                        modifier = Modifier.padding(end = 4.dp).recomposeHighlighter(),
-                        provideText = { it.weight + "x" + it.repeat },
-                        color = Design.colors.caption
-                    )
-                }
+    Column(
+        modifier = Modifier.recomposeHighlighter(),
+    ) {
+
+        TextFieldBody1(
+            modifier = Modifier.recomposeHighlighter(),
+            provideText = { exercise().name },
+            fontWeight = FontWeight.Bold
+        )
+
+        FlowRow(
+            modifier = Modifier
+                .padding(top = 6.dp, bottom = 4.dp)
+                .recomposeHighlighter(),
+            horizontalArrangement = Arrangement.spacedBy(4.dp),
+        ) {
+            exercise().iterations.forEach {
+                TextFieldBody1(
+                    modifier = Modifier.padding(end = 4.dp).recomposeHighlighter(),
+                    provideText = { it.weight + "x" + it.repeat },
+                    color = Design.colors.caption
+                )
             }
         }
     }

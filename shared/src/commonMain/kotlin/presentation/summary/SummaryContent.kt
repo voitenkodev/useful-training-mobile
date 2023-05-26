@@ -20,6 +20,7 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -52,6 +53,7 @@ import design.controls.TextFieldH2
 import presentation.training.Exercise
 import presentation.training.Training
 import utils.DateTimeKtx.monthTitle
+import utils.recomposeHighlighter
 
 @Composable
 internal fun SummaryContent(vm: SummaryViewModel) {
@@ -123,17 +125,25 @@ private fun Content(
     listOfIntensity: () -> List<Float>
 ) {
 
+    val focusManager = LocalFocusManager.current
+
     val backProvider by remember { mutableStateOf(back) }
-
+    val selectExerciseNameProvider by remember {
+        mutableStateOf({ s: String ->
+            search.invoke(s)
+            focusManager.clearFocus()
+        })
+    }
     val trainingProvider by rememberUpdatedState(trainings)
-    val exercisesProvider by rememberUpdatedState(exercises)
-
-    val isEmptyExercises by rememberUpdatedState(exercisesProvider.isEmpty())
+    val exercisesProvider = rememberUpdatedState(exercises)
+    val isEmptyExercises by rememberUpdatedState(exercisesProvider.value.isEmpty())
     val isSearchBlank by rememberUpdatedState(query().isBlank())
     val isNotEmptyTonnage by rememberUpdatedState(listOfTonnage().isNotEmpty())
 
     ScrollableRoot(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize()
+            .recomposeHighlighter(),
         listState = listState,
         loading = { Loading(loading) },
         error = { Error(message = error, close = clearError) },
@@ -147,12 +157,13 @@ private fun Content(
         },
         content = {
             item(key = "input_search") {
-                val focusManager = LocalFocusManager.current
 
                 val helpVisible = remember { mutableStateOf(false) }
 
                 InputSearch(
-                    modifier = Modifier.onFocusChanged { helpVisible.value = it.hasFocus },
+                    modifier = Modifier
+                        .onFocusChanged { helpVisible.value = it.hasFocus }
+                        .recomposeHighlighter(),
                     value = query,
                     onValueChange = search
                 )
@@ -160,10 +171,7 @@ private fun Content(
                 HelpExerciseNameItem(
                     querySort = query,
                     visibility = { helpVisible.value },
-                    select = {
-                        search.invoke(it)
-                        focusManager.clearFocus()
-                    }
+                    select = selectExerciseNameProvider
                 )
             }
 
@@ -173,7 +181,8 @@ private fun Content(
                     CalendarSection(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .aspectRatio(1.4f),
+                            .aspectRatio(1.4f)
+                            .recomposeHighlighter(),
                         month = month,
                         year = year,
                         provideTrainingDays = trainingDays,
@@ -194,36 +203,50 @@ private fun Content(
             if (isSearchBlank)
                 items(trainingProvider, key = { it.id ?: it.hashCode() }) { training ->
                     TrainingItem(
-                        modifier = Modifier.animateItemPlacement(),
+                        modifier = Modifier
+                            .animateItemPlacement()
+                            .recomposeHighlighter(),
                         training = training
                     )
                 }
 
             item(key = "exercises") {
-
-                exercisesProvider.forEach { item ->
-
-                    Spacer(
-                        modifier = Modifier.height(Design.dp.padding)
-                    )
-
-                    ExerciseHeader(
-                        modifier = Modifier.animateItemPlacement(),
-                        weekDay = item.key.weekDay,
-                        date = item.key.dateTime
-                    )
-
-                    item.value.forEachIndexed { index, exercise ->
-                        ExerciseItem(
-                            modifier = Modifier.animateItemPlacement(),
-                            number = index + 1,
-                            exercise = exercise
-                        )
-                    }
-                }
+                ListOfExercises(
+                    exercises = exercisesProvider
+                )
             }
         }
     )
+}
+
+@Composable
+private fun ListOfExercises(
+    exercises: State<Map<ExerciseInfo, List<Exercise>>>,
+) {
+
+    exercises.value.forEach { item ->
+
+        Spacer(
+            modifier = Modifier.height(Design.dp.padding)
+        )
+
+        ExerciseHeader(
+            modifier = Modifier
+                .recomposeHighlighter(),
+            weekDay = item.key.weekDay,
+            date = item.key.dateTime
+        )
+
+        item.value.forEachIndexed { index, exercise ->
+            val number by rememberUpdatedState(index + 1)
+            ExerciseItem(
+                modifier = Modifier
+                    .recomposeHighlighter(),
+                provideNumber = { number },
+                exercise = { exercise }
+            )
+        }
+    }
 }
 
 @Composable
@@ -232,7 +255,8 @@ private fun Charts(
     provideTonnageData: () -> List<Float>,
     provideIntensityData: () -> List<Float>,
 ) = Column(
-    modifier = modifier,
+    modifier = modifier
+        .recomposeHighlighter(),
     verticalArrangement = Arrangement.spacedBy(Design.dp.padding)
 ) {
     HorizontalPager(
@@ -244,14 +268,16 @@ private fun Charts(
                 0 -> TonnageChart(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .aspectRatio(1.7f),
+                        .aspectRatio(1.7f)
+                        .recomposeHighlighter(),
                     provideData = provideTonnageData,
                 )
 
                 1 -> IntensityChart(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .aspectRatio(1.7f),
+                        .aspectRatio(1.7f)
+                        .recomposeHighlighter(),
                     provideData = provideIntensityData,
                 )
             }
@@ -297,7 +323,8 @@ private fun CalendarSection(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(Design.dp.padding),
+                .padding(Design.dp.padding)
+                .recomposeHighlighter(),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween,
         ) {
@@ -308,7 +335,8 @@ private fun CalendarSection(
             )
 
             TextFieldH2(
-                modifier = Modifier,
+                modifier = Modifier
+                    .recomposeHighlighter(),
                 provideText = { "${monthTitle(month())} ${year()}" },
                 fontWeight = FontWeight.Bold
             )
@@ -344,11 +372,15 @@ private fun ExerciseHeader(
 ) {
 
     WeekDayLabel(
-        modifier = Modifier.padding(end = 4.dp),
-        weekDayEnglish = weekDay,
+        modifier = Modifier
+            .padding(end = 4.dp)
+            .recomposeHighlighter(),
+        weekDayEnglish = { weekDay },
     )
 
     TextFieldBody2(
+        modifier = Modifier
+            .recomposeHighlighter(),
         provideText = { date },
         color = Design.colors.caption,
         fontWeight = FontWeight.Bold
