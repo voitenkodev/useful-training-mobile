@@ -19,6 +19,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -43,6 +44,7 @@ import design.controls.DividerPrimary
 import design.controls.IconPrimary
 import design.controls.TextFieldBody2
 import design.controls.secondaryBackground
+import presentation.training.Exercise
 import presentation.training.Training
 import utils.recomposeHighlighter
 
@@ -99,11 +101,13 @@ private fun Content(
 ) {
 
     val backProvider by remember { mutableStateOf(back) }
-    val exercisesProvider by rememberUpdatedState(provideReviewTraining().exercises)
+    val exercisesProvider = rememberUpdatedState(provideReviewTraining().exercises)
     val idProvider by rememberUpdatedState(provideReviewTraining().id)
 
     ScrollableRoot(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize()
+            .recomposeHighlighter(),
         loading = { Loading(loading) },
         error = { Error(message = error, close = clearError) },
         back = { PlatformBackHandler(back) },
@@ -132,6 +136,7 @@ private fun Content(
             )
         },
         content = {
+
             item(key = "date") {
                 DateItem(
                     provideWeekDay = { provideReviewTraining().weekDay },
@@ -141,15 +146,9 @@ private fun Content(
             }
 
             item(key = "exercises") {
-                exercisesProvider.forEachIndexed { index, item ->
-
-                    ExerciseItem(
-                        modifier = Modifier
-                            .recomposeHighlighter(),
-                        provideNumber = { index + 1 },
-                        exercise = { item }
-                    )
-                }
+                ExercisesSection(
+                    exercises = exercisesProvider
+                )
             }
 
             item(key = "charts") {
@@ -157,23 +156,21 @@ private fun Content(
                     modifier = Modifier
                         .animateItemPlacement()
                         .recomposeHighlighter(),
-                    provideCompareTraining = provideCompareTraining,
+                    provideCompareTraining = {null}, // provideCompareTraining
                     provideReviewTraining = provideReviewTraining
                 )
             }
 
-            if (provideOtherTrainings().isNotEmpty()) {
-                item(key = "comparing") {
-                    Comparing(
-                        modifier = Modifier
-                            .animateItemPlacement()
-                            .recomposeHighlighter(),
-                        provideList = provideOtherTrainings,
-                        provideSelected = provideCompareTraining,
-                        compare = compareWith,
-                        clear = clearComparing
-                    )
-                }
+            item(key = "comparing") {
+                Comparing(
+                    modifier = Modifier
+                        .animateItemPlacement()
+                        .recomposeHighlighter(),
+                    provideList = provideOtherTrainings,
+                    provideSelected = provideCompareTraining,
+                    compare = compareWith,
+                    clear = clearComparing
+                )
             }
 
             item(key = "remove_action") {
@@ -192,59 +189,76 @@ private fun Content(
 }
 
 @Composable
+private fun ExercisesSection(
+    exercises: State<List<Exercise>>
+) {
+    exercises.value.forEachIndexed { index, item ->
+        ExerciseItem(
+            modifier = Modifier
+                .recomposeHighlighter(),
+            provideNumber = { index + 1 },
+            exercise = { item }
+        )
+    }
+}
+
+@Composable
 private fun ChartsSection(
     modifier: Modifier = Modifier,
     provideReviewTraining: () -> Training,
     provideCompareTraining: () -> Training?,
-) = Column(
-    modifier = modifier,
-    verticalArrangement = Arrangement.spacedBy(Design.dp.padding)
 ) {
+    Column(
+        modifier = modifier,
+        verticalArrangement = Arrangement.spacedBy(Design.dp.padding)
+    ) {
 
-    HorizontalPager(
-        modifier = Modifier.recomposeHighlighter(),
-        pageCount = 3,
-        pageSpacing = 8.dp,
-        pageSize = PageSize.Fixed(Design.dp.fixedWidth),
-        pageContent = { page ->
-            when (page) {
-                0 -> Summary(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .aspectRatio(1.7f)
-                        .recomposeHighlighter(),
-                    provideTraining = provideReviewTraining,
-                    provideCompareTraining = provideCompareTraining
-                )
+        HorizontalPager(
+            modifier = Modifier
+                .recomposeHighlighter(),
+            pageCount = 3,
+            pageSpacing = 8.dp,
+            pageSize = PageSize.Fixed(Design.dp.fixedWidth),
+            pageContent = { page ->
+                when (page) {
+                    0 -> Summary(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .aspectRatio(1.7f)
+                            .recomposeHighlighter(),
+                        provideTraining = provideReviewTraining,
+                        provideCompareTraining = provideCompareTraining
+                    )
 
-                1 -> TonnageChart(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .aspectRatio(1.7f)
-                        .recomposeHighlighter(),
-                    provideData = {
-                        provideReviewTraining().exercises.map { it.tonnage.toFloat() }
-                    },
-                    compareData = {
-                        provideCompareTraining()?.exercises?.map { it.tonnage.toFloat() } ?: emptyList()
-                    }
-                )
+                    1 -> TonnageChart(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .aspectRatio(1.7f)
+                            .recomposeHighlighter(),
+                        provideData = {
+                            provideReviewTraining().exercises.map { it.tonnage.toFloat() }
+                        },
+                        compareData = {
+                            provideCompareTraining()?.exercises?.map { it.tonnage.toFloat() } ?: emptyList()
+                        }
+                    )
 
-                2 -> IntensityChart(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .aspectRatio(1.7f)
-                        .recomposeHighlighter(),
-                    provideData = {
-                        provideReviewTraining().exercises.map { it.intensity.toFloat() }
-                    },
-                    compareData = {
-                        provideCompareTraining()?.exercises?.map { it.intensity.toFloat() } ?: emptyList()
-                    },
-                )
+                    2 -> IntensityChart(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .aspectRatio(1.7f)
+                            .recomposeHighlighter(),
+                        provideData = {
+                            provideReviewTraining().exercises.map { it.intensity.toFloat() }
+                        },
+                        compareData = {
+                            provideCompareTraining()?.exercises?.map { it.intensity.toFloat() } ?: emptyList()
+                        },
+                    )
+                }
             }
-        }
-    )
+        )
+    }
 }
 
 @Composable
@@ -254,43 +268,56 @@ private fun Comparing(
     provideList: () -> List<Training>,
     compare: (Training) -> Unit,
     clear: () -> Unit
-) = Column(
-    modifier = modifier,
-    verticalArrangement = Arrangement.spacedBy(Design.dp.padding)
 ) {
 
     val provideClear by rememberUpdatedState(clear)
+    if (provideList().isEmpty()) return
 
-    Row(
-        modifier = Modifier.fillMaxWidth().padding(horizontal = Design.dp.padding),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
+    Column(
+        modifier = modifier
+            .recomposeHighlighter(),
+        verticalArrangement = Arrangement.spacedBy(Design.dp.padding)
     ) {
 
-        TextFieldBody2(
-            provideText = { "Compare with..." },
-            color = Design.colors.caption
-        )
-
-        if (provideSelected() != null) IconPrimary(
+        Row(
             modifier = Modifier
-                .width(14.dp)
-                .height(14.dp),
-            imageVector = Icons.Default.Clear,
-            onClick = provideClear
-        )
-    }
+                .fillMaxWidth()
+                .padding(horizontal = Design.dp.padding)
+                .recomposeHighlighter(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
 
-    LazyRow(
-        horizontalArrangement = Arrangement.spacedBy(Design.dp.padding)
-    ) {
-
-        items(provideList(), key = { it.id ?: it.hashCode() }) {
-            ShortTrainingItem(
-                training = it,
-                highlight = it == provideSelected(),
-                onClick = { compare.invoke(it) }
+            TextFieldBody2(
+                modifier = Modifier
+                    .recomposeHighlighter(),
+                provideText = { "Compare with..." },
+                color = Design.colors.caption
             )
+
+            if (provideSelected() != null) IconPrimary(
+                modifier = Modifier
+                    .width(14.dp)
+                    .height(14.dp)
+                    .recomposeHighlighter(),
+                imageVector = Icons.Default.Clear,
+                onClick = provideClear
+            )
+        }
+
+        LazyRow(
+            horizontalArrangement = Arrangement.spacedBy(Design.dp.padding)
+        ) {
+
+            items(provideList(), key = { it.id ?: it.hashCode() }) {
+                ShortTrainingItem(
+                    modifier = Modifier
+                        .recomposeHighlighter(),
+                    training = it,
+                    highlight = it == provideSelected(),
+                    onClick = { compare.invoke(it) }
+                )
+            }
         }
     }
 }
@@ -302,25 +329,30 @@ private fun DateItem(
     startTime: () -> String,
     startDate: () -> String
 ) = Row(
-    modifier = modifier,
+    modifier = modifier.recomposeHighlighter(),
     horizontalArrangement = Arrangement.spacedBy(4.dp),
     verticalAlignment = Alignment.CenterVertically,
 ) {
 
     WeekDayLabel(
-        modifier = Modifier.padding(end = 4.dp).recomposeHighlighter(),
+        modifier = Modifier
+            .padding(end = 4.dp)
+            .recomposeHighlighter(),
         weekDayEnglish = provideWeekDay
     )
 
     TextFieldBody2(
-        modifier = Modifier.padding(end = 4.dp).recomposeHighlighter(),
+        modifier = Modifier
+            .padding(end = 4.dp)
+            .recomposeHighlighter(),
         provideText = startTime,
         color = Design.colors.caption,
         fontWeight = FontWeight.Bold
     )
 
     TextFieldBody2(
-        modifier = Modifier.recomposeHighlighter(),
+        modifier = Modifier
+            .recomposeHighlighter(),
         provideText = startDate,
         color = Design.colors.caption,
         fontWeight = FontWeight.Bold
@@ -383,7 +415,10 @@ private fun Section(
     provideValue: () -> String,
     compareValue: () -> String?
 ) = Row(
-    modifier = Modifier.fillMaxWidth().padding(vertical = Design.dp.padding),
+    modifier = Modifier
+        .fillMaxWidth()
+        .padding(vertical = Design.dp.padding)
+        .recomposeHighlighter(),
 ) {
 
     TextFieldBody2(
