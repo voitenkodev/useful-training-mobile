@@ -120,7 +120,7 @@ private fun Content(
                     )
                 }
 
-                items(it.value, key = { item-> item.id ?: item.hashCode() }) { training ->
+                items(it.value, key = { item -> item.id ?: item.hashCode() }) { training ->
 
                     val trainingProvider by rememberUpdatedState(training)
 

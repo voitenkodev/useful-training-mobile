@@ -60,6 +60,9 @@ private fun Content(
     updatePassword: (String) -> Unit,
 ) {
 
+    val loginProvider by rememberUpdatedState(login)
+    val registrationProvider by rememberUpdatedState(registration)
+
     ScrollableRoot(
         modifier = Modifier
             .fillMaxWidth()
@@ -77,8 +80,6 @@ private fun Content(
             )
         },
         footer = {
-            val loginProvider by rememberUpdatedState(login)
-            val registrationProvider by rememberUpdatedState(registration)
 
             ButtonPrimary(
                 modifier = Modifier

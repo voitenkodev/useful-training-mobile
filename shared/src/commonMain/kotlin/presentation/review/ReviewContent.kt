@@ -156,7 +156,7 @@ private fun Content(
                     modifier = Modifier
                         .animateItemPlacement()
                         .recomposeHighlighter(),
-                    provideCompareTraining = {null}, // provideCompareTraining
+                    provideCompareTraining = provideCompareTraining,
                     provideReviewTraining = provideReviewTraining
                 )
             }
@@ -209,7 +209,7 @@ private fun ChartsSection(
     provideCompareTraining: () -> Training?,
 ) {
     Column(
-        modifier = modifier,
+        modifier = modifier.recomposeHighlighter(),
         verticalArrangement = Arrangement.spacedBy(Design.dp.padding)
     ) {
 

@@ -99,9 +99,9 @@ private fun Content(
     addExercise: () -> Unit,
 ) {
 
-    val tryBackProvider by remember { mutableStateOf(tryBack) }
-    val saveTrainingProvider by remember { mutableStateOf(saveTraining) }
-    val openExitScreenPopupProvider by remember { mutableStateOf(openExitScreenPopup) }
+    val tryBackProvider by rememberUpdatedState(tryBack)
+    val saveTrainingProvider by rememberUpdatedState(saveTraining)
+    val openExitScreenPopupProvider by rememberUpdatedState(openExitScreenPopup)
     val addExerciseProvider by rememberUpdatedState(addExercise)
 
 

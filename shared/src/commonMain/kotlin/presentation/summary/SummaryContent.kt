@@ -127,7 +127,7 @@ private fun Content(
 
     val focusManager = LocalFocusManager.current
 
-    val backProvider by remember { mutableStateOf(back) }
+    val backProvider by rememberUpdatedState(back)
     val selectExerciseNameProvider by remember {
         mutableStateOf({ s: String ->
             search.invoke(s)
