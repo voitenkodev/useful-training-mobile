@@ -22,6 +22,8 @@ pluginManagement {
     }
 }
 
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+
 dependencyResolutionManagement {
     versionCatalogs {
         create("libs") {
@@ -30,7 +32,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Useful Training"
+rootProject.name = "UsefulTraining"
 
 include(":androidApp")
 include(":shared")

@@ -8,6 +8,8 @@ import presentation.auth.AuthContent
 import presentation.auth.AuthViewModel
 import presentation.review.ReviewContent
 import presentation.review.ReviewViewModel
+import presentation.splash.SplashContent
+import presentation.splash.SplashViewModel
 import presentation.summary.SummaryContent
 import presentation.summary.SummaryViewModel
 import presentation.training.TrainingContent
@@ -16,6 +18,7 @@ import presentation.trainings.TrainingsContent
 import presentation.trainings.TrainingsViewModel
 
 internal enum class Graph(val link: String) {
+    Splash("splash_screen"),
     Auth("auth_screen"),
     Trainings("trainings_screen"),
     Training("training_screen"),
@@ -28,7 +31,17 @@ internal fun Main(modifier: Modifier = Modifier) {
 
     DesignTheme(modifier = modifier) {
 
-        RootController(startScreen = Graph.Auth.link) {
+        RootController(startScreen = Graph.Splash.link) {
+
+            screen(key = Graph.Splash.link, animation = Animation.Present(500)) { store ->
+                val navigator = findNavigator()
+                val viewModel = store.getOrCreate(
+                    key = Graph.Splash.link,
+                    factory = { SplashViewModel(navigator) },
+                    clear = { (it as? SplashViewModel)?.clear() }
+                )
+                SplashContent(viewModel)
+            }
 
             screen(key = Graph.Auth.link, animation = Animation.Present(500)) { store ->
                 val navigator = findNavigator()
