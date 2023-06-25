@@ -49,8 +49,8 @@ internal fun TrainingsContent(vm: TrainingsViewModel) {
 
     Content(
         listState = listState,
-        loading = state.loading,
-        error = state.error,
+        loading = { state.loading },
+        error = { state.error },
         clearError = vm::clearError,
         back = vm::back,
 
@@ -68,8 +68,9 @@ internal fun TrainingsContent(vm: TrainingsViewModel) {
 @Composable
 private fun Content(
     listState: LazyListState,
-    loading: Boolean,
-    error: String?,
+
+    loading: () -> Boolean,
+    error: () -> String?,
     clearError: () -> Unit,
     back: () -> Unit,
 

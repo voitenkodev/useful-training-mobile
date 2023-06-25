@@ -15,9 +15,9 @@ import design.Design
 import utils.recomposeHighlighter
 
 @Composable
-fun Loading(visible: Boolean) {
+fun Loading(visible: () -> Boolean) {
 
-    if (visible.not()) return
+    if (visible().not()) return
 
     Box(
         contentAlignment = Alignment.Center,

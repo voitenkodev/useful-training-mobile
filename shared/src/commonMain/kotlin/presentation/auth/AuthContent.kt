@@ -27,8 +27,8 @@ internal fun AuthContent(vm: AuthViewModel) {
     val state by vm.state.collectAsState()
 
     Content(
-        loading = state.loading,
-        error = state.error,
+        loading = { state.loading },
+        error = { state.error },
         clearError = vm::clearError,
         back = vm::back,
 
@@ -44,8 +44,8 @@ internal fun AuthContent(vm: AuthViewModel) {
 
 @Composable
 private fun Content(
-    loading: Boolean,
-    error: String?,
+    loading: () -> Boolean,
+    error: () -> String?,
     clearError: () -> Unit,
     back: () -> Unit,
 

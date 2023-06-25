@@ -5,5 +5,5 @@ import design.components.Loading
 
 @Composable
 internal fun SplashContent(vm: SplashViewModel) {
-    Loading(true)
+    Loading { true }
 }

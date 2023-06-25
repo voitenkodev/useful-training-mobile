@@ -59,8 +59,8 @@ internal fun ReviewContent(vm: ReviewViewModel, trainingId: String) {
     }
 
     Content(
-        loading = state.loading,
-        error = state.error,
+        loading = { state.loading },
+        error = { state.error },
         clearError = vm::clearError,
         back = vm::back,
 
@@ -80,8 +80,8 @@ internal fun ReviewContent(vm: ReviewViewModel, trainingId: String) {
 
 @Composable
 private fun Content(
-    loading: Boolean,
-    error: String?,
+    loading: () -> Boolean,
+    error: () -> String?,
     clearError: () -> Unit,
     back: () -> Unit,
 

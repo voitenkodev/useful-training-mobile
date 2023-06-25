@@ -12,8 +12,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -45,8 +43,8 @@ internal fun TrainingContent(vm: TrainingViewModel, trainingId: String?) {
     val exercisesProvider = rememberUpdatedState(state.training.exercises)
 
     Content(
-        loading = state.loading,
-        error = state.error,
+        loading = { state.loading },
+        error = { state.error },
         clearError = vm::clearError,
         tryBack = vm::tryBack,
 
@@ -72,8 +70,8 @@ internal fun TrainingContent(vm: TrainingViewModel, trainingId: String?) {
 
 @Composable
 private fun Content(
-    loading: Boolean,
-    error: String?,
+    loading: () -> Boolean,
+    error: () -> String?,
     clearError: () -> Unit,
     tryBack: () -> Unit,
     back: () -> Unit,

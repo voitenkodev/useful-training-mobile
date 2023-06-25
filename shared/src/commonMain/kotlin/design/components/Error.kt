@@ -24,21 +24,21 @@ import utils.recomposeHighlighter
 
 @Composable
 internal fun Error(
-    message: String?,
+    message: () -> String?,
     close: () -> Unit
 ) {
 
     val value = remember { mutableStateOf(message) }
-    LaunchedEffect(message) { if (message != null) value.value = message }
+    LaunchedEffect(message) { if (message() != null) value.value = message }
 
     LaunchedEffect(message) {
         delay(1800)
-        if (message != null) close.invoke()
+        if (message() != null) close.invoke()
     }
 
     InnerError(
-        provideMessage = { value.value },
-        visibility = message != null
+        provideMessage = value.value,
+        visibility = message() != null
     )
 }
 
