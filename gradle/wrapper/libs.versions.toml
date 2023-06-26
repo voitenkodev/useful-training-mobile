@@ -8,6 +8,7 @@ ktor-vers = "2.3.0"
 datastore-vers = "1.1.0-dev01"
 uuid-vers = "0.7.0"
 koin-vers = "3.2.0"
+sqldelight-vers = "2.0.0-alpha05"
 
 [libraries]
 serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization-vers" }
@@ -27,6 +28,9 @@ ktor-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor-vers"
 ktor-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor-vers" }
 ktor-auth = { module = "io.ktor:ktor-client-auth", version.ref = "ktor-vers" }
 ktor-serialization = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor-vers" }
+
+sqldelight-android = { module = "app.cash.sqldelight:android-driver", version.ref = "sqldelight-vers" }
+sqldelight-native = { module = "app.cash.sqldelight:native-driver", version.ref = "sqldelight-vers" }
 
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin-vers" }
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin-vers" }

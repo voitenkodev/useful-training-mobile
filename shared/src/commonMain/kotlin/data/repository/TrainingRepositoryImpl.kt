@@ -5,7 +5,9 @@ import data.dto.TrainingDTO
 import data.source.network.TrainingProtocol
 import kotlinx.coroutines.flow.Flow
 
-internal class TrainingRepositoryImpl(private val trainingSource: TrainingProtocol) : TrainingRepository {
+internal class TrainingRepositoryImpl(
+    private val trainingSource: TrainingProtocol
+) : TrainingRepository {
 
     override suspend fun getTrainings(): Flow<List<TrainingDTO>> = trainingSource
         .getTrainings()

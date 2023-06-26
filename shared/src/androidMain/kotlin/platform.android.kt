@@ -7,6 +7,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.sqlite.db.SupportSQLiteDatabase
+import app.cash.sqldelight.driver.android.AndroidSqliteDriver
+import data.source.database.DB_FILE_NAME
 import data.source.datastore.createDataStore
 import data.source.datastore.dataStoreFileName
 import data.source.network.Client
@@ -29,6 +32,19 @@ internal actual val platformModule = module {
             producePath = { get<Application>().filesDir.resolve(dataStoreFileName).absolutePath }
         )
     }
+//    single {
+//        AndroidSqliteDriver(
+//            schema = AppDatabase.Schema,
+//            context = get<Application>(),
+//            name = DB_FILE_NAME,
+//            callback = object : AndroidSqliteDriver.Callback(AppDatabase.Schema) {
+//                override fun onConfigure(db: SupportSQLiteDatabase) {
+//                    super.onConfigure(db)
+//                    db.setForeignKeyConstraintsEnabled(true)
+//                }
+//            }
+//        )
+//    }
 }
 
 @Composable

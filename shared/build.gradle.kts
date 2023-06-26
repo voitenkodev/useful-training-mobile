@@ -5,12 +5,23 @@ plugins {
     id("com.android.library")
     id("org.jetbrains.compose")
     id("org.jetbrains.kotlin.plugin.parcelize")
+    id("app.cash.sqldelight")
 }
 
 apply(from = "../config/gradle/build-scripts/android.gradle")
 apply(from = "../config/gradle/build-scripts/ios.gradle")
 
 version = "1.0-SNAPSHOT"
+
+sqldelight {
+    databases {
+        create("AppDatabase") {
+            packageName.set("")
+            schemaOutputDirectory.set(file("src/commonMain/sqldelight/data/schema"))
+            migrationOutputDirectory.set(file("src/commonMain/sqldelight/migrations"))
+        }
+    }
+}
 
 kotlin {
     android()
@@ -51,11 +62,13 @@ kotlin {
             dependencies {
                 implementation(libs.activity.compose)
                 implementation(libs.ktor.okhttp)
+                implementation(libs.sqldelight.android)
             }
         }
         val iosMain by getting {
             dependencies {
                 implementation(libs.ktor.darwin)
+                implementation(libs.sqldelight.native)
             }
         }
         val iosSimulatorArm64Main by getting {

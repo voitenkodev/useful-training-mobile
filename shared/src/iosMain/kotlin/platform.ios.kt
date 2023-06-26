@@ -1,4 +1,8 @@
 import androidx.compose.runtime.Composable
+import app.cash.sqldelight.driver.native.NativeSqliteDriver
+import app.cash.sqldelight.driver.native.wrapConnection
+import co.touchlab.sqliter.DatabaseConfiguration
+import data.source.database.DB_FILE_NAME
 import data.source.datastore.createDataStore
 import data.source.datastore.dataStoreFileName
 import data.source.network.Client
@@ -35,7 +39,19 @@ internal actual val platformModule = module {
             }
         )
     }
+//    single {
+//        val dbConfig = DatabaseConfiguration(
+//            name = DB_FILE_NAME,
+//            version = AppDatabase.Schema.version,
+//            extendedConfig = DatabaseConfiguration.Extended(foreignKeyConstraints = true),
+//            create = { connection ->
+//                wrapConnection(connection) { AppDatabase.Schema.create(it) }
+//            },
+//        )
+//        NativeSqliteDriver(dbConfig)
+//    }
 }
 
 @Composable
-internal actual fun PlatformBackHandler(action: () -> Unit) {}
+internal actual fun PlatformBackHandler(action: () -> Unit) {
+}
