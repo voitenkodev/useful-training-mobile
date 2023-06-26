@@ -87,6 +87,8 @@ private fun Content(
 ) {
 
     val weekTrainingsProvider by rememberUpdatedState(weekTrainings)
+    val moveToSummaryProvider by rememberUpdatedState(moveToSummary)
+    val addTrainingProvider by rememberUpdatedState(addTraining)
 
     ScrollableRoot(
         modifier = Modifier
@@ -99,14 +101,10 @@ private fun Content(
         popups = {},
         header = {
 
-            val moveToSummaryProvider by rememberUpdatedState(moveToSummary)
-            val addTrainingProvider by rememberUpdatedState(addTraining)
-
             Header(
                 weekDay = weekDay,
                 date = date,
                 moveToSummary = moveToSummaryProvider,
-                addTraining = addTrainingProvider
             )
         },
         content = {
@@ -134,6 +132,19 @@ private fun Content(
                     )
                 }
             }
+        },
+        footer = {
+            IconPrimary(
+                imageVector = Icons.Default.Add,
+                modifier = Modifier
+                    .height(Design.dp.component)
+                    .fillMaxWidth()
+                    .background(
+                        color = Design.colors.accent_primary,
+                        shape = Design.shape.default
+                    ).recomposeHighlighter(),
+                onClick = addTrainingProvider
+            )
         }
     )
 }
@@ -143,7 +154,6 @@ private fun Header(
     weekDay: String,
     date: String,
     moveToSummary: () -> Unit,
-    addTraining: () -> Unit
 ) {
     Row(
         modifier = Modifier
@@ -162,7 +172,6 @@ private fun Header(
 
         HeaderButtons(
             moveToSummary = moveToSummary,
-            addTraining = addTraining
         )
     }
 }
@@ -171,7 +180,6 @@ private fun Header(
 private fun HeaderButtons(
     modifier: Modifier = Modifier,
     moveToSummary: () -> Unit,
-    addTraining: () -> Unit,
 ) {
     Row(
         modifier = modifier
@@ -191,17 +199,6 @@ private fun HeaderButtons(
                     shape = Design.shape.default
                 ).recomposeHighlighter(),
             onClick = moveToSummary
-        )
-
-        IconPrimary(
-            imageVector = Icons.Default.Add,
-            modifier = Modifier
-                .size(Design.dp.component)
-                .background(
-                    color = Design.colors.accent_primary,
-                    shape = Design.shape.default
-                ).recomposeHighlighter(),
-            onClick = addTraining
         )
     }
 }
