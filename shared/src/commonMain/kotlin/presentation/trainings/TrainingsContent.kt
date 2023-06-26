@@ -54,12 +54,12 @@ internal fun TrainingsContent(vm: TrainingsViewModel) {
         clearError = vm::clearError,
         back = vm::back,
 
-        weekDay = state.weekDay,
-        date = state.date,
+        weekDay = { state.weekDay },
+        date = { state.date },
         moveToSummary = vm::moveToSummary,
         addTraining = vm::addTraining,
 
-        weekTrainings = state.weekTrainings,
+        weekTrainings = { state.weekTrainings },
         editTraining = vm::editTraining,
         reviewTraining = vm::reviewTraining
     )
@@ -75,18 +75,17 @@ private fun Content(
     back: () -> Unit,
 
     // HEADER
-    weekDay: String,
-    date: String,
+    weekDay: () -> String,
+    date: () -> String,
     moveToSummary: () -> Unit,
     addTraining: () -> Unit,
 
     // CONTENT
-    weekTrainings: Map<WeekInfo, List<Training>>,
+    weekTrainings: () -> Map<WeekInfo, List<Training>>,
     editTraining: (Training) -> Unit,
     reviewTraining: (Training) -> Unit,
 ) {
 
-    val weekTrainingsProvider by rememberUpdatedState(weekTrainings)
     val moveToSummaryProvider by rememberUpdatedState(moveToSummary)
     val addTrainingProvider by rememberUpdatedState(addTraining)
 
@@ -98,9 +97,7 @@ private fun Content(
         loading = { Loading(loading) },
         error = { Error(message = error, close = clearError) },
         back = { PlatformBackHandler(back) },
-        popups = {},
         header = {
-
             Header(
                 weekDay = weekDay,
                 date = date,
@@ -109,7 +106,7 @@ private fun Content(
         },
         content = {
 
-            weekTrainingsProvider.onEach {
+            weekTrainings().onEach {
 
                 item(key = "week_by_${it.key}") {
                     WeekSummary(
@@ -151,8 +148,8 @@ private fun Content(
 
 @Composable
 private fun Header(
-    weekDay: String,
-    date: String,
+    weekDay: () -> String,
+    date: () -> String,
     moveToSummary: () -> Unit,
 ) {
     Row(
@@ -206,8 +203,8 @@ private fun HeaderButtons(
 @Composable
 private fun Title(
     modifier: Modifier = Modifier,
-    weekDay: String,
-    date: String,
+    weekDay: () -> String,
+    date: () -> String,
 ) = Column(
     modifier = modifier
         .padding(start = Design.dp.padding)
@@ -218,12 +215,12 @@ private fun Title(
         modifier = Modifier
             .wrapContentHeight()
             .recomposeHighlighter(),
-        provideText = { weekDay },
+        provideText = weekDay,
     )
 
     TextFieldBody1(
         modifier = Modifier
             .recomposeHighlighter(),
-        provideText = { date },
+        provideText = date,
     )
 }

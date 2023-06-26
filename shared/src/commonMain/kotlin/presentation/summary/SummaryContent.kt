@@ -148,7 +148,6 @@ private fun Content(
         loading = { Loading(loading) },
         error = { Error(message = error, close = clearError) },
         back = { PlatformBackHandler(backProvider) },
-        popups = {},
         header = {
             Header(
                 title = "Summary!",
