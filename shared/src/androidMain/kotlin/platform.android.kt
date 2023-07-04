@@ -32,19 +32,19 @@ internal actual val platformModule = module {
             producePath = { get<Application>().filesDir.resolve(dataStoreFileName).absolutePath }
         )
     }
-//    single {
-//        AndroidSqliteDriver(
-//            schema = AppDatabase.Schema,
-//            context = get<Application>(),
-//            name = DB_FILE_NAME,
-//            callback = object : AndroidSqliteDriver.Callback(AppDatabase.Schema) {
-//                override fun onConfigure(db: SupportSQLiteDatabase) {
-//                    super.onConfigure(db)
-//                    db.setForeignKeyConstraintsEnabled(true)
-//                }
-//            }
-//        )
-//    }
+    single {
+        AndroidSqliteDriver(
+            schema = UsefulTrainingDatabase.Schema,
+            context = get<Application>(),
+            name = DB_FILE_NAME,
+            callback = object : AndroidSqliteDriver.Callback(UsefulTrainingDatabase.Schema) {
+                override fun onConfigure(db: SupportSQLiteDatabase) {
+                    super.onConfigure(db)
+                    db.setForeignKeyConstraintsEnabled(true)
+                }
+            }
+        )
+    }
 }
 
 @Composable

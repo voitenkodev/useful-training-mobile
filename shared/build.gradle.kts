@@ -15,7 +15,7 @@ version = "1.0-SNAPSHOT"
 
 sqldelight {
     databases {
-        create("AppDatabase") {
+        create("UsefulTrainingDatabase") {
             packageName.set("")
             schemaOutputDirectory.set(file("src/commonMain/sqldelight/data/schema"))
             migrationOutputDirectory.set(file("src/commonMain/sqldelight/migrations"))

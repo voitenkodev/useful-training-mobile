@@ -39,17 +39,17 @@ internal actual val platformModule = module {
             }
         )
     }
-//    single {
-//        val dbConfig = DatabaseConfiguration(
-//            name = DB_FILE_NAME,
-//            version = AppDatabase.Schema.version,
-//            extendedConfig = DatabaseConfiguration.Extended(foreignKeyConstraints = true),
-//            create = { connection ->
-//                wrapConnection(connection) { AppDatabase.Schema.create(it) }
-//            },
-//        )
-//        NativeSqliteDriver(dbConfig)
-//    }
+    single {
+        val dbConfig = DatabaseConfiguration(
+            name = DB_FILE_NAME,
+            version = UsefulTrainingDatabase.Schema.version,
+            extendedConfig = DatabaseConfiguration.Extended(foreignKeyConstraints = true),
+            create = { connection ->
+                wrapConnection(connection) { UsefulTrainingDatabase.Schema.create(it) }
+            },
+        )
+        NativeSqliteDriver(dbConfig)
+    }
 }
 
 @Composable
