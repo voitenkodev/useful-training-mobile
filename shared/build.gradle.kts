@@ -10,6 +10,7 @@ plugins {
 
 apply(from = "../config/gradle/build-scripts/android.gradle")
 apply(from = "../config/gradle/build-scripts/ios.gradle")
+apply(from = "../config/gradle/build-scripts/kotlin.gradle")
 
 version = "1.0-SNAPSHOT"
 
@@ -74,18 +75,5 @@ kotlin {
         val iosSimulatorArm64Main by getting {
             dependsOn(iosMain)
         }
-    }
-
-    kotlin.sourceSets.all {
-        languageSettings.optIn("androidx.compose.ui.text.ExperimentalTextApi")
-        languageSettings.optIn("androidx.compose.foundation.ExperimentalFoundationApi")
-        languageSettings.optIn("androidx.compose.ui.ExperimentalComposeUiApi")
-        languageSettings.optIn("androidx.compose.material.ExperimentalMaterialApi")
-        languageSettings.optIn("androidx.compose.ui.unit.ExperimentalMaterialApi")
-        languageSettings.optIn("androidx.compose.foundation.layout.ExperimentalLayoutApi")
-        languageSettings.optIn("kotlinx.coroutines.ExperimentalCoroutinesApi")
-        languageSettings.optIn("androidx.compose.ui.unit.ExperimentalUnitApi")
-        languageSettings.optIn("androidx.compose.animation.ExperimentalAnimationApi")
-        languageSettings.optIn("kotlin.time.ExperimentalTime")
     }
 }
