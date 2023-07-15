@@ -154,7 +154,6 @@ private fun Content(
             item(key = "charts") {
                 ChartsSection(
                     modifier = Modifier
-                        .animateItemPlacement()
                         .recomposeHighlighter(),
                     provideCompareTraining = provideCompareTraining,
                     provideReviewTraining = provideReviewTraining
@@ -164,7 +163,6 @@ private fun Content(
             item(key = "comparing") {
                 Comparing(
                     modifier = Modifier
-                        .animateItemPlacement()
                         .recomposeHighlighter(),
                     provideList = provideOtherTrainings,
                     provideSelected = provideCompareTraining,
@@ -177,7 +175,6 @@ private fun Content(
                 ButtonSecondary(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .animateItemPlacement()
                         .recomposeHighlighter(),
                     text = "Remove Training",
                     color = Design.colors.accent_tertiary,

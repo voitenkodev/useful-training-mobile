@@ -23,7 +23,7 @@ internal fun AccentLabel(
             .background(
                 color = backgroundColor,
                 shape = Design.shape.circleShape
-            ).padding(horizontal = 8.dp, vertical = 2.dp)
+            ).padding(horizontal = 8.dp, vertical = 4.dp)
             .recomposeHighlighter(),
         provideText = provideText,
         fontWeight = FontWeight.Bold
