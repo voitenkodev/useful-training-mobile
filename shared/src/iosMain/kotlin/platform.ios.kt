@@ -48,7 +48,7 @@ internal actual val platformModule = module {
                 wrapConnection(connection) { UsefulTrainingDatabase.Schema.create(it) }
             },
         )
-        NativeSqliteDriver(dbConfig)
+        UsefulTrainingDatabase.invoke(NativeSqliteDriver(dbConfig))
     }
 }
 

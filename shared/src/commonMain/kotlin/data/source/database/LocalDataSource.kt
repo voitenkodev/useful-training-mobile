@@ -1,15 +1,23 @@
 package data.source.database
 
 import UsefulTrainingDatabase
+import app.cash.sqldelight.db.SqlDriver
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 
-class LocalDataSource(private val database: UsefulTrainingDatabase) {
+class LocalDataSource(
+    database: UsefulTrainingDatabase
+) {
+
+    private val queries by lazy {
+        database.user_exercise_namesQueries
+    }
+
     fun setExerciseNames(names: List<String>): Flow<Unit> {
-        val request = database.transactionWithResult {
+        val request = queries.transactionWithResult {
             names.forEach {
-                database.user_exercise_namesQueries.insert(it)
+                queries.insert(it)
             }
         }
         return flowOf(request)
@@ -17,7 +25,7 @@ class LocalDataSource(private val database: UsefulTrainingDatabase) {
 
     suspend fun getExerciseNames(): Flow<List<String>> {
         return flow {
-            emit(database.user_exercise_namesQueries.selectAll().executeAsList())
+            emit(queries.selectAll().executeAsList())
         }
     }
 

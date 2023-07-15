@@ -24,6 +24,7 @@ fun EditExerciseItem(
     modifier: Modifier = Modifier,
     number: () -> Int,
     iterations: () -> List<Iteration>,
+    nameOptions: () -> List<String>,
     name: () -> String,
     updateName: (String) -> Unit,
     updateWeight: (Int, String) -> Unit,
@@ -55,7 +56,8 @@ fun EditExerciseItem(
             select = {
                 updateName.invoke(it)
                 focusManager.clearFocus()
-            }
+            },
+            options = nameOptions
         )
 
         DividerPrimary(

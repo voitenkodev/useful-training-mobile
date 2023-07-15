@@ -1,16 +1,15 @@
 package presentation.training
 
 import androidx.compose.runtime.Immutable
-import androidx.compose.runtime.Stable
 import com.benasher44.uuid.uuid4
 import dev.icerock.moko.parcelize.Parcelable
 import dev.icerock.moko.parcelize.Parcelize
-import kotlinx.serialization.Serializable
 import utils.DateTimeKtx
 
 @Immutable
 internal data class TrainingState(
     val training: Training = Training(),
+    val exerciseNameOptions: List<String> = emptyList(),
     val error: String? = null,
     val loading: Boolean = false,
     val exitWarningVisibility: Boolean = false,

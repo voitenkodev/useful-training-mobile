@@ -5,9 +5,11 @@ import data.mapping.toBody
 import data.mapping.toTrainingState
 import data.repository.TrainingRepository
 import globalKoin
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
@@ -24,6 +26,7 @@ internal class TrainingViewModel(private val navigator: NavigatorCore) : ViewMod
 
     private val api = globalKoin().get<TrainingRepository>()
 
+    @FlowPreview
     fun saveTraining() = viewModelScope.launch {
 
         val training = state.value.training
@@ -36,6 +39,8 @@ internal class TrainingViewModel(private val navigator: NavigatorCore) : ViewMod
             return@launch
         }
 
+        val exerciseNames = training.exercises.map { it.name }
+
         api.setTraining(training = training.toBody())
             .onStart {
                 _state.value = state.value.copy(loading = true)
@@ -44,8 +49,22 @@ internal class TrainingViewModel(private val navigator: NavigatorCore) : ViewMod
                 navigator.navigate(Graph.Review.link, popToInclusive = true, args = mapOf("trainingId" to it))
             }.catch {
                 _state.value = state.value.copy(loading = false, error = it.message)
+            }.flatMapConcat {
+                api.setExerciseNameOptions(exerciseNames)
             }
             .launchIn(this)
+    }
+
+    fun getExerciseNameOptions() = viewModelScope.launch {
+        api
+            .getExerciseNameOptions()
+            .onStart {
+                _state.value = state.value.copy(loading = true)
+            }.onEach {
+                _state.value = state.value.copy(exerciseNameOptions = it)
+            }.catch {
+                _state.value = state.value.copy(loading = false, error = it.message)
+            }.launchIn(this)
     }
 
     fun getTraining(trainingId: String) = viewModelScope.launch {
@@ -63,8 +82,7 @@ internal class TrainingViewModel(private val navigator: NavigatorCore) : ViewMod
                 )
             }.catch {
                 _state.value = state.value.copy(loading = false, error = it.message)
-            }
-            .launchIn(this)
+            }.launchIn(this)
     }
 
     fun clearError() {

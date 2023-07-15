@@ -33,6 +33,10 @@ internal fun TrainingContent(vm: TrainingViewModel, trainingId: String?) {
 
     val state by vm.state.collectAsState()
 
+    LaunchedEffect(Unit) {
+        vm.getExerciseNameOptions()
+    }
+
     LaunchedEffect(trainingId) {
         if (trainingId != null) {
             delay(500)
@@ -59,12 +63,14 @@ internal fun TrainingContent(vm: TrainingViewModel, trainingId: String?) {
         openExitScreenPopup = vm::openExitScreenPopup,
         saveTraining = vm::saveTraining,
 
+        exerciseNames = { state.exerciseNameOptions },
+
         exercises = exercisesProvider,
         updateName = vm::updateName,
         updateWeight = vm::updateWeight,
         updateRepeat = vm::updateRepeat,
         openRemoveExercisePopup = vm::openRemoveExercisePopup,
-        addExercise = vm::addExercise
+        addExercise = vm::addExercise,
     )
 }
 
@@ -76,7 +82,7 @@ private fun Content(
     tryBack: () -> Unit,
     back: () -> Unit,
 
-    // POPUPS
+    // Popups
     exitWarningVisibility: Boolean,
     closeExitScreenPopup: () -> Unit,
 
@@ -84,11 +90,14 @@ private fun Content(
     removeExercise: (id: String?) -> Unit,
     closeRemoveExercisePopup: () -> Unit,
 
-    // HEADER
+    // Header
     openExitScreenPopup: () -> Unit,
     saveTraining: () -> Unit,
 
-    // CONTENT
+    // Exercise names for help input
+    exerciseNames: () -> List<String>,
+
+    // Main Content
     exercises: State<List<Exercise>>,
     updateName: (id: String, value: String) -> Unit,
     updateWeight: (id: String, number: Int, value: String) -> Unit,
@@ -101,7 +110,7 @@ private fun Content(
     val saveTrainingProvider by rememberUpdatedState(saveTraining)
     val openExitScreenPopupProvider by rememberUpdatedState(openExitScreenPopup)
     val addExerciseProvider by rememberUpdatedState(addExercise)
-
+    val exerciseNamesProvider by rememberUpdatedState(exerciseNames)
 
     ScrollableRoot(
         modifier = Modifier
@@ -151,13 +160,15 @@ private fun Content(
                 EditExerciseItem(
                     modifier = Modifier.recomposeHighlighter(),
                     number = { number },
+                    nameOptions = exerciseNamesProvider,
                     name = { name },
                     updateName = { updateName(id, it) },
                     updateWeight = { num, value -> updateWeight(id, num, value) },
                     updateRepeat = { num, value -> updateRepeat(id, num, value) },
                     iterations = { iterations },
                     remove = { openRemoveExercisePopup(id) },
-                )
+
+                    )
             }
 
             item(key = "new_exercise_btn") {

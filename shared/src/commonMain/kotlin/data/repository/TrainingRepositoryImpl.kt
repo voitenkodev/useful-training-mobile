@@ -26,14 +26,14 @@ internal class TrainingRepositoryImpl(
     override suspend fun removeTraining(trainingId: String): Flow<Unit> = remote
         .deleteTraining(trainingId = trainingId)
 
-    override suspend fun setExerciseNames(names: List<String>) =
+    override suspend fun setExerciseNameOptions(names: List<String>) =
         local
             .setExerciseNames(names)
 
-    override suspend fun getExerciseNames() = local
+    override suspend fun getExerciseNameOptions() = local
         .getExerciseNames()
 
-    override suspend fun removeExerciseName(names: List<String>): Flow<Unit> {
+    override suspend fun removeExerciseNameOption(names: List<String>): Flow<Unit> {
         TODO("Not yet implemented")
     }
 }

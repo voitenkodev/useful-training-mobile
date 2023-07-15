@@ -15,6 +15,7 @@ internal data class SummaryState(
 
     val exercises: Map<ExerciseInfo, List<Exercise>> = mapOf(),
     val trainings: List<Training> = emptyList(),
+    val exerciseNameOptions: List<String> = emptyList(),
 
     val selectedDay: Int = DateTimeKtx.currentRealMonthDay(),
     val selectedMonth: Int = DateTimeKtx.currentRealMonth(),

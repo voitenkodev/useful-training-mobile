@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
 import design.Design
 import design.components.labels.ChipLabel
@@ -19,47 +20,16 @@ import utils.recomposeHighlighter
 
 @Composable
 fun HelpExerciseNameItem(
+    options: () -> List<String>,
     querySort: () -> String,
     visibility: () -> Boolean,
     select: (String) -> Unit
 ) {
-    // TODO ADD API
+
+    val initialList by rememberUpdatedState(options())
+
     val opts by remember(querySort()) {
-        mutableStateOf(
-            listOf(
-                "Жим лежа",
-                "Жим лежа без опоры ногами",
-                "Жим 45",
-                "Бабочка",
-
-                "Бицепс в скотте узким хватом",
-                "Бицепс в скотте широким хватом",
-                "Бицепс стоя широким хватом",
-                "Бицепс стоя обратным хватом",
-                "Молотки",
-
-                "Присед",
-                "Присед фронтальный",
-                "Выпады",
-                "Жим ногами",
-
-                "Становая на прямых",
-                "Тяга штанги в наклоне к животу",
-                "Тяга штанги в наклоне к животу узким обратным хватом",
-                "Тяга вертикального блока на спину",
-                "Тяга горизонтального блока на спину",
-                "Тяга вертикального блока к животу на спину",
-
-                "Жим узким",
-                "Французский жим",
-                "Тяга вертикального блока на трицепс",
-                "Брусья в блоке",
-
-                "Скручивание",
-                "Махи ног на пресс",
-
-            ).sortedByDescending { it.contains(querySort()) }
-        )
+        mutableStateOf(initialList.sortedByDescending { it.contains(querySort()) })
     }
 
     AnimatedVisibility(

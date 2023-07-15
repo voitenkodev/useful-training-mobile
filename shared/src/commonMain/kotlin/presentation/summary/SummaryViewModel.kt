@@ -49,6 +49,18 @@ internal class SummaryViewModel(private val navigator: NavigatorCore) : ViewMode
         }
     }
 
+    fun getExerciseNameOptions() = viewModelScope.launch {
+        api
+            .getExerciseNameOptions()
+            .onStart {
+                _state.value = state.value.copy(loading = true)
+            }.onEach {
+                _state.value = state.value.copy(exerciseNameOptions = it)
+            }.catch {
+                _state.value = state.value.copy(loading = false, error = it.message)
+            }.launchIn(this)
+    }
+
     fun getTrainings() = viewModelScope.launch {
         api.getTrainings()
             .onStart {

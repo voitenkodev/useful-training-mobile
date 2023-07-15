@@ -33,7 +33,7 @@ internal actual val platformModule = module {
         )
     }
     single {
-        AndroidSqliteDriver(
+        UsefulTrainingDatabase.invoke(AndroidSqliteDriver(
             schema = UsefulTrainingDatabase.Schema,
             context = get<Application>(),
             name = DB_FILE_NAME,
@@ -43,7 +43,7 @@ internal actual val platformModule = module {
                     db.setForeignKeyConstraintsEnabled(true)
                 }
             }
-        )
+        ))
     }
 }
 

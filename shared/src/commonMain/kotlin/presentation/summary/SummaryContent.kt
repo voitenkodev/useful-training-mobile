@@ -64,6 +64,7 @@ internal fun SummaryContent(vm: SummaryViewModel) {
 
     LaunchedEffect(Unit) {
         vm.getTrainings()
+        vm.getExerciseNameOptions()
     }
 
     Content(
@@ -86,7 +87,8 @@ internal fun SummaryContent(vm: SummaryViewModel) {
         exercises = state.exercises,
         trainings = state.trainings,
         listOfTonnage = { state.listOfTonnage },
-        listOfIntensity = { state.listOfIntensity }
+        listOfIntensity = { state.listOfIntensity },
+        exerciseNameOptions = { state.exerciseNameOptions }
     )
 
     AutoScrollStateHandler(
@@ -120,6 +122,9 @@ private fun Content(
     exercises: Map<ExerciseInfo, List<Exercise>>,
     trainings: List<Training>,
 
+    // Exercise names for help input
+    exerciseNameOptions: () -> List<String>,
+
     // Charts
     listOfTonnage: () -> List<Float>,
     listOfIntensity: () -> List<Float>
@@ -135,6 +140,7 @@ private fun Content(
         })
     }
     val trainingProvider by rememberUpdatedState(trainings)
+    val exerciseNameOptionsProvider by rememberUpdatedState(exerciseNameOptions)
     val exercisesProvider = rememberUpdatedState(exercises)
     val isEmptyExercises by rememberUpdatedState(exercisesProvider.value.isEmpty())
     val isSearchBlank by rememberUpdatedState(query().isBlank())
@@ -170,7 +176,8 @@ private fun Content(
                 HelpExerciseNameItem(
                     querySort = query,
                     visibility = { helpVisible.value },
-                    select = selectExerciseNameProvider
+                    select = selectExerciseNameProvider,
+                    options = exerciseNameOptionsProvider,
                 )
             }
 
