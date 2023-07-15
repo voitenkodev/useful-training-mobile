@@ -58,12 +58,10 @@ internal class TrainingViewModel(private val navigator: NavigatorCore) : ViewMod
     fun getExerciseNameOptions() = viewModelScope.launch {
         api
             .getExerciseNameOptions()
-            .onStart {
-                _state.value = state.value.copy(loading = true)
-            }.onEach {
+            .onEach {
                 _state.value = state.value.copy(exerciseNameOptions = it)
             }.catch {
-                _state.value = state.value.copy(loading = false, error = it.message)
+                _state.value = state.value.copy(error = it.message)
             }.launchIn(this)
     }
 

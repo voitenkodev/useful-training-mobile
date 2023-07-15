@@ -26,10 +26,8 @@ fun HelpExerciseNameItem(
     select: (String) -> Unit
 ) {
 
-    val initialList by rememberUpdatedState(options())
-
-    val opts by remember(querySort()) {
-        mutableStateOf(initialList.sortedByDescending { it.contains(querySort()) })
+    val opts by remember(querySort(), options()) {
+        mutableStateOf(options().sortedByDescending { it.contains(querySort()) })
     }
 
     AnimatedVisibility(
