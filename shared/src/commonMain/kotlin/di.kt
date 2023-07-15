@@ -2,10 +2,8 @@ import data.repository.AuthRepository
 import data.repository.AuthRepositoryImpl
 import data.repository.TrainingRepository
 import data.repository.TrainingRepositoryImpl
-import data.source.network.AuthProtocol
-import data.source.network.AuthSource
-import data.source.network.TrainingProtocol
-import data.source.network.TrainingSource
+import data.source.database.LocalDataSource
+import data.source.network.RemoteDataSource
 import org.koin.dsl.KoinAppDeclaration
 import org.koin.dsl.bind
 import org.koin.dsl.module
@@ -21,8 +19,8 @@ fun initCommonKoin(
 fun globalKoin() = KoinPlatformTools.defaultContext().get()
 
 val appModule = module {
-    single { AuthSource(get(), get()) } bind AuthProtocol::class
-    single { TrainingSource(get()) } bind TrainingProtocol::class
-    single { TrainingRepositoryImpl(get()) } bind TrainingRepository::class
-    single { AuthRepositoryImpl(get()) } bind AuthRepository::class
+    single { RemoteDataSource(get()) }
+    single { LocalDataSource(get()) }
+    single { TrainingRepositoryImpl(get(), get()) } bind TrainingRepository::class
+    single { AuthRepositoryImpl(get(), get()) } bind AuthRepository::class
 }
