@@ -10,3 +10,7 @@ FROM UserExerciseNameEntity;
 insert:
 INSERT OR REPLACE INTO UserExerciseNameEntity(value)
 VALUES (?);
+
+delete:
+DELETE FROM UserExerciseNameEntity
+WHERE (value) = ?;

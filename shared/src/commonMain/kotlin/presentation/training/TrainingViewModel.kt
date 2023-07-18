@@ -55,6 +55,18 @@ internal class TrainingViewModel(private val navigator: NavigatorCore) : ViewMod
             .launchIn(this)
     }
 
+    fun removeExerciseNameOption(value: String) = viewModelScope.launch {
+        api
+            .removeExerciseNameOption(value)
+            .onEach { removedValue ->
+                _state.value = state.value.copy(
+                    exerciseNameOptions = state.value.exerciseNameOptions.filterNot { it == removedValue }
+                )
+            }.catch {
+                _state.value = state.value.copy(error = it.message)
+            }.launchIn(this)
+    }
+
     fun getExerciseNameOptions() = viewModelScope.launch {
         api
             .getExerciseNameOptions()

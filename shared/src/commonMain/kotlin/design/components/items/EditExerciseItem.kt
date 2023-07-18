@@ -26,6 +26,7 @@ fun EditExerciseItem(
     iterations: () -> List<Iteration>,
     nameOptions: () -> List<String>,
     name: () -> String,
+    removeNameOption: (String) -> Unit,
     updateName: (String) -> Unit,
     updateWeight: (Int, String) -> Unit,
     updateRepeat: (Int, String) -> Unit,
@@ -57,6 +58,7 @@ fun EditExerciseItem(
                 updateName.invoke(it)
                 focusManager.clearFocus()
             },
+            remove = removeNameOption,
             options = nameOptions
         )
 

@@ -71,6 +71,7 @@ internal fun TrainingContent(vm: TrainingViewModel, trainingId: String?) {
         updateRepeat = vm::updateRepeat,
         openRemoveExercisePopup = vm::openRemoveExercisePopup,
         addExercise = vm::addExercise,
+        removeExerciseNameOption = vm::removeExerciseNameOption
     )
 }
 
@@ -96,6 +97,7 @@ private fun Content(
 
     // Exercise names for help input
     exerciseNames: () -> List<String>,
+    removeExerciseNameOption: (String) -> Unit,
 
     // Main Content
     exercises: State<List<Exercise>>,
@@ -111,6 +113,7 @@ private fun Content(
     val openExitScreenPopupProvider by rememberUpdatedState(openExitScreenPopup)
     val addExerciseProvider by rememberUpdatedState(addExercise)
     val exerciseNamesProvider by rememberUpdatedState(exerciseNames)
+    val removeExerciseNameOptionProvider by rememberUpdatedState(removeExerciseNameOption)
 
     ScrollableRoot(
         modifier = Modifier
@@ -167,8 +170,8 @@ private fun Content(
                     updateRepeat = { num, value -> updateRepeat(id, num, value) },
                     iterations = { iterations },
                     remove = { openRemoveExercisePopup(id) },
-
-                    )
+                    removeNameOption = removeExerciseNameOptionProvider
+                )
             }
 
             item(key = "new_exercise_btn") {

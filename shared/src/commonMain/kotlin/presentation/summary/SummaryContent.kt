@@ -88,7 +88,9 @@ internal fun SummaryContent(vm: SummaryViewModel) {
         trainings = state.trainings,
         listOfTonnage = { state.listOfTonnage },
         listOfIntensity = { state.listOfIntensity },
-        exerciseNameOptions = { state.exerciseNameOptions }
+
+        exerciseNameOptions = { state.exerciseNameOptions },
+        removeExerciseNameOption = vm::removeExerciseNameOption
     )
 
     AutoScrollStateHandler(
@@ -124,6 +126,7 @@ private fun Content(
 
     // Exercise names for help input
     exerciseNameOptions: () -> List<String>,
+    removeExerciseNameOption: (String) -> Unit,
 
     // Charts
     listOfTonnage: () -> List<Float>,
@@ -139,6 +142,7 @@ private fun Content(
             focusManager.clearFocus()
         })
     }
+    val removeExerciseNameOptionProvider by rememberUpdatedState(removeExerciseNameOption)
     val trainingProvider by rememberUpdatedState(trainings)
     val exerciseNameOptionsProvider by rememberUpdatedState(exerciseNameOptions)
     val exercisesProvider = rememberUpdatedState(exercises)
@@ -178,6 +182,7 @@ private fun Content(
                     visibility = { helpVisible.value },
                     select = selectExerciseNameProvider,
                     options = exerciseNameOptionsProvider,
+                    remove = removeExerciseNameOptionProvider
                 )
             }
 

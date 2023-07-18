@@ -20,5 +20,5 @@ internal interface TrainingRepository {
 
     suspend fun setExerciseNameOptions(names: List<String>): Flow<Unit>
 
-    suspend fun removeExerciseNameOption(names: List<String>): Flow<Unit>
+    suspend fun removeExerciseNameOption(value: String): Flow<String>
 }
