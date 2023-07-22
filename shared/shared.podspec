@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
     spec.name                     = 'shared'
-    spec.version                  = '1.0-SNAPSHOT'
+    spec.version                  = '1.0'
     spec.homepage                 = 'https://github.com/voitenkodev/Useful-Training'
     spec.source                   = { :http=> ''}
     spec.authors                  = ''

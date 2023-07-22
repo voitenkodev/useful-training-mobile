@@ -16,7 +16,7 @@ import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
 import kotlin.time.Duration
 
-internal object DateTimeKtx {
+object DateTimeKtx {
 
     /**
      * Output 2022-10-21T13:20:18.496Z

@@ -38,3 +38,8 @@ rootProject.name = "UsefulTraining"
 
 include(":androidApp")
 include(":shared")
+include(
+//    "ui:auth",
+    "utils:navigator",
+    "utils:instruments",
+)

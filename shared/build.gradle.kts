@@ -12,7 +12,7 @@ apply(from = "../config/gradle/build-scripts/android.gradle")
 apply(from = "../config/gradle/build-scripts/ios.gradle")
 apply(from = "../config/gradle/build-scripts/kotlin.gradle")
 
-version = "1.0-SNAPSHOT"
+version = "1.0"
 
 sqldelight {
     databases {
@@ -25,13 +25,13 @@ sqldelight {
 }
 
 kotlin {
-    android()
-    ios()
-    iosSimulatorArm64()
-
     sourceSets {
         val commonMain by getting {
             dependencies {
+
+                api(projects.utils.instruments)
+                api(projects.utils.navigator)
+
                 //compose
                 implementation(compose.ui)
                 implementation(compose.foundation)

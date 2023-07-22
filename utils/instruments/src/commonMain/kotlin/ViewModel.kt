@@ -5,7 +5,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 
-internal abstract class ViewModel {
+abstract class ViewModel {
 
     private val coroutineTags = hashMapOf<String, CoroutineScope>()
 

@@ -25,7 +25,7 @@ private fun provideCore(
 }
 
 @Composable
-internal fun RootController(
+fun RootController(
     startScreen: String,
     content: GraphBuilder.() -> Unit
 ) {
