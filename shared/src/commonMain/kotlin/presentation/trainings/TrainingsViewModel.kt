@@ -1,8 +1,6 @@
 package presentation.trainings
 
 import Graph
-import data.mapping.toTrainingStateList
-import data.repository.TrainingRepository
 import globalKoin
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -12,8 +10,10 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
+import mapping.toTrainingStateList
 import navigation.NavigatorCore
 import presentation.training.Training
+import repository.TrainingRepository
 import utils.ViewModel
 import utils.round
 

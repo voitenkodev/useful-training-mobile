@@ -36,10 +36,11 @@ dependencyResolutionManagement {
 
 rootProject.name = "UsefulTraining"
 
-include(":androidApp")
-include(":shared")
 include(
-//    "ui:auth",
+    ":androidApp",
+    ":shared",
+    ":data",
+
     "utils:navigator",
     "utils:instruments",
 )

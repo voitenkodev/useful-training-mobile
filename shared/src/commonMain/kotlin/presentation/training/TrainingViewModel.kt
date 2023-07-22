@@ -1,9 +1,6 @@
 package presentation.training
 
 import Graph
-import data.mapping.toBody
-import data.mapping.toTrainingState
-import data.repository.TrainingRepository
 import globalKoin
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,7 +11,10 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
+import mapping.toBody
+import mapping.toTrainingState
 import navigation.NavigatorCore
+import repository.TrainingRepository
 import utils.DateTimeKtx
 import utils.ViewModel
 import utils.round

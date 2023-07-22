@@ -2,17 +2,17 @@ package presentation.review
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
-import data.mapping.toTrainingState
-import data.mapping.toTrainingStateList
-import data.repository.TrainingRepository
 import globalKoin
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
+import mapping.toTrainingState
+import mapping.toTrainingStateList
 import navigation.NavigatorCore
 import presentation.training.Training
+import repository.TrainingRepository
 import utils.ViewModel
 
 internal class ReviewViewModel(private val navigator: NavigatorCore) : ViewModel() {

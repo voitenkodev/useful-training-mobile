@@ -1,9 +1,6 @@
 package presentation.summary
 
-import data.dto.ExerciseDateDTO
-import data.mapping.toExerciseState
-import data.mapping.toTrainingStateList
-import data.repository.TrainingRepository
+import dto.ExerciseDateDTO
 import globalKoin
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -15,9 +12,12 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
+import mapping.toExerciseState
+import mapping.toTrainingStateList
 import navigation.NavigatorCore
 import presentation.training.Exercise
 import presentation.training.Training
+import repository.TrainingRepository
 import utils.ViewModel
 
 internal class SummaryViewModel(private val navigator: NavigatorCore) : ViewModel() {
