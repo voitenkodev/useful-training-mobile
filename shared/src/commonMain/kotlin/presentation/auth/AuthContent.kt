@@ -1,5 +1,6 @@
 package presentation.auth
 
+import Design
 import PlatformBackHandler
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -9,16 +10,15 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
-import design.Design
-import design.components.Error
-import design.components.Loading
-import design.components.buttons.ButtonQuestion
-import design.components.inputs.InputEmail
-import design.components.inputs.InputPassword
-import design.components.roots.ScrollableRoot
-import design.controls.ButtonPrimary
-import design.controls.TextFieldBody1
-import design.controls.TextFieldH1
+import components.Error
+import components.Loading
+import components.buttons.ButtonQuestion
+import components.inputs.InputEmail
+import components.inputs.InputPassword
+import components.roots.ScrollableRoot
+import controls.ButtonPrimary
+import controls.TextFieldBody1
+import controls.TextFieldH1
 import utils.recomposeHighlighter
 
 @Composable

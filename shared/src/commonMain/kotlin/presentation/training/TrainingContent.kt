@@ -1,5 +1,6 @@
 package presentation.training
 
+import Design
 import PlatformBackHandler
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -16,15 +17,14 @@ import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import design.Design
-import design.components.Error
-import design.components.Header
-import design.components.Loading
-import design.components.Popup
-import design.components.items.EditExerciseItem
-import design.components.roots.ScrollableRoot
-import design.controls.TextFieldH2
-import design.controls.tertiaryBackground
+import components.EditExerciseItem
+import components.Error
+import components.Header
+import components.Loading
+import components.Popup
+import components.roots.ScrollableRoot
+import controls.TextFieldH2
+import controls.tertiaryBackground
 import kotlinx.coroutines.delay
 import utils.recomposeHighlighter
 

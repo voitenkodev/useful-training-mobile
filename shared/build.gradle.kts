@@ -23,6 +23,7 @@ kotlin {
                 api(projects.data)
                 api(projects.utils.instruments)
                 api(projects.utils.navigator)
+                api(projects.utils.designsystem)
 
                 //compose
                 implementation(compose.ui)

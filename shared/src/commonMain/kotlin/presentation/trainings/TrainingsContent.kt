@@ -1,5 +1,6 @@
 package presentation.trainings
 
+import Design
 import PlatformBackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -24,15 +25,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import design.Design
-import design.components.Error
-import design.components.Loading
-import design.components.items.TrainingItem
-import design.components.items.WeekSummary
-import design.components.roots.ScrollableRoot
-import design.controls.IconPrimary
-import design.controls.TextFieldBody1
-import design.controls.TextFieldH1
+import components.Error
+import components.Loading
+import components.TrainingItem
+import components.WeekSummary
+import components.roots.ScrollableRoot
+import controls.IconPrimary
+import controls.TextFieldBody1
+import controls.TextFieldH1
 import presentation.training.Training
 import utils.recomposeHighlighter
 

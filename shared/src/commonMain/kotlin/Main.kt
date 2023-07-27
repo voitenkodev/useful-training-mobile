@@ -1,6 +1,5 @@
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import design.DesignTheme
 import navigation.Animation
 import navigation.RootController
 import navigation.findNavigator

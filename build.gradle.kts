@@ -20,7 +20,6 @@ subprojects {
     }
 }
 
-
 tasks.register("clean", Delete::class) {
     delete(".gradle")
     delete(".idea")

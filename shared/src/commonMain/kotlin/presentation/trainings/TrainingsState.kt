@@ -19,7 +19,7 @@ internal data class TrainingsState(
 
 @Parcelize
 @Immutable
-internal data class WeekInfo(
+data class WeekInfo(
     val startWeekDate: String,
     val endWeekDate: String,
     val tonnage: Double,

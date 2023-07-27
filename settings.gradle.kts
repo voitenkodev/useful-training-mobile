@@ -41,6 +41,7 @@ include(
     ":shared",
     ":data",
 
+    "utils:designsystem",
     "utils:navigator",
     "utils:instruments",
 )
