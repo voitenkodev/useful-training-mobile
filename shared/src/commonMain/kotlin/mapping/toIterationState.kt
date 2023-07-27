@@ -2,6 +2,7 @@ package mapping
 
 import dto.IterationDTO
 import presentation.training.Iteration
+import utils.toDoubleOrIntString
 
 internal fun List<IterationDTO>.toIterationStateList() = this.map { it.toIterationState() }
 

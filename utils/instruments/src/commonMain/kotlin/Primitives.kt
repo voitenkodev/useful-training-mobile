@@ -5,3 +5,8 @@ fun Double.round(decimals: Int): Double {
     repeat(decimals) { multiplier *= 10 }
     return kotlin.math.round(this * multiplier) / multiplier
 }
+
+fun Double.toDoubleOrIntString(): String {
+    return if (this.compareTo(this.toInt()) == 0) this.toInt().toString()
+    else this.toString()
+}
