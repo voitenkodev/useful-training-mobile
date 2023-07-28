@@ -1,4 +1,3 @@
-import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.sqlite.db.SupportSQLiteDatabase
@@ -10,15 +9,6 @@ import kotlinx.coroutines.Dispatchers
 import source.database.DB_FILE_NAME
 import source.datastore.createDataStore
 import source.datastore.dataStoreFileName
-
-actual class NativeContext private actual constructor() {
-    lateinit var context: Context
-        private set
-
-    constructor(context: Context) : this() {
-        this.context = context
-    }
-}
 
 internal actual fun NativeContext.driver(): HttpClient {
     return HttpClient(OkHttp)

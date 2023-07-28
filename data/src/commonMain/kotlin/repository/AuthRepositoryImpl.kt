@@ -29,4 +29,8 @@ class AuthRepositoryImpl(
 
     override fun getToken(): Flow<String?> =
         preferencesSource.getToken()
+
+    override suspend fun logout() {
+        preferencesSource.removeToken()
+    }
 }

@@ -1,5 +1,6 @@
 package presentation.auth
 
+import Accelerometer
 import Graph
 import globalKoin
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -12,11 +13,14 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import navigation.NavigatorCore
 import repository.AuthRepository
+import utils.Logger
 import utils.ViewModel
 
 internal class AuthViewModel(private val navigator: NavigatorCore) : ViewModel() {
 
     private val api = globalKoin().get<AuthRepository>()
+
+    private val accelerator = globalKoin().get<Accelerometer>()
 
     private val _state = MutableStateFlow(AuthState())
     val state: StateFlow<AuthState> = _state
@@ -28,6 +32,12 @@ internal class AuthViewModel(private val navigator: NavigatorCore) : ViewModel()
                 .filterNotNull()
                 .onEach { navigator.navigate(Graph.Trainings.link, true) }
                 .launchIn(this)
+
+            accelerator
+                .accelerator
+                .onEach {
+                    Logger.l { it.toString() }
+                }.launchIn(this)
         }
     }
 

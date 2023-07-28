@@ -2,6 +2,7 @@ package presentation.auth
 
 import Design
 import PlatformBackHandler
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
@@ -10,6 +11,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
+import components.BlueYellowOvalsScreenBackground
 import components.Error
 import components.Loading
 import components.buttons.ButtonQuestion
@@ -26,20 +28,24 @@ internal fun AuthContent(vm: AuthViewModel) {
 
     val state by vm.state.collectAsState()
 
-    Content(
-        loading = { state.loading },
-        error = { state.error },
-        clearError = vm::clearError,
-        back = vm::back,
+    Box {
+        BlueYellowOvalsScreenBackground() // todo update it
 
-        login = vm::login,
-        registration = vm::registration,
+        Content(
+            loading = { state.loading },
+            error = { state.error },
+            clearError = vm::clearError,
+            back = vm::back,
 
-        email = { state.email },
-        updateEmail = vm::updateEmail,
-        password = { state.password },
-        updatePassword = vm::updatePassword
-    )
+            login = vm::login,
+            registration = vm::registration,
+
+            email = { state.email },
+            updateEmail = vm::updateEmail,
+            password = { state.password },
+            updatePassword = vm::updatePassword
+        )
+    }
 }
 
 @Composable

@@ -26,6 +26,8 @@ kotlin {
         val commonMain by getting {
             dependencies {
 
+                api(projects.utils.nativeContext)
+
                 //ktor
                 implementation(libs.ktor.core)
                 implementation(libs.ktor.logging)

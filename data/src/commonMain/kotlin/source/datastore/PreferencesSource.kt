@@ -21,6 +21,10 @@ class PreferencesSource(nativeContext: NativeContext) {
         return preferences.data.map { it[KEY_TOKEN] }
     }
 
+    suspend fun removeToken() {
+        preferences.edit { it.clear() }
+    }
+
     companion object DataStoreKeys {
         private val KEY_TOKEN = stringPreferencesKey("key_token")
     }

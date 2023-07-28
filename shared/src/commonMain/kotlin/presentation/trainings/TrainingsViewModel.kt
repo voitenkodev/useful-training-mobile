@@ -13,6 +13,7 @@ import kotlinx.coroutines.launch
 import mapping.toTrainingStateList
 import navigation.NavigatorCore
 import presentation.training.Training
+import repository.AuthRepository
 import repository.TrainingRepository
 import utils.ViewModel
 import utils.round
@@ -22,10 +23,11 @@ internal class TrainingsViewModel(private val navigator: NavigatorCore) : ViewMo
     private val _state = MutableStateFlow(TrainingsState())
     val state: StateFlow<TrainingsState> = _state
 
-    private val api = globalKoin().get<TrainingRepository>()
+    private val trainingApi = globalKoin().get<TrainingRepository>()
+    private val authApi = globalKoin().get<AuthRepository>()
 
     fun getTrainings() = viewModelScope.launch {
-        api.getTrainings()
+        trainingApi.getTrainings()
             .onStart {
                 _state.value = state.value.copy(loading = true)
             }.map {
@@ -36,6 +38,12 @@ internal class TrainingsViewModel(private val navigator: NavigatorCore) : ViewMo
             }.catch {
                 _state.value = state.value.copy(loading = false, error = it.message)
             }.launchIn(this)
+    }
+
+    fun logout() {
+        viewModelScope.launch {
+            authApi.logout()
+        }
     }
 
     fun clearError() {

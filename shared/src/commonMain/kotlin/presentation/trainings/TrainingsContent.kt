@@ -17,6 +17,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -58,6 +59,7 @@ internal fun TrainingsContent(vm: TrainingsViewModel) {
         date = { state.date },
         moveToSummary = vm::moveToSummary,
         addTraining = vm::addTraining,
+        logout = vm::logout,
 
         weekTrainings = { state.weekTrainings },
         editTraining = vm::editTraining,
@@ -79,6 +81,7 @@ private fun Content(
     date: () -> String,
     moveToSummary: () -> Unit,
     addTraining: () -> Unit,
+    logout: () -> Unit,
 
     // CONTENT
     weekTrainings: () -> Map<WeekInfo, List<Training>>,
@@ -102,6 +105,7 @@ private fun Content(
                 weekDay = weekDay,
                 date = date,
                 moveToSummary = moveToSummaryProvider,
+                logout = logout
             )
         },
         content = {
@@ -151,6 +155,7 @@ private fun Header(
     weekDay: () -> String,
     date: () -> String,
     moveToSummary: () -> Unit,
+    logout: () -> Unit,
 ) {
     Row(
         modifier = Modifier
@@ -169,6 +174,7 @@ private fun Header(
 
         HeaderButtons(
             moveToSummary = moveToSummary,
+            logout = logout
         )
     }
 }
@@ -177,6 +183,7 @@ private fun Header(
 private fun HeaderButtons(
     modifier: Modifier = Modifier,
     moveToSummary: () -> Unit,
+    logout: () -> Unit,
 ) {
     Row(
         modifier = modifier
@@ -187,6 +194,16 @@ private fun HeaderButtons(
         horizontalArrangement = Arrangement.spacedBy(Design.dp.padding, Alignment.End)
     ) {
 
+        IconPrimary(
+            imageVector = Icons.Default.ExitToApp,
+            modifier = Modifier
+                .size(Design.dp.component)
+                .background(
+                    color = Design.colors.accent_tertiary,
+                    shape = Design.shape.default
+                ).recomposeHighlighter(),
+            onClick = logout
+        )
         IconPrimary(
             imageVector = Icons.Default.Search,
             modifier = Modifier

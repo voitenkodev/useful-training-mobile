@@ -21,6 +21,8 @@ fun globalKoin() = KoinPlatformTools.defaultContext().get()
 
 val appModule = module {
 
+    single { Accelerometer(get()) }
+
     single { PreferencesSource(get()) }
     single { NetworkSource(get(), get()) }
     single { DataBaseSource(get()) }

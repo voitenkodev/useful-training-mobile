@@ -13,8 +13,6 @@ apply(from = "../config/gradle/build-scripts/kotlin.gradle")
 
 version = "1.0"
 
-
-
 kotlin {
     sourceSets {
         val commonMain by getting {

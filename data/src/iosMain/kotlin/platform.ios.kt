@@ -15,8 +15,6 @@ import source.database.DB_FILE_NAME
 import source.datastore.createDataStore
 import source.datastore.dataStoreFileName
 
-actual class NativeContext actual constructor()
-
 internal actual fun NativeContext.driver(): HttpClient {
     return HttpClient(Darwin) { engine { configureRequest { setAllowsCellularAccess(true) } } }
 }
