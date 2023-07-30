@@ -21,7 +21,8 @@ kotlin {
                 api(projects.data)
                 api(projects.utils.instruments)
                 api(projects.utils.navigator)
-                api(projects.utils.designsystem)
+                api(projects.utils.designSystem)
+                api(projects.utils.composePlayer)
 
                 //compose
                 implementation(compose.ui)

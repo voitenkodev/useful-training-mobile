@@ -41,8 +41,9 @@ include(
     ":shared",
     ":data",
 
-    "utils:designsystem",
+    "utils:design-system",
     "utils:navigator",
     "utils:instruments",
     "utils:native-context",
+    "utils:compose-player",
 )

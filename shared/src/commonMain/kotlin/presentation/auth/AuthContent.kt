@@ -2,7 +2,8 @@ package presentation.auth
 
 import Design
 import PlatformBackHandler
-import androidx.compose.foundation.layout.Box
+import VideoPlayer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
@@ -11,7 +12,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
-import components.BlueYellowOvalsScreenBackground
 import components.Error
 import components.Loading
 import components.buttons.ButtonQuestion
@@ -28,24 +28,25 @@ internal fun AuthContent(vm: AuthViewModel) {
 
     val state by vm.state.collectAsState()
 
-    Box {
-        BlueYellowOvalsScreenBackground() // todo update it
+    VideoPlayer(
+        modifier = Modifier.fillMaxSize(),
+        url = "http://thinkingform.com/wp-content/uploads/2017/09/video-sample-mp4.mp4?_=1"
+    )
 
-        Content(
-            loading = { state.loading },
-            error = { state.error },
-            clearError = vm::clearError,
-            back = vm::back,
+    Content(
+        loading = { state.loading },
+        error = { state.error },
+        clearError = vm::clearError,
+        back = vm::back,
 
-            login = vm::login,
-            registration = vm::registration,
+        login = vm::login,
+        registration = vm::registration,
 
-            email = { state.email },
-            updateEmail = vm::updateEmail,
-            password = { state.password },
-            updatePassword = vm::updatePassword
-        )
-    }
+        email = { state.email },
+        updateEmail = vm::updateEmail,
+        password = { state.password },
+        updatePassword = vm::updatePassword
+    )
 }
 
 @Composable
