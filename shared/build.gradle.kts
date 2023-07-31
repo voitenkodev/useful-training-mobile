@@ -23,21 +23,20 @@ kotlin {
                 api(projects.utils.navigator)
                 api(projects.utils.designSystem)
                 api(projects.utils.composePlayer)
-                api(projects.utils.resources)
 
-                //compose
+                // Compose
                 implementation(compose.ui)
                 implementation(compose.foundation)
                 implementation(compose.material)
 
-                //utils
+                // Utils
                 implementation(libs.uuid)
                 implementation(libs.parcelize)
                 implementation(libs.serialization)
                 implementation(libs.datetime)
                 implementation(libs.datastore)
 
-                //koin
+                // Koin
                 implementation(libs.koin.core)
             }
         }

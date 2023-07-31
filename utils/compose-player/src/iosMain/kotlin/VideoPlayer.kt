@@ -19,7 +19,12 @@ actual fun VideoPlayer(
     url: String,
     allowControls: Boolean
 ) {
-    val player = remember { AVPlayer(uRL = NSURL.URLWithString(url)!!) }
+    val r = ResourceReader().readResource("intro.mp4")
+
+    val fileUrl = NSURL.fileURLWithPath(r)
+
+//    val url = NSBundle.mainBundle.URLForResource(url, null)
+    val player = remember { AVPlayer(uRL = fileUrl) }
     val playerLayer = remember { AVPlayerLayer() }
     val avPlayerViewController = remember { AVPlayerViewController() }
     avPlayerViewController.player = player
@@ -42,6 +47,23 @@ actual fun VideoPlayer(
             playerLayer.setFrame(rect)
             avPlayerViewController.view.layer.frame = rect
             CATransaction.commit()
+
+
+            /*
+             val playerContainer = UIView()
+            playerContainer.addSubview(avPlayerViewController.view)
+            playerContainer.translatesAutoresizingMaskIntoConstraints = false
+            avPlayerViewController.view.translatesAutoresizingMaskIntoConstraints = false
+
+            // Add constraints to make the AVPlayerViewController fill its parent view
+            avPlayerViewController.view.leadingAnchor.constraintEqualToAnchor(playerContainer.leadingAnchor).isActive = true
+            avPlayerViewController.view.trailingAnchor.constraintEqualToAnchor(playerContainer.trailingAnchor).isActive = true
+            avPlayerViewController.view.topAnchor.constraintEqualToAnchor(playerContainer.topAnchor).isActive = true
+            avPlayerViewController.view.bottomAnchor.constraintEqualToAnchor(playerContainer.bottomAnchor).isActive = true
+
+            // Return the playerContainer as the root UIView
+            playerContainer
+            * */
         },
         update = { view ->
             player.play()

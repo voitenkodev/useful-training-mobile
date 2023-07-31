@@ -44,7 +44,6 @@ include(
     "utils:design-system",
     "utils:navigator",
     "utils:instruments",
-    "utils:resources",
     "utils:native-context",
     "utils:compose-player",
 )

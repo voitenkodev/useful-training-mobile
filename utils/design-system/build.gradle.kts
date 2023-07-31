@@ -15,7 +15,7 @@ kotlin {
             dependencies {
                 api(projects.utils.instruments)
 
-                //compose
+                // Compose
                 implementation(compose.ui)
                 implementation(compose.foundation)
                 implementation(compose.material)
