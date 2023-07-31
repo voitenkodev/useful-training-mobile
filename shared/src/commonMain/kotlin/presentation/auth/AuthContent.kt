@@ -2,6 +2,7 @@ package presentation.auth
 
 import Design
 import PlatformBackHandler
+import VideoManager
 import VideoPlayer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -21,6 +22,7 @@ import components.roots.ScrollableRoot
 import controls.ButtonPrimary
 import controls.TextFieldBody1
 import controls.TextFieldH1
+import utils.Logger
 import utils.recomposeHighlighter
 
 @Composable
@@ -30,7 +32,8 @@ internal fun AuthContent(vm: AuthViewModel) {
 
     VideoPlayer(
         modifier = Modifier.fillMaxSize(),
-        url = "http://thinkingform.com/wp-content/uploads/2017/09/video-sample-mp4.mp4?_=1"
+        url = VideoManager.getLocalVideoPath("intro", "mp4") ?: "",
+//        "http://thinkingform.com/wp-content/uploads/2017/09/video-sample-mp4.mp4?_=1"
     )
 
     Content(

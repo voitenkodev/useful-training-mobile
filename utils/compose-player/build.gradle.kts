@@ -21,9 +21,9 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
-                implementation("androidx.media3:media3-exoplayer:1.1.0")
-                implementation("androidx.media3:media3-exoplayer-dash:1.1.0")
-                implementation("androidx.media3:media3-ui:1.1.0")
+                implementation(libs.media3.exoplayer)
+                implementation(libs.media3.exoplayer.dash)
+                implementation(libs.media3.exoplayer.ui)
             }
         }
         val iosMain by getting {

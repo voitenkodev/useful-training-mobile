@@ -23,6 +23,7 @@ kotlin {
                 api(projects.utils.navigator)
                 api(projects.utils.designSystem)
                 api(projects.utils.composePlayer)
+                api(projects.utils.resources)
 
                 //compose
                 implementation(compose.ui)
