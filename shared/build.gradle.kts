@@ -5,11 +5,17 @@ plugins {
     id("com.android.library")
     id("org.jetbrains.compose")
     id("org.jetbrains.kotlin.plugin.parcelize")
+    id("dev.icerock.mobile.multiplatform-resources")
 }
 
 apply(from = "../config/gradle/build-scripts/android.gradle")
 apply(from = "../config/gradle/build-scripts/ios.gradle")
 apply(from = "../config/gradle/build-scripts/kotlin.gradle")
+
+multiplatformResources {
+    multiplatformResourcesPackage = "com.voitenko.usefultraining"
+    multiplatformResourcesClassName = "SharedRes"
+}
 
 version = "1.0"
 
@@ -23,6 +29,8 @@ kotlin {
                 api(projects.utils.navigator)
                 api(projects.utils.designSystem)
                 api(projects.utils.composePlayer)
+
+                implementation(libs.moko.resources)
 
                 // Compose
                 implementation(compose.ui)

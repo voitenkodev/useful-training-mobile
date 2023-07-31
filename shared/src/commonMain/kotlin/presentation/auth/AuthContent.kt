@@ -12,6 +12,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
+import com.voitenko.usefultraining.SharedRes
 import components.Error
 import components.Loading
 import components.buttons.ButtonQuestion
@@ -30,7 +31,7 @@ internal fun AuthContent(vm: AuthViewModel) {
 
     VideoPlayer(
         modifier = Modifier.fillMaxSize(),
-        url = ""
+        fileResource = SharedRes.files.intro
     )
 
     Content(

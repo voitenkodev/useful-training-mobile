@@ -11,6 +11,7 @@ koin-vers = "3.2.0"
 sqldelight-vers = "2.0.0-alpha05"
 ui = "1.4.3"
 media3-exoplayer-vers = "1.1.0"
+moko-resources-version = "0.23.0"
 
 [libraries]
 serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization-vers" }
@@ -39,3 +40,7 @@ sqldelight-native = { module = "app.cash.sqldelight:native-driver", version.ref 
 
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin-vers" }
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin-vers" }
+
+moko-resources = { module = "dev.icerock.moko:resources", version.ref = "moko-resources-version" }
+moko-resources-compose = { module = "dev.icerock.moko:resources-compose", version.ref = "moko-resources-version" }
+

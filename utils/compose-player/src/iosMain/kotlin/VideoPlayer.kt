@@ -2,13 +2,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.interop.UIKitView
+import dev.icerock.moko.resources.FileResource
 import kotlinx.cinterop.CValue
 import platform.AVFoundation.AVPlayer
 import platform.AVFoundation.AVPlayerLayer
 import platform.AVFoundation.play
 import platform.AVKit.AVPlayerViewController
 import platform.CoreGraphics.CGRect
-import platform.Foundation.NSURL
 import platform.QuartzCore.CATransaction
 import platform.QuartzCore.kCATransactionDisableActions
 import platform.UIKit.UIView
@@ -16,15 +16,11 @@ import platform.UIKit.UIView
 @Composable
 actual fun VideoPlayer(
     modifier: Modifier,
-    url: String,
+    fileResource: FileResource,
     allowControls: Boolean
 ) {
-    val r = ResourceReader().readResource("intro.mp4")
 
-    val fileUrl = NSURL.fileURLWithPath(r)
-
-//    val url = NSBundle.mainBundle.URLForResource(url, null)
-    val player = remember { AVPlayer(uRL = fileUrl) }
+    val player = remember { AVPlayer(uRL = fileResource.bundle.bundleURL) }
     val playerLayer = remember { AVPlayerLayer() }
     val avPlayerViewController = remember { AVPlayerViewController() }
     avPlayerViewController.player = player

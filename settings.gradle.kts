@@ -10,6 +10,7 @@ pluginManagement {
         val agpVersion = extra["agp.version"] as String
         val composeVersion = extra["compose.version"] as String
         val sqldelightVersion = extra["sqldelight.version"] as String
+        val mokoResources = extra["moko-resources"] as String
 
         kotlin("jvm").version(kotlinVersion)
         kotlin("multiplatform").version(kotlinVersion)
@@ -21,6 +22,7 @@ pluginManagement {
         id("com.android.library").version(agpVersion)
         id("org.jetbrains.compose").version(composeVersion)
         id("app.cash.sqldelight").version(sqldelightVersion)
+        id("dev.icerock.mobile.multiplatform-resources").version(mokoResources)
     }
 }
 

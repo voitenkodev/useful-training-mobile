@@ -7,23 +7,16 @@ plugins {
 apply(from = "../../config/gradle/build-scripts/kotlin.gradle")
 apply(from = "../../config/gradle/build-scripts/android.gradle")
 
-android {
-    namespace = "com.voitenko.usefultraining.utils.composeplayer"
-
-    // TODO MOVE IT TO COMMON GRADLE
-    sourceSets["main"].resources.setSrcDirs(
-        listOf(
-            "src/androidMain/resources",
-            "src/commonMain/resources"
-        )
-    )
-}
+android { namespace = "com.voitenko.usefultraining.utils.composeplayer" }
 
 kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
                 implementation(projects.utils.nativeContext)
+
+                // maybe remove it
+                implementation(libs.moko.resources)
 
                 // Compose
                 implementation(compose.ui)
