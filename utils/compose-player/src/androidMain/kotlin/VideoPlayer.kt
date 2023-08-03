@@ -4,22 +4,20 @@ import android.widget.VideoView
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.AndroidView
-import dev.icerock.moko.resources.FileResource
+
 
 @Composable
 actual fun VideoPlayer(
     modifier: Modifier,
-    fileResource: FileResource,
+    nativeLocalResource: NativeLocalResource,
     allowControls: Boolean
 ) {
-
-    val uri = "android.resource://com.voitenko.usefultraining/${fileResource.rawResId}"
 
     AndroidView(
         modifier = modifier,
         factory = { context ->
             VideoView(context).apply {
-                setVideoURI(Uri.parse(uri))
+                setVideoURI(Uri.parse(nativeLocalResource.url))
                 val mediaController = MediaController(context)
                 if (allowControls.not()) {
                     mediaController.hide()

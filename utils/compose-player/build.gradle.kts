@@ -13,10 +13,8 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(projects.utils.nativeContext)
-
-                // maybe remove it
-                implementation(libs.moko.resources)
+                implementation(projects.utils.nativeWrap)
+                implementation(projects.utils.resources)
 
                 // Compose
                 implementation(compose.ui)

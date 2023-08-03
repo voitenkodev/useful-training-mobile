@@ -26,7 +26,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
 
-                api(projects.utils.nativeContext)
+                api(projects.utils.nativeWrap)
 
                 //ktor
                 implementation(libs.ktor.core)

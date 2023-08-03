@@ -2,7 +2,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.interop.UIKitView
-import dev.icerock.moko.resources.FileResource
 import kotlinx.cinterop.CValue
 import platform.AVFoundation.AVPlayer
 import platform.AVFoundation.AVPlayerLayer
@@ -16,11 +15,11 @@ import platform.UIKit.UIView
 @Composable
 actual fun VideoPlayer(
     modifier: Modifier,
-    fileResource: FileResource,
+    nativeLocalResource: NativeLocalResource,
     allowControls: Boolean
 ) {
 
-    val player = remember { AVPlayer(uRL = fileResource.bundle.bundleURL) }
+    val player = remember { AVPlayer(uRL = nativeLocalResource.url) }
     val playerLayer = remember { AVPlayerLayer() }
     val avPlayerViewController = remember { AVPlayerViewController() }
     avPlayerViewController.player = player
@@ -43,7 +42,6 @@ actual fun VideoPlayer(
             playerLayer.setFrame(rect)
             avPlayerViewController.view.layer.frame = rect
             CATransaction.commit()
-
 
             /*
              val playerContainer = UIView()

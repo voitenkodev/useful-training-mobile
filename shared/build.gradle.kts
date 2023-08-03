@@ -1,21 +1,15 @@
 plugins {
     kotlin("multiplatform")
-    kotlin("native.cocoapods")
     kotlin("plugin.serialization")
+    kotlin("native.cocoapods")
     id("com.android.library")
     id("org.jetbrains.compose")
     id("org.jetbrains.kotlin.plugin.parcelize")
-    id("dev.icerock.mobile.multiplatform-resources")
 }
 
 apply(from = "../config/gradle/build-scripts/android.gradle")
 apply(from = "../config/gradle/build-scripts/ios.gradle")
 apply(from = "../config/gradle/build-scripts/kotlin.gradle")
-
-multiplatformResources {
-    multiplatformResourcesPackage = "com.voitenko.usefultraining"
-    multiplatformResourcesClassName = "SharedRes"
-}
 
 version = "1.0"
 
@@ -24,13 +18,13 @@ kotlin {
         val commonMain by getting {
             dependencies {
 
-                api(projects.data)
-                api(projects.utils.instruments)
-                api(projects.utils.navigator)
-                api(projects.utils.designSystem)
-                api(projects.utils.composePlayer)
+                implementation(projects.data)
+                implementation(projects.utils.instruments)
+                implementation(projects.utils.navigator)
+                implementation(projects.utils.designSystem)
+                implementation(projects.utils.composePlayer)
+                implementation(projects.utils.resources)
 
-                implementation(libs.moko.resources)
 
                 // Compose
                 implementation(compose.ui)

@@ -1,1 +1,0 @@
-expect class NativeContext private constructor()
