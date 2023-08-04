@@ -23,6 +23,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(projects.utils.nativeApi)
+
                 implementation(libs.moko.resources)
             }
         }

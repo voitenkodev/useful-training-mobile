@@ -21,29 +21,21 @@ sqldelight {
 }
 
 kotlin {
-
     sourceSets {
         val commonMain by getting {
             dependencies {
-
                 api(projects.utils.nativeApi)
 
-                //ktor
+                // Ktor
                 implementation(libs.ktor.core)
                 implementation(libs.ktor.logging)
                 implementation(libs.ktor.serialization)
                 implementation(libs.ktor.auth)
                 implementation(libs.ktor.negotiation)
 
-                //utils
-                implementation(libs.uuid)
-                implementation(libs.parcelize)
                 implementation(libs.serialization)
-                implementation(libs.datetime)
-                implementation(libs.datastore)
 
-                //koin
-                implementation(libs.koin.core)
+                implementation(libs.datastore)
             }
         }
 

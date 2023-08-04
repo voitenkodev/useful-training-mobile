@@ -1,6 +1,5 @@
 plugins {
     kotlin("multiplatform")
-    kotlin("plugin.serialization")
     kotlin("native.cocoapods")
     id("com.android.library")
     id("org.jetbrains.compose")
@@ -10,8 +9,6 @@ plugins {
 apply(from = "../config/gradle/build-scripts/android.gradle")
 apply(from = "../config/gradle/build-scripts/ios.gradle")
 apply(from = "../config/gradle/build-scripts/kotlin.gradle")
-
-version = "1.0"
 
 kotlin.cocoapods{ podfile = project.file("../iosApp/Podfile") }
 
@@ -35,9 +32,6 @@ kotlin {
                 // Utils
                 implementation(libs.uuid)
                 implementation(libs.parcelize)
-                implementation(libs.serialization)
-                implementation(libs.datetime)
-                implementation(libs.datastore)
 
                 // Koin
                 implementation(libs.koin.core)

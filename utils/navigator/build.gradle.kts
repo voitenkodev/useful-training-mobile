@@ -10,7 +10,6 @@ apply(from = "../../config/gradle/build-scripts/android.gradle")
 android { namespace = "com.voitenko.usefultraining.utils.navigator" }
 
 kotlin {
-
     sourceSets {
         val commonMain by getting {
             dependencies {
