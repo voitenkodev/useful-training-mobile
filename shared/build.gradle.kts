@@ -27,7 +27,6 @@ kotlin {
                 implementation(projects.utils.composePlayer)
                 implementation(projects.utils.resources)
 
-
                 // Compose
                 implementation(compose.ui)
                 implementation(compose.foundation)

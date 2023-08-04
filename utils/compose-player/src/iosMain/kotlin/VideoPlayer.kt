@@ -3,6 +3,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.interop.UIKitView
 import kotlinx.cinterop.CValue
+import platform.AVFoundation.AVLayerVideoGravityResizeAspectFill
 import platform.AVFoundation.AVPlayer
 import platform.AVFoundation.AVPlayerLayer
 import platform.AVFoundation.play
@@ -16,7 +17,7 @@ import platform.UIKit.UIView
 actual fun VideoPlayer(
     modifier: Modifier,
     nativeLocalResource: NativeLocalResource,
-    allowControls: Boolean
+    allowControls: Boolean,
 ) {
 
     val player = remember { AVPlayer(uRL = nativeLocalResource.url) }
@@ -26,6 +27,10 @@ actual fun VideoPlayer(
     avPlayerViewController.showsPlaybackControls = allowControls
 
     playerLayer.player = player
+
+    // Fill screen full size
+    playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
+
     // Use a UIKitView to integrate with your existing UIKit views
     UIKitView(
         factory = {
@@ -42,22 +47,6 @@ actual fun VideoPlayer(
             playerLayer.setFrame(rect)
             avPlayerViewController.view.layer.frame = rect
             CATransaction.commit()
-
-            /*
-             val playerContainer = UIView()
-            playerContainer.addSubview(avPlayerViewController.view)
-            playerContainer.translatesAutoresizingMaskIntoConstraints = false
-            avPlayerViewController.view.translatesAutoresizingMaskIntoConstraints = false
-
-            // Add constraints to make the AVPlayerViewController fill its parent view
-            avPlayerViewController.view.leadingAnchor.constraintEqualToAnchor(playerContainer.leadingAnchor).isActive = true
-            avPlayerViewController.view.trailingAnchor.constraintEqualToAnchor(playerContainer.trailingAnchor).isActive = true
-            avPlayerViewController.view.topAnchor.constraintEqualToAnchor(playerContainer.topAnchor).isActive = true
-            avPlayerViewController.view.bottomAnchor.constraintEqualToAnchor(playerContainer.bottomAnchor).isActive = true
-
-            // Return the playerContainer as the root UIView
-            playerContainer
-            * */
         },
         update = { view ->
             player.play()

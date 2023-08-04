@@ -46,7 +46,7 @@ include(
     "utils:design-system",
     "utils:navigator",
     "utils:instruments",
-    "utils:native-wrap",
+    "utils:native-api",
     "utils:compose-player",
     "utils:resources",
 )
