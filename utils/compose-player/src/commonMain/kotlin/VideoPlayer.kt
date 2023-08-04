@@ -5,5 +5,4 @@ import androidx.compose.ui.Modifier
 expect fun VideoPlayer(
     modifier: Modifier = Modifier,
     nativeLocalResource: NativeLocalResource,
-    allowControls: Boolean = false
 )

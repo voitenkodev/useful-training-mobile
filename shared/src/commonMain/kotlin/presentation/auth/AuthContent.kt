@@ -33,7 +33,7 @@ internal fun AuthContent(vm: AuthViewModel) {
         modifier = Modifier.fillMaxSize(),
         nativeLocalResource = Videos.intro,
     )
-
+    
     Content(
         loading = { state.loading },
         error = { state.error },
