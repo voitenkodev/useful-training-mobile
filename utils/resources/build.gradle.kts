@@ -11,6 +11,8 @@ apply(from = "../../config/gradle/build-scripts/kotlin.gradle")
 
 android { namespace = "com.voitenko.usefultraining.utils.resources" }
 
+kotlin.cocoapods{ podfile = project.file("../../iosApp/Podfile") }
+
 multiplatformResources {
     multiplatformResourcesPackage = "com.voitenko.usefultraining"
     multiplatformResourcesClassName = "SharedRes"

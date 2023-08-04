@@ -1,8 +1,13 @@
+/*
+    use with custom:
+    cocoapods { project.file("../iosApp/Podfile") }
+*/
+
 kotlin.cocoapods {
+    version = "1.0"
     summary = "Shared Code"
     homepage = "https://github.com/voitenkodev/Useful-Training"
     ios.deploymentTarget = "14.1"
-    podfile = project.file("../iosApp/Podfile")
     framework {
         baseName = "shared"
         isStatic = true

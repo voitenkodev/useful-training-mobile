@@ -1,6 +1,5 @@
 import dev.icerock.moko.resources.FileResource
 
-actual fun FileResource.toNativeLocalResource() =
-    NativeLocalResource(
-        this.bundle.resourceURL?.absoluteURL!!
-    )
+actual fun FileResource.toNativeLocalResource() = NativeLocalResource(
+    this.url
+)
