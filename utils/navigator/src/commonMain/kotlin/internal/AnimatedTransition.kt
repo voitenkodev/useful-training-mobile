@@ -1,7 +1,7 @@
 package navigation.internal
 
 import androidx.compose.animation.AnimatedContent
-import androidx.compose.animation.AnimatedContentScope
+import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ContentTransform
 import androidx.compose.animation.SizeTransform
@@ -13,7 +13,7 @@ import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.animation.slideOutVertically
-import androidx.compose.animation.with
+import androidx.compose.animation.togetherWith
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -44,7 +44,7 @@ internal fun <T> AnimatedTransition(
 private fun <S> AnimatedContentWithCallback(
     targetState: S,
     modifier: Modifier = Modifier,
-    transitionSpec: AnimatedContentScope<S>.() -> ContentTransform,
+    transitionSpec: AnimatedContentTransitionScope<S>.() -> ContentTransform,
     contentAlignment: Alignment = Alignment.TopStart,
     onAnimationEnd: () -> Unit,
     content: @Composable AnimatedVisibilityScope.(targetState: S) -> Unit
@@ -67,49 +67,57 @@ private fun <S> AnimatedContentWithCallback(
 
 /* --------------------------- Animations --------------------------- */
 
-internal fun <T> crossFade(transitionTime: Int): AnimatedContentScope<T>.() -> ContentTransform = {
-    (fadeIn(animationSpec = tween(transitionTime)) with fadeOut(animationSpec = tween(transitionTime)))
+internal fun <T> crossFade(transitionTime: Int): AnimatedContentTransitionScope<T>.() -> ContentTransform = {
+    (fadeIn(animationSpec = tween(transitionTime)) togetherWith fadeOut(animationSpec = tween(transitionTime)))
         .using(SizeTransform(clip = false))
 }
 
-internal fun <T> push(isForward: Boolean, transitionTime: Int): AnimatedContentScope<T>.() -> ContentTransform = {
+internal fun <T> push(isForward: Boolean, transitionTime: Int): AnimatedContentTransitionScope<T>.() -> ContentTransform = {
     if (isForward) {
-        (slideInHorizontally(
+        ((slideInHorizontally(
             animationSpec = tween(transitionTime),
             initialOffsetX = { width -> width })
-                + fadeIn(animationSpec = tween(transitionTime)) with slideOutHorizontally(
-            animationSpec = tween(transitionTime),
-            targetOffsetX = { width -> -width })
-                + fadeOut(animationSpec = tween(transitionTime)))
+                + fadeIn(animationSpec = tween(transitionTime))).togetherWith(
+            slideOutHorizontally(
+                animationSpec = tween(transitionTime),
+                targetOffsetX = { width -> -width })
+                    + fadeOut(animationSpec = tween(transitionTime))
+        ))
             .using(SizeTransform(clip = false))
     } else {
-        (slideInHorizontally(
+        ((slideInHorizontally(
             animationSpec = tween(transitionTime),
             initialOffsetX = { width -> -width })
-                + fadeIn(animationSpec = tween(transitionTime)) with slideOutHorizontally(
-            animationSpec = tween(transitionTime), targetOffsetX = { width -> width })
-                + fadeOut(animationSpec = tween(transitionTime)))
+                + fadeIn(animationSpec = tween(transitionTime))).togetherWith(
+            slideOutHorizontally(
+                animationSpec = tween(transitionTime), targetOffsetX = { width -> width })
+                    + fadeOut(animationSpec = tween(transitionTime))
+        ))
             .using(SizeTransform(clip = false))
     }
 }
 
-internal fun <T> presentation(isOpen: Boolean, transitionTime: Int): AnimatedContentScope<T>.() -> ContentTransform = {
+internal fun <T> presentation(isOpen: Boolean, transitionTime: Int): AnimatedContentTransitionScope<T>.() -> ContentTransform = {
     if (isOpen) {
-        (slideInVertically(
+        ((slideInVertically(
             animationSpec = tween(transitionTime),
             initialOffsetY = { height -> height })
-                + fadeIn(animationSpec = tween(transitionTime)) with slideOutVertically(
-            animationSpec = tween(transitionTime),
-            targetOffsetY = { height -> -(height / 8) })
-                + fadeOut(animationSpec = tween(transitionTime)))
+                + fadeIn(animationSpec = tween(transitionTime))).togetherWith(
+            slideOutVertically(
+                animationSpec = tween(transitionTime),
+                targetOffsetY = { height -> -(height / 8) })
+                    + fadeOut(animationSpec = tween(transitionTime))
+        ))
             .using(SizeTransform(clip = false))
     } else {
-        (slideInVertically(
+        ((slideInVertically(
             animationSpec = tween(transitionTime),
             initialOffsetY = { height -> -(height / 8) })
-                + fadeIn(animationSpec = tween(transitionTime)) with slideOutVertically(
-            animationSpec = tween(transitionTime), targetOffsetY = { height -> height })
-                + fadeOut(animationSpec = tween(transitionTime)))
+                + fadeIn(animationSpec = tween(transitionTime))).togetherWith(
+            slideOutVertically(
+                animationSpec = tween(transitionTime), targetOffsetY = { height -> height })
+                    + fadeOut(animationSpec = tween(transitionTime))
+        ))
             .using(SizeTransform(clip = false))
     }
 }

@@ -16,6 +16,7 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PageSize
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.runtime.Composable
@@ -211,9 +212,13 @@ private fun ChartsSection(
     ) {
 
         HorizontalPager(
+            state = rememberPagerState(
+                initialPage = 0,
+                initialPageOffsetFraction = 0f,
+                pageCount = { 3 }
+            ),
             modifier = Modifier
                 .recomposeHighlighter(),
-            pageCount = 3,
             pageSpacing = 8.dp,
             pageSize = PageSize.Fixed(Design.dp.fixedWidth),
             pageContent = { page ->

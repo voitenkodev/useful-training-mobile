@@ -1,2 +1,2 @@
 ${PODS_ROOT}/Target Support Files/Pods-UsefulTraining/Pods-UsefulTraining-resources.sh
-${PODS_CONFIGURATION_BUILD_DIR}/shared/LibresShared.bundle
+${PODS_ROOT}/../../shared/build/compose/ios/shared/compose-resources

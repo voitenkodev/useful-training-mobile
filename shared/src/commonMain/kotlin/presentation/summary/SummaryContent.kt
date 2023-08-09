@@ -16,6 +16,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PageSize
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowForward
@@ -271,7 +272,11 @@ private fun Charts(
     verticalArrangement = Arrangement.spacedBy(Design.dp.padding)
 ) {
     HorizontalPager(
-        pageCount = 2,
+        state = rememberPagerState(
+            initialPage = 0,
+            initialPageOffsetFraction = 0f,
+            pageCount = { 2 }
+        ),
         pageSpacing = 8.dp,
         pageSize = PageSize.Fixed(Design.dp.fixedWidth),
         pageContent = { page ->
