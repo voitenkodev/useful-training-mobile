@@ -1,5 +1,3 @@
-package utils
-
 /**
  * Round double value
  */

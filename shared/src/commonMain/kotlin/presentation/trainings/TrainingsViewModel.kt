@@ -16,7 +16,7 @@ import presentation.training.Training
 import repository.AuthRepository
 import repository.TrainingRepository
 import utils.ViewModel
-import utils.round
+import round
 
 internal class TrainingsViewModel(private val navigator: NavigatorCore) : ViewModel() {
 

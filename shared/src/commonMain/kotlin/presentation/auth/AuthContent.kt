@@ -4,15 +4,25 @@ import Design
 import PlatformBackHandler
 import VideoPlayer
 import Videos
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import components.Error
 import components.Loading
 import components.buttons.ButtonQuestion
@@ -22,6 +32,7 @@ import components.roots.ScrollableRoot
 import controls.ButtonPrimary
 import controls.TextFieldBody1
 import controls.TextFieldH1
+import kotlinx.coroutines.delay
 import utils.recomposeHighlighter
 
 @Composable
@@ -29,11 +40,6 @@ internal fun AuthContent(vm: AuthViewModel) {
 
     val state by vm.state.collectAsState()
 
-    VideoPlayer(
-        modifier = Modifier.fillMaxSize(),
-        nativeLocalResource = Videos.intro,
-    )
-    
     Content(
         loading = { state.loading },
         error = { state.error },
@@ -71,8 +77,11 @@ private fun Content(
     val loginProvider by rememberUpdatedState(login)
     val registrationProvider by rememberUpdatedState(registration)
 
+    BackgroundVideo()
+
     ScrollableRoot(
         modifier = Modifier
+            .padding(top = 44.dp, bottom = 30.dp) // TODO MOVE IT TO IOS PART
             .fillMaxWidth()
             .recomposeHighlighter(),
         loading = { Loading(loading) },
@@ -134,5 +143,32 @@ private fun Content(
                 )
             }
         }
+    )
+}
+
+@Composable
+private fun BackgroundVideo() {
+    val animatedValue = remember { mutableStateOf(1f) }
+
+    val animatedFloat by animateFloatAsState(
+        targetValue = animatedValue.value,
+        animationSpec = tween(durationMillis = 1300)
+    )
+
+    LaunchedEffect(Unit) {
+        delay(500)
+        animatedValue.value = 0f
+    }
+
+    VideoPlayer(
+        modifier = Modifier.fillMaxSize(),
+        nativeLocalResource = Videos.intro,
+    )
+
+    Spacer(
+        Modifier
+            .fillMaxSize()
+            .alpha(animatedFloat)
+            .background(color = Design.colors.primary)
     )
 }

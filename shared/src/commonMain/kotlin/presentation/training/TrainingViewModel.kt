@@ -17,7 +17,7 @@ import navigation.NavigatorCore
 import repository.TrainingRepository
 import utils.DateTimeKtx
 import utils.ViewModel
-import utils.round
+import round
 
 internal class TrainingViewModel(private val navigator: NavigatorCore) : ViewModel() {
 
