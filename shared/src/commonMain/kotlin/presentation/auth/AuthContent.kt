@@ -153,7 +153,7 @@ private fun BackgroundVideo() {
 
     val animatedFloat by animateFloatAsState(
         targetValue = animatedValue.value,
-        animationSpec = tween(durationMillis = 1300)
+        animationSpec = tween(durationMillis = 1700)
     )
 
     LaunchedEffect(Unit) {
