@@ -1,7 +1,6 @@
 package components
 
 import Design
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -20,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import atomic.icons.BarChart
 import controls.IconPrimary
 import controls.TextFieldH1
+import controls.primaryBackground
 import utils.recomposeHighlighter
 
 @Composable
@@ -31,7 +31,11 @@ fun Header(
     exit: (() -> Unit)? = null,
     back: (() -> Unit)? = null,
 ) = Row(
-    modifier = Modifier.fillMaxWidth().height(Design.dp.header).background(Design.colors.primary).recomposeHighlighter(),
+    modifier = Modifier
+        .fillMaxWidth()
+        .height(Design.dp.header)
+        .primaryBackground()
+        .recomposeHighlighter(),
     horizontalArrangement = Arrangement.SpaceBetween,
     verticalAlignment = Alignment.CenterVertically
 ) {

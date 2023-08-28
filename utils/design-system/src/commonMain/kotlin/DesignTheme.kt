@@ -1,4 +1,3 @@
-import androidx.compose.foundation.background
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -7,6 +6,7 @@ import atomic.appDp
 import atomic.appShape
 import atomic.appTypography
 import atomic.darkPalette
+import controls.primaryBackground
 
 @Composable
 fun DesignTheme(
@@ -28,7 +28,7 @@ fun DesignTheme(
 
     content = {
         Surface(
-            modifier = Modifier.background(Design.colors.primary).then(modifier),
+            modifier = Modifier.primaryBackground().then(modifier),
             color = Design.colors.primary,
             content = content
         )

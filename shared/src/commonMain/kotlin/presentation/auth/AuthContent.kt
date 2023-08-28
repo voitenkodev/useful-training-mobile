@@ -6,7 +6,6 @@ import VideoPlayer
 import Videos
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -32,6 +31,8 @@ import components.roots.ScrollableRoot
 import controls.ButtonPrimary
 import controls.TextFieldBody1
 import controls.TextFieldH1
+import controls.primaryBackground
+import controls.primaryFrame
 import kotlinx.coroutines.delay
 import utils.recomposeHighlighter
 
@@ -157,18 +158,25 @@ private fun BackgroundVideo() {
 
     LaunchedEffect(Unit) {
         delay(500)
-        animatedValue.value = 0f
+        animatedValue.value = 0.4f
     }
 
     VideoPlayer(
-        modifier = Modifier.fillMaxSize(),
-        nativeLocalResource = Videos.intro,
+        modifier = Modifier
+            .fillMaxSize(),
+        nativeLocalResource = Videos.intro_2,
+    )
+
+    Spacer(
+        Modifier
+            .fillMaxSize()
+            .primaryFrame()
     )
 
     Spacer(
         Modifier
             .fillMaxSize()
             .alpha(animatedFloat)
-            .background(color = Design.colors.primary)
+            .primaryBackground()
     )
 }

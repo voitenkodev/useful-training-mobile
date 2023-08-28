@@ -34,6 +34,7 @@ import components.roots.ScrollableRoot
 import controls.IconPrimary
 import controls.TextFieldBody1
 import controls.TextFieldH1
+import controls.primaryBackground
 import presentation.training.Training
 import utils.recomposeHighlighter
 
@@ -161,7 +162,7 @@ private fun Header(
         modifier = Modifier
             .fillMaxWidth()
             .height(Design.dp.bigHeader)
-            .background(Design.colors.primary)
+            .primaryBackground()
             .recomposeHighlighter(),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
