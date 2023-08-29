@@ -19,8 +19,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.composed
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import components.Error
 import components.Loading
@@ -83,7 +86,7 @@ private fun Content(
     ScrollableRoot(
         modifier = Modifier
             .padding(top = 44.dp, bottom = 30.dp) // TODO MOVE IT TO IOS PART
-            .fillMaxWidth()
+            .fillMaxSize()
             .recomposeHighlighter(),
         loading = { Loading(loading) },
         error = { Error(message = error, close = clearError) },
@@ -92,6 +95,10 @@ private fun Content(
             TextFieldH1(
                 modifier = Modifier
                     .height(Design.dp.bigHeader)
+                    .alphaPresent(
+                        delayMillis = 100,
+                        durationMillis = 700
+                    )
                     .recomposeHighlighter(),
                 provideText = { "\uD83D\uDC4B Welcome back!" },
                 textAlign = TextAlign.Center
@@ -102,6 +109,10 @@ private fun Content(
             ButtonPrimary(
                 modifier = Modifier
                     .fillMaxWidth()
+                    .alphaPresent(
+                        delayMillis = 500,
+                        durationMillis = 700
+                    )
                     .recomposeHighlighter(),
                 text = "Log In",
                 onClick = loginProvider
@@ -110,6 +121,10 @@ private fun Content(
             ButtonQuestion(
                 modifier = Modifier
                     .fillMaxWidth()
+                    .alphaPresent(
+                        delayMillis = 500,
+                        durationMillis = 700
+                    )
                     .recomposeHighlighter(),
                 question = "Don't have an account yet?",
                 answer = "Sign Up!",
@@ -120,6 +135,10 @@ private fun Content(
             item(key = "notes") {
                 TextFieldBody1(
                     modifier = Modifier
+                        .alphaPresent(
+                            delayMillis = 100,
+                            durationMillis = 700
+                        )
                         .recomposeHighlighter(),
                     provideText = { "Sign in to your account" },
                     color = Design.colors.caption
@@ -129,6 +148,10 @@ private fun Content(
                 InputEmail(
                     modifier = Modifier
                         .fillMaxWidth()
+                        .alphaPresent(
+                            delayMillis = 300,
+                            durationMillis = 700
+                        )
                         .recomposeHighlighter(),
                     provideValue = email,
                     onValueChange = updateEmail
@@ -138,6 +161,10 @@ private fun Content(
                 InputPassword(
                     modifier = Modifier
                         .fillMaxWidth()
+                        .alphaPresent(
+                            delayMillis = 300,
+                            durationMillis = 700
+                        )
                         .recomposeHighlighter(),
                     provideValue = password,
                     onValueChange = updatePassword
@@ -178,5 +205,27 @@ private fun BackgroundVideo() {
             .fillMaxSize()
             .alpha(animatedFloat)
             .primaryBackground()
+    )
+}
+
+// TODO Move it to Design system
+@Composable
+fun Modifier.alphaPresent(
+    durationMillis: Int,
+    delayMillis: Int
+): Modifier = composed {
+    val animatedValue = remember { mutableStateOf(0f) }
+
+    val animatedFloat by animateFloatAsState(
+        targetValue = animatedValue.value,
+        animationSpec = tween(durationMillis, delayMillis)
+    )
+
+    LaunchedEffect(Unit) {
+        animatedValue.value = 1f
+    }
+
+    this.then(
+        Modifier.graphicsLayer(alpha = animatedFloat)
     )
 }

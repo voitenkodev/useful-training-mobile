@@ -3,9 +3,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.interop.UIKitView
 import kotlinx.cinterop.CValue
+import platform.AVFAudio.AVAudioSession
+import platform.AVFAudio.AVAudioSessionCategoryAmbient
 import platform.AVFoundation.AVLayerVideoGravityResizeAspectFill
 import platform.AVFoundation.AVPlayer
 import platform.AVFoundation.play
+import platform.AVFoundation.volume
 import platform.AVKit.AVPlayerViewController
 import platform.CoreGraphics.CGRect
 import platform.QuartzCore.CATransaction
@@ -18,12 +21,20 @@ actual fun VideoPlayer(
     nativeLocalResource: NativeLocalResource,
 ) {
 
+    val audioSession = AVAudioSession.sharedInstance()
+    try {
+        audioSession.setCategory(AVAudioSessionCategoryAmbient, null)
+    } catch (e: Exception) {
+        // Handle any errors
+    }
+
     val player = remember { AVPlayer(uRL = nativeLocalResource.url) }
+    player.volume = 0f
     val avPlayerViewController = remember { AVPlayerViewController() }
 
     avPlayerViewController.player = player
-    avPlayerViewController.showsPlaybackControls = false // You can customize this as needed
-    avPlayerViewController.videoGravity = AVLayerVideoGravityResizeAspectFill // Set the videoGravity here
+    avPlayerViewController.showsPlaybackControls = false
+    avPlayerViewController.videoGravity = AVLayerVideoGravityResizeAspectFill
 
     UIKitView(
         factory = {
