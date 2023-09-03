@@ -20,17 +20,13 @@ actual fun VideoPlayer(
     modifier: Modifier,
     nativeLocalResource: NativeLocalResource,
 ) {
-
-    val audioSession = AVAudioSession.sharedInstance()
-    try {
-        audioSession.setCategory(AVAudioSessionCategoryAmbient, null)
-    } catch (e: Exception) {
-        // Handle any errors
-    }
-
     val player = remember { AVPlayer(uRL = nativeLocalResource.url) }
-    player.volume = 0f
     val avPlayerViewController = remember { AVPlayerViewController() }
+
+    // Drop audio
+    val audioSession = AVAudioSession.sharedInstance()
+    audioSession.setCategory(AVAudioSessionCategoryAmbient, null)
+    player.volume = 0f
 
     avPlayerViewController.player = player
     avPlayerViewController.showsPlaybackControls = false

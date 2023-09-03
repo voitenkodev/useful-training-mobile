@@ -27,7 +27,7 @@ import presentation.trainings.WeekInfo
 import utils.recomposeHighlighter
 
 @Composable
-fun WeekSummary(
+internal fun WeekSummary(
     modifier: Modifier = Modifier,
     info: WeekInfo
 ) = Box(

@@ -35,6 +35,7 @@ import controls.IconPrimary
 import controls.TextFieldBody1
 import controls.TextFieldH1
 import controls.primaryBackground
+import platformInsets
 import presentation.training.Training
 import utils.recomposeHighlighter
 
@@ -95,6 +96,7 @@ private fun Content(
 
     ScrollableRoot(
         modifier = Modifier
+            .platformInsets()
             .fillMaxSize()
             .recomposeHighlighter(),
         listState = listState,

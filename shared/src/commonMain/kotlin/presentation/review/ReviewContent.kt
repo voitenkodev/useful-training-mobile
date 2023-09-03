@@ -45,6 +45,7 @@ import controls.DividerPrimary
 import controls.IconPrimary
 import controls.TextFieldBody2
 import controls.secondaryBackground
+import platformInsets
 import presentation.training.Exercise
 import presentation.training.Training
 import utils.recomposeHighlighter
@@ -107,6 +108,7 @@ private fun Content(
 
     ScrollableRoot(
         modifier = Modifier
+            .platformInsets()
             .fillMaxSize()
             .recomposeHighlighter(),
         loading = { Loading(loading) },

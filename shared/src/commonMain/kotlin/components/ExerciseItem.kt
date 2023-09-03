@@ -15,7 +15,7 @@ import presentation.training.Exercise
 import utils.recomposeHighlighter
 
 @Composable
-fun ExerciseItem(
+internal fun ExerciseItem(
     modifier: Modifier = Modifier,
     provideNumber: () -> Int,
     exercise: () -> Exercise
