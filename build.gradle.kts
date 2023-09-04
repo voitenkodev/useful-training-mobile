@@ -34,6 +34,8 @@ tasks.register("clean", Delete::class) {
     delete("utils/instruments/build")
     delete("utils/native-api/build")
     delete("utils/navigator/build")
-    delete("utils/resources/build")
-    delete("utils/resources/resources.podspec")
+    delete("utils/resources-font/build")
+    delete("utils/resources-media/resources_font.podspec")
+    delete("utils/resources-media/build")
+    delete("utils/resources-media/resources_media.podspec")
 }

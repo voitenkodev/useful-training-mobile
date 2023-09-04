@@ -10,7 +10,9 @@ apply(from = "../config/gradle/build-scripts/android.gradle")
 apply(from = "../config/gradle/build-scripts/ios.gradle")
 apply(from = "../config/gradle/build-scripts/kotlin.gradle")
 
-kotlin.cocoapods{ podfile = project.file("../iosApp/Podfile") }
+kotlin.cocoapods{
+    podfile = project.file("../iosApp/Podfile")
+}
 
 kotlin {
     sourceSets {
@@ -22,15 +24,14 @@ kotlin {
                 implementation(projects.utils.navigator)
                 implementation(projects.utils.designSystem)
                 implementation(projects.utils.composePlayer)
+
                 implementation(projects.utils.resourcesMedia)
+//                implementation(projects.utils.resourcesFont)
 
                 // Compose
                 implementation(compose.ui)
                 implementation(compose.foundation)
                 implementation(compose.material)
-                // For fonts
-                @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
-                implementation(compose.components.resources)
 
                 // Utils
                 implementation(libs.uuid)
