@@ -15,7 +15,7 @@ fun InputLabel(
     provideText: () -> String
 ) = TextFieldBody1(
     modifier = modifier
-        .width(64.dp)
+        .width(74.dp)
         .recomposeHighlighter(),
     provideText = provideText,
     color = Design.colors.caption,
