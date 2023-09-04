@@ -22,7 +22,7 @@ kotlin {
                 implementation(projects.utils.navigator)
                 implementation(projects.utils.designSystem)
                 implementation(projects.utils.composePlayer)
-                implementation(projects.utils.resources)
+                implementation(projects.utils.resourcesMedia)
 
                 // Compose
                 implementation(compose.ui)

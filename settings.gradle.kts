@@ -48,5 +48,5 @@ include(
     "utils:instruments",
     "utils:native-api",
     "utils:compose-player",
-    "utils:resources",
+    "utils:resources-media",
 )

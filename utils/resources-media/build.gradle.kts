@@ -9,7 +9,7 @@ apply(from = "../../config/gradle/build-scripts/android.gradle")
 apply(from = "../../config/gradle/build-scripts/ios.gradle")
 apply(from = "../../config/gradle/build-scripts/kotlin.gradle")
 
-android { namespace = "com.voitenko.usefultraining.utils.resources" }
+android { namespace = "com.voitenko.usefultraining.utils.resourcesmedia" }
 
 kotlin.cocoapods{ podfile = project.file("../../iosApp/Podfile") }
 
