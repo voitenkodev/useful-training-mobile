@@ -51,7 +51,6 @@ import components.roots.ScrollableRoot
 import controls.IconPrimary
 import controls.TextFieldBody2
 import controls.TextFieldH2
-import platformInsets
 import presentation.training.Exercise
 import presentation.training.Training
 import utils.DateTimeKtx.monthTitle
@@ -154,7 +153,6 @@ private fun Content(
 
     ScrollableRoot(
         modifier = Modifier
-            .platformInsets()
             .fillMaxSize()
             .recomposeHighlighter(),
         listState = listState,

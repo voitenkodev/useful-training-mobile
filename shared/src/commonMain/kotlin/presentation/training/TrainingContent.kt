@@ -26,7 +26,6 @@ import components.roots.ScrollableRoot
 import controls.TextFieldH2
 import controls.tertiaryBackground
 import kotlinx.coroutines.delay
-import platformInsets
 import utils.recomposeHighlighter
 
 @Composable
@@ -118,7 +117,6 @@ private fun Content(
 
     ScrollableRoot(
         modifier = Modifier
-            .platformInsets()
             .fillMaxWidth()
             .recomposeHighlighter(),
         loading = { Loading(loading) },

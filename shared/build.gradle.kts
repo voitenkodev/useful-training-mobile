@@ -10,7 +10,7 @@ apply(from = "../config/gradle/build-scripts/android.gradle")
 apply(from = "../config/gradle/build-scripts/ios.gradle")
 apply(from = "../config/gradle/build-scripts/kotlin.gradle")
 
-kotlin.cocoapods{
+kotlin.cocoapods {
     podfile = project.file("../iosApp/Podfile")
 }
 
@@ -25,8 +25,7 @@ kotlin {
                 implementation(projects.utils.designSystem)
                 implementation(projects.utils.composePlayer)
 
-                implementation(projects.utils.resourcesMedia)
-//                implementation(projects.utils.resourcesFont)
+                implementation(projects.utils.resources)
 
                 // Compose
                 implementation(compose.ui)

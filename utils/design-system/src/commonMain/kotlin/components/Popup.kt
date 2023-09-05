@@ -24,6 +24,7 @@ import controls.ButtonPrimary
 import controls.TextFieldBody1
 import controls.TextFieldH2
 import controls.secondaryBackground
+import platformInsets
 import utils.recomposeHighlighter
 
 @Composable
@@ -73,6 +74,7 @@ fun Popup(
     ) {
         Column(
             modifier = Modifier
+                .platformInsets()
                 .padding(Design.dp.padding)
                 .secondaryBackground()
                 .padding(Design.dp.padding)

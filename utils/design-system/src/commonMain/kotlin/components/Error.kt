@@ -20,6 +20,7 @@ import androidx.compose.ui.text.font.FontWeight
 import controls.TextFieldBody1
 import controls.TextFieldH2
 import kotlinx.coroutines.delay
+import platformInsets
 import utils.recomposeHighlighter
 
 @Composable
@@ -29,9 +30,9 @@ fun Error(
 ) {
 
     val value = remember { mutableStateOf(message) }
-    LaunchedEffect(message) { if (message() != null) value.value = message }
+    LaunchedEffect(message()) { if (message() != null) value.value = message }
 
-    LaunchedEffect(message) {
+    LaunchedEffect(message()) {
         delay(1800)
         if (message() != null) close.invoke()
     }
@@ -79,6 +80,7 @@ private fun ErrorContent(
 ) {
     Column(
         modifier = Modifier
+            .platformInsets()
             .padding(Design.dp.padding)
             .background(
                 color = Design.colors.accent_tertiary,

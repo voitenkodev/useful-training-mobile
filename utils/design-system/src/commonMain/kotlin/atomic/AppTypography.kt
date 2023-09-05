@@ -1,44 +1,55 @@
 package atomic
 
+import Fonts
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.sp
 
+@Composable
 internal fun appTypography() = AppTypography(
     H1 = TextStyle(
         fontSize = 36.sp,
         fontWeight = FontWeight.Bold,
         fontStyle = FontStyle.Normal,
+        fontFamily = Fonts.FastupFontFamily()
     ),
     H2 = TextStyle(
         fontSize = 16.sp,
         fontWeight = FontWeight.Normal,
         fontStyle = FontStyle.Normal,
+        fontFamily = Fonts.FastupFontFamily()
     ),
     Body = TextStyle(
         fontSize = 14.sp,
         fontWeight = FontWeight.Normal,
         fontStyle = FontStyle.Normal,
+        fontFamily = FontFamily.Default
     ),
     Body2 = TextStyle(
         fontSize = 12.sp,
         fontWeight = FontWeight.Normal,
         fontStyle = FontStyle.Normal,
+        fontFamily = FontFamily.Default
     ),
     PrimaryButton = TextStyle(
         fontSize = 14.sp,
         fontWeight = FontWeight.Normal,
         fontStyle = FontStyle.Normal,
+        fontFamily = Fonts.FastupFontFamily()
     ),
     SecondaryButton = TextStyle(
         fontSize = 13.sp,
         fontWeight = FontWeight.Bold,
         fontStyle = FontStyle.Normal,
-        textDecoration = TextDecoration.Underline
+        textDecoration = TextDecoration.Underline,
+        fontFamily = FontFamily.Default
     )
 )
+
 
 data class AppTypography(
     val H1: TextStyle, // big titles

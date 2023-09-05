@@ -14,12 +14,24 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(projects.utils.instruments)
+                implementation(projects.utils.resources)
 
                 // Compose
                 implementation(compose.ui)
                 implementation(compose.foundation)
                 implementation(compose.material)
             }
+        }
+
+        val androidMain by getting {
+            dependencies {}
+        }
+
+        val iosMain by getting {
+            dependencies {}
+        }
+        val iosSimulatorArm64Main by getting {
+            dependsOn(iosMain)
         }
     }
 }

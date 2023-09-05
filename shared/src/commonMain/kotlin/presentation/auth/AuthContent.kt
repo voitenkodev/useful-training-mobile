@@ -23,7 +23,6 @@ import controls.ButtonPrimary
 import controls.TextFieldBody1
 import controls.TextFieldH1
 import modifiers.alphaPresent
-import platformInsets
 import utils.recomposeHighlighter
 
 @Composable
@@ -69,13 +68,12 @@ private fun Content(
     val registrationProvider by rememberUpdatedState(registration)
 
     BackgroundVideo(
-        nativeResource = Videos.intro_2,
-        durationInMs = 5500
+        nativeResource = Videos.motivation,
+        durationInMs = 185000
     )
 
     ScrollableRoot(
         modifier = Modifier
-            .platformInsets()
             .fillMaxSize()
             .recomposeHighlighter(),
         loading = { Loading(loading) },

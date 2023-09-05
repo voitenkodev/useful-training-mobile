@@ -1,7 +1,6 @@
 package components.roots
 
 import Design
-import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
@@ -15,9 +14,9 @@ import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
+import platformInsets
 import utils.recomposeHighlighter
 
 @Composable
@@ -37,16 +36,16 @@ fun ScrollableRoot(
 ) {
 
     val focusManager = LocalFocusManager.current
-
     Column(
         modifier = modifier
+            .platformInsets()
             .padding(
                 start = Design.dp.padding,
                 end = Design.dp.padding,
                 bottom = Design.dp.padding
-            ).pointerInput(Unit) {
+            )/*.pointerInput(Unit) {
                 detectTapGestures(onTap = { focusManager.clearFocus() })
-            }.recomposeHighlighter()
+            }*/.recomposeHighlighter()
     ) {
 
         LazyColumn(

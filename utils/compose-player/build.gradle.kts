@@ -14,7 +14,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(projects.utils.nativeApi)
-                implementation(projects.utils.resourcesMedia)
+                implementation(projects.utils.resources)
 
                 // Compose
                 implementation(compose.ui)
