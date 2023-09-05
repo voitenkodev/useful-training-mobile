@@ -133,7 +133,7 @@ internal fun TextField(
     BasicText(
         modifier = modifier.recomposeHighlighter(),
         text = provideText() ?: placeholder ?: "",
-        style = textStyle3.copy(fontFamily = Fonts.fastupBold()),
+        style = textStyle3,
         maxLines = maxLines,
         overflow = overflow
     )
