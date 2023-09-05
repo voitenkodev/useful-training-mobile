@@ -19,7 +19,7 @@ fun ButtonQuestion(
     onClick: () -> Unit
 ) = Row(
     modifier = modifier.recomposeHighlighter(),
-    horizontalArrangement = Arrangement.spacedBy(0.dp, Alignment.CenterHorizontally),
+    horizontalArrangement = Arrangement.spacedBy(4.dp, Alignment.CenterHorizontally),
     verticalAlignment = Alignment.CenterVertically
 ) {
 

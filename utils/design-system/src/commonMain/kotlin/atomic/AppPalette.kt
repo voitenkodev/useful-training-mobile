@@ -3,11 +3,16 @@ package atomic
 import androidx.compose.ui.graphics.Color
 
 internal fun darkPalette() = AppColors(
-    primary = color_black, secondary = color_black_50, tertiary = color_black_100,
+    primary = color_black,
+    secondary = color_black_50,
+    tertiary = color_black_100,
 
-    accent_primary = color_blue, accent_secondary = color_yellow, accent_tertiary = color_red,
+    accent_primary = color_blue,
+    accent_secondary = color_yellow,
+    accent_tertiary = color_red,
 
-    content = color_white, caption = color_gray,
+    content = color_white,
+    caption = color_gray,
 
     unique = AppColors.Unique(
         color1 = Color(0xff228D57),
