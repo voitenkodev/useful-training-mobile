@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import controls.IconPrimary
 import controls.TextFieldBody1
 import controls.secondaryBackground
-import utils.recomposeHighlighter
+import recomposeHighlighter
 
 @Composable
 fun ChipLabel(

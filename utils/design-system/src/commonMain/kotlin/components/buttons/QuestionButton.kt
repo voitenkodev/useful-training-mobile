@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import controls.ButtonSecondary
 import controls.TextFieldBody1
-import utils.recomposeHighlighter
+import recomposeHighlighter
 
 @Composable
 fun ButtonQuestion(

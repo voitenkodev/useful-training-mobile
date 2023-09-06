@@ -12,7 +12,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import controls.TextFieldBody1
 import presentation.training.Exercise
-import utils.recomposeHighlighter
+import recomposeHighlighter
 
 @Composable
 internal fun ExerciseItem(

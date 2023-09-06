@@ -54,7 +54,7 @@ import controls.TextFieldH2
 import presentation.training.Exercise
 import presentation.training.Training
 import utils.DateTimeKtx.monthTitle
-import utils.recomposeHighlighter
+import recomposeHighlighter
 
 @Composable
 internal fun SummaryContent(vm: SummaryViewModel) {

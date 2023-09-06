@@ -22,7 +22,7 @@ import controls.DividerPrimary
 import controls.TextFieldBody2
 import controls.secondaryBackground
 import presentation.training.Training
-import utils.recomposeHighlighter
+import recomposeHighlighter
 
 @Composable
 internal fun ShortTrainingItem(

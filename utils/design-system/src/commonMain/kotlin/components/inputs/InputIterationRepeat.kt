@@ -8,7 +8,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import controls.InputFieldSecondary
 import controls.tertiaryBackground
-import utils.recomposeHighlighter
+import recomposeHighlighter
 
 @Composable
 fun InputRepeat(

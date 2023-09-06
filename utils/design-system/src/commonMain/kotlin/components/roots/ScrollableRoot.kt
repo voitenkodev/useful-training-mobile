@@ -18,8 +18,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
+import detectSwipe
 import platformInsets
-import utils.recomposeHighlighter
+import recomposeHighlighter
 
 @Composable
 fun ScrollableRoot(
@@ -47,7 +48,13 @@ fun ScrollableRoot(
                 bottom = Design.dp.padding
             ).pointerInput(Unit) {
                 detectTapGestures(onTap = { focusManager.clearFocus() })
-            }.recomposeHighlighter()
+            }/*.pointerInput(Unit) {
+                detectSwipe(
+                    onSwipeDown = {
+                        focusManager.clearFocus()
+                    }
+                )
+            }*/.recomposeHighlighter()
     ) {
 
         LazyColumn(

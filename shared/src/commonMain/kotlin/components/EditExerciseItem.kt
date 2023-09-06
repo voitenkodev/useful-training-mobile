@@ -20,7 +20,7 @@ import components.items.IterationInputItem
 import controls.DividerPrimary
 import controls.secondaryBackground
 import presentation.training.Iteration
-import utils.recomposeHighlighter
+import recomposeHighlighter
 
 @Composable
 internal fun EditExerciseItem(

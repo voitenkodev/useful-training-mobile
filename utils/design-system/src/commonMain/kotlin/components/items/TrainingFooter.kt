@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import controls.TextFieldBody2
-import utils.recomposeHighlighter
+import recomposeHighlighter
 
 @Composable
 fun TrainingFooter(

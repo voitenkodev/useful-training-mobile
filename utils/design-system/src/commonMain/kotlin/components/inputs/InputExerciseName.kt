@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import components.labels.AccentLabel
 import controls.IconPrimary
 import controls.InputFieldPrimary
-import utils.recomposeHighlighter
+import recomposeHighlighter
 
 @Composable
 fun InputExerciseName(

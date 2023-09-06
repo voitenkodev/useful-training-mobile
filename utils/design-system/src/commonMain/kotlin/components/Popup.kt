@@ -25,7 +25,7 @@ import controls.TextFieldBody1
 import controls.TextFieldH2
 import controls.secondaryBackground
 import platformInsets
-import utils.recomposeHighlighter
+import recomposeHighlighter
 
 @Composable
 fun Popup(

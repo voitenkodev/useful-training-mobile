@@ -25,7 +25,7 @@ import chart.LineChart
 import chart.PointLine
 import controls.TextFieldBody2
 import controls.secondaryBackground
-import utils.recomposeHighlighter
+import recomposeHighlighter
 
 @Composable
 fun LineChartItem(

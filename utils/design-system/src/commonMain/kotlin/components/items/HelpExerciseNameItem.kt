@@ -17,7 +17,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import components.labels.ChipLabel
-import utils.recomposeHighlighter
+import recomposeHighlighter
 
 @Composable
 fun HelpExerciseNameItem(

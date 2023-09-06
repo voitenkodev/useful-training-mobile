@@ -26,7 +26,7 @@ import components.roots.ScrollableRoot
 import controls.TextFieldH2
 import controls.tertiaryBackground
 import kotlinx.coroutines.delay
-import utils.recomposeHighlighter
+import recomposeHighlighter
 
 @Composable
 internal fun TrainingContent(vm: TrainingViewModel, trainingId: String?) {

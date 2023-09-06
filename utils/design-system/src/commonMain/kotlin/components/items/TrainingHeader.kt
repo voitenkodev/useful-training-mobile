@@ -19,7 +19,7 @@ import atomic.icons.BarChart
 import components.labels.WeekDayLabel
 import controls.IconPrimary
 import controls.TextFieldBody2
-import utils.recomposeHighlighter
+import recomposeHighlighter
 
 @Composable
 fun TrainingHeader(

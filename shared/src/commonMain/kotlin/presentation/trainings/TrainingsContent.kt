@@ -36,7 +36,7 @@ import controls.TextFieldBody1
 import controls.TextFieldH1
 import controls.primaryBackground
 import presentation.training.Training
-import utils.recomposeHighlighter
+import recomposeHighlighter
 
 @Composable
 internal fun TrainingsContent(vm: TrainingsViewModel) {

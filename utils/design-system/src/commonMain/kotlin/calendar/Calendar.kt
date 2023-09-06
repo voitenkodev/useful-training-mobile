@@ -24,7 +24,7 @@ import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.unit.dp
 import utils.DateTimeKtx.firstDayOfMonth
 import utils.DateTimeKtx.getDaysInMonth
-import utils.recomposeHighlighter
+import recomposeHighlighter
 import kotlin.math.ceil
 
 /*

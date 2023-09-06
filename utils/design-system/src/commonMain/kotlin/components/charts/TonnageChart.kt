@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 import chart.PointCircle
 import chart.PointLine
 import components.items.LineChartItem
-import utils.recomposeHighlighter
+import recomposeHighlighter
 
 @Composable
 fun TonnageChart(

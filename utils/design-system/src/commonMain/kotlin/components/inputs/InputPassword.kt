@@ -23,7 +23,7 @@ import components.labels.InputLabel
 import controls.IconPrimary
 import controls.InputFieldPrimary
 import controls.reversedBackground
-import utils.recomposeHighlighter
+import recomposeHighlighter
 
 @Composable
 fun InputPassword(

@@ -14,7 +14,7 @@ import components.items.TrainingHeader
 import controls.DividerPrimary
 import controls.secondaryBackground
 import presentation.training.Training
-import utils.recomposeHighlighter
+import recomposeHighlighter
 
 @Composable
 internal fun TrainingItem(

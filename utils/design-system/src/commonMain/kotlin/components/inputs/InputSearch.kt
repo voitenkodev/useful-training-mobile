@@ -22,7 +22,7 @@ import components.labels.InputLabel
 import controls.IconPrimary
 import controls.InputFieldPrimary
 import controls.tertiaryBackground
-import utils.recomposeHighlighter
+import recomposeHighlighter
 
 @Composable
 fun InputSearch(

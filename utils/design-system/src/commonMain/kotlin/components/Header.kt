@@ -20,7 +20,7 @@ import atomic.icons.BarChart
 import controls.IconPrimary
 import controls.TextFieldH1
 import controls.primaryBackground
-import utils.recomposeHighlighter
+import recomposeHighlighter
 
 @Composable
 fun Header(

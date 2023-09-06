@@ -22,7 +22,7 @@ import components.roots.ScrollableRoot
 import controls.ButtonPrimary
 import controls.TextFieldH1
 import modifiers.alphaPresent
-import utils.recomposeHighlighter
+import recomposeHighlighter
 
 @Composable
 internal fun AuthContent(vm: AuthViewModel) {

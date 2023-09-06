@@ -24,7 +24,7 @@ import components.items.WeekDayStatusLine
 import components.items.WeekInfoFooter
 import controls.TextFieldBody2
 import presentation.trainings.WeekInfo
-import utils.recomposeHighlighter
+import recomposeHighlighter
 
 @Composable
 internal fun WeekSummary(
