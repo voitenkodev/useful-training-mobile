@@ -53,7 +53,7 @@ fun InputFieldPrimary(
         modifier = modifier,
         provideValue = provideValue,
         onValueChange = onValueChange,
-        textStyle = Design.typography.Body,
+        textStyle = Design.typography.Input,
         maxLines = maxLines,
         color = color ?: Design.colors.content,
         textAlign = textAlign,
@@ -144,7 +144,7 @@ private fun InputField(
     Row(
         modifier = modifier.requiredHeight(Design.dp.component),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(4.dp),
+        horizontalArrangement = Arrangement.spacedBy(6.dp),
     ) {
 
         if (leading != null) {

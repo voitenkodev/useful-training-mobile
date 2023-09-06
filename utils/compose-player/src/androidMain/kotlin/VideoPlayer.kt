@@ -20,20 +20,20 @@ actual fun VideoPlayer(
 
     val exoPlayer = remember { context.createExoPlayer(nativeLocalResource.url) }
 
-    DisposableEffect(
-        AndroidView(
-            factory = {
-                PlayerView(context).apply {
-                    hideController()
-                    useController = false
-                    resizeMode = AspectRatioFrameLayout.RESIZE_MODE_ZOOM
+    AndroidView(
+        factory = {
+            PlayerView(context).apply {
+                hideController()
+                useController = false
+                resizeMode = AspectRatioFrameLayout.RESIZE_MODE_ZOOM
 
-                    player = exoPlayer
-                    layoutParams = FrameLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT)
-                }
+                player = exoPlayer
+                layoutParams = FrameLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT)
             }
-        )
-    ) {
+        }
+    )
+
+    DisposableEffect(exoPlayer) {
         onDispose { exoPlayer.release() }
     }
 }

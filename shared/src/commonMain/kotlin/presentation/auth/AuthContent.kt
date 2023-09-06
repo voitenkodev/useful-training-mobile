@@ -80,14 +80,16 @@ private fun Content(
         header = {
             TextFieldH1(
                 modifier = Modifier
+                    .fillMaxWidth()
                     .height(Design.dp.bigHeader)
                     .alphaPresent(
-                        delayMillis = 100,
+                        delayMillis = 400,
                         durationMillis = 700
                     )
                     .recomposeHighlighter(),
                 provideText = { "\uD83D\uDC4B Welcome back" },
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Start,
+                maxLines = 1
             )
         },
         footer = {
@@ -96,7 +98,7 @@ private fun Content(
                 modifier = Modifier
                     .fillMaxWidth()
                     .alphaPresent(
-                        delayMillis = 500,
+                        delayMillis = 400,
                         durationMillis = 700
                     )
                     .recomposeHighlighter(),
@@ -108,7 +110,7 @@ private fun Content(
                 modifier = Modifier
                     .fillMaxWidth()
                     .alphaPresent(
-                        delayMillis = 500,
+                        delayMillis = 400,
                         durationMillis = 700
                     )
                     .recomposeHighlighter(),
@@ -123,7 +125,7 @@ private fun Content(
                     modifier = Modifier
                         .fillMaxWidth()
                         .alphaPresent(
-                            delayMillis = 300,
+                            delayMillis = 400,
                             durationMillis = 700
                         )
                         .recomposeHighlighter(),
@@ -136,7 +138,7 @@ private fun Content(
                     modifier = Modifier
                         .fillMaxWidth()
                         .alphaPresent(
-                            delayMillis = 300,
+                            delayMillis = 400,
                             durationMillis = 700
                         )
                         .recomposeHighlighter(),

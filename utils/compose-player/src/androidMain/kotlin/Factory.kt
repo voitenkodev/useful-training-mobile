@@ -6,6 +6,7 @@ import androidx.media3.datasource.DefaultDataSource
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.exoplayer.source.ProgressiveMediaSource
 
+@androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
 fun Context.createExoPlayer(uri: String): ExoPlayer {
 
     val player = ExoPlayer.Builder(this)

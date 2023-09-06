@@ -62,7 +62,7 @@ fun BoxScope.TopScreenGradient(height: Dp = 176.dp) {
 
 @Composable
 fun Modifier.primaryFrame(
-    height: Dp = 176.dp,
+    height: Dp = 76.dp,
     color: Color = Design.colors.primary
 ) = this.drawWithContent {
     val gradientColors = listOf(color, Color.Transparent)

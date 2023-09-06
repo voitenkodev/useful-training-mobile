@@ -30,6 +30,12 @@ internal fun appTypography() = AppTypography(
         fontFamily = Fonts.FastupFontFamily()
     ),
 
+    Input = TextStyle(
+        fontSize = 14.sp,
+        fontWeight = FontWeight.Medium,
+        fontStyle = FontStyle.Normal,
+        fontFamily = FontFamily.Default
+    ),
     Body = TextStyle(
         fontSize = 14.sp,
         fontWeight = FontWeight.Normal,
@@ -43,13 +49,13 @@ internal fun appTypography() = AppTypography(
         fontFamily = FontFamily.Default
     ),
     PrimaryButton = TextStyle(
-        fontSize = 14.sp,
+        fontSize = 16.sp,
         fontWeight = FontWeight.Normal,
         fontStyle = FontStyle.Normal,
         fontFamily = Fonts.FastupFontFamily()
     ),
     SecondaryButton = TextStyle(
-        fontSize = 13.sp,
+        fontSize = 14.sp,
         fontWeight = FontWeight.Bold,
         fontStyle = FontStyle.Normal,
         textDecoration = TextDecoration.Underline,
@@ -62,7 +68,9 @@ data class AppTypography(
     val H1: TextStyle, // big titles
     val H2: TextStyle, // little titles
 
-    val Body: TextStyle, // main inputs + fields
+    val Input: TextStyle, // main inputs + fields
+
+    val Body: TextStyle, // fields
     val Body2: TextStyle, // additional little input
 
     val Label: TextStyle, // additional little input

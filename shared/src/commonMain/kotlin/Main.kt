@@ -32,7 +32,7 @@ internal fun Main(modifier: Modifier = Modifier) {
 
         RootController(startScreen = Graph.Splash.link) {
 
-            screen(key = Graph.Splash.link, animation = Animation.None) { store ->
+            screen(key = Graph.Splash.link, animation = Animation.Fade(500)) { store ->
                 val navigator = findNavigator()
                 val viewModel = store.getOrCreate(
                     key = Graph.Splash.link,
