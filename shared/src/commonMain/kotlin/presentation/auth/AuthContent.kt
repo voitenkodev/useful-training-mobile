@@ -83,8 +83,8 @@ private fun Content(
                     .fillMaxWidth()
                     .height(Design.dp.bigHeader)
                     .alphaPresent(
-                        delayMillis = 400,
-                        durationMillis = 700
+                        delayMillis = 2000,
+                        durationMillis = 800
                     )
                     .recomposeHighlighter(),
                 provideText = { "\uD83D\uDC4B Welcome back" },
@@ -98,8 +98,8 @@ private fun Content(
                 modifier = Modifier
                     .fillMaxWidth()
                     .alphaPresent(
-                        delayMillis = 400,
-                        durationMillis = 700
+                        delayMillis = 2000,
+                        durationMillis = 800
                     )
                     .recomposeHighlighter(),
                 text = "Log In",
@@ -110,8 +110,8 @@ private fun Content(
                 modifier = Modifier
                     .fillMaxWidth()
                     .alphaPresent(
-                        delayMillis = 400,
-                        durationMillis = 700
+                        delayMillis = 2000,
+                        durationMillis = 800
                     )
                     .recomposeHighlighter(),
                 question = "Don't have an account yet?",
@@ -125,8 +125,8 @@ private fun Content(
                     modifier = Modifier
                         .fillMaxWidth()
                         .alphaPresent(
-                            delayMillis = 400,
-                            durationMillis = 700
+                            delayMillis = 2000,
+                            durationMillis = 800
                         )
                         .recomposeHighlighter(),
                     provideValue = email,
@@ -138,8 +138,8 @@ private fun Content(
                     modifier = Modifier
                         .fillMaxWidth()
                         .alphaPresent(
-                            delayMillis = 400,
-                            durationMillis = 700
+                            delayMillis = 2000,
+                            durationMillis = 800
                         )
                         .recomposeHighlighter(),
                     provideValue = password,

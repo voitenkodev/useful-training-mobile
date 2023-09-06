@@ -14,7 +14,7 @@ import androidx.compose.ui.graphics.graphicsLayer
 @Composable
 fun Modifier.alphaPresent(
     durationMillis: Int,
-    delayMillis: Int
+    delayMillis: Int,
 ): Modifier = composed {
     val animatedValue = remember { mutableStateOf(0f) }
 

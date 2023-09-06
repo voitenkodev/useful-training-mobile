@@ -47,7 +47,9 @@ fun ScrollableRoot(
                 end = Design.dp.padding,
                 bottom = Design.dp.padding
             ).pointerInput(Unit) {
-                detectTapGestures(onTap = { focusManager.clearFocus() })
+                detectTapGestures(
+                    onTap = { focusManager.clearFocus() },
+                )
             }/*.pointerInput(Unit) {
                 detectSwipe(
                     onSwipeDown = {

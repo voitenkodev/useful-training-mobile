@@ -1,11 +1,6 @@
 package components.inputs
 
 import Design
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.scaleIn
-import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.runtime.Composable
@@ -49,17 +44,11 @@ fun InputPassword(
             )
         },
         trailing = {
-            AnimatedVisibility(
-                visible = provideValue().isNotEmpty(),
-                enter = fadeIn() + scaleIn(),
-                exit = scaleOut() + fadeOut(),
-            ) {
-                IconPrimary(
-                    imageVector = if (passwordVisibility.value) EyeOff else Eye,
-                    color = Design.colors.caption,
-                    onClick = { passwordVisibility.value = passwordVisibility.value.not() }
-                )
-            }
+            IconPrimary(
+                imageVector = if (passwordVisibility.value) EyeOff else Eye,
+                color = Design.colors.caption,
+                onClick = { passwordVisibility.value = passwordVisibility.value.not() }
+            )
         },
         maxLines = 1,
         keyboardOptions = KeyboardOptions(
