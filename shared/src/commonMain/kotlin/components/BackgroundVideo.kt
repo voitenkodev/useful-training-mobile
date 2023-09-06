@@ -32,8 +32,8 @@ internal fun BackgroundVideo(
 
     LaunchedEffect(Unit) {
         delay(500)
-        animatedValue.value = 0.6f
-        delay(durationInMs) // Finish of video (hack until fix iOS get duration of video from Player)
+        animatedValue.value = 0.5f
+        delay(durationInMs)
         animatedValue.value = 1.0f
     }
 

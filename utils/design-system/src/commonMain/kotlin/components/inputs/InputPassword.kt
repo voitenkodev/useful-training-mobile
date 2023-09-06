@@ -22,7 +22,7 @@ import atomic.icons.EyeOff
 import components.labels.InputLabel
 import controls.IconPrimary
 import controls.InputFieldPrimary
-import controls.tertiaryBackground
+import controls.reversedBackground
 import utils.recomposeHighlighter
 
 @Composable
@@ -35,11 +35,12 @@ fun InputPassword(
 
     InputFieldPrimary(
         modifier = modifier
-            .tertiaryBackground()
+            .reversedBackground()
             .padding(horizontal = Design.dp.padding)
             .recomposeHighlighter(),
         provideValue = provideValue,
         onValueChange = onValueChange,
+        color = Design.colors.primary,
         visualTransformation = if (passwordVisibility.value) VisualTransformation.None else PasswordVisualTransformation(),
         leading = {
             InputLabel(

@@ -20,7 +20,6 @@ import components.inputs.InputEmail
 import components.inputs.InputPassword
 import components.roots.ScrollableRoot
 import controls.ButtonPrimary
-import controls.TextFieldBody1
 import controls.TextFieldH1
 import modifiers.alphaPresent
 import utils.recomposeHighlighter
@@ -68,7 +67,7 @@ private fun Content(
     val registrationProvider by rememberUpdatedState(registration)
 
     BackgroundVideo(
-        nativeResource = Videos.motivation,
+        nativeResource = Videos.intro,
         durationInMs = 185000
     )
 
@@ -88,7 +87,7 @@ private fun Content(
                         durationMillis = 700
                     )
                     .recomposeHighlighter(),
-                provideText = { "\uD83D\uDC4B Welcome back!" },
+                provideText = { "\uD83D\uDC4B Welcome back" },
                 textAlign = TextAlign.Center
             )
         },
@@ -120,18 +119,6 @@ private fun Content(
             )
         },
         content = {
-            item(key = "notes") {
-                TextFieldBody1(
-                    modifier = Modifier
-                        .alphaPresent(
-                            delayMillis = 100,
-                            durationMillis = 700
-                        )
-                        .recomposeHighlighter(),
-                    provideText = { "Sign in to your account" },
-                    color = Design.colors.caption
-                )
-            }
             item(key = "input_email") {
                 InputEmail(
                     modifier = Modifier

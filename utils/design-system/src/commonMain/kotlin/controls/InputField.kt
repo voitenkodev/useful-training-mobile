@@ -211,7 +211,7 @@ private fun InnerInputField(
         textStyle = textStyle,
         maxLines = maxLines,
         visualTransformation = visualTransformation,
-        cursorBrush = SolidColor(Design.colors.content),
+        cursorBrush = SolidColor(textStyle.color),
         singleLine = maxLines == 1,
         keyboardOptions = keyboardOptions ?: KeyboardOptions.Default,
         keyboardActions = keyboardActions ?: KeyboardActions.Default,

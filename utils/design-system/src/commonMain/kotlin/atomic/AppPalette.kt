@@ -71,7 +71,7 @@ data class AppColors(
 }
 
 val color_white = Color(0xffffffff)
-val color_gray = Color(0xff7f8899)
+val color_gray = Color(0xff77808f)
 
 val color_black = Color(0xff000000)
 

@@ -6,14 +6,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import controls.TextFieldBody1
+import controls.TextFieldLabel
 import utils.recomposeHighlighter
 
 @Composable
 fun InputLabel(
     modifier: Modifier = Modifier,
     provideText: () -> String
-) = TextFieldBody1(
+) = TextFieldLabel(
     modifier = modifier
         .width(74.dp)
         .recomposeHighlighter(),

@@ -24,7 +24,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import components.labels.InputLabel
 import controls.IconPrimary
 import controls.InputFieldPrimary
-import controls.tertiaryBackground
+import controls.reversedBackground
 import utils.recomposeHighlighter
 
 @Composable
@@ -38,11 +38,12 @@ fun InputEmail(
 
     InputFieldPrimary(
         modifier = modifier
-            .tertiaryBackground()
+            .reversedBackground()
             .padding(horizontal = Design.dp.padding)
             .recomposeHighlighter(),
         provideValue = provideValue,
         onValueChange = onValueChange,
+        color = Design.colors.primary,
         trailing = {
 
             AnimatedVisibility(
@@ -64,7 +65,8 @@ fun InputEmail(
         leading = {
             InputLabel(
                 modifier = Modifier.recomposeHighlighter(),
-                provideText = { "Email" })
+                provideText = { "Email" }
+            )
         },
         maxLines = 1,
         keyboardActions = KeyboardActions { focusManager.moveFocus(FocusDirection.Next) },

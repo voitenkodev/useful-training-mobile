@@ -23,6 +23,13 @@ internal fun appTypography() = AppTypography(
         fontStyle = FontStyle.Normal,
         fontFamily = Fonts.FastupFontFamily()
     ),
+    Label = TextStyle(
+        fontSize = 14.sp,
+        fontWeight = FontWeight.Bold,
+        fontStyle = FontStyle.Normal,
+        fontFamily = Fonts.FastupFontFamily()
+    ),
+
     Body = TextStyle(
         fontSize = 14.sp,
         fontWeight = FontWeight.Normal,
@@ -57,6 +64,8 @@ data class AppTypography(
 
     val Body: TextStyle, // main inputs + fields
     val Body2: TextStyle, // additional little input
+
+    val Label: TextStyle, // additional little input
 
     val PrimaryButton: TextStyle,
     val SecondaryButton: TextStyle,
