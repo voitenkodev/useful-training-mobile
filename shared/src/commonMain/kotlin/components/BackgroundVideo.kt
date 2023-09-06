@@ -20,8 +20,7 @@ import kotlinx.coroutines.delay
 // TODO Probably move it do design-system
 @Composable
 internal fun BackgroundVideo(
-    nativeResource: NativeLocalResource,
-    durationInMs: Long
+    nativeResource: NativeLocalResource
 ) {
     val animatedValue = remember { mutableStateOf(1f) }
 
@@ -33,8 +32,6 @@ internal fun BackgroundVideo(
     LaunchedEffect(Unit) {
         delay(500)
         animatedValue.value = 0.5f
-        delay(durationInMs)
-        animatedValue.value = 1.0f
     }
 
     VideoPlayer(

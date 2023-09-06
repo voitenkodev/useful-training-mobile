@@ -68,7 +68,6 @@ private fun Content(
 
     BackgroundVideo(
         nativeResource = Videos.intro,
-        durationInMs = 185000
     )
 
     ScrollableRoot(

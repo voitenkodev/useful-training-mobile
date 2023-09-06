@@ -12,6 +12,7 @@ sqldelight-vers = "2.0.0-alpha05"
 ui = "1.4.3"
 media3-exoplayer-vers = "1.1.0"
 moko-resources-version = "0.23.0"
+lifecycle-common = "2.6.1"
 
 [libraries]
 serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization-vers" }
@@ -43,4 +44,5 @@ koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin-ver
 
 moko-resources = { module = "dev.icerock.moko:resources", version.ref = "moko-resources-version" }
 moko-resources-compose = { module = "dev.icerock.moko:resources-compose", version.ref = "moko-resources-version" }
+lifecycle-common = { group = "androidx.lifecycle", name = "lifecycle-common", version.ref = "lifecycle-common" }
 
