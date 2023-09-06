@@ -144,7 +144,7 @@ private fun InputField(
     Row(
         modifier = modifier.requiredHeight(Design.dp.component),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(6.dp),
+        horizontalArrangement = Arrangement.spacedBy(12.dp),
     ) {
 
         if (leading != null) {

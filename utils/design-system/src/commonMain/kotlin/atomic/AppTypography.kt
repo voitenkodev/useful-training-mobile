@@ -27,9 +27,7 @@ internal fun appTypography() = AppTypography(
         fontSize = 14.sp,
         fontWeight = FontWeight.Bold,
         fontStyle = FontStyle.Normal,
-        fontFamily = Fonts.FastupFontFamily()
     ),
-
     Input = TextStyle(
         fontSize = 14.sp,
         fontWeight = FontWeight.Medium,

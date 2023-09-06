@@ -18,7 +18,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
-import detectSwipe
 import platformInsets
 import recomposeHighlighter
 
@@ -56,7 +55,8 @@ fun ScrollableRoot(
                         focusManager.clearFocus()
                     }
                 )
-            }*/.recomposeHighlighter()
+            }*/.recomposeHighlighter(),
+        verticalArrangement = Arrangement.spacedBy(Design.dp.padding)
     ) {
 
         LazyColumn(
@@ -78,12 +78,7 @@ fun ScrollableRoot(
             }
         )
 
-        if (footer != null) {
-
-            Spacer(Modifier.size(Design.dp.padding))
-
-            footer.invoke(this)
-        }
+        footer?.invoke(this)
     }
 
     error?.invoke()

@@ -2,6 +2,7 @@ package presentation.auth
 
 import Graph
 import globalKoin
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
@@ -26,7 +27,10 @@ internal class AuthViewModel(private val navigator: NavigatorCore) : ViewModel()
             api
                 .getToken()
                 .filterNotNull()
-                .onEach { navigator.navigate(Graph.Trainings.link, true) }
+                .onEach {
+                    delay(500)
+                    navigator.navigate(Graph.Trainings.link, true)
+                }
                 .launchIn(this)
         }
     }
