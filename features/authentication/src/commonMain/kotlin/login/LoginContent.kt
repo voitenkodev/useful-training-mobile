@@ -1,4 +1,4 @@
-package presentation.auth
+package login
 
 import Design
 import PlatformBackHandler
@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberUpdatedState
@@ -13,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import components.Error
 import components.Loading
+import components.backgrounds.BackgroundIntroVideo
 import components.buttons.ButtonQuestion
 import components.inputs.InputEmail
 import components.inputs.InputPassword
@@ -23,15 +25,23 @@ import controls.TextFieldH1
 import recomposeHighlighter
 
 @Composable
-internal fun AuthContent(vm: AuthViewModel) {
+fun LoginContent(
+    vm: LoginViewModel,
+    letsDoIt: () -> Unit,
+    back: () -> Unit
+) {
 
     val state by vm.state.collectAsState()
+
+    LaunchedEffect(Unit) {
+        vm.subscribeToken(letsDoIt)
+    }
 
     Content(
         loading = { state.loading },
         error = { state.error },
         clearError = vm::clearError,
-        back = vm::back,
+        back = back,
 
         login = vm::login,
         registration = vm::registration,
@@ -63,6 +73,8 @@ private fun Content(
 
     val loginProvider by rememberUpdatedState(login)
     val registrationProvider by rememberUpdatedState(registration)
+
+    BackgroundIntroVideo()
 
     ScrollableRoot(
         modifier = Modifier

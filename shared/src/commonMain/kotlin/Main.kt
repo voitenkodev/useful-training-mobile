@@ -1,8 +1,10 @@
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import navigation.Animation
+import navigation.GraphBuilder
 import navigation.RootController
 import navigation.findNavigator
+import onboarding.OnboardingContent
 import presentation.auth.AuthContent
 import presentation.auth.AuthViewModel
 import presentation.review.ReviewContent
@@ -17,8 +19,11 @@ import presentation.trainings.TrainingsContent
 import presentation.trainings.TrainingsViewModel
 
 internal enum class Graph(val link: String) {
-    Splash("splash_screen"),
+    Onboarding("onboarding_screen"),
     Auth("auth_screen"),
+
+
+    Splash("splash_screen"),
     Trainings("trainings_screen"),
     Training("training_screen"),
     Review("review_screen"),
@@ -32,25 +37,7 @@ internal fun Main(modifier: Modifier = Modifier) {
 
         RootController(startScreen = Graph.Splash.link) {
 
-            screen(key = Graph.Splash.link, animation = Animation.Fade(500)) { store ->
-                val navigator = findNavigator()
-                val viewModel = store.getOrCreate(
-                    key = Graph.Splash.link,
-                    factory = { SplashViewModel(navigator) },
-                    clear = { (it as? SplashViewModel)?.clear() }
-                )
-                SplashContent(viewModel)
-            }
-
-            screen(key = Graph.Auth.link, animation = Animation.None) { store ->
-                val navigator = findNavigator()
-                val viewModel = store.getOrCreate(
-                    key = Graph.Auth.link,
-                    factory = { AuthViewModel(navigator) },
-                    clear = { (it as? AuthViewModel)?.clear() }
-                )
-                AuthContent(viewModel)
-            }
+            authenticationGraph()
 
             screen(key = Graph.Trainings.link, animation = Animation.Present(500)) { store ->
                 val navigator = findNavigator()
@@ -94,5 +81,42 @@ internal fun Main(modifier: Modifier = Modifier) {
                 SummaryContent(viewModel)
             }
         }
+    }
+}
+
+private fun GraphBuilder.authenticationGraph() {
+
+    screen(key = Graph.Splash.link, animation = Animation.None) { store ->
+        val navigator = findNavigator()
+
+        val viewModel = store.getOrCreate(
+            key = Graph.Splash.link,
+            factory = { SplashViewModel(navigator) },
+            clear = { (it as? SplashViewModel)?.clear() }
+        )
+
+        SplashContent(
+            vm = viewModel
+        )
+    }
+
+    screen(key = Graph.Onboarding.link, animation = Animation.None) {
+        val navigator = findNavigator()
+
+        OnboardingContent(
+            joinUs = { },
+            login = {},
+            back = { navigator.back() }
+        )
+    }
+
+    screen(key = Graph.Auth.link, animation = Animation.None) { store ->
+        val navigator = findNavigator()
+        val viewModel = store.getOrCreate(
+            key = Graph.Auth.link,
+            factory = { AuthViewModel(navigator) },
+            clear = { (it as? AuthViewModel)?.clear() }
+        )
+        AuthContent(viewModel)
     }
 }

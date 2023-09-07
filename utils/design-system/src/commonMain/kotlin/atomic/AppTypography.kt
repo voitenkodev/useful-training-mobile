@@ -48,11 +48,15 @@ internal fun appTypography() = AppTypography(
     ),
     PrimaryButton = TextStyle(
         fontSize = 16.sp,
-        fontWeight = FontWeight.Normal,
+        fontWeight = FontWeight.Bold,
         fontStyle = FontStyle.Normal,
-        fontFamily = Fonts.FastupFontFamily()
     ),
     SecondaryButton = TextStyle(
+        fontSize = 16.sp,
+        fontWeight = FontWeight.Bold,
+        fontStyle = FontStyle.Normal,
+    ),
+    TertiaryButton = TextStyle(
         fontSize = 14.sp,
         fontWeight = FontWeight.Bold,
         fontStyle = FontStyle.Normal,
@@ -75,5 +79,6 @@ data class AppTypography(
 
     val PrimaryButton: TextStyle,
     val SecondaryButton: TextStyle,
+    val TertiaryButton: TextStyle,
 )
 

@@ -7,33 +7,26 @@ plugins {
 apply(from = "../../config/gradle/build-scripts/kotlin.gradle")
 apply(from = "../../config/gradle/build-scripts/android.gradle")
 
-android { namespace = "com.voitenko.usefultraining.utils.designsystem" }
+android { namespace = "com.voitenko.usefultraining.features.authentication" }
 
 kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
+                implementation(projects.data)
                 implementation(projects.utils.instruments)
-                implementation(projects.utils.resources)
+                implementation(projects.utils.navigator)
+                implementation(projects.utils.designSystem)
                 implementation(projects.utils.composePlayer)
-                implementation(projects.utils.nativeApi)
 
                 // Compose
                 implementation(compose.ui)
                 implementation(compose.foundation)
-                implementation(compose.material)
+//                implementation(compose.material)
+
+                // Koin
+                implementation(libs.koin.core)
             }
-        }
-
-        val androidMain by getting {
-            dependencies {}
-        }
-
-        val iosMain by getting {
-            dependencies {}
-        }
-        val iosSimulatorArm64Main by getting {
-            dependsOn(iosMain)
         }
     }
 }

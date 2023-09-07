@@ -40,7 +40,7 @@ import components.charts.IntensityChart
 import components.charts.TonnageChart
 import components.labels.WeekDayLabel
 import components.roots.ScrollableRoot
-import controls.ButtonSecondary
+import controls.ButtonTertiary
 import controls.DividerPrimary
 import controls.IconPrimary
 import controls.TextFieldBody2
@@ -173,7 +173,7 @@ private fun Content(
             }
 
             item(key = "remove_action") {
-                ButtonSecondary(
+                ButtonTertiary(
                     modifier = Modifier
                         .fillMaxWidth()
                         .recomposeHighlighter(),

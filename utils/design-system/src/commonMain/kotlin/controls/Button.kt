@@ -12,7 +12,6 @@ import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
@@ -29,19 +28,17 @@ fun ButtonPrimary(
     leadIcon: ImageVector? = null,
     onClick: () -> Unit,
 ) {
-    val innerTextColor = Design.colors.content
-    val innerBackgroundColor = Design.colors.accent_primary
-
-    val txt = remember(text) { text.uppercase() }
+    val innerTextColor = Design.colors.accent_primary
+    val innerBackgroundColor = Design.colors.content
 
     Button(
         modifier = modifier.requiredHeight(Design.dp.component),
-        text = txt,
+        text = text,
         textStyle = Design.typography.PrimaryButton.copy(color = innerTextColor, fontWeight = FontWeight.Bold),
         enabled = enabled,
         onClick = onClick,
         colors = ButtonDefaults.buttonColors(backgroundColor = innerBackgroundColor),
-        shape = Design.shape.default,
+        shape = Design.shape.circleShape,
         borderStroke = null,
         leadIcon = leadIcon
     )
@@ -57,6 +54,33 @@ fun ButtonSecondary(
     leadIcon: ImageVector? = null,
 ) {
 
+    val innerTextColor = color ?: Design.colors.content
+    val innerBackgroundColor = Color.Companion.Transparent
+
+    Button(
+        modifier = modifier.requiredHeight(Design.dp.component),
+        text = text,
+        contentPadding = PaddingValues(vertical = 0.dp),
+        textStyle = Design.typography.SecondaryButton.copy(color = innerTextColor, fontWeight = FontWeight.Bold),
+        enabled = enabled,
+        onClick = onClick,
+        borderStroke = BorderStroke(width = 2.dp, color = innerTextColor),
+        colors = ButtonDefaults.buttonColors(backgroundColor = innerBackgroundColor),
+        shape = Design.shape.circleShape,
+        leadIcon = leadIcon
+    )
+}
+
+@Composable
+fun ButtonTertiary(
+    modifier: Modifier = Modifier,
+    text: String,
+    onClick: () -> Unit,
+    enabled: Boolean = true,
+    color: Color? = null,
+    leadIcon: ImageVector? = null,
+) {
+
     val innerTextColor = color ?: Design.colors.accent_secondary
     val innerBackgroundColor = Color.Companion.Transparent
 
@@ -64,7 +88,7 @@ fun ButtonSecondary(
         modifier = modifier,
         text = text,
         contentPadding = PaddingValues(vertical = 0.dp),
-        textStyle = Design.typography.SecondaryButton.copy(color = innerTextColor, fontWeight = FontWeight.Bold),
+        textStyle = Design.typography.TertiaryButton.copy(color = innerTextColor, fontWeight = FontWeight.Bold),
         enabled = enabled,
         onClick = onClick,
         colors = ButtonDefaults.buttonColors(backgroundColor = innerBackgroundColor),

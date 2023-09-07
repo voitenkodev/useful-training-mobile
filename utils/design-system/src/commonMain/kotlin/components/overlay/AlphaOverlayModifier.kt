@@ -1,4 +1,4 @@
-package modifiers
+package components.overlay
 
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
@@ -12,7 +12,7 @@ import androidx.compose.ui.composed
 import androidx.compose.ui.graphics.graphicsLayer
 
 @Composable
-fun Modifier.alphaPresent(
+fun Modifier.alphaOverlay(
     durationMillis: Int,
     delayMillis: Int,
 ): Modifier = composed {

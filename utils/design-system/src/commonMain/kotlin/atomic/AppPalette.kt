@@ -78,6 +78,6 @@ val color_black = Color(0xff000000)
 val color_black_50 = Color(0xff13131c)
 val color_black_100 = Color(0xff101014)
 
-val color_blue = Color(0xff335bff)
+val color_blue = Color(0xff31353b)
 val color_yellow = Color(0xffffb005)
 val color_red = Color(0xffEA3469)
