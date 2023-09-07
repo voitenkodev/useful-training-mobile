@@ -18,11 +18,11 @@ kotlin {
                 implementation(projects.utils.navigator)
                 implementation(projects.utils.designSystem)
                 implementation(projects.utils.composePlayer)
+                implementation(projects.utils.resources)
 
                 // Compose
                 implementation(compose.ui)
                 implementation(compose.foundation)
-//                implementation(compose.material)
 
                 // Koin
                 implementation(libs.koin.core)

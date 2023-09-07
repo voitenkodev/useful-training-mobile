@@ -2,14 +2,19 @@ package presentation.auth
 
 import Design
 import PlatformBackHandler
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.ime
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Recomposer
+import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.style.TextAlign
 import components.Error
 import components.Loading
@@ -18,14 +23,19 @@ import components.inputs.InputEmail
 import components.inputs.InputPassword
 import components.overlay.alphaOverlay
 import components.roots.ScrollableRoot
-import controls.ButtonPrimary
+import controls.ButtonPrimaryBrand
 import controls.TextFieldH1
 import recomposeHighlighter
+import utils.Logger
 
 @Composable
 internal fun AuthContent(vm: AuthViewModel) {
 
     val state by vm.state.collectAsState()
+
+    val keyboard = keyboardAsState()
+
+    Logger.l { "$keyboard" }
 
     Content(
         loading = { state.loading },
@@ -41,6 +51,12 @@ internal fun AuthContent(vm: AuthViewModel) {
         password = { state.password },
         updatePassword = vm::updatePassword
     )
+}
+
+@Composable
+fun keyboardAsState(): State<Boolean> {
+    val isImeVisible = WindowInsets.ime.getBottom(LocalDensity.current) > 0
+    return rememberUpdatedState(isImeVisible)
 }
 
 @Composable
@@ -88,7 +104,7 @@ private fun Content(
         },
         footer = {
 
-            ButtonPrimary(
+            ButtonPrimaryBrand(
                 modifier = Modifier
                     .fillMaxWidth()
                     .alphaOverlay(
@@ -96,7 +112,7 @@ private fun Content(
                         durationMillis = 800
                     )
                     .recomposeHighlighter(),
-                text = "Log In",
+                text = "Sign In",
                 onClick = loginProvider
             )
 

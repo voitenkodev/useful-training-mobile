@@ -17,7 +17,7 @@ internal class SplashViewModel(private val navigator: NavigatorCore) : ViewModel
         viewModelScope.launch {
             api.getToken()
                 .onEach {
-                    if (it == null) navigator.navigate(Graph.Onboarding.link, true)
+                    if (it == null) navigator.navigate(Graph.Auth.link, true)
                     else navigator.navigate(Graph.Trainings.link, true)
                 }
                 .launchIn(this)

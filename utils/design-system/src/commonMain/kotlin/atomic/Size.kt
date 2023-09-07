@@ -7,7 +7,7 @@ internal fun appDp() = AppDp(
     padding = 16.dp,
     header = 56.dp,
     bigHeader = 74.dp,
-    component = 52.dp,
+    component = 56.dp,
     fixedWidth = 300.dp
 )
 

@@ -34,7 +34,7 @@ fun Modifier.tertiaryBackground() = this
 fun Modifier.reversedBackground() = this
     .background(
         color = Design.colors.content,
-        shape = Design.shape.default
+        shape = Design.shape.circleShape
     ).clip(
-        shape = Design.shape.default
+        shape = Design.shape.circleShape
     )

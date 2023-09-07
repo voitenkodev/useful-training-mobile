@@ -1,16 +1,33 @@
 package components.backgrounds
 
+import Design
 import NativeLocalResource
 import VideoPlayer
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 
 @Composable
-internal fun BackgroundVideoFrame(nativeResource: NativeLocalResource) {
-    VideoPlayer(
+internal fun BackgroundVideoFrame(
+    modifier: Modifier,
+    nativeResource: NativeLocalResource
+) {
+    Box(modifier = modifier) {
+        VideoPlayer(
+            modifier = Modifier
+                .fillMaxSize(),
+            nativeLocalResource = nativeResource
+        )
+    }
+
+    Spacer(
         modifier = Modifier
-            .fillMaxSize(),
-        nativeLocalResource = nativeResource
+            .fillMaxSize()
+            .alpha(0.3f)
+            .background(color = Design.colors.primary)
     )
 }

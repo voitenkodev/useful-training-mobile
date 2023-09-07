@@ -1,32 +1,41 @@
-package login
+package authentication
 
 import Design
 import PlatformBackHandler
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberUpdatedState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import components.Error
 import components.Loading
 import components.backgrounds.BackgroundIntroVideo
+import components.backgrounds.YellowOvalsScreenBackground
 import components.buttons.ButtonQuestion
 import components.inputs.InputEmail
 import components.inputs.InputPassword
-import components.overlay.alphaOverlay
-import components.roots.ScrollableRoot
-import controls.ButtonPrimary
+import components.overlay.AlphaOverlay
+import components.overlay.shadowBottomFrame
+import components.roots.Root
+import controls.ButtonPrimaryBrand
+import controls.TextFieldBody1
 import controls.TextFieldH1
+import platformInsets
 import recomposeHighlighter
 
 @Composable
-fun LoginContent(
-    vm: LoginViewModel,
+fun AuthenticationContent(
+    vm: AuthenticationViewModel,
     letsDoIt: () -> Unit,
     back: () -> Unit
 ) {
@@ -73,85 +82,94 @@ private fun Content(
 
     val loginProvider by rememberUpdatedState(login)
     val registrationProvider by rememberUpdatedState(registration)
+    val backProvider by rememberUpdatedState(back)
 
-    BackgroundIntroVideo()
-
-    ScrollableRoot(
-        modifier = Modifier
-            .fillMaxSize()
-            .recomposeHighlighter(),
+    Root(
         loading = { Loading(loading) },
         error = { Error(message = error, close = clearError) },
-        back = { PlatformBackHandler(back) },
-        header = {
-            TextFieldH1(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(Design.dp.bigHeader)
-                    .alphaOverlay(
-                        delayMillis = 2000,
-                        durationMillis = 800
-                    )
-                    .recomposeHighlighter(),
-                provideText = { "\uD83D\uDC4B Welcome back" },
-                textAlign = TextAlign.Start,
-                maxLines = 1
-            )
-        },
-        footer = {
+        back = { PlatformBackHandler(backProvider) },
+    ) {
 
-            ButtonPrimary(
+        BackgroundIntroVideo(
+            modifier = Modifier
+                .fillMaxWidth()
+                .aspectRatio(0.8f)
+        )
+
+        Spacer(
+            modifier = Modifier
+                .fillMaxWidth()
+                .aspectRatio(0.8f)
+                .shadowBottomFrame()
+        )
+
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .platformInsets()
+                .padding(Design.dp.padding),
+        ) {
+
+            Spacer(Modifier.weight(1f))
+
+            TextFieldH1(
+                provideText = { "Welcome Back" }
+            )
+
+            Spacer(Modifier.size(4.dp))
+
+            TextFieldBody1(
+                provideText = { "Good to see you again, enter your details\nbelow to continue exercises" },
+                color = Design.colors.caption
+            )
+
+            Spacer(Modifier.size(32.dp))
+
+            InputEmail(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .alphaOverlay(
-                        delayMillis = 2000,
-                        durationMillis = 800
-                    )
                     .recomposeHighlighter(),
-                text = "Log In",
+                provideValue = email,
+                onValueChange = updateEmail
+            )
+
+            Spacer(Modifier.size(16.dp))
+
+            InputPassword(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .recomposeHighlighter(),
+                provideValue = password,
+                onValueChange = updatePassword
+            )
+
+            Spacer(Modifier.size(32.dp))
+
+            ButtonPrimaryBrand(
+                modifier = Modifier
+                    .fillMaxWidth(0.7f)
+                    .align(Alignment.CenterHorizontally)
+                    .recomposeHighlighter(),
+                text = "SIGN IN",
                 onClick = loginProvider
             )
+
+            Spacer(Modifier.weight(1f))
 
             ButtonQuestion(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .alphaOverlay(
-                        delayMillis = 2000,
-                        durationMillis = 800
-                    )
                     .recomposeHighlighter(),
                 question = "Don't have an account yet?",
-                answer = "Sign Up!",
+                answer = "Join Us!",
                 onClick = registrationProvider
             )
-        },
-        content = {
-            item(key = "input_email") {
-                InputEmail(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .alphaOverlay(
-                            delayMillis = 2000,
-                            durationMillis = 800
-                        )
-                        .recomposeHighlighter(),
-                    provideValue = email,
-                    onValueChange = updateEmail
-                )
-            }
-            item(key = "input_password") {
-                InputPassword(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .alphaOverlay(
-                            delayMillis = 2000,
-                            durationMillis = 800
-                        )
-                        .recomposeHighlighter(),
-                    provideValue = password,
-                    onValueChange = updatePassword
-                )
-            }
         }
-    )
+
+        YellowOvalsScreenBackground()
+
+        AlphaOverlay(
+            modifier = Modifier.fillMaxSize()
+        )
+    }
 }

@@ -1,12 +1,11 @@
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import authentication.AuthenticationContent
+import authentication.AuthenticationViewModel
 import navigation.Animation
 import navigation.GraphBuilder
 import navigation.RootController
 import navigation.findNavigator
-import onboarding.OnboardingContent
-import presentation.auth.AuthContent
-import presentation.auth.AuthViewModel
 import presentation.review.ReviewContent
 import presentation.review.ReviewViewModel
 import presentation.splash.SplashContent
@@ -19,7 +18,6 @@ import presentation.trainings.TrainingsContent
 import presentation.trainings.TrainingsViewModel
 
 internal enum class Graph(val link: String) {
-    Onboarding("onboarding_screen"),
     Auth("auth_screen"),
 
 
@@ -100,23 +98,18 @@ private fun GraphBuilder.authenticationGraph() {
         )
     }
 
-    screen(key = Graph.Onboarding.link, animation = Animation.None) {
-        val navigator = findNavigator()
-
-        OnboardingContent(
-            joinUs = { },
-            login = {},
-            back = { navigator.back() }
-        )
-    }
-
     screen(key = Graph.Auth.link, animation = Animation.None) { store ->
         val navigator = findNavigator()
         val viewModel = store.getOrCreate(
             key = Graph.Auth.link,
-            factory = { AuthViewModel(navigator) },
-            clear = { (it as? AuthViewModel)?.clear() }
+            factory = { AuthenticationViewModel() },
+            clear = { (it as? AuthenticationViewModel)?.clear() }
         )
-        AuthContent(viewModel)
+
+        AuthenticationContent(
+            viewModel,
+            letsDoIt = {},
+            back = navigator::back
+        )
     }
 }

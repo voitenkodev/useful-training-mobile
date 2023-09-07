@@ -12,8 +12,8 @@ import androidx.compose.ui.unit.sp
 @Composable
 internal fun appTypography() = AppTypography(
     H1 = TextStyle(
-        fontSize = 36.sp,
-        fontWeight = FontWeight.Bold,
+        fontSize = 48.sp,
+        fontWeight = FontWeight.ExtraBold,
         fontStyle = FontStyle.Normal,
         fontFamily = Fonts.FastupFontFamily()
     ),
@@ -25,7 +25,7 @@ internal fun appTypography() = AppTypography(
     ),
     Label = TextStyle(
         fontSize = 14.sp,
-        fontWeight = FontWeight.Bold,
+        fontWeight = FontWeight.Medium,
         fontStyle = FontStyle.Normal,
     ),
     Input = TextStyle(
@@ -48,7 +48,7 @@ internal fun appTypography() = AppTypography(
     ),
     PrimaryButton = TextStyle(
         fontSize = 16.sp,
-        fontWeight = FontWeight.Bold,
+            fontWeight = FontWeight.Bold,
         fontStyle = FontStyle.Normal,
     ),
     SecondaryButton = TextStyle(

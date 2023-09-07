@@ -71,13 +71,14 @@ data class AppColors(
 }
 
 val color_white = Color(0xffffffff)
-val color_gray = Color(0xff77808f)
+val color_gray = Color(0xffa6a6a6)
 
 val color_black = Color(0xff000000)
 
 val color_black_50 = Color(0xff13131c)
 val color_black_100 = Color(0xff101014)
 
+// TODO RENAME TO GRAY
 val color_blue = Color(0xff31353b)
-val color_yellow = Color(0xffffb005)
+val color_yellow = Color(0xfffcb51c)
 val color_red = Color(0xffEA3469)

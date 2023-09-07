@@ -1,4 +1,4 @@
-package login
+package authentication
 
 import isEmailValid
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -13,12 +13,12 @@ import org.koin.mp.KoinPlatformTools
 import repository.AuthRepository
 import utils.ViewModel
 
-class LoginViewModel : ViewModel() {
+class AuthenticationViewModel : ViewModel() {
 
     private val api = KoinPlatformTools.defaultContext().get().get<AuthRepository>()
 
-    private val _state = MutableStateFlow(LoginState())
-    val state: StateFlow<LoginState> = _state
+    private val _state = MutableStateFlow(AuthenticationState())
+    val state: StateFlow<AuthenticationState> = _state
 
     fun subscribeToken(onReceive: () -> Unit) {
         viewModelScope.launch {
@@ -72,7 +72,7 @@ class LoginViewModel : ViewModel() {
         _state.value = state.value.copy(password = value)
     }
 
-    private fun LoginState.validate(): LoginState {
+    private fun AuthenticationState.validate(): AuthenticationState {
 
         val newEmail = this.email.trim().lowercase()
         val newPassword = this.password.trim()
