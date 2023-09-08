@@ -17,9 +17,6 @@ fun initCommonKoin(
     modules(platformModule, appModule)
 }
 
-fun globalKoin() = KoinPlatformTools.defaultContext().get()
-
-
 val appModule = module {
 
     single { PreferencesSource(get()) }

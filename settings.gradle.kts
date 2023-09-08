@@ -51,4 +51,5 @@ include(
     "utils:resources",
 
     "features:authentication",
+    "features:trainings",
 )

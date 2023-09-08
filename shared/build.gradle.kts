@@ -3,23 +3,23 @@ plugins {
     kotlin("native.cocoapods")
     id("com.android.library")
     id("org.jetbrains.compose")
-    id("org.jetbrains.kotlin.plugin.parcelize")
 }
 
 apply(from = "../config/gradle/build-scripts/android.gradle")
 apply(from = "../config/gradle/build-scripts/ios.gradle")
 apply(from = "../config/gradle/build-scripts/kotlin.gradle")
 
-kotlin.cocoapods {
-    podfile = project.file("../iosApp/Podfile")
-}
+kotlin.cocoapods { podfile = project.file("../iosApp/Podfile") }
 
 kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
+                // Features
                 implementation(projects.features.authentication)
+                implementation(projects.features.trainings)
 
+                // Common
                 implementation(projects.data)
                 implementation(projects.utils.instruments)
                 implementation(projects.utils.navigator)
@@ -27,12 +27,6 @@ kotlin {
 
                 // Compose
                 implementation(compose.ui)
-                implementation(compose.foundation)
-                implementation(compose.material)
-
-                // Utils
-                implementation(libs.uuid)
-                implementation(libs.parcelize)
 
                 // Koin
                 implementation(libs.koin.core)

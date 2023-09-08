@@ -6,16 +6,10 @@ import navigation.Animation
 import navigation.GraphBuilder
 import navigation.RootController
 import navigation.findNavigator
-import presentation.review.ReviewContent
-import presentation.review.ReviewViewModel
-import presentation.splash.SplashContent
-import presentation.splash.SplashViewModel
-import presentation.summary.SummaryContent
-import presentation.summary.SummaryViewModel
-import presentation.training.TrainingContent
-import presentation.training.TrainingViewModel
-import presentation.trainings.TrainingsContent
-import presentation.trainings.TrainingsViewModel
+import splash.SplashContent
+import splash.SplashViewModel
+import trainings.TrainingsContent
+import trainings.TrainingsViewModel
 
 internal enum class Graph(val link: String) {
     Auth("auth_screen"),
@@ -37,49 +31,69 @@ internal fun Main(modifier: Modifier = Modifier) {
 
             authenticationGraph()
 
-            screen(key = Graph.Trainings.link, animation = Animation.Present(500)) { store ->
-                val navigator = findNavigator()
-                val viewModel = store.getOrCreate(
-                    key = Graph.Trainings.link,
-                    factory = { TrainingsViewModel(navigator) },
-                    clear = { (it as? TrainingsViewModel)?.clear() }
-                )
-                TrainingsContent(viewModel)
-            }
+            trainingsGraph()
 
-            screen(key = Graph.Training.link, animation = Animation.Push(300)) { store ->
-                val navigator = findNavigator()
-                val trainingId = store.args.getOrElse("trainingId") { null } as? String
-                val viewModel = store.getOrCreate(
-                    key = Graph.Training.link,
-                    factory = { TrainingViewModel(navigator) },
-                    clear = { (it as? TrainingViewModel)?.clear() }
-                )
-                TrainingContent(viewModel, trainingId)
-            }
-
-            screen(key = Graph.Review.link, animation = Animation.Present(500)) { store ->
-                val navigator = findNavigator()
-                val trainingId = store.args.getOrElse("trainingId") { "" } as String
-                val viewModel = store.getOrCreate(
-                    key = Graph.Review.link,
-                    factory = { ReviewViewModel(navigator) },
-                    clear = { (it as? ReviewViewModel)?.clear() }
-                )
-                ReviewContent(viewModel, trainingId)
-            }
-
-            screen(key = Graph.Summary.link, animation = Animation.Present(500)) { store ->
-                val navigator = findNavigator()
-                val viewModel = store.getOrCreate(
-                    key = Graph.Summary.link,
-                    factory = { SummaryViewModel(navigator) },
-                    clear = { (it as? SummaryViewModel)?.clear() }
-                )
-                SummaryContent(viewModel)
-            }
+//            screen(key = Graph.Review.link, animation = Animation.Present(500)) { store ->
+//                val navigator = findNavigator()
+//                val trainingId = store.args.getOrElse("trainingId") { "" } as String
+//                val viewModel = store.getOrCreate(
+//                    key = Graph.Review.link,
+//                    factory = { ReviewViewModel(navigator) },
+//                    clear = { (it as? ReviewViewModel)?.clear() }
+//                )
+//                ReviewContent(viewModel, trainingId)
+//            }
+//
+//            screen(key = Graph.Summary.link, animation = Animation.Present(500)) { store ->
+//                val navigator = findNavigator()
+//                val viewModel = store.getOrCreate(
+//                    key = Graph.Summary.link,
+//                    factory = { SummaryViewModel(navigator) },
+//                    clear = { (it as? SummaryViewModel)?.clear() }
+//                )
+//                SummaryContent(viewModel)
+//            }
         }
     }
+}
+
+private fun GraphBuilder.trainingsGraph() {
+
+    screen(key = Graph.Trainings.link, animation = Animation.Present(500)) { store ->
+        val navigator = findNavigator()
+        val viewModel = store.getOrCreate(
+            key = Graph.Trainings.link,
+            factory = { TrainingsViewModel() },
+            clear = { (it as? TrainingsViewModel)?.clear() }
+        )
+        TrainingsContent(
+            vm = viewModel,
+            toTrainingReview = { id ->
+                navigator.navigate(Graph.Review.link, args = mapOf("trainingId" to id))
+            },
+            toTrainingById = { id ->
+                navigator.navigate(Graph.Training.link, args = mapOf("trainingId" to id))
+            },
+            toNewTraining = {
+                navigator.navigate(Graph.Training.link)
+            },
+            toSummary = {
+                navigator.navigate(Graph.Summary.link)
+            },
+            back = navigator::back
+        )
+    }
+
+//    screen(key = Graph.Training.link, animation = Animation.Push(300)) { store ->
+//        val navigator = findNavigator()
+//        val trainingId = store.args.getOrElse("trainingId") { null } as? String
+//        val viewModel = store.getOrCreate(
+//            key = Graph.Training.link,
+//            factory = { TrainingViewModel(navigator) },
+//            clear = { (it as? TrainingViewModel)?.clear() }
+//        )
+//        TrainingContent(viewModel, trainingId)
+//    }
 }
 
 private fun GraphBuilder.authenticationGraph() {
@@ -89,12 +103,18 @@ private fun GraphBuilder.authenticationGraph() {
 
         val viewModel = store.getOrCreate(
             key = Graph.Splash.link,
-            factory = { SplashViewModel(navigator) },
+            factory = { SplashViewModel() },
             clear = { (it as? SplashViewModel)?.clear() }
         )
 
         SplashContent(
-            vm = viewModel
+            vm = viewModel,
+            toAuthentication = {
+                navigator.navigate(Graph.Auth.link, true)
+            },
+            toTrainings = {
+                navigator.navigate(Graph.Trainings.link, true)
+            }
         )
     }
 
