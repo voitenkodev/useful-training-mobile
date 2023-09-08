@@ -25,9 +25,9 @@ fun Root(
     Box(
         modifier = modifier
             .pointerInput(Unit) {
-                detectSwipe(
-                    onSwipeDown = { focusManager.clearFocus() }
-                )
+//                detectSwipe(
+//                    onSwipeDown = { focusManager.clearFocus() }
+//                )
                 detectTapGestures(
                     onTap = { focusManager.clearFocus() },
                 )

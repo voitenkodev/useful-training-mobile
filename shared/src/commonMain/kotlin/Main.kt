@@ -108,7 +108,7 @@ private fun GraphBuilder.authenticationGraph() {
 
         AuthenticationContent(
             viewModel,
-            letsDoIt = {},
+            signIn = {},
             back = navigator::back
         )
     }

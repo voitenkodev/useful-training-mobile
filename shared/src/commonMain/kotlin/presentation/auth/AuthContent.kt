@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.ime
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.Recomposer
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -21,7 +20,6 @@ import components.Loading
 import components.buttons.ButtonQuestion
 import components.inputs.InputEmail
 import components.inputs.InputPassword
-import components.overlay.alphaOverlay
 import components.roots.ScrollableRoot
 import controls.ButtonPrimaryBrand
 import controls.TextFieldH1
@@ -92,10 +90,6 @@ private fun Content(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(Design.dp.bigHeader)
-                    .alphaOverlay(
-                        delayMillis = 2000,
-                        durationMillis = 800
-                    )
                     .recomposeHighlighter(),
                 provideText = { "\uD83D\uDC4B Welcome back" },
                 textAlign = TextAlign.Start,
@@ -107,10 +101,6 @@ private fun Content(
             ButtonPrimaryBrand(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .alphaOverlay(
-                        delayMillis = 2000,
-                        durationMillis = 800
-                    )
                     .recomposeHighlighter(),
                 text = "Sign In",
                 onClick = loginProvider
@@ -119,10 +109,6 @@ private fun Content(
             ButtonQuestion(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .alphaOverlay(
-                        delayMillis = 2000,
-                        durationMillis = 800
-                    )
                     .recomposeHighlighter(),
                 question = "Don't have an account yet?",
                 answer = "Sign Up!",
@@ -134,10 +120,6 @@ private fun Content(
                 InputEmail(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .alphaOverlay(
-                            delayMillis = 2000,
-                            durationMillis = 800
-                        )
                         .recomposeHighlighter(),
                     provideValue = email,
                     onValueChange = updateEmail
@@ -147,10 +129,6 @@ private fun Content(
                 InputPassword(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .alphaOverlay(
-                            delayMillis = 2000,
-                            durationMillis = 800
-                        )
                         .recomposeHighlighter(),
                     provideValue = password,
                     onValueChange = updatePassword

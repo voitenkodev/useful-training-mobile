@@ -19,14 +19,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import components.Error
 import components.Loading
-import components.backgrounds.BackgroundIntroVideo
-import components.backgrounds.YellowOvalsScreenBackground
+import components.backgrounds.BackgroundIntro
+import components.backgrounds.BottomBrandGradient
 import components.buttons.ButtonQuestion
 import components.inputs.InputEmail
 import components.inputs.InputPassword
 import components.overlay.AlphaOverlay
 import components.overlay.shadowBottomFrame
 import components.roots.Root
+import components.states.keyboardFloatAsState
 import controls.ButtonPrimaryBrand
 import controls.TextFieldBody1
 import controls.TextFieldH1
@@ -36,14 +37,14 @@ import recomposeHighlighter
 @Composable
 fun AuthenticationContent(
     vm: AuthenticationViewModel,
-    letsDoIt: () -> Unit,
+    signIn: () -> Unit,
     back: () -> Unit
 ) {
 
     val state by vm.state.collectAsState()
 
     LaunchedEffect(Unit) {
-        vm.subscribeToken(letsDoIt)
+        vm.subscribeToken(signIn)
     }
 
     Content(
@@ -84,13 +85,18 @@ private fun Content(
     val registrationProvider by rememberUpdatedState(registration)
     val backProvider by rememberUpdatedState(back)
 
+    val keyboardFloatAsState = keyboardFloatAsState(
+        initialValue = 1f,
+        targetValue = 0.3f
+    )
+
     Root(
         loading = { Loading(loading) },
         error = { Error(message = error, close = clearError) },
         back = { PlatformBackHandler(backProvider) },
     ) {
 
-        BackgroundIntroVideo(
+        BackgroundIntro(
             modifier = Modifier
                 .fillMaxWidth()
                 .aspectRatio(0.8f)
@@ -110,7 +116,7 @@ private fun Content(
                 .padding(Design.dp.padding),
         ) {
 
-            Spacer(Modifier.weight(1f))
+            Spacer(Modifier.weight(keyboardFloatAsState.value))
 
             TextFieldH1(
                 provideText = { "Welcome Back" }
@@ -166,7 +172,7 @@ private fun Content(
             )
         }
 
-        YellowOvalsScreenBackground()
+        BottomBrandGradient()
 
         AlphaOverlay(
             modifier = Modifier.fillMaxSize()

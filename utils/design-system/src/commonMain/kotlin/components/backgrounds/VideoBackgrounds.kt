@@ -3,6 +3,7 @@ package components.backgrounds
 import Design
 import NativeLocalResource
 import VideoPlayer
+import Videos
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
@@ -12,10 +13,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 
 @Composable
-internal fun BackgroundVideoFrame(
+fun BackgroundIntro(
+    modifier: Modifier = Modifier
+) {
+    BackgroundVideoFrame(
+        modifier = modifier,
+        nativeResource = Videos.intro
+    )
+}
+
+@Composable
+private fun BackgroundVideoFrame(
     modifier: Modifier,
     nativeResource: NativeLocalResource
 ) {
+
     Box(modifier = modifier) {
         VideoPlayer(
             modifier = Modifier

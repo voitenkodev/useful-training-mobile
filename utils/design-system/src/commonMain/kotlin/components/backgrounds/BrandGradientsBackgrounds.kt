@@ -15,7 +15,7 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun BoxScope.YellowOvalsScreenBackground() {
+fun BoxScope.BottomBrandGradient() {
     BackgroundLight(
         color = Design.colors.accent_secondary,
         modifier = Modifier

@@ -13,6 +13,15 @@ fun Modifier.primaryBackground() = this
     )
 
 @Composable
+fun Modifier.reversedBackground() = this
+    .background(
+        color = Design.colors.content,
+        shape = Design.shape.circleShape
+    ).clip(
+        shape = Design.shape.circleShape
+    )
+
+@Composable
 fun Modifier.secondaryBackground() = this
     .background(
         color = Design.colors.secondary,
@@ -28,13 +37,4 @@ fun Modifier.tertiaryBackground() = this
         shape = Design.shape.default
     ).clip(
         shape = Design.shape.default
-    )
-
-@Composable
-fun Modifier.reversedBackground() = this
-    .background(
-        color = Design.colors.content,
-        shape = Design.shape.circleShape
-    ).clip(
-        shape = Design.shape.circleShape
     )
