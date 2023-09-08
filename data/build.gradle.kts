@@ -34,7 +34,6 @@ kotlin {
                 implementation(libs.ktor.negotiation)
 
                 implementation(libs.serialization)
-
                 implementation(libs.datastore)
             }
         }

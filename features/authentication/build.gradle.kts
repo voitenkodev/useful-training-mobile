@@ -15,10 +15,7 @@ kotlin {
             dependencies {
                 implementation(projects.data)
                 implementation(projects.utils.instruments)
-                implementation(projects.utils.navigator)
                 implementation(projects.utils.designSystem)
-                implementation(projects.utils.composePlayer)
-                implementation(projects.utils.resources)
 
                 // Compose
                 implementation(compose.ui)
