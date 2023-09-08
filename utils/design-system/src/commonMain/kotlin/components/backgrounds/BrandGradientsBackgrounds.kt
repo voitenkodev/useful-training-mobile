@@ -15,7 +15,43 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun BoxScope.BottomBrandGradient() {
+fun BoxScope.BrandGradientCenterStart() {
+    BackgroundLight(
+        color = Design.colors.accent_secondary,
+        modifier = Modifier
+            .align(Alignment.CenterEnd)
+            .size(500.dp)
+            .offset(
+                x = -(220.dp),
+                y = 180.dp
+            ).graphicsLayer {
+                alpha = 0.5f
+                scaleX = 0.9f
+                rotationY = -210f
+                rotationX = -0f
+            }
+    )
+}
+@Composable
+fun BoxScope.BrandGradientCenterEnd() {
+    BackgroundLight(
+        color = Design.colors.accent_secondary,
+        modifier = Modifier
+            .align(Alignment.CenterEnd)
+            .size(500.dp)
+            .offset(
+                x = 220.dp,
+            ).graphicsLayer {
+                alpha = 0.5f
+                scaleX = 0.9f
+                rotationY = +30f
+                rotationX = -0f
+            }
+    )
+}
+
+@Composable
+fun BoxScope.BrandGradientBottomEnd() {
     BackgroundLight(
         color = Design.colors.accent_secondary,
         modifier = Modifier

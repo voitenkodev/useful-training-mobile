@@ -1,40 +1,46 @@
 package trainings
 
 import Design
+import Images
 import PlatformBackHandler
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.lazy.LazyListState
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.pager.PagerScope
+import androidx.compose.foundation.pager.VerticalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.ExitToApp
-import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberUpdatedState
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.unit.dp
 import components.Error
+import components.ExerciseItem
 import components.Loading
-import components.TrainingItem
-import components.WeekSummary
-import components.roots.ScrollableRoot
-import controls.IconPrimary
+import components.backgrounds.BrandGradientCenterEnd
+import components.backgrounds.BrandGradientCenterStart
+import components.items.TrainingFooter
+import components.overlay.shadowBottomFrame
+import components.overlay.shadowTopFrame
+import components.roots.Root
+import controls.ButtonIcon
 import controls.TextFieldBody1
 import controls.TextFieldH1
-import controls.primaryBackground
+import platformInsets
 import recomposeHighlighter
 import training.Training
 
@@ -57,7 +63,6 @@ fun TrainingsContent(
     }
 
     Content(
-        listState = listState,
         loading = { state.loading },
         error = { state.error },
         clearError = vm::clearError,
@@ -69,7 +74,7 @@ fun TrainingsContent(
         newTraining = toNewTraining,
         logout = vm::logout,
 
-        weekTrainings = { state.weekTrainings },
+        trainings = { state.trainings },
         editTraining = toTrainingById,
         reviewTraining = toTrainingReview
     )
@@ -77,7 +82,6 @@ fun TrainingsContent(
 
 @Composable
 private fun Content(
-    listState: LazyListState,
 
     loading: () -> Boolean,
     error: () -> String?,
@@ -92,143 +96,156 @@ private fun Content(
     logout: () -> Unit,
 
     // CONTENT
-    weekTrainings: () -> Map<WeekInfo, List<Training>>,
+    trainings: () -> List<Training>,
     editTraining: (trainingId: String) -> Unit,
     reviewTraining: (trainingId: String) -> Unit,
 ) {
 
     val moveToSummaryProvider by rememberUpdatedState(moveToSummary)
     val addTrainingProvider by rememberUpdatedState(newTraining)
+    val backProvider by rememberUpdatedState(back)
 
-    ScrollableRoot(
-        modifier = Modifier
-            .fillMaxSize()
-            .recomposeHighlighter(),
-        listState = listState,
+    Root(
         loading = { Loading(loading) },
         error = { Error(message = error, close = clearError) },
-        back = { PlatformBackHandler(back) },
-        header = {
-            Header(
-                weekDay = weekDay,
-                date = date,
-                moveToSummary = moveToSummaryProvider,
-                logout = logout
-            )
-        },
-        content = {
+        back = { PlatformBackHandler(backProvider) },
+    ) {
 
-            weekTrainings().onEach {
+        val pagerState = rememberPagerState { trainings().size }
 
-                item(key = "week_by_${it.key}") {
-                    WeekSummary(
-                        modifier = Modifier
-                            .recomposeHighlighter(),
-                        info = it.key
-                    )
-                }
-
-                items(it.value, key = { item -> item.id ?: item.hashCode() }) { training ->
-
-                    val trainingProvider by rememberUpdatedState(training)
-
-                    TrainingItem(
-                        modifier = Modifier
-                            .recomposeHighlighter(),
-                        training = training,
-                        edit = {
-                            val id = trainingProvider.id ?: return@TrainingItem
-                            editTraining(id)
-                        },
-                        review = {
-                            val id = trainingProvider.id ?: return@TrainingItem
-                            reviewTraining(id)
-                        }
-                    )
-                }
-            }
-        },
-        footer = {
-            IconPrimary(
-                imageVector = Icons.Default.Add,
-                modifier = Modifier
-                    .height(Design.dp.component)
-                    .fillMaxWidth()
-                    .background(
-                        color = Design.colors.accent_primary,
-                        shape = Design.shape.default
-                    ).recomposeHighlighter(),
-                onClick = addTrainingProvider
+        VerticalPager(state = pagerState) {
+            TrainingPage(
+                training = trainings()[it],
+                editTraining = editTraining,
+                reviewTraining = reviewTraining
             )
         }
+
+        ButtonIcon(
+            modifier = Modifier
+                .platformInsets()
+                .padding(Design.dp.padding),
+            imageVector = Icons.Default.ArrowBack,
+            onClick = {}
+        )
+    }
+}
+
+@Composable
+private fun PagerScope.TrainingPage(
+    training: Training,
+    editTraining: (trainingId: String) -> Unit,
+    reviewTraining: (trainingId: String) -> Unit,
+) {
+
+    val trainingProvider by rememberUpdatedState(training)
+
+    Box(
+        modifier = Modifier.fillMaxSize()
+    ) {
+
+        BackgroundImage()
+
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .platformInsets()
+                .padding(
+                    top = Design.dp.padding + Design.dp.padding + Design.dp.component,
+                    bottom = Design.dp.padding ,
+                    end = Design.dp.padding,
+                    start = Design.dp.padding
+                ),
+        ) {
+
+            Title(
+                weekDay = { training.weekDay },
+                date = { training.shortStartDate },
+            )
+
+            Spacer(modifier = Modifier.size(32.dp))
+
+            TrainingContent(
+                modifier = Modifier
+                    .recomposeHighlighter(),
+                training = training,
+                edit = {
+                    val id = trainingProvider.id ?: return@TrainingContent
+                    editTraining(id)
+                },
+                review = {
+                    val id = trainingProvider.id ?: return@TrainingContent
+                    reviewTraining(id)
+                }
+            )
+
+            Spacer(modifier = Modifier.weight(1f))
+        }
+
+        BrandGradientCenterEnd()
+
+        BrandGradientCenterStart()
+    }
+}
+
+@Composable
+private fun BackgroundImage() {
+
+    val height = 250.dp
+
+    Image(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(height),
+        painter = Images.gym(),
+        contentDescription = null,
+        contentScale = ContentScale.Crop
+    )
+
+    Spacer(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(height)
+            .shadowBottomFrame()
+    )
+
+    Spacer(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(height)
+            .shadowTopFrame()
     )
 }
 
 @Composable
-private fun Header(
-    weekDay: () -> String,
-    date: () -> String,
-    moveToSummary: () -> Unit,
-    logout: () -> Unit,
+internal fun TrainingContent(
+    modifier: Modifier = Modifier,
+    training: Training,
+    edit: (() -> Unit)? = null,
+    review: (() -> Unit)? = null,
+) = Column(
+    modifier = modifier
+        .padding(horizontal = Design.dp.padding)
+        .recomposeHighlighter()
 ) {
-    Row(
+
+    training.exercises.forEachIndexed { index, item ->
+
+        val number by rememberUpdatedState(index + 1)
+        ExerciseItem(
+            modifier = Modifier.recomposeHighlighter(),
+            provideNumber = { number },
+            exercise = { item }
+        )
+    }
+
+    TrainingFooter(
         modifier = Modifier
             .fillMaxWidth()
-            .height(Design.dp.bigHeader)
-            .primaryBackground()
             .recomposeHighlighter(),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-
-        Title(
-            weekDay = weekDay,
-            date = date,
-        )
-
-        HeaderButtons(
-            moveToSummary = moveToSummary,
-            logout = logout
-        )
-    }
-}
-
-@Composable
-private fun HeaderButtons(
-    modifier: Modifier = Modifier,
-    moveToSummary: () -> Unit,
-    logout: () -> Unit,
-) {
-    Row(
-        modifier = modifier
-            .height(Design.dp.bigHeader)
-            .padding(end = Design.dp.padding, bottom = Design.dp.padding)
-            .recomposeHighlighter(),
-        verticalAlignment = Alignment.Bottom,
-        horizontalArrangement = Arrangement.spacedBy(Design.dp.padding, Alignment.End)
-    ) {
-
-        IconPrimary(
-            imageVector = Icons.Default.ExitToApp,
-            modifier = Modifier
-                .size(Design.dp.component)
-                .background(
-                    color = Design.colors.accent_tertiary,
-                    shape = Design.shape.default
-                ).recomposeHighlighter(),
-            onClick = logout
-        )
-        IconPrimary(
-            imageVector = Icons.Default.Search,
-            modifier = Modifier
-                .size(Design.dp.component)
-                .background(
-                    color = Design.colors.accent_secondary,
-                    shape = Design.shape.default
-                ).recomposeHighlighter(),
-            onClick = moveToSummary
-        )
-    }
+        tonnage = training.tonnage.toString(),
+        durationTime = training.durationTime
+    )
 }
 
 @Composable

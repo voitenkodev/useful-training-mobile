@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import components.Error
 import components.Loading
 import components.backgrounds.BackgroundIntro
-import components.backgrounds.BottomBrandGradient
+import components.backgrounds.BrandGradientBottomEnd
 import components.buttons.ButtonQuestion
 import components.inputs.InputEmail
 import components.inputs.InputPassword
@@ -172,7 +172,7 @@ private fun Content(
             )
         }
 
-        BottomBrandGradient()
+        BrandGradientBottomEnd()
 
         AlphaOverlay(
             modifier = Modifier.fillMaxSize()

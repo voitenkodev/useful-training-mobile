@@ -13,14 +13,32 @@ fun Modifier.shadowBottomFrame(
 ) = this.drawWithContent {
     val gradientColors = listOf(Color.Transparent, color)
 
-    val bottomStartY = this.size.height / 2
-    val bottomTopEndY = this.size.height
+    val startY = this.size.height / 2
+    val endY = this.size.height
 
-    val bottomBrush = Brush.verticalGradient(
+    val brush = Brush.verticalGradient(
         colors = gradientColors,
-        startY = bottomStartY,
-        endY = bottomTopEndY
+        startY = startY,
+        endY = endY
     )
 
-    drawRect(brush = bottomBrush)
+    drawRect(brush = brush)
+}
+
+@Composable
+fun Modifier.shadowTopFrame(
+    color: Color = Design.colors.primary
+) = this.drawWithContent {
+    val gradientColors = listOf(color, Color.Transparent)
+
+    val startY = 0f
+    val endY = this.size.height / 2
+
+    val brush = Brush.verticalGradient(
+        colors = gradientColors,
+        startY = startY,
+        endY = endY
+    )
+
+    drawRect(brush = brush)
 }
