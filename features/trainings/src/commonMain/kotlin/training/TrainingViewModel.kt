@@ -17,7 +17,7 @@ import round
 import utils.DateTimeKtx
 import utils.ViewModel
 
-internal class TrainingViewModel : ViewModel() {
+class TrainingViewModel : ViewModel() {
 
     private val _state = MutableStateFlow(TrainingState())
     val state: StateFlow<TrainingState> = _state
@@ -25,7 +25,7 @@ internal class TrainingViewModel : ViewModel() {
     private val api = KoinPlatformTools.defaultContext().get().get<TrainingRepository>()
 
     @FlowPreview
-    fun saveTraining() = viewModelScope.launch {
+    fun saveTraining(onSuccess: (trainingId: String) -> Unit) = viewModelScope.launch {
 
         val training = state.value.training
             .validate()
@@ -44,7 +44,7 @@ internal class TrainingViewModel : ViewModel() {
                 _state.value = state.value.copy(loading = true)
             }.onEach {
                 _state.value = state.value.copy(loading = false, error = null)
-//                navigator.navigate(Graph.Review.link, popToInclusive = true, args = mapOf("trainingId" to it))
+                onSuccess.invoke(it)
             }.catch {
                 _state.value = state.value.copy(loading = false, error = it.message)
             }.flatMapConcat {
@@ -125,11 +125,6 @@ internal class TrainingViewModel : ViewModel() {
         if (state.value.exitWarningVisibility) {
             closeExitScreenPopup()
         }
-    }
-
-    fun back() {
-        closeExitScreenPopup()
-//        navigator.back()
     }
 
     fun closeRemoveExercisePopup() {

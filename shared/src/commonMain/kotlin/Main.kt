@@ -8,6 +8,8 @@ import navigation.RootController
 import navigation.findNavigator
 import splash.SplashContent
 import splash.SplashViewModel
+import training.TrainingContent
+import training.TrainingViewModel
 import trainings.TrainingsContent
 import trainings.TrainingsViewModel
 
@@ -84,16 +86,23 @@ private fun GraphBuilder.trainingsGraph() {
         )
     }
 
-//    screen(key = Graph.Training.link, animation = Animation.Push(300)) { store ->
-//        val navigator = findNavigator()
-//        val trainingId = store.args.getOrElse("trainingId") { null } as? String
-//        val viewModel = store.getOrCreate(
-//            key = Graph.Training.link,
-//            factory = { TrainingViewModel(navigator) },
-//            clear = { (it as? TrainingViewModel)?.clear() }
-//        )
-//        TrainingContent(viewModel, trainingId)
-//    }
+    screen(key = Graph.Training.link, animation = Animation.Push(300)) { store ->
+        val navigator = findNavigator()
+        val trainingId = store.args.getOrElse("trainingId") { null } as? String
+        val viewModel = store.getOrCreate(
+            key = Graph.Training.link,
+            factory = { TrainingViewModel() },
+            clear = { (it as? TrainingViewModel)?.clear() }
+        )
+        TrainingContent(
+            vm = viewModel,
+            trainingId = trainingId,
+            toReview = {
+                navigator.navigate(Graph.Review.link, popToInclusive = true, args = mapOf("trainingId" to it))
+            },
+            back = navigator::back
+        )
+    }
 }
 
 private fun GraphBuilder.authenticationGraph() {

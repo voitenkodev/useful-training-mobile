@@ -9,9 +9,8 @@ import androidx.compose.ui.graphics.Color
 
 @Composable
 fun Modifier.shadowBottomFrame(
-    color: Color = Design.colors.primary
+    gradientColors: List<Color> = listOf(Color.Transparent, Design.colors.primary)
 ) = this.drawWithContent {
-    val gradientColors = listOf(Color.Transparent, color)
 
     val startY = this.size.height / 2
     val endY = this.size.height
@@ -27,9 +26,8 @@ fun Modifier.shadowBottomFrame(
 
 @Composable
 fun Modifier.shadowTopFrame(
-    color: Color = Design.colors.primary
+    gradientColors: List<Color> = listOf(Design.colors.primary, Color.Transparent)
 ) = this.drawWithContent {
-    val gradientColors = listOf(color, Color.Transparent)
 
     val startY = 0f
     val endY = this.size.height / 2

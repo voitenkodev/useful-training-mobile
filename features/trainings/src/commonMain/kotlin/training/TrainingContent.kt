@@ -29,7 +29,12 @@ import kotlinx.coroutines.delay
 import recomposeHighlighter
 
 @Composable
-internal fun TrainingContent(vm: TrainingViewModel, trainingId: String?) {
+fun TrainingContent(
+    vm: TrainingViewModel,
+    trainingId: String?,
+    toReview: (trainingId: String) -> Unit,
+    back: () -> Unit
+) {
 
     val state by vm.state.collectAsState()
 
@@ -54,14 +59,17 @@ internal fun TrainingContent(vm: TrainingViewModel, trainingId: String?) {
 
         exitWarningVisibility = state.exitWarningVisibility,
         closeExitScreenPopup = vm::closeExitScreenPopup,
-        back = vm::back,
+        back = {
+            vm.closeExitScreenPopup()
+            back.invoke()
+        },
 
         removeExerciseId = { state.removeExerciseId },
         removeExercise = vm::removeExercise,
         closeRemoveExercisePopup = vm::closeRemoveExercisePopup,
 
         openExitScreenPopup = vm::openExitScreenPopup,
-        saveTraining = vm::saveTraining,
+        saveTraining = { vm.saveTraining(toReview) },
 
         exerciseNames = { state.exerciseNameOptions },
 
@@ -151,7 +159,6 @@ private fun Content(
             )
         },
         content = {
-
 
             itemsIndexed(exercises.value, key = { _, exercise -> exercise.id }) { index, exercise ->
 

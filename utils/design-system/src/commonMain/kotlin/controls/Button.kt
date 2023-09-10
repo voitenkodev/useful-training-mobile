@@ -17,10 +17,10 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -50,33 +50,7 @@ fun ButtonPrimaryBrand(
 }
 
 @Composable
-fun ButtonIcon(
-    modifier: Modifier = Modifier,
-    painter: Painter,
-    enabled: Boolean = true,
-    onClick: () -> Unit,
-) {
-    IconButton(
-        modifier = modifier
-            .requiredSize(Design.dp.component)
-            .background(color = Design.colors.accent_primary, shape = Design.shape.circleShape)
-            .clip(Design.shape.circleShape),
-        onClick = onClick,
-        enabled = enabled,
-        content = {
-            Icon(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(Design.dp.padding),
-                tint = Design.colors.content,
-                painter = painter,
-                contentDescription = null
-            )
-        }
-    )
-}
-@Composable
-fun ButtonIcon(
+fun ButtonPrimaryIcon(
     modifier: Modifier = Modifier,
     imageVector: ImageVector,
     enabled: Boolean = true,
@@ -85,8 +59,11 @@ fun ButtonIcon(
     IconButton(
         modifier = modifier
             .requiredSize(Design.dp.component)
-            .background(color = Design.colors.accent_primary, shape = Design.shape.circleShape)
-            .clip(Design.shape.circleShape),
+            .alpha(if (enabled) 1f else 0.5f)
+            .background(
+                color = Design.colors.white_30,
+                shape = Design.shape.circleShape
+            ).clip(Design.shape.circleShape),
         onClick = onClick,
         enabled = enabled,
         content = {
@@ -95,6 +72,36 @@ fun ButtonIcon(
                     .fillMaxSize()
                     .padding(Design.dp.padding),
                 tint = Design.colors.content,
+                imageVector = imageVector,
+                contentDescription = null
+            )
+        }
+    )
+}
+
+@Composable
+fun ButtonSecondaryIcon(
+    modifier: Modifier = Modifier,
+    imageVector: ImageVector,
+    enabled: Boolean = true,
+    onClick: () -> Unit,
+) {
+    IconButton(
+        modifier = modifier
+            .requiredSize(Design.dp.component)
+            .alpha(if (enabled) 1f else 0.5f)
+            .background(
+                color = Design.colors.accent_secondary,
+                shape = Design.shape.circleShape
+            ).clip(Design.shape.circleShape),
+        onClick = onClick,
+        enabled = enabled,
+        content = {
+            Icon(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(Design.dp.padding),
+                tint = Design.colors.primary,
                 imageVector = imageVector,
                 contentDescription = null
             )
