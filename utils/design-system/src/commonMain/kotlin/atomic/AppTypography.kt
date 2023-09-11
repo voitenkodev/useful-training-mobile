@@ -18,6 +18,12 @@ internal fun appTypography() = AppTypography(
         fontFamily = Fonts.FastupFontFamily()
     ),
     H2 = TextStyle(
+        fontSize = 28.sp,
+        fontWeight = FontWeight.SemiBold,
+        fontStyle = FontStyle.Normal,
+        fontFamily = Fonts.FastupFontFamily()
+    ),
+    H3 = TextStyle(
         fontSize = 16.sp,
         fontWeight = FontWeight.Normal,
         fontStyle = FontStyle.Normal,
@@ -48,7 +54,7 @@ internal fun appTypography() = AppTypography(
     ),
     PrimaryButton = TextStyle(
         fontSize = 16.sp,
-            fontWeight = FontWeight.Bold,
+        fontWeight = FontWeight.Bold,
         fontStyle = FontStyle.Normal,
     ),
     SecondaryButton = TextStyle(
@@ -65,10 +71,10 @@ internal fun appTypography() = AppTypography(
     )
 )
 
-
 data class AppTypography(
     val H1: TextStyle, // big titles
-    val H2: TextStyle, // little titles
+    val H2: TextStyle, // medium titles
+    val H3: TextStyle, // little titles
 
     val Input: TextStyle, // main inputs + fields
 

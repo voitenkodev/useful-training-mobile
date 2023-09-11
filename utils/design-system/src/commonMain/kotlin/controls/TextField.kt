@@ -56,6 +56,27 @@ fun TextFieldH2(
     fontWeight = fontWeight,
     overflow = overflow
 )
+@Composable
+fun TextFieldH3(
+    provideText: () -> String?,
+    modifier: Modifier = Modifier,
+    placeholder: String? = null,
+    color: Color? = null,
+    textAlign: TextAlign? = null,
+    maxLines: Int = Int.MAX_VALUE,
+    fontWeight: FontWeight? = null,
+    overflow: TextOverflow = TextOverflow.Clip
+) = TextField(
+    provideText = provideText,
+    modifier = modifier,
+    placeholder = placeholder,
+    textStyle = Design.typography.H3,
+    maxLines = maxLines,
+    color = color ?: Design.colors.content,
+    textAlign = textAlign,
+    fontWeight = fontWeight,
+    overflow = overflow
+)
 
 @Composable
 fun TextFieldLabel(

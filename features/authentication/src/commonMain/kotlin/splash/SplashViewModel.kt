@@ -11,7 +11,6 @@ class SplashViewModel : ViewModel() {
 
     private val api = KoinPlatformTools.defaultContext().get().get<AuthRepository>()
 
-
     fun subscribeToken(
         onAuth: () -> Unit,
         onNonAuth: () -> Unit

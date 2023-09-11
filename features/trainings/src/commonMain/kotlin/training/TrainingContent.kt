@@ -23,7 +23,7 @@ import components.Header
 import components.Loading
 import components.Popup
 import components.roots.ScrollableRoot
-import controls.TextFieldH2
+import controls.TextFieldH3
 import controls.tertiaryBackground
 import kotlinx.coroutines.delay
 import recomposeHighlighter
@@ -207,7 +207,7 @@ private fun NewExercise(
             .clickable(onClick = onClick)
             .recomposeHighlighter(),
         content = {
-            TextFieldH2(
+            TextFieldH3(
                 modifier = Modifier
                     .align(Alignment.Center)
                     .recomposeHighlighter(),

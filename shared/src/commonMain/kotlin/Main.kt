@@ -70,17 +70,11 @@ private fun GraphBuilder.trainingsGraph() {
         )
         TrainingsContent(
             vm = viewModel,
-            toTrainingReview = { id ->
-                navigator.navigate(Graph.Review.link, args = mapOf("trainingId" to id))
-            },
             toTrainingById = { id ->
                 navigator.navigate(Graph.Training.link, args = mapOf("trainingId" to id))
             },
             toNewTraining = {
                 navigator.navigate(Graph.Training.link)
-            },
-            toSummary = {
-                navigator.navigate(Graph.Summary.link)
             },
             back = navigator::back
         )

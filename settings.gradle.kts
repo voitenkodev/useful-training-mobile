@@ -49,6 +49,7 @@ include(
     "utils:native-api",
     "utils:compose-player",
     "utils:resources",
+    "utils:charts",
 
     "features:authentication",
     "features:trainings",

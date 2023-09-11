@@ -18,6 +18,7 @@ kotlin {
                 implementation(projects.utils.instruments)
                 implementation(projects.utils.designSystem)
                 implementation(projects.utils.resources)
+                implementation(projects.utils.charts)
 
                 // Compose
                 implementation(compose.ui)
