@@ -17,7 +17,7 @@ fun IntensityChart(
     provideData: () -> List<Float>,
     compareData: (() -> List<Float>) = { emptyList() },
 ) {
-    val color = Design.colors.unique.color4
+    val color = Design.colors.primary
 
     val colorDataPoint = Design.colors.content
     val colorCompareDataPoint = Design.colors.caption

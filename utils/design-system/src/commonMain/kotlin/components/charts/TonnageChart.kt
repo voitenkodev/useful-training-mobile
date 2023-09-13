@@ -17,7 +17,7 @@ fun TonnageChart(
     provideData: () -> List<Float>,
     compareData: (() -> List<Float>) = { emptyList() },
 ) {
-    val color = Design.colors.unique.color1
+    val color = Design.colors.primary
 
     val colorDataPoint = Design.colors.content
     val colorCompareDataPoint = Design.colors.caption

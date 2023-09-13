@@ -2,91 +2,30 @@ package atomic
 
 import androidx.compose.ui.graphics.Color
 
-internal fun darkPalette() = AppColors(
-    primary = color_black,
-    secondary = color_black_50,
-    tertiary = color_black_100,
-
-    accent_primary = color_blue,
-    accent_secondary = color_yellow,
-    accent_tertiary = color_red,
-
-    content = color_white,
-    caption = color_gray,
-
-    white_30 = color_white_30,
-
-    unique = AppColors.Unique(
-        color1 = Color(0xff228D57),
-        color2 = Color(0xff00838f),
-        color3 = Color(0xff512da8),
-        color4 = Color(0xffD5BD3F),
-        color5 = Color(0xffEA3469),
-        color6 = Color(0xff7b1fa2),
-        color7 = Color(0xff00BEB2),
-
-        color8 = Color(0xff32a852),
-        color9 = Color(0xffb45ac4),
-        color10 = Color(0xffedb640),
-
-        color11 = Color(0xffed4057),
-        color12 = Color(0xfff58438),
-    )
-)
+internal fun darkPalette() = AppColors()
 
 data class AppColors(
     // Background
-    val primary: Color,
-    val secondary: Color,
-    val tertiary: Color,
+    val primary: Color = Color(0xff000000),
+    val secondary: Color = Color(0xff13131c),
+    val tertiary: Color = Color(0x4Dffffff),
 
-    // Actions, Labels
-    val accent_primary: Color, // blue
-    val accent_secondary: Color, // yellow
-    val accent_tertiary: Color, // red
+    // Color(0xffEA3469) = Red / Pink
+    // Color(0xff228D57) = Green soft
+    // Color(0xff31353b) = Gray
+    // Color(0xfffcb51c) = Yellow
 
-    //content
-    val content: Color,
+    // Accent
+    val accent_primary: Color = Color(0xff1db3ae),
+    val accent_secondary: Color = Color(0xffEA3469),
+    val accent_tertiary: Color = Color(0xff512da8),
+    val accent_quaternary: Color = Color(0xffb45ac4),
+    val accent_quinary: Color = Color(0xffed4057),
 
-    // Actions + content
-    val caption: Color,
-
-    // Week colors
-    val unique: Unique,
-
-    val white_30: Color
-) {
-    data class Unique(
-        val color1: Color,
-        val color2: Color,
-        val color3: Color,
-        val color4: Color,
-        val color5: Color,
-        val color6: Color,
-        val color7: Color,
-        val color8: Color,
-        val color9: Color,
-        val color10: Color,
-        val color11: Color,
-        val color12: Color,
-    ) {
-        fun asList() = listOf(color1, color2, color3, color4, color5, color6, color7, color8, color9, color10, color11, color12)
-    }
-}
-
-val color_white = Color(0xffffffff)
-val color_white_30 = Color(0x4Dffffff)
-val color_gray = Color(0xffa6a6a6)
-
-val color_black = Color(0xff000000)
-
-val color_black_50 = Color(0xff13131c)
-val color_black_100 = Color(0xff101014)
-
-// TODO RENAME TO GRAY
-val color_blue = Color(0xff31353b)
-val color_yellow = Color(0xfffcb51c)
-val color_red = Color(0xffEA3469)
+    // Text
+    val content: Color = Color(0xffffffff),
+    val caption: Color = Color(0xffa6a6a6),
+)
 
 /*
 100% — FF

@@ -32,6 +32,7 @@ internal fun ColumnScope.TrainingComponent(
     TextFieldH2(
         provideText = { "EXERCISES" }
     )
+
     Spacer(
         modifier = Modifier.size(Design.dp.paddingXS)
     )

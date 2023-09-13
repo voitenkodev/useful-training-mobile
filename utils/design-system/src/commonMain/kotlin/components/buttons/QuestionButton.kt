@@ -7,7 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import controls.ButtonTertiary
+import controls.ButtonTextLink
 import controls.TextFieldBody1
 import recomposeHighlighter
 
@@ -29,7 +29,7 @@ fun ButtonQuestion(
         color = Design.colors.caption
     )
 
-    ButtonTertiary(
+    ButtonTextLink(
         modifier = Modifier.recomposeHighlighter(),
         text = answer,
         onClick = onClick

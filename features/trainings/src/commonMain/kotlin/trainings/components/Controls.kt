@@ -16,7 +16,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import controls.ButtonPrimaryIcon
 import controls.ButtonSecondaryIcon
 import kotlinx.coroutines.launch
 import platformInsets
@@ -39,14 +38,14 @@ internal fun BoxScope.BottomScreenControls(
         verticalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
     ) {
 
-        ButtonPrimaryIcon(
+        ButtonSecondaryIcon(
             imageVector = Icons.Default.ExitToApp,
             onClick = logout
         )
 
         Spacer(modifier = Modifier.weight(1f))
 
-        ButtonPrimaryIcon(
+        ButtonSecondaryIcon(
             enabled = pagerState.currentPage > 0,
             imageVector = Icons.Default.KeyboardArrowUp,
             onClick = {
@@ -56,7 +55,7 @@ internal fun BoxScope.BottomScreenControls(
             }
         )
 
-        ButtonPrimaryIcon(
+        ButtonSecondaryIcon(
             enabled = pagerState.currentPage < (pagerState.pageCount - 1),
             imageVector = Icons.Default.KeyboardArrowDown,
             onClick = {

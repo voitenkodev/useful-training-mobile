@@ -33,13 +33,13 @@ fun ButtonPrimaryBrand(
     enabled: Boolean = true,
     onClick: () -> Unit,
 ) {
-    val innerTextColor = Design.colors.primary
-    val innerBackgroundColor = Design.colors.accent_secondary
+    val innerTextColor = Design.colors.content
+    val innerBackgroundColor = Design.colors.accent_primary
 
     Button(
         modifier = modifier.requiredHeight(Design.dp.component),
         text = text,
-        textStyle = Design.typography.PrimaryButton.copy(color = innerTextColor, fontWeight = FontWeight.Bold),
+        textStyle = Design.typography.PrimaryButton.copy(color = innerTextColor),
         enabled = enabled,
         onClick = onClick,
         colors = ButtonDefaults.buttonColors(backgroundColor = innerBackgroundColor),
@@ -50,7 +50,7 @@ fun ButtonPrimaryBrand(
 }
 
 @Composable
-fun ButtonPrimaryIcon(
+fun ButtonIcon(
     modifier: Modifier = Modifier,
     imageVector: ImageVector,
     enabled: Boolean = true,
@@ -61,7 +61,7 @@ fun ButtonPrimaryIcon(
             .requiredSize(Design.dp.component)
             .alpha(if (enabled) 1f else 0.5f)
             .background(
-                color = Design.colors.white_30,
+                color = Design.colors.accent_primary,
                 shape = Design.shape.circleShape
             ).clip(Design.shape.circleShape),
         onClick = onClick,
@@ -71,7 +71,7 @@ fun ButtonPrimaryIcon(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(Design.dp.paddingM),
-                tint = Design.colors.content,
+                tint = Design.colors.primary,
                 imageVector = imageVector,
                 contentDescription = null
             )
@@ -91,7 +91,7 @@ fun ButtonSecondaryIcon(
             .requiredSize(Design.dp.component)
             .alpha(if (enabled) 1f else 0.5f)
             .background(
-                color = Design.colors.accent_secondary,
+                color = Design.colors.tertiary,
                 shape = Design.shape.circleShape
             ).clip(Design.shape.circleShape),
         onClick = onClick,
@@ -101,7 +101,7 @@ fun ButtonSecondaryIcon(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(Design.dp.paddingM),
-                tint = Design.colors.primary,
+                tint = Design.colors.content,
                 imageVector = imageVector,
                 contentDescription = null
             )
@@ -110,30 +110,7 @@ fun ButtonSecondaryIcon(
 }
 
 @Composable
-fun ButtonPrimaryWhite(
-    modifier: Modifier = Modifier,
-    text: String,
-    enabled: Boolean = true,
-    onClick: () -> Unit,
-) {
-    val innerTextColor = Design.colors.accent_primary
-    val innerBackgroundColor = Design.colors.content
-
-    Button(
-        modifier = modifier.requiredHeight(Design.dp.component),
-        text = text,
-        textStyle = Design.typography.PrimaryButton.copy(color = innerTextColor, fontWeight = FontWeight.Bold),
-        enabled = enabled,
-        onClick = onClick,
-        colors = ButtonDefaults.buttonColors(backgroundColor = innerBackgroundColor),
-        shape = Design.shape.circleShape,
-        borderStroke = null,
-        leadIcon = null
-    )
-}
-
-@Composable
-fun ButtonSecondaryBrand(
+fun ButtonTextLink(
     modifier: Modifier = Modifier,
     text: String,
     onClick: () -> Unit,
@@ -142,61 +119,7 @@ fun ButtonSecondaryBrand(
     leadIcon: ImageVector? = null,
 ) {
 
-    val innerTextColor = color ?: Design.colors.content
-    val innerBackgroundColor = Color.Companion.Transparent
-
-    Button(
-        modifier = modifier.requiredHeight(Design.dp.component),
-        text = text,
-        contentPadding = PaddingValues(vertical = 0.dp),
-        textStyle = Design.typography.SecondaryButton.copy(color = innerTextColor, fontWeight = FontWeight.Bold),
-        enabled = enabled,
-        onClick = onClick,
-        borderStroke = BorderStroke(width = 2.dp, color = innerTextColor),
-        colors = ButtonDefaults.buttonColors(backgroundColor = innerBackgroundColor),
-        shape = Design.shape.circleShape,
-        leadIcon = leadIcon
-    )
-}
-
-@Composable
-fun ButtonSecondaryWhite(
-    modifier: Modifier = Modifier,
-    text: String,
-    onClick: () -> Unit,
-    enabled: Boolean = true,
-    color: Color? = null,
-    leadIcon: ImageVector? = null,
-) {
-
-    val innerTextColor = color ?: Design.colors.content
-    val innerBackgroundColor = Color.Companion.Transparent
-
-    Button(
-        modifier = modifier.requiredHeight(Design.dp.component),
-        text = text,
-        contentPadding = PaddingValues(vertical = 0.dp),
-        textStyle = Design.typography.SecondaryButton.copy(color = innerTextColor, fontWeight = FontWeight.Bold),
-        enabled = enabled,
-        onClick = onClick,
-        borderStroke = BorderStroke(width = 2.dp, color = innerTextColor),
-        colors = ButtonDefaults.buttonColors(backgroundColor = innerBackgroundColor),
-        shape = Design.shape.circleShape,
-        leadIcon = leadIcon
-    )
-}
-
-@Composable
-fun ButtonTertiary(
-    modifier: Modifier = Modifier,
-    text: String,
-    onClick: () -> Unit,
-    enabled: Boolean = true,
-    color: Color? = null,
-    leadIcon: ImageVector? = null,
-) {
-
-    val innerTextColor = color ?: Design.colors.accent_secondary
+    val innerTextColor = color ?: Design.colors.accent_primary
     val innerBackgroundColor = Color.Companion.Transparent
 
     Button(

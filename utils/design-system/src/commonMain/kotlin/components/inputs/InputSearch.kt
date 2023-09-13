@@ -21,7 +21,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import components.labels.InputLabel
 import controls.IconPrimary
 import controls.InputFieldPrimary
-import controls.tertiaryBackground
+import controls.primaryBackground
 import recomposeHighlighter
 
 @Composable
@@ -34,7 +34,7 @@ fun InputSearch(
 
     InputFieldPrimary(
         modifier = modifier
-            .tertiaryBackground()
+            .primaryBackground()
             .padding(horizontal = Design.dp.paddingM)
             .recomposeHighlighter(),
         provideValue = value,

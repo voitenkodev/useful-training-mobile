@@ -3,7 +3,6 @@ package trainings.components
 import Design
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -22,7 +21,7 @@ import recomposeHighlighter
 import training.Training
 
 @Composable
-fun ColumnScope.ChartsInfo(
+fun ChartsInfo(
     training: Training
 ) {
 
@@ -47,7 +46,7 @@ fun ColumnScope.ChartsInfo(
                     .padding(vertical = Design.dp.paddingS)
                     .height(Design.dp.component),
                 values = training.exercises.map { it.tonnage.toFloat() },
-                color = Design.colors.unique.color2
+                color = Design.colors.accent_tertiary
             )
         }
 
@@ -67,7 +66,7 @@ fun ColumnScope.ChartsInfo(
                     .padding(vertical = Design.dp.paddingS)
                     .height(Design.dp.component),
                 values = training.exercises.map { it.intensity.toFloat() },
-                color = Design.colors.unique.color1
+                color = Design.colors.accent_quaternary
             )
         }
     }

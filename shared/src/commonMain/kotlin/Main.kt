@@ -123,6 +123,7 @@ private fun GraphBuilder.authenticationGraph() {
 
     screen(key = Graph.Auth.link, animation = Animation.None) { store ->
         val navigator = findNavigator()
+
         val viewModel = store.getOrCreate(
             key = Graph.Auth.link,
             factory = { AuthenticationViewModel() },

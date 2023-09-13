@@ -15,7 +15,7 @@ import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
 import components.backgrounds.BrandGradientCenterEnd
 import components.backgrounds.BrandGradientCenterStart
-import controls.ButtonPrimaryIcon
+import controls.ButtonSecondaryIcon
 import platformInsets
 import recomposeHighlighter
 import training.Training
@@ -64,10 +64,10 @@ internal fun TrainingPage(
 
             Spacer(modifier = Modifier.size(Design.dp.paddingM))
 
-            ButtonPrimaryIcon(
+            ButtonSecondaryIcon(
                 imageVector = Icons.Default.KeyboardArrowRight,
                 onClick = {
-                    val id = trainingProvider.id ?: return@ButtonPrimaryIcon
+                    val id = trainingProvider.id ?: return@ButtonSecondaryIcon
                     editTraining(id)
                 }
             )
