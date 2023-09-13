@@ -65,7 +65,7 @@ fun Calendar(
         mutableStateOf(firstDayOfMonth(month, year))
     }
 
-    val padding = Design.dp.padding
+    val padding = Design.dp.paddingM
 
     val dayRects by rememberUpdatedState(ArrayList<Pair<Int, Rect>>())
 

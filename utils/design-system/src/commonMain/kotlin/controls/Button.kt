@@ -70,7 +70,7 @@ fun ButtonPrimaryIcon(
             Icon(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(Design.dp.padding),
+                    .padding(Design.dp.paddingM),
                 tint = Design.colors.content,
                 imageVector = imageVector,
                 contentDescription = null
@@ -100,7 +100,7 @@ fun ButtonSecondaryIcon(
             Icon(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(Design.dp.padding),
+                    .padding(Design.dp.paddingM),
                 tint = Design.colors.primary,
                 imageVector = imageVector,
                 contentDescription = null

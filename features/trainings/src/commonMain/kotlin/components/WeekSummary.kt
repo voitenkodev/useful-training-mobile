@@ -60,7 +60,7 @@ internal fun WeekSummary(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(Design.dp.padding)
+            .padding(Design.dp.paddingM)
             .recomposeHighlighter(),
         verticalArrangement = Arrangement.SpaceBetween
     ) {
@@ -87,7 +87,7 @@ internal fun WeekSummary(
 
                 TextFieldBody2(
                     modifier = modifier
-                        .padding(start = Design.dp.padding)
+                        .padding(start = Design.dp.paddingM)
                         .recomposeHighlighter(),
                     provideText = { "← " + info.endWeekDate },
                     fontWeight = FontWeight.Bold,

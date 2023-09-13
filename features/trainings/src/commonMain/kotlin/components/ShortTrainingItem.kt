@@ -40,7 +40,7 @@ internal fun ShortTrainingItem(
             color = if (highlight) Design.colors.accent_secondary else Color.Transparent,
             shape = Design.shape.default
         )
-        .padding(horizontal = Design.dp.padding)
+        .padding(horizontal = Design.dp.paddingM)
         .clickable(onClick = onClick)
         .recomposeHighlighter(),
 ) {

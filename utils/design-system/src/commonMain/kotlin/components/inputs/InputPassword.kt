@@ -31,7 +31,7 @@ fun InputPassword(
     InputFieldPrimary(
         modifier = modifier
             .reversedBackground()
-            .padding(horizontal = Design.dp.padding)
+            .padding(horizontal = Design.dp.paddingM)
             .recomposeHighlighter(),
         provideValue = provideValue,
         onValueChange = onValueChange,

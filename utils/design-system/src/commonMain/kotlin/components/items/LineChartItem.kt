@@ -35,7 +35,7 @@ fun LineChartItem(
     LineChartBox(
         modifier = modifier
             .secondaryBackground()
-            .padding(Design.dp.padding),
+            .padding(Design.dp.paddingM),
         lines = lines,
     )
 }
@@ -55,7 +55,7 @@ private fun LineChartBox(
 
     Column(
         modifier = modifier.recomposeHighlighter(),
-        verticalArrangement = Arrangement.spacedBy(Design.dp.padding)
+        verticalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
     ) {
 
         NameLabels(
@@ -64,7 +64,7 @@ private fun LineChartBox(
 
         Row(
             modifier = Modifier.recomposeHighlighter(),
-            horizontalArrangement = Arrangement.spacedBy(Design.dp.padding)
+            horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
         ) {
             YLabels(
                 modifier = Modifier
@@ -104,7 +104,7 @@ private fun NameLabels(
 ) {
     LazyRow(
         modifier = modifier.recomposeHighlighter(),
-        horizontalArrangement = Arrangement.spacedBy(Design.dp.padding),
+        horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM),
         content = {
             itemsIndexed(lines(), key = { index, _ -> index }) { _, item ->
                 Label(label = item.label, color = item.lineColor)
@@ -200,7 +200,7 @@ private fun Label(
     color: Color,
 ) = Row(
     modifier = modifier.recomposeHighlighter(),
-    horizontalArrangement = Arrangement.spacedBy(Design.dp.padding),
+    horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM),
     verticalAlignment = Alignment.CenterVertically
 ) {
     Spacer(

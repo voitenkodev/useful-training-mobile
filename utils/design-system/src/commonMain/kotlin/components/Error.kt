@@ -81,14 +81,14 @@ private fun ErrorContent(
     Column(
         modifier = Modifier
             .platformInsets()
-            .padding(Design.dp.padding)
+            .padding(Design.dp.paddingM)
             .background(
                 color = Design.colors.accent_tertiary,
                 shape = Design.shape.default
             )
-            .padding(Design.dp.padding)
+            .padding(Design.dp.paddingM)
             .recomposeHighlighter(),
-        verticalArrangement = Arrangement.spacedBy(Design.dp.padding),
+        verticalArrangement = Arrangement.spacedBy(Design.dp.paddingM),
         content = {
             TextFieldH3(
                 modifier = Modifier.recomposeHighlighter(),

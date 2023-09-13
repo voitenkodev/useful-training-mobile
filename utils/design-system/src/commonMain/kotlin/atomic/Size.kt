@@ -4,7 +4,10 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 internal fun appDp() = AppDp(
-    padding = 16.dp,
+    paddingXS = 4.dp,
+    paddingS = 8.dp,
+    paddingM = 16.dp,
+    paddingL = 32.dp,
     header = 56.dp,
     bigHeader = 74.dp,
     component = 56.dp,
@@ -12,7 +15,10 @@ internal fun appDp() = AppDp(
 )
 
 data class AppDp(
-    val padding: Dp,
+    val paddingXS: Dp,
+    val paddingS: Dp,
+    val paddingM: Dp,
+    val paddingL: Dp,
     val header: Dp,
     val bigHeader: Dp,
     val component: Dp,

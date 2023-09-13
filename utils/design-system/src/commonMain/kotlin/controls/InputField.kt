@@ -150,7 +150,7 @@ private fun InputField(
         if (leading != null) {
             leading.invoke()
             DividerPrimary(
-                modifier = Modifier.requiredHeight(Design.dp.component - Design.dp.padding - Design.dp.padding),
+                modifier = Modifier.requiredHeight(Design.dp.component - Design.dp.paddingM - Design.dp.paddingM),
                 orientation = Orientation.Vertical
             )
         }

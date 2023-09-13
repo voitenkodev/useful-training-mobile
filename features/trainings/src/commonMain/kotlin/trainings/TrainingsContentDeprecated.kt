@@ -202,10 +202,10 @@ private fun HeaderButtons(
     Row(
         modifier = modifier
             .height(Design.dp.bigHeader)
-            .padding(end = Design.dp.padding, bottom = Design.dp.padding)
+            .padding(end = Design.dp.paddingM, bottom = Design.dp.paddingM)
             .recomposeHighlighter(),
         verticalAlignment = Alignment.Bottom,
-        horizontalArrangement = Arrangement.spacedBy(Design.dp.padding, Alignment.End)
+        horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM, Alignment.End)
     ) {
 
         IconPrimary(

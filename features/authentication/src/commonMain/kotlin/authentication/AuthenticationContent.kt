@@ -113,7 +113,7 @@ private fun Content(
             modifier = Modifier
                 .fillMaxSize()
                 .platformInsets()
-                .padding(Design.dp.padding),
+                .padding(Design.dp.paddingM),
         ) {
 
             Spacer(Modifier.weight(keyboardFloatAsState.value))

@@ -41,7 +41,7 @@ fun HelpExerciseNameItem(
         exit = shrinkVertically() + fadeOut(),
     ) {
         LazyRow(
-            horizontalArrangement = Arrangement.spacedBy(Design.dp.padding)
+            horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
         ) {
             items(opts) {
                 ChipLabel(

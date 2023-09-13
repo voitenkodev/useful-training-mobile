@@ -35,7 +35,7 @@ fun InputSearch(
     InputFieldPrimary(
         modifier = modifier
             .tertiaryBackground()
-            .padding(horizontal = Design.dp.padding)
+            .padding(horizontal = Design.dp.paddingM)
             .recomposeHighlighter(),
         provideValue = value,
         onValueChange = onValueChange,

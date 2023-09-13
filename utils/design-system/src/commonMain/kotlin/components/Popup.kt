@@ -75,11 +75,11 @@ fun Popup(
         Column(
             modifier = Modifier
                 .platformInsets()
-                .padding(Design.dp.padding)
+                .padding(Design.dp.paddingM)
                 .secondaryBackground()
-                .padding(Design.dp.padding)
+                .padding(Design.dp.paddingM)
                 .recomposeHighlighter(),
-            verticalArrangement = Arrangement.spacedBy(Design.dp.padding),
+            verticalArrangement = Arrangement.spacedBy(Design.dp.paddingM),
             content = {
 
                 TextFieldH3(

@@ -42,9 +42,9 @@ fun ScrollableRoot(
         modifier = modifier
             .platformInsets()
             .padding(
-                start = Design.dp.padding,
-                end = Design.dp.padding,
-                bottom = Design.dp.padding
+                start = Design.dp.paddingM,
+                end = Design.dp.paddingM,
+                bottom = Design.dp.paddingM
             ).pointerInput(Unit) {
                 detectTapGestures(
                     onTap = { focusManager.clearFocus() },
@@ -56,12 +56,12 @@ fun ScrollableRoot(
                     }
                 )
             }*/.recomposeHighlighter(),
-        verticalArrangement = Arrangement.spacedBy(Design.dp.padding)
+        verticalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
     ) {
 
         LazyColumn(
             modifier = Modifier.weight(1f).recomposeHighlighter(),
-            verticalArrangement = Arrangement.spacedBy(Design.dp.padding),
+            verticalArrangement = Arrangement.spacedBy(Design.dp.paddingM),
             state = listState,
             content = {
                 if (header != null) {
