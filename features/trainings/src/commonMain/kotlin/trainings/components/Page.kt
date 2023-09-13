@@ -1,12 +1,11 @@
 package trainings.components
 
 import Design
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.runtime.Composable
@@ -29,7 +28,7 @@ internal fun TrainingPage(
     val trainingProvider by rememberUpdatedState(training)
 
     Box(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize(),
     ) {
 
         Column(
@@ -37,6 +36,7 @@ internal fun TrainingPage(
                 .fillMaxSize()
                 .platformInsets()
                 .padding(Design.dp.paddingM),
+            verticalArrangement = Arrangement.spacedBy(Design.dp.paddingL)
         ) {
 
             TrainingTitle(
@@ -44,16 +44,12 @@ internal fun TrainingPage(
                 date = { training.endOfWeek },
             )
 
-            Spacer(
-                modifier = Modifier.size(Design.dp.paddingL)
-            )
-
             ChartsInfo(
                 training = trainingProvider
             )
 
-            Spacer(
-                modifier = Modifier.size(Design.dp.paddingL)
+            SummaryInfo(
+                training = trainingProvider
             )
 
             TrainingComponent(
@@ -62,8 +58,6 @@ internal fun TrainingPage(
                 training = training,
             )
 
-            Spacer(modifier = Modifier.size(Design.dp.paddingM))
-
             ButtonSecondaryIcon(
                 imageVector = Icons.Default.KeyboardArrowRight,
                 onClick = {
@@ -71,8 +65,6 @@ internal fun TrainingPage(
                     editTraining(id)
                 }
             )
-
-            Spacer(modifier = Modifier.size(Design.dp.paddingM))
         }
 
         BrandGradientCenterEnd()

@@ -29,44 +29,48 @@ internal fun ColumnScope.TrainingComponent(
 
     val exes = rememberUpdatedState(training.exercises)
 
-    TextFieldH2(
-        provideText = { "EXERCISES" }
-    )
-
-    Spacer(
-        modifier = Modifier.size(Design.dp.paddingXS)
-    )
-
-    Box(
+    Column(
         modifier = Modifier
             .fillMaxWidth()
             .weight(1f)
     ) {
-
-        Column(
-            modifier = modifier
-                .fillMaxSize()
-                .recomposeHighlighter()
-        ) {
-
-            exes.value.forEachIndexed { index, item ->
-
-                val number by rememberUpdatedState(index + 1)
-
-                ExerciseItem(
-                    modifier = Modifier.recomposeHighlighter(),
-                    provideNumber = { number },
-                    exercise = { item }
-                )
-            }
-        }
+        TextFieldH2(
+            provideText = { "EXERCISES" }
+        )
 
         Spacer(
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .fillMaxWidth()
-                .height(220.dp)
-                .shadowBottomFrame()
+            modifier = Modifier.size(Design.dp.paddingXS)
         )
+
+        Box(
+            modifier = Modifier.fillMaxSize()
+        ) {
+
+            Column(
+                modifier = modifier
+                    .fillMaxSize()
+                    .recomposeHighlighter()
+            ) {
+
+                exes.value.forEachIndexed { index, item ->
+
+                    val number by rememberUpdatedState(index + 1)
+
+                    ExerciseItem(
+                        modifier = Modifier.recomposeHighlighter(),
+                        provideNumber = { number },
+                        exercise = { item }
+                    )
+                }
+            }
+
+            Spacer(
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .fillMaxWidth()
+                    .height(220.dp)
+                    .shadowBottomFrame()
+            )
+        }
     }
 }

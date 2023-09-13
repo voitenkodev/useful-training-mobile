@@ -21,7 +21,7 @@ import recomposeHighlighter
 import training.Training
 
 @Composable
-fun ChartsInfo(
+internal fun ChartsInfo(
     training: Training
 ) {
 
@@ -32,7 +32,7 @@ fun ChartsInfo(
 
         Column(
             modifier = Modifier.weight(1f),
-            verticalArrangement = Arrangement.spacedBy(Design.dp.paddingXS)
+            verticalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
         ) {
 
             TextFieldH2(
