@@ -13,7 +13,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
-import components.TrainingComponent
 import components.backgrounds.BrandGradientCenterEnd
 import components.backgrounds.BrandGradientCenterStart
 import controls.ButtonPrimaryIcon
@@ -54,7 +53,7 @@ internal fun TrainingPage(
             )
 
             Spacer(
-                modifier = Modifier.size(Design.dp.paddingM)
+                modifier = Modifier.size(Design.dp.paddingL)
             )
 
             TrainingComponent(
