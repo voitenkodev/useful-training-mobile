@@ -61,7 +61,7 @@ internal fun Main(modifier: Modifier = Modifier) {
 
 private fun GraphBuilder.trainingsGraph() {
 
-    screen(key = Graph.Trainings.link, animation = Animation.Present(500)) { store ->
+    screen(key = Graph.Trainings.link, animation = Animation.None) { store ->
         val navigator = findNavigator()
         val viewModel = store.getOrCreate(
             key = Graph.Trainings.link,

@@ -12,16 +12,17 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
-import kotlinx.coroutines.delay
 
 @Composable
 fun AlphaOverlay(
     modifier: Modifier = Modifier,
+    condition: () -> Boolean = { true },
     initialAlpha: Float = 1f,
     targetAlpha: Float = 0f,
     animationDuration: Int = 1200,
     delayDuration: Int = 500
 ) {
+
     val animatedValue = remember { mutableStateOf(initialAlpha) }
     val animatedFloat by animateFloatAsState(
         targetValue = animatedValue.value,
@@ -31,8 +32,8 @@ fun AlphaOverlay(
         )
     )
 
-    LaunchedEffect(Unit) {
-        animatedValue.value = targetAlpha
+    LaunchedEffect(condition()) {
+        if (condition()) animatedValue.value = targetAlpha
     }
 
     Spacer(

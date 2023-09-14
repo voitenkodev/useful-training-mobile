@@ -1,6 +1,7 @@
 package trainings
 
 import PlatformBackHandler
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.pager.VerticalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
@@ -8,8 +9,12 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberUpdatedState
+import androidx.compose.ui.Modifier
 import components.Error
 import components.Loading
+import components.backgrounds.BrandGradientCenterEnd
+import components.backgrounds.BrandGradientCenterStart
+import components.overlay.AlphaOverlay
 import components.roots.Root
 import training.Training
 import trainings.components.BottomScreenControls
@@ -80,6 +85,17 @@ private fun Content(
             pagerState = pagerState,
             addTraining = addTrainingProvider,
             logout = logout
+        )
+
+        BrandGradientCenterEnd()
+
+        BrandGradientCenterStart()
+
+        AlphaOverlay(
+            modifier = Modifier.fillMaxSize(),
+            condition = { loading().not() },
+            animationDuration = 800,
+            delayDuration = 200
         )
     }
 }

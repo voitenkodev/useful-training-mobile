@@ -109,9 +109,5 @@ internal fun TrainingPage(
                 editTraining(id)
             }
         )
-
-        BrandGradientCenterEnd()
-
-        BrandGradientCenterStart()
     }
 }
