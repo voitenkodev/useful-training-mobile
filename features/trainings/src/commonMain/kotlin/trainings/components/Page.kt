@@ -29,6 +29,7 @@ import training.Training
 internal fun TrainingPage(
     training: Training,
     editTraining: (trainingId: String) -> Unit,
+    pageColor: Color
 ) {
 
     val trainingProvider by rememberUpdatedState(training)
@@ -46,6 +47,7 @@ internal fun TrainingPage(
         ) {
 
             TrainingTitle(
+                titleColor = pageColor,
                 weekDay = { training.weekDay },
                 date = { training.endOfWeek },
             )

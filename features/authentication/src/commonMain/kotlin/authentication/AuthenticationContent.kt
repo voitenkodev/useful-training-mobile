@@ -37,14 +37,14 @@ import recomposeHighlighter
 @Composable
 fun AuthenticationContent(
     vm: AuthenticationViewModel,
-    signIn: () -> Unit,
+    toTrainings: () -> Unit,
     back: () -> Unit
 ) {
 
     val state by vm.state.collectAsState()
 
     LaunchedEffect(Unit) {
-        vm.subscribeToken(signIn)
+        vm.subscribeToken(toTrainings)
     }
 
     Content(
@@ -52,10 +52,8 @@ fun AuthenticationContent(
         error = { state.error },
         clearError = vm::clearError,
         back = back,
-
         login = vm::login,
         registration = vm::registration,
-
         email = { state.email },
         updateEmail = vm::updateEmail,
         password = { state.password },
@@ -65,6 +63,7 @@ fun AuthenticationContent(
 
 @Composable
 private fun Content(
+    // BASE
     loading: () -> Boolean,
     error: () -> String?,
     clearError: () -> Unit,

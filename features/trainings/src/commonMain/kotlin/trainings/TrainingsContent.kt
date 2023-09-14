@@ -27,6 +27,7 @@ fun TrainingsContent(
     toTrainingById: (trainingId: String) -> Unit,
     toNewTraining: () -> Unit,
     back: () -> Unit,
+    toAuth: () -> Unit,
 ) {
 
     val state by vm.state.collectAsState()
@@ -41,7 +42,7 @@ fun TrainingsContent(
         clearError = vm::clearError,
         back = back,
         newTraining = toNewTraining,
-        logout = vm::logout,
+        logout = {vm.logout(toAuth)},
         trainings = { state.trainings },
         editTraining = toTrainingById,
     )
@@ -67,6 +68,16 @@ private fun Content(
     val addTrainingProvider by rememberUpdatedState(newTraining)
     val backProvider by rememberUpdatedState(back)
 
+    val accentList = rememberUpdatedState(
+        listOf(
+            Design.colors.accent_primary,
+            Design.colors.accent_secondary,
+            Design.colors.accent_tertiary,
+            Design.colors.accent_quaternary,
+            Design.colors.accent_quinary,
+        )
+    )
+
     Root(
         loading = { Loading(loading) },
         error = { Error(message = error, close = clearError) },
@@ -79,6 +90,7 @@ private fun Content(
             TrainingPage(
                 training = trainings()[it],
                 editTraining = editTraining,
+                pageColor = accentList.value[it % accentList.value.size]
             )
         }
 
@@ -86,16 +98,6 @@ private fun Content(
             pagerState = pagerState,
             addTraining = addTrainingProvider,
             logout = logout
-        )
-
-        val accentList = rememberUpdatedState(
-            listOf(
-                Design.colors.accent_primary,
-                Design.colors.accent_secondary,
-                Design.colors.accent_tertiary,
-                Design.colors.accent_quaternary,
-                Design.colors.accent_quinary,
-            )
         )
 
         BrandGradientCenterEnd(

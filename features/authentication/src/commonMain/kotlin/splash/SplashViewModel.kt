@@ -1,7 +1,6 @@
 package splash
 
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 import org.koin.mp.KoinPlatformTools
 import repository.AuthRepository
@@ -11,15 +10,11 @@ class SplashViewModel : ViewModel() {
 
     private val api = KoinPlatformTools.defaultContext().get().get<AuthRepository>()
 
-    fun subscribeToken(
+    fun checkToken(
         onAuth: () -> Unit,
         onNonAuth: () -> Unit
     ) = viewModelScope.launch {
-        api.getToken()
-            .onEach {
-                if (it == null) onNonAuth.invoke()
-                else onAuth.invoke()
-            }
-            .launchIn(this)
+        if (api.getToken().firstOrNull() == null) onNonAuth.invoke()
+        else onAuth.invoke()
     }
 }

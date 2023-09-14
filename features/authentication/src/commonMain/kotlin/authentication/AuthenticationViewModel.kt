@@ -1,6 +1,7 @@
 package authentication
 
 import isEmailValid
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
@@ -25,7 +26,11 @@ class AuthenticationViewModel : ViewModel() {
             api
                 .getToken()
                 .filterNotNull()
-                .onEach { onReceive.invoke() }
+                .onEach {
+                    onReceive.invoke()
+                    delay(100) // TODO FIX
+                    _state.value = state.value.copy(loading = false, error = null)
+                }
                 .launchIn(this)
         }
     }
@@ -37,8 +42,6 @@ class AuthenticationViewModel : ViewModel() {
             if (state.value.error == null) api.login(state.value.email, state.value.password)
                 .onStart {
                     _state.value = state.value.copy(loading = true)
-                }.onEach {
-                    _state.value = state.value.copy(loading = false, error = null)
                 }.catch {
                     _state.value = state.value.copy(loading = false, error = it.message)
                 }.launchIn(this)
@@ -52,8 +55,6 @@ class AuthenticationViewModel : ViewModel() {
             if (state.value.error == null) api.registration(state.value.email, state.value.password)
                 .onStart {
                     _state.value = state.value.copy(loading = true)
-                }.onEach {
-                    _state.value = state.value.copy(loading = false, error = null)
                 }.catch {
                     _state.value = state.value.copy(loading = false, error = it.message)
                 }.launchIn(this)

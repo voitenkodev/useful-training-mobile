@@ -15,7 +15,7 @@ fun SplashContent(
 ) {
 
     LaunchedEffect(Unit) {
-        vm.subscribeToken(
+        vm.checkToken(
             onAuth = toTrainings,
             onNonAuth = toAuthentication
         )

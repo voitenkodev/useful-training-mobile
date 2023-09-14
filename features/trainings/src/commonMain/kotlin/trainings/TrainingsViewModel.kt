@@ -38,9 +38,10 @@ class TrainingsViewModel : ViewModel() {
             }.launchIn(this)
     }
 
-    fun logout() {
+    fun logout(onSuccess: ()-> Unit) {
         viewModelScope.launch {
             authApi.logout()
+            onSuccess.invoke()
         }
     }
 

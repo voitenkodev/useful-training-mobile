@@ -76,7 +76,10 @@ private fun GraphBuilder.trainingsGraph() {
             toNewTraining = {
                 navigator.navigate(Graph.Training.link)
             },
-            back = navigator::back
+            back = navigator::back,
+            toAuth = {
+                navigator.navigate(Graph.Auth.link, true)
+            }
         )
     }
 
@@ -131,8 +134,10 @@ private fun GraphBuilder.authenticationGraph() {
         )
 
         AuthenticationContent(
-            viewModel,
-            signIn = {},
+            vm = viewModel,
+            toTrainings = {
+                navigator.navigate(Graph.Trainings.link, true)
+            },
             back = navigator::back
         )
     }
