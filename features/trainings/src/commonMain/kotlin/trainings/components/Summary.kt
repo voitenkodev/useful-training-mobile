@@ -22,21 +22,25 @@ internal fun SummaryInfo(
     training: Training
 ) {
 
-    Column {
+    TextFieldH2(
+        modifier = Modifier.fillMaxWidth(),
+        provideText = { "SUMMARY" }
+    )
+    Spacer(
+        modifier = Modifier.size(Design.dp.paddingS)
+    )
 
-        TextFieldH2(
-            provideText = { "SUMMARY" }
-        )
-
-        Spacer(
-            modifier = Modifier.size(Design.dp.paddingS)
-        )
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .secondaryBackground()
+            .padding(Design.dp.paddingM),
+        verticalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
+    ) {
 
         Row(
             modifier = Modifier
-                .fillMaxWidth()
-                .secondaryBackground()
-                .padding(Design.dp.paddingM),
+                .fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
 
@@ -49,6 +53,63 @@ internal fun SummaryInfo(
             TextFieldBody1(
                 modifier = Modifier.recomposeHighlighter(),
                 provideText = { training.durationTime },
+                fontWeight = FontWeight.Bold,
+            )
+        }
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+
+            TextFieldBody1(
+                modifier = Modifier.recomposeHighlighter(),
+                provideText = { "Tonnage" },
+                color = Design.colors.caption,
+            )
+
+            TextFieldBody1(
+                modifier = Modifier.recomposeHighlighter(),
+                provideText = { "${training.tonnage}kg" },
+                fontWeight = FontWeight.Bold,
+            )
+        }
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+
+            TextFieldBody1(
+                modifier = Modifier.recomposeHighlighter(),
+                provideText = { "Intensity" },
+                color = Design.colors.caption,
+            )
+
+            TextFieldBody1(
+                modifier = Modifier.recomposeHighlighter(),
+                provideText = { "${training.intensity}%" },
+                fontWeight = FontWeight.Bold,
+            )
+        }
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+
+            TextFieldBody1(
+                modifier = Modifier.recomposeHighlighter(),
+                provideText = { "Repeats" },
+                color = Design.colors.caption,
+            )
+
+            TextFieldBody1(
+                modifier = Modifier.recomposeHighlighter(),
+                provideText = { "${training.countOfLifting}" },
                 fontWeight = FontWeight.Bold,
             )
         }
