@@ -1,5 +1,6 @@
 package trainings
 
+import Design
 import PlatformBackHandler
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.pager.VerticalPager
@@ -87,15 +88,29 @@ private fun Content(
             logout = logout
         )
 
-        BrandGradientCenterEnd()
+        val accentList = rememberUpdatedState(
+            listOf(
+                Design.colors.accent_primary,
+                Design.colors.accent_secondary,
+                Design.colors.accent_tertiary,
+                Design.colors.accent_quaternary,
+                Design.colors.accent_quinary,
+            )
+        )
 
-        BrandGradientCenterStart()
+        BrandGradientCenterEnd(
+            color = accentList.value[pagerState.currentPage % accentList.value.size]
+        )
+
+        BrandGradientCenterStart(
+            color = accentList.value[pagerState.currentPage % accentList.value.size]
+        )
 
         AlphaOverlay(
             modifier = Modifier.fillMaxSize(),
             condition = { loading().not() },
-            animationDuration = 800,
-            delayDuration = 200
+            animationDuration = 900,
+            delayDuration = 300
         )
     }
 }

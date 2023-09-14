@@ -1,6 +1,8 @@
 package components.backgrounds
 
 import Design
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
@@ -15,9 +17,17 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun BoxScope.BrandGradientCenterStart() {
+fun BoxScope.BrandGradientCenterStart(
+    color: Color = Design.colors.accent_primary,
+) {
+
+    val colorAnimation = animateColorAsState(
+        color,
+        animationSpec = tween(800)
+    )
+
     BackgroundLight(
-        color = Design.colors.accent_primary,
+        color = colorAnimation.value,
         modifier = Modifier
             .align(Alignment.CenterEnd)
             .size(500.dp)
@@ -32,10 +42,19 @@ fun BoxScope.BrandGradientCenterStart() {
             }
     )
 }
+
 @Composable
-fun BoxScope.BrandGradientCenterEnd() {
+fun BoxScope.BrandGradientCenterEnd(
+    color: Color = Design.colors.accent_primary,
+) {
+
+    val colorAnimation = animateColorAsState(
+        color,
+        animationSpec = tween(800)
+    )
+
     BackgroundLight(
-        color = Design.colors.accent_primary,
+        color = colorAnimation.value,
         modifier = Modifier
             .align(Alignment.CenterEnd)
             .size(500.dp)

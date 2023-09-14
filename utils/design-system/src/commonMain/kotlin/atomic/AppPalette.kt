@@ -20,7 +20,7 @@ data class AppColors(
     val accent_secondary: Color = Color(0xffEA3469),
     val accent_tertiary: Color = Color(0xff512da8),
     val accent_quaternary: Color = Color(0xffb45ac4),
-    val accent_quinary: Color = Color(0xffed4057),
+    val accent_quinary: Color = Color(0xfffcb51c),
 
     // Text
     val content: Color = Color(0xffffffff),
