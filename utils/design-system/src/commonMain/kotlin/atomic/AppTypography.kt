@@ -18,7 +18,7 @@ internal fun appTypography() = AppTypography(
         fontFamily = Fonts.FastupFontFamily()
     ),
     H2 = TextStyle(
-        fontSize = 28.sp,
+        fontSize = 26.sp,
         fontWeight = FontWeight.SemiBold,
         fontStyle = FontStyle.Normal,
         fontFamily = Fonts.FastupFontFamily()

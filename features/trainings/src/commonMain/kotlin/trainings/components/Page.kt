@@ -48,9 +48,9 @@ internal fun TrainingPage(
                 training = trainingProvider
             )
 
-            SummaryInfo(
-                training = trainingProvider
-            )
+//            SummaryInfo(
+//                training = trainingProvider
+//            )
 
             TrainingComponent(
                 modifier = Modifier
