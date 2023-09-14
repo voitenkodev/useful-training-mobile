@@ -17,6 +17,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import components.backgrounds.BrandGradientCenterEnd
 import components.backgrounds.BrandGradientCenterStart
@@ -64,7 +65,7 @@ internal fun TrainingPage(
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
-                        .recomposeHighlighter()
+                        .recomposeHighlighter(),
                 ) {
 
                     Exercises(
@@ -84,19 +85,30 @@ internal fun TrainingPage(
                     modifier = Modifier
                         .align(Alignment.BottomCenter)
                         .fillMaxWidth()
-                        .height(220.dp)
-                        .shadowBottomFrame()
+                        .height(300.dp)
+                        .shadowBottomFrame(
+                            listOf(
+                                Color.Transparent,
+                                Design.colors.primary.copy(alpha = 0.5f),
+                                Design.colors.primary,
+                                Design.colors.primary
+                            )
+                        )
                 )
             }
-
-            ButtonSecondaryIcon(
-                imageVector = Icons.Default.KeyboardArrowRight,
-                onClick = {
-                    val id = trainingProvider.id ?: return@ButtonSecondaryIcon
-                    editTraining(id)
-                }
-            )
         }
+
+        ButtonSecondaryIcon(
+            modifier = Modifier
+                .align(Alignment.BottomStart)
+                .platformInsets()
+                .padding(Design.dp.paddingM),
+            imageVector = Icons.Default.KeyboardArrowRight,
+            onClick = {
+                val id = trainingProvider.id ?: return@ButtonSecondaryIcon
+                editTraining(id)
+            }
+        )
 
         BrandGradientCenterEnd()
 

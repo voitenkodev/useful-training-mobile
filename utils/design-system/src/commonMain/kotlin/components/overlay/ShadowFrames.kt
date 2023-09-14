@@ -23,20 +23,3 @@ fun Modifier.shadowBottomFrame(
 
     drawRect(brush = brush)
 }
-
-@Composable
-fun Modifier.shadowTopFrame(
-    gradientColors: List<Color> = listOf(Design.colors.primary, Color.Transparent)
-) = this.drawWithContent {
-
-    val startY = 0f
-    val endY = this.size.height / 2
-
-    val brush = Brush.verticalGradient(
-        colors = gradientColors,
-        startY = startY,
-        endY = endY
-    )
-
-    drawRect(brush = brush)
-}
