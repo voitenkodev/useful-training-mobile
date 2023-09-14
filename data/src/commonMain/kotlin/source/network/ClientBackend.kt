@@ -19,9 +19,9 @@ import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.serialization.json.Json
 import source.datastore.PreferencesSource
 
-internal class ClientBackend(
+class ClientBackend(
     nativeContext: NativeContext,
-    private val preferencesSource: PreferencesSource
+    private val preferencesSource: PreferencesSource,
 ) {
 
     private val client: HttpClient = nativeContext.driver()
@@ -49,7 +49,9 @@ internal class ClientBackend(
         install(Auth) {
             bearer {
                 loadTokens {
-                    val token = preferencesSource.getToken().firstOrNull() ?: ""
+                    val token = preferencesSource
+                        .getToken()
+                        .firstOrNull() ?: ""
                     BearerTokens(token, "")
                 }
             }

@@ -23,9 +23,6 @@ class AuthRepositoryImpl(
         remote
             .registration(email, password)
 
-    override suspend fun setToken(value: String) {
-        preferencesSource.setToken(value)
-    }
 
     override fun getToken(): Flow<String?> =
         preferencesSource.getToken()

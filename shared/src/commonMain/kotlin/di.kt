@@ -10,6 +10,7 @@ import repository.TrainingRepository
 import repository.TrainingRepositoryImpl
 import source.database.DataBaseSource
 import source.datastore.PreferencesSource
+import source.network.ClientBackend
 import source.network.NetworkSource
 
 fun initCommonKoin(
@@ -21,8 +22,10 @@ fun initCommonKoin(
 
 val appModule = module {
 
+    single { ClientBackend(get(), get()) }
+
     single { PreferencesSource(get()) }
-    single { NetworkSource(get(), get()) }
+    single { NetworkSource(get()) }
     single { DataBaseSource(get()) }
 
     single { TrainingRepositoryImpl(get(), get()) } bind TrainingRepository::class

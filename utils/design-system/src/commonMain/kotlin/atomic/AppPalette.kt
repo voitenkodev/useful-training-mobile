@@ -14,9 +14,10 @@ data class AppColors(
     // Color(0xff228D57) = Green soft
     // Color(0xff31353b) = Gray
     // Color(0xfffcb51c) = Yellow
+    // Color(0xff335bff) = Blue
 
     // Accent
-    val accent_primary: Color = Color(0xff1db3ae),
+    val accent_primary: Color = Color(0xff335bff),
     val accent_secondary: Color = Color(0xffEA3469),
     val accent_tertiary: Color = Color(0xff512da8),
     val accent_quaternary: Color = Color(0xffb45ac4),

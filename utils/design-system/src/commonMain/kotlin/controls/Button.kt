@@ -119,7 +119,7 @@ fun ButtonTextLink(
     leadIcon: ImageVector? = null,
 ) {
 
-    val innerTextColor = color ?: Design.colors.accent_primary
+    val innerTextColor = color ?: Design.colors.content
     val innerBackgroundColor = Color.Companion.Transparent
 
     Button(

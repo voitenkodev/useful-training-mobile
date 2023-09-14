@@ -9,8 +9,6 @@ interface AuthRepository {
 
     fun registration(email: String, password: String): Flow<TokenDTO>
 
-    suspend fun setToken(value: String)
-
     fun getToken(): Flow<String?>
 
     suspend fun logout()
