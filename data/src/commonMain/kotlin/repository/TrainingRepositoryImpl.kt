@@ -1,7 +1,7 @@
 package repository
 
-import dto.ExerciseDateDTO
-import dto.TrainingDTO
+import dto.backend.ExerciseDateDTO
+import dto.backend.TrainingDTO
 import kotlinx.coroutines.flow.Flow
 import source.database.DataBaseSource
 import source.network.NetworkSource

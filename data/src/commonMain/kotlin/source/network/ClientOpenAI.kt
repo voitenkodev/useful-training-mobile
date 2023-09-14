@@ -15,13 +15,10 @@ import io.ktor.http.ContentType
 import io.ktor.http.URLProtocol
 import io.ktor.http.contentType
 import io.ktor.serialization.kotlinx.json.json
-import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.serialization.json.Json
-import source.datastore.PreferencesSource
 
-internal class Client(
-    nativeContext: NativeContext,
-    private val preferencesSource: PreferencesSource
+internal class ClientOpenAI(
+    nativeContext: NativeContext
 ) {
 
     private val client: HttpClient = nativeContext.driver()
@@ -49,14 +46,14 @@ internal class Client(
         install(Auth) {
             bearer {
                 loadTokens {
-                    val token = preferencesSource.getToken().firstOrNull() ?: ""
+                    val token = "" // TODO GET TOKEN FROM CI/CD
                     BearerTokens(token, "")
                 }
             }
         }
 
         defaultRequest {
-            host = "api.usefultraining.online"
+            host = "api.openai.com"
             url { protocol = URLProtocol.HTTPS }
             contentType(ContentType.Application.Json)
         }

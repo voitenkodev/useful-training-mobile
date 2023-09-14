@@ -1,6 +1,6 @@
 package summary
 
-import dto.ExerciseDateDTO
+import dto.backend.ExerciseDateDTO
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow

@@ -1,6 +1,6 @@
 package repository
 
-import dto.TokenDTO
+import dto.backend.TokenDTO
 import kotlinx.coroutines.flow.Flow
 
 interface AuthRepository {

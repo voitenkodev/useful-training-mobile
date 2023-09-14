@@ -1,13 +1,12 @@
-package dto
+package dto.backend
 
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class TrainingDTO(
+data class ExerciseDTO(
     val id: String? = null,
-    val exercises: List<ExerciseDTO> = emptyList(),
-    val duration: String?,
-    val date: String?,
+    val name: String?,
+    val iterations: List<IterationDTO> = emptyList(),
     val tonnage: Double?,
     val countOfLifting: Int?,
     val intensity: Double?,

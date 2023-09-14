@@ -1,8 +1,8 @@
 package mapping
 
-import dto.IterationDTO
-import training.Iteration
+import dto.backend.IterationDTO
 import toDoubleOrIntString
+import training.Iteration
 
 internal fun List<IterationDTO>.toIterationStateList() = this.map { it.toIterationState() }
 

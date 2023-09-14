@@ -1,8 +1,8 @@
 package mapping
 
-import dto.ExerciseDTO
-import dto.IterationDTO
-import dto.TrainingDTO
+import dto.backend.ExerciseDTO
+import dto.backend.IterationDTO
+import dto.backend.TrainingDTO
 import training.Training
 
 internal fun Training.toBody() = TrainingDTO(

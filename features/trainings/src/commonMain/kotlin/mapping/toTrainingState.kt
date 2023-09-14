@@ -1,6 +1,6 @@
 package mapping
 
-import dto.TrainingDTO
+import dto.backend.TrainingDTO
 import training.Training
 
 internal fun List<TrainingDTO>.toTrainingStateList() = this.map { it.toTrainingState() }

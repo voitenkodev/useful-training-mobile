@@ -1,10 +1,11 @@
 package source.network
 
 import NativeContext
-import dto.AuthDTO
-import dto.ExerciseDateDTO
-import dto.TokenDTO
-import dto.TrainingDTO
+import dto.backend.AuthDTO
+import dto.backend.ExerciseDateDTO
+import dto.backend.TokenDTO
+import dto.backend.TrainingDTO
+import dto.openai.OpenAIResponse
 import io.ktor.client.call.body
 import io.ktor.client.request.delete
 import io.ktor.client.request.get
@@ -20,10 +21,11 @@ class NetworkSource(
     preferencesSource: PreferencesSource
 ) {
 
-    private val client = Client(nativeContext, preferencesSource).setup()
+    private val clientBackend = ClientBackend(nativeContext, preferencesSource).setup()
+    private val clientOpenAI = ClientOpenAI(nativeContext).setup()
 
     suspend fun setTraining(training: TrainingDTO): Flow<String> = flow {
-        val result = client.post {
+        val result = clientBackend.post {
             url {
                 path("/training")
                 setBody(training)
@@ -33,7 +35,7 @@ class NetworkSource(
     }
 
     suspend fun getTrainings(): Flow<List<TrainingDTO>> = flow {
-        val result = client.get {
+        val result = clientBackend.get {
             url {
                 path("/trainings")
             }
@@ -42,7 +44,7 @@ class NetworkSource(
     }
 
     suspend fun getExercises(query: String): Flow<List<ExerciseDateDTO>> = flow {
-        val result = client.get {
+        val result = clientBackend.get {
             url {
                 path("/exercises")
                 parameters.append("name", query)
@@ -52,7 +54,7 @@ class NetworkSource(
     }
 
     suspend fun getTraining(trainingId: String): Flow<TrainingDTO> = flow {
-        val result = client.get {
+        val result = clientBackend.get {
             url {
                 path("/training/$trainingId")
             }
@@ -61,7 +63,7 @@ class NetworkSource(
     }
 
     suspend fun deleteTraining(trainingId: String): Flow<Unit> = flow {
-        client.delete {
+        clientBackend.delete {
             url {
                 path("/training")
                 parameters.append("id", trainingId)
@@ -71,7 +73,7 @@ class NetworkSource(
     }
 
     fun login(email: String, password: String): Flow<TokenDTO> = flow {
-        val result = client.post {
+        val result = clientBackend.post {
             url {
                 path("/login")
                 setBody(AuthDTO(email, password))
@@ -81,12 +83,27 @@ class NetworkSource(
     }
 
     fun registration(email: String, password: String): Flow<TokenDTO> = flow {
-        val result = client.post {
+        val result = clientBackend.post {
             url {
                 path("/register")
                 setBody(AuthDTO(email, password))
             }
         }
         emit(result.body<TokenDTO>())
+    }
+
+    fun generateViaOpenAI(prompt: String): Flow<OpenAIResponse> = flow {
+        val result = clientOpenAI.post {
+            url {
+                path("/v1/engines/davinci/completions")
+                setBody(
+                    mapOf(
+                        "prompt" to prompt,
+                        "max_tokens" to 50 // Adjust as needed
+                    )
+                )
+            }
+        }
+        emit(result.body<OpenAIResponse>())
     }
 }

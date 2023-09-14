@@ -1,8 +1,5 @@
 package trainings.components
 
-import Design
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberUpdatedState
@@ -21,10 +18,6 @@ internal fun Exercises(
 
     TextFieldH2(
         provideText = { "EXERCISES" }
-    )
-
-    Spacer(
-        modifier = Modifier.size(Design.dp.paddingXS)
     )
 
     exes.value.forEachIndexed { index, item ->
