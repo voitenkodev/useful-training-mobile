@@ -113,7 +113,7 @@ private fun Content(
         Spacer(
             modifier = Modifier
                 .fillMaxWidth()
-                .aspectRatio(0.8f)
+                .aspectRatio(0.4f)
                 .shadowBottomFrame()
         )
 

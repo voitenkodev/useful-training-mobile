@@ -1,6 +1,7 @@
 package trainings.components
 
 import Design
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -10,6 +11,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberUpdatedState
@@ -18,37 +21,43 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import components.overlay.shadowBottomFrame
-import controls.ButtonBrand
-import platformInsets
+import platformTopInset
 import recomposeHighlighter
 import training.Training
 
 @Composable
 internal fun TrainingPage(
     training: Training,
-    editTraining: (trainingId: String) -> Unit,
+    editTraining: () -> Unit,
     pageColor: Color
 ) {
 
     val trainingProvider by rememberUpdatedState(training)
 
     Box(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize()
+            .clickable(onClick = editTraining),
     ) {
 
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .platformInsets()
-                .padding(Design.dp.paddingM),
+                .platformTopInset()
+                .padding(horizontal = Design.dp.paddingM),
             verticalArrangement = Arrangement.spacedBy(Design.dp.paddingL)
         ) {
+
+            Spacer(
+                modifier = Modifier.size(Design.dp.paddingM)
+            )
 
             TrainingTitle(
                 titleColor = pageColor,
                 weekDay = { training.weekDay },
-                date = { training.endOfWeek },
+                date = { training.startLongDate },
             )
+
 
             ChartsInfo(
                 training = trainingProvider
@@ -63,7 +72,8 @@ internal fun TrainingPage(
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
-                        .recomposeHighlighter(),
+                        .recomposeHighlighter()
+                        .padding(bottom = Design.dp.paddingM),
                 ) {
 
                     Exercises(
@@ -83,11 +93,13 @@ internal fun TrainingPage(
                     modifier = Modifier
                         .align(Alignment.BottomCenter)
                         .fillMaxWidth()
-                        .height(300.dp)
+                        .height(220.dp)
                         .shadowBottomFrame(
                             listOf(
                                 Color.Transparent,
+                                Color.Transparent,
                                 Design.colors.primary.copy(alpha = 0.5f),
+                                Design.colors.primary.copy(alpha = 0.8f),
                                 Design.colors.primary,
                                 Design.colors.primary
                             )
@@ -96,18 +108,30 @@ internal fun TrainingPage(
             }
         }
 
-        ButtonBrand(
-            modifier = Modifier
-                .fillMaxWidth(0.6f)
-                .align(Alignment.BottomStart)
-                .platformInsets()
-                .padding(Design.dp.paddingM),
-            text = "DETAILS",
-            backgroundColor = pageColor,
-            onClick = {
-                val id = trainingProvider.id ?: return@ButtonBrand
-                editTraining(id)
-            }
-        )
+//        ButtonIconBrand(
+//            modifier = Modifier
+//                .align(Alignment.BottomCenter)
+//                .platformBottomInset()
+//                .padding(Design.dp.paddingM),
+//            backgroundColor = pageColor,
+//            contentColor = Design.colors.primary,
+//            onClick = {},
+//            imageVector = Icons.Default.KeyboardArrowRight
+//        )
+
+//        ButtonBrand(
+//            modifier = Modifier
+//                .fillMaxWidth(0.7f)
+//                .align(Alignment.BottomStart)
+//                .platformInsets()
+//                .padding(Design.dp.paddingM)
+//                .platformBottomInset(),
+//            text = "DETAILS",
+//            backgroundColor = pageColor,
+//            onClick = {
+//                val id = trainingProvider.id ?: return@ButtonBrand
+//                editTraining(id)
+//            }
+//        )
     }
 }

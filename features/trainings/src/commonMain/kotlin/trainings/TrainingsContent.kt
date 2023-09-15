@@ -42,7 +42,7 @@ fun TrainingsContent(
         clearError = vm::clearError,
         back = back,
         newTraining = toNewTraining,
-        logout = {vm.logout(toAuth)},
+        logout = { vm.logout(toAuth) },
         trainings = { state.trainings },
         editTraining = toTrainingById,
     )
@@ -87,9 +87,13 @@ private fun Content(
         val pagerState = rememberPagerState { trainings().size }
 
         VerticalPager(state = pagerState) {
+            val training by rememberUpdatedState(trainings()[it])
             TrainingPage(
-                training = trainings()[it],
-                editTraining = editTraining,
+                training = training,
+                editTraining = {
+                    val id = training.id ?: return@TrainingPage
+                    editTraining.invoke(id)
+                },
                 pageColor = accentList.value[it % accentList.value.size]
             )
         }

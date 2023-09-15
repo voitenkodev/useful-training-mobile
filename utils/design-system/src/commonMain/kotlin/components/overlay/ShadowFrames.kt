@@ -9,16 +9,14 @@ import androidx.compose.ui.graphics.Color
 
 @Composable
 fun Modifier.shadowBottomFrame(
-    gradientColors: List<Color> = listOf(Color.Transparent, Design.colors.primary)
+    gradientColors: List<Color> = listOf(
+        Color.Transparent,
+        Design.colors.primary
+    )
 ) = this.drawWithContent {
-
-    val startY = this.size.height / 2
-    val endY = this.size.height
 
     val brush = Brush.verticalGradient(
         colors = gradientColors,
-        startY = startY,
-        endY = endY
     )
 
     drawRect(brush = brush)

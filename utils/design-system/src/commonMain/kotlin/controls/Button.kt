@@ -49,10 +49,12 @@ fun ButtonBrand(
 }
 
 @Composable
-fun ButtonIcon(
+fun ButtonIconBrand(
     modifier: Modifier = Modifier,
     imageVector: ImageVector,
     enabled: Boolean = true,
+    backgroundColor: Color = Design.colors.accent_primary,
+    contentColor: Color = Design.colors.content,
     onClick: () -> Unit,
 ) {
     IconButton(
@@ -60,7 +62,7 @@ fun ButtonIcon(
             .requiredSize(Design.dp.component)
             .alpha(if (enabled) 1f else 0.5f)
             .background(
-                color = Design.colors.accent_primary,
+                color = backgroundColor,
                 shape = Design.shape.circleShape
             ).clip(Design.shape.circleShape),
         onClick = onClick,
@@ -70,7 +72,7 @@ fun ButtonIcon(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(Design.dp.paddingM),
-                tint = Design.colors.primary,
+                tint = contentColor,
                 imageVector = imageVector,
                 contentDescription = null
             )
