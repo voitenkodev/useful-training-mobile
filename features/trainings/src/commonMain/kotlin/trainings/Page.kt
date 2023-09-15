@@ -1,4 +1,4 @@
-package trainings.components
+package trainings
 
 import Design
 import androidx.compose.foundation.clickable
@@ -20,6 +20,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import components.ChartsInfo
+import components.Exercises
+import components.SummaryInfo
+import components.TrainingTitle
 import components.overlay.shadowBottomFrame
 import platformTopInset
 import recomposeHighlighter

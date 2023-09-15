@@ -18,8 +18,7 @@ import components.backgrounds.BrandGradientCenterStart
 import components.overlay.AlphaOverlay
 import components.roots.Root
 import training.Training
-import trainings.components.BottomScreenControls
-import trainings.components.TrainingPage
+import components.BottomScreenControls
 
 @Composable
 fun TrainingsContent(

@@ -8,6 +8,8 @@ import navigation.Animation
 import navigation.GraphBuilder
 import navigation.RootController
 import navigation.findNavigator
+import review.ReviewContent
+import review.ReviewViewModel
 import root.RootComponent
 import root.RootContent
 import splash.SplashContent
@@ -25,6 +27,8 @@ internal enum class Graph(val link: String) {
     Review("review_screen"),
     Summary("summary_screen")
 }
+
+// TODO Expect logic with Jetpack compose IOS (Not canvas)
 
 @Composable
 internal fun MainTemp(
@@ -49,17 +53,6 @@ internal fun Main(modifier: Modifier = Modifier) {
 
             trainingsGraph()
 
-//            screen(key = Graph.Review.link, animation = Animation.Present(500)) { store ->
-//                val navigator = findNavigator()
-//                val trainingId = store.args.getOrElse("trainingId") { "" } as String
-//                val viewModel = store.getOrCreate(
-//                    key = Graph.Review.link,
-//                    factory = { ReviewViewModel(navigator) },
-//                    clear = { (it as? ReviewViewModel)?.clear() }
-//                )
-//                ReviewContent(viewModel, trainingId)
-//            }
-//
 //            screen(key = Graph.Summary.link, animation = Animation.Present(500)) { store ->
 //                val navigator = findNavigator()
 //                val viewModel = store.getOrCreate(
@@ -85,7 +78,7 @@ private fun GraphBuilder.trainingsGraph() {
         TrainingsContent(
             vm = viewModel,
             toTrainingById = { id ->
-                navigator.navigate(Graph.Training.link, args = mapOf("trainingId" to id))
+                navigator.navigate(Graph.Review.link, popToInclusive = true, args = mapOf("trainingId" to id))
             },
             toNewTraining = {
                 navigator.navigate(Graph.Training.link)
@@ -112,6 +105,24 @@ private fun GraphBuilder.trainingsGraph() {
                 navigator.navigate(Graph.Review.link, popToInclusive = true, args = mapOf("trainingId" to it))
             },
             back = navigator::back
+        )
+    }
+
+    screen(key = Graph.Review.link, animation = Animation.Present(500)) { store ->
+        val navigator = findNavigator()
+        val trainingId = store.args.getOrElse("trainingId") { "" } as String
+        val viewModel = store.getOrCreate(
+            key = Graph.Review.link,
+            factory = { ReviewViewModel() },
+            clear = { (it as? ReviewViewModel)?.clear() }
+        )
+        ReviewContent(
+            viewModel,
+            trainingId,
+            back = navigator::back,
+            toEditTrainingById = { id ->
+                navigator.navigate(Graph.Training.link, args = mapOf("trainingId" to id))
+            }
         )
     }
 }

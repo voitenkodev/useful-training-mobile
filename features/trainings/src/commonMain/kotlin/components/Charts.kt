@@ -1,4 +1,4 @@
-package trainings.components
+package components
 
 import Design
 import androidx.compose.foundation.layout.Arrangement

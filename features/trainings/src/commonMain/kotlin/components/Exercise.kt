@@ -15,7 +15,7 @@ import recomposeHighlighter
 import training.Exercise
 
 @Composable
-internal fun ExerciseItem(
+internal fun Exercise(
     modifier: Modifier = Modifier,
     provideNumber: () -> Int,
     exercise: () -> Exercise

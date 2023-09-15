@@ -23,7 +23,7 @@ import recomposeHighlighter
 import training.Iteration
 
 @Composable
-internal fun EditExerciseItem(
+internal fun EditExercise(
     modifier: Modifier = Modifier,
     number: () -> Int,
     iterations: () -> List<Iteration>,

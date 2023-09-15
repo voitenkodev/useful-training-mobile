@@ -13,7 +13,7 @@ import com.arkivanov.decompose.extensions.compose.jetbrains.stack.animation.stac
 import controls.ButtonBrand
 import controls.TextFieldH1
 
-// Expect logic with Jetpack compose IOS (Not canvas)
+// TODO Expect logic with Jetpack compose IOS (Not canvas)
 
 @Composable
 internal fun RootContent(

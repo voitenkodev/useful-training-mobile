@@ -23,7 +23,7 @@ import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import components.EditExerciseItem
+import components.EditExercise
 import components.Error
 import components.Loading
 import components.Popup
@@ -183,7 +183,7 @@ private fun Content(
                 val number by rememberUpdatedState(index + 1)
                 val iterations by rememberUpdatedState(exercise.iterations)
 
-                EditExerciseItem(
+                EditExercise(
                     modifier = Modifier.recomposeHighlighter(),
                     number = { number },
                     nameOptions = exerciseNamesProvider,

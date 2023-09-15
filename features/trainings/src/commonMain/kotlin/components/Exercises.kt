@@ -1,4 +1,4 @@
-package trainings.components
+package components
 
 import Design
 import androidx.compose.foundation.layout.Column
@@ -10,7 +10,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
-import components.ExerciseItem
 import controls.TextFieldH2
 import controls.secondaryBackground
 import recomposeHighlighter
@@ -40,7 +39,7 @@ internal fun Exercises(
 
             val number by rememberUpdatedState(index + 1)
 
-            ExerciseItem(
+            Exercise(
                 modifier = Modifier.recomposeHighlighter(),
                 provideNumber = { number },
                 exercise = { item }

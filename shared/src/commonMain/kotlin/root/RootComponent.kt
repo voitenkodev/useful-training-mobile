@@ -12,7 +12,7 @@ import com.arkivanov.essenty.parcelable.Parcelize
 
 // https://github.com/MohamedRejeb/Pokedex/blob/main/shared/src/commonMain/kotlin/com/mocoding/pokedex/ui/root/RootComponent.kt
 
-// Expect logic with Jetpack compose IOS (Not canvas)
+// TODO Expect logic with Jetpack compose IOS (Not canvas)
 class RootComponent internal constructor(
     componentContext: ComponentContext,
     private val screenOne: (ComponentContext, (ScreenOneComponent.Output) -> Unit) -> ScreenOneComponent,

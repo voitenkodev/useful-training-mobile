@@ -1,7 +1,7 @@
 package review
 
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -14,10 +14,10 @@ import repository.TrainingRepository
 import training.Training
 import utils.ViewModel
 
-internal class ReviewViewModel : ViewModel() {
+class ReviewViewModel : ViewModel() {
 
-    private val _state = mutableStateOf(ReviewState())
-    val state: State<ReviewState> = _state
+    private val _state = MutableStateFlow(ReviewState())
+    val state: StateFlow<ReviewState> = _state
 
     private val api = KoinPlatformTools.defaultContext().get().get<TrainingRepository>()
 
