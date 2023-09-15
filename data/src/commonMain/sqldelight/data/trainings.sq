@@ -25,7 +25,8 @@ CREATE TABLE IF NOT EXISTS  Iteration (
 
 getTrainings:
 SELECT *
-FROM Training;
+FROM Training
+ORDER BY id DESC;
 
 getTrainingById:
 SELECT *
@@ -35,17 +36,20 @@ WHERE id = ?;
 getExercisesByTrainingId:
 SELECT *
 FROM Exercise
-WHERE trainingId = :trainingId;
+WHERE trainingId = :trainingId
+ORDER BY id;
 
 getIterationsByExercisesId:
 SELECT *
 FROM Iteration
-WHERE exerciseId = :exerciseId;
+WHERE exerciseId = :exerciseId
+ORDER BY id;
 
 getExercisesByName:
 SELECT *
 FROM Exercise
-WHERE name = ?;
+WHERE name = ?
+ORDER BY id DESC;
 
 deleteTrainingById:
 DELETE FROM Training

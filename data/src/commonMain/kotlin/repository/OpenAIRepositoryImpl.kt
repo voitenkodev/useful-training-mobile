@@ -1,7 +1,7 @@
 package repository
 
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.flow
 import source.network.NetworkSource
 
 class OpenAIRepositoryImpl(
@@ -14,6 +14,8 @@ class OpenAIRepositoryImpl(
             append("\n")
             append("Выведи только результат, без дополнительной информации")
         }
-        return remote.generateViaOpenAI(promt).map { it.toString() }
+        return flow {
+            emit(remote.generateViaOpenAI(promt)?.choices.toString())
+        }
     }
 }

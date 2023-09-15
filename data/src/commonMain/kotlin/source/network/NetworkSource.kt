@@ -12,82 +12,73 @@ import io.ktor.client.request.post
 import io.ktor.client.request.setBody
 import io.ktor.http.contentType
 import io.ktor.http.path
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 
 class NetworkSource(
     private val clientBackend: ClientBackend
 ) {
-    suspend fun setTraining(training: TrainingDTO): Flow<String> = flow {
-        val result = clientBackend.setup().post {
+    suspend fun setTraining(training: TrainingDTO): String {
+        return clientBackend.setup().post {
             url {
                 path("/training")
                 setBody(training)
             }
-        }
-        emit(result.body())
+        }.body()
     }
 
-    suspend fun getTrainings(): Flow<List<TrainingDTO>> = flow {
-        val result = clientBackend.setup().get {
+    suspend fun getTrainings(): List<TrainingDTO> {
+        return clientBackend.setup().get {
             url {
                 path("/trainings")
             }
             contentType()
-        }
-        emit(result.body())
+        }.body()
     }
 
-    suspend fun getExercises(query: String): Flow<List<ExerciseDateDTO>> = flow {
-        val result = clientBackend.setup().get {
+    suspend fun getExercises(query: String): List<ExerciseDateDTO> {
+        return clientBackend.setup().get {
             url {
                 path("/exercises")
                 parameters.append("name", query)
             }
-        }
-        emit(result.body())
+        }.body()
     }
 
-    suspend fun getTraining(trainingId: String): Flow<TrainingDTO> = flow {
-        val result = clientBackend.setup().get {
+    suspend fun getTraining(trainingId: String): TrainingDTO {
+        return clientBackend.setup().get {
             url {
                 path("/training/$trainingId")
             }
-        }
-        emit(result.body())
+        }.body()
     }
 
-    suspend fun deleteTraining(trainingId: String): Flow<Unit> = flow {
+    suspend fun deleteTraining(trainingId: String) {
         clientBackend.setup().delete {
             url {
                 path("/training")
                 parameters.append("id", trainingId)
             }
         }
-        emit(Unit)
     }
 
-    fun login(email: String, password: String): Flow<TokenDTO> = flow {
-        val result = clientBackend.setup().post {
+    suspend fun login(email: String, password: String): TokenDTO {
+        return clientBackend.setup().post {
             url {
                 path("/login")
                 setBody(AuthDTO(email, password))
             }
-        }
-        emit(result.body())
+        }.body()
     }
 
-    fun registration(email: String, password: String): Flow<TokenDTO> = flow {
-        val result = clientBackend.setup().post {
+    suspend fun registration(email: String, password: String): TokenDTO {
+        return clientBackend.setup().post {
             url {
                 path("/register")
                 setBody(AuthDTO(email, password))
             }
-        }
-        emit(result.body<TokenDTO>())
+        }.body()
     }
 
-    fun generateViaOpenAI(prompt: String): Flow<OpenAIResponse> = flow {
+    fun generateViaOpenAI(prompt: String): OpenAIResponse? {
 //        val result = clientOpenAI.post {
 //            url {
 //                path("/v1/engines/davinci/completions")
@@ -100,5 +91,6 @@ class NetworkSource(
 //            }
 //        }
 //        emit(result.body<OpenAIResponse>())
+        return null
     }
 }

@@ -2,6 +2,7 @@ package repository
 
 import dto.backend.TokenDTO
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import source.datastore.PreferencesSource
 import source.network.NetworkSource
@@ -12,16 +13,17 @@ class AuthRepositoryImpl(
 ) : AuthRepository {
 
     override fun login(email: String, password: String): Flow<Unit> =
-        remote
-            .login(email, password)
-            .map {
-                val token = it.token
-                if (token != null) preferencesSource.setToken(token)
-            }
+        flow {
+            emit(remote.login(email, password))
+        }.map {
+            val token = it.token
+            if (token != null) preferencesSource.setToken(token)
+        }
 
     override fun registration(email: String, password: String): Flow<TokenDTO> =
-        remote
-            .registration(email, password)
+        flow {
+            emit(remote.registration(email, password))
+        }
 
 
     override fun getToken(): Flow<String?> =
