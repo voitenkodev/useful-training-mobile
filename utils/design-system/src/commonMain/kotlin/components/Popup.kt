@@ -20,7 +20,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import controls.ButtonPrimaryBrand
+import controls.ButtonBrand
 import controls.TextFieldBody1
 import controls.TextFieldH3
 import controls.secondaryBackground
@@ -94,7 +94,7 @@ fun Popup(
                 )
 
                 button?.let {
-                    ButtonPrimaryBrand(
+                    ButtonBrand(
                         modifier = Modifier.fillMaxWidth().recomposeHighlighter(),
                         text = button,
                         onClick = click

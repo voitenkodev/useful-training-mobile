@@ -35,7 +35,7 @@ fun BoxScope.BrandGradientCenterStart(
                 x = -(220.dp),
                 y = 180.dp
             ).graphicsLayer {
-                alpha = 0.5f
+                alpha = 0.3f
                 scaleX = 0.9f
                 rotationY = -210f
                 rotationX = -0f
@@ -61,7 +61,7 @@ fun BoxScope.BrandGradientCenterEnd(
             .offset(
                 x = 220.dp,
             ).graphicsLayer {
-                alpha = 0.5f
+                alpha = 0.3f
                 scaleX = 0.9f
                 rotationY = +30f
                 rotationX = -0f

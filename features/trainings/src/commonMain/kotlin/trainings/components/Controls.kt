@@ -38,12 +38,12 @@ internal fun BoxScope.BottomScreenControls(
         verticalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
     ) {
 
+        Spacer(modifier = Modifier.weight(1f))
+
         ButtonSecondaryIcon(
             imageVector = Icons.Default.ExitToApp,
             onClick = logout
         )
-
-        Spacer(modifier = Modifier.weight(1f))
 
         ButtonSecondaryIcon(
             enabled = pagerState.currentPage > 0,

@@ -27,22 +27,21 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun ButtonPrimaryBrand(
+fun ButtonBrand(
     modifier: Modifier = Modifier,
     text: String,
     enabled: Boolean = true,
+    textColor: Color = Design.colors.content,
+    backgroundColor: Color = Design.colors.accent_primary,
     onClick: () -> Unit,
 ) {
-    val innerTextColor = Design.colors.content
-    val innerBackgroundColor = Design.colors.accent_primary
-
     Button(
         modifier = modifier.requiredHeight(Design.dp.component),
         text = text,
-        textStyle = Design.typography.PrimaryButton.copy(color = innerTextColor),
+        textStyle = Design.typography.PrimaryButton.copy(color = textColor),
         enabled = enabled,
         onClick = onClick,
-        colors = ButtonDefaults.buttonColors(backgroundColor = innerBackgroundColor),
+        colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor),
         shape = Design.shape.circleShape,
         borderStroke = null,
         leadIcon = null

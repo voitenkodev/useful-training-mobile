@@ -10,8 +10,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberUpdatedState
@@ -20,7 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import components.overlay.shadowBottomFrame
-import controls.ButtonSecondaryIcon
+import controls.ButtonBrand
 import platformInsets
 import recomposeHighlighter
 import training.Training
@@ -98,14 +96,16 @@ internal fun TrainingPage(
             }
         }
 
-        ButtonSecondaryIcon(
+        ButtonBrand(
             modifier = Modifier
+                .fillMaxWidth(0.6f)
                 .align(Alignment.BottomStart)
                 .platformInsets()
                 .padding(Design.dp.paddingM),
-            imageVector = Icons.Default.KeyboardArrowRight,
+            text = "DETAILS",
+            backgroundColor = pageColor,
             onClick = {
-                val id = trainingProvider.id ?: return@ButtonSecondaryIcon
+                val id = trainingProvider.id ?: return@ButtonBrand
                 editTraining(id)
             }
         )

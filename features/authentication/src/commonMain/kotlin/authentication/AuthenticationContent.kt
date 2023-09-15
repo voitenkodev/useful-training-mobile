@@ -29,7 +29,7 @@ import components.overlay.AlphaOverlay
 import components.overlay.shadowBottomFrame
 import components.roots.Root
 import components.states.keyboardFloatAsState
-import controls.ButtonPrimaryBrand
+import controls.ButtonBrand
 import controls.TextFieldBody1
 import controls.TextFieldH1
 import platformInsets
@@ -159,7 +159,7 @@ private fun Content(
 
             Spacer(Modifier.size(32.dp))
 
-            ButtonPrimaryBrand(
+            ButtonBrand(
                 modifier = Modifier
                     .fillMaxWidth(0.7f)
                     .align(Alignment.CenterHorizontally)

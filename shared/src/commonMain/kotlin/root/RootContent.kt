@@ -10,7 +10,7 @@ import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.extensions.compose.jetbrains.stack.Children
 import com.arkivanov.decompose.extensions.compose.jetbrains.stack.animation.fade
 import com.arkivanov.decompose.extensions.compose.jetbrains.stack.animation.stackAnimation
-import controls.ButtonPrimaryBrand
+import controls.ButtonBrand
 import controls.TextFieldH1
 
 // Expect logic with Jetpack compose IOS (Not canvas)
@@ -37,7 +37,7 @@ internal fun ScreenOne(
 ) {
     Box(modifier = Modifier.fillMaxSize()) {
 
-        ButtonPrimaryBrand(
+        ButtonBrand(
             modifier = Modifier.align(Alignment.Center),
             text = "ad",
             onClick = { component.toScreenTwo() }
