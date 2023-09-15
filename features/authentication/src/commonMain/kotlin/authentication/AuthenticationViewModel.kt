@@ -28,7 +28,7 @@ class AuthenticationViewModel : ViewModel() {
                 .filterNotNull()
                 .onEach {
                     onReceive.invoke()
-                    delay(100) // TODO FIX
+                    delay(100) // TODO IT WILL FIX WITH NEW NAVIGATION
                     _state.value = state.value.copy(loading = false, error = null)
                 }
                 .launchIn(this)

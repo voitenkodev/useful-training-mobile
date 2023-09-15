@@ -16,6 +16,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
 import components.Error
 import components.Loading
@@ -80,8 +81,16 @@ private fun Content(
     updatePassword: (String) -> Unit,
 ) {
 
-    val loginProvider by rememberUpdatedState(login)
-    val registrationProvider by rememberUpdatedState(registration)
+    val focus = LocalFocusManager.current
+
+    val loginProvider by rememberUpdatedState {
+        focus.clearFocus()
+        login.invoke()
+    }
+    val registrationProvider by rememberUpdatedState {
+        focus.clearFocus()
+        registration.invoke()
+    }
     val backProvider by rememberUpdatedState(back)
 
     val keyboardFloatAsState = keyboardFloatAsState(

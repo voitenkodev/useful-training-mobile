@@ -3,6 +3,7 @@ plugins {
     kotlin("native.cocoapods")
     id("com.android.library")
     id("org.jetbrains.compose")
+    id("org.jetbrains.kotlin.plugin.parcelize") // TODO JUST FOR NAVIGATION DECOMPOSE
 }
 
 apply(from = "../config/gradle/build-scripts/android.gradle")
@@ -27,9 +28,15 @@ kotlin {
 
                 // Compose
                 implementation(compose.ui)
+                implementation(compose.animation)  // TODO JUST FOR NAVIGATION DECOMPOSE
 
                 // Koin
                 implementation(libs.koin.core)
+
+                // Navigation DECOMPOSE
+                implementation("com.arkivanov.decompose:decompose:2.0.2-compose-experimental")
+                implementation("com.arkivanov.decompose:extensions-compose-jetbrains:2.0.2-compose-experimental")
+
             }
         }
 

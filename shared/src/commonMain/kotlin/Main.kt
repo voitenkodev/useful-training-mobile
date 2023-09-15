@@ -2,10 +2,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import authentication.AuthenticationContent
 import authentication.AuthenticationViewModel
+import com.arkivanov.decompose.DefaultComponentContext
+import com.arkivanov.essenty.lifecycle.LifecycleRegistry
 import navigation.Animation
 import navigation.GraphBuilder
 import navigation.RootController
 import navigation.findNavigator
+import root.RootComponent
+import root.RootContent
 import splash.SplashContent
 import splash.SplashViewModel
 import training.TrainingContent
@@ -15,13 +19,23 @@ import trainings.TrainingsViewModel
 
 internal enum class Graph(val link: String) {
     Auth("auth_screen"),
-
-
     Splash("splash_screen"),
     Trainings("trainings_screen"),
     Training("training_screen"),
     Review("review_screen"),
     Summary("summary_screen")
+}
+
+@Composable
+internal fun MainTemp(
+    modifier: Modifier = Modifier,
+    lifecycle: LifecycleRegistry,
+) {
+    DesignTheme(modifier = modifier) {
+        RootContent(
+            component = RootComponent(componentContext = DefaultComponentContext(lifecycle))
+        )
+    }
 }
 
 @Composable
