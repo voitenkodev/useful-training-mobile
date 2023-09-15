@@ -14,7 +14,7 @@ interface TrainingRepository {
 
     suspend fun setTraining(training: TrainingDTO): Flow<String>
 
-    suspend fun removeTraining(trainingId: String): Flow<Unit>
+    suspend fun deleteTraining(trainingId: String): Flow<Unit>
 
     suspend fun getExerciseNameOptions(): Flow<List<String>>
 

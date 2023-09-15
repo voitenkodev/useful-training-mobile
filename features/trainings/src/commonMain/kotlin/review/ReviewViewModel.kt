@@ -57,7 +57,7 @@ class ReviewViewModel : ViewModel() {
 
     fun removeTraining(trainingId: String, onSuccess: () -> Unit) = viewModelScope.launch {
         api
-            .removeTraining(trainingId = trainingId)
+            .deleteTraining(trainingId = trainingId)
             .onStart {
                 _state.value = state.value.copy(loading = true, error = null)
             }.onEach {
