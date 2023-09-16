@@ -6,15 +6,12 @@ import data.Exercise
 import data.Iteration
 import database
 import dto.backend.ExerciseDTO
-import dto.backend.ExerciseDateDTO
 import dto.backend.IterationDTO
 import dto.backend.TrainingDTO
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.withContext
+import source.database.mappers.toDto
 
 class DataBaseSource(nativeContext: NativeContext) {
 
@@ -50,15 +47,7 @@ class DataBaseSource(nativeContext: NativeContext) {
                     .executeAsList()
             }
 
-            TrainingDTO(
-                id = trainingEntity.id,
-                duration = trainingEntity.duration,
-                date = trainingEntity.date,
-                tonnage = trainingEntity.tonnage,
-                countOfLifting = trainingEntity.countOfLifting?.toInt(),
-                intensity = trainingEntity.intensity,
-                exercises = exercises
-            )
+            trainingEntity.toDto(exercises = exercises)
         }
 
         return flowOf(dto)
@@ -76,23 +65,11 @@ class DataBaseSource(nativeContext: NativeContext) {
                 .executeAsList()
         }
 
-        val dto = TrainingDTO(
-            id = result.id,
-            duration = result.duration,
-            date = result.date,
-            tonnage = result.tonnage,
-            countOfLifting = result.countOfLifting?.toInt(),
-            intensity = result.intensity,
-            exercises = exercises
-        )
-
-        return flowOf(dto)
+        return flowOf(result.toDto(exercises = exercises))
     }
 
-    suspend fun setTrainings(trainings: List<TrainingDTO>) = withContext(Dispatchers.Default) {
-        trainingsBd.transaction {
-            trainings.map { setTraining(it) }
-        }
+    fun setTrainings(trainings: List<TrainingDTO>) = trainingsBd.transaction {
+        trainings.map { setTraining(it) }
     }
 
     fun setTraining(training: TrainingDTO): String? {
@@ -140,14 +117,7 @@ class DataBaseSource(nativeContext: NativeContext) {
     }
 
     fun deleteTraining(trainingId: String) {
-        trainingsBd
-            .deleteTrainingById(id = trainingId)
-    }
-
-    suspend fun getExercises(query: String): Flow<List<ExerciseDateDTO>> {
-        return flow {
-            // TODO REALIZE
-        }
+        trainingsBd.deleteTrainingById(id = trainingId)
     }
 
     private fun getExercisesBy(action: () -> List<Exercise>): List<ExerciseDTO> {
@@ -159,26 +129,11 @@ class DataBaseSource(nativeContext: NativeContext) {
                     .executeAsList()
             }
 
-            ExerciseDTO(
-                id = exerciseEntity.id,
-                name = exerciseEntity.name,
-                tonnage = exerciseEntity.tonnage,
-                countOfLifting = exerciseEntity.countOfLifting?.toInt(),
-                intensity = exerciseEntity.intensity,
-                iterations = iterations
-            )
+            exerciseEntity.toDto(iterations = iterations)
         }
     }
 
     private fun getIterationsBy(action: () -> List<Iteration>): List<IterationDTO> {
-
-        return action()
-            .map { iterationEntity ->
-                IterationDTO(
-                    id = iterationEntity.id,
-                    weight = iterationEntity.weight,
-                    repeat = iterationEntity.repeat?.toInt()
-                )
-            }
+        return action().map { iterationEntity -> iterationEntity.toDto() }
     }
 }
