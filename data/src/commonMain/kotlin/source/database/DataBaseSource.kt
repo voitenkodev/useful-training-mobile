@@ -23,9 +23,7 @@ class DataBaseSource(nativeContext: NativeContext) {
     private val trainingsBd by lazy { database.trainingsQueries }
 
     fun setExerciseNames(names: List<String>): Flow<Unit> {
-        val request = userExerciseNamesBd.transactionWithResult {
-            names.forEach { userExerciseNamesBd.insert(it) }
-        }
+        val request = names.forEach { userExerciseNamesBd.insert(it) }
         return flowOf(request)
     }
 
@@ -92,59 +90,56 @@ class DataBaseSource(nativeContext: NativeContext) {
     }
 
     suspend fun setTrainings(trainings: List<TrainingDTO>) = withContext(Dispatchers.Default) {
-        trainings.map { setTraining(it) }
+        trainingsBd.transaction {
+            trainings.map { setTraining(it) }
+        }
     }
 
-    suspend fun setTraining(training: TrainingDTO): String? = withContext(Dispatchers.Default) {
+    fun setTraining(training: TrainingDTO): String? {
 
-        val trainingId = training.id ?: return@withContext null
+        val trainingId = training.id ?: return null
 
-        trainingsBd.transaction {
+        trainingsBd.setTraining(
+            id = trainingId,
+            duration = training.duration,
+            date = training.date,
+            tonnage = training.tonnage,
+            countOfLifting = training.countOfLifting?.toLong(),
+            intensity = training.intensity
+        )
 
-            trainingsBd.setTraining(
-                id = trainingId,
-                duration = training.duration,
-                date = training.date,
-                tonnage = training.tonnage,
-                countOfLifting = training.countOfLifting?.toLong(),
-                intensity = training.intensity
+        trainingsBd.deleteExercisesByTrainingId(training.id)
+
+        for (exercise in training.exercises) {
+
+            val exerciseId = exercise.id ?: continue
+
+            trainingsBd.setExercise(
+                id = exerciseId,
+                trainingId = training.id,
+                name = exercise.name,
+                tonnage = exercise.tonnage,
+                countOfLifting = exercise.countOfLifting?.toLong(),
+                intensity = exercise.intensity
             )
 
-            trainingsBd.deleteExercisesByTrainingId(training.id)
+            for (iteration in exercise.iterations) {
 
-            for (exercise in training.exercises) {
+                val iterationId = iteration.id ?: continue
 
-                val exerciseId = exercise.id ?: continue
-
-                trainingsBd.deleteIterationsByExerciseId(exerciseId)
-
-                trainingsBd.setExercise(
-                    id = exerciseId,
-                    trainingId = training.id,
-                    name = exercise.name,
-                    tonnage = exercise.tonnage,
-                    countOfLifting = exercise.countOfLifting?.toLong(),
-                    intensity = exercise.intensity
+                trainingsBd.setIteration(
+                    id = iterationId,
+                    exerciseId = exerciseId,
+                    weight = iteration.weight,
+                    repeat = iteration.repeat?.toLong()
                 )
-
-                for (iteration in exercise.iterations) {
-
-                    val iterationId = iteration.id ?: continue
-
-                    trainingsBd.setIteration(
-                        id = iterationId,
-                        exerciseId = exerciseId,
-                        weight = iteration.weight,
-                        repeat = iteration.repeat?.toLong()
-                    )
-                }
             }
         }
 
-        return@withContext trainingId
+        return trainingId
     }
 
-    suspend fun deleteTraining(trainingId: String) = withContext(Dispatchers.Default) {
+    suspend fun deleteTraining(trainingId: String) {
         trainingsBd.deleteTrainingById(id = trainingId)
     }
 
@@ -154,8 +149,8 @@ class DataBaseSource(nativeContext: NativeContext) {
         }
     }
 
-    private suspend fun getExercisesBy(action: () -> List<Exercise>): List<ExerciseDTO> = withContext(Dispatchers.Default) {
-        return@withContext action().map { exerciseEntity ->
+    private fun getExercisesBy(action: () -> List<Exercise>): List<ExerciseDTO> {
+        return action().map { exerciseEntity ->
 
             val iterations = getIterationsBy {
                 trainingsBd
@@ -174,8 +169,8 @@ class DataBaseSource(nativeContext: NativeContext) {
         }
     }
 
-    private suspend fun getIterationsBy(action: () -> List<Iteration>): List<IterationDTO> = withContext(Dispatchers.Default) {
-        return@withContext action()
+    private fun getIterationsBy(action: () -> List<Iteration>): List<IterationDTO> {
+        return action()
             .map { iterationEntity ->
                 IterationDTO(
                     id = iterationEntity.id,

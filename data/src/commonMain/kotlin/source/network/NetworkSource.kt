@@ -31,7 +31,7 @@ class NetworkSource(
                 path("/trainings")
             }
             contentType()
-        }.body()
+        }.body<List<TrainingDTO>>()
     }
 
     suspend fun getExercises(query: String): List<ExerciseDateDTO> {

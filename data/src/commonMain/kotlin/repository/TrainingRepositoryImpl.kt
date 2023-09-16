@@ -17,12 +17,12 @@ class TrainingRepositoryImpl(
 ) : TrainingRepository {
 
     override suspend fun getTrainings(): Flow<List<TrainingDTO>> {
-        val remoteRequest =
-            flow {
-                emit(remote.getTrainings())
-            }.onEach {
-                local.setTrainings(it)
-            }
+
+        val remoteRequest = flow {
+            emit(remote.getTrainings())
+        }.onEach {
+            local.setTrainings(it)
+        }
 
         val localRequest = local
             .getTrainings()
