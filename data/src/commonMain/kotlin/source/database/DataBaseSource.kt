@@ -36,7 +36,7 @@ class DataBaseSource(nativeContext: NativeContext) {
             .map { value }
     }
 
-    suspend fun getTrainings(): Flow<List<TrainingDTO>> = withContext(Dispatchers.Default) {
+    fun getTrainings(): Flow<List<TrainingDTO>> {
 
         val result = trainingsBd
             .getTrainings()
@@ -61,10 +61,10 @@ class DataBaseSource(nativeContext: NativeContext) {
             )
         }
 
-        flowOf(dto)
+        return flowOf(dto)
     }
 
-    suspend fun getTraining(trainingId: String): Flow<TrainingDTO> = withContext(Dispatchers.Default) {
+    fun getTraining(trainingId: String): Flow<TrainingDTO> {
 
         val result = trainingsBd
             .getTrainingById(trainingId)
@@ -86,7 +86,7 @@ class DataBaseSource(nativeContext: NativeContext) {
             exercises = exercises
         )
 
-        flowOf(dto)
+        return flowOf(dto)
     }
 
     suspend fun setTrainings(trainings: List<TrainingDTO>) = withContext(Dispatchers.Default) {
@@ -139,8 +139,9 @@ class DataBaseSource(nativeContext: NativeContext) {
         return trainingId
     }
 
-    suspend fun deleteTraining(trainingId: String) {
-        trainingsBd.deleteTrainingById(id = trainingId)
+    fun deleteTraining(trainingId: String) {
+        trainingsBd
+            .deleteTrainingById(id = trainingId)
     }
 
     suspend fun getExercises(query: String): Flow<List<ExerciseDateDTO>> {
@@ -170,6 +171,7 @@ class DataBaseSource(nativeContext: NativeContext) {
     }
 
     private fun getIterationsBy(action: () -> List<Iteration>): List<IterationDTO> {
+
         return action()
             .map { iterationEntity ->
                 IterationDTO(

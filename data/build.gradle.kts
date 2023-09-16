@@ -35,6 +35,7 @@ kotlin {
 
                 implementation(libs.serialization)
                 implementation(libs.datastore)
+                implementation(libs.sqldelight.coroutine)
             }
         }
 
