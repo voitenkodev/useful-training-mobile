@@ -1,10 +1,14 @@
 package atomic
 
+import Design
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.graphics.Color
 
-internal fun darkPalette() = AppColors()
+internal fun darkPalette() = Color()
 
-data class AppColors(
+data class Color(
     // Background
     val primary: Color = Color(0xff000000),
     val secondary: Color = Color(0xff13131c),
@@ -27,6 +31,19 @@ data class AppColors(
     val content: Color = Color(0xffffffff),
     val caption: Color = Color(0xffa6a6a6),
 )
+
+@Composable
+fun rememberAccentColorsAsState(): State<List<Color>> {
+    return rememberUpdatedState(
+        listOf(
+            Design.colors.accent_primary,
+            Design.colors.accent_secondary,
+            Design.colors.accent_tertiary,
+            Design.colors.accent_quaternary,
+            Design.colors.accent_quinary,
+        )
+    )
+}
 
 /*
 100% — FF

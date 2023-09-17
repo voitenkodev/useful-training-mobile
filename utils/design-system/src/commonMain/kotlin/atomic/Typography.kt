@@ -10,7 +10,7 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.sp
 
 @Composable
-internal fun appTypography() = AppTypography(
+internal fun typography() = Typography(
     H1 = TextStyle(
         fontSize = 48.sp,
         fontWeight = FontWeight.ExtraBold,
@@ -71,7 +71,7 @@ internal fun appTypography() = AppTypography(
     )
 )
 
-data class AppTypography(
+data class Typography(
     val H1: TextStyle, // big titles
     val H2: TextStyle, // medium titles
     val H3: TextStyle, // little titles

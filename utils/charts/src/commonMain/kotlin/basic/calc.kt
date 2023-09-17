@@ -1,4 +1,4 @@
-package chart.basic
+package basic
 
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path

@@ -9,8 +9,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.rememberUpdatedState
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import atomic.rememberAccentColorsAsState
 import components.BottomScreenControls
 import components.Error
 import components.Loading
@@ -18,6 +24,8 @@ import components.backgrounds.BrandGradientCenterEnd
 import components.backgrounds.BrandGradientCenterStart
 import components.overlay.AlphaOverlay
 import components.roots.Root
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import training.Training
 
 @Composable
@@ -63,18 +71,21 @@ private fun Content(
     trainings: () -> List<Training>,
     openTraining: (trainingId: String) -> Unit,
 ) {
+
     val addTrainingProvider by rememberUpdatedState(newTraining)
     val backProvider by rememberUpdatedState(back)
 
-    val accentList = rememberUpdatedState(
-        listOf(
-            Design.colors.accent_primary,
-            Design.colors.accent_secondary,
-            Design.colors.accent_tertiary,
-            Design.colors.accent_quaternary,
-            Design.colors.accent_quinary,
-        )
-    )
+    val pagerState = rememberPagerState { trainings().size }
+    val accentList = rememberAccentColorsAsState()
+    val pageColor = remember { mutableStateOf(Color.Transparent) }
+    val scope = rememberCoroutineScope()
+    val animDelay = Design.duration.animM
+
+    LaunchedEffect(pagerState) {
+        snapshotFlow { pagerState.currentPage }.collect { page ->
+            pageColor.value = accentList.value[page % accentList.value.size]
+        }
+    }
 
     Root(
         loading = { Loading(loading) },
@@ -82,38 +93,43 @@ private fun Content(
         back = { PlatformBackHandler(backProvider) },
     ) {
 
-        val pagerState = rememberPagerState { trainings().size }
-
         VerticalPager(state = pagerState) {
             val training by rememberUpdatedState(trainings()[it])
+
             TrainingPage(
                 training = training,
                 openTraining = {
                     val id = training.id ?: return@TrainingPage
-                    openTraining.invoke(id)
+                    pageColor.value = Color.Transparent
+                    scope.launch {
+                        delay(animDelay.toLong())
+                        openTraining.invoke(id)
+                    }
                 },
-                pageColor = accentList.value[it % accentList.value.size]
+                pageColor = Design.colors.content
             )
         }
 
         BottomScreenControls(
+            modifier = Modifier,
             pagerState = pagerState,
+            visibilityCondition = { pageColor.value != Color.Transparent },
             addTraining = addTrainingProvider,
             logout = logout
         )
 
         BrandGradientCenterEnd(
-            color = accentList.value[pagerState.currentPage % accentList.value.size]
+            color = pageColor.value
         )
 
         BrandGradientCenterStart(
-            color = accentList.value[pagerState.currentPage % accentList.value.size]
+            color = pageColor.value
         )
 
         AlphaOverlay(
             modifier = Modifier.fillMaxSize(),
-            condition = { loading().not() },
-            animationDuration = 900,
+            visibilityCondition = { loading().not() },
+            animationDuration = Design.duration.animM,
             delayDuration = 300
         )
     }

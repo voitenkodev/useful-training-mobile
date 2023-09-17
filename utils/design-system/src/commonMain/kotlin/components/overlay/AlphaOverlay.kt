@@ -16,7 +16,7 @@ import androidx.compose.ui.graphics.graphicsLayer
 @Composable
 fun AlphaOverlay(
     modifier: Modifier = Modifier,
-    condition: () -> Boolean = { true },
+    visibilityCondition: () -> Boolean = { true },
     initialAlpha: Float = 1f,
     targetAlpha: Float = 0f,
     animationDuration: Int = 1200,
@@ -32,8 +32,8 @@ fun AlphaOverlay(
         )
     )
 
-    LaunchedEffect(condition()) {
-        if (condition()) animatedValue.value = targetAlpha
+    LaunchedEffect(visibilityCondition()) {
+        if (visibilityCondition()) animatedValue.value = targetAlpha
     }
 
     Spacer(

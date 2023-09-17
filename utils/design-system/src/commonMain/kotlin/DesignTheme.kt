@@ -2,10 +2,11 @@ import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
-import atomic.appDp
-import atomic.appShape
-import atomic.appTypography
+import atomic.dp
+import atomic.shape
+import atomic.typography
 import atomic.darkPalette
+import atomic.duration
 import controls.primaryBackground
 
 @Composable
@@ -15,16 +16,18 @@ fun DesignTheme(
     content: @Composable () -> Unit
 ) = CompositionLocalProvider(
 
-    LocalAppColors provides when (darkTheme) {
+    LocalColor provides when (darkTheme) {
         true -> darkPalette()
         false -> darkPalette()
     },
 
-    LocalAppTypography provides appTypography(),
+    LocalTypography provides typography(),
 
-    LocalAppDp provides appDp(),
+    LocalDp provides dp(),
 
-    LocalAppShape provides appShape(),
+    LocalShape provides shape(),
+
+    LocalDuration provides duration(),
 
     content = {
         Surface(

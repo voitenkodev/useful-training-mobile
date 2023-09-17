@@ -3,7 +3,7 @@ package atomic
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
-internal fun appDp() = AppDp(
+internal fun dp() = Dp(
     paddingXS = 4.dp,
     paddingS = 8.dp,
     paddingM = 16.dp,
@@ -14,7 +14,7 @@ internal fun appDp() = AppDp(
     fixedWidth = 300.dp
 )
 
-data class AppDp(
+data class Dp(
     val paddingXS: Dp,
     val paddingS: Dp,
     val paddingM: Dp,

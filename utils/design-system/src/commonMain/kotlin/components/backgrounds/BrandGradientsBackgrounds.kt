@@ -24,7 +24,7 @@ fun BoxScope.BrandGradientCenterStart(
 
     val colorAnimation = animateColorAsState(
         color,
-        animationSpec = tween(800)
+        animationSpec = tween(Design.duration.animM)
     )
 
     BackgroundLight(
@@ -52,7 +52,7 @@ fun BoxScope.BrandGradientCenterEnd(
 
     val colorAnimation = animateColorAsState(
         color,
-        animationSpec = tween(800)
+        animationSpec = tween(Design.duration.animM)
     )
 
     BackgroundLight(
