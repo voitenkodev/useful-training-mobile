@@ -15,7 +15,6 @@ class OpenAIRepositoryImpl(
             append("Выведи только результат, без дополнительной информации")
         }
         return flow {
-            emit(remote.generateViaOpenAI(promt)?.choices.toString())
         }
     }
 }

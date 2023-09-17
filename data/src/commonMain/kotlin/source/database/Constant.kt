@@ -1,3 +1,3 @@
 package source.database
 
-const val DB_FILE_NAME = "UsefulTraining.db"
+internal const val DB_FILE_NAME = "UsefulTraining.db"

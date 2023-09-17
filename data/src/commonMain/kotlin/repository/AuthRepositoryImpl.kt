@@ -1,5 +1,6 @@
 package repository
 
+import dto.backend.AuthDTO
 import dto.backend.TokenDTO
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -14,7 +15,7 @@ class AuthRepositoryImpl(
 
     override fun login(email: String, password: String): Flow<Unit> =
         flow {
-            emit(remote.login(email, password))
+            emit(remote.login(AuthDTO(email, password)))
         }.map {
             val token = it.token
             if (token != null) preferencesSource.setToken(token)
@@ -22,9 +23,8 @@ class AuthRepositoryImpl(
 
     override fun registration(email: String, password: String): Flow<TokenDTO> =
         flow {
-            emit(remote.registration(email, password))
+            emit(remote.registration(AuthDTO(email, password)))
         }
-
 
     override fun getToken(): Flow<String?> =
         preferencesSource.getToken()

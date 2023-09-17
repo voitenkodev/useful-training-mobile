@@ -43,7 +43,7 @@ class TrainingRepositoryImpl(
         flowOf(remote.getExercises(query))
 
     override suspend fun setTraining(training: TrainingDTO): Flow<String> =
-        flowOf(remote.setTraining(training = training))
+        flowOf(remote.setTraining(body = training))
 
     override suspend fun deleteTraining(trainingId: String): Flow<Unit> =
         flow {

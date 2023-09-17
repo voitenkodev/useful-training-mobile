@@ -4,9 +4,7 @@ import data.Training
 import dto.backend.ExerciseDTO
 import dto.backend.TrainingDTO
 
-fun Training.toDto(
-    exercises: List<ExerciseDTO>,
-): TrainingDTO {
+internal fun Training.toDto(exercises: List<ExerciseDTO>, ): TrainingDTO {
     return TrainingDTO(
         id = this.id,
         duration = this.duration,

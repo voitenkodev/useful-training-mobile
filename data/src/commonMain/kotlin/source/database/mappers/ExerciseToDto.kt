@@ -4,9 +4,7 @@ import data.Exercise
 import dto.backend.ExerciseDTO
 import dto.backend.IterationDTO
 
-fun Exercise.toDto(
-    iterations: List<IterationDTO>
-): ExerciseDTO {
+internal fun Exercise.toDto(iterations: List<IterationDTO>): ExerciseDTO {
     return ExerciseDTO(
         id = this.id,
         name = this.name,
