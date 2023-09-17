@@ -2,12 +2,15 @@ package source.database
 
 import NativeContext
 import UsefulTrainingDatabase
+import app.cash.sqldelight.coroutines.asFlow
+import app.cash.sqldelight.coroutines.mapToList
 import data.Exercise
 import data.Iteration
 import database
 import dto.backend.ExerciseDTO
 import dto.backend.IterationDTO
 import dto.backend.TrainingDTO
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
@@ -37,20 +40,22 @@ class DataBaseSource(nativeContext: NativeContext) {
 
         val result = trainingsBd
             .getTrainings()
-            .executeAsList()
+            .asFlow()
+            .mapToList(Dispatchers.Default)
+            .map { trainings ->
+                trainings.map { trainingEntity ->
 
-        val dto = result.map { trainingEntity ->
+                    val exercises = getExercisesBy {
+                        trainingsBd
+                            .getExercisesByTrainingId(trainingEntity.id)
+                            .executeAsList()
+                    }
 
-            val exercises = getExercisesBy {
-                trainingsBd
-                    .getExercisesByTrainingId(trainingEntity.id)
-                    .executeAsList()
+                    trainingEntity.toDto(exercises = exercises)
+                }
             }
 
-            trainingEntity.toDto(exercises = exercises)
-        }
-
-        return flowOf(dto)
+        return result
     }
 
     fun getTraining(trainingId: String): Flow<TrainingDTO> {

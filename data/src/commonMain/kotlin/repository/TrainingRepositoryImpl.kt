@@ -3,11 +3,12 @@ package repository
 import dto.backend.ExerciseDateDTO
 import dto.backend.TrainingDTO
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.filterNot
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.merge
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.onStart
 import source.database.DataBaseSource
 import source.network.NetworkSource
 
@@ -16,34 +17,39 @@ class TrainingRepositoryImpl(
     private val local: DataBaseSource
 ) : TrainingRepository {
 
+    private enum class SOURCE { LOCAL, REMOTE }
+
     override suspend fun getTrainings(): Flow<List<TrainingDTO>> {
 
-        val remoteRequest = flow {
-            emit(remote.getTrainings())
-        }.onEach {
-            local.setTrainings(it)
-        }
+        val remoteRequest = flow { emit(remote.getTrainings()) }
+            .onEach { local.setTrainings(it) }
+            .map { it to SOURCE.REMOTE }
 
-        val localRequest = local
-            .getTrainings()
+        val localRequest = local.getTrainings()
+            .map { it to SOURCE.LOCAL }
+            .catch { }
 
         return merge(localRequest, remoteRequest)
+            .filterNot { it.second == SOURCE.REMOTE }
+            .map { it.first }
     }
 
-    // TODO OVERRIDE
-    override suspend fun getTraining(trainingId: String): Flow<TrainingDTO> = local
-        .getTraining(trainingId)
-        .onStart {
-            val training = remote.getTraining(trainingId)
-            local.setTraining(training)
-        }
+    override suspend fun getTraining(trainingId: String): Flow<TrainingDTO> {
 
-    // TODO ADD LOCAL CALL
-    override suspend fun getExercises(query: String): Flow<List<ExerciseDateDTO>> =
-        flowOf(remote.getExercises(query))
+        val remoteRequest = flow { emit(remote.getTraining(trainingId)) }
+            .onEach { local.setTraining(it) }
+            .map { it to SOURCE.REMOTE }
+
+        val localRequest = local.getTraining(trainingId)
+            .map { it to SOURCE.LOCAL }
+
+        return merge(localRequest, remoteRequest)
+            .filterNot { it.second == SOURCE.REMOTE }
+            .map { it.first }
+    }
 
     override suspend fun setTraining(training: TrainingDTO): Flow<String> =
-        flowOf(remote.setTraining(body = training))
+        flow { emit(remote.setTraining(body = training)) }
 
     override suspend fun deleteTraining(trainingId: String): Flow<Unit> =
         flow {
@@ -51,6 +57,9 @@ class TrainingRepositoryImpl(
             local.deleteTraining(trainingId)
             emit(Unit)
         }
+
+    override suspend fun getExercises(query: String): Flow<List<ExerciseDateDTO>> =
+        flow { emit(remote.getExercises(query)) }
 
     override suspend fun setExerciseNameOptions(names: List<String>) = local
         .setExerciseNames(names)

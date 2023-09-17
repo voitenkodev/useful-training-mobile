@@ -9,7 +9,6 @@ import io.ktor.client.request.request
 import io.ktor.client.request.setBody
 import io.ktor.http.HttpMethod
 import io.ktor.http.contentType
-import io.ktor.http.isSuccess
 import io.ktor.http.path
 
 class NetworkSource(private val clientBackend: ClientBackend) {
@@ -73,28 +72,20 @@ class NetworkSource(private val clientBackend: ClientBackend) {
         body: Any? = null,
         queryParams: Map<String, String>? = null
     ): T {
-        return try {
-            val response = clientBackend.setup().request {
-                url {
-                    this.path(path)
-                    queryParams?.forEach { (key, value) ->
-                        parameters.append(key, value)
-                    }
-                    if (body != null) {
-                        setBody(body)
-                    }
+        val response = clientBackend.setup().request {
+            url {
+                this.path(path)
+                queryParams?.forEach { (key, value) ->
+                    parameters.append(key, value)
                 }
-                contentType()
-                this.method = method
+                if (body != null) {
+                    setBody(body)
+                }
             }
-
-            if (response.status.isSuccess()) {
-                response.body<T>()
-            } else {
-                throw Exception("Request failed with status code ${response.status.value}.")
-            }
-        } catch (e: Exception) {
-            throw Exception("Request failed: ${e.message}", e)
+            contentType()
+            this.method = method
         }
+
+        return response.body<T>()
     }
 }
