@@ -16,34 +16,35 @@ import recomposeHighlighter
 import training.Training
 
 @Composable
-internal fun Exercises(
-    training: Training,
-) {
+internal fun Exercises(training: Training) {
 
     val exes = rememberUpdatedState(training.exercises)
 
-    TextFieldH2(
-        provideText = { "EXERCISES" }
-    )
+    Column {
 
-    Spacer(modifier = Modifier.size(Design.dp.paddingS))
+        TextFieldH2(
+            provideText = { "EXERCISES" }
+        )
 
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .secondaryBackground()
-            .padding(Design.dp.paddingS)
-    ) {
+        Spacer(modifier = Modifier.size(Design.dp.paddingS))
 
-        exes.value.forEachIndexed { index, item ->
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .secondaryBackground()
+                .padding(Design.dp.paddingS)
+        ) {
 
-            val number by rememberUpdatedState(index + 1)
+            exes.value.forEachIndexed { index, item ->
 
-            Exercise(
-                modifier = Modifier.recomposeHighlighter(),
-                provideNumber = { number },
-                exercise = { item }
-            )
+                val number by rememberUpdatedState(index + 1)
+
+                Exercise(
+                    modifier = Modifier.recomposeHighlighter(),
+                    provideNumber = { number },
+                    exercise = { item }
+                )
+            }
         }
     }
 }

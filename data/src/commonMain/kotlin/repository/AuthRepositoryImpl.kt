@@ -5,12 +5,14 @@ import dto.backend.TokenDTO
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
+import source.database.DataBaseSource
 import source.datastore.PreferencesSource
 import source.network.NetworkSource
 
 class AuthRepositoryImpl(
     private val remote: NetworkSource,
-    private val preferencesSource: PreferencesSource
+    private val preferences: PreferencesSource,
+    private val local: DataBaseSource
 ) : AuthRepository {
 
     override fun login(email: String, password: String): Flow<Unit> =
@@ -18,7 +20,7 @@ class AuthRepositoryImpl(
             emit(remote.login(AuthDTO(email, password)))
         }.map {
             val token = it.token
-            if (token != null) preferencesSource.setToken(token)
+            if (token != null) preferences.setToken(token)
         }
 
     override fun registration(email: String, password: String): Flow<TokenDTO> =
@@ -27,9 +29,10 @@ class AuthRepositoryImpl(
         }
 
     override fun getToken(): Flow<String?> =
-        preferencesSource.getToken()
+        preferences.getToken()
 
     override suspend fun logout() {
-        preferencesSource.removeToken()
+        preferences.removeToken()
+        local.deleteAll()
     }
 }

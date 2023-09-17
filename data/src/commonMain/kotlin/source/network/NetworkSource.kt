@@ -12,6 +12,7 @@ import io.ktor.http.contentType
 import io.ktor.http.path
 
 class NetworkSource(private val clientBackend: ClientBackend) {
+
     suspend fun setTraining(body: TrainingDTO): String {
         return callRequest(
             method = HttpMethod.Post,

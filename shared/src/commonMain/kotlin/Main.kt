@@ -108,7 +108,7 @@ private fun GraphBuilder.trainingsGraph() {
         )
     }
 
-    screen(key = Graph.Review.link, animation = Animation.Present(500)) { store ->
+    screen(key = Graph.Review.link, animation = Animation.None) { store ->
         val navigator = findNavigator()
         val trainingId = store.args.getOrElse("trainingId") { "" } as String
         val viewModel = store.getOrCreate(

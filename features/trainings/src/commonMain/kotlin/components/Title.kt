@@ -1,6 +1,5 @@
 package components
 
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -15,8 +14,6 @@ internal fun TrainingTitle(
     weekDay: () -> String,
     date: () -> String,
     titleColor: Color
-) = Column(
-    modifier = modifier.recomposeHighlighter()
 ) {
 
     TextFieldH1(

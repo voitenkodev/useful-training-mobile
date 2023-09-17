@@ -28,6 +28,9 @@ SELECT *
 FROM Training
 ORDER BY id DESC;
 
+deleteAll:
+DELETE FROM Training;
+
 getTrainingById:
 SELECT *
 FROM Training

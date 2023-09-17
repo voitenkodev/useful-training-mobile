@@ -14,3 +14,6 @@ VALUES (?);
 delete:
 DELETE FROM UserExerciseNameEntity
 WHERE (value) = ?;
+
+deleteAll:
+DELETE FROM UserExerciseNameEntity;

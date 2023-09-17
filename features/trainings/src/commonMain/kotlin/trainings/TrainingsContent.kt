@@ -11,6 +11,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
+import components.BottomScreenControls
 import components.Error
 import components.Loading
 import components.backgrounds.BrandGradientCenterEnd
@@ -18,7 +19,6 @@ import components.backgrounds.BrandGradientCenterStart
 import components.overlay.AlphaOverlay
 import components.roots.Root
 import training.Training
-import components.BottomScreenControls
 
 @Composable
 fun TrainingsContent(
@@ -43,7 +43,7 @@ fun TrainingsContent(
         newTraining = toNewTraining,
         logout = { vm.logout(toAuth) },
         trainings = { state.trainings },
-        editTraining = toTrainingById,
+        openTraining = toTrainingById,
     )
 }
 
@@ -61,9 +61,8 @@ private fun Content(
 
     // CONTENT
     trainings: () -> List<Training>,
-    editTraining: (trainingId: String) -> Unit,
+    openTraining: (trainingId: String) -> Unit,
 ) {
-
     val addTrainingProvider by rememberUpdatedState(newTraining)
     val backProvider by rememberUpdatedState(back)
 
@@ -89,9 +88,9 @@ private fun Content(
             val training by rememberUpdatedState(trainings()[it])
             TrainingPage(
                 training = training,
-                editTraining = {
+                openTraining = {
                     val id = training.id ?: return@TrainingPage
-                    editTraining.invoke(id)
+                    openTraining.invoke(id)
                 },
                 pageColor = accentList.value[it % accentList.value.size]
             )

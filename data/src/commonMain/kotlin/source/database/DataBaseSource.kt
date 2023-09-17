@@ -4,6 +4,7 @@ import NativeContext
 import UsefulTrainingDatabase
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
+import app.cash.sqldelight.coroutines.mapToOne
 import data.Exercise
 import data.Iteration
 import database
@@ -62,15 +63,18 @@ class DataBaseSource(nativeContext: NativeContext) {
 
         val result = trainingsBd
             .getTrainingById(trainingId)
-            .executeAsOne()
+            .asFlow()
+            .mapToOne(Dispatchers.Default)
+            .map {
+                val exercises = getExercisesBy {
+                    trainingsBd
+                        .getExercisesByTrainingId(it.id)
+                        .executeAsList()
+                }
+                it.toDto(exercises = exercises)
+            }
 
-        val exercises = getExercisesBy {
-            trainingsBd
-                .getExercisesByTrainingId(result.id)
-                .executeAsList()
-        }
-
-        return flowOf(result.toDto(exercises = exercises))
+        return result
     }
 
     fun setTrainings(trainings: List<TrainingDTO>) = trainingsBd.transaction {
@@ -121,13 +125,17 @@ class DataBaseSource(nativeContext: NativeContext) {
         return trainingId
     }
 
+    fun deleteAll() {
+        trainingsBd.deleteAll()
+        userExerciseNamesBd.deleteAll()
+    }
+
     fun deleteTraining(trainingId: String) {
         trainingsBd.deleteTrainingById(id = trainingId)
     }
 
     private fun getExercisesBy(action: () -> List<Exercise>): List<ExerciseDTO> {
         return action().map { exerciseEntity ->
-
             val iterations = getIterationsBy {
                 trainingsBd
                     .getIterationsByExercisesId(exerciseEntity.id)
@@ -139,6 +147,8 @@ class DataBaseSource(nativeContext: NativeContext) {
     }
 
     private fun getIterationsBy(action: () -> List<Iteration>): List<IterationDTO> {
-        return action().map { iterationEntity -> iterationEntity.toDto() }
+        return action().map { iterationEntity ->
+            iterationEntity.toDto()
+        }
     }
 }

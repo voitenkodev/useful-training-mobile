@@ -29,6 +29,6 @@ val appModule = module {
     single { DataBaseSource(get()) }
 
     single { TrainingRepositoryImpl(get(), get()) } bind TrainingRepository::class
-    single { AuthRepositoryImpl(get(), get()) } bind AuthRepository::class
+    single { AuthRepositoryImpl(get(), get(), get()) } bind AuthRepository::class
     single { OpenAIRepositoryImpl(get()) } bind OpenAIRepository::class
 }

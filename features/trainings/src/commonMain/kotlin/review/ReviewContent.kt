@@ -2,14 +2,13 @@ package review
 
 import Design
 import PlatformBackHandler
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -22,9 +21,9 @@ import components.Exercises
 import components.Loading
 import components.SummaryInfo
 import components.TrainingTitle
+import components.backgrounds.BottomShadowBackground
 import components.roots.Root
 import platformTopInset
-import recomposeHighlighter
 import training.Training
 
 @Composable
@@ -38,7 +37,7 @@ fun ReviewContent(
     val state by vm.state.collectAsState()
 
     LaunchedEffect(Unit) {
-        vm.getTrainings()
+        vm.getTraining(trainingId)
     }
 
     Content(
@@ -79,51 +78,46 @@ private fun Content(
             modifier = Modifier
                 .fillMaxSize()
                 .platformTopInset()
-                .padding(horizontal = Design.dp.paddingM),
-            verticalArrangement = Arrangement.spacedBy(Design.dp.paddingL)
+                .padding(horizontal = Design.dp.paddingM)
+                .verticalScroll(rememberScrollState()),
         ) {
 
             Spacer(
-                modifier = Modifier.size(Design.dp.paddingM)
+                modifier = Modifier.size(Design.dp.paddingL)
             )
 
             TrainingTitle(
-                titleColor = Design.colors.primary, // PAGE COLOR
+                titleColor = Design.colors.content,
                 weekDay = { trainingProvider.weekDay },
                 date = { trainingProvider.startLongDate },
             )
 
+            Spacer(
+                modifier = Modifier.size(Design.dp.paddingL)
+            )
 
             ChartsInfo(
                 training = trainingProvider
             )
 
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(1f)
-            ) {
+            Spacer(
+                modifier = Modifier.size(Design.dp.paddingL)
+            )
 
-                Column(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .recomposeHighlighter()
-                        .padding(bottom = Design.dp.paddingM),
-                ) {
 
-                    Exercises(
-                        training = trainingProvider,
-                    )
+            Exercises(
+                training = trainingProvider,
+            )
 
-                    Spacer(
-                        modifier = Modifier.size(Design.dp.paddingL)
-                    )
+            Spacer(
+                modifier = Modifier.size(Design.dp.paddingL)
+            )
 
-                    SummaryInfo(
-                        training = trainingProvider
-                    )
-                }
-            }
+            SummaryInfo(
+                training = trainingProvider
+            )
         }
+
+        BottomShadowBackground()
     }
 }
