@@ -4,7 +4,6 @@ import NativeContext
 import UsefulTrainingDatabase
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
-import app.cash.sqldelight.coroutines.mapToOne
 import data.Exercise
 import data.Iteration
 import database
@@ -63,18 +62,15 @@ class DataBaseSource(nativeContext: NativeContext) {
 
         val result = trainingsBd
             .getTrainingById(trainingId)
-            .asFlow()
-            .mapToOne(Dispatchers.Default)
-            .map {
-                val exercises = getExercisesBy {
-                    trainingsBd
-                        .getExercisesByTrainingId(it.id)
-                        .executeAsList()
-                }
-                it.toDto(exercises = exercises)
-            }
+            .executeAsOne()
 
-        return result
+        val dto = getExercisesBy {
+            trainingsBd
+                .getExercisesByTrainingId(result.id)
+                .executeAsList()
+        }
+
+        return flowOf(result.toDto(dto))
     }
 
     fun setTrainings(trainings: List<TrainingDTO>) = trainingsBd.transaction {

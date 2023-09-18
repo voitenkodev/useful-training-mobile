@@ -3,7 +3,6 @@ package repository
 import dto.backend.ExerciseDateDTO
 import dto.backend.TrainingDTO
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.filterNot
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
@@ -27,7 +26,6 @@ class TrainingRepositoryImpl(
 
         val localRequest = local.getTrainings()
             .map { it to SOURCE.LOCAL }
-            .catch { }
 
         return merge(localRequest, remoteRequest)
             .filterNot { it.second == SOURCE.REMOTE }

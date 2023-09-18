@@ -1,8 +1,8 @@
 package atomic
 
 internal fun duration() = Duration(
-    animL = 10,
-    animM = 800,
+    animL = 800,
+    animM = 500,
     animS = 500
 )
 

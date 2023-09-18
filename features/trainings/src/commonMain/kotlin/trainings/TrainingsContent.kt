@@ -2,7 +2,10 @@ package trainings
 
 import Design
 import PlatformBackHandler
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.pager.VerticalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
@@ -13,9 +16,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.rememberUpdatedState
-import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import atomic.rememberAccentColorsAsState
 import components.BottomScreenControls
 import components.Error
@@ -77,15 +79,15 @@ private fun Content(
 
     val pagerState = rememberPagerState { trainings().size }
     val accentList = rememberAccentColorsAsState()
-    val pageColor = remember { mutableStateOf(Color.Transparent) }
     val scope = rememberCoroutineScope()
     val animDelay = Design.duration.animM
 
-    LaunchedEffect(pagerState) {
-        snapshotFlow { pagerState.currentPage }.collect { page ->
-            pageColor.value = accentList.value[page % accentList.value.size]
-        }
-    }
+    val showFrame = remember { mutableStateOf(true) }
+
+    val offset = animateDpAsState(
+        targetValue = if (showFrame.value) 0.dp else 250.dp,
+        tween(durationMillis = Design.duration.animM)
+    )
 
     Root(
         loading = { Loading(loading) },
@@ -100,8 +102,8 @@ private fun Content(
                 training = training,
                 openTraining = {
                     val id = training.id ?: return@TrainingPage
-                    pageColor.value = Color.Transparent
                     scope.launch {
+                        showFrame.value = false
                         delay(animDelay.toLong())
                         openTraining.invoke(id)
                     }
@@ -113,23 +115,25 @@ private fun Content(
         BottomScreenControls(
             modifier = Modifier,
             pagerState = pagerState,
-            visibilityCondition = { pageColor.value != Color.Transparent },
+            visibilityCondition = { showFrame.value },
             addTraining = addTrainingProvider,
             logout = logout
         )
 
         BrandGradientCenterEnd(
-            color = pageColor.value
+            modifier = Modifier.offset(x = offset.value),
+            color = accentList.value[pagerState.currentPage % accentList.value.size]
         )
 
         BrandGradientCenterStart(
-            color = pageColor.value
+            modifier = Modifier.offset(x = -(offset.value)),
+            color = accentList.value[pagerState.currentPage % accentList.value.size]
         )
 
         AlphaOverlay(
             modifier = Modifier.fillMaxSize(),
             visibilityCondition = { loading().not() },
-            animationDuration = Design.duration.animM,
+            animationDuration = Design.duration.animL,
             delayDuration = 300
         )
     }
