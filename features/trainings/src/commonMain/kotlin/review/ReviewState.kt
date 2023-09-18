@@ -8,7 +8,7 @@ import training.Training
 @Parcelize
 @Immutable
 data class ReviewState(
-    val reviewTraining: Training = Training(),
+    val training: Training? = null,
     val compareTraining: Training? = null,
     val otherTrainings: List<Training> = emptyList(),
     val error: String? = null,

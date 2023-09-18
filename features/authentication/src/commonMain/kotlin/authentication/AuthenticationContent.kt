@@ -2,6 +2,7 @@ package authentication
 
 import Design
 import PlatformBackHandler
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
@@ -21,12 +22,13 @@ import androidx.compose.ui.unit.dp
 import components.Error
 import components.Loading
 import components.backgrounds.BackgroundIntro
+import components.backgrounds.BottomShadowBackground
 import components.backgrounds.BrandGradientBottomEnd
+import components.backgrounds.BrandGradientCenterStart
 import components.buttons.ButtonQuestion
 import components.inputs.InputEmail
 import components.inputs.InputPassword
 import components.overlay.AlphaOverlay
-import components.overlay.shadowBottomFrame
 import components.roots.Root
 import components.states.keyboardFloatAsState
 import controls.ButtonBrand
@@ -104,18 +106,16 @@ private fun Content(
         back = { PlatformBackHandler(backProvider) },
     ) {
 
-        BackgroundIntro(
-            modifier = Modifier
+        Box(
+            Modifier
                 .fillMaxWidth()
-                .aspectRatio(0.8f)
-        )
+                .aspectRatio(0.7f)
+        ) {
 
-        Spacer(
-            modifier = Modifier
-                .fillMaxWidth()
-                .aspectRatio(0.4f)
-                .shadowBottomFrame()
-        )
+            BackgroundIntro(modifier = Modifier.fillMaxSize())
+
+            BottomShadowBackground()
+        }
 
         Column(
             modifier = Modifier
@@ -180,7 +180,13 @@ private fun Content(
             )
         }
 
-        BrandGradientBottomEnd()
+        BrandGradientCenterStart(
+            color = Design.colors.accent_tertiary
+        )
+
+        BrandGradientBottomEnd(
+            color = Design.colors.accent_secondary
+        )
 
         AlphaOverlay(
             modifier = Modifier.fillMaxSize()

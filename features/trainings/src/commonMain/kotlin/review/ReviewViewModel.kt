@@ -30,7 +30,7 @@ class ReviewViewModel : ViewModel() {
                 _state.value = state.value.copy(
                     loading = false,
                     error = null,
-                    reviewTraining = it.toTrainingState()
+                    training = it.toTrainingState()
                 )
             }.catch {
                 _state.value = state.value.copy(loading = false, error = it.message)

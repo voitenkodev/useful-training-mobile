@@ -2,9 +2,9 @@ package trainings
 
 import Design
 import PlatformBackHandler
+import androidx.compose.animation.core.FastOutLinearInEasing
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.pager.VerticalPager
 import androidx.compose.foundation.pager.rememberPagerState
@@ -19,12 +19,11 @@ import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import atomic.rememberAccentColorsAsState
-import components.BottomScreenControls
 import components.Error
 import components.Loading
+import components.TrainingsControls
 import components.backgrounds.BrandGradientCenterEnd
 import components.backgrounds.BrandGradientCenterStart
-import components.overlay.AlphaOverlay
 import components.roots.Root
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -80,13 +79,12 @@ private fun Content(
     val pagerState = rememberPagerState { trainings().size }
     val accentList = rememberAccentColorsAsState()
     val scope = rememberCoroutineScope()
-    val animDelay = Design.duration.animM
 
+    val showFrameDuration = Design.duration.animDurationS
     val showFrame = remember { mutableStateOf(true) }
-
     val offset = animateDpAsState(
         targetValue = if (showFrame.value) 0.dp else 250.dp,
-        tween(durationMillis = Design.duration.animM)
+        tween(durationMillis = showFrameDuration, easing = FastOutLinearInEasing)
     )
 
     Root(
@@ -95,29 +93,32 @@ private fun Content(
         back = { PlatformBackHandler(backProvider) },
     ) {
 
-        VerticalPager(state = pagerState) {
+        VerticalPager(
+            state = pagerState,
+            userScrollEnabled = showFrame.value
+        ) {
+
             val training by rememberUpdatedState(trainings()[it])
 
             TrainingPage(
                 training = training,
-                openTraining = {
-                    val id = training.id ?: return@TrainingPage
-                    scope.launch {
-                        showFrame.value = false
-                        delay(animDelay.toLong())
-                        openTraining.invoke(id)
-                    }
-                },
-                pageColor = Design.colors.content
+                pageColor = Design.colors.content,
             )
         }
 
-        BottomScreenControls(
-            modifier = Modifier,
+        TrainingsControls(
             pagerState = pagerState,
             visibilityCondition = { showFrame.value },
             addTraining = addTrainingProvider,
-            logout = logout
+            logout = logout,
+            openTraining = {
+                val id = trainings()[pagerState.currentPage].id ?: return@TrainingsControls
+                scope.launch {
+                    showFrame.value = false
+                    delay(showFrameDuration.toLong())
+                    openTraining.invoke(id)
+                }
+            }
         )
 
         BrandGradientCenterEnd(
@@ -128,13 +129,6 @@ private fun Content(
         BrandGradientCenterStart(
             modifier = Modifier.offset(x = -(offset.value)),
             color = accentList.value[pagerState.currentPage % accentList.value.size]
-        )
-
-        AlphaOverlay(
-            modifier = Modifier.fillMaxSize(),
-            visibilityCondition = { loading().not() },
-            animationDuration = Design.duration.animL,
-            delayDuration = 300
         )
     }
 }

@@ -24,7 +24,7 @@ fun BoxScope.BrandGradientCenterStart(
 
     val colorAnimation = animateColorAsState(
         color,
-        animationSpec = tween(Design.duration.animM)
+        animationSpec = tween(Design.duration.animDurationM)
     )
 
     BackgroundLight(
@@ -52,7 +52,7 @@ fun BoxScope.BrandGradientCenterEnd(
 
     val colorAnimation = animateColorAsState(
         color,
-        animationSpec = tween(Design.duration.animM)
+        animationSpec = tween(Design.duration.animDurationM)
     )
 
     BackgroundLight(
@@ -60,22 +60,24 @@ fun BoxScope.BrandGradientCenterEnd(
         modifier = modifier
             .align(Alignment.CenterEnd)
             .size(500.dp)
-            .offset(
-                x = 220.dp,
-            ).graphicsLayer {
-                alpha = 0.3f
-                scaleX = 0.9f
-                rotationY = +30f
-                rotationX = -0f
-            }
+            .offset(x = 220.dp)
+            .graphicsLayer(
+                alpha = 0.3f,
+                scaleX = 0.9f,
+                rotationY = 30f,
+            )
     )
 }
 
 @Composable
-fun BoxScope.BrandGradientBottomEnd() {
+fun BoxScope.BrandGradientBottomEnd(
+    modifier: Modifier = Modifier,
+    color: Color = Design.colors.accent_primary,
+) {
+
     BackgroundLight(
-        color = Design.colors.accent_primary,
-        modifier = Modifier
+        color = color,
+        modifier = modifier
             .align(Alignment.BottomEnd)
             .size(500.dp)
             .offset(

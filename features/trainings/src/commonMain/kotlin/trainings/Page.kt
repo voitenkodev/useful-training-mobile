@@ -1,8 +1,6 @@
 package trainings
 
 import Design
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -12,7 +10,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -28,23 +25,12 @@ import training.Training
 @Composable
 internal fun TrainingPage(
     training: Training,
-    openTraining: () -> Unit,
     pageColor: Color
 ) {
 
     val trainingProvider by rememberUpdatedState(training)
 
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .clickable(
-                interactionSource = remember { MutableInteractionSource() },
-                indication = null,
-                onClick = {
-                    openTraining.invoke()
-                }
-            ),
-    ) {
+    Box(modifier = Modifier.fillMaxSize()) {
 
         Column(
             modifier = Modifier

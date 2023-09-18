@@ -8,7 +8,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
-import detectSwipe
 import recomposeHighlighter
 
 @Composable
@@ -27,9 +26,6 @@ fun Root(
         modifier = modifier
             .fillMaxSize()
             .pointerInput(Unit) {
-//                detectSwipe(
-//                    onSwipeDown = { focusManager.clearFocus() }
-//                )
                 detectTapGestures(
                     onTap = { focusManager.clearFocus() },
                 )

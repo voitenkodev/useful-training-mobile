@@ -2,34 +2,33 @@ package review
 
 import Design
 import PlatformBackHandler
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import components.ChartsInfo
 import components.Error
 import components.Exercises
 import components.Loading
+import components.ReviewControls
 import components.SummaryInfo
 import components.TrainingTitle
 import components.backgrounds.BottomShadowBackground
 import components.roots.Root
-import controls.ButtonSecondaryIcon
-import platformInsets
+import controls.ButtonBrand
 import platformTopInset
 import training.Training
 
@@ -47,12 +46,14 @@ fun ReviewContent(
         vm.getTraining(trainingId)
     }
 
+    val training = state.training ?: return
+
     Content(
         loading = { state.loading },
         error = { state.error },
         clearError = vm::clearError,
         back = back,
-        training = { state.reviewTraining },
+        training = { training },
         editTraining = toEditTrainingById,
         removeTraining = {}
     )
@@ -74,6 +75,12 @@ private fun Content(
 
     val backProvider by rememberUpdatedState(back)
     val trainingProvider by rememberUpdatedState(training())
+
+    val isPresent = remember { mutableStateOf(false) }
+
+    LaunchedEffect(Unit) {
+        isPresent.value = true
+    }
 
     Root(
         loading = { Loading(loading) },
@@ -111,7 +118,6 @@ private fun Content(
                 modifier = Modifier.size(Design.dp.paddingL)
             )
 
-
             Exercises(
                 training = trainingProvider,
             )
@@ -123,25 +129,38 @@ private fun Content(
             SummaryInfo(
                 training = trainingProvider
             )
+
+            Spacer(
+                modifier = Modifier.size(Design.dp.paddingL)
+            )
+
+            ButtonBrand(
+                modifier = Modifier.fillMaxWidth(),
+                text = "EDIT",
+                onClick = {},
+                backgroundColor = Design.colors.accent_quinary
+            )
+
+            Spacer(
+                modifier = Modifier.size(Design.dp.paddingL)
+            )
+
+            ButtonBrand(
+                modifier = Modifier.fillMaxWidth(),
+                text = "REMOVE",
+                onClick = {},
+                backgroundColor = Design.colors.accent_quaternary
+            )
+
+            Spacer(
+                modifier = Modifier.size(220.dp)
+            )
         }
 
         BottomShadowBackground()
 
-        Column(
-            modifier = Modifier
-                .platformInsets()
-                .fillMaxHeight()
-                .padding(Design.dp.paddingM)
-                .align(Alignment.CenterEnd),
-            verticalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
-        ) {
-
-            Spacer(modifier = Modifier.weight(1f))
-
-            ButtonSecondaryIcon(
-                imageVector = Icons.Default.KeyboardArrowLeft,
-                onClick = back
-            )
-        }
+        ReviewControls(
+            back = back
+        )
     }
 }

@@ -1,13 +1,17 @@
 package atomic
 
 internal fun duration() = Duration(
-    animL = 800,
-    animM = 500,
-    animS = 500
+    animDurationL = 800,
+    animDurationM = 500,
+    animDurationS = 200,
+
+    animDelayS = 300
 )
 
 data class Duration(
-    val animS: Int,
-    val animM: Int,
-    val animL: Int,
+    val animDurationS: Int,
+    val animDurationM: Int,
+    val animDurationL: Int,
+
+    val animDelayS: Int,
 )

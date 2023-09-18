@@ -15,6 +15,7 @@ import components.overlay.shadowBottomFrame
 @Composable
 fun BoxScope.BottomShadowBackground(
     modifier: Modifier = Modifier,
+    color: Color = Design.colors.primary
 ) {
     Spacer(
         modifier = modifier
@@ -25,10 +26,10 @@ fun BoxScope.BottomShadowBackground(
                 listOf(
                     Color.Transparent,
                     Color.Transparent,
-                    Design.colors.primary.copy(alpha = 0.5f),
-                    Design.colors.primary.copy(alpha = 0.8f),
-                    Design.colors.primary,
-                    Design.colors.primary
+                    color.copy(alpha = 0.5f),
+                    color.copy(alpha = 0.8f),
+                    color,
+                    color
                 )
             )
     )
