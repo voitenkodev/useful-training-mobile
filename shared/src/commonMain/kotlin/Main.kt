@@ -2,16 +2,21 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import authentication.AuthenticationContent
 import authentication.AuthenticationViewModel
-import com.arkivanov.decompose.DefaultComponentContext
-import com.arkivanov.essenty.lifecycle.LifecycleRegistry
+import com.arkivanov.decompose.extensions.compose.jetbrains.stack.animation.slide
+import com.arkivanov.decompose.extensions.compose.jetbrains.stack.animation.stackAnimation
+import com.arkivanov.decompose.router.stack.push
+import decompose.AppNavigator
+import decompose.RoutedContent
+import decompose.Router
+import decompose.ScreenOne
+import decompose.ScreenTwo
+import decompose.rememberRouter
 import navigation.Animation
 import navigation.GraphBuilder
 import navigation.RootController
 import navigation.findNavigator
 import review.ReviewContent
 import review.ReviewViewModel
-import root.RootComponent
-import root.RootContent
 import splash.SplashContent
 import splash.SplashViewModel
 import training.TrainingContent
@@ -28,22 +33,38 @@ internal enum class Graph(val link: String) {
     Summary("summary_screen")
 }
 
-// TODO Expect logic with Jetpack compose IOS (Not canvas)
-
 @Composable
-internal fun MainTemp(
-    modifier: Modifier = Modifier,
-    lifecycle: LifecycleRegistry,
-) {
+internal fun Main(modifier: Modifier = Modifier) {
+
     DesignTheme(modifier = modifier) {
-        RootContent(
-            component = RootComponent(componentContext = DefaultComponentContext(lifecycle))
-        )
+
+        val router: Router<AppNavigator> = rememberRouter(AppNavigator::class, listOf(AppNavigator.ScreenOne))
+
+        RoutedContent(
+            router = router,
+            animation = stackAnimation(slide())
+        ) { screen ->
+            when (screen) {
+                is AppNavigator.ScreenOne -> {
+                    ScreenOne {
+                        router.push(AppNavigator.ScreenTwo(("asd LOL HEHEHE 0-)")))
+                    }
+                }
+
+                is AppNavigator.ScreenTwo -> {
+                    ScreenTwo(
+                        name = screen.name
+                    ) {
+
+                    }
+                }
+            }
+        }
     }
 }
 
 @Composable
-internal fun Main(modifier: Modifier = Modifier) {
+internal fun MainTemp(modifier: Modifier = Modifier) {
 
     DesignTheme(modifier = modifier) {
 

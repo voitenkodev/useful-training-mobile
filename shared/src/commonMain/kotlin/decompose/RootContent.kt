@@ -1,4 +1,4 @@
-package root
+package decompose
 
 import PlatformBackHandler
 import androidx.compose.foundation.layout.Box
@@ -16,46 +16,29 @@ import controls.TextFieldH1
 // TODO Expect logic with Jetpack compose IOS (Not canvas)
 
 @Composable
-internal fun RootContent(
-    component: RootComponent,
-    modifier: Modifier = Modifier
-) {
-    Children(
-        stack = component.childStack,
-        animation = stackAnimation(fade()),
-    ) {
-        when (val child = it.instance) {
-            is RootComponent.Child.ScreenOne -> ScreenOne(child.component)
-            is RootComponent.Child.ScreenTwo -> ScreenTwo(child.component)
-        }
-    }
-}
-
-@Composable
 internal fun ScreenOne(
-    component: ScreenOneComponent
+    click: ()-> Unit
 ) {
     Box(modifier = Modifier.fillMaxSize()) {
 
         ButtonBrand(
             modifier = Modifier.align(Alignment.Center),
             text = "ad",
-            onClick = { component.toScreenTwo() }
+            onClick = click
         )
     }
 }
 
 @Composable
 internal fun ScreenTwo(
-    component: ScreenTwoComponent
+    name: String,
+    click: ()-> Unit
 ) {
-
-    PlatformBackHandler(component::back)
 
     Box(modifier = Modifier.fillMaxSize()) {
         TextFieldH1(
             modifier = Modifier.align(Alignment.Center),
-            provideText = { "name = ${component.name}" }
+            provideText = { "name = ${name}" }
         )
     }
 }

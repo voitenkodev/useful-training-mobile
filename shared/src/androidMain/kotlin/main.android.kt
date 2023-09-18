@@ -1,10 +1,16 @@
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.compose.runtime.CompositionLocalProvider
+import com.arkivanov.decompose.DefaultComponentContext
+import com.arkivanov.decompose.defaultComponentContext
+import decompose.LocalComponentContext
 
+fun ComponentActivity.main() {
+    val rootComponentContext: DefaultComponentContext = defaultComponentContext()
 
-@Composable
-fun MainView() {
-    Main(
-        modifier = Modifier,
-    )
+    setContent {
+        CompositionLocalProvider(LocalComponentContext provides rootComponentContext) {
+            Main()
+        }
+    }
 }

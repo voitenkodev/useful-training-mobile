@@ -1,12 +1,17 @@
-import androidx.compose.ui.Modifier
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.window.ComposeUIViewController
+import com.arkivanov.decompose.DefaultComponentContext
+import com.arkivanov.essenty.lifecycle.LifecycleRegistry
+import decompose.LocalComponentContext
 import platform.UIKit.UIViewController
 
-fun MainViewController(): UIViewController {
-
+fun main(): UIViewController {
     return ComposeUIViewController {
-        Main(
-            modifier = Modifier,
-        )
+        val lifecycle = LifecycleRegistry()
+        val rootComponentContext = DefaultComponentContext(lifecycle = lifecycle)
+
+        CompositionLocalProvider(LocalComponentContext provides rootComponentContext) {
+            Main()
+        }
     }
 }

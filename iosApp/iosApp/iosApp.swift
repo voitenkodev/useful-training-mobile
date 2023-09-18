@@ -8,7 +8,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         DiKt.doInitCommonKoin { Koin_coreKoinApplication in }
         window = UIWindow(frame: UIScreen.main.bounds)
-        let mainViewController = Main_iosKt.MainViewController()
+        let mainViewController = Main_iosKt.main()
         window?.rootViewController = mainViewController
         window?.makeKeyAndVisible()
         return true

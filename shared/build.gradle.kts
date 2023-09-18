@@ -33,10 +33,9 @@ kotlin {
                 // Koin
                 implementation(libs.koin.core)
 
-                // Navigation DECOMPOSE
-                implementation("com.arkivanov.decompose:decompose:2.0.2-compose-experimental")
-                implementation("com.arkivanov.decompose:extensions-compose-jetbrains:2.0.2-compose-experimental")
-
+                // Decompose
+                implementation(libs.decompose)
+                implementation(libs.decompose.extensions)
             }
         }
 

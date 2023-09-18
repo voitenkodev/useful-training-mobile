@@ -15,6 +15,8 @@ moko-resources-version = "0.23.0"
 lifecycle-common = "2.6.1"
 ui-android = "1.5.1"
 
+decompose-vers = "2.0.2-compose-experimental"
+
 [libraries]
 serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization-vers" }
 datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "datetime-vers" }
@@ -43,6 +45,9 @@ sqldelight-coroutine = { module = "app.cash.sqldelight:coroutines-extensions", v
 
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin-vers" }
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin-vers" }
+
+decompose = { module = "com.arkivanov.decompose:decompose", version.ref = "decompose-vers" }
+decompose-extensions = { module = "com.arkivanov.decompose:extensions-compose-jetbrains", version.ref = "decompose-vers" }
 
 moko-resources = { module = "dev.icerock.moko:resources", version.ref = "moko-resources-version" }
 moko-resources-compose = { module = "dev.icerock.moko:resources-compose", version.ref = "moko-resources-version" }
