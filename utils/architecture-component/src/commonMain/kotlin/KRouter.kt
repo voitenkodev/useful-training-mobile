@@ -24,8 +24,7 @@ class Router<C : Parcelable>(
     val stack: State<ChildStack<C, ComponentContext>>
 ) : StackNavigation<C> by navigator
 
-internal val LocalRouter: ProvidableCompositionLocal<Router<*>?> =
-    staticCompositionLocalOf { null }
+internal val LocalRouter: ProvidableCompositionLocal<Router<*>?> = staticCompositionLocalOf { null }
 
 @Composable
 fun <C : Parcelable> rememberRouter(

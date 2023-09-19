@@ -61,6 +61,7 @@ private fun InternalExercise(
                 .recomposeHighlighter(),
             horizontalArrangement = Arrangement.spacedBy(4.dp),
         ) {
+
             exercise().iterations.forEach {
                 TextFieldBody1(
                     modifier = Modifier.padding(end = 4.dp).recomposeHighlighter(),
