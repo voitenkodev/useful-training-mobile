@@ -6,6 +6,7 @@ import com.arkivanov.decompose.extensions.compose.jetbrains.stack.animation.stac
 import com.arkivanov.decompose.router.stack.pop
 import com.arkivanov.decompose.router.stack.push
 import com.arkivanov.decompose.router.stack.replaceAll
+import rememberViewModel
 import review.ReviewContent
 import review.ReviewViewModel
 import splash.SplashContent

@@ -22,32 +22,4 @@ object Fonts {
             )
         )
     }
-
-    @Composable
-    fun AmfibiaFontFamily(): FontFamily {
-        return FontFamily(
-            listOfNotNull(
-                SharedRes.fonts.amfibia.bold.asFont(
-                    weight = FontWeight.Bold,
-                    style = FontStyle.Normal
-                ),
-                SharedRes.fonts.amfibia.regular.asFont(
-                    weight = FontWeight.Normal,
-                    style = FontStyle.Normal
-                ),
-                SharedRes.fonts.amfibia.extraBold.asFont(
-                    weight = FontWeight.ExtraBold,
-                    style = FontStyle.Normal
-                ),
-                SharedRes.fonts.amfibia.thin.asFont(
-                    weight = FontWeight.Thin,
-                    style = FontStyle.Normal
-                ),
-                SharedRes.fonts.amfibia.light.asFont(
-                    weight = FontWeight.Light,
-                    style = FontStyle.Normal
-                ),
-            )
-        )
-    }
 }
