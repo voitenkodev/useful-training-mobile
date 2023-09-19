@@ -1,6 +1,6 @@
 package training
 
-import decompose.ViewModel
+import ViewModel
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -12,17 +12,17 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import mapping.toBody
 import mapping.toTrainingState
-import org.koin.mp.KoinPlatformTools
 import repository.TrainingRepository
 import round
 import DateTimeKtx
+import org.koin.core.component.inject
 
 class TrainingViewModel : ViewModel() {
 
     private val _state = MutableStateFlow(TrainingState())
     val state: StateFlow<TrainingState> = _state
 
-    private val api = KoinPlatformTools.defaultContext().get().get<TrainingRepository>()
+    private val api by inject<TrainingRepository>()
 
     @FlowPreview
     fun saveTraining(onSuccess: (trainingId: String) -> Unit) = launch {

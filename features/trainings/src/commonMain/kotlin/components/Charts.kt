@@ -11,7 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import chart.basic.BasicLineChart
+import basic.BasicLineChart
 import controls.TextFieldH2
 import controls.secondaryBackground
 import recomposeHighlighter

@@ -1,6 +1,6 @@
 package authentication
 
-import decompose.ViewModel
+import ViewModel
 import isEmailValid
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -11,12 +11,12 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
-import org.koin.mp.KoinPlatformTools
+import org.koin.core.component.inject
 import repository.AuthRepository
 
 class AuthenticationViewModel : ViewModel() {
 
-    private val api = KoinPlatformTools.defaultContext().get().get<AuthRepository>()
+    private val api by inject<AuthRepository>()
 
     private val _state = MutableStateFlow(AuthenticationState())
     val state: StateFlow<AuthenticationState> = _state

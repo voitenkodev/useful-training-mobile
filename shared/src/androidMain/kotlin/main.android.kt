@@ -3,7 +3,6 @@ import androidx.activity.compose.setContent
 import androidx.compose.runtime.CompositionLocalProvider
 import com.arkivanov.decompose.DefaultComponentContext
 import com.arkivanov.decompose.defaultComponentContext
-import decompose.LocalComponentContext
 
 fun ComponentActivity.main() {
     val rootComponentContext: DefaultComponentContext = defaultComponentContext()

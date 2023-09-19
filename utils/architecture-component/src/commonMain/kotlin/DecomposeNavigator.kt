@@ -1,5 +1,3 @@
-package decompose
-
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ProvidableCompositionLocal
 import androidx.compose.runtime.State

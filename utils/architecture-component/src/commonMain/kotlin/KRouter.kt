@@ -1,5 +1,3 @@
-package decompose
-
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.DisallowComposableCalls
@@ -26,7 +24,7 @@ class Router<C : Parcelable>(
     val stack: State<ChildStack<C, ComponentContext>>
 ) : StackNavigation<C> by navigator
 
-val LocalRouter: ProvidableCompositionLocal<Router<*>?> =
+internal val LocalRouter: ProvidableCompositionLocal<Router<*>?> =
     staticCompositionLocalOf { null }
 
 @Composable

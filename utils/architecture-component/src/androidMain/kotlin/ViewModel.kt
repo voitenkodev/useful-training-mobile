@@ -1,5 +1,3 @@
-package decompose
-
 import androidx.compose.ui.platform.AndroidUiDispatcher
 import com.arkivanov.essenty.instancekeeper.InstanceKeeper
 import kotlinx.coroutines.CoroutineScope

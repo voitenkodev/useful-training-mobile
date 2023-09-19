@@ -1,4 +1,4 @@
-package chart.basic
+package basic
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.runtime.Composable
@@ -7,7 +7,6 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
-import basic.generatePath
 
 @Composable
 fun BasicLineChart(

@@ -1,6 +1,6 @@
 package summary
 
-import decompose.ViewModel
+import ViewModel
 import dto.backend.ExerciseDateDTO
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import mapping.toExerciseState
 import mapping.toTrainingStateList
-import org.koin.mp.KoinPlatformTools
+import org.koin.core.component.inject
 import repository.TrainingRepository
 import training.Exercise
 import training.Training
@@ -24,7 +24,7 @@ internal class SummaryViewModel : ViewModel() {
     private val _state = MutableStateFlow(SummaryState())
     val state: StateFlow<SummaryState> = _state
 
-    private val api = KoinPlatformTools.defaultContext().get().get<TrainingRepository>()
+    private val api by inject<TrainingRepository>()
 
     private var searchJob: Job? = null
 
