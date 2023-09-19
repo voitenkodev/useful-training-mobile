@@ -13,7 +13,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(projects.utils.nativeApi)
+                implementation(projects.utils.platformApi)
                 implementation(projects.utils.resources)
 
                 // Compose

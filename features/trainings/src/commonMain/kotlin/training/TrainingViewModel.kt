@@ -15,7 +15,7 @@ import mapping.toTrainingState
 import org.koin.mp.KoinPlatformTools
 import repository.TrainingRepository
 import round
-import utils.DateTimeKtx
+import DateTimeKtx
 
 class TrainingViewModel : ViewModel() {
 

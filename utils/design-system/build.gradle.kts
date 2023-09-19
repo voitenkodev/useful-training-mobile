@@ -16,7 +16,7 @@ kotlin {
                 implementation(projects.utils.instruments)
                 implementation(projects.utils.resources)
                 implementation(projects.utils.composePlayer)
-                implementation(projects.utils.nativeApi)
+                implementation(projects.utils.platformApi)
 
                 // Compose
                 implementation(compose.ui)

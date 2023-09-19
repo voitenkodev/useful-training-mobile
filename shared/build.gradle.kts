@@ -3,7 +3,7 @@ plugins {
     kotlin("native.cocoapods")
     id("com.android.library")
     id("org.jetbrains.compose")
-    id("org.jetbrains.kotlin.plugin.parcelize")
+    id("org.jetbrains.kotlin.plugin.parcelize") // For Parcelize Navigation Graph
 }
 
 apply(from = "../config/gradle/build-scripts/android.gradle")
@@ -22,13 +22,11 @@ kotlin {
 
                 // Common
                 implementation(projects.data)
-                implementation(projects.utils.instruments)
-                implementation(projects.utils.navigator)
                 implementation(projects.utils.designSystem)
+                implementation(projects.utils.architectureComponent)
 
                 // Compose
                 implementation(compose.ui)
-                implementation(compose.animation)  // TODO JUST FOR NAVIGATION DECOMPOSE
 
                 // Koin
                 implementation(libs.koin.core)

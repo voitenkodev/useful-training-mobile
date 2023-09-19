@@ -44,9 +44,9 @@ include(
     ":data",
 
     "utils:design-system",
-    "utils:navigator",
+    "utils:architecture-component",
     "utils:instruments",
-    "utils:native-api",
+    "utils:platform-api",
     "utils:compose-player",
     "utils:resources",
     "utils:charts",

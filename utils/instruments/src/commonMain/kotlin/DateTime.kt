@@ -1,5 +1,3 @@
-package utils
-
 import androidx.compose.ui.text.capitalize
 import androidx.compose.ui.text.intl.Locale
 import kotlinx.datetime.Clock

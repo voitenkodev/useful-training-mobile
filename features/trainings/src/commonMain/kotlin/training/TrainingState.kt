@@ -4,7 +4,7 @@ import androidx.compose.runtime.Immutable
 import com.benasher44.uuid.uuid4
 import dev.icerock.moko.parcelize.Parcelable
 import dev.icerock.moko.parcelize.Parcelize
-import utils.DateTimeKtx
+import DateTimeKtx
 
 @Immutable
 data class TrainingState(

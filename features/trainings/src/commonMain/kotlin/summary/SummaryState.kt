@@ -5,7 +5,7 @@ import dev.icerock.moko.parcelize.Parcelable
 import dev.icerock.moko.parcelize.Parcelize
 import training.Exercise
 import training.Training
-import utils.DateTimeKtx
+import DateTimeKtx
 
 @Parcelize
 @Immutable

@@ -19,7 +19,7 @@ kotlin {
                 implementation(projects.utils.designSystem)
                 implementation(projects.utils.resources)
                 implementation(projects.utils.charts)
-                implementation(projects.utils.navigator)
+                implementation(projects.utils.architectureComponent)
 
                 // Compose
                 implementation(compose.ui)
