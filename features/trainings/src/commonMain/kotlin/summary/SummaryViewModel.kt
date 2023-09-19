@@ -1,5 +1,6 @@
 package summary
 
+import decompose.ViewModel
 import dto.backend.ExerciseDateDTO
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -17,7 +18,6 @@ import org.koin.mp.KoinPlatformTools
 import repository.TrainingRepository
 import training.Exercise
 import training.Training
-import utils.ViewModel
 
 internal class SummaryViewModel : ViewModel() {
 
@@ -30,7 +30,7 @@ internal class SummaryViewModel : ViewModel() {
 
     private fun debounceGetExercises(query: String) {
         searchJob?.cancel()
-        searchJob = viewModelScope.launch {
+        searchJob = launch {
             if (query.isBlank()) {
                 _state.value = state.value.copy(
                     exercises = emptyMap(),
@@ -48,7 +48,7 @@ internal class SummaryViewModel : ViewModel() {
         }
     }
 
-    fun getExerciseNameOptions() = viewModelScope.launch {
+    fun getExerciseNameOptions() = launch {
         api
             .getExerciseNameOptions()
             .onStart {
@@ -60,7 +60,7 @@ internal class SummaryViewModel : ViewModel() {
             }.launchIn(this)
     }
 
-    fun removeExerciseNameOption(value: String) = viewModelScope.launch {
+    fun removeExerciseNameOption(value: String) = launch {
         api
             .removeExerciseNameOption(value)
             .onEach { removedValue ->
@@ -72,7 +72,7 @@ internal class SummaryViewModel : ViewModel() {
             }.launchIn(this)
     }
 
-    fun getTrainings() = viewModelScope.launch {
+    fun getTrainings() = launch {
         api.getTrainings()
             .onStart {
                 _state.value = state.value.copy(loading = true)
@@ -95,7 +95,7 @@ internal class SummaryViewModel : ViewModel() {
             }.launchIn(this)
     }
 
-    private fun getExercisesBy(query: String) = viewModelScope.launch {
+    private fun getExercisesBy(query: String) = launch {
         api.getExercises(query = query)
             .onStart {
                 _state.value = state.value.copy(loading = false)
@@ -117,7 +117,7 @@ internal class SummaryViewModel : ViewModel() {
                 )
             }.catch {
                 _state.value = state.value.copy(loading = false, error = it.message)
-            }.launchIn(viewModelScope)
+            }.launchIn(this)
     }
 
     fun setQuery(query: String) {
@@ -213,11 +213,11 @@ internal class SummaryViewModel : ViewModel() {
             .mapNotNull { it.intensity?.toFloat() }
     }
 
-    override fun onCleared() {
-        super.onCleared()
-        searchJob?.cancel()
-        searchJob = null
-    }
+//    override fun onCleared() {
+//        super.onCleared()
+//        searchJob?.cancel()
+//        searchJob = null
+//    }
 
     private fun List<ExerciseDateDTO>.processingExercises() = this
         .groupBy(

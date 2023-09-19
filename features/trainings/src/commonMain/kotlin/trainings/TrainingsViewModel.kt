@@ -1,5 +1,6 @@
 package trainings
 
+import decompose.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
@@ -14,7 +15,6 @@ import repository.AuthRepository
 import repository.TrainingRepository
 import round
 import training.Training
-import utils.ViewModel
 
 class TrainingsViewModel : ViewModel() {
 
@@ -24,7 +24,7 @@ class TrainingsViewModel : ViewModel() {
     private val trainingApi = KoinPlatformTools.defaultContext().get().get<TrainingRepository>()
     private val authApi = KoinPlatformTools.defaultContext().get().get<AuthRepository>()
 
-    fun getTrainings() = viewModelScope.launch {
+    fun getTrainings() = launch {
         trainingApi.getTrainings()
             .onStart {
                 _state.value = state.value.copy(loading = true)
@@ -39,7 +39,7 @@ class TrainingsViewModel : ViewModel() {
     }
 
     fun logout(onSuccess: () -> Unit) {
-        viewModelScope.launch {
+        launch {
             authApi.logout()
             onSuccess.invoke()
         }

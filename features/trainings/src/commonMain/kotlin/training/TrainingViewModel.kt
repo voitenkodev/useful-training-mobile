@@ -1,5 +1,6 @@
 package training
 
+import decompose.ViewModel
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -15,7 +16,6 @@ import org.koin.mp.KoinPlatformTools
 import repository.TrainingRepository
 import round
 import utils.DateTimeKtx
-import utils.ViewModel
 
 class TrainingViewModel : ViewModel() {
 
@@ -25,7 +25,7 @@ class TrainingViewModel : ViewModel() {
     private val api = KoinPlatformTools.defaultContext().get().get<TrainingRepository>()
 
     @FlowPreview
-    fun saveTraining(onSuccess: (trainingId: String) -> Unit) = viewModelScope.launch {
+    fun saveTraining(onSuccess: (trainingId: String) -> Unit) = launch {
 
         val training = state.value.training
             .validate()
@@ -53,7 +53,7 @@ class TrainingViewModel : ViewModel() {
             .launchIn(this)
     }
 
-    fun removeExerciseNameOption(value: String) = viewModelScope.launch {
+    fun removeExerciseNameOption(value: String) = launch {
         api
             .removeExerciseNameOption(value)
             .onEach { removedValue ->
@@ -65,7 +65,7 @@ class TrainingViewModel : ViewModel() {
             }.launchIn(this)
     }
 
-    fun getExerciseNameOptions() = viewModelScope.launch {
+    fun getExerciseNameOptions() = launch {
         api
             .getExerciseNameOptions()
             .onEach {
@@ -75,7 +75,7 @@ class TrainingViewModel : ViewModel() {
             }.launchIn(this)
     }
 
-    fun getTraining(trainingId: String) = viewModelScope.launch {
+    fun getTraining(trainingId: String) = launch {
         api
             .getTraining(trainingId = trainingId)
             .onStart {

@@ -1,5 +1,6 @@
 package authentication
 
+import decompose.ViewModel
 import isEmailValid
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -12,7 +13,6 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import org.koin.mp.KoinPlatformTools
 import repository.AuthRepository
-import utils.ViewModel
 
 class AuthenticationViewModel : ViewModel() {
 
@@ -22,7 +22,7 @@ class AuthenticationViewModel : ViewModel() {
     val state: StateFlow<AuthenticationState> = _state
 
     fun subscribeToken(onReceive: () -> Unit) {
-        viewModelScope.launch {
+        launch {
             api
                 .getToken()
                 .filterNotNull()
@@ -36,7 +36,7 @@ class AuthenticationViewModel : ViewModel() {
     }
 
     fun login() {
-        viewModelScope.launch {
+        launch {
             _state.value = state.value.validate()
 
             if (state.value.error == null) api.login(state.value.email, state.value.password)
@@ -49,7 +49,7 @@ class AuthenticationViewModel : ViewModel() {
     }
 
     fun registration() {
-        viewModelScope.launch {
+        launch {
             _state.value = state.value.validate()
 
             if (state.value.error == null) api.registration(state.value.email, state.value.password)

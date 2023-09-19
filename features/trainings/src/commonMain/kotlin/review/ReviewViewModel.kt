@@ -1,5 +1,6 @@
 package review
 
+import decompose.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
@@ -12,7 +13,6 @@ import mapping.toTrainingStateList
 import org.koin.mp.KoinPlatformTools
 import repository.TrainingRepository
 import training.Training
-import utils.ViewModel
 
 class ReviewViewModel : ViewModel() {
 
@@ -21,7 +21,7 @@ class ReviewViewModel : ViewModel() {
 
     private val api = KoinPlatformTools.defaultContext().get().get<TrainingRepository>()
 
-    fun getTraining(trainingId: String) = viewModelScope.launch {
+    fun getTraining(trainingId: String) = launch {
         api
             .getTraining(trainingId = trainingId)
             .onStart {
@@ -38,7 +38,7 @@ class ReviewViewModel : ViewModel() {
             .launchIn(this)
     }
 
-    fun getTrainings() = viewModelScope.launch {
+    fun getTrainings() = launch {
         api
             .getTrainings()
             .onStart {
@@ -55,7 +55,7 @@ class ReviewViewModel : ViewModel() {
             .launchIn(this)
     }
 
-    fun removeTraining(trainingId: String, onSuccess: () -> Unit) = viewModelScope.launch {
+    fun removeTraining(trainingId: String, onSuccess: () -> Unit) = launch {
         api
             .deleteTraining(trainingId = trainingId)
             .onStart {

@@ -16,6 +16,7 @@ kotlin {
                 implementation(projects.data)
                 implementation(projects.utils.instruments)
                 implementation(projects.utils.designSystem)
+                implementation(projects.utils.navigator)
 
                 // Compose
                 implementation(compose.ui)
