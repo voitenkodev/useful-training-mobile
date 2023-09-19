@@ -2,6 +2,7 @@ package components
 
 import Design
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
@@ -9,10 +10,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import basic.BasicLineChart
 import controls.TextFieldH2
+import controls.TextFieldH3
 import controls.secondaryBackground
 import recomposeHighlighter
 import training.Training
@@ -28,13 +31,15 @@ internal fun ChartsInfo(
         TrainingChart(
             title = "TONNAGE",
             values = training.exercises.map { it.tonnage.toFloat() },
-            color = Design.colors.accent_tertiary
+            color = Design.colors.accent_tertiary,
+            value = "12.5K" //training.tonnage.toString()
         )
 
         TrainingChart(
             title = "INTENSITY",
             values = training.exercises.map { it.intensity.toFloat() },
-            color = Design.colors.accent_quaternary
+            color = Design.colors.accent_quaternary,
+            value = "67.4%" // training.intensity.toString()
         )
     }
 }
@@ -42,29 +47,46 @@ internal fun ChartsInfo(
 @Composable
 private fun RowScope.TrainingChart(
     title: String,
+    value: String,
     values: List<Float>,
     color: Color
 ) {
-    Column(
+    Box(
         modifier = Modifier
             .weight(1f)
-            .padding(vertical = Design.dp.paddingS)
+            .secondaryBackground()
             .recomposeHighlighter(),
-        verticalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
     ) {
-        TextFieldH2(
-            provideText = { title }
-        )
 
         BasicLineChart(
             modifier = Modifier
                 .fillMaxWidth()
                 .secondaryBackground()
-                .padding(vertical = Design.dp.paddingS)
-                .height(Design.dp.component)
+                .padding(top = Design.dp.paddingM)
+                .height(Design.dp.component + Design.dp.paddingM)
                 .recomposeHighlighter(),
             values = values,
-            color = color
+            color = color.copy(alpha = 0.7f),
+            bottomSpacing = 60f
         )
+
+        Column(
+            modifier = Modifier
+                .padding(
+                    vertical = Design.dp.paddingXS,
+                    horizontal = Design.dp.paddingS
+                ).align(Alignment.BottomStart),
+        ) {
+
+            TextFieldH2(
+                provideText = { value },
+                color = Design.colors.content
+            )
+
+            TextFieldH3(
+                provideText = { title },
+                color = color
+            )
+        }
     }
 }

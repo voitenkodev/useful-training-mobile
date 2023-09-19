@@ -10,7 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
-import controls.TextFieldH2
+import controls.TextFieldH3
 import controls.secondaryBackground
 import recomposeHighlighter
 import training.Training
@@ -22,7 +22,7 @@ internal fun Exercises(training: Training) {
 
     Column {
 
-        TextFieldH2(
+        TextFieldH3(
             provideText = { "EXERCISES" }
         )
 

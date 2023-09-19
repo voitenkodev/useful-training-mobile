@@ -12,22 +12,28 @@ import androidx.compose.ui.unit.sp
 @Composable
 internal fun typography() = Typography(
     H1 = TextStyle(
-        fontSize = 48.sp,
+        fontSize = 32.sp,
         fontWeight = FontWeight.ExtraBold,
         fontStyle = FontStyle.Normal,
-        fontFamily = Fonts.FastupFontFamily()
+//        fontFamily = Fonts.ArchivoFamily()
     ),
     H2 = TextStyle(
-        fontSize = 26.sp,
-        fontWeight = FontWeight.SemiBold,
+        fontSize = 28.sp,
+        fontWeight = FontWeight.ExtraBold,
         fontStyle = FontStyle.Normal,
-        fontFamily = Fonts.FastupFontFamily()
+//        fontFamily = Fonts.ArchivoFamily()
     ),
     H3 = TextStyle(
         fontSize = 16.sp,
-        fontWeight = FontWeight.Normal,
+        fontWeight = FontWeight.Bold,
         fontStyle = FontStyle.Normal,
-        fontFamily = Fonts.FastupFontFamily()
+//        fontFamily = Fonts.ArchivoFamily()
+    ),
+    H4 = TextStyle(
+        fontSize = 16.sp,
+        fontWeight = FontWeight.Bold,
+        fontStyle = FontStyle.Normal,
+//        fontFamily = Fonts.ArchivoFamily()
     ),
     Label = TextStyle(
         fontSize = 14.sp,
@@ -75,6 +81,7 @@ data class Typography(
     val H1: TextStyle, // big titles
     val H2: TextStyle, // medium titles
     val H3: TextStyle, // little titles
+    val H4: TextStyle, // little titles
 
     val Input: TextStyle, // main inputs + fields
 

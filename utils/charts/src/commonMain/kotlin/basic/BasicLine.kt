@@ -12,8 +12,8 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 fun BasicLineChart(
     modifier: Modifier = Modifier,
     values: List<Float>,
-
-    color: Color
+    color: Color,
+    bottomSpacing: Float = 0f
 ) {
 
     if (values.isEmpty()) return
@@ -24,9 +24,10 @@ fun BasicLineChart(
             width = size.width,
             height = size.height,
             line = values,
-            color = color
+            color = color,
+            bottomSpacing = bottomSpacing
         )
-        
+
         drawElement.lineConfigs?.let { lineConfigs ->
             drawPath(
                 path = drawElement.path,
@@ -43,33 +44,10 @@ fun BasicLineChart(
                     lineTo(0f, size.height)
                 },
                 brush = Brush.verticalGradient(
-                    0.0f to lineConfigs.color.copy(alpha= 0.7f),
-                    0.9f to lineConfigs.color.copy(alpha= 0.0f)
+                    0.0f to lineConfigs.color.copy(alpha = 0.7f),
+                    0.9f to lineConfigs.color.copy(alpha = 0.0f)
                 )
             )
         }
-
-//            it.fillColor?.let { fillColor ->
-//                drawPath(
-//                    path = it.path.apply {
-//                        lineTo(size.width, size.height)
-//                        lineTo(0f, size.height)
-//                    },
-//                    brush = Brush.verticalGradient(
-//                        0.7f to fillColor,
-//                        1.0f to Color.Transparent
-//                    )
-//                )
-//            }
-//
-//            it.point?.let { point ->
-//                it.offsets.forEach { offset ->
-//                    if (offset != Offset.Unspecified) drawCircle(
-//                        color = point.color,
-//                        radius = point.radius.toPx(),
-//                        center = offset
-//                    )
-//                }
-//            }
     }
 }

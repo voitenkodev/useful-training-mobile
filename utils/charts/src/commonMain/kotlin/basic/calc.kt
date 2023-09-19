@@ -31,19 +31,20 @@ internal fun generatePath(
     height: Float,
     width: Float,
     line: List<Float>,
-    color: Color
+    color: Color,
+    bottomSpacing: Float = 0f
 ): DrawElement {
 
     val maxY = line.max()
     val minY = line.min()
 
     val spaceX = width / (line.size - 1)
-    val spacyY = height / (maxY - minY)
+    val spacyY = (height - bottomSpacing) / (maxY - minY)
 
     val p = Path().apply {
         for (i in line.indices) {
             val currentX = i * spaceX
-            val currentY = height - ((line[i] - minY) * spacyY)
+            val currentY = height - bottomSpacing - ((line[i] - minY) * spacyY)
 
             if (i == 0) {
                 moveTo(currentX, currentY)
@@ -51,7 +52,7 @@ internal fun generatePath(
 
                 val previousX = (i - 1) * spaceX
                 val conX = (previousX + currentX) / 2f
-                val conY = height - ((line[i - 1] - minY) * spacyY)
+                val conY = height - bottomSpacing - ((line[i - 1] - minY) * spacyY)
 
                 cubicTo(
                     x1 = conX,

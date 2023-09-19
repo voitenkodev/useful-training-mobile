@@ -8,14 +8,10 @@ import dev.icerock.moko.resources.compose.asFont
 object Fonts {
 
     @Composable
-    fun FastupFontFamily(): FontFamily {
+    fun ArchivoFamily(): FontFamily {
         return FontFamily(
             listOfNotNull(
-                SharedRes.fonts.fastup.bold.asFont(
-                    weight = FontWeight.Bold,
-                    style = FontStyle.Normal
-                ),
-                SharedRes.fonts.fastup.regular.asFont(
+                SharedRes.fonts.archivo.regular.asFont(
                     weight = FontWeight.Normal,
                     style = FontStyle.Normal
                 )

@@ -12,7 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import controls.TextFieldBody1
-import controls.TextFieldH2
+import controls.TextFieldH3
 import controls.secondaryBackground
 import recomposeHighlighter
 import training.Training
@@ -22,7 +22,7 @@ internal fun SummaryInfo(
     training: Training
 ) {
 
-    TextFieldH2(
+    TextFieldH3(
         modifier = Modifier.fillMaxWidth(),
         provideText = { "SUMMARY" }
     )
