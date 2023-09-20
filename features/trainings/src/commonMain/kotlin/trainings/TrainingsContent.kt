@@ -5,9 +5,23 @@ import PlatformBackHandler
 import androidx.compose.animation.core.FastOutLinearInEasing
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
-import androidx.compose.foundation.pager.VerticalPager
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -16,17 +30,28 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.rememberUpdatedState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import atomic.rememberAccentColorsAsState
 import components.Error
 import components.Loading
+import components.TrainingItem
 import components.TrainingsControls
 import components.backgrounds.BrandGradientCenterEnd
 import components.backgrounds.BrandGradientCenterStart
 import components.roots.Root
+import conditional
+import controls.TextFieldBody1
+import controls.TextFieldH1
+import controls.TextFieldH2
+import controls.accentBackground
+import controls.secondaryBackground
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import platformBottomInset
+import platformTopInset
 import training.Training
 
 @Composable
@@ -93,17 +118,74 @@ private fun Content(
         back = { PlatformBackHandler(backProvider) },
     ) {
 
-        VerticalPager(
-            state = pagerState,
-            userScrollEnabled = showFrame.value
-        ) {
+        Column(modifier = Modifier.platformTopInset()) {
 
-            val training by rememberUpdatedState(trainings()[it])
+            Spacer(Modifier.size(Design.dp.component))
 
-            TrainingPage(
-                training = training,
-                pageColor = Design.colors.content,
+            TextFieldH1(
+                modifier = Modifier.padding(horizontal = Design.dp.paddingM),
+                provideText = { "October" },
             )
+
+            val list = listOf(false, false, false, false, false, false, false, true, false, false, false, false)
+
+            LazyRow(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM),
+                contentPadding = PaddingValues(Design.dp.paddingM)
+            ) {
+
+                items(list) {
+                    Box(
+                        modifier = Modifier
+                            .size(80.dp)
+                            .conditional(
+                                condition = it,
+                                onYes = { accentBackground() },
+                                onNot = { secondaryBackground() }
+                            )
+                    ) {
+
+                        TextFieldBody1(
+                            modifier = Modifier
+                                .align(Alignment.TopCenter)
+                                .padding(top = 16.dp),
+                            provideText = { "Mon" },
+                            color = Design.colors.caption
+                        )
+
+                        TextFieldH2(
+                            modifier = Modifier
+                                .align(Alignment.BottomCenter)
+                                .padding(bottom = 16.dp),
+                            provideText = { "27" },
+                            color = Design.colors.content
+                        )
+                    }
+                }
+            }
+
+            HorizontalPager(
+                modifier = Modifier
+                    .weight(1f),
+                state = pagerState,
+                userScrollEnabled = showFrame.value
+            ) {
+
+                val training by rememberUpdatedState(trainings()[it])
+
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .verticalScroll(rememberScrollState())
+                        .platformBottomInset()
+                ) {
+
+                    TrainingItem(
+                        training = training
+                    )
+                }
+            }
         }
 
         TrainingsControls(

@@ -1,4 +1,5 @@
 import androidx.compose.foundation.gestures.detectDragGestures
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableIntState
 import androidx.compose.runtime.Stable
@@ -128,3 +129,16 @@ suspend fun PointerInputScope.detectSwipe(
         }
     }
 )
+
+@Composable
+fun Modifier.conditional(
+    condition: Boolean,
+    onYes: @Composable Modifier.() -> Modifier,
+    onNot: @Composable Modifier.() -> Modifier
+): Modifier {
+    return if (condition) {
+        then(onYes(Modifier))
+    } else {
+        then(onNot(Modifier))
+    }
+}

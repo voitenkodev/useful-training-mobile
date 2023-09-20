@@ -29,3 +29,12 @@ fun Modifier.secondaryBackground() = this
     ).clip(
         shape = Design.shape.default
     )
+
+@Composable
+fun Modifier.accentBackground() = this
+    .background(
+        color = Design.colors.accent_primary,
+        shape = Design.shape.default
+    ).clip(
+        shape = Design.shape.default
+    )
