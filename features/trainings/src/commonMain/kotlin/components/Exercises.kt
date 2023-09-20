@@ -2,15 +2,12 @@ package components
 
 import Design
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
-import controls.TextFieldH3
 import controls.secondaryBackground
 import recomposeHighlighter
 import training.Training
@@ -20,31 +17,22 @@ internal fun Exercises(training: Training) {
 
     val exes = rememberUpdatedState(training.exercises)
 
-    Column {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .secondaryBackground()
+            .padding(Design.dp.paddingS)
+    ) {
 
-        TextFieldH3(
-            provideText = { "EXERCISES" }
-        )
+        exes.value.forEachIndexed { index, item ->
 
-        Spacer(modifier = Modifier.size(Design.dp.paddingS))
+            val number by rememberUpdatedState(index + 1)
 
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .secondaryBackground()
-                .padding(Design.dp.paddingS)
-        ) {
-
-            exes.value.forEachIndexed { index, item ->
-
-                val number by rememberUpdatedState(index + 1)
-
-                Exercise(
-                    modifier = Modifier.recomposeHighlighter(),
-                    provideNumber = { number },
-                    exercise = { item }
-                )
-            }
+            Exercise(
+                modifier = Modifier.recomposeHighlighter(),
+                provideNumber = { number },
+                exercise = { item }
+            )
         }
     }
 }

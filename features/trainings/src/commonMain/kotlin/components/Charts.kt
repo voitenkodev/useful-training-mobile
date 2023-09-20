@@ -3,7 +3,6 @@ package components
 import Design
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -39,17 +38,17 @@ internal fun ChartsInfo(
         )
 
         TrainingChart(
-            title = "INTENSITY",
-            values = training.exercises.map { it.intensity.toFloat() },
-            color = Design.colors.accent_quaternary,
-            value = "${training.intensity?.round(1) ?: "-"}%"
-        )
-
-        TrainingChart(
             title = "REPEATS",
             values = training.exercises.map { it.countOfLifting.toFloat() },
             color = Design.colors.accent_quinary,
             value = training.countOfLifting.toString()
+        )
+
+        TrainingChart(
+            title = "INTENSITY",
+            values = training.exercises.map { it.intensity.toFloat() },
+            color = Design.colors.accent_quaternary,
+            value = "${training.intensity?.round(1) ?: "-"}%"
         )
     }
 }
@@ -77,7 +76,7 @@ private fun RowScope.TrainingChart(
                 .height(Design.dp.component + Design.dp.paddingL)
                 .recomposeHighlighter(),
             values = values,
-            color = color.copy(alpha = 0.3f),
+            color = color.copy(alpha = 0.1f),
             bottomSpacing = 60f
         )
 
@@ -86,13 +85,13 @@ private fun RowScope.TrainingChart(
         ) {
 
             TextFieldH2(
-                modifier =Modifier.align(Alignment.TopCenter),
+                modifier = Modifier.align(Alignment.TopCenter),
                 provideText = { value },
                 color = Design.colors.content
             )
 
             TextFieldH3(
-                modifier =Modifier.align(Alignment.BottomCenter),
+                modifier = Modifier.align(Alignment.BottomCenter),
                 provideText = { title },
                 color = color
             )

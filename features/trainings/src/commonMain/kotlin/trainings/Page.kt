@@ -58,7 +58,7 @@ internal fun TrainingPage(
             )
 
             Spacer(
-                modifier = Modifier.size(Design.dp.paddingL)
+                modifier = Modifier.size(Design.dp.paddingM)
             )
 
             Box(
