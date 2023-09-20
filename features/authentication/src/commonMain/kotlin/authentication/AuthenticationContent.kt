@@ -33,7 +33,7 @@ import components.roots.Root
 import components.states.keyboardFloatAsState
 import controls.ButtonBrand
 import controls.TextFieldBody1
-import controls.TextFieldH2
+import controls.TextFieldH1
 import platformInsets
 import recomposeHighlighter
 
@@ -126,8 +126,8 @@ private fun Content(
 
             Spacer(Modifier.weight(keyboardFloatAsState.value))
 
-            TextFieldH2(
-                provideText = { "Welcome Back" }
+            TextFieldH1(
+                provideText = { "WELCOME BACK" }
             )
 
             TextFieldBody1(

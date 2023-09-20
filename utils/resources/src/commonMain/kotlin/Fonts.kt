@@ -8,10 +8,10 @@ import dev.icerock.moko.resources.compose.asFont
 object Fonts {
 
     @Composable
-    fun ArchivoFamily(): FontFamily {
+    fun GunterzFamily(): FontFamily {
         return FontFamily(
             listOfNotNull(
-                SharedRes.fonts.archivo.regular.asFont(
+                SharedRes.fonts.gunterz.medium.asFont(
                     weight = FontWeight.Normal,
                     style = FontStyle.Normal
                 )

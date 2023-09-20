@@ -18,6 +18,8 @@ import controls.TextFieldH2
 import controls.TextFieldH3
 import controls.secondaryBackground
 import recomposeHighlighter
+import round
+import toShortString
 import training.Training
 
 @Composable
@@ -32,14 +34,14 @@ internal fun ChartsInfo(
             title = "TONNAGE",
             values = training.exercises.map { it.tonnage.toFloat() },
             color = Design.colors.accent_tertiary,
-            value = "12.5K" //training.tonnage.toString()
+            value = training.tonnage?.toShortString() ?: "-"
         )
 
         TrainingChart(
             title = "INTENSITY",
             values = training.exercises.map { it.intensity.toFloat() },
             color = Design.colors.accent_quaternary,
-            value = "67.4%" // training.intensity.toString()
+            value = "${training.intensity?.round(1) ?: "-"}%"
         )
     }
 }

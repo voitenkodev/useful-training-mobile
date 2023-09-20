@@ -6,34 +6,40 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.BaselineShift
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.sp
+
+// Paragraph + line height +  trim issues on:
+// https://github.com/JetBrains/compose-multiplatform/issues/2602
+// https://github.com/JetBrains/compose-multiplatform/issues/3453
 
 @Composable
 internal fun typography() = Typography(
     H1 = TextStyle(
-        fontSize = 32.sp,
-        fontWeight = FontWeight.ExtraBold,
+        baselineShift = BaselineShift.None,
+        fontSize = 34.sp,
+        fontWeight = FontWeight.Bold,
         fontStyle = FontStyle.Normal,
-//        fontFamily = Fonts.ArchivoFamily()
+        fontFamily = Fonts.GunterzFamily(),
     ),
     H2 = TextStyle(
         fontSize = 28.sp,
         fontWeight = FontWeight.ExtraBold,
         fontStyle = FontStyle.Normal,
-//        fontFamily = Fonts.ArchivoFamily()
+        fontFamily = Fonts.GunterzFamily()
     ),
     H3 = TextStyle(
         fontSize = 16.sp,
         fontWeight = FontWeight.Bold,
         fontStyle = FontStyle.Normal,
-//        fontFamily = Fonts.ArchivoFamily()
+        fontFamily = Fonts.GunterzFamily()
     ),
     H4 = TextStyle(
         fontSize = 16.sp,
         fontWeight = FontWeight.Bold,
         fontStyle = FontStyle.Normal,
-//        fontFamily = Fonts.ArchivoFamily()
+        fontFamily = Fonts.GunterzFamily()
     ),
     Label = TextStyle(
         fontSize = 14.sp,
