@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import basic.BasicLineChart
 import controls.TextFieldH2
 import controls.TextFieldH3
@@ -43,6 +44,13 @@ internal fun ChartsInfo(
             color = Design.colors.accent_quaternary,
             value = "${training.intensity?.round(1) ?: "-"}%"
         )
+
+        TrainingChart(
+            title = "REPEATS",
+            values = training.exercises.map { it.countOfLifting.toFloat() },
+            color = Design.colors.accent_quinary,
+            value = training.countOfLifting.toString()
+        )
     }
 }
 
@@ -58,6 +66,7 @@ private fun RowScope.TrainingChart(
             .weight(1f)
             .secondaryBackground()
             .recomposeHighlighter(),
+        contentAlignment = Alignment.Center
     ) {
 
         BasicLineChart(
@@ -65,27 +74,25 @@ private fun RowScope.TrainingChart(
                 .fillMaxWidth()
                 .secondaryBackground()
                 .padding(top = Design.dp.paddingM)
-                .height(Design.dp.component + Design.dp.paddingM)
+                .height(Design.dp.component + Design.dp.paddingL)
                 .recomposeHighlighter(),
             values = values,
-            color = color.copy(alpha = 0.7f),
+            color = color.copy(alpha = 0.3f),
             bottomSpacing = 60f
         )
 
-        Column(
-            modifier = Modifier
-                .padding(
-                    vertical = Design.dp.paddingXS,
-                    horizontal = Design.dp.paddingS
-                ).align(Alignment.BottomStart),
+        Box(
+            modifier = Modifier.height(46.dp)
         ) {
 
             TextFieldH2(
+                modifier =Modifier.align(Alignment.TopCenter),
                 provideText = { value },
                 color = Design.colors.content
             )
 
             TextFieldH3(
+                modifier =Modifier.align(Alignment.BottomCenter),
                 provideText = { title },
                 color = color
             )

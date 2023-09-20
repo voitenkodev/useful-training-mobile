@@ -24,13 +24,13 @@ internal fun typography() = Typography(
         fontFamily = Fonts.GunterzFamily(),
     ),
     H2 = TextStyle(
-        fontSize = 28.sp,
+        fontSize = 22.sp,
         fontWeight = FontWeight.ExtraBold,
         fontStyle = FontStyle.Normal,
         fontFamily = Fonts.GunterzFamily()
     ),
     H3 = TextStyle(
-        fontSize = 16.sp,
+        fontSize = 14.sp,
         fontWeight = FontWeight.Bold,
         fontStyle = FontStyle.Normal,
         fontFamily = Fonts.GunterzFamily()

@@ -29,24 +29,27 @@ fun BasicLineChart(
         )
 
         drawElement.lineConfigs?.let { lineConfigs ->
-            drawPath(
-                path = drawElement.path,
-                color = lineConfigs.color,
-                style = Stroke(
-                    width = lineConfigs.width.toPx(),
-                    cap = StrokeCap.Round,
-                ),
-            )
+
+//            Line
+//            drawPath(
+//                path = drawElement.path,
+//                color = lineConfigs.color,
+//                style = Stroke(
+//                    width = lineConfigs.width.toPx(),
+//                    cap = StrokeCap.Round,
+//                ),
+//            )
 
             drawPath(
                 path = drawElement.path.apply {
                     lineTo(size.width, size.height)
                     lineTo(0f, size.height)
                 },
-                brush = Brush.verticalGradient(
-                    0.0f to lineConfigs.color.copy(alpha = 0.7f),
-                    0.9f to lineConfigs.color.copy(alpha = 0.0f)
-                )
+                color = lineConfigs.color
+//                brush = Brush.verticalGradient(
+//                    0.0f to lineConfigs.color,//.copy(alpha = 0.7f),
+//                    0.9f to lineConfigs.color// .copy(alpha = 0.0f)
+//                )
             )
         }
     }
