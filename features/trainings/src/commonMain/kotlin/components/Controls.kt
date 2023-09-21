@@ -11,32 +11,24 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.pager.PagerState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ExitToApp
-import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
-import androidx.compose.material.icons.filled.KeyboardArrowRight
-import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.unit.dp
 import controls.ButtonSecondaryIcon
-import kotlinx.coroutines.launch
 import platformInsets
 
 @Composable
 internal fun BoxScope.TrainingsControls(
     modifier: Modifier = Modifier,
     visibilityCondition: () -> Boolean = { true },
-    pagerState: PagerState,
     addTraining: () -> Unit,
-    openTraining: () -> Unit,
     logout: () -> Unit
 ) {
 
@@ -65,7 +57,6 @@ internal fun BoxScope.TrainingsControls(
         verticalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
     ) {
 
-        Spacer(modifier = Modifier.weight(1f))
 
         ButtonSecondaryIcon(
             modifier = Modifier.offset(x = animatedDp),
@@ -73,38 +64,12 @@ internal fun BoxScope.TrainingsControls(
             onClick = logout
         )
 
-        ButtonSecondaryIcon(
-            modifier = Modifier.offset(x = animatedDp),
-            enabled = pagerState.currentPage > 0,
-            imageVector = Icons.Default.KeyboardArrowUp,
-            onClick = {
-                coroutineScope.launch {
-                    pagerState.animateScrollToPage(pagerState.currentPage - 1)
-                }
-            }
-        )
-
-        ButtonSecondaryIcon(
-            modifier = Modifier.offset(x = animatedDp),
-            enabled = pagerState.currentPage < (pagerState.pageCount - 1),
-            imageVector = Icons.Default.KeyboardArrowDown,
-            onClick = {
-                coroutineScope.launch {
-                    pagerState.animateScrollToPage(pagerState.currentPage + 1)
-                }
-            }
-        )
+        Spacer(modifier = Modifier.weight(1f))
 
         ButtonSecondaryIcon(
             modifier = Modifier.offset(x = animatedDp),
             imageVector = Icons.Default.Add,
             onClick = addTraining,
-        )
-
-        ButtonSecondaryIcon(
-            modifier = Modifier.rotate(animatedFloat),
-            imageVector = Icons.Default.KeyboardArrowRight,
-            onClick = openTraining,
         )
     }
 }

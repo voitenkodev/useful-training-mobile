@@ -3,16 +3,21 @@ package components
 import Design
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
+import controls.ButtonBrand
 import training.Training
 
 @Composable
-internal fun TrainingItem(training: Training) {
+internal fun TrainingItem(
+    training: Training,
+    onClick: () -> Unit
+) {
 
     val trainingProvider by rememberUpdatedState(training)
 
@@ -40,6 +45,17 @@ internal fun TrainingItem(training: Training) {
 
         Exercises(
             training = trainingProvider,
+        )
+
+        Spacer(
+            modifier = Modifier.size(Design.dp.paddingM)
+        )
+
+        ButtonBrand(
+            modifier = Modifier.fillMaxWidth(),
+            text = "Review",
+            onClick = onClick,
+            backgroundColor = Design.colors.accent_primary
         )
     }
 }

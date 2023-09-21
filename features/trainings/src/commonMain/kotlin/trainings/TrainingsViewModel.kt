@@ -15,6 +15,7 @@ import mapping.toTrainingStateList
 import org.koin.core.component.inject
 import repository.AuthRepository
 import repository.TrainingRepository
+import training.Training
 
 class TrainingsViewModel : ViewModel() {
 
@@ -39,43 +40,48 @@ class TrainingsViewModel : ViewModel() {
                 _state.value = state.value.copy(
                     loading = false,
                     error = null,
-                    trainings = it
+                    trainings = it,
+                    calendar = state.value.calendar.syncWithTrainings(it)
                 )
             }.catch {
                 _state.value = state.value.copy(loading = false, error = it.message)
             }.launchIn(this)
     }
 
-    fun logout(onSuccess: () -> Unit) {
-        launch {
-            authApi.logout()
-            onSuccess.invoke()
-        }
+    fun logout(onSuccess: () -> Unit) = launch {
+        authApi.logout()
+        onSuccess.invoke()
     }
 
     fun addCalendarChunk() {
         val newList = state.value.calendar + addEarlyCalendarChunk(
             count = 20,
             list = state.value.calendar.map { it.dateTimeIso }
-        ).map {
+        ).map { item ->
             SelectableCalendar(
                 isSelected = false,
-                isToday = DateTimeKtx.isCurrentDate(it),
-                dateTimeIso = it,
-                day = DateTimeKtx.formattedDate(it) ?: "-",
-                weekDay = DateTimeKtx.formattedDayOfWeek(it) ?: "-",
+                isToday = DateTimeKtx.isCurrentDate(item),
+                dateTimeIso = item,
+                day = DateTimeKtx.formattedDate(item) ?: "-",
+                weekDay = DateTimeKtx.formattedDayOfWeek(item) ?: "-",
+                countOfTrainings = 0
             )
-        }
+        }.syncWithTrainings(state.value.trainings)
+
         _state.value = state.value.copy(calendar = newList)
     }
 
     fun selectCalendarDay(dateTimeIso: String) {
         val newList = state.value.calendar.map {
-            it.copy(
-                isSelected = DateTimeKtx.isTheSameDate(it.dateTimeIso, dateTimeIso)
-            )
+            val isSelected = DateTimeKtx.isTheSameDate(it.dateTimeIso, dateTimeIso)
+            it.copy(isSelected = isSelected)
         }
         _state.value = state.value.copy(calendar = newList)
+    }
+
+    private fun List<SelectableCalendar>.syncWithTrainings(trainings: List<Training>) = map { item ->
+        val count = trainings.count { DateTimeKtx.isTheSameDate(item.dateTimeIso, it.startDateTime) }
+        item.copy(countOfTrainings = count)
     }
 
     fun clearError() {

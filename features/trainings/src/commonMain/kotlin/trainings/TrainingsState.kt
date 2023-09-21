@@ -4,7 +4,6 @@ import DateTimeKtx
 import androidx.compose.runtime.Immutable
 import dev.icerock.moko.parcelize.Parcelable
 import dev.icerock.moko.parcelize.Parcelize
-import kotlinx.datetime.LocalDateTime
 import training.Training
 
 @Parcelize
@@ -28,4 +27,5 @@ data class SelectableCalendar(
     val dateTimeIso: String,
     val day: String,
     val weekDay: String,
+    val countOfTrainings: Int
 ) : Parcelable
