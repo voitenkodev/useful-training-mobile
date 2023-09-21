@@ -1,56 +1,42 @@
 package trainings
 
+import DateTimeKtx
 import Design
 import PlatformBackHandler
 import androidx.compose.animation.core.FastOutLinearInEasing
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.rememberUpdatedState
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import atomic.rememberAccentColorsAsState
 import components.Error
 import components.Loading
+import components.PaginatedCalendar
 import components.TrainingItem
 import components.TrainingsControls
 import components.backgrounds.BrandGradientCenterEnd
 import components.backgrounds.BrandGradientCenterStart
 import components.roots.Root
-import conditional
-import controls.TextFieldBody1
 import controls.TextFieldH1
-import controls.TextFieldH2
-import controls.accentBackground
-import controls.secondaryBackground
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import platformBottomInset
@@ -104,7 +90,7 @@ private fun Content(
     trainings: () -> List<Training>,
     openTraining: (trainingId: String) -> Unit,
     addCalendarChunk: () -> Unit,
-    selectCalendarDay: (SelectableCalendar) -> Unit,
+    selectCalendarDay: (dateTimeIso: String) -> Unit,
 ) {
 
     val addTrainingProvider by rememberUpdatedState(newTraining)
@@ -120,6 +106,13 @@ private fun Content(
         targetValue = if (showFrame.value) 0.dp else 250.dp,
         tween(durationMillis = showFrameDuration, easing = FastOutLinearInEasing)
     )
+
+    LaunchedEffect(pagerState) {
+        snapshotFlow { pagerState.currentPage }.collect { page ->
+            val dateTimeIso = trainings().getOrNull(page)?.startDateTime ?: return@collect
+            selectCalendarDay.invoke(dateTimeIso)
+        }
+    }
 
     Root(
         loading = { Loading(loading) },
@@ -143,24 +136,31 @@ private fun Content(
             )
 
             HorizontalPager(
-                modifier = Modifier
-                    .weight(1f),
+                modifier = Modifier.weight(1f),
                 state = pagerState,
+                reverseLayout = true,
                 userScrollEnabled = showFrame.value
             ) {
 
-                val training by rememberUpdatedState(trainings()[it])
+                val selectedDate = calendar.findLast { it.isSelected }?.dateTimeIso ?: return@HorizontalPager
 
-                Column(
+                val trainingList = remember(trainings(), selectedDate) {
+                    trainings().filter { training ->
+                        DateTimeKtx.isTheSameDate(training.startDateTime, selectedDate)
+                    }
+                }
+
+                LazyColumn(
                     modifier = Modifier
                         .fillMaxSize()
-                        .verticalScroll(rememberScrollState())
                         .platformBottomInset()
                 ) {
 
-                    TrainingItem(
-                        training = training
-                    )
+                    items(trainingList) { training ->
+                        TrainingItem(
+                            training = training
+                        )
+                    }
                 }
             }
         }
@@ -189,70 +189,5 @@ private fun Content(
             modifier = Modifier.offset(x = -(offset.value)),
             color = accentList.value[pagerState.currentPage % accentList.value.size]
         )
-    }
-}
-
-@Composable
-fun PaginatedCalendar(
-    calendar: List<SelectableCalendar>,
-    onAddMore: () -> Unit,
-    selectCalendarDay: (SelectableCalendar) -> Unit
-) {
-
-    val lazyColumnListState = rememberLazyListState()
-
-    val shouldStartPaginate = remember {
-        derivedStateOf {
-            (lazyColumnListState.layoutInfo.visibleItemsInfo.lastOrNull()?.index
-                ?: -9) >= (lazyColumnListState.layoutInfo.totalItemsCount - 6)
-        }
-    }
-
-    LaunchedEffect(key1 = shouldStartPaginate.value) {
-        if (shouldStartPaginate.value)
-            onAddMore.invoke()
-    }
-
-    LazyRow(
-        state = lazyColumnListState,
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM),
-        contentPadding = PaddingValues(Design.dp.paddingM)
-    ) {
-
-        items(calendar) {
-            Box(
-                modifier = Modifier
-                    .size(80.dp)
-                    .conditional(
-                        condition = it.isToday,
-                        onYes = { accentBackground() },
-                        onNot = { secondaryBackground() }
-                    ).clickable { selectCalendarDay.invoke(it) }
-                    .border(
-                        width = 1.dp,
-                        color = if (it.isSelected) Design.colors.content else Color.Transparent,
-                        shape = Design.shape.default
-                    )
-
-            ) {
-
-                TextFieldBody1(
-                    modifier = Modifier
-                        .align(Alignment.TopCenter)
-                        .padding(top = 16.dp),
-                    provideText = { it.weekDay },
-                    color = Design.colors.caption
-                )
-
-                TextFieldH2(
-                    modifier = Modifier
-                        .align(Alignment.BottomCenter)
-                        .padding(bottom = 16.dp),
-                    provideText = { it.day },
-                    color = Design.colors.content
-                )
-            }
-        }
     }
 }

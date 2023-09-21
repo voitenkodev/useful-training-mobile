@@ -32,7 +32,7 @@ object DateTimeKtx {
             .System.now()
             .toLocalDateTime(timeZone)
             .toInstant(timeZone)
-            .plus(7, DateTimeUnit.DAY, timeZone)
+            .plus(4, DateTimeUnit.DAY, timeZone)
             .toLocalDateTime(timeZone)
         else list
             .minOfOrNull {
@@ -94,6 +94,17 @@ object DateTimeKtx {
         val localDateTime = iso8601TimestampToLocalDateTime(iso8601Timestamp)?.date ?: return false
         val currentLocalDateTime = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date
         return localDateTime == currentLocalDateTime
+    }
+
+    /**
+     * Input 2022-10-21T13:20:18.496Z ,  2022-10-21T13:20:18.496Z
+     *
+     * Output true / false
+     * */
+    fun isTheSameDate(iso8601Timestamp1: String, iso8601Timestamp2: String): Boolean {
+        val localDateTime1 = iso8601TimestampToLocalDateTime(iso8601Timestamp1)?.date ?: return false
+        val localDateTime2 = iso8601TimestampToLocalDateTime(iso8601Timestamp2)?.date ?: return false
+        return localDateTime1 == localDateTime2
     }
 
     /**

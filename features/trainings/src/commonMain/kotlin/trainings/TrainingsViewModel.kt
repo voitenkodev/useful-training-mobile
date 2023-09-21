@@ -26,6 +26,7 @@ class TrainingsViewModel : ViewModel() {
 
     init {
         addCalendarChunk()
+        selectCalendarDay(DateTimeKtx.currentDateTime())
     }
 
     fun getTrainings() = launch {
@@ -68,10 +69,10 @@ class TrainingsViewModel : ViewModel() {
         _state.value = state.value.copy(calendar = newList)
     }
 
-    fun selectCalendarDay(calendar: SelectableCalendar) {
+    fun selectCalendarDay(dateTimeIso: String) {
         val newList = state.value.calendar.map {
             it.copy(
-                isSelected = it == calendar
+                isSelected = DateTimeKtx.isTheSameDate(it.dateTimeIso, dateTimeIso)
             )
         }
         _state.value = state.value.copy(calendar = newList)
