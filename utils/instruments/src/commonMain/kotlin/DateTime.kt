@@ -8,6 +8,7 @@ import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.Month
 import kotlinx.datetime.TimeZone
+import kotlinx.datetime.UtcOffset
 import kotlinx.datetime.minus
 import kotlinx.datetime.plus
 import kotlinx.datetime.toInstant
@@ -15,6 +16,46 @@ import kotlinx.datetime.toLocalDateTime
 import kotlin.time.Duration
 
 object DateTimeKtx {
+
+    /**
+     * Input 2 + listOf(2022-10-21T13:20:18.496Z, 2022-10-22T13:20:18.496Z)
+     * Output listOf(2022-10-20T13:20:18.496Z, 2022-10-19T13:20:18.496Z)
+     **/
+
+    fun addEarlyCalendarChunk(
+        list: List<String>,
+        count: Int,
+    ): List<String> {
+        val timeZone = TimeZone.currentSystemDefault()
+
+        val lastDate = if (list.isEmpty()) Clock
+            .System.now()
+            .toLocalDateTime(timeZone)
+            .toInstant(timeZone)
+            .plus(7, DateTimeUnit.DAY, timeZone)
+            .toLocalDateTime(timeZone)
+        else list
+            .minOfOrNull {
+                Instant.parse(it)
+                    .toLocalDateTime(timeZone)
+            }
+
+        if (lastDate == null) return emptyList()
+
+        val newChunk = mutableListOf<String>()
+
+        for (i in 1..count) {
+            val previousDate = lastDate
+                .toInstant(timeZone)
+                .minus(i, DateTimeUnit.DAY, timeZone)
+                .toLocalDateTime(timeZone)
+                .toInstant(offset = UtcOffset.ZERO)
+                .toString()
+
+            newChunk.add(previousDate)
+        }
+        return newChunk
+    }
 
     /**
      * Output 2022-10-21T13:20:18.496Z
@@ -41,6 +82,19 @@ object DateTimeKtx {
         val month = date.month.name.lowercase().capitalize(Locale.current)
         val year = date.year
         return "${day.zeroPrefixed(2)} $month $year"
+    }
+
+
+    /**
+     * Input 2022-10-21T13:20:18.496Z
+     *
+     * Output true / false
+     * */
+
+    fun isCurrentDate(iso8601Timestamp: String): Boolean {
+        val localDateTime = iso8601TimestampToLocalDateTime(iso8601Timestamp)?.date ?: return false
+        val currentLocalDateTime = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date
+        return localDateTime == currentLocalDateTime
     }
 
     /**
@@ -103,6 +157,31 @@ object DateTimeKtx {
         val month = date.monthNumber
         val year = date.year
         return "${day.zeroPrefixed(2)}.${month.zeroPrefixed(2)}.${year}"
+    }
+
+    /**
+     * Input 2022-10-21T13:20:18.496Z
+     *
+     * Output 21
+     * */
+
+    fun formattedDate(iso8601Timestamp: String): String? {
+        val localDateTime = iso8601TimestampToLocalDateTime(iso8601Timestamp) ?: return null
+        val date = localDateTime.date
+        val day = date.dayOfMonth
+        return day.zeroPrefixed(2)
+    }
+
+    /**
+     * Input 2022-10-21T13:20:18.496Z
+     *
+     * Output Fri
+     * */
+
+    fun formattedDayOfWeek(iso8601Timestamp: String): String? {
+        val localDateTime = iso8601TimestampToLocalDateTime(iso8601Timestamp) ?: return null
+        val date = localDateTime.date
+        return date.dayOfWeek.name.take(3)
     }
 
     /**

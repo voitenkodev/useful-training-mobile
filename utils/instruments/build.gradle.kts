@@ -18,7 +18,7 @@ kotlin {
                 implementation(compose.material)
 
                 // Utils
-                implementation(libs.datetime)
+                api(libs.datetime)
             }
         }
         val androidMain by getting {

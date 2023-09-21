@@ -1,5 +1,7 @@
 package trainings
 
+import DateTimeKtx
+import DateTimeKtx.addEarlyCalendarChunk
 import ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -13,8 +15,6 @@ import mapping.toTrainingStateList
 import org.koin.core.component.inject
 import repository.AuthRepository
 import repository.TrainingRepository
-import round
-import training.Training
 
 class TrainingsViewModel : ViewModel() {
 
@@ -24,6 +24,10 @@ class TrainingsViewModel : ViewModel() {
     private val trainingApi by inject<TrainingRepository>()
     private val authApi by inject<AuthRepository>()
 
+    init {
+        addCalendarChunk()
+    }
+
     fun getTrainings() = launch {
         trainingApi.getTrainings()
             .onStart {
@@ -31,8 +35,11 @@ class TrainingsViewModel : ViewModel() {
             }.map {
                 it.toTrainingStateList()
             }.onEach {
-                _state.value = state.value.copy(loading = false, error = null)
-                _state.value = state.value.processingTrainings(it)
+                _state.value = state.value.copy(
+                    loading = false,
+                    error = null,
+                    trainings = it
+                )
             }.catch {
                 _state.value = state.value.copy(loading = false, error = it.message)
             }.launchIn(this)
@@ -45,44 +52,22 @@ class TrainingsViewModel : ViewModel() {
         }
     }
 
+    fun addCalendarChunk() {
+        val newList = state.value.calendar + addEarlyCalendarChunk(
+            count = 20,
+            list = state.value.calendar.map { it.dateTimeIso }
+        ).map {
+            SelectableCalendar(
+                isSelected = DateTimeKtx.isCurrentDate(it),
+                dateTimeIso = it,
+                day = DateTimeKtx.formattedDate(it) ?: "-",
+                weekDay = DateTimeKtx.formattedDayOfWeek(it) ?: "-",
+            )
+        }
+        _state.value = state.value.copy(calendar = newList)
+    }
+
     fun clearError() {
         _state.value = state.value.copy(error = null)
     }
-
-    fun addTraining() {
-//        navigator.navigate(Graph.Training.link)
-    }
-
-    fun moveToSummary() {
-//        navigator.navigate(Graph.Summary.link)
-    }
-
-    fun back() {
-//        navigator.back()
-    }
-
-    fun editTraining(training: Training) {
-        val id = training.id ?: return
-//        navigator.navigate(Graph.Training.link, args = mapOf("trainingId" to id))
-    }
-
-    fun reviewTraining(training: Training) {
-        val id = training.id ?: return
-//        navigator.navigate(Graph.Review.link, args = mapOf("trainingId" to id))
-    }
-
-    private fun TrainingsState.processingTrainings(trainings: List<Training>) = copy(
-        trainings = trainings,
-        weekTrainings = trainings.groupBy { it.endOfWeek }.mapKeys { item ->
-            val startDate = item.value.firstOrNull()?.startOfWeek
-            val endDate = item.value.firstOrNull()?.endOfWeek
-            WeekInfo(
-                startWeekDate = startDate ?: "",
-                endWeekDate = endDate ?: "",
-                tonnage = item.value.mapNotNull { it.tonnage }.sum().round(2),
-                intensity = (item.value.mapNotNull { it.intensity }.sum() / item.value.size).round(1),
-                trainingWeekDays = item.value.map { it.weekDay }
-            )
-        }
-    )
 }

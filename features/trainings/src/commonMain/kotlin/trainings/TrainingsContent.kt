@@ -5,7 +5,6 @@ import PlatformBackHandler
 import androidx.compose.animation.core.FastOutLinearInEasing
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -18,6 +17,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.rememberScrollState
@@ -25,6 +25,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -32,7 +33,6 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import atomic.rememberAccentColorsAsState
 import components.Error
@@ -76,8 +76,10 @@ fun TrainingsContent(
         back = back,
         newTraining = toNewTraining,
         logout = { vm.logout(toAuth) },
+        calendar = state.calendar,
         trainings = { state.trainings },
         openTraining = toTrainingById,
+        addCalendarChunk = vm::addCalendarChunk
     )
 }
 
@@ -94,8 +96,10 @@ private fun Content(
     logout: () -> Unit,
 
     // CONTENT
+    calendar: List<SelectableCalendar>,
     trainings: () -> List<Training>,
     openTraining: (trainingId: String) -> Unit,
+    addCalendarChunk: () -> Unit,
 ) {
 
     val addTrainingProvider by rememberUpdatedState(newTraining)
@@ -127,43 +131,10 @@ private fun Content(
                 provideText = { "October" },
             )
 
-            val list = listOf(false, false, false, false, false, false, false, true, false, false, false, false)
-
-            LazyRow(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM),
-                contentPadding = PaddingValues(Design.dp.paddingM)
-            ) {
-
-                items(list) {
-                    Box(
-                        modifier = Modifier
-                            .size(80.dp)
-                            .conditional(
-                                condition = it,
-                                onYes = { accentBackground() },
-                                onNot = { secondaryBackground() }
-                            )
-                    ) {
-
-                        TextFieldBody1(
-                            modifier = Modifier
-                                .align(Alignment.TopCenter)
-                                .padding(top = 16.dp),
-                            provideText = { "Mon" },
-                            color = Design.colors.caption
-                        )
-
-                        TextFieldH2(
-                            modifier = Modifier
-                                .align(Alignment.BottomCenter)
-                                .padding(bottom = 16.dp),
-                            provideText = { "27" },
-                            color = Design.colors.content
-                        )
-                    }
-                }
-            }
+            PaginatedCalendar(
+                calendar = calendar,
+                onAddMore = addCalendarChunk
+            )
 
             HorizontalPager(
                 modifier = Modifier
@@ -212,5 +183,63 @@ private fun Content(
             modifier = Modifier.offset(x = -(offset.value)),
             color = accentList.value[pagerState.currentPage % accentList.value.size]
         )
+    }
+}
+
+@Composable
+fun PaginatedCalendar(
+    calendar: List<SelectableCalendar>,
+    onAddMore: () -> Unit
+) {
+
+    val lazyColumnListState = rememberLazyListState()
+
+    val shouldStartPaginate = remember {
+        derivedStateOf {
+            (lazyColumnListState.layoutInfo.visibleItemsInfo.lastOrNull()?.index
+                ?: -9) >= (lazyColumnListState.layoutInfo.totalItemsCount - 6)
+        }
+    }
+
+    LaunchedEffect(key1 = shouldStartPaginate.value) {
+        if (shouldStartPaginate.value)
+            onAddMore.invoke()
+    }
+
+    LazyRow(
+        state = lazyColumnListState,
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM),
+        contentPadding = PaddingValues(Design.dp.paddingM)
+    ) {
+
+        items(calendar) {
+            Box(
+                modifier = Modifier
+                    .size(80.dp)
+                    .conditional(
+                        condition = it.isSelected,
+                        onYes = { accentBackground() },
+                        onNot = { secondaryBackground() }
+                    )
+            ) {
+
+                TextFieldBody1(
+                    modifier = Modifier
+                        .align(Alignment.TopCenter)
+                        .padding(top = 16.dp),
+                    provideText = { it.weekDay },
+                    color = Design.colors.caption
+                )
+
+                TextFieldH2(
+                    modifier = Modifier
+                        .align(Alignment.BottomCenter)
+                        .padding(bottom = 16.dp),
+                    provideText = { it.day },
+                    color = Design.colors.content
+                )
+            }
+        }
     }
 }

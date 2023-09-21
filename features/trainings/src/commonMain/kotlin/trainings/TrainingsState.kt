@@ -1,28 +1,30 @@
 package trainings
 
+import DateTimeKtx
 import androidx.compose.runtime.Immutable
 import dev.icerock.moko.parcelize.Parcelable
 import dev.icerock.moko.parcelize.Parcelize
+import kotlinx.datetime.LocalDateTime
 import training.Training
-import DateTimeKtx
 
 @Parcelize
 @Immutable
 data class TrainingsState(
     val weekDay: String = DateTimeKtx.currentWeekDay(),
     val date: String = DateTimeKtx.currentDate(),
+
     val trainings: List<Training> = emptyList(),
-    val weekTrainings: Map<WeekInfo, List<Training>> = emptyMap(),
+    val calendar: List<SelectableCalendar> = emptyList(),
+
     val error: String? = null,
     val loading: Boolean = false
 ) : Parcelable
 
 @Parcelize
 @Immutable
-data class WeekInfo(
-    val startWeekDate: String,
-    val endWeekDate: String,
-    val tonnage: Double,
-    val intensity: Double,
-    val trainingWeekDays: List<String>,
+data class SelectableCalendar(
+    val isSelected: Boolean,
+    val dateTimeIso: String,
+    val day: String,
+    val weekDay: String,
 ) : Parcelable
