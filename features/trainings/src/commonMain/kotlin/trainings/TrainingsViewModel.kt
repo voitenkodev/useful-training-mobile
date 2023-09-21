@@ -58,10 +58,20 @@ class TrainingsViewModel : ViewModel() {
             list = state.value.calendar.map { it.dateTimeIso }
         ).map {
             SelectableCalendar(
-                isSelected = DateTimeKtx.isCurrentDate(it),
+                isSelected = false,
+                isToday = DateTimeKtx.isCurrentDate(it),
                 dateTimeIso = it,
                 day = DateTimeKtx.formattedDate(it) ?: "-",
                 weekDay = DateTimeKtx.formattedDayOfWeek(it) ?: "-",
+            )
+        }
+        _state.value = state.value.copy(calendar = newList)
+    }
+
+    fun selectCalendarDay(calendar: SelectableCalendar) {
+        val newList = state.value.calendar.map {
+            it.copy(
+                isSelected = it == calendar
             )
         }
         _state.value = state.value.copy(calendar = newList)

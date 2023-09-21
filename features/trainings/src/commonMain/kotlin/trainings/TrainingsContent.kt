@@ -5,6 +5,8 @@ import PlatformBackHandler
 import androidx.compose.animation.core.FastOutLinearInEasing
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -33,6 +35,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import atomic.rememberAccentColorsAsState
 import components.Error
@@ -79,7 +82,8 @@ fun TrainingsContent(
         calendar = state.calendar,
         trainings = { state.trainings },
         openTraining = toTrainingById,
-        addCalendarChunk = vm::addCalendarChunk
+        addCalendarChunk = vm::addCalendarChunk,
+        selectCalendarDay = vm::selectCalendarDay
     )
 }
 
@@ -100,6 +104,7 @@ private fun Content(
     trainings: () -> List<Training>,
     openTraining: (trainingId: String) -> Unit,
     addCalendarChunk: () -> Unit,
+    selectCalendarDay: (SelectableCalendar) -> Unit,
 ) {
 
     val addTrainingProvider by rememberUpdatedState(newTraining)
@@ -133,7 +138,8 @@ private fun Content(
 
             PaginatedCalendar(
                 calendar = calendar,
-                onAddMore = addCalendarChunk
+                onAddMore = addCalendarChunk,
+                selectCalendarDay = selectCalendarDay
             )
 
             HorizontalPager(
@@ -189,7 +195,8 @@ private fun Content(
 @Composable
 fun PaginatedCalendar(
     calendar: List<SelectableCalendar>,
-    onAddMore: () -> Unit
+    onAddMore: () -> Unit,
+    selectCalendarDay: (SelectableCalendar) -> Unit
 ) {
 
     val lazyColumnListState = rememberLazyListState()
@@ -218,10 +225,16 @@ fun PaginatedCalendar(
                 modifier = Modifier
                     .size(80.dp)
                     .conditional(
-                        condition = it.isSelected,
+                        condition = it.isToday,
                         onYes = { accentBackground() },
                         onNot = { secondaryBackground() }
+                    ).clickable { selectCalendarDay.invoke(it) }
+                    .border(
+                        width = 1.dp,
+                        color = if (it.isSelected) Design.colors.content else Color.Transparent,
+                        shape = Design.shape.default
                     )
+
             ) {
 
                 TextFieldBody1(

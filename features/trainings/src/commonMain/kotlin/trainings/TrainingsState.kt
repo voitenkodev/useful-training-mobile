@@ -24,6 +24,7 @@ data class TrainingsState(
 @Immutable
 data class SelectableCalendar(
     val isSelected: Boolean,
+    val isToday: Boolean,
     val dateTimeIso: String,
     val day: String,
     val weekDay: String,
