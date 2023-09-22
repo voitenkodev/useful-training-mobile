@@ -6,11 +6,13 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.dp
 
 internal fun shape() = Shape(
+    small = RoundedCornerShape(6.dp),
     default = RoundedCornerShape(10.dp),
     circleShape = CircleShape,
 )
 
 data class Shape(
+    val small: Shape,
     val default: Shape,
     val circleShape: Shape,
 )

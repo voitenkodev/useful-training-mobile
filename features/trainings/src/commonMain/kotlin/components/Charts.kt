@@ -24,10 +24,11 @@ import training.Training
 
 @Composable
 internal fun ChartsInfo(
+    modifier: Modifier = Modifier,
     training: Training
 ) {
     Row(
-        modifier = Modifier.fillMaxWidth().recomposeHighlighter(),
+        modifier = modifier.fillMaxWidth().recomposeHighlighter(),
         horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
     ) {
         TrainingChart(

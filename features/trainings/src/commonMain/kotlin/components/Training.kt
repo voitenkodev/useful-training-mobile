@@ -22,12 +22,12 @@ internal fun TrainingItem(
     val trainingProvider by rememberUpdatedState(training)
 
     Column(
-        modifier = Modifier
-            .padding(Design.dp.paddingM),
+        modifier = Modifier.padding(vertical = Design.dp.paddingM),
     ) {
 
         TrainingTitle(
-            mainTitle = { training.weekDay },
+            modifier = Modifier.padding(horizontal = Design.dp.paddingM),
+            mainTitle = { "At ${training.startTime}" },
             subTitle = { training.startLongDate },
         )
 
@@ -36,6 +36,7 @@ internal fun TrainingItem(
         )
 
         ChartsInfo(
+            modifier = Modifier.padding(horizontal = Design.dp.paddingM),
             training = trainingProvider
         )
 
@@ -44,6 +45,7 @@ internal fun TrainingItem(
         )
 
         Exercises(
+            modifier = Modifier.padding(horizontal = Design.dp.paddingM),
             training = trainingProvider,
         )
 
@@ -52,7 +54,7 @@ internal fun TrainingItem(
         )
 
         ButtonBrand(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.padding(horizontal = Design.dp.paddingM).fillMaxWidth(),
             text = "Review",
             onClick = onClick,
             backgroundColor = Design.colors.accent_primary

@@ -36,10 +36,11 @@ internal fun typography() = Typography(
         fontFamily = Fonts.GunterzFamily()
     ),
     H4 = TextStyle(
-        fontSize = 16.sp,
+        fontSize = 12.sp,
         fontWeight = FontWeight.Bold,
         fontStyle = FontStyle.Normal,
-        fontFamily = Fonts.GunterzFamily()
+        fontFamily = Fonts.GunterzFamily(),
+        lineHeight = 18.sp
     ),
     Label = TextStyle(
         fontSize = 14.sp,
@@ -59,7 +60,7 @@ internal fun typography() = Typography(
         fontFamily = FontFamily.Default
     ),
     Body2 = TextStyle(
-        fontSize = 12.sp,
+        fontSize = 14.sp,
         fontWeight = FontWeight.Normal,
         fontStyle = FontStyle.Normal,
         fontFamily = FontFamily.Default

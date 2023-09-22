@@ -2,8 +2,10 @@ package components
 
 import Design
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberUpdatedState
@@ -13,12 +15,15 @@ import recomposeHighlighter
 import training.Training
 
 @Composable
-internal fun Exercises(training: Training) {
+internal fun Exercises(
+    modifier: Modifier = Modifier,
+    training: Training
+) {
 
     val exes = rememberUpdatedState(training.exercises)
 
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .secondaryBackground()
             .padding(Design.dp.paddingS)
@@ -34,5 +39,9 @@ internal fun Exercises(training: Training) {
                 exercise = { item }
             )
         }
+
+        Spacer(
+            modifier = Modifier.size(Design.dp.paddingM)
+        )
     }
 }
