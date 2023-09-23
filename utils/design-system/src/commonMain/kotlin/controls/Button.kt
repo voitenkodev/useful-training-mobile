@@ -92,7 +92,7 @@ fun ButtonSecondaryIcon(
             .requiredSize(Design.dp.component)
             .alpha(if (enabled) 1f else 0.5f)
             .background(
-                color = Design.colors.tertiary,
+                color = Design.colors.quaternary,
                 shape = Design.shape.circleShape
             ).clip(Design.shape.circleShape),
         onClick = onClick,

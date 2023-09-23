@@ -101,9 +101,10 @@ private fun Content(
             )
 
             TrainingTitle(
-                titleColor = Design.colors.content,
+                color = Design.colors.content,
                 mainTitle = { trainingProvider.weekDay },
                 subTitle = { trainingProvider.startLongDate },
+                click = {}
             )
 
             Spacer(

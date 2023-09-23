@@ -10,7 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
-import controls.secondaryBackground
+import controls.tertiaryBackground
 import recomposeHighlighter
 import training.Training
 
@@ -25,7 +25,7 @@ internal fun Exercises(
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .secondaryBackground()
+            .tertiaryBackground()
             .padding(Design.dp.paddingS)
     ) {
 

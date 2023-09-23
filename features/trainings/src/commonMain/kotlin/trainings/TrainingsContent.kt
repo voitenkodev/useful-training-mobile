@@ -3,11 +3,9 @@ package trainings
 import DateTimeKtx
 import Design
 import PlatformBackHandler
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
@@ -27,10 +25,8 @@ import components.TrainingsControls
 import components.backgrounds.BrandGradientCenterEnd
 import components.backgrounds.BrandGradientCenterStart
 import components.roots.Root
-import controls.TextFieldH1
 import next
 import platformBottomInset
-import platformTopInset
 import training.Training
 
 @Composable
@@ -109,16 +105,7 @@ private fun Content(
         back = { PlatformBackHandler(backProvider) },
     ) {
 
-        Column(modifier = Modifier.platformTopInset()) {
-
-            Spacer(
-                modifier = Modifier.size(Design.dp.component)
-            )
-
-            TextFieldH1(
-                modifier = Modifier.padding(horizontal = Design.dp.paddingM),
-                provideText = { "October" },
-            )
+        Column {
 
             PaginatedCalendar(
                 calendar = calendar,
@@ -129,12 +116,14 @@ private fun Content(
             LazyColumn(
                 modifier = Modifier
                     .fillMaxSize()
-                    .platformBottomInset()
+                    .platformBottomInset(),
+                verticalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
             ) {
 
                 items(trainingList) { training ->
                     TrainingItem(
                         training = training,
+                        color = selectedColor.value,
                         onClick = {
                             val id = training.id ?: return@TrainingItem
                             openTraining.invoke(id)

@@ -78,12 +78,6 @@ private fun InternalExercise(
         modifier = modifier.recomposeHighlighter(),
     ) {
 
-//        TextFieldBody1(
-//            modifier = Modifier.padding(Design.dp.paddingXS),
-//            provideText = { " " },
-//            fontWeight = FontWeight.Bold
-//        )
-
         TextFieldH4(
             modifier = Modifier.recomposeHighlighter(),
             provideText = { exercise().name },
@@ -109,7 +103,7 @@ private fun InternalExercise(
                     modifier = Modifier
                         .background(
                             shape = Design.shape.small,
-                            color = Design.colors.tertiary
+                            color = Design.colors.quaternary
                         ).padding(
                             horizontal = Design.dp.paddingM,
                             vertical = Design.dp.paddingXS

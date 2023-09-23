@@ -27,13 +27,16 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import conditional
 import controls.TextFieldBody1
+import controls.TextFieldH1
 import controls.TextFieldH2
 import controls.accentBackground
-import controls.secondaryBackground
+import controls.tertiaryBackground
+import platformTopInset
 import trainings.SelectableCalendar
 
 @Composable
 internal fun PaginatedCalendar(
+    modifier: Modifier = Modifier,
     calendar: List<SelectableCalendar>,
     onAddMore: () -> Unit,
     selectCalendarDay: (dateTimeIso: String) -> Unit
@@ -58,63 +61,76 @@ internal fun PaginatedCalendar(
         if (selectedIndex != -1) lazyColumnListState.animateScrollAndCentralizeItem(selectedIndex)
     }
 
-    LazyRow(
-        state = lazyColumnListState,
-        modifier = Modifier.fillMaxWidth(),
-        reverseLayout = true,
-        horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM),
-        contentPadding = PaddingValues(Design.dp.paddingM)
+    Column(
+        modifier = modifier.platformTopInset(),
     ) {
+        Spacer(
+            modifier = Modifier.size(Design.dp.component)
+        )
 
-        items(calendar) {
-            Box(
-                modifier = Modifier
-                    .size(80.dp)
-                    .conditional(
-                        condition = it.isToday,
-                        onYes = { accentBackground() },
-                        onNot = { secondaryBackground() }
-                    ).clickable { selectCalendarDay.invoke(it.dateTimeIso) }
-                    .border(
-                        width = 1.dp,
-                        color = if (it.isSelected) Design.colors.content else Color.Transparent,
-                        shape = Design.shape.default
+        TextFieldH1(
+            modifier = Modifier.padding(horizontal = Design.dp.paddingM),
+            provideText = { "October" },
+        )
+
+        LazyRow(
+            state = lazyColumnListState,
+            modifier = Modifier.fillMaxWidth(),
+            reverseLayout = true,
+            horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM),
+            contentPadding = PaddingValues(Design.dp.paddingM)
+        ) {
+
+            items(calendar) {
+                Box(
+                    modifier = Modifier
+                        .size(80.dp)
+                        .conditional(
+                            condition = it.isToday,
+                            onYes = { accentBackground() },
+                            onNot = { tertiaryBackground() }
+                        ).clickable { selectCalendarDay.invoke(it.dateTimeIso) }
+                        .border(
+                            width = 1.dp,
+                            color = if (it.isSelected) Design.colors.content else Color.Transparent,
+                            shape = Design.shape.default
+                        )
+
+                ) {
+
+                    TextFieldBody1(
+                        modifier = Modifier
+                            .align(Alignment.TopCenter)
+                            .padding(top = 16.dp),
+                        provideText = { it.weekDay },
+                        color = Design.colors.caption
                     )
 
-            ) {
-
-                TextFieldBody1(
-                    modifier = Modifier
-                        .align(Alignment.TopCenter)
-                        .padding(top = 16.dp),
-                    provideText = { it.weekDay },
-                    color = Design.colors.caption
-                )
-
-                TextFieldH2(
-                    modifier = Modifier
-                        .align(Alignment.BottomCenter)
-                        .padding(bottom = 16.dp),
-                    provideText = { it.day },
-                    color = Design.colors.content
-                )
-
-                if (it.countOfTrainings != 0) {
-                    Column(
+                    TextFieldH2(
                         modifier = Modifier
-                            .align(Alignment.TopEnd)
-                            .padding(Design.dp.paddingS),
-                        verticalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
-                    ) {
-                        repeat(it.countOfTrainings) {
-                            Spacer(
-                                modifier = Modifier
-                                    .size(10.dp)
-                                    .background(
-                                        color = Design.colors.accent_quinary,
-                                        shape = Design.shape.circleShape
-                                    )
-                            )
+                            .align(Alignment.BottomCenter)
+                            .padding(bottom = 16.dp),
+                        provideText = { it.day },
+                        color = Design.colors.content
+                    )
+
+                    if (it.countOfTrainings != 0) {
+                        Column(
+                            modifier = Modifier
+                                .align(Alignment.TopEnd)
+                                .padding(Design.dp.paddingS),
+                            verticalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
+                        ) {
+                            repeat(it.countOfTrainings) {
+                                Spacer(
+                                    modifier = Modifier
+                                        .size(10.dp)
+                                        .background(
+                                            color = Design.colors.accent_quinary,
+                                            shape = Design.shape.circleShape
+                                        )
+                                )
+                            }
                         }
                     }
                 }

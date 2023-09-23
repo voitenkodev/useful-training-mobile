@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.dp
 import basic.BasicLineChart
 import controls.TextFieldH2
 import controls.TextFieldH3
-import controls.secondaryBackground
+import controls.tertiaryBackground
 import recomposeHighlighter
 import round
 import toShortString
@@ -64,7 +64,7 @@ private fun RowScope.TrainingChart(
     Box(
         modifier = Modifier
             .weight(1f)
-            .secondaryBackground()
+            .tertiaryBackground()
             .recomposeHighlighter(),
         contentAlignment = Alignment.Center
     ) {
@@ -72,7 +72,7 @@ private fun RowScope.TrainingChart(
         BasicLineChart(
             modifier = Modifier
                 .fillMaxWidth()
-                .secondaryBackground()
+                .tertiaryBackground()
                 .padding(top = Design.dp.paddingM)
                 .height(Design.dp.component + Design.dp.paddingL)
                 .recomposeHighlighter(),

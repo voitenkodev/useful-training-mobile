@@ -11,8 +11,9 @@ internal fun darkPalette() = Color()
 data class Color(
     // Background
     val primary: Color = Color(0xff000000),
-    val secondary: Color = Color(0xff13131c),
-    val tertiary: Color = Color(0x0Dffffff),
+    val secondary: Color = Color(0xff15151c),
+    val tertiary: Color = Color(0xff13131c),
+    val quaternary: Color = Color(0x0Dffffff),
 
     // Color(0xffEA3469) = Red / Pink
     // Color(0xff228D57) = Green soft
@@ -25,7 +26,7 @@ data class Color(
     val accent_secondary: Color = Color(0xffEA3469),
     val accent_tertiary: Color = Color(0xff228D57),
     val accent_quaternary: Color = Color(0xffb45ac4),
-    val accent_quinary: Color = Color(0xfffcb51c),
+    val accent_quinary: Color = Color(0xffdbbd21),
 
     // Text
     val content: Color = Color(0xffffffff),

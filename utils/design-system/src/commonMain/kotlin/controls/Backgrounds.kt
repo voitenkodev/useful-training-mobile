@@ -22,9 +22,9 @@ fun Modifier.reversedBackground() = this
     )
 
 @Composable
-fun Modifier.secondaryBackground() = this
+fun Modifier.tertiaryBackground() = this
     .background(
-        color = Design.colors.secondary,
+        color = Design.colors.tertiary,
         shape = Design.shape.default
     ).clip(
         shape = Design.shape.default
