@@ -19,4 +19,9 @@ object Logger {
             }
         }
     }
+
+    @Composable
+    fun compose(value: String) {
+        Text(text = value, color = Color.Red)
+    }
 }

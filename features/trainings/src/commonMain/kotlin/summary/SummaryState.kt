@@ -42,7 +42,7 @@ data class ExerciseInfo(
     val day: Int
         get() = DateTimeKtx.formattedRealMonthDay(date) ?: -1
     val month: Int
-        get() = DateTimeKtx.formattedRealMonth(date) ?: -1
+        get() = DateTimeKtx.formattedRealMonthNum(date) ?: -1
     val year: Int
         get() = DateTimeKtx.formattedYear(date) ?: -1
 }

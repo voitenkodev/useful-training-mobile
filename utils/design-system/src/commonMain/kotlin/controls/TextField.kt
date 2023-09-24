@@ -20,7 +20,8 @@ fun TextFieldH1(
     textAlign: TextAlign? = null,
     maxLines: Int = Int.MAX_VALUE,
     fontWeight: FontWeight? = null,
-    overflow: TextOverflow = TextOverflow.Clip
+    overflow: TextOverflow = TextOverflow.Clip,
+    softWrap: Boolean = true,
 ) {
     TextField(
         provideText = provideText,
@@ -31,7 +32,8 @@ fun TextFieldH1(
         color = color ?: Design.colors.content,
         textAlign = textAlign,
         fontWeight = fontWeight,
-        overflow = overflow
+        overflow = overflow,
+        softWrap = softWrap
     )
 }
 
@@ -178,7 +180,8 @@ internal fun TextField(
     textStyle: TextStyle,
     maxLines: Int = Int.MAX_VALUE,
     fontWeight: FontWeight? = null,
-    overflow: TextOverflow = TextOverflow.Clip
+    overflow: TextOverflow = TextOverflow.Clip,
+    softWrap: Boolean = true,
 ) {
     val isPlaceholder = provideText() == null
 
@@ -201,6 +204,7 @@ internal fun TextField(
         text = provideText() ?: placeholder ?: "",
         style = textStyle3,
         maxLines = maxLines,
-        overflow = overflow
+        overflow = overflow,
+        softWrap = softWrap
     )
 }

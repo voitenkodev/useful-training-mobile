@@ -105,6 +105,10 @@ private fun Content(
         back = { PlatformBackHandler(backProvider) },
     ) {
 
+        BrandGradientCenterEnd(color = selectedColor.value)
+
+        BrandGradientCenterStart(color = selectedColor.value)
+
         Column {
 
             PaginatedCalendar(
@@ -137,9 +141,5 @@ private fun Content(
             addTraining = addTrainingProvider,
             logout = logout
         )
-
-        BrandGradientCenterEnd(color = selectedColor.value)
-
-        BrandGradientCenterStart(color = selectedColor.value)
     }
 }

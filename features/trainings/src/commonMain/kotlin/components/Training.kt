@@ -31,7 +31,6 @@ internal fun TrainingItem(
         TrainingTitle(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(color = color.copy(alpha = 0.2f))
                 .padding(Design.dp.paddingM),
             mainTitle = { "At ${training.startTime}" },
             subTitle = { training.startLongDate },

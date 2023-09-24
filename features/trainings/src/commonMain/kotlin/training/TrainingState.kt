@@ -49,7 +49,7 @@ data class Training(
     val day: Int
         get() = DateTimeKtx.formattedRealMonthDay(startDateTime) ?: -1
     val month: Int
-        get() = DateTimeKtx.formattedRealMonth(startDateTime) ?: -1
+        get() = DateTimeKtx.formattedRealMonthNum(startDateTime) ?: -1
     val year: Int
         get() = DateTimeKtx.formattedYear(startDateTime) ?: -1
 }

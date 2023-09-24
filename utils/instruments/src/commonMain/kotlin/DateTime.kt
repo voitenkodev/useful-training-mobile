@@ -312,9 +312,20 @@ object DateTimeKtx {
      * Output 9
      * */
 
-    fun formattedMonth(iso8601Timestamp: String): Int? {
+    fun formattedMonthNum(iso8601Timestamp: String): Int? {
         val localDateTime = iso8601TimestampToLocalDateTime(iso8601Timestamp) ?: return null
         return localDateTime.month.ordinal
+    }
+
+    /**
+     * Input 2022-10-21T13:20:18.496Z
+     *
+     * Output October
+     * */
+
+    fun formattedMonth(iso8601Timestamp: String): String? {
+        val localDateTime = iso8601TimestampToLocalDateTime(iso8601Timestamp) ?: return null
+        return localDateTime.month.name
     }
 
     /**
@@ -323,7 +334,7 @@ object DateTimeKtx {
      * Output 10
      * */
 
-    fun formattedRealMonth(iso8601Timestamp: String): Int? {
+    fun formattedRealMonthNum(iso8601Timestamp: String): Int? {
         val localDateTime = iso8601TimestampToLocalDateTime(iso8601Timestamp) ?: return null
         return localDateTime.month.ordinal + 1
     }

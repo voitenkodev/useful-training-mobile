@@ -1,6 +1,11 @@
 package components
 
+import DateTimeKtx
 import Design
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.AnimatedContentTransitionScope
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -20,6 +25,7 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -42,8 +48,11 @@ internal fun PaginatedCalendar(
     selectCalendarDay: (dateTimeIso: String) -> Unit
 ) {
 
-    val selectedIndex = remember(calendar) { calendar.indexOfFirst { it.isSelected } }
     val lazyColumnListState = rememberLazyListState()
+
+    val selectedIndex = remember(calendar) {
+        calendar.indexOfFirst { it.isSelected }
+    }
 
     val shouldStartPaginate = remember {
         derivedStateOf {
@@ -52,9 +61,24 @@ internal fun PaginatedCalendar(
         }
     }
 
+    val month = remember(lazyColumnListState.firstVisibleItemIndex) {
+        val iso = calendar
+            .getOrNull(lazyColumnListState.firstVisibleItemIndex)
+            ?.dateTimeIso
+            ?: return@remember ""
+        DateTimeKtx.formattedMonth(iso) ?: ""
+    }
+
+    val monthIndex = remember(lazyColumnListState.firstVisibleItemIndex) {
+        val iso = calendar
+            .getOrNull(lazyColumnListState.firstVisibleItemIndex)
+            ?.dateTimeIso
+            ?: return@remember -1
+        DateTimeKtx.formattedMonthNum(iso) ?: -1
+    }
+
     LaunchedEffect(key1 = shouldStartPaginate.value) {
-        if (shouldStartPaginate.value)
-            onAddMore.invoke()
+        if (shouldStartPaginate.value) onAddMore.invoke()
     }
 
     LaunchedEffect(key1 = selectedIndex) {
@@ -68,10 +92,16 @@ internal fun PaginatedCalendar(
             modifier = Modifier.size(Design.dp.component)
         )
 
-        TextFieldH1(
+        MonthSwiper(
             modifier = Modifier.padding(horizontal = Design.dp.paddingM),
-            provideText = { "October" },
+            monthNumber = monthIndex,
+            month = month,
         )
+
+//        TextFieldH1(
+//            modifier = Modifier.padding(horizontal = Design.dp.paddingM),
+//            provideText = { month },
+//        )
 
         LazyRow(
             state = lazyColumnListState,
@@ -91,7 +121,7 @@ internal fun PaginatedCalendar(
                             onNot = { tertiaryBackground() }
                         ).clickable { selectCalendarDay.invoke(it.dateTimeIso) }
                         .border(
-                            width = 1.dp,
+                            width = Design.dp.border,
                             color = if (it.isSelected) Design.colors.content else Color.Transparent,
                             shape = Design.shape.default
                         )
@@ -136,6 +166,60 @@ internal fun PaginatedCalendar(
                 }
             }
         }
+    }
+}
+
+@Composable
+fun MonthSwiper(
+    modifier: Modifier = Modifier,
+    monthNumber: Int,
+    month: String,
+) {
+
+    val isPreviousMonth = remember { mutableStateOf(false) }
+    val oldMonthNumber = remember { mutableStateOf(-1) }
+
+    // TODO CHECK IT
+    if (monthNumber - oldMonthNumber.value == 1) {
+        isPreviousMonth.value = false
+    } else if (monthNumber - oldMonthNumber.value == -1) {
+        isPreviousMonth.value = true
+    } else if (monthNumber - oldMonthNumber.value > 1) {
+        isPreviousMonth.value = true
+    } else if (monthNumber - oldMonthNumber.value < -1) {
+        isPreviousMonth.value = false
+    }
+    oldMonthNumber.value = monthNumber
+
+    AnimatedContent(
+        modifier = modifier,
+        targetState = month,
+        transitionSpec = {
+            if (isPreviousMonth.value) {
+                slideIntoContainer(
+                    towards = AnimatedContentTransitionScope.SlideDirection.Up,
+                    animationSpec = tween(durationMillis = 500)
+                ) togetherWith slideOutOfContainer(
+                    towards = AnimatedContentTransitionScope.SlideDirection.Up,
+                    animationSpec = tween(durationMillis = 500)
+                )
+            } else {
+                slideIntoContainer(
+                    towards = AnimatedContentTransitionScope.SlideDirection.Down,
+                    animationSpec = tween(durationMillis = 500)
+                ) togetherWith slideOutOfContainer(
+                    towards = AnimatedContentTransitionScope.SlideDirection.Down,
+                    animationSpec = tween(durationMillis = 500)
+                )
+            }
+        }
+    ) { target ->
+
+        TextFieldH1(
+            modifier = Modifier.fillMaxWidth(),
+            provideText = { target },
+            softWrap = false
+        )
     }
 }
 
