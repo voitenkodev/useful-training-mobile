@@ -17,7 +17,7 @@ kotlin {
                 implementation(projects.data)
                 implementation(projects.utils.instruments)
                 implementation(projects.utils.designSystem)
-                implementation(projects.utils.resources)
+                implementation(projects.utils.resources) // TODO DO I NEED IT?
                 implementation(projects.utils.charts)
                 implementation(projects.utils.architectureComponent)
 

@@ -1,9 +1,18 @@
 package trainings
 
 import DateTimeKtx
+import Design
 import PlatformBackHandler
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
@@ -12,13 +21,18 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import components.Error
 import components.Loading
 import components.PaginatedCalendar
 import components.TrainingItem
 import components.TrainingsControls
+import components.backgrounds.AddTrainingBackground
 import components.roots.Root
+import controls.TextFieldH3
+import platformBottomInset
 import training.Training
 
 @Composable
@@ -76,6 +90,7 @@ private fun Content(
     val backProvider by rememberUpdatedState(back)
 
     val selectedDate = calendar.findLast { it.isSelected }?.dateTimeIso ?: return
+    val selectedDateIsToday = DateTimeKtx.isCurrentDate(selectedDate)
 
     val trainingList = remember(trainings(), selectedDate) {
         trainings().filter { training ->
@@ -97,10 +112,38 @@ private fun Content(
                 selectCalendarDay = selectCalendarDay
             )
 
-            LazyColumn(
-                modifier = Modifier
-                    .fillMaxSize(),
-            ) {
+            LazyColumn(modifier = Modifier.fillMaxSize()) {
+
+                if (selectedDateIsToday) {
+                    item {
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .aspectRatio(2f)
+                                .padding(Design.dp.paddingM)
+                                .border(
+                                    width = Design.dp.border,
+                                    shape = Design.shape.default,
+                                    color = Design.colors.caption
+                                )
+                                .clickable(onClick = newTraining)
+                                .clip(shape = Design.shape.default),
+                            content = {
+
+                                AddTrainingBackground(
+                                    modifier = Modifier.fillMaxSize()
+                                )
+
+                                TextFieldH3(
+                                    modifier = Modifier
+                                        .align(Alignment.Center),
+                                    provideText = { "ADD WORKOUT" },
+                                    color = Design.colors.content
+                                )
+                            }
+                        )
+                    }
+                }
 
                 items(trainingList) { training ->
                     TrainingItem(
@@ -111,12 +154,28 @@ private fun Content(
                         }
                     )
                 }
+
+                if (selectedDateIsToday.not()) {
+                    item {
+                        Spacer(
+                            modifier = Modifier
+                                .size(Design.dp.component + Design.dp.paddingM + Design.dp.paddingM)
+                        )
+                    }
+                }
+
+                item {
+                    Spacer(
+                        modifier = Modifier
+                            .platformBottomInset()
+                    )
+                }
             }
         }
 
         TrainingsControls(
+            visibilityCondition = { selectedDateIsToday.not() },
             addTraining = addTrainingProvider,
-            logout = logout
         )
     }
 }

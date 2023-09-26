@@ -10,7 +10,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
-import platformBottomInset
 import training.Training
 
 @Composable
@@ -58,12 +57,6 @@ internal fun TrainingItem(
             Exercises(
                 modifier = Modifier.padding(horizontal = Design.dp.paddingM),
                 training = trainingProvider,
-            )
-
-            Spacer(
-                modifier = Modifier
-                    .platformBottomInset()
-                    .size(Design.dp.paddingM)
             )
         }
     }

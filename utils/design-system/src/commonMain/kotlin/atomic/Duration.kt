@@ -3,7 +3,7 @@ package atomic
 internal fun duration() = Duration(
     animDurationL = 800,
     animDurationM = 500,
-    animDurationS = 200,
+    animDurationS = 300,
 
     animDelayS = 300
 )

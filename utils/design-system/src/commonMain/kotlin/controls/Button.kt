@@ -111,6 +111,36 @@ fun ButtonSecondaryIcon(
 }
 
 @Composable
+fun ButtonAccentIcon(
+    modifier: Modifier = Modifier,
+    imageVector: ImageVector,
+    enabled: Boolean = true,
+    onClick: () -> Unit,
+) {
+    IconButton(
+        modifier = modifier
+            .requiredSize(Design.dp.component)
+            .alpha(if (enabled) 1f else 0.5f)
+            .background(
+                color = Design.colors.accent_primary,
+                shape = Design.shape.circleShape
+            ).clip(Design.shape.circleShape),
+        onClick = onClick,
+        enabled = enabled,
+        content = {
+            Icon(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(Design.dp.paddingM),
+                tint = Design.colors.content,
+                imageVector = imageVector,
+                contentDescription = null
+            )
+        }
+    )
+}
+
+@Composable
 fun ButtonTextLink(
     modifier: Modifier = Modifier,
     text: String,

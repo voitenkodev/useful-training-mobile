@@ -8,4 +8,9 @@ object Images {
     fun gym(): Painter {
         return painterResource(SharedRes.images.gym)
     }
+
+    @Composable
+    fun addTraining(): Painter {
+        return painterResource(SharedRes.images.add_training_bg)
+    }
 }
