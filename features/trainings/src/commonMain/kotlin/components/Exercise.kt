@@ -103,7 +103,7 @@ private fun InternalExercise(
                     modifier = Modifier
                         .background(
                             shape = Design.shape.small,
-                            color = Design.colors.tertiary
+                            color = Design.colors.secondary
                         ).padding(
                             horizontal = Design.dp.paddingM,
                             vertical = Design.dp.paddingXS

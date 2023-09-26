@@ -10,7 +10,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import controls.InputFieldSecondary
-import controls.primaryBackground
+import controls.rootBackground
 import recomposeHighlighter
 
 @Composable
@@ -23,7 +23,7 @@ fun InputWeight(
 
     InputFieldSecondary(
         modifier = modifier
-            .primaryBackground()
+            .rootBackground()
             .recomposeHighlighter(),
         provideValue = provideValue,
         onValueChange = onValueChange,

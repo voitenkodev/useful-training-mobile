@@ -1,9 +1,7 @@
 package trainings
 
 import DateTimeKtx
-import Design
 import PlatformBackHandler
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
@@ -12,21 +10,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
-import atomic.rememberAccentColorsAsState
 import components.Error
 import components.Loading
 import components.PaginatedCalendar
 import components.TrainingItem
 import components.TrainingsControls
-import components.backgrounds.BrandGradientCenterEnd
-import components.backgrounds.BrandGradientCenterStart
 import components.roots.Root
-import next
-import platformBottomInset
 import training.Training
 
 @Composable
@@ -91,23 +83,11 @@ private fun Content(
         }
     }
 
-    val accentList = rememberAccentColorsAsState()
-    val selectedColor = remember { mutableStateOf(accentList.value.first()) }
-
-    LaunchedEffect(selectedDate) {
-        val next = accentList.value.next(last = selectedColor.value) ?: return@LaunchedEffect
-        selectedColor.value = next
-    }
-
     Root(
         loading = { Loading(loading) },
         error = { Error(message = error, close = clearError) },
         back = { PlatformBackHandler(backProvider) },
     ) {
-
-        BrandGradientCenterEnd(color = selectedColor.value)
-
-        BrandGradientCenterStart(color = selectedColor.value)
 
         Column {
 
@@ -119,15 +99,12 @@ private fun Content(
 
             LazyColumn(
                 modifier = Modifier
-                    .fillMaxSize()
-                    .platformBottomInset(),
-                verticalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
+                    .fillMaxSize(),
             ) {
 
                 items(trainingList) { training ->
                     TrainingItem(
                         training = training,
-                        color = selectedColor.value,
                         onClick = {
                             val id = training.id ?: return@TrainingItem
                             openTraining.invoke(id)

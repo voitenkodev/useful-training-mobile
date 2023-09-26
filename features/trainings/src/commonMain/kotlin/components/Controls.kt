@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -37,7 +36,7 @@ internal fun BoxScope.TrainingsControls(
         )
     )
 
-   Column(
+    Column(
         modifier = modifier
             .platformInsets()
             .fillMaxHeight()
@@ -45,13 +44,6 @@ internal fun BoxScope.TrainingsControls(
             .align(Alignment.CenterEnd),
         verticalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
     ) {
-
-
-        ButtonSecondaryIcon(
-            modifier = Modifier.offset(x = animatedDp),
-            imageVector = Icons.Default.ExitToApp,
-            onClick = logout
-        )
 
         Spacer(modifier = Modifier.weight(1f))
 

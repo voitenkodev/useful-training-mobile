@@ -34,21 +34,21 @@ internal fun ChartsInfo(
         TrainingChart(
             title = "TONNAGE",
             values = training.exercises.map { it.tonnage.toFloat() },
-            color = Design.colors.accent_tertiary,
+            color = Design.colors.accent_secondary,
             value = training.tonnage?.toShortString() ?: "-"
         )
 
         TrainingChart(
             title = "REPEATS",
             values = training.exercises.map { it.countOfLifting.toFloat() },
-            color = Design.colors.accent_quinary,
+            color = Design.colors.accent_secondary,
             value = training.countOfLifting.toString()
         )
 
         TrainingChart(
             title = "INTENSITY",
             values = training.exercises.map { it.intensity.toFloat() },
-            color = Design.colors.accent_quaternary,
+            color = Design.colors.accent_secondary,
             value = "${training.intensity?.round(1) ?: "-"}%"
         )
     }
@@ -72,12 +72,11 @@ private fun RowScope.TrainingChart(
         BasicLineChart(
             modifier = Modifier
                 .fillMaxWidth()
-                .secondaryBackground()
                 .padding(top = Design.dp.paddingM)
                 .height(Design.dp.component + Design.dp.paddingL)
                 .recomposeHighlighter(),
             values = values,
-            color = color.copy(alpha = 0.1f),
+            color = color.copy(alpha = 0.3f),
             bottomSpacing = 60f
         )
 

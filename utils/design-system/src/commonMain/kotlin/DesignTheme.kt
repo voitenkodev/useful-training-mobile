@@ -7,7 +7,7 @@ import atomic.shape
 import atomic.typography
 import atomic.darkPalette
 import atomic.duration
-import controls.primaryBackground
+import controls.rootBackground
 
 @Composable
 fun DesignTheme(
@@ -31,7 +31,7 @@ fun DesignTheme(
 
     content = {
         Surface(
-            modifier = Modifier.primaryBackground().then(modifier),
+            modifier = Modifier.rootBackground().then(modifier),
             color = Design.colors.primary,
             content = content
         )

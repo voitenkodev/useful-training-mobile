@@ -7,7 +7,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import controls.InputFieldSecondary
-import controls.primaryBackground
+import controls.rootBackground
 import recomposeHighlighter
 
 @Composable
@@ -17,7 +17,7 @@ fun InputRepeat(
     onValueChange: (String) -> Unit,
 ) {
     InputFieldSecondary(
-        modifier = modifier.primaryBackground().recomposeHighlighter(),
+        modifier = modifier.rootBackground().recomposeHighlighter(),
         provideValue = provideValue,
         onValueChange = onValueChange,
         textAlign = TextAlign.Center,

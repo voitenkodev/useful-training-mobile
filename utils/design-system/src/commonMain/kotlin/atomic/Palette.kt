@@ -10,9 +10,9 @@ internal fun darkPalette() = Color()
 
 data class Color(
     // Root BG
-    val primary: Color = Color(0xff000000),
-    val secondary: Color = Color(0xff13131c),
-    val tertiary: Color = Color(0x0Dffffff),
+    val primary: Color = Color(0xff000000), // hard gray
+    val secondary: Color = Color(0x0Dffffff), // has alpha
+    val tertiary: Color = Color(0xff13131c), // soft gray
 
     // Color(0xffEA3469) = Red / Pink
     // Color(0xff228D57) = Green soft
@@ -22,10 +22,7 @@ data class Color(
 
     // Accent
     val accent_primary: Color = Color(0xff335bff),
-    val accent_secondary: Color = Color(0xffEA3469),
-    val accent_tertiary: Color = Color(0xff228D57),
-    val accent_quaternary: Color = Color(0xffb45ac4),
-    val accent_quinary: Color = Color(0xffdbbd21),
+    val accent_secondary: Color = Color(0xfffcb51c),
 
     // Text
     val content: Color = Color(0xffffffff),
@@ -38,9 +35,6 @@ fun rememberAccentColorsAsState(): State<List<Color>> {
         listOf(
             Design.colors.accent_primary,
             Design.colors.accent_secondary,
-            Design.colors.accent_tertiary,
-            Design.colors.accent_quaternary,
-            Design.colors.accent_quinary,
         )
     )
 }

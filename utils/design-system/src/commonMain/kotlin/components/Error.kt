@@ -83,7 +83,7 @@ private fun ErrorContent(
             .platformInsets()
             .padding(Design.dp.paddingM)
             .background(
-                color = Design.colors.accent_tertiary,
+                color = Design.colors.accent_primary,
                 shape = Design.shape.default
             )
             .padding(Design.dp.paddingM)

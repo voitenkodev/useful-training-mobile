@@ -31,12 +31,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import conditional
 import controls.TextFieldBody1
 import controls.TextFieldH1
 import controls.TextFieldH2
-import controls.accentBackground
+import controls.primaryBackground
 import controls.secondaryBackground
 import platformTopInset
 import trainings.SelectableCalendar
@@ -88,7 +89,7 @@ internal fun PaginatedCalendar(
 
     Column(
         modifier = modifier
-            .background(Design.colors.secondary)
+            .background(Design.colors.tertiary)
             .platformTopInset(),
     ) {
         Spacer(
@@ -115,12 +116,12 @@ internal fun PaginatedCalendar(
                         .size(80.dp)
                         .conditional(
                             condition = it.isToday,
-                            onYes = { accentBackground() },
+                            onYes = { primaryBackground() },
                             onNot = { secondaryBackground() }
                         ).clickable { selectCalendarDay.invoke(it.dateTimeIso) }
                         .border(
-                            width = if (it.isSelected) Design.dp.border else 0.5.dp,
-                            color = if (it.isSelected) Design.colors.content else Design.colors.caption.copy(0.5f),
+                            width = Design.dp.border,
+                            color = if (it.isSelected) Design.colors.content else Color.Transparent,
                             shape = Design.shape.default
                         )
                 ) {
@@ -129,8 +130,8 @@ internal fun PaginatedCalendar(
                         modifier = Modifier
                             .align(Alignment.TopCenter)
                             .padding(top = 16.dp),
-                        provideText = { it.weekDay },
-                        color = Design.colors.caption
+                        provideText = { if (it.isToday) "TODAY" else it.weekDay },
+                        color = if (it.isSelected) Design.colors.content else Design.colors.caption
                     )
 
                     TextFieldH2(
@@ -153,7 +154,7 @@ internal fun PaginatedCalendar(
                                     modifier = Modifier
                                         .size(10.dp)
                                         .background(
-                                            color = Design.colors.accent_quinary,
+                                            color = Design.colors.accent_secondary,
                                             shape = Design.shape.circleShape
                                         )
                                 )

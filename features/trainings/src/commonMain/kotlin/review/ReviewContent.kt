@@ -101,9 +101,7 @@ private fun Content(
             )
 
             TrainingTitle(
-                color = Design.colors.content,
                 mainTitle = { trainingProvider.weekDay },
-                subTitle = { trainingProvider.startLongDate },
                 click = {}
             )
 
@@ -139,7 +137,7 @@ private fun Content(
                 modifier = Modifier.fillMaxWidth(),
                 text = "EDIT",
                 onClick = {},
-                backgroundColor = Design.colors.accent_quinary
+                backgroundColor = Design.colors.accent_primary
             )
 
             Spacer(
@@ -150,7 +148,7 @@ private fun Content(
                 modifier = Modifier.fillMaxWidth(),
                 text = "REMOVE",
                 onClick = {},
-                backgroundColor = Design.colors.accent_quaternary
+                backgroundColor = Design.colors.accent_primary
             )
 
             Spacer(

@@ -4,21 +4,19 @@ import Design
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import platformBottomInset
 import training.Training
 
 @Composable
 internal fun TrainingItem(
     modifier: Modifier = Modifier,
     training: Training,
-    color: Color,
     onClick: () -> Unit
 ) {
 
@@ -28,43 +26,45 @@ internal fun TrainingItem(
         modifier = modifier
     ) {
 
+        Spacer(
+            modifier = Modifier.size(Design.dp.paddingM)
+        )
+
         TrainingTitle(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(Design.dp.paddingM),
             mainTitle = { "At ${training.startTime}" },
-            subTitle = { training.startLongDate },
             click = onClick,
-            color = color
         )
 
         Spacer(
             modifier = Modifier.size(Design.dp.paddingM)
         )
 
-        ChartsInfo(
-            modifier = Modifier.padding(horizontal = Design.dp.paddingM),
-            training = trainingProvider
-        )
+        Column(
+            modifier = Modifier.background(color = Design.colors.tertiary)
+        ) {
+            Spacer(
+                modifier = Modifier.size(Design.dp.paddingM)
+            )
 
-        Spacer(
-            modifier = Modifier.size(Design.dp.paddingM)
-        )
+            ChartsInfo(
+                modifier = Modifier.padding(horizontal = Design.dp.paddingM),
+                training = trainingProvider
+            )
 
-        Exercises(
-            modifier = Modifier.padding(horizontal = Design.dp.paddingM),
-            training = trainingProvider,
-        )
+            Spacer(
+                modifier = Modifier.size(Design.dp.paddingM)
+            )
 
-        Spacer(
-            modifier = Modifier.size(Design.dp.paddingM)
-        )
+            Exercises(
+                modifier = Modifier.padding(horizontal = Design.dp.paddingM),
+                training = trainingProvider,
+            )
 
-//        ButtonBrand(
-//            modifier = Modifier.padding(horizontal = Design.dp.paddingM).fillMaxWidth(),
-//            text = "Review",
-//            onClick = onClick,
-//            backgroundColor = Design.colors.accent_primary
-//        )
+            Spacer(
+                modifier = Modifier
+                    .platformBottomInset()
+                    .size(Design.dp.paddingM)
+            )
+        }
     }
 }

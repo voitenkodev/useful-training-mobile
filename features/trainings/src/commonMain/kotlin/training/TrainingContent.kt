@@ -30,7 +30,7 @@ import components.Popup
 import components.roots.ScrollableRoot
 import controls.IconPrimary
 import controls.TextFieldH4
-import controls.primaryBackground
+import controls.rootBackground
 import kotlinx.coroutines.delay
 import recomposeHighlighter
 
@@ -160,7 +160,7 @@ private fun Content(
         header = {
             Row {
                 IconPrimary(
-                    modifier = Modifier.size(Design.dp.component).primaryBackground(),
+                    modifier = Modifier.size(Design.dp.component).rootBackground(),
                     imageVector = Icons.Default.ArrowBack,
                     onClick = openExitScreenPopupProvider
                 )
@@ -168,7 +168,7 @@ private fun Content(
                 Spacer(Modifier.weight(1f))
 
                 IconPrimary(
-                    modifier = Modifier.size(Design.dp.component).primaryBackground(),
+                    modifier = Modifier.size(Design.dp.component).rootBackground(),
                     imageVector = Icons.Default.Done,
                     onClick = saveTrainingProvider
                 )
@@ -218,7 +218,7 @@ private fun NewExercise(
         modifier = modifier
             .fillMaxWidth()
             .height(128.dp)
-            .primaryBackground()
+            .rootBackground()
             .border(width = 1.dp, shape = Design.shape.default, color = Design.colors.accent_primary)
             .clickable(onClick = onClick)
             .recomposeHighlighter(),

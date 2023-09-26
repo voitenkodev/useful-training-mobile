@@ -5,7 +5,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
-import controls.primaryBackground
+import controls.rootBackground
 
 @Composable
 fun SplashContent(
@@ -24,6 +24,6 @@ fun SplashContent(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .primaryBackground()
+            .rootBackground()
     )
 }

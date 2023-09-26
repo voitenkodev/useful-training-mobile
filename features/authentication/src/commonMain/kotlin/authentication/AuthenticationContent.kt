@@ -179,7 +179,7 @@ private fun Content(
         }
 
         BrandGradientCenterStart(
-            color = Design.colors.accent_tertiary
+            color = Design.colors.accent_secondary
         )
 
         BrandGradientBottomEnd(
