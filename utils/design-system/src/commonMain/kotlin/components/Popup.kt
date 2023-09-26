@@ -23,7 +23,7 @@ import androidx.compose.ui.text.font.FontWeight
 import controls.ButtonBrand
 import controls.TextFieldBody1
 import controls.TextFieldH4
-import controls.tertiaryBackground
+import controls.secondaryBackground
 import platformInsets
 import recomposeHighlighter
 
@@ -76,7 +76,7 @@ fun Popup(
             modifier = Modifier
                 .platformInsets()
                 .padding(Design.dp.paddingM)
-                .tertiaryBackground()
+                .secondaryBackground()
                 .padding(Design.dp.paddingM)
                 .recomposeHighlighter(),
             verticalArrangement = Arrangement.spacedBy(Design.dp.paddingM),

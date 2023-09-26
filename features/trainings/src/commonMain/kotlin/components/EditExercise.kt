@@ -18,7 +18,7 @@ import components.items.HelpExerciseNameItem
 import components.items.IterationCaptionItem
 import components.items.IterationInputItem
 import controls.DividerPrimary
-import controls.tertiaryBackground
+import controls.secondaryBackground
 import recomposeHighlighter
 import training.Iteration
 
@@ -36,7 +36,7 @@ internal fun EditExercise(
     remove: () -> Unit,
 ) {
     Column(
-        modifier = modifier.tertiaryBackground()
+        modifier = modifier.secondaryBackground()
     ) {
 
         val focusManager = LocalFocusManager.current

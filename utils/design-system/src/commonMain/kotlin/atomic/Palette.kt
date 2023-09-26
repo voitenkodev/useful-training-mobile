@@ -9,11 +9,10 @@ import androidx.compose.ui.graphics.Color
 internal fun darkPalette() = Color()
 
 data class Color(
-    // Background
+    // Root BG
     val primary: Color = Color(0xff000000),
-    val secondary: Color = Color(0xff15151c),
-    val tertiary: Color = Color(0xff13131c),
-    val quaternary: Color = Color(0x0Dffffff),
+    val secondary: Color = Color(0xff13131c),
+    val tertiary: Color = Color(0x0Dffffff),
 
     // Color(0xffEA3469) = Red / Pink
     // Color(0xff228D57) = Green soft

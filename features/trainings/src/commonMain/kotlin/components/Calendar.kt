@@ -29,14 +29,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import conditional
 import controls.TextFieldBody1
 import controls.TextFieldH1
 import controls.TextFieldH2
 import controls.accentBackground
-import controls.tertiaryBackground
+import controls.secondaryBackground
 import platformTopInset
 import trainings.SelectableCalendar
 
@@ -86,7 +85,9 @@ internal fun PaginatedCalendar(
     }
 
     Column(
-        modifier = modifier.platformTopInset(),
+        modifier = modifier
+            .background(Design.colors.secondary)
+            .platformTopInset(),
     ) {
         Spacer(
             modifier = Modifier.size(Design.dp.component)
@@ -97,11 +98,6 @@ internal fun PaginatedCalendar(
             monthNumber = monthIndex,
             month = month,
         )
-
-//        TextFieldH1(
-//            modifier = Modifier.padding(horizontal = Design.dp.paddingM),
-//            provideText = { month },
-//        )
 
         LazyRow(
             state = lazyColumnListState,
@@ -118,11 +114,11 @@ internal fun PaginatedCalendar(
                         .conditional(
                             condition = it.isToday,
                             onYes = { accentBackground() },
-                            onNot = { tertiaryBackground() }
+                            onNot = { secondaryBackground() }
                         ).clickable { selectCalendarDay.invoke(it.dateTimeIso) }
                         .border(
-                            width = Design.dp.border,
-                            color = if (it.isSelected) Design.colors.content else Color.Transparent,
+                            width = if (it.isSelected) Design.dp.border else 0.5.dp,
+                            color = if (it.isSelected) Design.colors.content else Design.colors.caption.copy(0.5f),
                             shape = Design.shape.default
                         )
 
@@ -170,7 +166,7 @@ internal fun PaginatedCalendar(
 }
 
 @Composable
-fun MonthSwiper(
+private fun MonthSwiper(
     modifier: Modifier = Modifier,
     monthNumber: Int,
     month: String,

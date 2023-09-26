@@ -19,7 +19,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import controls.IconPrimary
 import controls.TextFieldBody1
-import controls.tertiaryBackground
+import controls.secondaryBackground
 import recomposeHighlighter
 
 @Composable
@@ -33,7 +33,7 @@ fun ChipLabel(
 
     Row(
         modifier = Modifier
-            .tertiaryBackground().padding(6.dp),
+            .secondaryBackground().padding(6.dp),
         horizontalArrangement = Arrangement.spacedBy(6.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
