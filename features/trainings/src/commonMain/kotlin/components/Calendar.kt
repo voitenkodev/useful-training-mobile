@@ -25,8 +25,10 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -121,7 +123,6 @@ internal fun PaginatedCalendar(
                             color = if (it.isSelected) Design.colors.content else Design.colors.caption.copy(0.5f),
                             shape = Design.shape.default
                         )
-
                 ) {
 
                     TextFieldBody1(
@@ -171,46 +172,33 @@ private fun MonthSwiper(
     monthNumber: Int,
     month: String,
 ) {
+    var oldMonthNumber by remember { mutableStateOf(-1) }
 
-    val isPreviousMonth = remember { mutableStateOf(false) }
-    val oldMonthNumber = remember { mutableStateOf(-1) }
+    val isPreviousMonth = if (monthNumber - oldMonthNumber == 1) false
+    else if (monthNumber - oldMonthNumber == -1) true
+    else monthNumber - oldMonthNumber > 1
 
-    // TODO CHECK IT
-    if (monthNumber - oldMonthNumber.value == 1) {
-        isPreviousMonth.value = false
-    } else if (monthNumber - oldMonthNumber.value == -1) {
-        isPreviousMonth.value = true
-    } else if (monthNumber - oldMonthNumber.value > 1) {
-        isPreviousMonth.value = true
-    } else if (monthNumber - oldMonthNumber.value < -1) {
-        isPreviousMonth.value = false
+    oldMonthNumber = monthNumber
+
+    val slideDirection = if (isPreviousMonth) {
+        AnimatedContentTransitionScope.SlideDirection.Up
+    } else {
+        AnimatedContentTransitionScope.SlideDirection.Down
     }
-    oldMonthNumber.value = monthNumber
 
     AnimatedContent(
         modifier = modifier,
         targetState = month,
         transitionSpec = {
-            if (isPreviousMonth.value) {
-                slideIntoContainer(
-                    towards = AnimatedContentTransitionScope.SlideDirection.Up,
-                    animationSpec = tween(durationMillis = 500)
-                ) togetherWith slideOutOfContainer(
-                    towards = AnimatedContentTransitionScope.SlideDirection.Up,
-                    animationSpec = tween(durationMillis = 500)
-                )
-            } else {
-                slideIntoContainer(
-                    towards = AnimatedContentTransitionScope.SlideDirection.Down,
-                    animationSpec = tween(durationMillis = 500)
-                ) togetherWith slideOutOfContainer(
-                    towards = AnimatedContentTransitionScope.SlideDirection.Down,
-                    animationSpec = tween(durationMillis = 500)
-                )
-            }
+            slideIntoContainer(
+                towards = slideDirection,
+                animationSpec = tween(durationMillis = 500)
+            ) togetherWith slideOutOfContainer(
+                towards = slideDirection,
+                animationSpec = tween(durationMillis = 500)
+            )
         }
     ) { target ->
-
         TextFieldH1(
             modifier = Modifier.fillMaxWidth(),
             provideText = { target },
