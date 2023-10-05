@@ -24,11 +24,14 @@ import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.text.style.TextAlign
 import components.Error
 import components.Loading
 import components.PaginatedCalendar
 import components.TodayControl
 import components.TrainingItem
+import components.backgrounds.BrandGradientCenterEnd
+import components.backgrounds.BrandGradientCenterStart
 import components.roots.Root
 import controls.TextFieldH3
 import platformBottomInset
@@ -102,6 +105,20 @@ private fun Content(
         error = { Error(message = error, close = clearError) },
         back = { PlatformBackHandler(backProvider) },
     ) {
+
+        if (trainingList.isEmpty()) {
+            BrandGradientCenterEnd()
+            BrandGradientCenterStart()
+        }
+
+        if (selectedDateIsToday.not() && trainingList.isEmpty()) {
+            TextFieldH3(
+                modifier = Modifier.align(Alignment.Center),
+                provideText = { "There is\nno Trainings" },
+                color = Design.colors.caption,
+                textAlign = TextAlign.Center
+            )
+        }
 
         Column {
 
