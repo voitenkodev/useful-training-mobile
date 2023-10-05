@@ -25,6 +25,10 @@ class TrainingsViewModel : ViewModel() {
     private val trainingApi by inject<TrainingRepository>()
     private val authApi by inject<AuthRepository>()
 
+    companion object {
+        private const val DAY_PAGE_CHUNK = 40
+    }
+
     init {
         addCalendarChunk()
         selectCalendarDay(DateTimeKtx.currentDateTime())
@@ -55,7 +59,7 @@ class TrainingsViewModel : ViewModel() {
 
     fun addCalendarChunk() {
         val newList = state.value.calendar + addEarlyCalendarChunk(
-            count = 20,
+            count = DAY_PAGE_CHUNK,
             list = state.value.calendar.map { it.dateTimeIso }
         ).map { item ->
             SelectableCalendar(

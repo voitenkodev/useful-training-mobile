@@ -1,11 +1,7 @@
 package components
 
 import Design
-import androidx.compose.animation.core.EaseInBounce
-import androidx.compose.animation.core.EaseInOut
 import androidx.compose.animation.core.EaseOut
-import androidx.compose.animation.core.FastOutSlowInEasing
-import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Arrangement
@@ -28,13 +24,13 @@ import controls.ButtonSecondaryIcon
 import platformInsets
 
 @Composable
-internal fun BoxScope.TrainingsControls(
+internal fun BoxScope.TodayControl(
     modifier: Modifier = Modifier,
     visibilityCondition: () -> Boolean = { true },
-    addTraining: () -> Unit,
+    click: () -> Unit,
 ) {
 
-    val width = 200.dp
+    val width = 100.dp
 
     val animatedDp by animateDpAsState(
         targetValue = if (visibilityCondition()) 0.dp else width + Design.dp.paddingL,
@@ -58,8 +54,8 @@ internal fun BoxScope.TrainingsControls(
 
         ButtonBrand(
             modifier = Modifier.width(width).offset(x = animatedDp),
-            text = "WORKOUT TODAY",
-            onClick = addTraining,
+            text = "TODAY",
+            onClick = click,
         )
     }
 }

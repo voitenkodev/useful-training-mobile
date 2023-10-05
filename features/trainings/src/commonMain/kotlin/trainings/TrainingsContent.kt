@@ -27,9 +27,8 @@ import androidx.compose.ui.draw.clip
 import components.Error
 import components.Loading
 import components.PaginatedCalendar
+import components.TodayControl
 import components.TrainingItem
-import components.TrainingsControls
-import components.backgrounds.AddTrainingBackground
 import components.roots.Root
 import controls.TextFieldH3
 import platformBottomInset
@@ -86,9 +85,9 @@ private fun Content(
     selectCalendarDay: (dateTimeIso: String) -> Unit,
 ) {
 
-    val addTrainingProvider by rememberUpdatedState(newTraining)
     val backProvider by rememberUpdatedState(back)
 
+    val currentDay = remember { calendar.findLast { it.isToday }?.dateTimeIso }
     val selectedDate = calendar.findLast { it.isSelected }?.dateTimeIso ?: return
     val selectedDateIsToday = DateTimeKtx.isCurrentDate(selectedDate)
 
@@ -125,14 +124,9 @@ private fun Content(
                                     width = Design.dp.border,
                                     shape = Design.shape.default,
                                     color = Design.colors.caption
-                                )
-                                .clickable(onClick = newTraining)
+                                ).clickable(onClick = newTraining)
                                 .clip(shape = Design.shape.default),
                             content = {
-
-                                AddTrainingBackground(
-                                    modifier = Modifier.fillMaxSize()
-                                )
 
                                 TextFieldH3(
                                     modifier = Modifier
@@ -173,9 +167,9 @@ private fun Content(
             }
         }
 
-        TrainingsControls(
+        TodayControl(
             visibilityCondition = { selectedDateIsToday.not() },
-            addTraining = addTrainingProvider,
+            click = { currentDay?.let { selectCalendarDay.invoke(it) } }
         )
     }
 }
