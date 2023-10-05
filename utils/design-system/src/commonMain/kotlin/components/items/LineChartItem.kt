@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.dp
 import chart.LineChart
 import chart.PointLine
 import controls.TextFieldBody2
-import controls.secondaryBackground
+import controls.quaternaryBackground
 import recomposeHighlighter
 
 @Composable
@@ -34,7 +34,7 @@ fun LineChartItem(
 ) {
     LineChartBox(
         modifier = modifier
-            .secondaryBackground()
+            .quaternaryBackground()
             .padding(Design.dp.paddingM),
         lines = lines,
     )

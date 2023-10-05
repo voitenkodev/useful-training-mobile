@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import controls.TextFieldBody1
 import controls.TextFieldH3
-import controls.secondaryBackground
+import controls.quaternaryBackground
 import recomposeHighlighter
 import training.Training
 
@@ -33,7 +33,7 @@ internal fun SummaryInfo(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .secondaryBackground()
+            .quaternaryBackground()
             .padding(Design.dp.paddingM),
         verticalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
     ) {

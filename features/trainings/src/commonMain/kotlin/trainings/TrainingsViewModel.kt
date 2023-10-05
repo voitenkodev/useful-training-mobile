@@ -60,7 +60,7 @@ class TrainingsViewModel : ViewModel() {
     fun addCalendarChunk() {
         val newList = state.value.calendar + addEarlyCalendarChunk(
             count = DAY_PAGE_CHUNK,
-            list = state.value.calendar.map { it.dateTimeIso }
+            previousList = state.value.calendar.map { it.dateTimeIso }
         ).map { item ->
             SelectableCalendar(
                 isSelected = false,

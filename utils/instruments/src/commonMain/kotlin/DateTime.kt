@@ -23,18 +23,18 @@ object DateTimeKtx {
      **/
 
     fun addEarlyCalendarChunk(
-        list: List<String>,
+        previousList: List<String>,
         count: Int,
     ): List<String> {
         val timeZone = TimeZone.currentSystemDefault()
 
-        val lastDate = if (list.isEmpty()) Clock
+        val lastDate = if (previousList.isEmpty()) Clock
             .System.now()
             .toLocalDateTime(timeZone)
             .toInstant(timeZone)
             .plus(4, DateTimeUnit.DAY, timeZone)
             .toLocalDateTime(timeZone)
-        else list
+        else previousList
             .minOfOrNull {
                 Instant.parse(it)
                     .toLocalDateTime(timeZone)
@@ -54,7 +54,8 @@ object DateTimeKtx {
 
             newChunk.add(previousDate)
         }
-        return newChunk
+
+        return newChunk.toSet().toList()
     }
 
     /**

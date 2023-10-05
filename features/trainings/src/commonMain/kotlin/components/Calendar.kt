@@ -37,8 +37,8 @@ import conditional
 import controls.TextFieldBody1
 import controls.TextFieldH1
 import controls.TextFieldH2
-import controls.primaryBackground
-import controls.secondaryBackground
+import controls.accentBackground
+import controls.quaternaryBackground
 import platformTopInset
 import trainings.SelectableCalendar
 
@@ -89,7 +89,7 @@ internal fun PaginatedCalendar(
 
     Column(
         modifier = modifier
-            .background(Design.colors.tertiary)
+            .background(Design.colors.secondary)
             .platformTopInset(),
     ) {
         Spacer(
@@ -116,8 +116,8 @@ internal fun PaginatedCalendar(
                         .size(80.dp)
                         .conditional(
                             condition = it.isToday,
-                            onYes = { primaryBackground() },
-                            onNot = { secondaryBackground() }
+                            onYes = { accentBackground() },
+                            onNot = { quaternaryBackground() }
                         ).clickable { selectCalendarDay.invoke(it.dateTimeIso) }
                         .border(
                             width = Design.dp.border,
@@ -131,7 +131,7 @@ internal fun PaginatedCalendar(
                             .align(Alignment.TopCenter)
                             .padding(top = 16.dp),
                         provideText = { if (it.isToday) "TODAY" else it.weekDay },
-                        color = if (it.isSelected) Design.colors.content else Design.colors.caption
+                        color = if (it.isSelected || it.isToday) Design.colors.content else Design.colors.caption
                     )
 
                     TextFieldH2(
