@@ -3,6 +3,7 @@ package trainings
 import DateTimeKtx
 import Design
 import PlatformBackHandler
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -12,7 +13,6 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
@@ -24,14 +24,13 @@ import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.text.style.TextAlign
 import components.Error
 import components.Loading
 import components.PaginatedCalendar
-import components.TodayControl
 import components.TrainingItem
 import components.backgrounds.BrandGradientCenterEnd
 import components.backgrounds.BrandGradientCenterStart
+import components.placeholders.EmptyTraining
 import components.roots.Root
 import controls.TextFieldH3
 import platformBottomInset
@@ -90,7 +89,6 @@ private fun Content(
 
     val backProvider by rememberUpdatedState(back)
 
-    val currentDay = remember { calendar.findLast { it.isToday }?.dateTimeIso }
     val selectedDate = calendar.findLast { it.isSelected }?.dateTimeIso ?: return
     val selectedDateIsToday = DateTimeKtx.isCurrentDate(selectedDate)
 
@@ -112,11 +110,8 @@ private fun Content(
         }
 
         if (selectedDateIsToday.not() && trainingList.isEmpty()) {
-            TextFieldH3(
-                modifier = Modifier.align(Alignment.Center),
-                provideText = { "There is\nno Trainings" },
-                color = Design.colors.caption,
-                textAlign = TextAlign.Center
+            EmptyTraining(
+                modifier = Modifier.align(Alignment.Center)
             )
         }
 
@@ -166,27 +161,14 @@ private fun Content(
                     )
                 }
 
-                if (selectedDateIsToday.not()) {
+                if (trainingList.isNotEmpty()) {
                     item {
                         Spacer(
-                            modifier = Modifier
-                                .size(Design.dp.component + Design.dp.paddingM + Design.dp.paddingM)
+                            modifier = Modifier.background(Design.colors.tertiary).fillMaxWidth().platformBottomInset()
                         )
                     }
                 }
-
-                item {
-                    Spacer(
-                        modifier = Modifier
-                            .platformBottomInset()
-                    )
-                }
             }
         }
-
-        TodayControl(
-            visibilityCondition = { selectedDateIsToday.not() },
-            click = { currentDay?.let { selectCalendarDay.invoke(it) } }
-        )
     }
 }

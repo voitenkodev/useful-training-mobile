@@ -14,12 +14,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
+import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import controls.ButtonBrand
+import controls.ButtonIconBrand
 import controls.ButtonSecondaryIcon
 import platformInsets
 
@@ -30,7 +31,7 @@ internal fun BoxScope.TodayControl(
     click: () -> Unit,
 ) {
 
-    val width = 100.dp
+    val width = Design.dp.component + Design.dp.paddingL
 
     val animatedDp by animateDpAsState(
         targetValue = if (visibilityCondition()) 0.dp else width + Design.dp.paddingL,
@@ -41,23 +42,14 @@ internal fun BoxScope.TodayControl(
         )
     )
 
-    Column(
+    ButtonIconBrand(
         modifier = modifier
-            .platformInsets()
-            .fillMaxHeight()
-            .padding(Design.dp.paddingM)
-            .align(Alignment.CenterEnd),
-        verticalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
-    ) {
-
-        Spacer(modifier = Modifier.weight(1f))
-
-        ButtonBrand(
-            modifier = Modifier.width(width).offset(x = animatedDp),
-            text = "TODAY",
-            onClick = click,
-        )
-    }
+            .width(width)
+            .align(Alignment.CenterEnd)
+            .offset(x = animatedDp),
+        imageVector = Icons.Default.KeyboardArrowRight,
+        onClick = click,
+    )
 }
 
 @Composable

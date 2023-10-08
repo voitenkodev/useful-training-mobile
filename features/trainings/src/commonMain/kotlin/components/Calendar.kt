@@ -50,6 +50,10 @@ internal fun PaginatedCalendar(
     selectCalendarDay: (dateTimeIso: String) -> Unit
 ) {
 
+    val currentDay = remember { calendar.findLast { it.isToday }?.dateTimeIso }
+    val selectedDate = calendar.findLast { it.isSelected }?.dateTimeIso ?: return
+    val selectedDateIsToday = DateTimeKtx.isCurrentDate(selectedDate)
+
     val lazyColumnListState = rememberLazyListState()
 
     val selectedIndex = remember(calendar) {
@@ -96,11 +100,24 @@ internal fun PaginatedCalendar(
             modifier = Modifier.size(Design.dp.component)
         )
 
-        MonthSwiper(
-            modifier = Modifier.padding(horizontal = Design.dp.paddingM),
-            monthNumber = monthIndex,
-            month = month,
-        )
+        Box(
+            modifier = Modifier.fillMaxWidth(),
+            contentAlignment = Alignment.CenterStart
+        ) {
+
+            MonthSwiper(
+                modifier = Modifier
+                    .padding(top = 4.dp)
+                    .padding(horizontal = Design.dp.paddingM),
+                monthNumber = monthIndex,
+                month = month,
+            )
+
+            TodayControl(
+                visibilityCondition = { selectedDateIsToday.not() },
+                click = { currentDay?.let { selectCalendarDay.invoke(it) } }
+            )
+        }
 
         LazyRow(
             state = lazyColumnListState,
@@ -129,7 +146,7 @@ internal fun PaginatedCalendar(
                     TextFieldBody1(
                         modifier = Modifier
                             .align(Alignment.TopCenter)
-                            .padding(top = 16.dp),
+                            .padding(top = 18.dp),
                         provideText = { if (it.isToday) "TODAY" else it.weekDay },
                         color = if (it.isSelected || it.isToday) Design.colors.content else Design.colors.caption
                     )
@@ -137,7 +154,7 @@ internal fun PaginatedCalendar(
                     TextFieldH2(
                         modifier = Modifier
                             .align(Alignment.BottomCenter)
-                            .padding(bottom = 16.dp),
+                            .padding(bottom = 14.dp),
                         provideText = { it.day },
                         color = Design.colors.content
                     )

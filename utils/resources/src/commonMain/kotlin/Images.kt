@@ -13,4 +13,9 @@ object Images {
     fun addTraining(): Painter {
         return painterResource(SharedRes.images.add_training_bg)
     }
+
+    @Composable
+    fun dumbbells(): Painter {
+        return painterResource(SharedRes.images.dumbbells)
+    }
 }
