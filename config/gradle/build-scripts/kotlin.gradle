@@ -16,5 +16,6 @@ kotlin {
         languageSettings.optIn("kotlin.time.ExperimentalTime")
         languageSettings.optIn("org.jetbrains.compose.resources.ExperimentalResourceApi")
         languageSettings.optIn("androidx.media3.common.util.UnstableApi")
+        languageSettings.optIn("kotlinx.cinterop.ExperimentalForeignApi")
     }
 }

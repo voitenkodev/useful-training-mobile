@@ -34,7 +34,9 @@ kotlin {
             }
         }
         val androidMain by getting {
-            dependencies {}
+            dependencies {
+                dependsOn(commonMain)
+            }
         }
         val iosMain by getting {
             dependencies {}

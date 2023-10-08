@@ -26,7 +26,7 @@ internal actual fun NativeContext.database(): UsefulTrainingDatabase {
         extendedConfig = DatabaseConfiguration.Extended(foreignKeyConstraints = true),
         create = { connection ->
             wrapConnection(connection) { UsefulTrainingDatabase.Schema.create(it) }
-        },
+        }
     )
     return UsefulTrainingDatabase.invoke(NativeSqliteDriver(dbConfig))
 }
