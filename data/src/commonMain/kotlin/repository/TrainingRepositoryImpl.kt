@@ -3,6 +3,7 @@ package repository
 import dto.backend.ExerciseDateDTO
 import dto.backend.TrainingDTO
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.filterNot
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
@@ -23,6 +24,7 @@ class TrainingRepositoryImpl(
         val remoteRequest = flow { emit(remote.getTrainings()) }
             .onEach { local.setTrainings(it) }
             .map { it to SOURCE.REMOTE }
+            .catch { /*Ignore errors for remote requests */ }
 
         val localRequest = local.getTrainings()
             .map { it to SOURCE.LOCAL }
@@ -37,6 +39,7 @@ class TrainingRepositoryImpl(
         val remoteRequest = flow { emit(remote.getTraining(trainingId)) }
             .onEach { local.setTraining(it) }
             .map { it to SOURCE.REMOTE }
+            .catch { /*Ignore errors for remote requests */ }
 
         val localRequest = local.getTraining(trainingId)
             .map { it to SOURCE.LOCAL }
