@@ -41,6 +41,7 @@ fun TrainingsContent(
     vm: TrainingsViewModel,
     toTrainingById: (trainingId: String) -> Unit,
     toNewTraining: () -> Unit,
+    addTrainingWithTemplate: (trainingId: String) -> Unit,
     back: () -> Unit,
     toAuth: () -> Unit,
 ) {
@@ -62,7 +63,8 @@ fun TrainingsContent(
         trainings = { state.trainings },
         openTraining = toTrainingById,
         addCalendarChunk = vm::addCalendarChunk,
-        selectCalendarDay = vm::selectCalendarDay
+        selectCalendarDay = vm::selectCalendarDay,
+        trainingWithTemplate = addTrainingWithTemplate
     )
 }
 
@@ -83,6 +85,7 @@ private fun Content(
     trainings: () -> List<Training>,
 
     openTraining: (trainingId: String) -> Unit,
+    trainingWithTemplate: (trainingId: String) -> Unit,
     addCalendarChunk: () -> Unit,
     selectCalendarDay: (dateTimeIso: String) -> Unit,
 ) {
@@ -154,9 +157,13 @@ private fun Content(
                 items(trainingList) { training ->
                     TrainingItem(
                         training = training,
-                        onClick = {
+                        onDetailsClick = {
                             val id = training.id ?: return@TrainingItem
                             openTraining.invoke(id)
+                        },
+                        onTemplateClick = {
+                            val id = training.id ?: return@TrainingItem
+                            trainingWithTemplate.invoke(id)
                         }
                     )
                 }
