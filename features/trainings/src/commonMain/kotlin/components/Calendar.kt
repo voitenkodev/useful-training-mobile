@@ -2,10 +2,12 @@ package components
 
 import DateTimeKtx
 import Design
+import Images
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.togetherWith
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -16,8 +18,11 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -31,7 +36,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import conditional
 import controls.TextFieldBody1
@@ -56,17 +63,6 @@ internal fun PaginatedCalendar(
 
     val lazyColumnListState = rememberLazyListState()
 
-    val selectedIndex = remember(calendar) {
-        calendar.indexOfFirst { it.isSelected }
-    }
-
-    val shouldStartPaginate = remember {
-        derivedStateOf {
-            (lazyColumnListState.layoutInfo.visibleItemsInfo.lastOrNull()?.index
-                ?: -9) >= (lazyColumnListState.layoutInfo.totalItemsCount - 6)
-        }
-    }
-
     val month = remember(lazyColumnListState.firstVisibleItemIndex) {
         val iso = calendar
             .getOrNull(lazyColumnListState.firstVisibleItemIndex)
@@ -83,99 +79,141 @@ internal fun PaginatedCalendar(
         DateTimeKtx.formattedMonthNum(iso) ?: -1
     }
 
+    Box(
+        modifier = Modifier.wrapContentHeight()
+    ) {
+
+        Image(
+            modifier = Modifier
+                .height(250.dp)
+                .width(250.dp)
+                .align(Alignment.BottomEnd)
+                .alpha(0.4f),
+            painter = Images.person5(),
+            contentScale = ContentScale.FillWidth,
+            contentDescription = null
+        )
+
+        Column(
+            modifier = modifier
+                .platformTopInset(),
+        ) {
+            Spacer(
+                modifier = Modifier.size(Design.dp.component)
+            )
+
+            Box(
+                modifier = Modifier.fillMaxWidth(),
+                contentAlignment = Alignment.CenterStart
+            ) {
+
+                MonthSwiper(
+                    modifier = Modifier
+                        .padding(top = 4.dp)
+                        .padding(horizontal = Design.dp.paddingM),
+                    monthNumber = monthIndex,
+                    month = month,
+                )
+
+                TodayControl(
+                    visibilityCondition = { selectedDateIsToday.not() },
+                    click = { currentDay?.let { selectCalendarDay.invoke(it) } }
+                )
+            }
+
+            CalendarRow(
+                lazyColumnListState = lazyColumnListState,
+                calendar = calendar,
+                selectCalendarDay = selectCalendarDay,
+                onAddMore = onAddMore
+            )
+        }
+    }
+}
+@Composable
+
+private fun CalendarRow(
+    lazyColumnListState : LazyListState,
+    calendar: List<SelectableCalendar>,
+    selectCalendarDay: (dateTimeIso: String) -> Unit,
+    onAddMore: ()-> Unit
+) {
+
+
+    val shouldStartPaginate = remember {
+        derivedStateOf {
+            (lazyColumnListState.layoutInfo.visibleItemsInfo.lastOrNull()?.index
+                ?: -9) >= (lazyColumnListState.layoutInfo.totalItemsCount - 6)
+        }
+    }
+
     LaunchedEffect(key1 = shouldStartPaginate.value) {
         if (shouldStartPaginate.value) onAddMore.invoke()
     }
+
+    val selectedIndex = remember(calendar) { calendar.indexOfFirst { it.isSelected } }
 
     LaunchedEffect(key1 = selectedIndex) {
         if (selectedIndex != -1) lazyColumnListState.animateScrollAndCentralizeItem(selectedIndex)
     }
 
-    Column(
-        modifier = modifier
-            .background(Design.colors.secondary)
-            .platformTopInset(),
+
+    LazyRow(
+        state = lazyColumnListState,
+        modifier = Modifier.fillMaxWidth(),
+        reverseLayout = true,
+        horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM),
+        contentPadding = PaddingValues(Design.dp.paddingM)
     ) {
-        Spacer(
-            modifier = Modifier.size(Design.dp.component)
-        )
 
-        Box(
-            modifier = Modifier.fillMaxWidth(),
-            contentAlignment = Alignment.CenterStart
-        ) {
-
-            MonthSwiper(
+        items(calendar) {
+            Box(
                 modifier = Modifier
-                    .padding(top = 4.dp)
-                    .padding(horizontal = Design.dp.paddingM),
-                monthNumber = monthIndex,
-                month = month,
-            )
+                    .size(80.dp)
+                    .conditional(
+                        condition = it.isToday,
+                        onYes = { accentBackground() },
+                        onNot = { quaternaryBackground() }
+                    ).clickable { selectCalendarDay.invoke(it.dateTimeIso) }
+                    .border(
+                        width = Design.dp.border,
+                        color = if (it.isSelected) Design.colors.content else Color.Transparent,
+                        shape = Design.shape.default
+                    )
+            ) {
 
-            TodayControl(
-                visibilityCondition = { selectedDateIsToday.not() },
-                click = { currentDay?.let { selectCalendarDay.invoke(it) } }
-            )
-        }
-
-        LazyRow(
-            state = lazyColumnListState,
-            modifier = Modifier.fillMaxWidth(),
-            reverseLayout = true,
-            horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM),
-            contentPadding = PaddingValues(Design.dp.paddingM)
-        ) {
-
-            items(calendar) {
-                Box(
+                TextFieldBody1(
                     modifier = Modifier
-                        .size(80.dp)
-                        .conditional(
-                            condition = it.isToday,
-                            onYes = { accentBackground() },
-                            onNot = { quaternaryBackground() }
-                        ).clickable { selectCalendarDay.invoke(it.dateTimeIso) }
-                        .border(
-                            width = Design.dp.border,
-                            color = if (it.isSelected) Design.colors.content else Color.Transparent,
-                            shape = Design.shape.default
-                        )
-                ) {
+                        .align(Alignment.TopCenter)
+                        .padding(top = 18.dp),
+                    provideText = { if (it.isToday) "TODAY" else it.weekDay },
+                    color = if (it.isSelected || it.isToday) Design.colors.content else Design.colors.caption
+                )
 
-                    TextFieldBody1(
+                TextFieldH2(
+                    modifier = Modifier
+                        .align(Alignment.BottomCenter)
+                        .padding(bottom = 14.dp),
+                    provideText = { it.day },
+                    color = Design.colors.content
+                )
+
+                if (it.countOfTrainings != 0) {
+                    Column(
                         modifier = Modifier
-                            .align(Alignment.TopCenter)
-                            .padding(top = 18.dp),
-                        provideText = { if (it.isToday) "TODAY" else it.weekDay },
-                        color = if (it.isSelected || it.isToday) Design.colors.content else Design.colors.caption
-                    )
-
-                    TextFieldH2(
-                        modifier = Modifier
-                            .align(Alignment.BottomCenter)
-                            .padding(bottom = 14.dp),
-                        provideText = { it.day },
-                        color = Design.colors.content
-                    )
-
-                    if (it.countOfTrainings != 0) {
-                        Column(
-                            modifier = Modifier
-                                .align(Alignment.TopEnd)
-                                .padding(Design.dp.paddingS),
-                            verticalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
-                        ) {
-                            repeat(it.countOfTrainings) {
-                                Spacer(
-                                    modifier = Modifier
-                                        .size(10.dp)
-                                        .background(
-                                            color = Design.colors.accent_secondary,
-                                            shape = Design.shape.circleShape
-                                        )
-                                )
-                            }
+                            .align(Alignment.TopEnd)
+                            .padding(Design.dp.paddingS),
+                        verticalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
+                    ) {
+                        repeat(it.countOfTrainings) {
+                            Spacer(
+                                modifier = Modifier
+                                    .size(10.dp)
+                                    .background(
+                                        color = Design.colors.accent_secondary,
+                                        shape = Design.shape.circleShape
+                                    )
+                            )
                         }
                     }
                 }
