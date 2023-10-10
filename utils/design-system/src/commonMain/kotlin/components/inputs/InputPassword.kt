@@ -17,7 +17,7 @@ import atomic.icons.EyeOff
 import components.labels.InputLabel
 import controls.IconPrimary
 import controls.InputFieldPrimary
-import controls.reversedBackground
+import controls.reversedCircleBackground
 import recomposeHighlighter
 
 @Composable
@@ -30,7 +30,7 @@ fun InputPassword(
 
     InputFieldPrimary(
         modifier = modifier
-            .reversedBackground()
+            .reversedCircleBackground()
             .padding(horizontal = Design.dp.paddingM)
             .recomposeHighlighter(),
         provideValue = provideValue,

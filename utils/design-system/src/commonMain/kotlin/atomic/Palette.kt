@@ -9,7 +9,8 @@ data class Color(
     val primary: Color = Color(0xff000000), // hard-black Root
     val secondary: Color = Color(0xff090912), // soft-gray Header
     val tertiary: Color = Color(0xff13131c), // soft-gray Footer
-    val quaternary: Color = Color(0x0Dffffff), // has alpha (Inner Items)
+    val white5: Color = Color(0x0Dffffff), // has alpha (Inner Items)
+    val black30: Color = Color(0x80000000), // has alpha (Inner Items)
 
     // Color(0xffEA3469) = Red / Pink
     // Color(0xff228D57) = Green soft
@@ -18,7 +19,7 @@ data class Color(
     // Color(0xff335bff) = Blue
 
     // Accent
-    val accent_primary: Color = Color(0xff204cf7),
+    val accent_primary: Color = Color(0xff9ae13b),
     val accent_secondary: Color = Color(0xfffcb51c),
 
     // Text

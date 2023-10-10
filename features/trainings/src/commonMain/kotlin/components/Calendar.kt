@@ -36,15 +36,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
-import conditional
 import controls.TextFieldBody1
 import controls.TextFieldH1
 import controls.TextFieldH2
-import controls.accentBackground
 import controls.quaternaryBackground
 import platformTopInset
 import trainings.SelectableCalendar
@@ -87,10 +84,9 @@ internal fun PaginatedCalendar(
             modifier = Modifier
                 .height(250.dp)
                 .width(250.dp)
-                .align(Alignment.BottomEnd)
-                .alpha(0.4f),
+                .align(Alignment.BottomEnd),
             painter = Images.person5(),
-            contentScale = ContentScale.FillWidth,
+            contentScale = ContentScale.Fit,
             contentDescription = null
         )
 
@@ -130,13 +126,14 @@ internal fun PaginatedCalendar(
         }
     }
 }
+
 @Composable
 
 private fun CalendarRow(
-    lazyColumnListState : LazyListState,
+    lazyColumnListState: LazyListState,
     calendar: List<SelectableCalendar>,
     selectCalendarDay: (dateTimeIso: String) -> Unit,
-    onAddMore: ()-> Unit
+    onAddMore: () -> Unit
 ) {
 
 
@@ -170,14 +167,12 @@ private fun CalendarRow(
             Box(
                 modifier = Modifier
                     .size(80.dp)
-                    .conditional(
-                        condition = it.isToday,
-                        onYes = { accentBackground() },
-                        onNot = { quaternaryBackground() }
-                    ).clickable { selectCalendarDay.invoke(it.dateTimeIso) }
+                    .scale(if (it.isSelected) 1.1f else 1f)
+                    .quaternaryBackground()
+                    .clickable { selectCalendarDay.invoke(it.dateTimeIso) }
                     .border(
-                        width = Design.dp.border,
-                        color = if (it.isSelected) Design.colors.content else Color.Transparent,
+                        width = if (it.isSelected) 2.dp else 1.dp,
+                        color = if (it.isSelected) Design.colors.content else Design.colors.caption,
                         shape = Design.shape.default
                     )
             ) {
@@ -187,7 +182,7 @@ private fun CalendarRow(
                         .align(Alignment.TopCenter)
                         .padding(top = 18.dp),
                     provideText = { if (it.isToday) "TODAY" else it.weekDay },
-                    color = if (it.isSelected || it.isToday) Design.colors.content else Design.colors.caption
+                    color = if (it.isToday) Design.colors.accent_primary else if (it.isSelected) Design.colors.content else Design.colors.caption
                 )
 
                 TextFieldH2(
@@ -195,7 +190,7 @@ private fun CalendarRow(
                         .align(Alignment.BottomCenter)
                         .padding(bottom = 14.dp),
                     provideText = { it.day },
-                    color = Design.colors.content
+                    color = if (it.isToday) Design.colors.accent_primary else Design.colors.content
                 )
 
                 if (it.countOfTrainings != 0) {

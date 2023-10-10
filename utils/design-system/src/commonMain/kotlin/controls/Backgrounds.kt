@@ -24,18 +24,27 @@ fun Modifier.accentBackground() = this
 @Composable
 fun Modifier.quaternaryBackground() = this
     .background(
-        color = Design.colors.quaternary,
+        color = Design.colors.black30,
         shape = Design.shape.default
     ).clip(
         shape = Design.shape.default
     )
 
 @Composable
-fun Modifier.reversedBackground() = this
+fun Modifier.reversedCircleBackground() = this
     .background(
         color = Design.colors.content,
         shape = Design.shape.circleShape
     ).clip(
         shape = Design.shape.circleShape
+    )
+
+@Composable
+fun Modifier.reversedRoundBackground() = this
+    .background(
+        color = Design.colors.content,
+        shape = Design.shape.default
+    ).clip(
+        shape = Design.shape.default
     )
 
