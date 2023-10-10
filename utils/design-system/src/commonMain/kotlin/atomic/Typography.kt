@@ -54,7 +54,7 @@ internal fun typography() = Typography(
         fontFamily = FontFamily.Default
     ),
     Body = TextStyle(
-        fontSize = 14.sp,
+        fontSize = 16.sp,
         fontWeight = FontWeight.Normal,
         fontStyle = FontStyle.Normal,
         fontFamily = FontFamily.Default

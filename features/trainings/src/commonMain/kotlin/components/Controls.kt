@@ -31,7 +31,7 @@ internal fun BoxScope.TodayControl(
     click: () -> Unit,
 ) {
 
-    val width = Design.dp.component + Design.dp.paddingL
+    val width = Design.dp.componentM + Design.dp.paddingL
 
     val animatedDp by animateDpAsState(
         targetValue = if (visibilityCondition()) 0.dp else width + Design.dp.paddingL,
@@ -49,6 +49,7 @@ internal fun BoxScope.TodayControl(
             .offset(x = animatedDp),
         imageVector = Icons.Default.KeyboardArrowRight,
         onClick = click,
+        contentColor = Design.colors.primary
     )
 }
 

@@ -19,7 +19,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import components.ChartsInfo
+import components.TrainingHeader
 import components.Error
 import components.Exercises
 import components.Loading
@@ -109,7 +109,7 @@ private fun Content(
                 modifier = Modifier.size(Design.dp.paddingL)
             )
 
-            ChartsInfo(
+            TrainingHeader(
                 training = trainingProvider
             )
 

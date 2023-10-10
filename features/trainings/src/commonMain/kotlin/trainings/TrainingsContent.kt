@@ -24,12 +24,11 @@ import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.unit.dp
 import components.Error
 import components.Loading
 import components.PaginatedCalendar
 import components.TrainingItem
-import components.backgrounds.BrandGradientCenterEnd
-import components.backgrounds.BrandGradientCenterStart
 import components.placeholders.EmptyTraining
 import components.roots.Root
 import controls.TextFieldH3
@@ -107,19 +106,14 @@ private fun Content(
         back = { PlatformBackHandler(backProvider) },
     ) {
 
-        if (trainingList.isEmpty()) {
-            BrandGradientCenterEnd()
-            BrandGradientCenterStart()
-        }
-
         if (selectedDateIsToday.not() && trainingList.isEmpty()) {
             EmptyTraining(
-                modifier = Modifier.align(Alignment.Center)
+                modifier = Modifier
+                    .align(Alignment.Center)
             )
         }
 
         Column {
-
             PaginatedCalendar(
                 calendar = calendar,
                 onAddMore = addCalendarChunk,
@@ -130,26 +124,8 @@ private fun Content(
 
                 if (selectedDateIsToday) {
                     item {
-                        Box(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .aspectRatio(2f)
-                                .padding(Design.dp.paddingM)
-                                .border(
-                                    width = Design.dp.border,
-                                    shape = Design.shape.default,
-                                    color = Design.colors.caption
-                                ).clickable(onClick = newTraining)
-                                .clip(shape = Design.shape.default),
-                            content = {
-
-                                TextFieldH3(
-                                    modifier = Modifier
-                                        .align(Alignment.Center),
-                                    provideText = { "ADD WORKOUT" },
-                                    color = Design.colors.content
-                                )
-                            }
+                        NewTraining(
+                            newTraining = newTraining
                         )
                     }
                 }
@@ -171,11 +147,39 @@ private fun Content(
                 if (trainingList.isNotEmpty()) {
                     item {
                         Spacer(
-                            modifier = Modifier.background(Design.colors.tertiary).fillMaxWidth().platformBottomInset()
+                            modifier = Modifier
+                                .background(Design.colors.tertiary)
+                                .fillMaxWidth()
+                                .platformBottomInset()
                         )
                     }
                 }
             }
         }
     }
+}
+
+@Composable
+private fun NewTraining(newTraining: () -> Unit) {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .aspectRatio(2f)
+            .padding(Design.dp.paddingM)
+            .border(
+                width = 1.dp,
+                shape = Design.shape.default,
+                color = Design.colors.caption
+            ).clickable(onClick = newTraining)
+            .clip(shape = Design.shape.default),
+        content = {
+
+            TextFieldH3(
+                modifier = Modifier
+                    .align(Alignment.Center),
+                provideText = { "ADD WORKOUT" },
+                color = Design.colors.content
+            )
+        }
+    )
 }

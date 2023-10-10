@@ -31,6 +31,15 @@ fun Modifier.quaternaryBackground() = this
     )
 
 @Composable
+fun Modifier.tertiaryBackground() = this
+    .background(
+        color = Design.colors.tertiary,
+        shape = Design.shape.default
+    ).clip(
+        shape = Design.shape.default
+    )
+
+@Composable
 fun Modifier.reversedCircleBackground() = this
     .background(
         color = Design.colors.content,

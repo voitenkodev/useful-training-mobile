@@ -142,7 +142,7 @@ private fun InputField(
     } else textStyle2
 
     Row(
-        modifier = modifier.requiredHeight(Design.dp.component),
+        modifier = modifier.requiredHeight(Design.dp.componentM),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(12.dp),
     ) {
@@ -150,14 +150,14 @@ private fun InputField(
         if (leading != null) {
             leading.invoke()
             DividerPrimary(
-                modifier = Modifier.requiredHeight(Design.dp.component - Design.dp.paddingM - Design.dp.paddingM),
+                modifier = Modifier.requiredHeight(Design.dp.componentM - Design.dp.paddingM - Design.dp.paddingM),
                 orientation = Orientation.Vertical
             )
         }
 
         InnerInputField(
             Modifier
-                .requiredHeight(Design.dp.component)
+                .requiredHeight(Design.dp.componentM)
                 .background(Color.Transparent)
                 .weight(1f),
             provideValue = provideValue,

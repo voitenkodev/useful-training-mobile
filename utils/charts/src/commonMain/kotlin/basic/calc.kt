@@ -11,15 +11,21 @@ data class DrawElement(
 
     val lineConfigs: LineConfigs?,
 
+    val listOfPoints: List<LinePoint>,
+
     val colors: Colors = Colors(
         backgroundColor = Color.Cyan
     )
-
 ) {
 
     data class LineConfigs(
         val color: Color,
-        val width: Dp
+        val width: Dp,
+    )
+
+    data class LinePoint(
+        val x: Float,
+        val y: Float
     )
 
     data class Colors(
@@ -34,6 +40,8 @@ internal fun generatePath(
     color: Color,
     bottomSpacing: Float = 0f
 ): DrawElement {
+
+    val listOfPoints = mutableListOf<DrawElement.LinePoint>()
 
     val maxY = line.max()
     val minY = line.min()
@@ -64,14 +72,17 @@ internal fun generatePath(
                 )
             }
 
+            listOfPoints.add(DrawElement.LinePoint(x = currentX, y = currentY))
         }
     }
+
     return DrawElement(
         path = p,
         values = line,
         lineConfigs = DrawElement.LineConfigs(
             color = color,
-            width = 2.dp
-        )
+            width = 4.dp
+        ),
+        listOfPoints = listOfPoints
     )
 }

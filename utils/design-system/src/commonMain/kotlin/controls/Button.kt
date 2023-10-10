@@ -36,7 +36,7 @@ fun ButtonBrand(
     onClick: () -> Unit,
 ) {
     Button(
-        modifier = modifier.requiredHeight(Design.dp.component),
+        modifier = modifier.requiredHeight(Design.dp.componentM),
         text = text,
         textStyle = Design.typography.PrimaryButton.copy(color = textColor),
         enabled = enabled,
@@ -59,7 +59,7 @@ fun ButtonIconBrand(
 ) {
     IconButton(
         modifier = modifier
-            .requiredSize(Design.dp.component)
+            .requiredSize(Design.dp.componentM)
             .alpha(if (enabled) 1f else 0.5f)
             .background(
                 color = backgroundColor,
@@ -89,7 +89,7 @@ fun ButtonSecondaryIcon(
 ) {
     IconButton(
         modifier = modifier
-            .requiredSize(Design.dp.component)
+            .requiredSize(Design.dp.componentM)
             .alpha(if (enabled) 1f else 0.5f)
             .background(
                 color = Design.colors.tertiary,
@@ -119,7 +119,7 @@ fun ButtonAccentIcon(
 ) {
     IconButton(
         modifier = modifier
-            .requiredSize(Design.dp.component)
+            .requiredSize(Design.dp.componentM)
             .alpha(if (enabled) 1f else 0.5f)
             .background(
                 color = Design.colors.accent_primary,

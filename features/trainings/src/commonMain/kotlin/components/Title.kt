@@ -15,6 +15,7 @@ import controls.ButtonIconBrand
 import controls.TextFieldH2
 import recomposeHighlighter
 
+
 @Composable
 internal fun TrainingTitle(
     mainTitle: () -> String,

@@ -2,12 +2,10 @@ package components
 
 import DateTimeKtx
 import Design
-import Images
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.togetherWith
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -18,11 +16,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -37,7 +32,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import controls.TextFieldBody1
 import controls.TextFieldH1
@@ -76,54 +70,40 @@ internal fun PaginatedCalendar(
         DateTimeKtx.formattedMonthNum(iso) ?: -1
     }
 
-    Box(
-        modifier = Modifier.wrapContentHeight()
+    Column(
+        modifier = modifier
+            .platformTopInset(),
     ) {
 
-        Image(
-            modifier = Modifier
-                .height(250.dp)
-                .width(250.dp)
-                .align(Alignment.BottomEnd),
-            painter = Images.person5(),
-            contentScale = ContentScale.Fit,
-            contentDescription = null
+        Spacer(
+            modifier = Modifier.size(Design.dp.componentM)
         )
 
-        Column(
-            modifier = modifier
-                .platformTopInset(),
+        Box(
+            modifier = Modifier.fillMaxWidth(),
+            contentAlignment = Alignment.CenterStart
         ) {
-            Spacer(
-                modifier = Modifier.size(Design.dp.component)
+
+            MonthSwiper(
+                modifier = Modifier
+                    .padding(top = 4.dp)
+                    .padding(horizontal = Design.dp.paddingM),
+                monthNumber = monthIndex,
+                month = month,
             )
 
-            Box(
-                modifier = Modifier.fillMaxWidth(),
-                contentAlignment = Alignment.CenterStart
-            ) {
-
-                MonthSwiper(
-                    modifier = Modifier
-                        .padding(top = 4.dp)
-                        .padding(horizontal = Design.dp.paddingM),
-                    monthNumber = monthIndex,
-                    month = month,
-                )
-
-                TodayControl(
-                    visibilityCondition = { selectedDateIsToday.not() },
-                    click = { currentDay?.let { selectCalendarDay.invoke(it) } }
-                )
-            }
-
-            CalendarRow(
-                lazyColumnListState = lazyColumnListState,
-                calendar = calendar,
-                selectCalendarDay = selectCalendarDay,
-                onAddMore = onAddMore
+            TodayControl(
+                visibilityCondition = { selectedDateIsToday.not() },
+                click = { currentDay?.let { selectCalendarDay.invoke(it) } }
             )
         }
+
+        CalendarRow(
+            lazyColumnListState = lazyColumnListState,
+            calendar = calendar,
+            selectCalendarDay = selectCalendarDay,
+            onAddMore = onAddMore
+        )
     }
 }
 

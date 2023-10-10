@@ -24,7 +24,7 @@ fun IterationCaptionItem() = Column(
 ) {
     TextFieldBody2(
         modifier = Modifier
-            .height(Design.dp.component)
+            .height(Design.dp.componentM)
             .fillMaxWidth()
             .wrapContentHeight()
             .recomposeHighlighter(),
@@ -37,7 +37,7 @@ fun IterationCaptionItem() = Column(
 
     TextFieldBody2(
         modifier = Modifier
-            .height(Design.dp.component)
+            .height(Design.dp.componentM)
             .fillMaxWidth()
             .wrapContentHeight()
             .recomposeHighlighter(),

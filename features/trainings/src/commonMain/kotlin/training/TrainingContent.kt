@@ -160,7 +160,7 @@ private fun Content(
         header = {
             Row {
                 IconPrimary(
-                    modifier = Modifier.size(Design.dp.component).rootBackground(),
+                    modifier = Modifier.size(Design.dp.componentM).rootBackground(),
                     imageVector = Icons.Default.ArrowBack,
                     onClick = openExitScreenPopupProvider
                 )
@@ -168,7 +168,7 @@ private fun Content(
                 Spacer(Modifier.weight(1f))
 
                 IconPrimary(
-                    modifier = Modifier.size(Design.dp.component).rootBackground(),
+                    modifier = Modifier.size(Design.dp.componentM).rootBackground(),
                     imageVector = Icons.Default.Done,
                     onClick = saveTrainingProvider
                 )

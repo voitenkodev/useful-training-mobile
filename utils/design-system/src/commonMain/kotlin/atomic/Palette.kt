@@ -19,7 +19,7 @@ data class Color(
     // Color(0xff335bff) = Blue
 
     // Accent
-    val accent_primary: Color = Color(0xff9ae13b),
+    val accent_primary: Color = Color(0xff9be03b),
     val accent_secondary: Color = Color(0xfffcb51c),
 
     // Text

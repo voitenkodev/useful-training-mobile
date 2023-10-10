@@ -1,7 +1,6 @@
 package components
 
 import Design
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -33,6 +32,15 @@ internal fun TrainingItem(
             modifier = Modifier.size(Design.dp.paddingM)
         )
 
+        TrainingHeader(
+            modifier = Modifier.padding(horizontal = Design.dp.paddingM),
+            training = trainingProvider
+        )
+
+        Spacer(
+            modifier = Modifier.size(Design.dp.paddingM)
+        )
+
         TrainingTitle(
             mainTitle = { "At ${training.startTime}" },
             click = onDetailsClick,
@@ -42,37 +50,20 @@ internal fun TrainingItem(
             modifier = Modifier.size(Design.dp.paddingM)
         )
 
-        Column(
-            modifier = Modifier.background(color = Design.colors.tertiary)
-        ) {
-            Spacer(
-                modifier = Modifier.size(Design.dp.paddingM)
-            )
+        Exercises(
+            modifier = Modifier.padding(horizontal = Design.dp.paddingM),
+            training = trainingProvider,
+        )
 
-            ChartsInfo(
-                modifier = Modifier.padding(horizontal = Design.dp.paddingM),
-                training = trainingProvider
-            )
+        ButtonQuestion(
+            modifier = Modifier.fillMaxWidth(),
+            question = "Use training as",
+            answer = "Template",
+            onClick = onTemplateClick
+        )
 
-            Spacer(
-                modifier = Modifier.size(Design.dp.paddingM)
-            )
-
-            Exercises(
-                modifier = Modifier.padding(horizontal = Design.dp.paddingM),
-                training = trainingProvider,
-            )
-
-            ButtonQuestion(
-                modifier = Modifier.fillMaxWidth(),
-                question = "Use training as",
-                answer = "Template",
-                onClick = onTemplateClick
-            )
-
-            Spacer(
-                modifier = Modifier.size(Design.dp.paddingS)
-            )
-        }
+        Spacer(
+            modifier = Modifier.size(Design.dp.paddingS)
+        )
     }
 }
