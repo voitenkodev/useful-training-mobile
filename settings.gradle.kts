@@ -43,6 +43,10 @@ include(
     ":shared",
     ":data",
 
+    ":services:network",
+    ":services:database",
+    ":services:preferences",
+
     "utils:design-system",
     "utils:architecture-component",
     "utils:instruments",
