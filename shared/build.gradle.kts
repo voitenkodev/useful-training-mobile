@@ -21,7 +21,7 @@ kotlin {
                 implementation(projects.features.trainings)
 
                 // Common
-                implementation(projects.data)
+                implementation(projects.dataold)
                 implementation(projects.utils.designSystem)
                 implementation(projects.utils.architectureComponent)
 

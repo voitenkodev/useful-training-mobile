@@ -14,7 +14,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(projects.data)
+                implementation(projects.dataold)
                 implementation(projects.utils.instruments)
                 implementation(projects.utils.designSystem)
                 implementation(projects.utils.resources) // TODO DO I NEED IT?

@@ -41,7 +41,7 @@ rootProject.name = "UsefulTraining"
 include(
     ":androidApp",
     ":shared",
-    ":data",
+    ":dataold",
 
     ":services:network",
     ":services:database",
