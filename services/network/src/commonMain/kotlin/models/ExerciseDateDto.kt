@@ -3,8 +3,8 @@ package models
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class ExerciseDateDTO(
+data class ExerciseDateDto(
     val trainingId: String? = null,
-    val exercise: ExerciseDTO,
+    val exercise: ExerciseDto,
     val date: String,
 )

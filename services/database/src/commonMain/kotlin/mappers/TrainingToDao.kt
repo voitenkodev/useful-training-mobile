@@ -1,11 +1,11 @@
 package mappers
 
 import data.Training
-import dto.backend.ExerciseDTO
-import dto.backend.TrainingDTO
+import models.ExerciseDao
+import models.TrainingDao
 
-internal fun Training.toDto(exercises: List<ExerciseDTO>): TrainingDTO {
-    return TrainingDTO(
+internal fun Training.toDao(exercises: List<ExerciseDao>): TrainingDao {
+    return TrainingDao(
         id = this.id,
         duration = this.duration,
         date = this.date,

@@ -1,4 +1,13 @@
 [versions]
+kotlin-vers = "1.9.10"
+kotlin-native-vers = "1.3.41"
+
+
+agp-version="8.1.1"
+compose-version="1.5.10-beta02"
+moko-resources="0.22.3"
+
+coroutines-vers = "1.7.1"
 activity-compose-vers = "1.7.2"
 appcompat-vers = "1.6.1"
 serialization-vers = "1.5.0"
@@ -14,6 +23,7 @@ moko-resources-version = "0.23.0"
 decompose-vers = "2.0.2-compose-experimental"
 
 [libraries]
+coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines-vers" }
 serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization-vers" }
 datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "datetime-vers" }
 parcelize = { module = "dev.icerock.moko:parcelize", version.ref = "parcelize-vers" }
@@ -47,4 +57,22 @@ decompose-extensions = { module = "com.arkivanov.decompose:extensions-compose-je
 
 moko-resources = { module = "dev.icerock.moko:resources", version.ref = "moko-resources-version" }
 moko-resources-compose = { module = "dev.icerock.moko:resources-compose", version.ref = "moko-resources-version" }
+
+[plugins]
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin-vers" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin-vers" }
+kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin-vers" }
+kotlin-cocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotlin-vers" }
+kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin-vers" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin-vers" }
+kotlin-native = { id = "org.jetbrains.kotlin.platform.native", version.ref = "kotlin-native-vers" }
+
+android-base = { id = "com.android.base", version.ref = "agp-version" }
+android-app = { id = "com.android.application", version.ref = "agp-version" }
+android-library = { id = "com.android.library", version.ref = "agp-version" }
+
+compose = { id = "org.jetbrains.compose", version.ref = "compose-version" }
+sqldelight = { id = "app.cash.sqldelight", version.ref = "sqldelight-vers" }
+
+moko-resources = { id = "dev.icerock.mobile.multiplatform-resources", version.ref = "moko-resources" }
 

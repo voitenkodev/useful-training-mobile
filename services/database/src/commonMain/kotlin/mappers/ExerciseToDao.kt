@@ -2,9 +2,10 @@ package mappers
 
 import data.Exercise
 import dto.backend.ExerciseDTO
-import dto.backend.IterationDTO
+import models.ExerciseDao
+import models.IterationDao
 
-internal fun Exercise.toDto(iterations: List<IterationDTO>): ExerciseDTO {
+internal fun Exercise.toDao(iterations: List<IterationDao>): ExerciseDao {
     return ExerciseDTO(
         id = this.id,
         name = this.name,

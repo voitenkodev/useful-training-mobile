@@ -1,11 +1,8 @@
 package models
 
-import kotlinx.serialization.Serializable
-
-@Serializable
-data class TrainingDTO(
+data class Training(
     val id: String? = null,
-    val exercises: List<ExerciseDTO> = emptyList(),
+    val exercises: List<Exercise> = emptyList(),
     val duration: String?,
     val date: String?,
     val tonnage: Double?,

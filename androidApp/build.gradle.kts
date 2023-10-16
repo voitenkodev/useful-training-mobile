@@ -1,6 +1,6 @@
 plugins {
-    kotlin("multiplatform")
-    id("com.android.application")
+    alias(libs.plugins.kotlin.multiplatform)
+    alias(libs.plugins.android.app)
 }
 
 apply(from = "../config/gradle/build-scripts/android.gradle")
@@ -8,11 +8,13 @@ apply(from = "../config/gradle/build-scripts/android.gradle")
 android.defaultConfig { applicationId = "com.voitenko.usefultraining" }
 
 kotlin {
-    android()
+    androidTarget()
+
     sourceSets {
         val androidMain by getting {
             dependencies {
                 implementation(projects.shared)
+
                 implementation(libs.appcompat)
                 implementation(libs.koin.android)
             }
