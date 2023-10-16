@@ -1,4 +1,3 @@
-import UsefulTrainingDatabase
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
 import data.Exercise
@@ -7,10 +6,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
+import mappers.toDao
 import models.ExerciseDao
 import models.IterationDao
 import models.TrainingDao
-import source.database.mappers.toDao
 
 class DataBaseSource(nativeContext: NativeContext) {
 

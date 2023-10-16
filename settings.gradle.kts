@@ -20,11 +20,12 @@ rootProject.name = "UsefulTraining"
 include(
     ":androidApp",
     ":shared",
-    ":dataold",
 
     ":data:trainings",
+    ":data:authentication",
 
     ":domain:trainings",
+    ":domain:authentication",
 
     ":services:network",
     ":services:database",

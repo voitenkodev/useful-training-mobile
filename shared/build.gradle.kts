@@ -20,8 +20,17 @@ kotlin {
                 implementation(projects.features.authentication)
                 implementation(projects.features.trainings)
 
-                // Common
-                implementation(projects.dataold)
+                // Services for DI
+                implementation(projects.services.network)
+                implementation(projects.services.database)
+                implementation(projects.services.preferences)
+
+                // Data
+//                implementation(projects.dataold)
+                implementation(projects.data.trainings)
+                implementation(projects.data.authentication)
+
+                // Other
                 implementation(projects.utils.designSystem)
                 implementation(projects.utils.architectureComponent)
 

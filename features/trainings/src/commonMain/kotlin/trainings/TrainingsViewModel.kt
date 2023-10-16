@@ -1,7 +1,9 @@
 package trainings
 
+import AuthRepository
 import DateTimeKtx
 import DateTimeKtx.addEarlyCalendarChunk
+import TrainingRepository
 import ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -13,8 +15,6 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import mapping.toTrainingStateList
 import org.koin.core.component.inject
-import repository.AuthRepository
-import repository.TrainingRepository
 import training.Training
 
 class TrainingsViewModel : ViewModel() {

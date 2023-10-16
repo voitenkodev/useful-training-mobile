@@ -1,18 +1,17 @@
 package mapping
 
-import dto.backend.ExerciseDTO
-import dto.backend.IterationDTO
-import dto.backend.TrainingDTO
+import models.Exercise
+import models.Iteration
 import training.Training
 
-internal fun Training.toBody() = TrainingDTO(
+internal fun Training.toBody() = models.Training(
     id = id,
     exercises = exercises.map {
-        ExerciseDTO(
+        Exercise(
             id = null,
             name = it.name,
             iterations = it.iterations.map {
-                IterationDTO(
+                Iteration(
                     weight = it.weight.toDoubleOrNull(),
                     repeat = it.repeat.toIntOrNull()
                 )

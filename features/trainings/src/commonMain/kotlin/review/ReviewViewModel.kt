@@ -1,5 +1,6 @@
 package review
 
+import TrainingRepository
 import ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -11,7 +12,6 @@ import kotlinx.coroutines.launch
 import mapping.toTrainingState
 import mapping.toTrainingStateList
 import org.koin.core.component.inject
-import repository.TrainingRepository
 import training.Training
 
 class ReviewViewModel : ViewModel() {

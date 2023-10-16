@@ -15,7 +15,7 @@ import kotlinx.serialization.json.Json
 
 class ClientBackend(
     nativeContext: NativeContext,
-    private val token: String,
+    private val token: suspend () -> String,
 ) {
 
     private val client: HttpClient = nativeContext.driver()
@@ -43,7 +43,7 @@ class ClientBackend(
         install(Auth) {
             bearer {
                 loadTokens {
-                    BearerTokens(token, "")
+                    BearerTokens(token.invoke(), "")
                 }
             }
         }

@@ -12,6 +12,8 @@ import kotlinx.coroutines.flow.merge
 import kotlinx.coroutines.flow.onEach
 import mappers.toDao
 import mappers.toDomain
+import mappers.daoToDomain
+import mappers.dtoToDomain
 import mappers.toDto
 import models.ExerciseDate
 import models.Training
@@ -25,10 +27,10 @@ class TrainingRepositoryImpl(
 
         val remote = flowOf(remote.getTrainings())
             .onEach { local.setTrainings(it.toDao()) }
-            .map { it.toDomain() }
+            .map { it.dtoToDomain() }
 
         val local = local.getTrainings()
-            .map { it.toDomain() }
+            .map { it.daoToDomain() }
 
         return merge(local, remote)
             .distinctUntilChanged()

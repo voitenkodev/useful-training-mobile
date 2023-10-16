@@ -1,7 +1,7 @@
 package summary
 
+import TrainingRepository
 import ViewModel
-import dto.backend.ExerciseDateDTO
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,8 +14,8 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import mapping.toExerciseState
 import mapping.toTrainingStateList
+import models.ExerciseDate
 import org.koin.core.component.inject
-import repository.TrainingRepository
 import training.Exercise
 import training.Training
 
@@ -219,7 +219,7 @@ internal class SummaryViewModel : ViewModel() {
 //        searchJob = null
 //    }
 
-    private fun List<ExerciseDateDTO>.processingExercises() = this
+    private fun List<ExerciseDate>.processingExercises() = this
         .groupBy(
             { ExerciseInfo(trainingId = it.trainingId, date = it.date) },
             { it.exercise.toExerciseState() }

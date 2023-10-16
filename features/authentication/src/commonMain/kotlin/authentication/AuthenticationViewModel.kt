@@ -1,5 +1,6 @@
 package authentication
 
+import AuthRepository
 import ViewModel
 import isEmailValid
 import kotlinx.coroutines.delay
@@ -12,7 +13,6 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import org.koin.core.component.inject
-import repository.AuthRepository
 
 class AuthenticationViewModel : ViewModel() {
 

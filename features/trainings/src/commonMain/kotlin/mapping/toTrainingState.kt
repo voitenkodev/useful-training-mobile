@@ -1,11 +1,10 @@
 package mapping
 
-import dto.backend.TrainingDTO
 import training.Training
 
-internal fun List<TrainingDTO>.toTrainingStateList() = this.map { it.toTrainingState() }
+internal fun List<models.Training>.toTrainingStateList() = this.map { it.toTrainingState() }
 
-internal fun TrainingDTO.toTrainingState() = Training(
+internal fun models.Training.toTrainingState() = Training(
     id = id.toString(),
     exercises = exercises.toExerciseStateList(),
     duration = duration ?: "",

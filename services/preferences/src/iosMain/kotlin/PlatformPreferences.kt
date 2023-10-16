@@ -6,8 +6,6 @@ import platform.Foundation.NSDocumentDirectory
 import platform.Foundation.NSFileManager
 import platform.Foundation.NSURL
 import platform.Foundation.NSUserDomainMask
-import source.datastore.createDataStore
-import source.datastore.dataStoreFileName
 
 internal actual fun NativeContext.preferences(): DataStore<Preferences> {
     return createDataStore(

@@ -1,10 +1,10 @@
 package splash
 
+import AuthRepository
 import ViewModel
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 import org.koin.core.component.inject
-import repository.AuthRepository
 
 class SplashViewModel : ViewModel() {
 

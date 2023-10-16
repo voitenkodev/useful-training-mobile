@@ -6,7 +6,7 @@ plugins {
 apply(from = "../../config/gradle/build-scripts/kotlin.gradle")
 apply(from = "../../config/gradle/build-scripts/android.gradle")
 
-android { namespace = "com.voitenko.usefultraining.domain.authentication" }
+android { namespace = "com.voitenko.usefultraining.domain.trainings" }
 
 kotlin {
     sourceSets {

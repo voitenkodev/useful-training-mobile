@@ -12,9 +12,9 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import mapping.toBody
 import mapping.toTrainingState
-import repository.TrainingRepository
 import round
 import DateTimeKtx
+import TrainingRepository
 import org.koin.core.component.inject
 
 class TrainingViewModel : ViewModel() {
