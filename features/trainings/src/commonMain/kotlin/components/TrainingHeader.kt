@@ -4,8 +4,9 @@ import Design
 import Time
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -19,11 +20,8 @@ import atomic.icons.HandWeight
 import atomic.icons.Weight
 import basic.BasicLineChart
 import controls.TextFieldBody2
-import controls.TextFieldH2
-import controls.TextFieldH3
 import controls.TextFieldH4
 import controls.accentBackground
-import controls.reversedRoundBackground
 import controls.tertiaryBackground
 import recomposeHighlighter
 import toDoubleOrIntString
@@ -38,14 +36,15 @@ internal fun TrainingHeader(
     Row(
         modifier = modifier
             .fillMaxWidth()
+            .height(IntrinsicSize.Min)
             .recomposeHighlighter(),
         horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
     ) {
 
         ChartBlock(
             modifier = Modifier
-                .height(Design.dp.componentM + Design.dp.componentM + Design.dp.paddingL)
-                .aspectRatio(1f)
+                .weight(0.8f)
+                .fillMaxHeight()
                 .tertiaryBackground(),
             title = "TONNAGE",
             value = training.tonnage?.toShortString() ?: "-",
@@ -54,8 +53,8 @@ internal fun TrainingHeader(
         )
 
         Column(
-            verticalArrangement = Arrangement
-                .spacedBy(Design.dp.paddingM)
+            modifier = Modifier.weight(1f),
+            verticalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
         ) {
 
             DefaultItem(
@@ -82,14 +81,14 @@ private fun DefaultItem(
     Row(
         modifier = Modifier
             .tertiaryBackground()
-            .padding(Design.dp.paddingXS),
+            .padding(Design.dp.paddingS),
         horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS),
         verticalAlignment = Alignment.CenterVertically
     ) {
 
         Icon(
             modifier = Modifier
-                .size(Design.dp.componentM)
+                .size(Design.dp.componentS)
                 .accentBackground()
                 .padding(Design.dp.paddingS),
             tint = Design.colors.primary,
@@ -98,9 +97,8 @@ private fun DefaultItem(
         )
 
         Column(
-            modifier = Modifier
-                .weight(1f),
-            verticalArrangement = Arrangement.spacedBy(Design.dp.paddingXS)
+            modifier = Modifier.weight(1f),
+            verticalArrangement = Arrangement.Center
         ) {
 
             TextFieldH4(
@@ -123,9 +121,7 @@ private fun ChartBlock(
     icon: ImageVector,
     values: List<Float>,
 ) {
-    Column(
-        modifier = modifier.recomposeHighlighter()
-    ) {
+    Column(modifier = modifier.recomposeHighlighter()) {
 
         BasicLineChart(
             modifier = Modifier
@@ -135,7 +131,7 @@ private fun ChartBlock(
                 .recomposeHighlighter(),
             values = values,
             color = Design.colors.accent_primary,
-            bottomSpacing = 0f,
+            bottomSpacing = 20f,
             circleColor = Design.colors.content
         )
 
@@ -158,7 +154,8 @@ private fun ChartBlock(
             )
 
             Column(
-                modifier = Modifier.weight(1f)
+                modifier = Modifier.weight(1f),
+                verticalArrangement = Arrangement.Center
             ) {
 
                 TextFieldH4(

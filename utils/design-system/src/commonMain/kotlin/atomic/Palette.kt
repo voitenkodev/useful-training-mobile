@@ -10,6 +10,7 @@ data class Color(
     val secondary: Color = Color(0xff090912), // soft-gray Header
     val tertiary: Color = Color(0xff13131c), // soft-gray Footer
     val white5: Color = Color(0x0Dffffff), // has alpha (Inner Items)
+    val white10: Color = Color(0x1Affffff), // has alpha (Inner Items)
     val black30: Color = Color(0x80000000), // has alpha (Inner Items)
 
     // Color(0xffEA3469) = Red / Pink

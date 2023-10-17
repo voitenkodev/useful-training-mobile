@@ -4,16 +4,14 @@ import DataBaseSource
 import NetworkSource
 import TrainingRepository
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.flattenMerge
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.merge
-import kotlinx.coroutines.flow.onEach
-import mappers.toDao
-import mappers.toDomain
 import mappers.daoToDomain
+import mappers.dtoToDao
 import mappers.dtoToDomain
+import mappers.toDomain
 import mappers.toDto
 import models.ExerciseDate
 import models.Training
@@ -24,29 +22,31 @@ class TrainingRepositoryImpl(
 ) : TrainingRepository {
 
     override suspend fun getTrainings(): Flow<List<Training>> {
-
-        val remote = flowOf(remote.getTrainings())
-            .onEach { local.setTrainings(it.toDao()) }
-            .map { it.dtoToDomain() }
+        val remote = flow {
+            val response = remote.getTrainings()
+            local.setTrainings(response.dtoToDao())
+            emit(response.dtoToDomain())
+        }
 
         val local = local.getTrainings()
             .map { it.daoToDomain() }
 
-        return merge(local, remote)
-            .distinctUntilChanged()
+        return flowOf(local, remote)
+            .flattenMerge()
     }
 
     override suspend fun getTraining(trainingId: String): Flow<Training> {
-
-        val remote = flowOf(remote.getTraining(trainingId))
-            .onEach { local.setTraining(it.toDao()) }
-            .map { it.toDomain() }
+        val remote = flow {
+            val response = remote.getTraining(trainingId)
+            local.setTraining(response.dtoToDao())
+            emit(response.dtoToDomain())
+        }
 
         val local = local.getTraining(trainingId)
             .map { it.toDomain() }
 
-        return merge(local, remote)
-            .distinctUntilChanged()
+        return flowOf(local, remote)
+            .flattenMerge()
     }
 
     override suspend fun setTraining(training: Training): Flow<String> =

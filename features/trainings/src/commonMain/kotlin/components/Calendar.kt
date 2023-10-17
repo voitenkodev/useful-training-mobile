@@ -148,13 +148,13 @@ private fun CalendarRow(
                 modifier = Modifier
                     .size(80.dp)
                     .scale(if (it.isSelected) 1.1f else 1f)
-                    .quaternaryBackground()
-                    .clickable { selectCalendarDay.invoke(it.dateTimeIso) }
                     .border(
-                        width = if (it.isSelected) 2.dp else 1.dp,
+                        width = if (it.isSelected) 1.dp else 0.5.dp,
                         color = if (it.isSelected) Design.colors.content else Design.colors.caption,
                         shape = Design.shape.default
                     )
+                    .quaternaryBackground()
+                    .clickable { selectCalendarDay.invoke(it.dateTimeIso) }
             ) {
 
                 TextFieldBody1(
