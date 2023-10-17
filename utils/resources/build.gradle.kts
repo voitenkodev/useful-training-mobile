@@ -28,7 +28,7 @@ kotlin {
                 // Compose
                 implementation(compose.ui)
 
-                // Mokko
+                // Moko
                 implementation(libs.moko.resources)
                 implementation(libs.moko.resources.compose)
             }

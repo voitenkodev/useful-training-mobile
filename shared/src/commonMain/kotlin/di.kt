@@ -10,8 +10,8 @@ fun initCommonKoin(
     modules(
         platformModule,
         servicesModule,
-        dataTrainingsModule,
-        dataAuthenticationModule,
+        trainingsDataDiModule,
+        authDataDiModule,
     )
 }
 
