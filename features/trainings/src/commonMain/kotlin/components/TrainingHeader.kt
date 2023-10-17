@@ -46,7 +46,7 @@ internal fun TrainingHeader(
             modifier = Modifier
                 .height(Design.dp.componentM + Design.dp.componentM + Design.dp.paddingL)
                 .aspectRatio(1f)
-                .accentBackground(),
+                .tertiaryBackground(),
             title = "TONNAGE",
             value = training.tonnage?.toShortString() ?: "-",
             icon = Weight,
@@ -134,21 +134,23 @@ private fun ChartBlock(
                 .padding(start = Design.dp.paddingM, end = Design.dp.paddingM, top = Design.dp.paddingM)
                 .recomposeHighlighter(),
             values = values,
-            color = Design.colors.primary,
-            bottomSpacing = 0f
+            color = Design.colors.accent_primary,
+            bottomSpacing = 0f,
+            circleColor = Design.colors.content
         )
 
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(Design.dp.paddingS),
-            horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
+            horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS),
+            verticalAlignment = Alignment.CenterVertically
         ) {
 
             Icon(
                 modifier = Modifier
                     .size(Design.dp.componentS)
-                    .reversedRoundBackground()
+                    .accentBackground()
                     .padding(Design.dp.paddingS),
                 tint = Design.colors.primary,
                 imageVector = icon,
@@ -159,15 +161,14 @@ private fun ChartBlock(
                 modifier = Modifier.weight(1f)
             ) {
 
-                TextFieldH3(
-                    provideText = { value },
-                    color = Design.colors.primary,
+                TextFieldH4(
+                    provideText = { title },
                     maxLines = 1
                 )
 
                 TextFieldBody2(
-                    provideText = { title },
-                    color = Design.colors.primary,
+                    provideText = { value },
+                    color = Design.colors.caption,
                     maxLines = 1
                 )
             }

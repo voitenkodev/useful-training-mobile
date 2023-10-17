@@ -25,7 +25,8 @@ data class DrawElement(
 
     data class LinePoint(
         val x: Float,
-        val y: Float
+        val y: Float,
+        val color: Color
     )
 
     data class Colors(
@@ -38,6 +39,7 @@ internal fun generatePath(
     width: Float,
     line: List<Float>,
     color: Color,
+    circleColor: Color,
     bottomSpacing: Float = 0f
 ): DrawElement {
 
@@ -72,7 +74,7 @@ internal fun generatePath(
                 )
             }
 
-            listOfPoints.add(DrawElement.LinePoint(x = currentX, y = currentY))
+            listOfPoints.add(DrawElement.LinePoint(x = currentX, y = currentY, color = circleColor))
         }
     }
 
@@ -83,6 +85,6 @@ internal fun generatePath(
             color = color,
             width = 4.dp
         ),
-        listOfPoints = listOfPoints
-    )
+        listOfPoints = listOfPoints,
+        )
 }

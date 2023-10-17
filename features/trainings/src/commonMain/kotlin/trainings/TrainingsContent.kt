@@ -148,7 +148,6 @@ private fun Content(
                     item {
                         Spacer(
                             modifier = Modifier
-                                .background(Design.colors.tertiary)
                                 .fillMaxWidth()
                                 .platformBottomInset()
                         )

@@ -13,6 +13,7 @@ fun BasicLineChart(
     modifier: Modifier = Modifier,
     values: List<Float>,
     color: Color,
+    circleColor: Color,
     bottomSpacing: Float = 0f
 ) {
 
@@ -25,7 +26,8 @@ fun BasicLineChart(
             height = size.height,
             line = values,
             color = color,
-            bottomSpacing = bottomSpacing
+            bottomSpacing = bottomSpacing,
+            circleColor = circleColor
         )
 
         drawElement.lineConfigs?.let { lineConfigs ->
@@ -56,7 +58,7 @@ fun BasicLineChart(
             // First point
             drawElement.listOfPoints.firstOrNull()?.let { point ->
                 drawCircle(
-                    color = lineConfigs.color,
+                    color = point.color,
                     radius = lineConfigs.width.toPx(),
                     center = Offset(point.x, point.y)
                 )
@@ -65,11 +67,20 @@ fun BasicLineChart(
             // Last point
             drawElement.listOfPoints.lastOrNull()?.let { point ->
                 drawCircle(
-                    color = lineConfigs.color,
+                    color = point.color,
                     radius = lineConfigs.width.toPx(),
                     center = Offset(point.x, point.y)
                 )
             }
+
+              // All points
+//            drawElement.listOfPoints.forEach { point ->
+//                drawCircle(
+//                    color = point.color,
+//                    radius = lineConfigs.width.toPx(),
+//                    center = Offset(point.x, point.y)
+//                )
+//            }
 
             // Points
 //            val pointRadius = lineConfigs.width.toPx()
