@@ -24,7 +24,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 // Platform Context
-                api(projects.utils.platformApi)
+                implementation(projects.utils.platformApi)
 
                 implementation(libs.sqldelight.coroutine)
             }

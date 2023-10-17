@@ -14,7 +14,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 // Platform Context
-                api(projects.utils.platformApi)
+                implementation(projects.utils.platformApi)
 
                 // Ktor
                 implementation(libs.ktor.core)

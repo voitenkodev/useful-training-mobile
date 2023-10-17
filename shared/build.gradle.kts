@@ -26,11 +26,11 @@ kotlin {
                 implementation(projects.services.preferences)
 
                 // Data
-//                implementation(projects.dataold)
                 implementation(projects.data.trainings)
                 implementation(projects.data.authentication)
 
                 // Other
+                implementation(projects.utils.platformApi)
                 implementation(projects.utils.designSystem)
                 implementation(projects.utils.architectureComponent)
 
