@@ -1,7 +1,7 @@
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import authentication.AuthenticationContent
-import authentication.AuthenticationViewModel
+import authentication.screen.AuthenticationContent
+import authentication.screen.AuthenticationViewModel
 import com.arkivanov.decompose.extensions.compose.jetbrains.stack.animation.stackAnimation
 import com.arkivanov.decompose.router.stack.pop
 import com.arkivanov.decompose.router.stack.push

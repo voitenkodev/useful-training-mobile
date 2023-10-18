@@ -1,4 +1,4 @@
-package authentication
+package authentication.screen
 
 import Design
 import PlatformBackHandler

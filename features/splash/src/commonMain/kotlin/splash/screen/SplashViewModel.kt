@@ -9,7 +9,6 @@ import org.koin.core.component.inject
 class SplashViewModel : ViewModel() {
 
     private val api by inject<AuthRepository>()
-
     fun checkToken(
         onAuth: () -> Unit,
         onNonAuth: () -> Unit

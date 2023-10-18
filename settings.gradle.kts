@@ -39,6 +39,7 @@ include(
     "common:resources",
     "common:charts",
 
+    "features:splash",
     "features:authentication",
     "features:trainings",
     "features:training-builder",

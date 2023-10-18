@@ -1,9 +1,9 @@
-package authentication
+package authentication.screen
 
 import AuthRepository
 import ViewModel
+import authentication.state.State
 import isEmailValid
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
@@ -11,35 +11,31 @@ import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
-import kotlinx.coroutines.launch
 import org.koin.core.component.inject
 
 class AuthenticationViewModel : ViewModel() {
 
     private val api by inject<AuthRepository>()
 
-    private val _state = MutableStateFlow(AuthenticationState())
-    val state: StateFlow<AuthenticationState> = _state
+    private val _state = MutableStateFlow(State())
+    val state: StateFlow<State> = _state
 
     fun subscribeToken(onReceive: () -> Unit) {
-        launch {
-            api
-                .getToken()
-                .filterNotNull()
-                .onEach {
-                    onReceive.invoke()
-                    delay(100) // TODO IT WILL FIX WITH NEW NAVIGATION
-                    _state.value = state.value.copy(loading = false, error = null)
-                }
-                .launchIn(this)
-        }
+        api
+            .getToken()
+            .filterNotNull()
+            .onEach {
+                _state.value = state.value.copy(loading = false, error = null)
+                onReceive.invoke()
+            }
+            .launchIn(this)
     }
 
     fun login() {
-        launch {
-            _state.value = state.value.validate()
+        _state.value = state.value.validate()
 
-            if (state.value.error == null) api.login(state.value.email, state.value.password)
+        if (state.value.error == null) {
+            api.login(state.value.email, state.value.password)
                 .onStart {
                     _state.value = state.value.copy(loading = true)
                 }.catch {
@@ -49,10 +45,10 @@ class AuthenticationViewModel : ViewModel() {
     }
 
     fun registration() {
-        launch {
-            _state.value = state.value.validate()
+        _state.value = state.value.validate()
 
-            if (state.value.error == null) api.registration(state.value.email, state.value.password)
+        if (state.value.error == null) {
+            api.registration(state.value.email, state.value.password)
                 .onStart {
                     _state.value = state.value.copy(loading = true)
                 }.catch {
@@ -73,7 +69,7 @@ class AuthenticationViewModel : ViewModel() {
         _state.value = state.value.copy(password = value)
     }
 
-    private fun AuthenticationState.validate(): AuthenticationState {
+    private fun State.validate(): State {
 
         val newEmail = this.email.trim().lowercase()
         val newPassword = this.password.trim()
