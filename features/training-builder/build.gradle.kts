@@ -16,9 +16,9 @@ kotlin {
             dependencies {
                 implementation(projects.domain.trainings)
 
-                implementation(projects.utils.instruments)
-                implementation(projects.utils.designSystem)
-                implementation(projects.utils.architectureComponent)
+                implementation(projects.common.instruments)
+                implementation(projects.common.designSystem)
+                implementation(projects.common.architectureComponent)
 
                 // Compose
                 implementation(compose.ui)

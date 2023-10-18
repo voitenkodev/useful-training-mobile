@@ -7,14 +7,14 @@ plugins {
 apply(from = "../../config/gradle/build-scripts/kotlin.gradle")
 apply(from = "../../config/gradle/build-scripts/android.gradle")
 
-android { namespace = "com.voitenko.usefultraining.utils.composeplayer" }
+android { namespace = "com.voitenko.usefultraining.common.composeplayer" }
 
 kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(projects.utils.platformApi)
-                implementation(projects.utils.resources)
+                implementation(projects.common.platformApi)
+                implementation(projects.common.resources)
 
                 // Compose
                 implementation(compose.ui)

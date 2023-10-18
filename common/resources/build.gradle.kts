@@ -10,7 +10,7 @@ apply(from = "../../config/gradle/build-scripts/android.gradle")
 apply(from = "../../config/gradle/build-scripts/ios.gradle")
 apply(from = "../../config/gradle/build-scripts/kotlin.gradle")
 
-android { namespace = "com.voitenko.usefultraining.utils.resources" }
+android { namespace = "com.voitenko.usefultraining.common.resources" }
 
 kotlin.cocoapods { podfile = project.file("../../iosApp/Podfile") }
 
@@ -23,7 +23,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(projects.utils.platformApi)
+                implementation(projects.common.platformApi)
 
                 // Compose
                 implementation(compose.ui)

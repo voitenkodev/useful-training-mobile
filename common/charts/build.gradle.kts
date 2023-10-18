@@ -7,7 +7,7 @@ plugins {
 apply(from = "../../config/gradle/build-scripts/android.gradle")
 apply(from = "../../config/gradle/build-scripts/kotlin.gradle")
 
-android { namespace = "com.voitenko.usefultraining.utils.charts" }
+android { namespace = "com.voitenko.usefultraining.common.charts" }
 
 kotlin {
     sourceSets {

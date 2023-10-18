@@ -17,11 +17,11 @@ kotlin {
                 implementation(projects.domain.trainings)
                 implementation(projects.domain.authentication)
 
-                implementation(projects.utils.instruments)
-                implementation(projects.utils.designSystem)
-                implementation(projects.utils.resources) // TODO DO I NEED IT?
-                implementation(projects.utils.charts)
-                implementation(projects.utils.architectureComponent)
+                implementation(projects.common.instruments)
+                implementation(projects.common.designSystem)
+                implementation(projects.common.resources) // TODO DO I NEED IT?
+                implementation(projects.common.charts)
+                implementation(projects.common.architectureComponent)
 
                 // Compose
                 implementation(compose.ui)

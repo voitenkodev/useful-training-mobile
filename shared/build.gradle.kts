@@ -31,9 +31,9 @@ kotlin {
                 implementation(projects.data.authentication)
 
                 // Other
-                implementation(projects.utils.platformApi)
-                implementation(projects.utils.designSystem)
-                implementation(projects.utils.architectureComponent)
+                implementation(projects.common.platformApi)
+                implementation(projects.common.designSystem)
+                implementation(projects.common.architectureComponent)
 
                 // Compose
                 implementation(compose.ui)

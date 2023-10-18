@@ -9,6 +9,5 @@ internal fun models.Training.toTrainingState() = Training(
     duration = duration?.let { DateTimeKtx.formattedDuration(it) } ?: "",
     startDateTime = date ?: "",
     tonnage = tonnage,
-    countOfLifting = countOfLifting,
     intensity = intensity
 )
