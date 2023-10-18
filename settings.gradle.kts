@@ -41,4 +41,5 @@ include(
 
     "features:authentication",
     "features:trainings",
+    "features:training-builder",
 )

@@ -19,6 +19,7 @@ kotlin {
                 // Features
                 implementation(projects.features.authentication)
                 implementation(projects.features.trainings)
+                implementation(projects.features.trainingBuilder)
 
                 // Services for DI
                 implementation(projects.services.network)

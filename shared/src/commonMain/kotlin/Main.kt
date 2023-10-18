@@ -6,14 +6,12 @@ import com.arkivanov.decompose.extensions.compose.jetbrains.stack.animation.stac
 import com.arkivanov.decompose.router.stack.pop
 import com.arkivanov.decompose.router.stack.push
 import com.arkivanov.decompose.router.stack.replaceAll
-import review.ReviewContent
-import review.ReviewViewModel
+import trainingbuilder.screen.TrainingContent
+import trainingbuilder.screen.TrainingViewModel
 import splash.SplashContent
 import splash.SplashViewModel
-import training.TrainingContent
-import training.TrainingViewModel
-import trainings.TrainingsContent
-import trainings.TrainingsViewModel
+import trainings.screen.TrainingsContent
+import trainings.screen.TrainingsViewModel
 
 @Composable
 internal fun Main(modifier: Modifier = Modifier) {
@@ -73,14 +71,6 @@ internal fun Main(modifier: Modifier = Modifier) {
                 }
 
                 is Graph.Review -> {
-                    val vm = rememberViewModel(ReviewViewModel::class) { ReviewViewModel() }
-
-                    ReviewContent(
-                        vm = vm,
-                        trainingId = screen.id,
-                        back = router::pop,
-                        toEditTrainingById = { id -> router.push(Graph.Training(id)) }
-                    )
                 }
             }
         }
