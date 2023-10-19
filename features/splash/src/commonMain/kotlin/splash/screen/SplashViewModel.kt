@@ -1,4 +1,4 @@
-package splash
+package splash.screen
 
 import AuthRepository
 import ViewModel
@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 import org.koin.core.component.inject
 
-class SplashViewModel : ViewModel() {
+internal class SplashViewModel : ViewModel() {
 
     private val api by inject<AuthRepository>()
     fun checkToken(

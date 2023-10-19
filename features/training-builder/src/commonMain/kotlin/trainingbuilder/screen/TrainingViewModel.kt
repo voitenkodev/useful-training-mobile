@@ -21,7 +21,7 @@ import trainingbuilder.state.Iteration
 import trainingbuilder.state.State
 import trainingbuilder.state.Training
 
-class TrainingViewModel : ViewModel() {
+internal class TrainingViewModel : ViewModel() {
 
     private val _state = MutableStateFlow(State())
     internal val state: StateFlow<State> = _state

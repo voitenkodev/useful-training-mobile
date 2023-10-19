@@ -17,7 +17,7 @@ import trainings.state.SelectableCalendar
 import trainings.state.State
 import trainings.state.Training
 
-class TrainingsViewModel : ViewModel() {
+internal class TrainingsViewModel : ViewModel() {
 
     private val _state = MutableStateFlow(State())
     internal val state: StateFlow<State> = _state

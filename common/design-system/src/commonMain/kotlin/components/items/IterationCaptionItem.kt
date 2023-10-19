@@ -16,35 +16,37 @@ import controls.TextFieldBody2
 import recomposeHighlighter
 
 @Composable
-fun IterationCaptionItem() = Column(
-    modifier = Modifier
-        .padding(vertical = 4.dp)
-        .width(60.dp)
-        .recomposeHighlighter()
-) {
-    TextFieldBody2(
+public fun IterationCaptionItem() {
+    Column(
         modifier = Modifier
-            .height(Design.dp.componentM)
-            .fillMaxWidth()
-            .wrapContentHeight()
-            .recomposeHighlighter(),
-        provideText = { "Weight" },
-        textAlign = TextAlign.Center,
-        color = Design.colors.caption,
-        maxLines = 1,
-        fontWeight = FontWeight.Bold
-    )
+            .padding(vertical = 4.dp)
+            .width(60.dp)
+            .recomposeHighlighter()
+    ) {
+        TextFieldBody2(
+            modifier = Modifier
+                .height(Design.dp.componentM)
+                .fillMaxWidth()
+                .wrapContentHeight()
+                .recomposeHighlighter(),
+            provideText = { "Weight" },
+            textAlign = TextAlign.Center,
+            color = Design.colors.caption,
+            maxLines = 1,
+            fontWeight = FontWeight.Bold
+        )
 
-    TextFieldBody2(
-        modifier = Modifier
-            .height(Design.dp.componentM)
-            .fillMaxWidth()
-            .wrapContentHeight()
-            .recomposeHighlighter(),
-        provideText = { "Repeat" },
-        color = Design.colors.caption,
-        textAlign = TextAlign.Center,
-        maxLines = 1,
-        fontWeight = FontWeight.Bold
-    )
+        TextFieldBody2(
+            modifier = Modifier
+                .height(Design.dp.componentM)
+                .fillMaxWidth()
+                .wrapContentHeight()
+                .recomposeHighlighter(),
+            provideText = { "Repeat" },
+            color = Design.colors.caption,
+            textAlign = TextAlign.Center,
+            maxLines = 1,
+            fontWeight = FontWeight.Bold
+        )
+    }
 }

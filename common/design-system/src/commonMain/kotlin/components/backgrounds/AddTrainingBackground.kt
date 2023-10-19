@@ -13,7 +13,7 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.layout.ContentScale
 
 @Composable
-fun AddTrainingBackground(
+public fun AddTrainingBackground(
     modifier: Modifier = Modifier
 ) {
 

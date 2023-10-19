@@ -13,7 +13,7 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import recomposeHighlighter
 
 @Composable
-fun LineChart(
+public fun LineChart(
     modifier: Modifier = Modifier,
     lines: () -> List<PointLine>,
 ) {

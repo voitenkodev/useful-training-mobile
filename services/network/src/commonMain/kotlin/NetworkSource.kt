@@ -9,9 +9,9 @@ import models.ExerciseDateDto
 import models.TokenDto
 import models.TrainingDto
 
-class NetworkSource(private val clientBackend: ClientBackend) {
+public class NetworkSource(private val clientBackend: ClientBackend) {
 
-    suspend fun setTraining(body: TrainingDto): String {
+    public suspend fun setTraining(body: TrainingDto): String {
         return callRequest(
             method = HttpMethod.Post,
             path = "/training",
@@ -19,14 +19,14 @@ class NetworkSource(private val clientBackend: ClientBackend) {
         )
     }
 
-    suspend fun getTrainings(): List<TrainingDto> {
+    public suspend fun getTrainings(): List<TrainingDto> {
         return callRequest(
             method = HttpMethod.Get,
             path = "/trainings"
         )
     }
 
-    suspend fun getExercises(query: String): List<ExerciseDateDto> {
+    public suspend fun getExercises(query: String): List<ExerciseDateDto> {
         return callRequest(
             method = HttpMethod.Get,
             path = "/exercises",
@@ -34,14 +34,14 @@ class NetworkSource(private val clientBackend: ClientBackend) {
         )
     }
 
-    suspend fun getTraining(trainingId: String): TrainingDto {
+    public suspend fun getTraining(trainingId: String): TrainingDto {
         return callRequest(
             method = HttpMethod.Get,
             path = "/training/$trainingId"
         )
     }
 
-    suspend fun deleteTraining(trainingId: String) {
+    public suspend fun deleteTraining(trainingId: String) {
         callRequest<Unit>(
             method = HttpMethod.Delete,
             path = "/training",
@@ -49,7 +49,7 @@ class NetworkSource(private val clientBackend: ClientBackend) {
         )
     }
 
-    suspend fun login(body: AuthDto): TokenDto {
+    public suspend fun login(body: AuthDto): TokenDto {
         return callRequest(
             method = HttpMethod.Post,
             path = "/login",
@@ -57,7 +57,7 @@ class NetworkSource(private val clientBackend: ClientBackend) {
         )
     }
 
-    suspend fun registration(body: AuthDto): TokenDto {
+    public suspend fun registration(body: AuthDto): TokenDto {
         return callRequest(
             method = HttpMethod.Post,
             path = "/register",

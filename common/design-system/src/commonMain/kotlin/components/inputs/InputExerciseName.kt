@@ -23,7 +23,7 @@ import controls.InputFieldPrimary
 import recomposeHighlighter
 
 @Composable
-fun InputExerciseName(
+public fun InputExerciseName(
     modifier: Modifier = Modifier,
     provideNumber: () -> Int,
     provideName: () -> String,

@@ -2,21 +2,21 @@ import kotlinx.coroutines.flow.Flow
 import models.ExerciseDate
 import models.Training
 
-interface TrainingRepository {
+public interface TrainingRepository {
 
-    suspend fun getTrainings(): Flow<List<Training>>
+    public suspend fun getTrainings(): Flow<List<Training>>
 
-    suspend fun getExercises(query: String): Flow<List<ExerciseDate>>
+    public suspend fun getExercises(query: String): Flow<List<ExerciseDate>>
 
-    suspend fun getTraining(trainingId: String): Flow<Training>
+    public suspend fun getTraining(trainingId: String): Flow<Training>
 
-    suspend fun setTraining(training: Training): Flow<String>
+    public suspend fun setTraining(training: Training): Flow<String>
 
-    suspend fun deleteTraining(trainingId: String): Flow<Unit>
+    public suspend fun deleteTraining(trainingId: String): Flow<Unit>
 
-    suspend fun getExerciseNameOptions(): Flow<List<String>>
+    public suspend fun getExerciseNameOptions(): Flow<List<String>>
 
-    suspend fun setExerciseNameOptions(names: List<String>): Flow<Unit>
+    public suspend fun setExerciseNameOptions(names: List<String>): Flow<Unit>
 
-    suspend fun removeExerciseNameOption(value: String): Flow<String>
+    public suspend fun removeExerciseNameOption(value: String): Flow<String>
 }

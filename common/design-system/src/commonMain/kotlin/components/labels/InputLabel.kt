@@ -10,15 +10,17 @@ import controls.TextFieldLabel
 import recomposeHighlighter
 
 @Composable
-fun InputLabel(
+public fun InputLabel(
     modifier: Modifier = Modifier,
     provideText: () -> String
-) = TextFieldLabel(
-    modifier = modifier
-        .width(72.dp)
-        .recomposeHighlighter(),
-    provideText = provideText,
-    color = Design.colors.caption,
-    maxLines = 1,
-    overflow = TextOverflow.Ellipsis
-)
+) {
+    TextFieldLabel(
+        modifier = modifier
+            .width(72.dp)
+            .recomposeHighlighter(),
+        provideText = provideText,
+        color = Design.colors.caption,
+        maxLines = 1,
+        overflow = TextOverflow.Ellipsis
+    )
+}

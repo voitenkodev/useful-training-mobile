@@ -28,7 +28,7 @@ import controls.reversedCircleBackground
 import recomposeHighlighter
 
 @Composable
-fun InputEmail(
+public fun InputEmail(
     modifier: Modifier = Modifier,
     provideValue: () -> String,
     onValueChange: (String) -> Unit,

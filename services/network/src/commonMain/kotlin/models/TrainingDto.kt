@@ -3,7 +3,7 @@ package models
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class TrainingDto(
+public data class TrainingDto(
     val id: String? = null,
     val exercises: List<ExerciseDto> = emptyList(),
     val duration: String?,

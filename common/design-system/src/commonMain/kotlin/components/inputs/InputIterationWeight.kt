@@ -14,7 +14,7 @@ import controls.rootBackground
 import recomposeHighlighter
 
 @Composable
-fun InputWeight(
+public fun InputWeight(
     modifier: Modifier = Modifier,
     provideValue: () -> String,
     onValueChange: (String) -> Unit,

@@ -1,10 +1,10 @@
 import android.content.Context
 
-actual class NativeContext private actual constructor() {
-    lateinit var context: Context
+public actual class NativeContext private actual constructor() {
+    public lateinit var context: Context
         private set
 
-    constructor(context: Context) : this() {
+    public constructor(context: Context) : this() {
         this.context = context
     }
 }

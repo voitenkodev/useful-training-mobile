@@ -10,11 +10,11 @@ import atomic.duration
 import controls.rootBackground
 
 @Composable
-fun DesignTheme(
+public fun DesignTheme(
     modifier: Modifier = Modifier,
     darkTheme: Boolean = false,
     content: @Composable () -> Unit
-) = CompositionLocalProvider(
+): Unit = CompositionLocalProvider(
 
     LocalColor provides when (darkTheme) {
         true -> darkPalette()

@@ -12,7 +12,7 @@ import controls.TextFieldBody1
 import recomposeHighlighter
 
 @Composable
-fun AccentLabel(
+public fun AccentLabel(
     modifier: Modifier = Modifier,
     provideText: () -> String,
     backgroundColor: Color = Design.colors.accent_primary

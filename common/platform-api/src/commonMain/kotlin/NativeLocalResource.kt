@@ -1,1 +1,1 @@
-expect class NativeLocalResource private constructor()
+public expect class NativeLocalResource private constructor()

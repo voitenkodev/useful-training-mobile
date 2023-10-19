@@ -8,12 +8,12 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 
 @Composable
-fun Modifier.shadowBottomFrame(
+public fun Modifier.shadowBottomFrame(
     gradientColors: List<Color> = listOf(
         Color.Transparent,
         Design.colors.primary
     )
-) = this.drawWithContent {
+): Modifier = this.drawWithContent {
 
     val brush = Brush.verticalGradient(
         colors = gradientColors,

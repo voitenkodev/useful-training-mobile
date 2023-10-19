@@ -4,7 +4,7 @@ import com.arkivanov.decompose.DefaultComponentContext
 import com.arkivanov.essenty.lifecycle.LifecycleRegistry
 import platform.UIKit.UIViewController
 
-fun main(): UIViewController {
+public fun main(): UIViewController {
     return ComposeUIViewController {
         val lifecycle = LifecycleRegistry()
         val rootComponentContext = DefaultComponentContext(lifecycle = lifecycle)

@@ -7,7 +7,7 @@ import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
-data class PointLine(
+public data class PointLine(
     val yValue: List<Float>,
     val label: String = String(),
     val lineColor: Color,
@@ -22,7 +22,7 @@ data class PointLine(
     var offsets: MutableList<Offset> = mutableListOf()
 }
 
-data class PointCircle(
+public data class PointCircle(
     val color: Color,
     val radius: Dp = 4.dp,
 )

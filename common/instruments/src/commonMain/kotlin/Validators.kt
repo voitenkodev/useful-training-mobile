@@ -1,4 +1,4 @@
-fun isEmailValid(email: String): Boolean {
+public fun isEmailValid(email: String): Boolean {
     return email.matches(emailAddressRegex)
 }
 

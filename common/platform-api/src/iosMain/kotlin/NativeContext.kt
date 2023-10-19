@@ -1,1 +1,1 @@
-actual class NativeContext actual constructor()
+public actual class NativeContext actual constructor()

@@ -3,14 +3,14 @@ import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.parcelable.Parcelize
 
 @Parcelize
-data class SavedState(val value: Parcelable) : Parcelable
+public data class SavedState(val value: Parcelable) : Parcelable
 
 @Suppress("UNCHECKED_CAST")
-class SavedStateHandle(default: SavedState?) : InstanceKeeper.Instance {
+public class SavedStateHandle(default: SavedState?) : InstanceKeeper.Instance {
     private var savedState: SavedState? = default
-    val value: Parcelable? get() = savedState
-    fun <T : Parcelable> get(): T? = savedState?.value as? T?
-    fun set(value: Parcelable) {
+    public val value: Parcelable? get() = savedState
+    public fun <T : Parcelable> get(): T? = savedState?.value as? T?
+    public fun set(value: Parcelable) {
         this.savedState = SavedState(value)
     }
 

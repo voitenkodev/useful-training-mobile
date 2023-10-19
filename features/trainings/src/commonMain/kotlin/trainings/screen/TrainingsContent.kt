@@ -28,7 +28,7 @@ import trainings.state.SelectableCalendar
 import trainings.state.Training
 
 @Composable
-fun TrainingsContent(
+internal fun TrainingsContent(
     vm: TrainingsViewModel,
     toTrainingById: (trainingId: String) -> Unit,
     toNewTraining: () -> Unit,

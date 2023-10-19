@@ -1,6 +1,6 @@
 package models
 
-data class Training(
+public data class Training(
     val id: String? = null,
     val exercises: List<Exercise> = emptyList(),
     val duration: String?,

@@ -11,7 +11,7 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import recomposeHighlighter
 
 @Composable
-fun BarChart(
+public fun BarChart(
     modifier: Modifier = Modifier,
     lines: List<PointLine>,
 ) {

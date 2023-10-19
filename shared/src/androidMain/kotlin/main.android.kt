@@ -4,7 +4,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 import com.arkivanov.decompose.DefaultComponentContext
 import com.arkivanov.decompose.defaultComponentContext
 
-fun ComponentActivity.main() {
+public fun ComponentActivity.main() {
     val rootComponentContext: DefaultComponentContext = defaultComponentContext()
 
     setContent {

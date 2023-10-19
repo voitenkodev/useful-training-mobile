@@ -21,7 +21,7 @@ import controls.reversedCircleBackground
 import recomposeHighlighter
 
 @Composable
-fun InputPassword(
+public fun InputPassword(
     modifier: Modifier = Modifier,
     provideValue: () -> String,
     onValueChange: (String) -> Unit,

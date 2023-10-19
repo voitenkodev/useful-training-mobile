@@ -24,7 +24,7 @@ import platformInsets
 import recomposeHighlighter
 
 @Composable
-fun Error(
+public fun Error(
     message: () -> String?,
     close: () -> Unit
 ) {

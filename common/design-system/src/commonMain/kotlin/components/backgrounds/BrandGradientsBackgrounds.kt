@@ -17,7 +17,7 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun BoxScope.BrandGradientCenterStart(
+public fun BoxScope.BrandGradientCenterStart(
     modifier: Modifier = Modifier,
     color: Color = Design.colors.accent_primary,
 ) {
@@ -45,7 +45,7 @@ fun BoxScope.BrandGradientCenterStart(
 }
 
 @Composable
-fun BoxScope.BrandGradientCenterEnd(
+public fun BoxScope.BrandGradientCenterEnd(
     modifier: Modifier = Modifier,
     color: Color = Design.colors.accent_primary,
 ) {
@@ -70,7 +70,7 @@ fun BoxScope.BrandGradientCenterEnd(
 }
 
 @Composable
-fun BoxScope.BrandGradientBottomEnd(
+public fun BoxScope.BrandGradientBottomEnd(
     modifier: Modifier = Modifier,
     color: Color = Design.colors.accent_primary,
 ) {

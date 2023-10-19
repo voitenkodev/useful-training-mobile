@@ -15,14 +15,14 @@ import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
 import kotlin.time.Duration
 
-object DateTimeKtx {
+public object DateTimeKtx {
 
     /**
      * Input 2 + listOf(2022-10-21T13:20:18.496Z, 2022-10-22T13:20:18.496Z)
      * Output listOf(2022-10-20T13:20:18.496Z, 2022-10-19T13:20:18.496Z)
      **/
 
-    fun addEarlyCalendarChunk(
+    public fun addEarlyCalendarChunk(
         previousList: List<String>,
         count: Int,
     ): List<String> {
@@ -62,12 +62,12 @@ object DateTimeKtx {
      * Output 2022-10-21T13:20:18.496Z
      * */
 
-    fun currentDateTime() = Clock.System.now().toString()
+    public fun currentDateTime(): String = Clock.System.now().toString()
 
     /**
      * Output FRIDAY
      * */
-    fun currentWeekDay(): String {
+    public fun currentWeekDay(): String {
         val localDateTime = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
         return localDateTime.dayOfWeek.name
     }
@@ -75,7 +75,7 @@ object DateTimeKtx {
     /**
      * Output 23 October 2022
      * */
-    fun currentDate(): String {
+    public fun currentDate(): String {
         val localDateTime = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
         val date = localDateTime.date
         val day = date.dayOfMonth
@@ -91,7 +91,7 @@ object DateTimeKtx {
      * Output true / false
      * */
 
-    fun isCurrentDate(iso8601Timestamp: String): Boolean {
+    public fun isCurrentDate(iso8601Timestamp: String): Boolean {
         val localDateTime = iso8601TimestampToLocalDateTime(iso8601Timestamp)?.date ?: return false
         val currentLocalDateTime = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date
         return localDateTime == currentLocalDateTime
@@ -102,7 +102,7 @@ object DateTimeKtx {
      *
      * Output true / false
      * */
-    fun isTheSameDate(iso8601Timestamp1: String, iso8601Timestamp2: String): Boolean {
+    public fun isTheSameDate(iso8601Timestamp1: String, iso8601Timestamp2: String): Boolean {
         val localDateTime1 = iso8601TimestampToLocalDateTime(iso8601Timestamp1)?.date ?: return false
         val localDateTime2 = iso8601TimestampToLocalDateTime(iso8601Timestamp2)?.date ?: return false
         return localDateTime1 == localDateTime2
@@ -111,7 +111,7 @@ object DateTimeKtx {
     /**
      * Output 23
      * */
-    fun currentRealMonthDay(): Int {
+    public fun currentRealMonthDay(): Int {
         val localDateTime = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
         val date = localDateTime.date
         return date.dayOfMonth
@@ -121,7 +121,7 @@ object DateTimeKtx {
      * Output 10
      * p.s. from 0 to 11
      * */
-    fun currentMonth(): Int {
+    public fun currentMonth(): Int {
         val localDateTime = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
         return localDateTime.date.month.ordinal
     }
@@ -130,7 +130,7 @@ object DateTimeKtx {
      * Output 10
      * p.s. from 1 to 12
      * */
-    fun currentRealMonth(): Int {
+    public fun currentRealMonth(): Int {
         val localDateTime = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
         return localDateTime.date.month.ordinal + 1
     }
@@ -138,7 +138,7 @@ object DateTimeKtx {
     /**
      * Output 2023
      * */
-    fun currentYear(): Int {
+    public fun currentYear(): Int {
         val localDateTime = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
         return localDateTime.date.year
     }
@@ -149,7 +149,7 @@ object DateTimeKtx {
      * Output 2h 18m 12.066s
      * */
 
-    fun durationFrom(iso8601Timestamp: String): String {
+    public fun durationFrom(iso8601Timestamp: String): String {
         val now: Instant = Clock.System.now()
         val result: Duration = (now - Instant.parse(iso8601Timestamp))
         return result.toString()
@@ -161,7 +161,7 @@ object DateTimeKtx {
      * Output 21.10.2022
      * */
 
-    fun formattedShortDate(iso8601Timestamp: String): String? {
+    public fun formattedShortDate(iso8601Timestamp: String): String? {
         val localDateTime = iso8601TimestampToLocalDateTime(iso8601Timestamp) ?: return null
         val date = localDateTime.date
         val day = date.dayOfMonth
@@ -176,7 +176,7 @@ object DateTimeKtx {
      * Output 21
      * */
 
-    fun formattedDate(iso8601Timestamp: String): String? {
+    public fun formattedDate(iso8601Timestamp: String): String? {
         val localDateTime = iso8601TimestampToLocalDateTime(iso8601Timestamp) ?: return null
         val date = localDateTime.date
         val day = date.dayOfMonth
@@ -189,7 +189,7 @@ object DateTimeKtx {
      * Output Fri
      * */
 
-    fun formattedDayOfWeek(iso8601Timestamp: String): String? {
+    public fun formattedDayOfWeek(iso8601Timestamp: String): String? {
         val localDateTime = iso8601TimestampToLocalDateTime(iso8601Timestamp) ?: return null
         val date = localDateTime.date
         return date.dayOfWeek.name.take(3)
@@ -201,7 +201,7 @@ object DateTimeKtx {
      * Output 21 October 2022
      * */
 
-    fun formattedLongDate(iso8601Timestamp: String, withYear: Boolean = true): String? {
+    public fun formattedLongDate(iso8601Timestamp: String, withYear: Boolean = true): String? {
         val localDateTime = iso8601TimestampToLocalDateTime(iso8601Timestamp) ?: return null
         val date = localDateTime.date
         val day = date.dayOfMonth
@@ -218,7 +218,7 @@ object DateTimeKtx {
      * Output 23 October 2022
      * */
 
-    fun formattedEndOfWeekLongDate(iso8601Timestamp: String, withYear: Boolean = true): String? {
+    public fun formattedEndOfWeekLongDate(iso8601Timestamp: String, withYear: Boolean = true): String? {
         val currentLocalDateTime = iso8601TimestampToLocalDateTime(iso8601Timestamp) ?: return null
 
         val dayOfWeek = DayOfWeek.values().lastIndex - currentLocalDateTime.dayOfWeek.ordinal
@@ -237,7 +237,7 @@ object DateTimeKtx {
      * Output 17 October 2022
      * */
 
-    fun formattedStartOfWeekLongDate(
+    public fun formattedStartOfWeekLongDate(
         iso8601Timestamp: String,
         withYear: Boolean = true
     ): String? {
@@ -260,7 +260,7 @@ object DateTimeKtx {
      * */
 
 
-    fun formattedTime(iso8601Timestamp: String): String? {
+    public fun formattedTime(iso8601Timestamp: String): String? {
         val localDateTime = iso8601TimestampToLocalDateTime(iso8601Timestamp) ?: return null
         val hour = localDateTime.hour
         val min = localDateTime.minute
@@ -273,7 +273,7 @@ object DateTimeKtx {
      * Output 17h 44m 21.10.2022
      * */
 
-    fun formattedDateTime(iso8601Timestamp: String): String? {
+    public fun formattedDateTime(iso8601Timestamp: String): String? {
         val localDateTime = iso8601TimestampToLocalDateTime(iso8601Timestamp) ?: return null
         val hour = localDateTime.hour
         val min = localDateTime.minute
@@ -291,7 +291,7 @@ object DateTimeKtx {
      * Output FRIDAY
      * */
 
-    fun formattedWeekDay(iso8601Timestamp: String): String? {
+    public fun formattedWeekDay(iso8601Timestamp: String): String? {
         val localDateTime = iso8601TimestampToLocalDateTime(iso8601Timestamp) ?: return null
         return localDateTime.dayOfWeek.name
     }
@@ -302,7 +302,7 @@ object DateTimeKtx {
      * Output 9
      * */
 
-    fun formattedRealMonthDay(iso8601Timestamp: String): Int? {
+    public fun formattedRealMonthDay(iso8601Timestamp: String): Int? {
         val localDateTime = iso8601TimestampToLocalDateTime(iso8601Timestamp) ?: return null
         return localDateTime.dayOfMonth
     }
@@ -313,7 +313,7 @@ object DateTimeKtx {
      * Output 9
      * */
 
-    fun formattedMonthNum(iso8601Timestamp: String): Int? {
+    public fun formattedMonthNum(iso8601Timestamp: String): Int? {
         val localDateTime = iso8601TimestampToLocalDateTime(iso8601Timestamp) ?: return null
         return localDateTime.month.ordinal
     }
@@ -324,7 +324,7 @@ object DateTimeKtx {
      * Output October
      * */
 
-    fun formattedMonth(iso8601Timestamp: String): String? {
+    public fun formattedMonth(iso8601Timestamp: String): String? {
         val localDateTime = iso8601TimestampToLocalDateTime(iso8601Timestamp) ?: return null
         return localDateTime.month.name
     }
@@ -335,7 +335,7 @@ object DateTimeKtx {
      * Output 10
      * */
 
-    fun formattedRealMonthNum(iso8601Timestamp: String): Int? {
+    public fun formattedRealMonthNum(iso8601Timestamp: String): Int? {
         val localDateTime = iso8601TimestampToLocalDateTime(iso8601Timestamp) ?: return null
         return localDateTime.month.ordinal + 1
     }
@@ -346,7 +346,7 @@ object DateTimeKtx {
      * Output 12
      * */
 
-    fun formattedYear(iso8601Timestamp: String): Int? {
+    public fun formattedYear(iso8601Timestamp: String): Int? {
         val localDateTime = iso8601TimestampToLocalDateTime(iso8601Timestamp) ?: return null
         return localDateTime.year
     }
@@ -357,28 +357,28 @@ object DateTimeKtx {
      * Output 01h 44m
      * */
 
-    fun formattedDuration(duration: String): String? {
+    public fun formattedDuration(duration: String): String? {
         return Duration.parseOrNull(duration)?.toComponents { hours, minutes, _, _ ->
             timeFormat(hours.toInt(), minutes)
         }
     }
 
-    fun firstDayOfMonth(month: Int, year: Int): DayOfWeek {
+    public fun firstDayOfMonth(month: Int, year: Int): DayOfWeek {
         return LocalDate(year, month, 1).dayOfWeek
     }
 
-    fun lastDayOfMonth(month: Int, year: Int): Int {
+    public fun lastDayOfMonth(month: Int, year: Int): Int {
         return LocalDate(year, month, 1)
             .plus(1, DateTimeUnit.MONTH)
             .minus(1, DateTimeUnit.DAY)
             .dayOfMonth
     }
 
-    fun monthTitle(month: Int): String {
+    public fun monthTitle(month: Int): String {
         return Month.values()[month - 1].name
     }
 
-    fun getDaysInMonth(month: Int, year: Int): Int {
+    public fun getDaysInMonth(month: Int, year: Int): Int {
         val daysInMonth = when (month) {
             1 -> 31
             2 -> if (isLeapYear(year)) 29 else 28
@@ -397,7 +397,7 @@ object DateTimeKtx {
         return daysInMonth
     }
 
-    fun isLeapYear(year: Int): Boolean {
+    public fun isLeapYear(year: Int): Boolean {
         return year % 4 == 0 && (year % 100 != 0 || year % 400 == 0)
     }
 

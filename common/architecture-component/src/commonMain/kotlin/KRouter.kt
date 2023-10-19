@@ -19,15 +19,15 @@ import com.arkivanov.essenty.statekeeper.StateKeeper
 import kotlin.reflect.KClass
 
 
-class Router<C : Parcelable>(
+public class Router<C : Parcelable>(
     private val navigator: StackNavigation<C>,
-    val stack: State<ChildStack<C, ComponentContext>>
+    public val stack: State<ChildStack<C, ComponentContext>>
 ) : StackNavigation<C> by navigator
 
 internal val LocalRouter: ProvidableCompositionLocal<Router<*>?> = staticCompositionLocalOf { null }
 
 @Composable
-fun <C : Parcelable> rememberRouter(
+public fun <C : Parcelable> rememberRouter(
     type: KClass<C>,
     stack: List<C>,
     handleBackButton: Boolean = true
@@ -49,7 +49,7 @@ fun <C : Parcelable> rememberRouter(
 }
 
 @Composable
-fun <C : Parcelable> RoutedContent(
+public fun <C : Parcelable> RoutedContent(
     router: Router<C>,
     modifier: Modifier = Modifier,
     animation: StackAnimation<C, ComponentContext>? = null,
@@ -71,7 +71,7 @@ fun <C : Parcelable> RoutedContent(
 @Suppress("UNCHECKED_CAST")
 // ViewModels must be Instances
 @Composable
-fun <T : ViewModel> rememberViewModel(
+public fun <T : ViewModel> rememberViewModel(
     viewModelClass: KClass<T>,
     block: @DisallowComposableCalls (savedState: SavedStateHandle) -> T
 ): T {

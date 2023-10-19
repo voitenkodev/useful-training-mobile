@@ -20,7 +20,7 @@ import components.labels.ChipLabel
 import recomposeHighlighter
 
 @Composable
-fun HelpExerciseNameItem(
+public fun HelpExerciseNameItem(
     options: () -> List<String>,
     querySort: () -> String,
     visibility: () -> Boolean,

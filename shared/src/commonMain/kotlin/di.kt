@@ -1,11 +1,12 @@
 import kotlinx.coroutines.flow.firstOrNull
+import org.koin.core.KoinApplication
 import org.koin.dsl.KoinAppDeclaration
 import org.koin.dsl.module
 import org.koin.mp.KoinPlatformTools
 
-fun initCommonKoin(
+public fun initCommonKoin(
     appDeclaration: KoinAppDeclaration = {},
-) = KoinPlatformTools.defaultContext().startKoin {
+): KoinApplication = KoinPlatformTools.defaultContext().startKoin {
     appDeclaration()
     modules(
         platformModule,
@@ -15,7 +16,7 @@ fun initCommonKoin(
     )
 }
 
-val servicesModule = module {
+internal val servicesModule = module {
     single {
         ClientBackend(get()) {
             get<PreferencesSource>().getToken().firstOrNull() ?: ""

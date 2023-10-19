@@ -24,7 +24,7 @@ import platform.UIKit.UIView
 import platform.darwin.NSObject
 
 @Composable
-actual fun VideoPlayer(
+public actual fun VideoPlayer(
     modifier: Modifier,
     nativeLocalResource: NativeLocalResource,
 ) {
@@ -60,14 +60,4 @@ actual fun VideoPlayer(
             avPlayerViewController.player?.play()
         }, modifier = modifier
     )
-}
-
-fun createVideoCompletionObserver(player: AVPlayer, onVideoCompletion: () -> Unit): NSObject {
-    return object : NSObject() {
-        //        @ObjCSelector("handleVideoCompletionNotification:")
-        fun handleVideoCompletionNotification(notification: NSNotification) {
-            player.seekToTime(CMTimeMake(0, 1)) // Seek to the beginning to repeat the video
-            onVideoCompletion() // Trigger the callback when the video completes
-        }
-    }
 }

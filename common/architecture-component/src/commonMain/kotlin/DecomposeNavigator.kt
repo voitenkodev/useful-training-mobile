@@ -16,7 +16,7 @@ import kotlin.reflect.KClass
  * https://github.com/arkivanov/ComposeNavigatorExample/blob/d786d92632fe22e4d7874645ba2071fb813f9ace/navigator/src/commonMain/kotlin/com/arkivanov/composenavigatorexample/navigator/Navigator.kt
  */
 
-val LocalComponentContext: ProvidableCompositionLocal<ComponentContext> =
+public val LocalComponentContext: ProvidableCompositionLocal<ComponentContext> =
     staticCompositionLocalOf { error("Root component context was not provided") }
 
 @Composable

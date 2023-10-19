@@ -11,7 +11,7 @@ internal fun shape() = Shape(
     circleShape = CircleShape,
 )
 
-data class Shape(
+public data class Shape(
     val small: Shape,
     val default: Shape,
     val circleShape: Shape,

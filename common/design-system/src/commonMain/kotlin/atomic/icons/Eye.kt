@@ -10,7 +10,7 @@ import androidx.compose.ui.graphics.vector.path
 import androidx.compose.ui.unit.dp
 
 private var innerEye: ImageVector? = null
-val Eye: ImageVector
+public val Eye: ImageVector
     get() {
         if (innerEye != null) {
             return innerEye!!

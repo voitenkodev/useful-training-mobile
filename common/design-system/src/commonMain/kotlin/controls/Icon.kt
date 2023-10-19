@@ -12,19 +12,21 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun IconPrimary(
+public fun IconPrimary(
     modifier: Modifier = Modifier,
     imageVector: ImageVector,
     color: Color = Design.colors.content,
     onClick: () -> Unit
-) = IconButton(
-    modifier = modifier.size(18.dp),
-    onClick = onClick
 ) {
-    Icon(
-        imageVector = imageVector,
-        tint = color,
-        modifier = Modifier.clip(shape = Design.shape.default),
-        contentDescription = null,
-    )
+    IconButton(
+        modifier = modifier.size(18.dp),
+        onClick = onClick
+    ) {
+        Icon(
+            imageVector = imageVector,
+            tint = color,
+            modifier = Modifier.clip(shape = Design.shape.default),
+            contentDescription = null,
+        )
+    }
 }

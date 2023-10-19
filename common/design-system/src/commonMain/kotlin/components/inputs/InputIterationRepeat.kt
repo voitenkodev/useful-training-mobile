@@ -11,7 +11,7 @@ import controls.rootBackground
 import recomposeHighlighter
 
 @Composable
-fun InputRepeat(
+public fun InputRepeat(
     modifier: Modifier = Modifier,
     provideValue: () -> String,
     onValueChange: (String) -> Unit,

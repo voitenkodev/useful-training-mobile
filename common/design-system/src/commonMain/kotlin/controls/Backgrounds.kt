@@ -9,13 +9,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun Modifier.rootBackground() = this
+public fun Modifier.rootBackground(): Modifier = this
     .background(
         color = Design.colors.primary
     )
 
 @Composable
-fun Modifier.accentBackground() = this
+public fun Modifier.accentBackground(): Modifier = this
     .background(
         color = Design.colors.accent_primary,
         shape = Design.shape.default
@@ -24,7 +24,7 @@ fun Modifier.accentBackground() = this
     )
 
 @Composable
-fun Modifier.quaternaryBackground() = this
+public fun Modifier.quaternaryBackground(): Modifier = this
     .background(
         color = Design.colors.black30,
         shape = Design.shape.default
@@ -33,7 +33,7 @@ fun Modifier.quaternaryBackground() = this
     )
 
 @Composable
-fun Modifier.tertiaryBackground() = this
+public fun Modifier.tertiaryBackground(): Modifier = this
     .border(
         color = Design.colors.white5,
         width = 0.5.dp,
@@ -46,7 +46,7 @@ fun Modifier.tertiaryBackground() = this
     )
 
 @Composable
-fun Modifier.reversedCircleBackground() = this
+public fun Modifier.reversedCircleBackground(): Modifier = this
     .background(
         color = Design.colors.content,
         shape = Design.shape.circleShape
@@ -55,7 +55,7 @@ fun Modifier.reversedCircleBackground() = this
     )
 
 @Composable
-fun Modifier.reversedRoundBackground() = this
+public fun Modifier.reversedRoundBackground(): Modifier = this
     .background(
         color = Design.colors.content,
         shape = Design.shape.default

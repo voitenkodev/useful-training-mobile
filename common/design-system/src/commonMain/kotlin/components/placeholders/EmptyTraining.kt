@@ -10,7 +10,7 @@ import androidx.compose.ui.text.style.TextAlign
 import controls.TextFieldH3
 
 @Composable
-fun EmptyTraining(modifier: Modifier = Modifier) {
+public fun EmptyTraining(modifier: Modifier = Modifier) {
 
     Column(
         modifier = modifier,

@@ -1,6 +1,6 @@
 package models
 
-data class ExerciseDao(
+public data class ExerciseDao(
     val id: String? = null,
     val name: String?,
     val iterations: List<IterationDao> = emptyList(),

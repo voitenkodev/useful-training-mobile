@@ -13,7 +13,7 @@ import androidx.compose.ui.unit.dp
 import components.overlay.shadowBottomFrame
 
 @Composable
-fun BoxScope.BottomShadowBackground(
+public fun BoxScope.BottomShadowBackground(
     modifier: Modifier = Modifier,
     color: Color = Design.colors.primary
 ) {

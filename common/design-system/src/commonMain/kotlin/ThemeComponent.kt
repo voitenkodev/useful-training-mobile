@@ -6,20 +6,20 @@ import atomic.Duration
 import atomic.Shape
 import atomic.Typography
 
-object Design {
+public object Design {
 
-    val colors: Color
+    public val colors: Color
         @Composable get() = LocalColor.current
 
-    val typography: Typography
+    public val typography: Typography
         @Composable get() = LocalTypography.current
 
-    val dp: Dp
+    public val dp: Dp
         @Composable get() = LocalDp.current
 
-    val shape: Shape
+    public val shape: Shape
         @Composable get() = LocalShape.current
-    val duration: Duration
+    public val duration: Duration
         @Composable get() = LocalDuration.current
 }
 

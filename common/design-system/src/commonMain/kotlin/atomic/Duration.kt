@@ -8,7 +8,7 @@ internal fun duration() = Duration(
     animDelayS = 300
 )
 
-data class Duration(
+public data class Duration(
     val animDurationS: Int,
     val animDurationM: Int,
     val animDurationL: Int,

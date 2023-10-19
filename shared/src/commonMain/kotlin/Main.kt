@@ -1,17 +1,13 @@
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import authentication.screen.AuthenticationContent
-import authentication.screen.AuthenticationViewModel
+import authentication.AuthenticationFeature
 import com.arkivanov.decompose.extensions.compose.jetbrains.stack.animation.stackAnimation
 import com.arkivanov.decompose.router.stack.pop
 import com.arkivanov.decompose.router.stack.push
 import com.arkivanov.decompose.router.stack.replaceAll
-import trainingbuilder.screen.TrainingContent
-import trainingbuilder.screen.TrainingViewModel
-import splash.SplashContent
-import splash.SplashViewModel
-import trainings.screen.TrainingsContent
-import trainings.screen.TrainingsViewModel
+import splash.SplashFeature
+import trainingbuilder.TrainingFeature
+import trainings.TrainingsFeature
 
 @Composable
 internal fun Main(modifier: Modifier = Modifier) {
@@ -26,31 +22,21 @@ internal fun Main(modifier: Modifier = Modifier) {
         ) { screen ->
             when (screen) {
                 Graph.Splash -> {
-
-                    val vm = rememberViewModel(SplashViewModel::class) { SplashViewModel() }
-
-                    SplashContent(
-                        vm = vm,
+                    SplashFeature(
                         toAuthentication = { router.replaceAll(Graph.Auth) },
                         toTrainings = { router.replaceAll(Graph.Trainings) }
                     )
                 }
 
                 Graph.Auth -> {
-                    val vm = rememberViewModel(AuthenticationViewModel::class) { AuthenticationViewModel() }
-
-                    AuthenticationContent(
-                        vm = vm,
+                    AuthenticationFeature(
                         toTrainings = { router.replaceAll(Graph.Trainings) },
                         back = router::pop
                     )
                 }
 
                 is Graph.Training -> {
-                    val vm = rememberViewModel(TrainingViewModel::class) { TrainingViewModel() }
-
-                    TrainingContent(
-                        vm = vm,
+                    TrainingFeature(
                         trainingId = screen.id,
                         toReview = { id -> router.push(Graph.Review(id)) },
                         back = router::pop
@@ -58,10 +44,7 @@ internal fun Main(modifier: Modifier = Modifier) {
                 }
 
                 Graph.Trainings -> {
-                    val vm = rememberViewModel(TrainingsViewModel::class) { TrainingsViewModel() }
-
-                    TrainingsContent(
-                        vm = vm,
+                    TrainingsFeature(
                         toTrainingById = { id -> router.push(Graph.Review(id)) },
                         toNewTraining = { router.push(Graph.Training(null)) },
                         addTrainingWithTemplate = { id -> router.push(Graph.Training(id)) },

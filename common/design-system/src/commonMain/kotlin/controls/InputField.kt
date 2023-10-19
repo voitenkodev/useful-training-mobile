@@ -30,7 +30,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun InputFieldPrimary(
+public fun InputFieldPrimary(
     modifier: Modifier = Modifier,
     provideValue: () -> String,
     onValueChange: (String) -> Unit,
@@ -48,7 +48,6 @@ fun InputFieldPrimary(
     keyboardActions: KeyboardActions? = null,
     visualTransformation: VisualTransformation = VisualTransformation.None,
 ) {
-
     InputField(
         modifier = modifier,
         provideValue = provideValue,
@@ -71,7 +70,7 @@ fun InputFieldPrimary(
 }
 
 @Composable
-fun InputFieldSecondary(
+public fun InputFieldSecondary(
     modifier: Modifier = Modifier,
     provideValue: () -> String,
     onValueChange: (String) -> Unit,
@@ -88,25 +87,27 @@ fun InputFieldSecondary(
     digits: Array<Char> = emptyArray(),
     keyboardActions: KeyboardActions? = null,
     visualTransformation: VisualTransformation = VisualTransformation.None,
-) = InputField(
-    modifier = modifier,
-    provideValue = provideValue,
-    onValueChange = onValueChange,
-    textStyle = Design.typography.Body2,
-    maxLines = maxLines,
-    color = color ?: Design.colors.content,
-    textAlign = textAlign,
-    placeholder = placeholder,
-    enabled = enabled,
-    keyboardOptions = keyboardOptions,
-    maxLength = maxLength,
-    digits = digits,
-    keyboardActions = keyboardActions,
-    leading = leading,
-    trailing = trailing,
-    fontWeight = fontWeight,
-    visualTransformation = visualTransformation
-)
+) {
+    InputField(
+        modifier = modifier,
+        provideValue = provideValue,
+        onValueChange = onValueChange,
+        textStyle = Design.typography.Body2,
+        maxLines = maxLines,
+        color = color ?: Design.colors.content,
+        textAlign = textAlign,
+        placeholder = placeholder,
+        enabled = enabled,
+        keyboardOptions = keyboardOptions,
+        maxLength = maxLength,
+        digits = digits,
+        keyboardActions = keyboardActions,
+        leading = leading,
+        trailing = trailing,
+        fontWeight = fontWeight,
+        visualTransformation = visualTransformation
+    )
+}
 
 @Composable
 private fun InputField(

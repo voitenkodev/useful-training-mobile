@@ -12,26 +12,28 @@ import controls.TextFieldBody1
 import recomposeHighlighter
 
 @Composable
-fun ButtonQuestion(
+public fun ButtonQuestion(
     modifier: Modifier = Modifier,
     question: String,
     answer: String,
     onClick: () -> Unit
-) = Row(
-    modifier = modifier.recomposeHighlighter(),
-    horizontalArrangement = Arrangement.spacedBy(4.dp, Alignment.CenterHorizontally),
-    verticalAlignment = Alignment.CenterVertically
 ) {
+    Row(
+        modifier = modifier.recomposeHighlighter(),
+        horizontalArrangement = Arrangement.spacedBy(4.dp, Alignment.CenterHorizontally),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
 
-    TextFieldBody1(
-        modifier = Modifier.recomposeHighlighter(),
-        provideText = { question },
-        color = Design.colors.caption
-    )
+        TextFieldBody1(
+            modifier = Modifier.recomposeHighlighter(),
+            provideText = { question },
+            color = Design.colors.caption
+        )
 
-    ButtonTextLink(
-        modifier = Modifier.recomposeHighlighter(),
-        text = answer,
-        onClick = onClick
-    )
+        ButtonTextLink(
+            modifier = Modifier.recomposeHighlighter(),
+            text = answer,
+            onClick = onClick
+        )
+    }
 }

@@ -24,7 +24,7 @@ import kotlin.math.abs
 import kotlin.math.min
 
 @Stable
-fun Modifier.recomposeHighlighter(): Modifier = this //.then(recomposeModifier)
+public fun Modifier.recomposeHighlighter(): Modifier = this //.then(recomposeModifier)
 
 // Use a single instance + @Stable to ensure that recompositions can enable skipping optimizations
 // Modifier.composed will still remember unique data per call site.
@@ -98,13 +98,13 @@ private val recomposeModifier =
         }
     }
 
-suspend fun PointerInputScope.detectSwipe(
+public suspend fun PointerInputScope.detectSwipe(
     swipeState: MutableIntState = mutableIntStateOf(-1),
     onSwipeLeft: () -> Unit = {},
     onSwipeRight: () -> Unit = {},
     onSwipeUp: () -> Unit = {},
     onSwipeDown: () -> Unit = {},
-) = detectDragGestures(
+): Unit = detectDragGestures(
     onDrag = { change, dragAmount ->
         change.consume()
         val (x, y) = dragAmount
@@ -131,7 +131,7 @@ suspend fun PointerInputScope.detectSwipe(
 )
 
 @Composable
-fun Modifier.conditional(
+public fun Modifier.conditional(
     condition: Boolean,
     onYes: @Composable Modifier.() -> Modifier,
     onNot: @Composable Modifier.() -> Modifier

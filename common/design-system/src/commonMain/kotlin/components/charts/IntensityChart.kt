@@ -12,7 +12,7 @@ import components.items.LineChartItem
 import recomposeHighlighter
 
 @Composable
-fun IntensityChart(
+public fun IntensityChart(
     modifier: Modifier = Modifier,
     provideData: () -> List<Float>,
     compareData: (() -> List<Float>) = { emptyList() },

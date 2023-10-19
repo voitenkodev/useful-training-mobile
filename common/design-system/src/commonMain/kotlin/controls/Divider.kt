@@ -12,7 +12,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun DividerPrimary(
+public fun DividerPrimary(
     modifier: Modifier = Modifier,
     thickness: Dp = 1.dp,
     color: Color = Design.colors.caption.copy(alpha = 0.3f),

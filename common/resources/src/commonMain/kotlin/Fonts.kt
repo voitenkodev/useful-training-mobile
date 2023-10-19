@@ -5,10 +5,10 @@ import androidx.compose.ui.text.font.FontWeight
 import com.voitenko.usefultraining.SharedRes
 import dev.icerock.moko.resources.compose.asFont
 
-object Fonts {
+public object Fonts {
 
     @Composable
-    fun GunterzFamily(): FontFamily {
+    public fun GunterzFamily(): FontFamily {
         return FontFamily(
             listOfNotNull(
                 SharedRes.fonts.gunterz.medium.asFont(

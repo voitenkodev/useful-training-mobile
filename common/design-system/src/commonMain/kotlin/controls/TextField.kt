@@ -12,7 +12,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import recomposeHighlighter
 
 @Composable
-fun TextFieldH1(
+public fun TextFieldH1(
     provideText: () -> String?,
     modifier: Modifier = Modifier,
     placeholder: String? = null,
@@ -38,7 +38,7 @@ fun TextFieldH1(
 }
 
 @Composable
-fun TextFieldH2(
+public fun TextFieldH2(
     provideText: () -> String?,
     modifier: Modifier = Modifier,
     placeholder: String? = null,
@@ -47,21 +47,23 @@ fun TextFieldH2(
     maxLines: Int = Int.MAX_VALUE,
     fontWeight: FontWeight? = null,
     overflow: TextOverflow = TextOverflow.Clip
-) = TextField(
-    provideText = provideText,
-    modifier = modifier,
-    placeholder = placeholder,
-    textStyle = Design.typography.H2,
-    maxLines = maxLines,
-    color = color ?: Design.colors.content,
-    textAlign = textAlign,
-    fontWeight = fontWeight,
-    overflow = overflow
-)
+) {
+    TextField(
+        provideText = provideText,
+        modifier = modifier,
+        placeholder = placeholder,
+        textStyle = Design.typography.H2,
+        maxLines = maxLines,
+        color = color ?: Design.colors.content,
+        textAlign = textAlign,
+        fontWeight = fontWeight,
+        overflow = overflow
+    )
+}
 
 
 @Composable
-fun TextFieldH3(
+public fun TextFieldH3(
     provideText: () -> String?,
     modifier: Modifier = Modifier,
     placeholder: String? = null,
@@ -70,20 +72,22 @@ fun TextFieldH3(
     maxLines: Int = Int.MAX_VALUE,
     fontWeight: FontWeight? = null,
     overflow: TextOverflow = TextOverflow.Clip
-) = TextField(
-    provideText = provideText,
-    modifier = modifier,
-    placeholder = placeholder,
-    textStyle = Design.typography.H3,
-    maxLines = maxLines,
-    color = color ?: Design.colors.content,
-    textAlign = textAlign,
-    fontWeight = fontWeight,
-    overflow = overflow
-)
+) {
+    TextField(
+        provideText = provideText,
+        modifier = modifier,
+        placeholder = placeholder,
+        textStyle = Design.typography.H3,
+        maxLines = maxLines,
+        color = color ?: Design.colors.content,
+        textAlign = textAlign,
+        fontWeight = fontWeight,
+        overflow = overflow
+    )
+}
 
 @Composable
-fun TextFieldH4(
+public fun TextFieldH4(
     provideText: () -> String?,
     modifier: Modifier = Modifier,
     placeholder: String? = null,
@@ -92,20 +96,22 @@ fun TextFieldH4(
     maxLines: Int = Int.MAX_VALUE,
     fontWeight: FontWeight? = null,
     overflow: TextOverflow = TextOverflow.Clip
-) = TextField(
-    provideText = provideText,
-    modifier = modifier,
-    placeholder = placeholder,
-    textStyle = Design.typography.H4,
-    maxLines = maxLines,
-    color = color ?: Design.colors.content,
-    textAlign = textAlign,
-    fontWeight = fontWeight,
-    overflow = overflow
-)
+) {
+    TextField(
+        provideText = provideText,
+        modifier = modifier,
+        placeholder = placeholder,
+        textStyle = Design.typography.H4,
+        maxLines = maxLines,
+        color = color ?: Design.colors.content,
+        textAlign = textAlign,
+        fontWeight = fontWeight,
+        overflow = overflow
+    )
+}
 
 @Composable
-fun TextFieldLabel(
+public fun TextFieldLabel(
     provideText: () -> String?,
     modifier: Modifier = Modifier,
     placeholder: String? = null,
@@ -114,20 +120,22 @@ fun TextFieldLabel(
     maxLines: Int = Int.MAX_VALUE,
     fontWeight: FontWeight? = null,
     overflow: TextOverflow = TextOverflow.Clip
-) = TextField(
-    modifier = modifier,
-    provideText = provideText,
-    placeholder = placeholder,
-    textStyle = Design.typography.Label,
-    maxLines = maxLines,
-    color = color ?: Design.colors.content,
-    textAlign = textAlign,
-    fontWeight = fontWeight,
-    overflow = overflow
-)
+) {
+    TextField(
+        modifier = modifier,
+        provideText = provideText,
+        placeholder = placeholder,
+        textStyle = Design.typography.Label,
+        maxLines = maxLines,
+        color = color ?: Design.colors.content,
+        textAlign = textAlign,
+        fontWeight = fontWeight,
+        overflow = overflow
+    )
+}
 
 @Composable
-fun TextFieldBody1(
+public fun TextFieldBody1(
     provideText: () -> String?,
     modifier: Modifier = Modifier,
     placeholder: String? = null,
@@ -136,20 +144,22 @@ fun TextFieldBody1(
     maxLines: Int = Int.MAX_VALUE,
     fontWeight: FontWeight? = null,
     overflow: TextOverflow = TextOverflow.Clip
-) = TextField(
-    modifier = modifier,
-    provideText = provideText,
-    placeholder = placeholder,
-    textStyle = Design.typography.Body,
-    maxLines = maxLines,
-    color = color ?: Design.colors.content,
-    textAlign = textAlign,
-    fontWeight = fontWeight,
-    overflow = overflow
-)
+) {
+    TextField(
+        modifier = modifier,
+        provideText = provideText,
+        placeholder = placeholder,
+        textStyle = Design.typography.Body,
+        maxLines = maxLines,
+        color = color ?: Design.colors.content,
+        textAlign = textAlign,
+        fontWeight = fontWeight,
+        overflow = overflow
+    )
+}
 
 @Composable
-fun TextFieldBody2(
+public fun TextFieldBody2(
     provideText: () -> String?,
     modifier: Modifier = Modifier,
     placeholder: String? = null,
@@ -158,17 +168,19 @@ fun TextFieldBody2(
     maxLines: Int = Int.MAX_VALUE,
     fontWeight: FontWeight? = null,
     overflow: TextOverflow = TextOverflow.Clip
-) = TextField(
-    modifier = modifier,
-    provideText = provideText,
-    placeholder = placeholder,
-    textStyle = Design.typography.Body2,
-    maxLines = maxLines,
-    color = color ?: Design.colors.content,
-    textAlign = textAlign,
-    fontWeight = fontWeight,
-    overflow = overflow
-)
+) {
+    TextField(
+        modifier = modifier,
+        provideText = provideText,
+        placeholder = placeholder,
+        textStyle = Design.typography.Body2,
+        maxLines = maxLines,
+        color = color ?: Design.colors.content,
+        textAlign = textAlign,
+        fontWeight = fontWeight,
+        overflow = overflow
+    )
+}
 
 @Composable
 internal fun TextField(

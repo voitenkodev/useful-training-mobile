@@ -13,14 +13,14 @@ import io.ktor.http.contentType
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 
-class ClientBackend(
+public class ClientBackend(
     nativeContext: NativeContext,
     private val token: suspend () -> String,
 ) {
 
     private val client: HttpClient = nativeContext.driver()
 
-    fun setup() = client.config {
+    public fun setup(): HttpClient = client.config {
         install(Logging) {
             level = LogLevel.ALL
             logger = object : Logger {

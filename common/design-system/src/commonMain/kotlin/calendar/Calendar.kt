@@ -32,7 +32,7 @@ import kotlin.math.ceil
 * */
 
 @Composable
-fun Calendar(
+public fun Calendar(
     provideMonth: () -> Int,
     provideYear: () -> Int,
     listOfDays: () -> List<Int>,

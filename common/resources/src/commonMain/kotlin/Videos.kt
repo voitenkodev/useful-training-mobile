@@ -1,6 +1,6 @@
 import com.voitenko.usefultraining.SharedRes
 
-object Videos {
-    val motivation = SharedRes.files.motivation.toNativeLocalResource()
-    val intro = SharedRes.files.intro_2.toNativeLocalResource()
+public object Videos {
+    public val motivation: NativeLocalResource = SharedRes.files.motivation.toNativeLocalResource()
+    public val intro: NativeLocalResource = SharedRes.files.intro_2.toNativeLocalResource()
 }

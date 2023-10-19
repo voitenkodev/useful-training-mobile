@@ -11,7 +11,7 @@ import androidx.media3.ui.PlayerView
 
 @androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
 @Composable
-actual fun VideoPlayer(
+public actual fun VideoPlayer(
     modifier: Modifier,
     nativeLocalResource: NativeLocalResource,
 ) {

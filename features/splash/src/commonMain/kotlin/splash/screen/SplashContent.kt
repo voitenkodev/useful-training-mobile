@@ -1,4 +1,4 @@
-package splash
+package splash.screen
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -8,7 +8,7 @@ import androidx.compose.ui.Modifier
 import controls.rootBackground
 
 @Composable
-fun SplashContent(
+internal fun SplashContent(
     vm: SplashViewModel,
     toTrainings: () -> Unit,
     toAuthentication: () -> Unit

@@ -36,7 +36,7 @@ import recomposeHighlighter
 import trainingbuilder.state.Exercise
 
 @Composable
-fun TrainingContent(
+internal fun TrainingContent(
     vm: TrainingViewModel,
     trainingId: String?,
     toReview: (trainingId: String) -> Unit,

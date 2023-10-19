@@ -23,7 +23,7 @@ kotlin {
                 // Compose
                 implementation(compose.ui)
                 implementation(compose.foundation)
-                implementation(compose.material) // ICONS (mb remove)
+                implementation(compose.material)
 
                 // Koin
                 implementation(libs.koin.core)

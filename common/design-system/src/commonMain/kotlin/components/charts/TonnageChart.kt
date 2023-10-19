@@ -12,7 +12,7 @@ import components.items.LineChartItem
 import recomposeHighlighter
 
 @Composable
-fun TonnageChart(
+public fun TonnageChart(
     modifier: Modifier = Modifier,
     provideData: () -> List<Float>,
     compareData: (() -> List<Float>) = { emptyList() },

@@ -1,4 +1,6 @@
 kotlin {
+    explicitApi()
+
     android()
     ios()
     iosSimulatorArm64()

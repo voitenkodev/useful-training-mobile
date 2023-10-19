@@ -3,15 +3,13 @@ package repository
 import AuthRepository
 import DataBaseSource
 import NetworkSource
+import PreferencesSource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
-import mappers.toDomain
 import models.AuthDto
-import models.Token
-import PreferencesSource
 
-class AuthRepositoryImpl(
+internal class AuthRepositoryImpl(
     private val remote: NetworkSource,
     private val preferences: PreferencesSource,
     private val local: DataBaseSource
@@ -25,10 +23,10 @@ class AuthRepositoryImpl(
             if (token != null) preferences.setToken(token)
         }
 
-    override fun registration(email: String, password: String): Flow<Token> =
+    override fun registration(email: String, password: String): Flow<Unit> =
         flow {
             emit(remote.registration(AuthDto(email, password)))
-        }.map { it.toDomain() }
+        }.map { }
 
     override fun getToken(): Flow<String?> =
         preferences.getToken()

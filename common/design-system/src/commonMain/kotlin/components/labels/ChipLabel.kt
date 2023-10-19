@@ -23,7 +23,7 @@ import controls.quaternaryBackground
 import recomposeHighlighter
 
 @Composable
-fun ChipLabel(
+public fun ChipLabel(
     modifier: Modifier = Modifier,
     provideText: () -> String,
     onClick: (String) -> Unit,

@@ -1,6 +1,6 @@
 import kotlin.math.abs
 
-fun Double.toShortString(): String {
+public fun Double.toShortString(): String {
     val absValue = abs(this)
 
     return when {

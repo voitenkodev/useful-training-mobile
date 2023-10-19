@@ -1,5 +1,5 @@
 import androidx.compose.ui.Modifier
 
-expect fun Modifier.platformInsets(): Modifier
-expect fun Modifier.platformTopInset(): Modifier
-expect fun Modifier.platformBottomInset(): Modifier
+public expect fun Modifier.platformInsets(): Modifier
+public expect fun Modifier.platformTopInset(): Modifier
+public expect fun Modifier.platformBottomInset(): Modifier

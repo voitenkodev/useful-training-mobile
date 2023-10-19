@@ -28,7 +28,7 @@ import platformInsets
 import recomposeHighlighter
 
 @Composable
-fun Popup(
+public fun Popup(
     modifier: Modifier = Modifier,
     visibility: Boolean = false,
     title: String?,

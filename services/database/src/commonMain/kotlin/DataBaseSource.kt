@@ -11,27 +11,27 @@ import models.ExerciseDao
 import models.IterationDao
 import models.TrainingDao
 
-class DataBaseSource(nativeContext: NativeContext) {
+public class DataBaseSource(nativeContext: NativeContext) {
 
     private val database: UsefulTrainingDatabase = nativeContext.database()
     private val userExerciseNamesBd by lazy { database.user_exercise_namesQueries }
     private val trainingsBd by lazy { database.trainingsQueries }
 
-    fun setExerciseNames(names: List<String>): Flow<Unit> {
+    public fun setExerciseNames(names: List<String>): Flow<Unit> {
         val request = names.forEach { userExerciseNamesBd.insert(it) }
         return flowOf(request)
     }
 
-    fun getExerciseNames(): Flow<List<String>> {
+    public fun getExerciseNames(): Flow<List<String>> {
         return flowOf(userExerciseNamesBd.selectAll().executeAsList())
     }
 
-    fun removeExerciseName(value: String): Flow<String> {
+    public fun removeExerciseName(value: String): Flow<String> {
         return flowOf(userExerciseNamesBd.delete(value_ = value))
             .map { value }
     }
 
-    fun getTrainings(): Flow<List<TrainingDao>> {
+    public fun getTrainings(): Flow<List<TrainingDao>> {
 
         val result = trainingsBd
             .getTrainings()
@@ -53,7 +53,7 @@ class DataBaseSource(nativeContext: NativeContext) {
         return result
     }
 
-    fun getTraining(trainingId: String): Flow<TrainingDao> {
+    public fun getTraining(trainingId: String): Flow<TrainingDao> {
 
         val result = trainingsBd
             .getTrainingById(trainingId)
@@ -68,11 +68,13 @@ class DataBaseSource(nativeContext: NativeContext) {
         return flowOf(result.toDao(Dao))
     }
 
-    fun setTrainings(trainings: List<TrainingDao>) = trainingsBd.transaction {
-        trainings.map { setTraining(it) }
+    public fun setTrainings(trainings: List<TrainingDao>) {
+        trainingsBd.transaction {
+            trainings.map { setTraining(it) }
+        }
     }
 
-    fun setTraining(training: TrainingDao): String? {
+    public fun setTraining(training: TrainingDao): String? {
 
         val trainingId = training.id ?: return null
 
@@ -116,12 +118,12 @@ class DataBaseSource(nativeContext: NativeContext) {
         return trainingId
     }
 
-    fun deleteAll() {
+    public fun deleteAll() {
         trainingsBd.deleteAll()
         userExerciseNamesBd.deleteAll()
     }
 
-    fun deleteTraining(trainingId: String) {
+    public fun deleteTraining(trainingId: String) {
         trainingsBd.deleteTrainingById(id = trainingId)
     }
 

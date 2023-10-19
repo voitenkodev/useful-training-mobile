@@ -28,7 +28,7 @@ import controls.quaternaryBackground
 import recomposeHighlighter
 
 @Composable
-fun LineChartItem(
+public fun LineChartItem(
     modifier: Modifier = Modifier,
     lines: () -> List<PointLine>,
 ) {

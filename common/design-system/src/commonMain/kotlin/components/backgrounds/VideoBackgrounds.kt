@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 
 @Composable
-fun BackgroundIntro(
+public fun BackgroundIntro(
     modifier: Modifier = Modifier
 ) {
     BackgroundVideoFrame(

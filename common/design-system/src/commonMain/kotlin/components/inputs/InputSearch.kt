@@ -25,7 +25,7 @@ import controls.rootBackground
 import recomposeHighlighter
 
 @Composable
-fun InputSearch(
+public fun InputSearch(
     modifier: Modifier = Modifier,
     value: () -> String,
     onValueChange: (String) -> Unit,

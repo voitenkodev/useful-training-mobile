@@ -1,6 +1,6 @@
 package models
 
-data class Exercise(
+public data class Exercise(
     val id: String? = null,
     val name: String?,
     val iterations: List<Iteration> = emptyList(),

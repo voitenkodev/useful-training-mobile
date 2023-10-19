@@ -13,7 +13,7 @@ internal fun dp() = Dp(
     componentM = 56.dp,
 )
 
-data class Dp(
+public data class Dp(
     val paddingXS: Dp,
     val paddingS: Dp,
     val paddingM: Dp,

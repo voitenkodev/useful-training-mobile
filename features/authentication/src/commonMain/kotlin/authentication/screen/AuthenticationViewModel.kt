@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import org.koin.core.component.inject
 
-class AuthenticationViewModel : ViewModel() {
+internal class AuthenticationViewModel : ViewModel() {
 
     private val api by inject<AuthRepository>()
 

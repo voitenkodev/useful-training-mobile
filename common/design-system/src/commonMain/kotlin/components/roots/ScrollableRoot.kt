@@ -21,8 +21,9 @@ import androidx.compose.ui.unit.dp
 import platformInsets
 import recomposeHighlighter
 
+@Deprecated("Use designSystem.Root")
 @Composable
-fun ScrollableRoot(
+public fun ScrollableRoot(
     modifier: Modifier = Modifier,
 
     loading: (@Composable () -> Unit)? = null,

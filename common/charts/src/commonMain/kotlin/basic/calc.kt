@@ -5,7 +5,7 @@ import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
-data class DrawElement(
+internal data class DrawElement(
     val path: Path,
     val values: List<Float>,
 

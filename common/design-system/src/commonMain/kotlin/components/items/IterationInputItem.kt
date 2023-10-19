@@ -12,7 +12,7 @@ import controls.DividerPrimary
 import recomposeHighlighter
 
 @Composable
-fun IterationInputItem(
+public fun IterationInputItem(
     modifier: Modifier = Modifier,
     provideWeight: () -> String,
     provideRepeat: () -> String,

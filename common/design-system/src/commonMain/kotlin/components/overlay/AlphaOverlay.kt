@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 
 @Composable
-fun AlphaOverlay(
+public fun AlphaOverlay(
     modifier: Modifier = Modifier,
     visibilityCondition: () -> Boolean = { true },
     initialAlpha: Float = 1f,

@@ -1,1 +1,1 @@
-expect class NativeContext private constructor()
+public expect class NativeContext private constructor()

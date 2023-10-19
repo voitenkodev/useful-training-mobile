@@ -7,44 +7,44 @@ import dev.icerock.moko.resources.compose.painterResource
 /*
 * Source png: https://www.pngegg.com/en/png-evdhq
 * */
-object Images {
+public object Images {
     @Composable
-    fun gym(): Painter {
+    public fun gym(): Painter {
         return painterResource(SharedRes.images.gym)
     }
 
     @Composable
-    fun addTraining(): Painter {
+    public fun addTraining(): Painter {
         return painterResource(SharedRes.images.add_training_bg)
     }
 
     @Composable
-    fun dumbbells(): Painter {
+    public fun dumbbells(): Painter {
         return painterResource(SharedRes.images.dumbbells)
     }
 
     @Composable
-    fun person1(): Painter {
+    public fun person1(): Painter {
         return painterResource(SharedRes.images.person_1)
     }
 
     @Composable
-    fun person2(): Painter {
+    public fun person2(): Painter {
         return painterResource(SharedRes.images.person_2)
     }
 
     @Composable
-    fun person3(): Painter {
+    public fun person3(): Painter {
         return painterResource(SharedRes.images.person_3)
     }
 
     @Composable
-    fun person4(): Painter {
+    public fun person4(): Painter {
         return painterResource(SharedRes.images.person_4)
     }
 
     @Composable
-    fun person5(): Painter {
+    public fun person5(): Painter {
         return painterResource(SharedRes.images.person_5)
     }
 }

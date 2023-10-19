@@ -4,7 +4,7 @@ import androidx.compose.ui.graphics.Color
 
 internal fun darkPalette() = Color()
 
-data class Color(
+public data class Color(
     // Root BG
     val primary: Color = Color(0xff000000), // hard-black Root
     val secondary: Color = Color(0xff090912), // soft-gray Header

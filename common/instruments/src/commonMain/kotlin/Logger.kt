@@ -3,16 +3,16 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
-object Logger {
+public object Logger {
 
     // System.out
-    fun l(msg: () -> String?) {
+    public fun l(msg: () -> String?) {
         print(msg.invoke())
         println(msg.invoke())
     }
 
     @Composable
-    fun compose(vararg values: Any?) {
+    public fun compose(vararg values: Any?) {
         Column {
             values.map { it.hashCode().toString() }.forEach {
                 Text(text = it, color = Color.Red)
@@ -21,7 +21,7 @@ object Logger {
     }
 
     @Composable
-    fun compose(value: String) {
+    public fun compose(value: String) {
         Text(text = value, color = Color.Red)
     }
 }

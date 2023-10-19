@@ -11,7 +11,7 @@ import androidx.compose.ui.platform.LocalFocusManager
 import recomposeHighlighter
 
 @Composable
-fun Root(
+public fun Root(
     modifier: Modifier = Modifier,
     loading: (@Composable () -> Unit)? = null,
     error: (@Composable () -> Unit)? = null,

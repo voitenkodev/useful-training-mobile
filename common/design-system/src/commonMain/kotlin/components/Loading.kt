@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.dp
 import recomposeHighlighter
 
 @Composable
-fun Loading(visible: () -> Boolean) {
+public fun Loading(visible: () -> Boolean) {
 
     if (visible().not()) return
 

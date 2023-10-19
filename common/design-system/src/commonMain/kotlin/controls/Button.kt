@@ -27,7 +27,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun ButtonBrand(
+public fun ButtonBrand(
     modifier: Modifier = Modifier,
     text: String,
     enabled: Boolean = true,
@@ -49,7 +49,7 @@ fun ButtonBrand(
 }
 
 @Composable
-fun ButtonIconBrand(
+public fun ButtonIconBrand(
     modifier: Modifier = Modifier,
     imageVector: ImageVector,
     enabled: Boolean = true,
@@ -81,7 +81,7 @@ fun ButtonIconBrand(
 }
 
 @Composable
-fun ButtonSecondaryIcon(
+public fun ButtonSecondaryIcon(
     modifier: Modifier = Modifier,
     imageVector: ImageVector,
     enabled: Boolean = true,
@@ -111,7 +111,7 @@ fun ButtonSecondaryIcon(
 }
 
 @Composable
-fun ButtonAccentIcon(
+public fun ButtonAccentIcon(
     modifier: Modifier = Modifier,
     imageVector: ImageVector,
     enabled: Boolean = true,
@@ -141,7 +141,7 @@ fun ButtonAccentIcon(
 }
 
 @Composable
-fun ButtonTextLink(
+public fun ButtonTextLink(
     modifier: Modifier = Modifier,
     text: String,
     onClick: () -> Unit,

@@ -17,7 +17,7 @@ import mappers.toDto
 import models.ExerciseDate
 import models.Training
 
-class TrainingRepositoryImpl(
+internal class TrainingRepositoryImpl(
     private val remote: NetworkSource,
     private val local: DataBaseSource
 ) : TrainingRepository {

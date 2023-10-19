@@ -84,7 +84,7 @@ internal fun typography() = Typography(
     )
 )
 
-data class Typography(
+public data class Typography(
     val H1: TextStyle, // big titles
     val H2: TextStyle, // medium titles
     val H3: TextStyle, // little titles

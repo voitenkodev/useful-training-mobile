@@ -38,7 +38,7 @@ import platformInsets
 import recomposeHighlighter
 
 @Composable
-fun AuthenticationContent(
+internal fun AuthenticationContent(
     vm: AuthenticationViewModel,
     toTrainings: () -> Unit,
     back: () -> Unit

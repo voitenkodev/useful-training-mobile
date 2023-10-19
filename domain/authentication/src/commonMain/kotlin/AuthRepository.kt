@@ -1,13 +1,12 @@
 import kotlinx.coroutines.flow.Flow
-import models.Token
 
-interface AuthRepository {
+public interface AuthRepository {
 
-    fun login(email: String, password: String): Flow<Unit>
+    public fun login(email: String, password: String): Flow<Unit>
 
-    fun registration(email: String, password: String): Flow<Token>
+    public fun registration(email: String, password: String): Flow<Unit>
 
-    fun getToken(): Flow<String?>
+    public fun getToken(): Flow<String?>
 
-    suspend fun logout()
+    public suspend fun logout()
 }

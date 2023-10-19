@@ -9,7 +9,7 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
 
 @Composable
-fun BasicLineChart(
+public fun BasicLineChart(
     modifier: Modifier = Modifier,
     values: List<Float>,
     color: Color,
@@ -73,7 +73,7 @@ fun BasicLineChart(
                 )
             }
 
-              // All points
+            // All points
 //            drawElement.listOfPoints.forEach { point ->
 //                drawCircle(
 //                    color = point.color,

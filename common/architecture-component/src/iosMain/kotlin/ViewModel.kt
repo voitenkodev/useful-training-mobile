@@ -6,7 +6,7 @@ import kotlinx.coroutines.cancel
 import org.koin.core.component.KoinComponent
 import kotlin.coroutines.CoroutineContext
 
-actual open class ViewModel : InstanceKeeper.Instance, CoroutineScope, KoinComponent {
+public actual open class ViewModel : InstanceKeeper.Instance, CoroutineScope, KoinComponent {
     actual override val coroutineContext: CoroutineContext =
         Dispatchers.Unconfined + SupervisorJob()
 
