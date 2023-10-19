@@ -17,12 +17,12 @@ internal fun Training.toDto(): TrainingDto {
 
 internal fun Training.toDto(exercises: List<ExerciseDto>): TrainingDto {
     return TrainingDto(
-        id = this.id,
-        duration = this.duration,
-        date = this.date,
-        tonnage = this.tonnage,
-        countOfLifting = this.countOfLifting,
-        intensity = this.intensity,
+        id = id,
+        duration = duration,
+        date = date,
+        tonnage = tonnage,
+        countOfLifting = countOfLifting,
+        intensity = intensity,
         exercises = exercises
     )
 }
@@ -49,12 +49,12 @@ internal fun TrainingDao.toDomain(): Training {
 
 internal fun TrainingDto.toDomain(exercises: List<Exercise>): Training {
     return Training(
-        id = this.id,
-        duration = this.duration,
-        date = this.date,
-        tonnage = this.tonnage,
-        countOfLifting = this.countOfLifting,
-        intensity = this.intensity,
+        id = id,
+        duration = duration,
+        date = date,
+        tonnage = tonnage,
+        countOfLifting = countOfLifting,
+        intensity = intensity,
         exercises = exercises
     )
 }
@@ -62,12 +62,12 @@ internal fun TrainingDto.toDomain(exercises: List<Exercise>): Training {
 
 internal fun TrainingDao.toDomain(exercises: List<Exercise>): Training {
     return Training(
-        id = this.id,
-        duration = this.duration,
-        date = this.date,
-        tonnage = this.tonnage,
-        countOfLifting = this.countOfLifting,
-        intensity = this.intensity,
+        id = id,
+        duration = duration,
+        date = date,
+        tonnage = tonnage,
+        countOfLifting = countOfLifting,
+        intensity = intensity,
         exercises = exercises
     )
 }
@@ -84,12 +84,12 @@ internal fun TrainingDto.dtoToDao(): TrainingDao {
 
 internal fun TrainingDto.toDao(exercises: List<ExerciseDao>): TrainingDao {
     return TrainingDao(
-        id = this.id,
-        duration = this.duration,
-        date = this.date,
-        tonnage = this.tonnage,
-        countOfLifting = this.countOfLifting,
-        intensity = this.intensity,
+        id = id,
+        duration = duration,
+        date = date,
+        tonnage = tonnage,
+        countOfLifting = countOfLifting,
+        intensity = intensity,
         exercises = exercises
     )
 }

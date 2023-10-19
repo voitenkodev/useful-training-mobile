@@ -85,7 +85,7 @@ private fun Content(
 
     val trainingList = remember(trainings(), selectedDate) {
         trainings().filter { training ->
-            DateTimeKtx.isTheSameDate(training.startDateTime, selectedDate)
+            DateTimeKtx.isTheSameDate(training.dateIso, selectedDate)
         }
     }
 

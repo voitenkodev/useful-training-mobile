@@ -42,7 +42,7 @@ internal fun TrainingItem(
         )
 
         TrainingTitle(
-            mainTitle = { "At ${training.startDateTime}" },
+            mainTitle = { "At ${training.startDate}" },
             click = onDetailsClick,
         )
 

@@ -7,7 +7,8 @@ internal fun models.Training.toTrainingState() = Training(
     id = id.toString(),
     exercises = exercises.toExerciseStateList(),
     duration = duration?.let { DateTimeKtx.formattedDuration(it) } ?: "",
-    startDateTime = date ?: "",
+    dateIso = date ?: "",
+    startDate = date?.let { DateTimeKtx.formattedTime(it) } ?: "",
     tonnage = tonnage,
     intensity = intensity
 )
