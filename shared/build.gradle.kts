@@ -39,6 +39,7 @@ kotlin {
 
                 // Compose
                 implementation(compose.ui)
+                implementation(compose.material3) // TODO REMOVE IT
 
                 // Koin
                 implementation(libs.koin.core)

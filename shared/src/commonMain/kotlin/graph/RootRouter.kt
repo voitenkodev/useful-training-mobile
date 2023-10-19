@@ -24,7 +24,6 @@ internal fun RootGraph() {
         router = router,
         animation = stackAnimation()
     ) { child ->
-
         when (child) {
             RootRouter.Auth -> AuthGraph(
                 toTrainings = { router.replaceAll(RootRouter.BottomMenu) }

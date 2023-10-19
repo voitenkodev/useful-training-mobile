@@ -1,15 +1,18 @@
 package bottommenu
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.vector.ImageVector
 import bottommenu.screen.BottomMenuContent
-import bottommenu.screen.BottomMenuViewModel
-import rememberViewModel
 
 @Composable
-public fun BottomMenuFeature() {
-    val vm = rememberViewModel(BottomMenuViewModel::class) { BottomMenuViewModel() }
-
+public fun BottomMenuFeature(
+    items: List<Pair<ImageVector, String>>,
+    onClick: (index: Int) -> Unit,
+    screen: @Composable () -> Unit
+) {
     BottomMenuContent(
-        vm = vm,
+        items = items,
+        onClick = onClick,
+        screen = screen
     )
 }
