@@ -1,8 +1,7 @@
 plugins {
-    kotlin("multiplatform")
-    id("com.android.library")
-    id("org.jetbrains.compose")
-    id("org.jetbrains.kotlin.plugin.parcelize")
+    alias(libs.plugins.kotlin.multiplatform)
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.compose)
 }
 
 apply(from = "../../config/gradle/build-scripts/kotlin.gradle")
@@ -27,7 +26,6 @@ kotlin {
 
                 // Utils
                 implementation(libs.uuid)
-                implementation(libs.parcelize)
 
                 // Koin
                 implementation(libs.koin.core)

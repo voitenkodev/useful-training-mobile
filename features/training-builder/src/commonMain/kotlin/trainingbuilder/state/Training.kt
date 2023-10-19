@@ -2,10 +2,7 @@ package trainingbuilder.state
 
 import DateTimeKtx
 import androidx.compose.runtime.Immutable
-import dev.icerock.moko.parcelize.Parcelable
-import dev.icerock.moko.parcelize.Parcelize
 
-@Parcelize
 @Immutable
 internal data class Training(
     val id: String? = null,
@@ -15,4 +12,4 @@ internal data class Training(
     val tonnage: Double? = null,
     val countOfLifting: Int? = null,
     val intensity: Double? = null
-) : Parcelable
+)

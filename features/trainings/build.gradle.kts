@@ -1,8 +1,7 @@
 plugins {
-    kotlin("multiplatform")
-    id("com.android.library")
-    id("org.jetbrains.compose")
-    id("org.jetbrains.kotlin.plugin.parcelize")
+    alias(libs.plugins.kotlin.multiplatform)
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.compose)
 }
 
 apply(from = "../../config/gradle/build-scripts/kotlin.gradle")
@@ -19,7 +18,6 @@ kotlin {
 
                 implementation(projects.common.instruments)
                 implementation(projects.common.designSystem)
-                implementation(projects.common.resources) // TODO DO I NEED IT?
                 implementation(projects.common.charts)
                 implementation(projects.common.architectureComponent)
 
@@ -27,10 +25,6 @@ kotlin {
                 implementation(compose.ui)
                 implementation(compose.foundation)
                 implementation(compose.material) // ICONS (mb remove)
-
-                // Utils
-                implementation(libs.uuid)
-                implementation(libs.parcelize)
 
                 // Koin
                 implementation(libs.koin.core)
