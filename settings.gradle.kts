@@ -13,6 +13,8 @@ dependencyResolutionManagement.repositories {
     mavenCentral()
     mavenLocal()
     maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
+    // Navigation Decompose + Compose
+    maven("https://s01.oss.sonatype.org/content/repositories/snapshots/")
 }
 
 rootProject.name = "UsefulTraining"
@@ -43,5 +45,6 @@ include(
     "features:authentication",
     "features:bottom-menu",
     "features:trainings",
+    "features:statistic",
     "features:training-builder",
 )

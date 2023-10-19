@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -48,6 +49,10 @@ private fun Content(
 
     val currentIndex = remember { mutableStateOf(0) }
 
+    LaunchedEffect(currentIndex.value) {
+        onClick.invoke(currentIndex.value)
+    }
+
     Column(
         modifier = Modifier.fillMaxWidth()
     ) {
@@ -70,10 +75,7 @@ private fun Content(
                     text = items[it].second,
                     icon = items[it].first,
                     isSelected = currentIndex.value == it,
-                    onClick = {
-                        currentIndex.value = it
-                        onClick.invoke(it)
-                    }
+                    onClick = { currentIndex.value = it }
                 )
             }
         }

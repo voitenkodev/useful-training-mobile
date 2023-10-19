@@ -21,6 +21,7 @@ kotlin {
                 implementation(projects.features.splash)
                 implementation(projects.features.authentication)
                 implementation(projects.features.trainings)
+                implementation(projects.features.statistic)
                 implementation(projects.features.trainingBuilder)
 
                 // Services for DI
@@ -43,6 +44,9 @@ kotlin {
 
                 // Koin
                 implementation(libs.koin.core)
+
+                // https://github.com/xxfast/Decompose-Router/tree/main
+                implementation(libs.decompose.router)
             }
         }
 
