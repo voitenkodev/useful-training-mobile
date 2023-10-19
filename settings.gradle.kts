@@ -41,6 +41,7 @@ include(
 
     "features:splash",
     "features:authentication",
+    "features:bottom-menu",
     "features:trainings",
     "features:training-builder",
 )

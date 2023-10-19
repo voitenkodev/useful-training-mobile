@@ -17,6 +17,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 // Features
+                implementation(projects.features.bottomMenu)
                 implementation(projects.features.splash)
                 implementation(projects.features.authentication)
                 implementation(projects.features.trainings)
