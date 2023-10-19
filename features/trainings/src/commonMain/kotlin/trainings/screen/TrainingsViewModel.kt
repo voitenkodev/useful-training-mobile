@@ -1,6 +1,5 @@
 package trainings.screen
 
-import AuthRepository
 import DateTimeKtx
 import DateTimeKtx.addEarlyCalendarChunk
 import TrainingRepository
@@ -12,8 +11,8 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
-import trainings.mapping.toTrainingState
 import org.koin.core.component.inject
+import trainings.mapping.toTrainingState
 import trainings.state.SelectableCalendar
 import trainings.state.State
 import trainings.state.Training
@@ -24,7 +23,6 @@ class TrainingsViewModel : ViewModel() {
     internal val state: StateFlow<State> = _state
 
     private val trainingApi by inject<TrainingRepository>()
-    private val authApi by inject<AuthRepository>()
 
     companion object {
         private const val DAY_PAGE_CHUNK = 40
@@ -50,11 +48,6 @@ class TrainingsViewModel : ViewModel() {
             }.catch {
                 _state.value = state.value.copy(loading = false, error = it.message)
             }.launchIn(this)
-    }
-
-    fun logout(onSuccess: () -> Unit) = launch {
-        authApi.logout()
-        onSuccess.invoke()
     }
 
     fun addCalendarChunk() {

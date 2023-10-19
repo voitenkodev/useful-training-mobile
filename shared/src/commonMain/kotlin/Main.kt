@@ -65,7 +65,6 @@ internal fun Main(modifier: Modifier = Modifier) {
                         toTrainingById = { id -> router.push(Graph.Review(id)) },
                         toNewTraining = { router.push(Graph.Training(null)) },
                         addTrainingWithTemplate = { id -> router.push(Graph.Training(id)) },
-                        toAuth = { router.replaceAll(Graph.Auth) },
                         back = router::pop,
                     )
                 }

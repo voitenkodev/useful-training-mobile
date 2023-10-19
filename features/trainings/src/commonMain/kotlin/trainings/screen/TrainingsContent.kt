@@ -1,17 +1,11 @@
 package trainings.screen
 
 import DateTimeKtx
-import Design
 import PlatformBackHandler
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
@@ -22,16 +16,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.unit.dp
 import components.Error
 import components.Loading
-import trainings.components.PaginatedCalendar
-import trainings.components.TrainingItem
 import components.placeholders.EmptyTraining
 import components.roots.Root
-import controls.TextFieldH3
 import platformBottomInset
+import trainings.components.NewTraining
+import trainings.components.PaginatedCalendar
+import trainings.components.TrainingItem
 import trainings.state.SelectableCalendar
 import trainings.state.Training
 
@@ -42,7 +34,6 @@ fun TrainingsContent(
     toNewTraining: () -> Unit,
     addTrainingWithTemplate: (trainingId: String) -> Unit,
     back: () -> Unit,
-    toAuth: () -> Unit,
 ) {
 
     val state by vm.state.collectAsState()
@@ -57,7 +48,6 @@ fun TrainingsContent(
         clearError = vm::clearError,
         back = back,
         newTraining = toNewTraining,
-        logout = { vm.logout(toAuth) },
         calendar = state.calendar,
         trainings = { state.trainings },
         openTraining = toTrainingById,
@@ -77,7 +67,6 @@ private fun Content(
 
     // HEADER
     newTraining: () -> Unit,
-    logout: () -> Unit,
 
     // CONTENT
     calendar: List<SelectableCalendar>,
@@ -156,29 +145,4 @@ private fun Content(
             }
         }
     }
-}
-
-@Composable
-private fun NewTraining(newTraining: () -> Unit) {
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .aspectRatio(2f)
-            .padding(Design.dp.paddingM)
-            .border(
-                width = 1.dp,
-                shape = Design.shape.default,
-                color = Design.colors.caption
-            ).clickable(onClick = newTraining)
-            .clip(shape = Design.shape.default),
-        content = {
-
-            TextFieldH3(
-                modifier = Modifier
-                    .align(Alignment.Center),
-                provideText = { "ADD WORKOUT" },
-                color = Design.colors.content
-            )
-        }
-    )
 }
