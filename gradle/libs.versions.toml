@@ -1,80 +1,67 @@
 [versions]
-kotlin-vers = "1.9.10"
-kotlin-native-vers = "1.3.41"
 
-
-agp-version="8.1.1"
-compose-version="1.5.10-beta02"
-moko-resources="0.22.3"
-
-coroutines-vers = "1.7.1"
-activity-compose-vers = "1.7.2"
-appcompat-vers = "1.6.1"
-serialization-vers = "1.5.0"
-datetime-vers = "0.4.0"
-parcelize-vers = "0.8.0"
-ktor-vers = "2.3.0"
-datastore-vers = "1.1.0-alpha04" # dont use alpha05 (broken for ios)
-uuid-vers = "0.7.0"
-koin-vers = "3.4.0"
-sqldelight-vers = "2.0.0-alpha05"
-media3-exoplayer-vers = "1.1.1"
-moko-resources-version = "0.23.0"
-decompose-vers = "2.0.2-compose-experimental"
+kotlin = "1.9.10"
+agp = "8.1.2"
+compose = "1.5.10-beta02"
+coroutines = "1.7.1"
+moko-resources = "0.23.0"
+activity-compose = "1.8.0"
+appcompat = "1.6.1"
+serialization = "1.5.0"
+datetime = "0.4.0"
+ktor = "2.3.0"
+datastore = "1.1.0-alpha04" # dont use alpha05 (broken for ios)
+uuid = "0.7.0"
+koin = "3.4.0"
+sqldelight = "2.0.0-alpha05"
+media3-exoplayer = "1.1.1"
+decompose = "2.0.2-compose-experimental"
 decompose-router = "0.5.0"
 
 [libraries]
-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines-vers" }
-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization-vers" }
-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "datetime-vers" }
-parcelize = { module = "dev.icerock.moko:parcelize", version.ref = "parcelize-vers" }
-datastore = { module = "androidx.datastore:datastore-preferences-core", version.ref = "datastore-vers" }
-uuid = { module = "com.benasher44:uuid", version.ref = "uuid-vers" }
+coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization" }
+datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "datetime" }
+datastore = { module = "androidx.datastore:datastore-preferences-core", version.ref = "datastore" }
+uuid = { module = "com.benasher44:uuid", version.ref = "uuid" }
 
-# ANDROID
-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activity-compose-vers" }
-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat-vers" }
-media3-exoplayer = { module = "androidx.media3:media3-exoplayer", version.ref = "media3-exoplayer-vers" }
-media3-exoplayer-ui = { module = "androidx.media3:media3-ui", version.ref = "media3-exoplayer-vers" }
-media3-exoplayer-dash = { module = "androidx.media3:media3-exoplayer-dash", version.ref = "media3-exoplayer-vers" }
+activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activity-compose" }
+appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
 
-ktor-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor-vers" }
-ktor-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor-vers" }
-ktor-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor-vers" }
-ktor-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor-vers" }
-ktor-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor-vers" }
-ktor-auth = { module = "io.ktor:ktor-client-auth", version.ref = "ktor-vers" }
-ktor-serialization = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor-vers" }
+media3-exoplayer = { module = "androidx.media3:media3-exoplayer", version.ref = "media3-exoplayer" }
+media3-exoplayer-ui = { module = "androidx.media3:media3-ui", version.ref = "media3-exoplayer" }
+media3-exoplayer-dash = { module = "androidx.media3:media3-exoplayer-dash", version.ref = "media3-exoplayer" }
 
-sqldelight-android = { module = "app.cash.sqldelight:android-driver", version.ref = "sqldelight-vers" }
-sqldelight-native = { module = "app.cash.sqldelight:native-driver", version.ref = "sqldelight-vers" }
-sqldelight-coroutine = { module = "app.cash.sqldelight:coroutines-extensions", version.ref = "sqldelight-vers" }
+ktor-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
+ktor-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor" }
+ktor-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
+ktor-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" }
+ktor-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
+ktor-auth = { module = "io.ktor:ktor-client-auth", version.ref = "ktor" }
+ktor-serialization = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
 
-koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin-vers" }
-koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin-vers" }
+sqldelight-android = { module = "app.cash.sqldelight:android-driver", version.ref = "sqldelight" }
+sqldelight-native = { module = "app.cash.sqldelight:native-driver", version.ref = "sqldelight" }
+sqldelight-coroutine = { module = "app.cash.sqldelight:coroutines-extensions", version.ref = "sqldelight" }
 
-decompose = { module = "com.arkivanov.decompose:decompose", version.ref = "decompose-vers" }
-decompose-extensions = { module = "com.arkivanov.decompose:extensions-compose-jetbrains", version.ref = "decompose-vers" }
+koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
+koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
+
+decompose = { module = "com.arkivanov.decompose:decompose", version.ref = "decompose" }
+decompose-extensions = { module = "com.arkivanov.decompose:extensions-compose-jetbrains", version.ref = "decompose" }
 decompose-router = { module = "io.github.xxfast:decompose-router", version.ref = "decompose-router" }
 
-moko-resources = { module = "dev.icerock.moko:resources", version.ref = "moko-resources-version" }
-moko-resources-compose = { module = "dev.icerock.moko:resources-compose", version.ref = "moko-resources-version" }
+moko-resources = { module = "dev.icerock.moko:resources", version.ref = "moko-resources" }
+moko-resources-compose = { module = "dev.icerock.moko:resources-compose", version.ref = "moko-resources" }
 
 [plugins]
-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin-vers" }
-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin-vers" }
-kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin-vers" }
-kotlin-cocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotlin-vers" }
-kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin-vers" }
-kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin-vers" }
-kotlin-native = { id = "org.jetbrains.kotlin.platform.native", version.ref = "kotlin-native-vers" }
-
-android-base = { id = "com.android.base", version.ref = "agp-version" }
-android-app = { id = "com.android.application", version.ref = "agp-version" }
-android-library = { id = "com.android.library", version.ref = "agp-version" }
-
-compose = { id = "org.jetbrains.compose", version.ref = "compose-version" }
-sqldelight = { id = "app.cash.sqldelight", version.ref = "sqldelight-vers" }
-
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+kotlin-cocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotlin" }
+kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+android-app = { id = "com.android.application", version.ref = "agp" }
+android-library = { id = "com.android.library", version.ref = "agp" }
+compose = { id = "org.jetbrains.compose", version.ref = "compose" }
+sqldelight = { id = "app.cash.sqldelight", version.ref = "sqldelight" }
 moko-resources = { id = "dev.icerock.mobile.multiplatform-resources", version.ref = "moko-resources" }
-

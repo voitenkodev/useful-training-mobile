@@ -2,7 +2,6 @@ plugins {
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.android.library)
     alias(libs.plugins.compose)
-    alias(libs.plugins.kotlin.parcelize)
 }
 
 apply(from = "../../config/gradle/build-scripts/kotlin.gradle")
@@ -16,10 +15,10 @@ kotlin {
             dependencies {
                 implementation(compose.foundation)
 
-                // Decompose + Compose
+                // Decompose
                 api(libs.decompose)
-                api(libs.decompose.router)
                 api(libs.decompose.extensions)
+                api(libs.decompose.router)
 
                 // Koin
                 implementation(libs.koin.core)

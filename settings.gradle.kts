@@ -13,7 +13,7 @@ dependencyResolutionManagement.repositories {
     mavenCentral()
     mavenLocal()
     maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
-    // Navigation Decompose + Compose
+    // Navigation Decompose
     maven("https://s01.oss.sonatype.org/content/repositories/snapshots/")
 }
 

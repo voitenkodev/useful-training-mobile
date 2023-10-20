@@ -4,6 +4,5 @@ import androidx.compose.runtime.Immutable
 
 @Immutable
 internal data class State(
-    val error: String? = null,
-    val loading: Boolean = false
+    val menu: List<Menu> = Menu.entries.toList(),
 )

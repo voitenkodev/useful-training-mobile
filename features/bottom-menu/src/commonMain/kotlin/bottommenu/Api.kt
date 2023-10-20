@@ -1,19 +1,24 @@
 package bottommenu
 
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.vector.ImageVector
 import bottommenu.screen.BottomMenuContent
+import bottommenu.screen.BottomMenuViewModel
+import io.github.xxfast.decompose.router.rememberOnRoute
 
 @Composable
 public fun BottomMenuFeature(
-    items: List<Pair<ImageVector, String>>,
-    selected: Pair<ImageVector, String>,
+    selectedIndex: Int,
     onClick: (index: Int) -> Unit,
     screen: @Composable () -> Unit
 ) {
+
+    val vm: BottomMenuViewModel = rememberOnRoute(BottomMenuViewModel::class) {
+        BottomMenuViewModel()
+    }
+
     BottomMenuContent(
-        items = items,
-        selected = selected,
+        vm = vm,
+        selectedIndex = selectedIndex,
         onClick = onClick,
         screen = screen
     )

@@ -4,8 +4,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import atomic.icons.HandWeight
-import atomic.icons.Weight
 import bottommenu.BottomMenuFeature
 import com.arkivanov.decompose.router.stack.bringToFront
 import com.arkivanov.essenty.parcelable.Parcelable
@@ -28,24 +26,17 @@ internal fun BottomMenuGraph() {
         listOf(BottomMenuRouter.Trainings)
     }
 
-    val menu = listOf(
-        Weight to "Trainings",
-        HandWeight to "Statistic",
-    )
-    val selected = remember {
-        mutableStateOf(menu.first())
-    }
+    val selectedIndex = remember { mutableStateOf(0) }
 
     LaunchedEffect(router.stack.value.active.configuration) {
         when (router.stack.value.active.configuration) {
-            BottomMenuRouter.Trainings -> selected.value = menu[0]
-            BottomMenuRouter.Statistic -> selected.value = menu[1]
+            BottomMenuRouter.Trainings -> selectedIndex.value = 0
+            BottomMenuRouter.Statistic -> selectedIndex.value = 1
         }
     }
 
     BottomMenuFeature(
-        items = menu,
-        selected = selected.value,
+        selectedIndex = selectedIndex.value,
         onClick = {
             val newRoute = when (it) {
                 0 -> BottomMenuRouter.Trainings
@@ -55,9 +46,8 @@ internal fun BottomMenuGraph() {
         },
         screen = {
             RoutedContent(
-                router = router,
+                router = router
             ) { child ->
-
                 when (child) {
                     BottomMenuRouter.Trainings -> TrainingsGraph()
                     BottomMenuRouter.Statistic -> StatisticFeature()

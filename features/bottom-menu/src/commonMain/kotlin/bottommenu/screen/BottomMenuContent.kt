@@ -9,22 +9,27 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
 import bottommenu.components.MenuItem
+import bottommenu.state.Menu
 import platformBottomInset
 
 @Composable
 internal fun BottomMenuContent(
-    items: List<Pair<ImageVector, String>>,
-    selected: Pair<ImageVector, String>,
+    vm: BottomMenuViewModel,
+    selectedIndex: Int,
     onClick: (index: Int) -> Unit,
     screen: @Composable () -> Unit
 ) {
+
+    val state by vm.state.collectAsState()
+
     Content(
-        items = items,
-        selected = selected,
+        menu = state.menu,
+        selectedIndex = selectedIndex,
         onClick = onClick,
         screen = screen
     )
@@ -32,8 +37,8 @@ internal fun BottomMenuContent(
 
 @Composable
 private fun Content(
-    items: List<Pair<ImageVector, String>>,
-    selected: Pair<ImageVector, String>,
+    menu: List<Menu>,
+    selectedIndex: Int,
     onClick: (index: Int) -> Unit,
     screen: @Composable () -> Unit
 ) {
@@ -56,12 +61,13 @@ private fun Content(
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            repeat(items.size) {
+
+            repeat(menu.size) {
                 MenuItem(
                     modifier = Modifier.weight(1f),
-                    text = items[it].second,
-                    icon = items[it].first,
-                    isSelected = selected == items[it],
+                    text = menu[it].text,
+                    icon = menu[it].icon,
+                    isSelected = selectedIndex == it,
                     onClick = { onClick.invoke(it) }
                 )
             }

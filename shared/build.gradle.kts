@@ -3,7 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.cocoapods)
     alias(libs.plugins.android.library)
     alias(libs.plugins.compose)
-    alias(libs.plugins.kotlin.parcelize) // For Parcelize Navigation Graph
+    alias(libs.plugins.kotlin.parcelize) // For Navigation Graph
 }
 
 apply(from = "../config/gradle/build-scripts/android.gradle")
