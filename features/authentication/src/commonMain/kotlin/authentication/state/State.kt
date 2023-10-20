@@ -6,9 +6,7 @@ import androidx.compose.runtime.Immutable
 internal data class State(
     val email: String = "",
     val password: String = "",
-
-    val hasUser: Boolean = false,
-
+    val tokenStatus: TokenStatus = TokenStatus.Unavailable,
     val error: String? = null,
     val loading: Boolean = false
 )

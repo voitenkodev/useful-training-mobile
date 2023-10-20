@@ -2,18 +2,30 @@ package splash.screen
 
 import AuthRepository
 import ViewModel
+import splash.state.State
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.koin.core.component.inject
+import splash.state.TokenStatus
 
 internal class SplashViewModel : ViewModel() {
 
     private val api by inject<AuthRepository>()
-    fun checkToken(
-        onAuth: () -> Unit,
-        onNonAuth: () -> Unit
-    ) = launch {
-        if (api.getToken().firstOrNull() == null) onNonAuth.invoke()
-        else onAuth.invoke()
+
+    private val _state = MutableStateFlow(State())
+    val state: StateFlow<State> = _state
+
+    init {
+        subscribeToken()
+    }
+
+    private fun subscribeToken() = launch {
+        _state.update {
+            if (api.getToken().firstOrNull() == null) it.copy(tokenStatus = TokenStatus.Unavailable)
+            else it.copy(tokenStatus = TokenStatus.Available)
+        }
     }
 }

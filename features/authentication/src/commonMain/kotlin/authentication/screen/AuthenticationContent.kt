@@ -19,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
+import authentication.state.TokenStatus
 import components.Error
 import components.Loading
 import components.backgrounds.BackgroundIntro
@@ -46,8 +47,8 @@ internal fun AuthenticationContent(
 
     val state by vm.state.collectAsState()
 
-    LaunchedEffect(state.hasUser) {
-        if (state.hasUser) toTrainings.invoke()
+    LaunchedEffect(state.tokenStatus) {
+        if (state.tokenStatus == TokenStatus.Available) toTrainings.invoke()
     }
 
     Content(

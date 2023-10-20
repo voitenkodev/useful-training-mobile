@@ -4,8 +4,11 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import controls.rootBackground
+import splash.state.TokenStatus
 
 @Composable
 internal fun SplashContent(
@@ -14,13 +17,18 @@ internal fun SplashContent(
     toAuthentication: () -> Unit
 ) {
 
-    LaunchedEffect(Unit) {
-        vm.checkToken(
-            onAuth = toTrainings,
-            onNonAuth = toAuthentication
-        )
+    val state by vm.state.collectAsState()
+
+    LaunchedEffect(state.tokenStatus) {
+        if (state.tokenStatus == TokenStatus.Available) toTrainings.invoke()
+        else if (state.tokenStatus == TokenStatus.Unavailable) toAuthentication.invoke()
     }
 
+    Content()
+}
+
+@Composable
+private fun Content() {
     Box(
         modifier = Modifier
             .fillMaxSize()

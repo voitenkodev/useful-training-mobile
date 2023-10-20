@@ -8,12 +8,12 @@ internal enum class Menu(
     val text: String,
     val icon: ImageVector
 ) {
-    Statistics(
-        text = "Statistics",
-        icon = Time
-    ),
     Trainings(
         text = "Trainings",
         icon = Weight
+    ),
+    Statistics(
+        text = "Statistics",
+        icon = Time
     )
 }

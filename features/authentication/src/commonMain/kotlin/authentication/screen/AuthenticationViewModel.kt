@@ -3,6 +3,7 @@ package authentication.screen
 import AuthRepository
 import ViewModel
 import authentication.state.State
+import authentication.state.TokenStatus
 import isEmailValid
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -30,7 +31,7 @@ internal class AuthenticationViewModel : ViewModel() {
             .getToken()
             .filterNotNull()
             .onEach {
-                _state.update { it.copy(loading = false, error = null, hasUser = true) }
+                _state.update { it.copy(loading = false, error = null, tokenStatus = TokenStatus.Available) }
             }.launchIn(this)
     }
 

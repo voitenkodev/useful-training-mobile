@@ -13,16 +13,12 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(projects.domain.authentication)
-
-                implementation(projects.common.instruments)
                 implementation(projects.common.designSystem)
                 implementation(projects.common.architectureComponent)
 
                 // Compose
                 implementation(compose.ui)
                 implementation(compose.foundation)
-                implementation(compose.material3)
 
                 // Koin
                 implementation(libs.koin.core)

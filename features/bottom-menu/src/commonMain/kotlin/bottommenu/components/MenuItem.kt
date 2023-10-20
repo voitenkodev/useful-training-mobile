@@ -30,12 +30,16 @@ internal fun MenuItem(
 ) {
 
     val background =
-        if (isSelected) Design.colors.primary.copy(alpha = 0.6f)
+        if (isSelected) Design.colors.primary
         else Color.Transparent
 
-    val contentColor =
-        if (isSelected) Design.colors.content
-        else Design.colors.accent_primary
+    val textColor =
+        if (isSelected) Design.colors.accent_primary
+        else Color.Transparent
+
+    val iconColor =
+        if (isSelected) Design.colors.accent_primary
+        else Design.colors.caption
 
     Box(
         modifier = modifier
@@ -55,13 +59,14 @@ internal fun MenuItem(
             IconPrimary(
                 modifier = Modifier.size(26.dp),
                 imageVector = if (isSelected) icon else icon,
-                onClick = onClick
+                onClick = onClick,
+                color = iconColor
             )
 
             AnimatedVisibility(visible = isSelected) {
                 TextFieldBody2(
                     provideText = { text },
-                    color = contentColor
+                    color = textColor
                 )
             }
         }
