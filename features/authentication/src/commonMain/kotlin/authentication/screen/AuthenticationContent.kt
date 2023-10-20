@@ -46,8 +46,8 @@ internal fun AuthenticationContent(
 
     val state by vm.state.collectAsState()
 
-    LaunchedEffect(Unit) {
-        vm.subscribeToken(toTrainings)
+    LaunchedEffect(state.hasUser) {
+        if (state.hasUser) toTrainings.invoke()
     }
 
     Content(

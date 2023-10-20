@@ -21,6 +21,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import components.labels.InputLabel
 import controls.IconPrimary
 import controls.InputFieldPrimary
+import controls.reversedCircleBackground
 import controls.rootBackground
 import recomposeHighlighter
 
@@ -34,11 +35,12 @@ public fun InputSearch(
 
     InputFieldPrimary(
         modifier = modifier
-            .rootBackground()
+            .reversedCircleBackground()
             .padding(horizontal = Design.dp.paddingM)
             .recomposeHighlighter(),
         provideValue = value,
         onValueChange = onValueChange,
+        color = Design.colors.primary,
         trailing = {
             AnimatedVisibility(
                 modifier = Modifier.recomposeHighlighter(),
@@ -57,7 +59,7 @@ public fun InputSearch(
         leading = {
             InputLabel(
                 modifier = Modifier.recomposeHighlighter(),
-                provideText = { "Exercise" }
+                provideText = { "Search" }
             )
         },
         maxLines = 1,

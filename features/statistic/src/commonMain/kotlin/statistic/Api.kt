@@ -7,7 +7,10 @@ import statistic.screen.StatisticViewModel
 
 @Composable
 public fun StatisticFeature() {
-    val vm = rememberOnRoute(StatisticViewModel::class) { StatisticViewModel() }
+
+    val vm = rememberOnRoute(StatisticViewModel::class) {
+        StatisticViewModel()
+    }
 
     StatisticContent(
         vm = vm,

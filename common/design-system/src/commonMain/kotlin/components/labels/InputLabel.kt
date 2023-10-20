@@ -19,7 +19,7 @@ public fun InputLabel(
             .width(72.dp)
             .recomposeHighlighter(),
         provideText = provideText,
-        color = Design.colors.caption,
+        color = Design.colors.primary,
         maxLines = 1,
         overflow = TextOverflow.Ellipsis
     )
