@@ -1,5 +1,4 @@
 [versions]
-decompose-router = "0.5.0"
 kotlin-vers = "1.9.10"
 kotlin-native-vers = "1.3.41"
 
@@ -22,6 +21,7 @@ sqldelight-vers = "2.0.0-alpha05"
 media3-exoplayer-vers = "1.1.1"
 moko-resources-version = "0.23.0"
 decompose-vers = "2.0.2-compose-experimental"
+decompose-router = "0.5.0"
 
 [libraries]
 coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines-vers" }

@@ -1,18 +1,16 @@
 package graph
 
-import RoutedContent
-import Router
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import bottommenu.BottomMenuFeature
-import com.arkivanov.decompose.extensions.compose.jetbrains.stack.animation.stackAnimation
 import com.arkivanov.decompose.router.stack.bringToFront
-import com.arkivanov.decompose.router.stack.replaceAll
 import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.parcelable.Parcelize
-import rememberRouter
+import io.github.xxfast.decompose.router.Router
+import io.github.xxfast.decompose.router.content.RoutedContent
+import io.github.xxfast.decompose.router.rememberRouter
 import statistic.StatisticFeature
 
 @Parcelize
@@ -24,10 +22,9 @@ internal sealed class BottomMenuRouter : Parcelable {
 @Composable
 internal fun BottomMenuGraph() {
 
-    val router: Router<BottomMenuRouter> = rememberRouter(
-        BottomMenuRouter::class,
+    val router: Router<BottomMenuRouter> = rememberRouter(BottomMenuRouter::class) {
         listOf(BottomMenuRouter.Trainings)
-    )
+    }
 
     val menu = listOf(
         Icons.Default.Search to "Search",
@@ -46,7 +43,6 @@ internal fun BottomMenuGraph() {
         screen = {
             RoutedContent(
                 router = router,
-                animation = stackAnimation()
             ) { child ->
 
                 when (child) {

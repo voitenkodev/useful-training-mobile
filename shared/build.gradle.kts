@@ -44,9 +44,6 @@ kotlin {
 
                 // Koin
                 implementation(libs.koin.core)
-
-                // https://github.com/xxfast/Decompose-Router/tree/main
-                implementation(libs.decompose.router)
             }
         }
 

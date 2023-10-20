@@ -1,7 +1,7 @@
 package trainingbuilder
 
 import androidx.compose.runtime.Composable
-import rememberViewModel
+import io.github.xxfast.decompose.router.rememberOnRoute
 import trainingbuilder.screen.TrainingContent
 import trainingbuilder.screen.TrainingViewModel
 
@@ -11,7 +11,7 @@ public fun TrainingFeature(
     toReview: (trainingId: String) -> Unit,
     back: () -> Unit
 ) {
-    val vm = rememberViewModel(TrainingViewModel::class) { TrainingViewModel() }
+    val vm = rememberOnRoute(TrainingViewModel::class) { TrainingViewModel() }
 
     TrainingContent(
         vm = vm,

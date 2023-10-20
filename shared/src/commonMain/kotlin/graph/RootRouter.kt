@@ -1,13 +1,12 @@
 package graph
 
-import RoutedContent
-import Router
 import androidx.compose.runtime.Composable
-import com.arkivanov.decompose.extensions.compose.jetbrains.stack.animation.stackAnimation
 import com.arkivanov.decompose.router.stack.replaceAll
 import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.parcelable.Parcelize
-import rememberRouter
+import io.github.xxfast.decompose.router.Router
+import io.github.xxfast.decompose.router.content.RoutedContent
+import io.github.xxfast.decompose.router.rememberRouter
 
 @Parcelize
 internal sealed class RootRouter : Parcelable {
@@ -18,11 +17,12 @@ internal sealed class RootRouter : Parcelable {
 @Composable
 internal fun RootGraph() {
 
-    val router: Router<RootRouter> = rememberRouter(RootRouter::class, listOf(RootRouter.Auth))
+    val router: Router<RootRouter> = rememberRouter(RootRouter::class) {
+        listOf(RootRouter.Auth)
+    }
 
     RoutedContent(
         router = router,
-        animation = stackAnimation()
     ) { child ->
         when (child) {
             RootRouter.Auth -> AuthGraph(

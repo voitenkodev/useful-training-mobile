@@ -1,7 +1,7 @@
 package splash
 
 import androidx.compose.runtime.Composable
-import rememberViewModel
+import io.github.xxfast.decompose.router.rememberOnRoute
 import splash.screen.SplashContent
 import splash.screen.SplashViewModel
 
@@ -10,7 +10,7 @@ public fun SplashFeature(
     toTrainings: () -> Unit,
     toAuthentication: () -> Unit,
 ) {
-    val vm = rememberViewModel(SplashViewModel::class) { SplashViewModel() }
+    val vm = rememberOnRoute(SplashViewModel::class) { SplashViewModel() }
 
     SplashContent(
         vm = vm,

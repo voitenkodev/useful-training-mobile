@@ -1,16 +1,34 @@
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.window.ComposeUIViewController
-import com.arkivanov.decompose.DefaultComponentContext
-import com.arkivanov.essenty.lifecycle.LifecycleRegistry
+import com.arkivanov.decompose.ExperimentalDecomposeApi
+import com.arkivanov.decompose.extensions.compose.jetbrains.PredictiveBackGestureIcon
+import com.arkivanov.decompose.extensions.compose.jetbrains.PredictiveBackGestureOverlay
+import com.arkivanov.essenty.backhandler.BackDispatcher
+import io.github.xxfast.decompose.router.LocalRouterContext
+import io.github.xxfast.decompose.router.RouterContext
 import platform.UIKit.UIViewController
 
-public fun main(): UIViewController {
-    return ComposeUIViewController {
-        val lifecycle = LifecycleRegistry()
-        val rootComponentContext = DefaultComponentContext(lifecycle = lifecycle)
-
-        CompositionLocalProvider(LocalComponentContext provides rootComponentContext) {
-            Main()
-        }
+/*
+* See: https://github.com/xxfast/Decompose-Router/tree/main
+* How to implement router in Swift / Objective C
+* */
+@OptIn(ExperimentalDecomposeApi::class)
+public fun MainUIController(routerContext: RouterContext): UIViewController = ComposeUIViewController {
+    CompositionLocalProvider(LocalRouterContext provides routerContext) {
+        PredictiveBackGestureOverlay(
+            modifier = Modifier.fillMaxSize(),
+            backDispatcher = routerContext.backHandler as BackDispatcher, // Use the same BackDispatcher as above
+            backIcon = { progress, _ ->
+                PredictiveBackGestureIcon(
+                    imageVector = Icons.Default.ArrowBack,
+                    progress = progress,
+                )
+            },
+            content = { Main() }
+        )
     }
 }

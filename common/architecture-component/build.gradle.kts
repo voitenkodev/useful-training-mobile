@@ -16,8 +16,9 @@ kotlin {
             dependencies {
                 implementation(compose.foundation)
 
-                // Decompose
+                // Decompose + Compose
                 api(libs.decompose)
+                api(libs.decompose.router)
                 api(libs.decompose.extensions)
 
                 // Koin
