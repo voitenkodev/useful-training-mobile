@@ -22,7 +22,9 @@ internal fun AuthGraph(
     toTrainings: () -> Unit
 ) {
 
-    val router: Router<AuthRouter> = rememberRouter(AuthRouter::class) { listOf(AuthRouter.Splash) }
+    val router: Router<AuthRouter> = rememberRouter(AuthRouter::class) {
+        listOf(AuthRouter.Splash)
+    }
 
     RoutedContent(
         router = router,

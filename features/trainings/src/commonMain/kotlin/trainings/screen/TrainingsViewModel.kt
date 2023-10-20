@@ -10,7 +10,6 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
-import kotlinx.coroutines.launch
 import org.koin.core.component.inject
 import trainings.mapping.toTrainingState
 import trainings.state.SelectableCalendar
@@ -31,9 +30,10 @@ internal class TrainingsViewModel : ViewModel() {
     init {
         addCalendarChunk()
         selectCalendarDay(DateTimeKtx.currentDateTime())
+        getTrainings()
     }
 
-    fun getTrainings() = launch {
+    private fun getTrainings() {
         trainingApi.getTrainings()
             .onStart {
                 _state.value = state.value.copy(loading = true)

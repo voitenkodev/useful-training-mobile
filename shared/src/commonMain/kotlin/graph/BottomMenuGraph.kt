@@ -1,9 +1,11 @@
 package graph
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.CheckCircle
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import atomic.icons.HandWeight
+import atomic.icons.Weight
 import bottommenu.BottomMenuFeature
 import com.arkivanov.decompose.router.stack.bringToFront
 import com.arkivanov.essenty.parcelable.Parcelable
@@ -27,12 +29,23 @@ internal fun BottomMenuGraph() {
     }
 
     val menu = listOf(
-        Icons.Default.Search to "Search",
-        Icons.Default.CheckCircle to "Statistic",
+        Weight to "Trainings",
+        HandWeight to "Statistic",
     )
+    val selected = remember {
+        mutableStateOf(menu.first())
+    }
+
+    LaunchedEffect(router.stack.value.active.configuration) {
+        when (router.stack.value.active.configuration) {
+            BottomMenuRouter.Trainings -> selected.value = menu[0]
+            BottomMenuRouter.Statistic -> selected.value = menu[1]
+        }
+    }
 
     BottomMenuFeature(
         items = menu,
+        selected = selected.value,
         onClick = {
             val newRoute = when (it) {
                 0 -> BottomMenuRouter.Trainings

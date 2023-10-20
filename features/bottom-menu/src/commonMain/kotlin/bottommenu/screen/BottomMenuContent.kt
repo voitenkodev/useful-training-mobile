@@ -14,9 +14,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -30,11 +27,13 @@ import platformBottomInset
 @Composable
 internal fun BottomMenuContent(
     items: List<Pair<ImageVector, String>>,
+    selected: Pair<ImageVector, String>,
     onClick: (index: Int) -> Unit,
     screen: @Composable () -> Unit
 ) {
     Content(
         items = items,
+        selected = selected,
         onClick = onClick,
         screen = screen
     )
@@ -43,15 +42,10 @@ internal fun BottomMenuContent(
 @Composable
 private fun Content(
     items: List<Pair<ImageVector, String>>,
+    selected: Pair<ImageVector, String>,
     onClick: (index: Int) -> Unit,
     screen: @Composable () -> Unit
 ) {
-
-    val currentIndex = remember { mutableStateOf(0) }
-
-    LaunchedEffect(currentIndex.value) {
-        onClick.invoke(currentIndex.value)
-    }
 
     Column(
         modifier = Modifier.fillMaxWidth()
@@ -74,8 +68,8 @@ private fun Content(
                     modifier = Modifier.weight(1f),
                     text = items[it].second,
                     icon = items[it].first,
-                    isSelected = currentIndex.value == it,
-                    onClick = { currentIndex.value = it }
+                    isSelected = selected == items[it],
+                    onClick = { onClick.invoke(it) }
                 )
             }
         }

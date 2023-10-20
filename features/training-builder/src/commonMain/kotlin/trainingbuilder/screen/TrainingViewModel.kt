@@ -11,11 +11,10 @@ import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
-import kotlinx.coroutines.launch
-import trainingbuilder.mapping.toBody
-import trainingbuilder.mapping.toTrainingState
 import org.koin.core.component.inject
 import round
+import trainingbuilder.mapping.toBody
+import trainingbuilder.mapping.toTrainingState
 import trainingbuilder.state.Exercise
 import trainingbuilder.state.Iteration
 import trainingbuilder.state.State
@@ -29,7 +28,7 @@ internal class TrainingViewModel : ViewModel() {
     private val api by inject<TrainingRepository>()
 
     @FlowPreview
-    fun saveTraining(onSuccess: (trainingId: String) -> Unit) = launch {
+    fun saveTraining(onSuccess: (trainingId: String) -> Unit) {
 
         val training = state.value.training
             .validate()
@@ -38,7 +37,7 @@ internal class TrainingViewModel : ViewModel() {
 
         if (training.exercises.isEmpty()) {
             showError("Empty training")
-            return@launch
+            return
         }
 
         val exerciseNames = training.exercises.map { it.name }
@@ -57,7 +56,7 @@ internal class TrainingViewModel : ViewModel() {
             .launchIn(this)
     }
 
-    fun removeExerciseNameOption(value: String) = launch {
+    fun removeExerciseNameOption(value: String) {
         api
             .removeExerciseNameOption(value)
             .onEach { removedValue ->
@@ -69,7 +68,7 @@ internal class TrainingViewModel : ViewModel() {
             }.launchIn(this)
     }
 
-    fun getExerciseNameOptions() = launch {
+    fun getExerciseNameOptions() {
         api
             .getExerciseNameOptions()
             .onEach {
@@ -79,7 +78,7 @@ internal class TrainingViewModel : ViewModel() {
             }.launchIn(this)
     }
 
-    fun getTraining(trainingId: String) = launch {
+    fun getTraining(trainingId: String) {
         api
             .getTraining(trainingId = trainingId)
             .onStart {
