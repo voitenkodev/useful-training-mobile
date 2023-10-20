@@ -67,17 +67,14 @@ internal fun AuthenticationContent(
 
 @Composable
 private fun Content(
-    // BASE
     loading: () -> Boolean,
     error: () -> String?,
     clearError: () -> Unit,
     back: () -> Unit,
 
-    // FOOTER
     login: () -> Unit,
     registration: () -> Unit,
 
-    //CONTENT
     email: () -> String,
     updateEmail: (String) -> Unit,
     password: () -> String,

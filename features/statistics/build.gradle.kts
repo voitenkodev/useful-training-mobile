@@ -7,7 +7,7 @@ plugins {
 apply(from = "../../config/gradle/build-scripts/kotlin.gradle")
 apply(from = "../../config/gradle/build-scripts/android.gradle")
 
-android { namespace = "com.voitenko.usefultraining.features.statistic" }
+android { namespace = "com.voitenko.usefultraining.features.statistics" }
 
 kotlin {
     sourceSets {
@@ -23,7 +23,6 @@ kotlin {
                 // Compose
                 implementation(compose.ui)
                 implementation(compose.foundation)
-                implementation(compose.material)
 
                 // Koin
                 implementation(libs.koin.core)

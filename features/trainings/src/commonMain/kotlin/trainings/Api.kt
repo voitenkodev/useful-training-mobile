@@ -12,7 +12,9 @@ public fun TrainingsFeature(
     addTrainingWithTemplate: (trainingId: String) -> Unit,
     back: () -> Unit,
 ) {
-    val vm = rememberOnRoute(TrainingsViewModel::class) { TrainingsViewModel() }
+    val vm = rememberOnRoute(TrainingsViewModel::class) {
+        TrainingsViewModel()
+    }
 
     TrainingsContent(
         vm = vm,

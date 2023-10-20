@@ -10,7 +10,7 @@ public fun AuthenticationFeature(
     toTrainings: () -> Unit,
     back: () -> Unit
 ) {
-    val vm: AuthenticationViewModel = rememberOnRoute(AuthenticationViewModel::class) {
+    val vm = rememberOnRoute(AuthenticationViewModel::class) {
         AuthenticationViewModel()
     }
 

@@ -22,7 +22,6 @@ kotlin {
                 // Compose
                 implementation(compose.ui)
                 implementation(compose.foundation)
-                implementation(compose.material) // ICONS (mb remove)
 
                 // Utils
                 implementation(libs.uuid)

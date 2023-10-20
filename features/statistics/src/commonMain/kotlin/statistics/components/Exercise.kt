@@ -1,4 +1,4 @@
-package statistic.components
+package statistics.components
 
 import Design
 import androidx.compose.foundation.background
@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.dp
 import controls.TextFieldBody1
 import controls.TextFieldH4
 import recomposeHighlighter
-import statistic.state.Exercise
+import statistics.state.Exercise
 
 @Composable
 internal fun Exercise(

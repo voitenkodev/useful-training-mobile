@@ -1,6 +1,6 @@
-package statistic.mapping
+package statistics.mapping
 
-import statistic.state.Exercise
+import statistics.state.Exercise
 
 internal fun List<models.Exercise>.toExerciseStateList() = this.map { it.toExerciseState() }
 

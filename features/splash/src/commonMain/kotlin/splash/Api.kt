@@ -10,7 +10,9 @@ public fun SplashFeature(
     toTrainings: () -> Unit,
     toAuthentication: () -> Unit,
 ) {
-    val vm = rememberOnRoute(SplashViewModel::class) { SplashViewModel() }
+    val vm = rememberOnRoute(SplashViewModel::class) {
+        SplashViewModel()
+    }
 
     SplashContent(
         vm = vm,

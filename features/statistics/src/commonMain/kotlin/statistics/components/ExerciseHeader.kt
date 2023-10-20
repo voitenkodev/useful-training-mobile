@@ -1,4 +1,4 @@
-package statistic.components
+package statistics.components
 
 import Design
 import androidx.compose.foundation.layout.Arrangement

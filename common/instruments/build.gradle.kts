@@ -15,7 +15,6 @@ kotlin {
             dependencies {
                 // Compose
                 implementation(compose.foundation)
-                implementation(compose.material)
 
                 // Utils
                 implementation(libs.datetime)

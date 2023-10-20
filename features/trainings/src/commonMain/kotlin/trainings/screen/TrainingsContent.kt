@@ -54,16 +54,13 @@ internal fun TrainingsContent(
 
 @Composable
 private fun Content(
-    // BASE
     loading: () -> Boolean,
     error: () -> String?,
     clearError: () -> Unit,
     back: () -> Unit,
 
-    // HEADER
     newTraining: () -> Unit,
 
-    // CONTENT
     calendar: List<SelectableCalendar>,
     trainings: () -> List<Training>,
 

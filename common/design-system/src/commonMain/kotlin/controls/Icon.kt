@@ -16,7 +16,7 @@ public fun IconPrimary(
     modifier: Modifier = Modifier,
     imageVector: ImageVector,
     color: Color = Design.colors.content,
-    onClick: () -> Unit
+    onClick: () -> Unit = {}
 ) {
     IconButton(
         modifier = modifier.size(18.dp),

@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -19,6 +18,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import atomic.icons.HandWeight
 import atomic.icons.Weight
 import basic.BasicLineChart
+import controls.IconPrimary
 import controls.TextFieldBody2
 import controls.TextFieldH4
 import controls.accentBackground
@@ -86,14 +86,13 @@ private fun DefaultItem(
         verticalAlignment = Alignment.CenterVertically
     ) {
 
-        Icon(
+        IconPrimary(
             modifier = Modifier
                 .size(Design.dp.componentS)
                 .accentBackground()
                 .padding(Design.dp.paddingS),
-            tint = Design.colors.primary,
-            imageVector = icon,
-            contentDescription = null
+            color = Design.colors.primary,
+            imageVector = icon
         )
 
         Column(
@@ -143,14 +142,13 @@ private fun ChartBlock(
             verticalAlignment = Alignment.CenterVertically
         ) {
 
-            Icon(
+            IconPrimary(
                 modifier = Modifier
                     .size(Design.dp.componentS)
                     .accentBackground()
                     .padding(Design.dp.paddingS),
-                tint = Design.colors.primary,
+                color = Design.colors.primary,
                 imageVector = icon,
-                contentDescription = null
             )
 
             Column(

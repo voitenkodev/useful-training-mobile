@@ -11,7 +11,9 @@ public fun TrainingFeature(
     toReview: (trainingId: String) -> Unit,
     back: () -> Unit
 ) {
-    val vm = rememberOnRoute(TrainingViewModel::class) { TrainingViewModel() }
+    val vm = rememberOnRoute(TrainingViewModel::class) {
+        TrainingViewModel()
+    }
 
     TrainingContent(
         vm = vm,

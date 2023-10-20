@@ -11,7 +11,7 @@ import com.arkivanov.essenty.parcelable.Parcelize
 import io.github.xxfast.decompose.router.Router
 import io.github.xxfast.decompose.router.content.RoutedContent
 import io.github.xxfast.decompose.router.rememberRouter
-import statistic.StatisticFeature
+import statistics.StatisticFeature
 
 @Parcelize
 internal sealed class BottomMenuRouter : Parcelable {

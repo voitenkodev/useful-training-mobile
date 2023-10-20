@@ -1,4 +1,4 @@
-package statistic.screen
+package statistics.screen
 
 import TrainingRepository
 import ViewModel
@@ -16,9 +16,9 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.update
 import models.ExerciseDate
 import org.koin.core.component.inject
-import statistic.mapping.toExerciseState
-import statistic.state.Info
-import statistic.state.State
+import statistics.mapping.toExerciseState
+import statistics.state.Info
+import statistics.state.State
 
 internal class StatisticViewModel : ViewModel() {
 

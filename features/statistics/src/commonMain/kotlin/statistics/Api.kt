@@ -1,9 +1,9 @@
-package statistic
+package statistics
 
 import androidx.compose.runtime.Composable
 import io.github.xxfast.decompose.router.rememberOnRoute
-import statistic.screen.StatisticContent
-import statistic.screen.StatisticViewModel
+import statistics.screen.StatisticContent
+import statistics.screen.StatisticViewModel
 
 @Composable
 public fun StatisticFeature() {
@@ -13,6 +13,6 @@ public fun StatisticFeature() {
     }
 
     StatisticContent(
-        vm = vm,
+        vm = vm
     )
 }

@@ -11,9 +11,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Done
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
@@ -23,7 +20,8 @@ import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import trainingbuilder.components.EditExercise
+import atomic.icons.ArrowLeft
+import atomic.icons.Done
 import components.Error
 import components.Loading
 import components.Popup
@@ -33,6 +31,7 @@ import controls.TextFieldH4
 import controls.rootBackground
 import kotlinx.coroutines.delay
 import recomposeHighlighter
+import trainingbuilder.components.EditExercise
 import trainingbuilder.state.Exercise
 
 @Composable
@@ -98,7 +97,6 @@ private fun Content(
     tryBack: () -> Unit,
     back: () -> Unit,
 
-    // Popups
     exitWarningVisibility: Boolean,
     closeExitScreenPopup: () -> Unit,
 
@@ -106,15 +104,12 @@ private fun Content(
     removeExercise: (id: String?) -> Unit,
     closeRemoveExercisePopup: () -> Unit,
 
-    // Header
     openExitScreenPopup: () -> Unit,
     saveTraining: () -> Unit,
 
-    // Exercise names for help input
     exerciseNames: () -> List<String>,
     removeExerciseNameOption: (String) -> Unit,
 
-    // Main Content
     exercises: State<List<Exercise>>,
     updateName: (id: String, value: String) -> Unit,
     updateWeight: (id: String, number: Int, value: String) -> Unit,
@@ -162,7 +157,7 @@ private fun Content(
             Row {
                 IconPrimary(
                     modifier = Modifier.size(Design.dp.componentM).rootBackground(),
-                    imageVector = Icons.Default.ArrowBack,
+                    imageVector = ArrowLeft,
                     onClick = openExitScreenPopupProvider
                 )
 
@@ -170,7 +165,7 @@ private fun Content(
 
                 IconPrimary(
                     modifier = Modifier.size(Design.dp.componentM).rootBackground(),
-                    imageVector = Icons.Default.Done,
+                    imageVector = Done,
                     onClick = saveTrainingProvider
                 )
             }

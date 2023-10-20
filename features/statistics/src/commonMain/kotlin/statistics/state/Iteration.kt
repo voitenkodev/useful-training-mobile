@@ -1,4 +1,4 @@
-package statistic.state
+package statistics.state
 
 import androidx.compose.runtime.Immutable
 

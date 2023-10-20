@@ -108,7 +108,6 @@ internal fun PaginatedCalendar(
 }
 
 @Composable
-
 private fun CalendarRow(
     lazyColumnListState: LazyListState,
     calendar: List<SelectableCalendar>,

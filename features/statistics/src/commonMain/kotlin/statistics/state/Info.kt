@@ -1,4 +1,4 @@
-package statistic.state
+package statistics.state
 
 import DateTimeKtx
 import androidx.compose.runtime.Immutable
@@ -12,10 +12,5 @@ internal data class Info(
         get() = DateTimeKtx.formattedWeekDay(date) ?: ""
     val dateTime: String
         get() = DateTimeKtx.formattedDateTime(date) ?: ""
-    val day: Int
-        get() = DateTimeKtx.formattedRealMonthDay(date) ?: -1
-    val month: Int
-        get() = DateTimeKtx.formattedRealMonthNum(date) ?: -1
-    val year: Int
-        get() = DateTimeKtx.formattedYear(date) ?: -1
+
 }

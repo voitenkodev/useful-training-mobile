@@ -45,6 +45,6 @@ include(
     "features:authentication",
     "features:bottom-menu",
     "features:trainings",
-    "features:statistic",
+    "features:statistics",
     "features:training-builder",
 )

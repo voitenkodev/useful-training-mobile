@@ -1,4 +1,4 @@
-package statistic.components
+package statistics.components
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue

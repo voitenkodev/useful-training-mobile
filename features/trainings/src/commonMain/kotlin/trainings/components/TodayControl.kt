@@ -7,13 +7,12 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import atomic.icons.ArrowRight
 import controls.ButtonIconBrand
 
 @Composable
@@ -39,7 +38,7 @@ internal fun BoxScope.TodayControl(
             .width(width)
             .align(Alignment.CenterEnd)
             .offset(x = animatedDp),
-        imageVector = Icons.Default.KeyboardArrowRight,
+        imageVector = ArrowRight,
         onClick = click,
         contentColor = Design.colors.primary
     )

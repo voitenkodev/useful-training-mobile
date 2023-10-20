@@ -1,4 +1,4 @@
-package statistic.components
+package statistics.components
 
 import Design
 import androidx.compose.foundation.layout.Arrangement
@@ -10,8 +10,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
-import statistic.state.Exercise
-import statistic.state.Info
+import statistics.state.Exercise
+import statistics.state.Info
 
 @Composable
 internal fun Exercises(

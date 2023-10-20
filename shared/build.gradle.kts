@@ -21,7 +21,7 @@ kotlin {
                 implementation(projects.features.splash)
                 implementation(projects.features.authentication)
                 implementation(projects.features.trainings)
-                implementation(projects.features.statistic)
+                implementation(projects.features.statistics)
                 implementation(projects.features.trainingBuilder)
 
                 // Services for DI
@@ -40,7 +40,6 @@ kotlin {
 
                 // Compose
                 implementation(compose.ui)
-                implementation(compose.material3) // TODO REMOVE IT
 
                 // Koin
                 implementation(libs.koin.core)

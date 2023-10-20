@@ -1,6 +1,6 @@
-package statistic.mapping
+package statistics.mapping
 
-import statistic.state.Iteration
+import statistics.state.Iteration
 import toDoubleOrIntString
 
 internal fun List<models.Iteration>.toIterationStateList() = this.map { it.toIterationState() }

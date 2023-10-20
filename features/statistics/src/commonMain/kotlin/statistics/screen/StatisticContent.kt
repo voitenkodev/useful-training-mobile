@@ -1,19 +1,18 @@
-package statistic.screen
+package statistics.screen
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
 import components.Error
 import components.Loading
 import components.roots.Root
 import platformTopInset
-import statistic.components.Exercises
-import statistic.components.Search
-import statistic.state.Exercise
-import statistic.state.Info
+import statistics.components.Exercises
+import statistics.components.Search
+import statistics.state.Exercise
+import statistics.state.Info
 
 @Composable
 internal fun StatisticContent(
@@ -36,12 +35,10 @@ internal fun StatisticContent(
 
 @Composable
 private fun Content(
-    // BASE
     loading: () -> Boolean,
     error: () -> String?,
     clearError: () -> Unit,
 
-    // Search
     query: () -> String,
     search: (String) -> Unit,
     removeNameOption: (String) -> Unit,
