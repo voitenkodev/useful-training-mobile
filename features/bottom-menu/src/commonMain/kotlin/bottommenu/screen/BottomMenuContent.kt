@@ -66,7 +66,7 @@ private fun Content(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(0.5.dp)
-                    .background(Design.colors.white10)
+                    .background(Design.colors.white5)
             )
 
             Row(

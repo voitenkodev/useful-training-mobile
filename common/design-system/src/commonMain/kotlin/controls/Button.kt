@@ -61,7 +61,7 @@ public fun ButtonIconBrand(
     IconButton(
         modifier = modifier
             .border(
-                color = Design.colors.white10,
+                color = Design.colors.white5,
                 width = 0.5.dp,
                 shape = Design.shape.circleShape
             )
@@ -96,7 +96,7 @@ public fun ButtonSecondaryIcon(
     IconButton(
         modifier = modifier
             .border(
-                color = Design.colors.white10,
+                color = Design.colors.white5,
                 width = 0.5.dp,
                 shape = Design.shape.circleShape
             )
@@ -131,7 +131,7 @@ public fun ButtonAccentIcon(
     IconButton(
         modifier = modifier
             .border(
-                color = Design.colors.white10,
+                color = Design.colors.white5,
                 width = 0.5.dp,
                 shape = Design.shape.circleShape
             )
