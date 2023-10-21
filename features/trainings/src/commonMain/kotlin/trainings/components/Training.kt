@@ -7,8 +7,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
 import components.buttons.ButtonQuestion
 import trainings.state.Training
@@ -19,10 +17,7 @@ internal fun TrainingItem(
     training: Training,
     onDetailsClick: () -> Unit,
     onTemplateClick: () -> Unit,
-
-    ) {
-
-    val trainingProvider by rememberUpdatedState(training)
+) {
 
     Column(
         modifier = modifier
@@ -34,7 +29,7 @@ internal fun TrainingItem(
 
         TrainingHeader(
             modifier = Modifier.padding(horizontal = Design.dp.paddingM),
-            training = trainingProvider
+            training = training
         )
 
         Spacer(
@@ -52,7 +47,7 @@ internal fun TrainingItem(
 
         Exercises(
             modifier = Modifier.padding(horizontal = Design.dp.paddingM),
-            training = trainingProvider,
+            training = training,
         )
 
         ButtonQuestion(

@@ -4,6 +4,8 @@ import DateTimeKtx
 import DateTimeKtx.addEarlyCalendarChunk
 import TrainingRepository
 import ViewModel
+import kotlinx.collections.immutable.toImmutableList
+import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
@@ -39,7 +41,11 @@ internal class TrainingsViewModel : ViewModel() {
             .onStart {
                 _state.update { it.copy(loading = true) }
             }.onEach { t ->
-                val trainings = t.map { it.toTrainingState() }
+
+                val trainings = t
+                    .map { it.toTrainingState() }
+                    .toPersistentList()
+
                 _state.update {
                     val selectedDates = it.calendar
                         .filter { c -> c.isSelected }
@@ -48,8 +54,8 @@ internal class TrainingsViewModel : ViewModel() {
                     it.copy(
                         loading = false,
                         trainings = trainings,
-                        displayedTrainings = trainings.getTrainingsByDate(selectedDates),
-                        calendar = it.calendar.syncWithTrainings(trainings)
+                        displayedTrainings = trainings.getTrainingsByDate(selectedDates).toPersistentList(),
+                        calendar = it.calendar.syncWithTrainings(trainings).toPersistentList()
                     )
                 }
             }.catch { t ->
@@ -58,21 +64,29 @@ internal class TrainingsViewModel : ViewModel() {
     }
 
     fun addCalendarChunk() {
-        val newList = state.value.calendar + addEarlyCalendarChunk(
-            count = DAY_PAGE_CHUNK,
-            previousList = state.value.calendar.map { it.dateTimeIso }
-        ).map { item ->
-            SelectableCalendar(
-                isSelected = false,
-                isToday = DateTimeKtx.isCurrentDate(item),
-                dateTimeIso = item,
-                day = DateTimeKtx.formattedDate(item) ?: "-",
-                weekDay = DateTimeKtx.formattedDayOfWeek(item) ?: "-",
-                countOfTrainings = 0
-            )
-        }.syncWithTrainings(state.value.trainings)
-
         _state.update {
+            val newList = buildList {
+                val newChunk = addEarlyCalendarChunk(
+                    count = DAY_PAGE_CHUNK,
+                    previousList = it.calendar.map { it.dateTimeIso }
+                ).map { item ->
+                    SelectableCalendar(
+                        isSelected = false,
+                        isToday = DateTimeKtx.isCurrentDate(item),
+                        dateTimeIso = item,
+                        day = DateTimeKtx.formattedDate(item) ?: "-",
+                        weekDay = DateTimeKtx.formattedDayOfWeek(item) ?: "-",
+                        countOfTrainings = 0
+                    )
+                }
+                    .syncWithTrainings(it.trainings)
+                    .toPersistentList()
+
+                addAll(it.calendar)
+                addAll(newChunk)
+
+            }.toPersistentList()
+
             it.copy(calendar = newList)
         }
     }
@@ -81,7 +95,7 @@ internal class TrainingsViewModel : ViewModel() {
         val newList = state.value.calendar.map {
             val isSelected = DateTimeKtx.isTheSameDate(it.dateTimeIso, dateTimeIso)
             it.copy(isSelected = isSelected)
-        }
+        }.toPersistentList()
 
         val selectedList = newList
             .filter { it.isSelected }
@@ -90,7 +104,7 @@ internal class TrainingsViewModel : ViewModel() {
         _state.update {
             it.copy(
                 calendar = newList,
-                displayedTrainings = it.trainings.getTrainingsByDate(selectedList)
+                displayedTrainings = it.trainings.getTrainingsByDate(selectedList).toPersistentList()
             )
         }
     }
@@ -101,7 +115,7 @@ internal class TrainingsViewModel : ViewModel() {
 
         return filter { training ->
             DateTimeKtx.isOneOfDates(training.dateIso, dateTimeIsoList)
-        }
+        }.toImmutableList()
     }
 
     private fun List<SelectableCalendar>.syncWithTrainings(trainings: List<Training>) = map { item ->

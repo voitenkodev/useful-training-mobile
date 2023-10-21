@@ -17,12 +17,16 @@ sqldelight = "2.0.0-alpha05"
 media3-exoplayer = "1.1.1"
 decompose = "2.0.2-compose-experimental"
 decompose-router = "0.5.0"
+immutable-collections = "0.3.5"
 
 [libraries]
 coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization" }
 datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "datetime" }
+immutable-collections = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version.ref = "immutable-collections" }
+
 datastore = { module = "androidx.datastore:datastore-preferences-core", version.ref = "datastore" }
+
 uuid = { module = "com.benasher44:uuid", version.ref = "uuid" }
 
 activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activity-compose" }

@@ -23,15 +23,14 @@ import controls.TextFieldBody2
 import controls.TextFieldH4
 import controls.accentBackground
 import controls.tertiaryBackground
+import kotlinx.collections.immutable.ImmutableList
 import recomposeHighlighter
 import trainings.state.Training
-import toDoubleOrIntString
-import toShortString
 
 @Composable
 internal fun TrainingHeader(
     modifier: Modifier = Modifier,
-    training: Training
+    training: Training,
 ) {
     Row(
         modifier = modifier
@@ -47,9 +46,9 @@ internal fun TrainingHeader(
                 .fillMaxHeight()
                 .tertiaryBackground(),
             title = "TONNAGE",
-            value = training.tonnage?.toShortString() ?: "-",
+            value = training.tonnage,
             icon = Weight,
-            values = training.exercises.map { it.tonnage.toFloat() }
+            values = training.tonnageExerciseList
         )
 
         Column(
@@ -65,7 +64,7 @@ internal fun TrainingHeader(
 
             DefaultItem(
                 title = "Intensity",
-                subTitle = training.intensity?.toDoubleOrIntString() ?: "-",
+                subTitle = training.intensity,
                 icon = HandWeight
             )
         }
@@ -118,7 +117,7 @@ private fun ChartBlock(
     title: String,
     value: String,
     icon: ImageVector,
-    values: List<Float>,
+    values: ImmutableList<Float>,
 ) {
     Column(modifier = modifier.recomposeHighlighter()) {
 

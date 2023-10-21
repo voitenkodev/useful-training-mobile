@@ -19,22 +19,20 @@ internal fun Exercises(
     training: Training
 ) {
 
-    val exes = rememberUpdatedState(training.exercises)
-
     Column(
         modifier = modifier
             .fillMaxWidth()
             .padding(Design.dp.paddingS)
     ) {
 
-        exes.value.forEachIndexed { index, item ->
+        training.exercises.forEachIndexed { index, item ->
 
             val number by rememberUpdatedState(index + 1)
 
             Exercise(
                 modifier = Modifier.recomposeHighlighter(),
-                provideNumber = { number },
-                exercise = { item }
+                number = { number },
+                exercise = item
             )
         }
 

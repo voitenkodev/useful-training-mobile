@@ -15,6 +15,7 @@ import components.Error
 import components.Loading
 import components.placeholders.EmptyTraining
 import components.roots.Root
+import kotlinx.collections.immutable.ImmutableList
 import trainings.components.NewTraining
 import trainings.components.PaginatedCalendar
 import trainings.components.TrainingItem
@@ -54,8 +55,8 @@ private fun Content(
     clearError: () -> Unit,
     back: () -> Unit,
 
-    calendar: List<SelectableCalendar>,
-    trainings: List<Training>,
+    calendar: ImmutableList<SelectableCalendar>,
+    trainings: ImmutableList<Training>,
 
     newTraining: () -> Unit,
     openTraining: (trainingId: String) -> Unit,

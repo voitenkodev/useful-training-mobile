@@ -27,8 +27,8 @@ import trainings.state.Exercise
 @Composable
 internal fun Exercise(
     modifier: Modifier = Modifier,
-    provideNumber: () -> Int,
-    exercise: () -> Exercise
+    number: () -> Int,
+    exercise: Exercise
 ) {
 
     Row(
@@ -45,7 +45,7 @@ internal fun Exercise(
 
             TextFieldH4(
                 modifier = Modifier.padding(Design.dp.paddingS),
-                provideText = { "${provideNumber()}" },
+                provideText = { "${number()}" },
                 fontWeight = FontWeight.Bold
             )
 
@@ -71,7 +71,7 @@ internal fun Exercise(
 @Composable
 private fun InternalExercise(
     modifier: Modifier = Modifier,
-    exercise: () -> Exercise
+    exercise: Exercise
 ) {
 
     Column(
@@ -80,7 +80,7 @@ private fun InternalExercise(
 
         TextFieldH4(
             modifier = Modifier.recomposeHighlighter(),
-            provideText = { exercise().name },
+            provideText = { exercise.name },
             fontWeight = FontWeight.Bold
         )
 
@@ -98,7 +98,7 @@ private fun InternalExercise(
             verticalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
         ) {
 
-            exercise().iterations.forEach {
+            exercise.iterations.forEach {
                 TextFieldBody1(
                     modifier = Modifier
                         .background(

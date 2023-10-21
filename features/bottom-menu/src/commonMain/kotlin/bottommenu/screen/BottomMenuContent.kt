@@ -15,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import bottommenu.components.MenuItem
 import bottommenu.state.Menu
+import kotlinx.collections.immutable.ImmutableList
 import platformBottomInset
 
 @Composable
@@ -37,7 +38,7 @@ internal fun BottomMenuContent(
 
 @Composable
 private fun Content(
-    menu: List<Menu>,
+    menu: ImmutableList<Menu>,
     selectedIndex: Int,
     onClick: (index: Int) -> Unit,
     screen: @Composable () -> Unit

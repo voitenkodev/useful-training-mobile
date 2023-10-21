@@ -1,12 +1,14 @@
 package trainings.state
 
 import androidx.compose.runtime.Immutable
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 
 @Immutable
 internal data class State(
-    val trainings: List<Training> = emptyList(),
-    val displayedTrainings: List<Training> = emptyList(),
-    val calendar: List<SelectableCalendar> = emptyList(),
+    val trainings: ImmutableList<Training> = persistentListOf(),
+    val displayedTrainings: ImmutableList<Training> = persistentListOf(),
+    val calendar: ImmutableList<SelectableCalendar> = persistentListOf(),
     val error: String? = null,
     val loading: Boolean = false
 )

@@ -37,13 +37,14 @@ import controls.TextFieldBody1
 import controls.TextFieldH1
 import controls.TextFieldH2
 import controls.quaternaryBackground
+import kotlinx.collections.immutable.ImmutableList
 import platformTopInset
 import trainings.state.SelectableCalendar
 
 @Composable
 internal fun PaginatedCalendar(
     modifier: Modifier = Modifier,
-    calendar: List<SelectableCalendar>,
+    calendar: ImmutableList<SelectableCalendar>,
     onAddMore: () -> Unit,
     selectCalendarDay: (dateTimeIso: String) -> Unit
 ) {

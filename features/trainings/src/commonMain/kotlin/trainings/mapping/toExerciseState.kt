@@ -1,8 +1,11 @@
 package trainings.mapping
 
+import kotlinx.collections.immutable.toImmutableList
 import trainings.state.Exercise
 
-internal fun List<models.Exercise>.toExerciseStateList() = this.map { it.toExerciseState() }
+internal fun List<models.Exercise>.toExerciseStateList() = this
+    .map { it.toExerciseState() }
+    .toImmutableList()
 
 internal fun models.Exercise.toExerciseState() = Exercise(
     id = id ?: "",

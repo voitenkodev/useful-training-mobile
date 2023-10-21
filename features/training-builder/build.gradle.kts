@@ -23,6 +23,9 @@ kotlin {
                 implementation(compose.ui)
                 implementation(compose.foundation)
 
+                // Collections
+                implementation(libs.immutable.collections)
+
                 // Utils
                 implementation(libs.uuid)
 
