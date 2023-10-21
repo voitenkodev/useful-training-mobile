@@ -109,6 +109,22 @@ public object DateTimeKtx {
     }
 
     /**
+     * Input 2022-10-21T13:20:18.496Z ,  listOf( 2022-10-21T13:20:18.496Z, 2022-10-22T13:20:18.496Z)
+     *
+     * Output true / false
+     * */
+    public fun isOneOfDates(iso8601Timestamp1: String, iso8601Timestamps: List<String>): Boolean {
+
+        val localDateTime1 = iso8601TimestampToLocalDateTime(iso8601Timestamp1)?.date ?: return false
+
+        val result = iso8601Timestamps.mapNotNull {
+            iso8601TimestampToLocalDateTime(it)?.date
+        }.contains(localDateTime1)
+
+        return result
+    }
+
+    /**
      * Output 23
      * */
     public fun currentRealMonthDay(): Int {

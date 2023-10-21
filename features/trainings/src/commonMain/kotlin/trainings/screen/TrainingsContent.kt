@@ -1,9 +1,7 @@
 package trainings.screen
 
-import DateTimeKtx
 import PlatformBackHandler
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
@@ -11,15 +9,12 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import components.Error
 import components.Loading
 import components.placeholders.EmptyTraining
 import components.roots.Root
-import platformBottomInset
 import trainings.components.NewTraining
 import trainings.components.PaginatedCalendar
 import trainings.components.TrainingItem
@@ -44,7 +39,7 @@ internal fun TrainingsContent(
         back = back,
         newTraining = toNewTraining,
         calendar = state.calendar,
-        trainings = { state.trainings },
+        trainings = state.displayedTrainings,
         openTraining = toTrainingById,
         addCalendarChunk = vm::addCalendarChunk,
         selectCalendarDay = vm::selectCalendarDay,
@@ -59,11 +54,10 @@ private fun Content(
     clearError: () -> Unit,
     back: () -> Unit,
 
-    newTraining: () -> Unit,
-
     calendar: List<SelectableCalendar>,
-    trainings: () -> List<Training>,
+    trainings: List<Training>,
 
+    newTraining: () -> Unit,
     openTraining: (trainingId: String) -> Unit,
     trainingWithTemplate: (trainingId: String) -> Unit,
     addCalendarChunk: () -> Unit,
@@ -72,27 +66,14 @@ private fun Content(
 
     val backProvider by rememberUpdatedState(back)
 
-    val selectedDate = calendar.findLast { it.isSelected }?.dateTimeIso ?: return
-    val selectedDateIsToday = DateTimeKtx.isCurrentDate(selectedDate)
-
-    val trainingList = remember(trainings(), selectedDate) {
-        trainings().filter { training ->
-            DateTimeKtx.isTheSameDate(training.dateIso, selectedDate)
-        }
-    }
+    val selectedDate = calendar.findLast { it.isSelected } ?: return
+    val selectedDateIsToday = selectedDate.isToday
 
     Root(
         loading = { Loading(loading) },
         error = { Error(message = error, close = clearError) },
         back = { PlatformBackHandler(backProvider) },
     ) {
-
-        if (selectedDateIsToday.not() && trainingList.isEmpty()) {
-            EmptyTraining(
-                modifier = Modifier
-                    .align(Alignment.Center)
-            )
-        }
 
         Column {
             PaginatedCalendar(
@@ -101,36 +82,34 @@ private fun Content(
                 selectCalendarDay = selectCalendarDay
             )
 
-            LazyColumn(modifier = Modifier.fillMaxSize()) {
+            if (selectedDateIsToday.not() && trainings.isEmpty()) {
+                EmptyTraining(
+                    modifier = Modifier
+                        .weight(1f)
+                        .fillMaxWidth()
+                )
+            } else {
+                LazyColumn(modifier = Modifier.fillMaxSize()) {
 
-                if (selectedDateIsToday) {
-                    item {
-                        NewTraining(
-                            newTraining = newTraining
-                        )
-                    }
-                }
-
-                items(trainingList) { training ->
-                    TrainingItem(
-                        training = training,
-                        onDetailsClick = {
-                            val id = training.id ?: return@TrainingItem
-                            openTraining.invoke(id)
-                        },
-                        onTemplateClick = {
-                            val id = training.id ?: return@TrainingItem
-                            trainingWithTemplate.invoke(id)
+                    if (selectedDateIsToday) {
+                        item {
+                            NewTraining(
+                                newTraining = newTraining
+                            )
                         }
-                    )
-                }
+                    }
 
-                if (trainingList.isNotEmpty()) {
-                    item {
-                        Spacer(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .platformBottomInset()
+                    items(trainings) { training ->
+                        TrainingItem(
+                            training = training,
+                            onDetailsClick = {
+                                val id = training.id ?: return@TrainingItem
+                                openTraining.invoke(id)
+                            },
+                            onTemplateClick = {
+                                val id = training.id ?: return@TrainingItem
+                                trainingWithTemplate.invoke(id)
+                            }
                         )
                     }
                 }

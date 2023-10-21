@@ -15,11 +15,10 @@ public fun EmptyTraining(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
+        verticalArrangement = Arrangement.spacedBy(Design.dp.paddingM, Alignment.CenterVertically)
     ) {
 
         TextFieldH3(
-            modifier = Modifier,
             provideText = { "There is no Trainings" },
             color = Design.colors.caption.copy(alpha = 0.5f),
             textAlign = TextAlign.Center

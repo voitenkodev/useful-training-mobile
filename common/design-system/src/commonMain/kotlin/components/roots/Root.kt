@@ -8,7 +8,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
-import recomposeHighlighter
 
 @Composable
 public fun Root(
@@ -29,7 +28,7 @@ public fun Root(
                 detectTapGestures(
                     onTap = { focusManager.clearFocus() },
                 )
-            }.recomposeHighlighter(),
+            },
         content = content
     )
 
