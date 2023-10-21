@@ -3,6 +3,7 @@ package controls
 import Design
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -59,6 +60,11 @@ public fun ButtonIconBrand(
 ) {
     IconButton(
         modifier = modifier
+            .border(
+                color = Design.colors.white10,
+                width = 0.5.dp,
+                shape = Design.shape.circleShape
+            )
             .requiredSize(Design.dp.componentM)
             .alpha(if (enabled) 1f else 0.5f)
             .background(
@@ -89,6 +95,11 @@ public fun ButtonSecondaryIcon(
 ) {
     IconButton(
         modifier = modifier
+            .border(
+                color = Design.colors.white10,
+                width = 0.5.dp,
+                shape = Design.shape.circleShape
+            )
             .requiredSize(Design.dp.componentM)
             .alpha(if (enabled) 1f else 0.5f)
             .background(
@@ -119,6 +130,11 @@ public fun ButtonAccentIcon(
 ) {
     IconButton(
         modifier = modifier
+            .border(
+                color = Design.colors.white10,
+                width = 0.5.dp,
+                shape = Design.shape.circleShape
+            )
             .requiredSize(Design.dp.componentM)
             .alpha(if (enabled) 1f else 0.5f)
             .background(

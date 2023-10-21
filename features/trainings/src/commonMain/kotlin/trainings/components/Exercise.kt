@@ -5,20 +5,15 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.FlowRow
-import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
 import controls.TextFieldBody1
 import controls.TextFieldH4
 import recomposeHighlighter
@@ -27,66 +22,36 @@ import trainings.state.Exercise
 @Composable
 internal fun Exercise(
     modifier: Modifier = Modifier,
-    number: () -> Int,
+    number: Int,
     exercise: Exercise
 ) {
-
-    Row(
-        modifier = modifier
-            .padding(top = 8.dp, start = 4.dp, end = 4.dp)
-            .height(IntrinsicSize.Min)
-            .recomposeHighlighter(),
-        horizontalArrangement = Arrangement.spacedBy(4.dp)
-    ) {
-
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-
-            TextFieldH4(
-                modifier = Modifier.padding(Design.dp.paddingS),
-                provideText = { "${number()}" },
-                fontWeight = FontWeight.Bold
-            )
-
-            Spacer(
-                modifier = Modifier
-                    .width(1.dp)
-                    .fillMaxHeight()
-                    .alpha(0.5f)
-                    .background(Design.colors.caption),
-            )
-        }
-
-        InternalExercise(
-            modifier = Modifier.padding(
-                vertical = Design.dp.paddingS,
-                horizontal = Design.dp.paddingS
-            ),
-            exercise = exercise
-        )
-    }
-}
-
-@Composable
-private fun InternalExercise(
-    modifier: Modifier = Modifier,
-    exercise: Exercise
-) {
-
     Column(
-        modifier = modifier.recomposeHighlighter(),
+        modifier = modifier
+            .padding(horizontal = Design.dp.paddingM),
     ) {
-
-        TextFieldH4(
-            modifier = Modifier.recomposeHighlighter(),
-            provideText = { exercise.name },
-            fontWeight = FontWeight.Bold
-        )
 
         Spacer(
             modifier = Modifier.size(Design.dp.paddingS)
         )
+
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+
+            TextFieldH4(
+                modifier = Modifier,
+                provideText = { "$number" },
+                fontWeight = FontWeight.Bold
+            )
+
+            TextFieldH4(
+                modifier = Modifier.recomposeHighlighter(),
+                provideText = { exercise.name },
+                fontWeight = FontWeight.Bold
+            )
+        }
 
         Spacer(
             modifier = Modifier.size(Design.dp.paddingS)
@@ -112,5 +77,9 @@ private fun InternalExercise(
                 )
             }
         }
+
+        Spacer(
+            modifier = Modifier.size(Design.dp.paddingS)
+        )
     }
 }

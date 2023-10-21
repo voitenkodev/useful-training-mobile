@@ -7,7 +7,7 @@ public actual fun Modifier.platformInsets(): Modifier = this
     .platformBottomInset()
 
 public actual fun Modifier.platformTopInset(): Modifier = this
-    .padding(top = 44.dp)
+    .padding(top = 50.dp)
 
 public actual fun Modifier.platformBottomInset(): Modifier = this
     .padding(bottom = 30.dp)
