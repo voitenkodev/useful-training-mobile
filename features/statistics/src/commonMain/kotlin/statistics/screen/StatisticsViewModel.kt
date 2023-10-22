@@ -2,6 +2,9 @@ package statistics.screen
 
 import TrainingRepository
 import ViewModel
+import kotlinx.collections.immutable.toImmutableList
+import kotlinx.collections.immutable.toImmutableMap
+import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -20,7 +23,7 @@ import statistics.mapping.toExerciseState
 import statistics.state.Info
 import statistics.state.State
 
-internal class StatisticViewModel : ViewModel() {
+internal class StatisticsViewModel : ViewModel() {
 
     private val _state = MutableStateFlow(State())
     internal val state: StateFlow<State> = _state
@@ -29,10 +32,11 @@ internal class StatisticViewModel : ViewModel() {
 
     init {
         debounceGetExercises("")
+        getExerciseNameOptions()
     }
 
     fun setQuery(query: String) {
-        _state.value = state.value.copy(query = query)
+        _state.update { it.copy(query = query) }
         debounceGetExercises(query)
     }
 
@@ -56,15 +60,15 @@ internal class StatisticViewModel : ViewModel() {
             }.launchIn(this)
     }
 
-    fun getExerciseNameOptions() {
+    private fun getExerciseNameOptions() {
         api
             .getExerciseNameOptions()
-            .onStart {
-                _state.value = state.value.copy(loading = true)
-            }.onEach {
-                _state.value = state.value.copy(exerciseNameOptions = it)
-            }.catch {
-                _state.value = state.value.copy(loading = false, error = it.message)
+            .onEach { r ->
+                _state.update {
+                    it.copy(exerciseNameOptions = r.toPersistentList())
+                }
+            }.catch { t ->
+                _state.update { it.copy(error = t.message) }
             }.launchIn(this)
     }
 
@@ -72,21 +76,28 @@ internal class StatisticViewModel : ViewModel() {
         api
             .removeExerciseNameOption(value)
             .onEach { removedValue ->
-                _state.value = state.value.copy(
-                    exerciseNameOptions = state.value.exerciseNameOptions.filterNot { it == removedValue }
-                )
-            }.catch {
-                _state.value = state.value.copy(error = it.message)
+                _state.update {
+                    it.copy(
+                        exerciseNameOptions = state
+                            .value
+                            .exerciseNameOptions
+                            .filterNot { f -> f == removedValue }
+                            .toPersistentList()
+                    )
+                }
+            }.catch { t ->
+                _state.update { it.copy(error = t.message) }
             }.launchIn(this)
     }
 
     fun clearError() {
-        _state.value = state.value.copy(error = null)
+        _state.update { it.copy(error = null) }
     }
-
 
     private fun List<ExerciseDate>.processingExercises() = this.groupBy(
         { Info(trainingId = it.trainingId, date = it.date) },
         { it.exercise.toExerciseState() }
-    )
+    ).mapValues { it.value.toImmutableList() }
+        .toImmutableMap()
+
 }

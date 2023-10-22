@@ -2,8 +2,6 @@ package statistics.mapping
 
 import statistics.state.Exercise
 
-internal fun List<models.Exercise>.toExerciseStateList() = this.map { it.toExerciseState() }
-
 internal fun models.Exercise.toExerciseState() = Exercise(
     id = id ?: "",
     name = name ?: "",

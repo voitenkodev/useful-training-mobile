@@ -8,12 +8,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.platform.LocalFocusManager
 import components.ShadowDivider
 import components.inputs.InputSearch
-import components.items.HelpExerciseNameItem
+import kotlinx.collections.immutable.ImmutableList
 import platformTopInset
 
 @Composable
@@ -21,8 +22,10 @@ internal fun Search(
     query: () -> String,
     search: (String) -> Unit,
     removeNameOption: (String) -> Unit,
-    nameOptions: () -> List<String>,
+    nameOptions: ImmutableList<String>,
 ) {
+    val queryProvide = rememberUpdatedState(query())
+
     val focusManager = LocalFocusManager.current
     val helpVisible = remember { mutableStateOf(false) }
     val selectExerciseNameProvider by remember {
@@ -48,9 +51,9 @@ internal fun Search(
             onValueChange = search
         )
 
-        HelpExerciseNameItem(
-            querySort = query,
-            visibility = { helpVisible.value },
+        ExerciseNameList(
+            querySort = queryProvide.value,
+            visible = helpVisible.value,
             select = selectExerciseNameProvider,
             remove = removeNameOption,
             options = nameOptions

@@ -22,7 +22,6 @@ import components.labels.InputLabel
 import controls.IconPrimary
 import controls.InputFieldPrimary
 import controls.reversedCircleBackground
-import controls.rootBackground
 import recomposeHighlighter
 
 @Composable
@@ -59,7 +58,7 @@ public fun InputSearch(
         leading = {
             InputLabel(
                 modifier = Modifier.recomposeHighlighter(),
-                provideText = { "Search" }
+                provideText = { "Search" },
             )
         },
         maxLines = 1,

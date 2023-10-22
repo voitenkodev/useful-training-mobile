@@ -1,11 +1,13 @@
 package components.labels
 
 import Design
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.ripple.rememberRipple
@@ -33,7 +35,12 @@ public fun ChipLabel(
 
     Row(
         modifier = Modifier
-            .quaternaryBackground().padding(6.dp),
+            .background(
+                color = Design.colors.white10,
+                shape = CircleShape
+            )
+            .quaternaryBackground()
+            .padding(6.dp),
         horizontalArrangement = Arrangement.spacedBy(6.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {

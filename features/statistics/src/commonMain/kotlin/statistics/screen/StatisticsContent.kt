@@ -8,14 +8,15 @@ import androidx.compose.ui.Modifier
 import components.Error
 import components.Loading
 import components.roots.Root
+import kotlinx.collections.immutable.ImmutableList
 import statistics.components.Exercises
 import statistics.components.Search
 import statistics.state.Exercise
 import statistics.state.Info
 
 @Composable
-internal fun StatisticContent(
-    vm: StatisticViewModel,
+internal fun StatisticsContent(
+    vm: StatisticsViewModel,
 ) {
 
     val state by vm.state.collectAsState()
@@ -24,8 +25,8 @@ internal fun StatisticContent(
         loading = { state.loading },
         error = { state.error },
         clearError = vm::clearError,
-        removeNameOption = {},
-        nameOptions = { state.exerciseNameOptions },
+        removeNameOption = vm::removeExerciseNameOption,
+        nameOptions = state.exerciseNameOptions,
         query = { state.query },
         search = vm::setQuery,
         exercises = state.exercises
@@ -41,8 +42,8 @@ private fun Content(
     query: () -> String,
     search: (String) -> Unit,
     removeNameOption: (String) -> Unit,
-    nameOptions: () -> List<String>,
 
+    nameOptions: ImmutableList<String>,
     exercises: Map<Info, List<Exercise>>
 ) {
 
@@ -51,9 +52,7 @@ private fun Content(
         error = { Error(message = error, close = clearError) },
     ) {
 
-        Column(
-            modifier = Modifier,
-        ) {
+        Column {
 
             Search(
                 query = query,

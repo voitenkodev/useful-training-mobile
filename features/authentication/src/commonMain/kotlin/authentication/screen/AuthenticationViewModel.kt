@@ -50,6 +50,7 @@ internal class AuthenticationViewModel : ViewModel() {
 
     fun registration() {
         _state.update { it.validate() }
+
         if (state.value.error == null) {
             api.registration(state.value.email, state.value.password)
                 .onStart {

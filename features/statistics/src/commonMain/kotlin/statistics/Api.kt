@@ -2,17 +2,17 @@ package statistics
 
 import androidx.compose.runtime.Composable
 import io.github.xxfast.decompose.router.rememberOnRoute
-import statistics.screen.StatisticContent
-import statistics.screen.StatisticViewModel
+import statistics.screen.StatisticsContent
+import statistics.screen.StatisticsViewModel
 
 @Composable
 public fun StatisticFeature() {
 
-    val vm = rememberOnRoute(StatisticViewModel::class) {
-        StatisticViewModel()
+    val vm = rememberOnRoute(StatisticsViewModel::class) {
+        StatisticsViewModel()
     }
 
-    StatisticContent(
+    StatisticsContent(
         vm = vm
     )
 }

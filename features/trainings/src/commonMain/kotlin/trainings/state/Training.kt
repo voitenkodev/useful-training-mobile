@@ -8,11 +8,10 @@ import kotlinx.collections.immutable.persistentListOf
 internal data class Training(
     val id: String? = null,
     val exercises: ImmutableList<Exercise> = persistentListOf(),
+    val tonnageExerciseList: ImmutableList<Float>,
     val dateIso: String,
     val startDate: String,
     val duration: String,
     val tonnage: String,
     val intensity: String,
-
-    val tonnageExerciseList: ImmutableList<Float>
 )
