@@ -20,7 +20,10 @@ internal sealed class BottomMenuRouter : Parcelable {
 }
 
 @Composable
-internal fun BottomMenuGraph() {
+internal fun BottomMenuGraph(
+    toTrainingBuilder: (id: String?) -> Unit,
+    toTrainingDetails: (id: String) -> Unit,
+) {
 
     val router: Router<BottomMenuRouter> = rememberRouter(BottomMenuRouter::class) {
         listOf(BottomMenuRouter.Trainings)
@@ -49,7 +52,11 @@ internal fun BottomMenuGraph() {
                 router = router
             ) { child ->
                 when (child) {
-                    BottomMenuRouter.Trainings -> TrainingsGraph()
+                    BottomMenuRouter.Trainings -> TrainingsGraph(
+                        toTrainingBuilder = toTrainingBuilder,
+                        toTrainingDetails = toTrainingDetails
+                    )
+
                     BottomMenuRouter.Statistic -> StatisticFeature()
                 }
             }

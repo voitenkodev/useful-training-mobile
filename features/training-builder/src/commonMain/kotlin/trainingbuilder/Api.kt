@@ -8,7 +8,7 @@ import trainingbuilder.screen.TrainingViewModel
 @Composable
 public fun TrainingFeature(
     trainingId: String?,
-    toReview: (trainingId: String) -> Unit,
+    toTrainingDetails: (trainingId: String) -> Unit,
     back: () -> Unit
 ) {
     val vm = rememberOnRoute(TrainingViewModel::class) {
@@ -18,7 +18,7 @@ public fun TrainingFeature(
     TrainingContent(
         vm = vm,
         trainingId = trainingId,
-        toReview = toReview,
+        toReview = toTrainingDetails,
         back = back
     )
 }

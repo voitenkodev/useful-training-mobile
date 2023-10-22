@@ -7,7 +7,7 @@ import trainings.screen.TrainingsViewModel
 
 @Composable
 public fun TrainingsFeature(
-    toTrainingById: (trainingId: String) -> Unit,
+    toEditTraining: (trainingId: String) -> Unit,
     toNewTraining: () -> Unit,
     addTrainingWithTemplate: (trainingId: String) -> Unit,
     back: () -> Unit,
@@ -18,7 +18,7 @@ public fun TrainingsFeature(
 
     TrainingsContent(
         vm = vm,
-        toTrainingById = toTrainingById,
+        toTrainingById = toEditTraining,
         toNewTraining = toNewTraining,
         addTrainingWithTemplate = addTrainingWithTemplate,
         back = back
