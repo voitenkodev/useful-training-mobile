@@ -1,15 +1,8 @@
 package trainings.screen
 
-import Design
 import PlatformBackHandler
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -17,15 +10,11 @@ import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
 import components.Error
 import components.Loading
-import components.buttons.ButtonQuestion
 import components.placeholders.EmptyTraining
 import components.roots.Root
 import kotlinx.collections.immutable.ImmutableList
-import trainings.components.Exercise
-import trainings.components.NewTraining
 import trainings.components.PaginatedCalendar
-import trainings.components.TrainingHeader
-import trainings.components.TrainingTitle
+import trainings.components.Trainings
 import trainings.state.SelectableCalendar
 import trainings.state.Training
 
@@ -97,82 +86,13 @@ private fun Content(
                         .fillMaxWidth()
                 )
             } else {
-                LazyColumn(modifier = Modifier.fillMaxSize()) {
-
-                    if (selectedDateIsToday) {
-                        item {
-                            NewTraining(
-                                newTraining = newTraining
-                            )
-                        }
-                    }
-
-                    trainings.forEach { training ->
-
-                        item("header:${training.id}") {
-
-                            Spacer(
-                                modifier = Modifier.size(Design.dp.paddingM)
-                            )
-
-                            TrainingHeader(
-                                modifier = Modifier.padding(horizontal = Design.dp.paddingM),
-                                training = training
-                            )
-
-                            Spacer(
-                                modifier = Modifier.size(Design.dp.paddingM)
-                            )
-
-                            TrainingTitle(
-                                mainTitle = { "At ${training.startDate}" },
-                                click = {
-                                    val id = training.id ?: return@TrainingTitle
-                                    openTraining.invoke(id)
-                                },
-                            )
-
-                            Spacer(
-                                modifier = Modifier.size(Design.dp.paddingM)
-                            )
-                        }
-
-                        itemsIndexed(
-                            training.exercises,
-                            key = { _, item -> "${training.id}:${item.id}" }
-                        ) { index, item ->
-
-                            val number by rememberUpdatedState(index + 1)
-
-                            Exercise(
-                                modifier = Modifier,
-                                number = number,
-                                exercise = item
-                            )
-                        }
-
-                        item("footer:${training.id}") {
-
-                            Spacer(
-                                modifier = Modifier.size(Design.dp.paddingM)
-                            )
-
-                            ButtonQuestion(
-                                modifier = Modifier.fillMaxWidth(),
-                                question = "Use training as",
-                                answer = "Template",
-                                onClick = {
-                                    val id = training.id ?: return@ButtonQuestion
-                                    trainingWithTemplate.invoke(id)
-                                }
-                            )
-
-                            Spacer(
-                                modifier = Modifier.size(Design.dp.paddingS)
-                            )
-                        }
-                    }
-                }
+                Trainings(
+                    trainings = trainings,
+                    selectedDateIsToday = selectedDateIsToday,
+                    newTraining = newTraining,
+                    openTraining = openTraining,
+                    trainingWithTemplate = trainingWithTemplate
+                )
             }
         }
     }

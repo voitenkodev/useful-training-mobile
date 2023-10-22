@@ -30,15 +30,15 @@ internal fun MenuItem(
 ) {
 
     val background =
-        if (isSelected) Design.colors.primary
+        if (isSelected) Design.colors.accent_primary
         else Color.Transparent
 
     val textColor =
-        if (isSelected) Design.colors.accent_primary
+        if (isSelected) Design.colors.primary
         else Color.Transparent
 
     val iconColor =
-        if (isSelected) Design.colors.accent_primary
+        if (isSelected) Design.colors.primary
         else Design.colors.caption
 
     Box(

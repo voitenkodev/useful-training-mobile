@@ -8,7 +8,6 @@ import androidx.compose.ui.Modifier
 import components.Error
 import components.Loading
 import components.roots.Root
-import platformTopInset
 import statistics.components.Exercises
 import statistics.components.Search
 import statistics.state.Exercise
@@ -53,9 +52,9 @@ private fun Content(
     ) {
 
         Column(
-            modifier = Modifier
-                .platformTopInset(),
+            modifier = Modifier,
         ) {
+
             Search(
                 query = query,
                 search = search,

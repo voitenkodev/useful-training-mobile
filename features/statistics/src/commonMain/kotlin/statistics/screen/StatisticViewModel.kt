@@ -27,6 +27,10 @@ internal class StatisticViewModel : ViewModel() {
 
     private val api by inject<TrainingRepository>()
 
+    init {
+        debounceGetExercises("")
+    }
+
     fun setQuery(query: String) {
         _state.value = state.value.copy(query = query)
         debounceGetExercises(query)
