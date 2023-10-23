@@ -39,7 +39,7 @@ internal fun Search(
 
     Column(
         modifier = Modifier
-            .background(Design.colors.tertiary)
+            .background(Design.colors.secondary)
             .platformTopInset(),
     ) {
 

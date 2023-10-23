@@ -36,7 +36,7 @@ internal fun TrainingTitle(
         )
 
         ButtonIconBrand(
-            backgroundColor = Design.colors.tertiary,
+            backgroundColor = Design.colors.secondary,
             imageVector = ArrowRight,
             onClick = click
         )

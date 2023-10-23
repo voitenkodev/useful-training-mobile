@@ -74,7 +74,7 @@ internal fun PaginatedCalendar(
 
     Column(
         modifier = modifier
-            .background(Design.colors.tertiary)
+            .background(Design.colors.secondary)
             .platformTopInset(),
     ) {
 

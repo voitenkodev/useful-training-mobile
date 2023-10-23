@@ -22,7 +22,7 @@ import controls.IconPrimary
 import controls.TextFieldBody2
 import controls.TextFieldH4
 import controls.accentBackground
-import controls.tertiaryBackground
+import controls.secondaryBackground
 import kotlinx.collections.immutable.ImmutableList
 import recomposeHighlighter
 import trainings.state.Training
@@ -44,7 +44,7 @@ internal fun TrainingHeader(
             modifier = Modifier
                 .weight(0.8f)
                 .fillMaxHeight()
-                .tertiaryBackground(),
+                .secondaryBackground(),
             title = "TONNAGE",
             value = training.tonnage,
             icon = Weight,
@@ -79,7 +79,7 @@ private fun DefaultItem(
 ) {
     Row(
         modifier = Modifier
-            .tertiaryBackground()
+            .secondaryBackground()
             .padding(Design.dp.paddingS),
         horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS),
         verticalAlignment = Alignment.CenterVertically

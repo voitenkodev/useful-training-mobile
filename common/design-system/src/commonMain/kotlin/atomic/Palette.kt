@@ -7,8 +7,8 @@ internal fun darkPalette() = Color()
 public data class Color(
     // Root BG
     val primary: Color = Color(0xff000000), // hard-black Root
-    val secondary: Color = Color(0xff090912), // soft-gray Header
-    val tertiary: Color = Color(0xff13131c), // soft-gray Footer
+    val secondary: Color = Color(0xff151521), // soft-gray Footer
+
     val white5: Color = Color(0x0Dffffff), // has alpha (Inner Items)
     val white10: Color = Color(0x1Affffff), // has alpha (Inner Items)
     val black30: Color = Color(0x80000000), // has alpha (Inner Items)

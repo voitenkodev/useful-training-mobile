@@ -1,7 +1,6 @@
 package trainings.components
 
 import Design
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.FlowRow
@@ -16,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import controls.TextFieldBody1
 import controls.TextFieldH4
+import controls.secondarySmallBackground
 import recomposeHighlighter
 import trainings.state.Exercise
 
@@ -25,6 +25,7 @@ internal fun Exercise(
     number: Int,
     exercise: Exercise
 ) {
+
     Column(
         modifier = modifier
             .padding(horizontal = Design.dp.paddingM),
@@ -66,10 +67,8 @@ internal fun Exercise(
             exercise.iterations.forEach {
                 TextFieldBody1(
                     modifier = Modifier
-                        .background(
-                            shape = Design.shape.small,
-                            color = Design.colors.white5
-                        ).padding(
+                        .secondarySmallBackground()
+                        .padding(
                             horizontal = Design.dp.paddingM,
                             vertical = Design.dp.paddingXS
                         ).recomposeHighlighter(),
@@ -79,7 +78,7 @@ internal fun Exercise(
         }
 
         Spacer(
-            modifier = Modifier.size(Design.dp.paddingS)
+            modifier = Modifier.size(Design.dp.paddingM)
         )
     }
 }

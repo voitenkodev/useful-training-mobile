@@ -81,9 +81,6 @@ internal fun Trainings(
 
             item("footer:${training.id}") {
 
-                Spacer(
-                    modifier = Modifier.size(Design.dp.paddingM)
-                )
 
                 ButtonQuestion(
                     modifier = Modifier.fillMaxWidth(),
@@ -96,7 +93,7 @@ internal fun Trainings(
                 )
 
                 Spacer(
-                    modifier = Modifier.size(Design.dp.paddingS)
+                    modifier = Modifier.size(Design.dp.paddingM)
                 )
             }
         }

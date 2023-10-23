@@ -33,16 +33,29 @@ public fun Modifier.quaternaryBackground(): Modifier = this
     )
 
 @Composable
-public fun Modifier.tertiaryBackground(): Modifier = this
+public fun Modifier.secondaryBackground(): Modifier = this
     .border(
         color = Design.colors.white5,
         width = 0.5.dp,
         shape = Design.shape.default
     ).background(
-        color = Design.colors.tertiary,
+        color = Design.colors.secondary,
         shape = Design.shape.default
     ).clip(
         shape = Design.shape.default
+    )
+
+@Composable
+public fun Modifier.secondarySmallBackground(): Modifier = this
+    .border(
+        color = Design.colors.white5,
+        width = 0.5.dp,
+        shape = Design.shape.small
+    ).background(
+        color = Design.colors.secondary,
+        shape = Design.shape.small
+    ).clip(
+        shape = Design.shape.small
     )
 
 @Composable

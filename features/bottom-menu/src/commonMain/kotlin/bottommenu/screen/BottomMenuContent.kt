@@ -55,7 +55,7 @@ private fun Content(
 
         Column(
             modifier = Modifier
-                .background(color = Design.colors.tertiary)
+                .background(color = Design.colors.secondary)
                 .platformBottomInset()
                 .fillMaxWidth(),
         ) {
