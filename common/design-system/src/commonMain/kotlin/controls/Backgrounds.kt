@@ -36,7 +36,7 @@ public fun Modifier.quaternaryBackground(): Modifier = this
 public fun Modifier.secondaryBackground(): Modifier = this
     .border(
         color = Design.colors.white5,
-        width = 0.5.dp,
+        width = 1.dp,
         shape = Design.shape.default
     ).background(
         color = Design.colors.secondary,
@@ -49,7 +49,7 @@ public fun Modifier.secondaryBackground(): Modifier = this
 public fun Modifier.secondarySmallBackground(): Modifier = this
     .border(
         color = Design.colors.white5,
-        width = 0.5.dp,
+        width = 1.dp,
         shape = Design.shape.small
     ).background(
         color = Design.colors.secondary,

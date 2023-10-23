@@ -34,18 +34,18 @@ internal fun MenuItem(
         else Color.Transparent
 
     val textColor =
-        if (isSelected) Design.colors.primary
+        if (isSelected) Design.colors.content
         else Color.Transparent
 
     val iconColor =
-        if (isSelected) Design.colors.primary
+        if (isSelected) Design.colors.content
         else Design.colors.caption
 
     Box(
         modifier = modifier
             .height(Design.dp.componentM)
             .clip(shape = Design.shape.circleShape)
-            .background(background)
+            .background(color = background)
             .clickable(onClick = onClick),
         contentAlignment = Alignment.Center
     ) {

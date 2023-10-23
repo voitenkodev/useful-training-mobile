@@ -37,7 +37,6 @@ import components.ShadowDivider
 import controls.TextFieldBody1
 import controls.TextFieldH1
 import controls.TextFieldH2
-import controls.quaternaryBackground
 import kotlinx.collections.immutable.ImmutableList
 import platformTopInset
 import trainings.state.SelectableCalendar
@@ -157,7 +156,6 @@ private fun CalendarRow(
                         color = if (it.isSelected) Design.colors.content else Design.colors.caption,
                         shape = Design.shape.default
                     )
-                    .quaternaryBackground()
                     .clickable { selectCalendarDay.invoke(it.dateTimeIso) }
             ) {
 

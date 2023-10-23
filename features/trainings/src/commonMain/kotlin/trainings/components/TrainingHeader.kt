@@ -57,12 +57,18 @@ internal fun TrainingHeader(
         ) {
 
             DefaultItem(
+                modifier = Modifier
+                    .secondaryBackground()
+                    .padding(Design.dp.paddingS),
                 title = "Duration",
                 subTitle = training.duration,
                 icon = Time
             )
 
             DefaultItem(
+                modifier = Modifier
+                    .secondaryBackground()
+                    .padding(Design.dp.paddingS),
                 title = "Intensity",
                 subTitle = training.intensity,
                 icon = HandWeight
@@ -73,14 +79,13 @@ internal fun TrainingHeader(
 
 @Composable
 private fun DefaultItem(
+    modifier: Modifier = Modifier,
     title: String,
     subTitle: String,
     icon: ImageVector
 ) {
     Row(
-        modifier = Modifier
-            .secondaryBackground()
-            .padding(Design.dp.paddingS),
+        modifier = modifier,
         horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS),
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -90,7 +95,7 @@ private fun DefaultItem(
                 .size(Design.dp.componentS)
                 .accentBackground()
                 .padding(Design.dp.paddingS),
-            color = Design.colors.primary,
+            color = Design.colors.content,
             imageVector = icon
         )
 
@@ -133,39 +138,12 @@ private fun ChartBlock(
             circleColor = Design.colors.content
         )
 
-        Row(
+        DefaultItem(
             modifier = Modifier
-                .fillMaxWidth()
                 .padding(Design.dp.paddingS),
-            horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-
-            IconPrimary(
-                modifier = Modifier
-                    .size(Design.dp.componentS)
-                    .accentBackground()
-                    .padding(Design.dp.paddingS),
-                color = Design.colors.primary,
-                imageVector = icon,
-            )
-
-            Column(
-                modifier = Modifier.weight(1f),
-                verticalArrangement = Arrangement.Center
-            ) {
-
-                TextFieldH4(
-                    provideText = { title },
-                    maxLines = 1
-                )
-
-                TextFieldBody2(
-                    provideText = { value },
-                    color = Design.colors.caption,
-                    maxLines = 1
-                )
-            }
-        }
+            title = title,
+            subTitle = value,
+            icon = icon
+        )
     }
 }

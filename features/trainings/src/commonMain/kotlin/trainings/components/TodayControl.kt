@@ -39,7 +39,6 @@ internal fun BoxScope.TodayControl(
             .align(Alignment.CenterEnd)
             .offset(x = animatedDp),
         imageVector = ArrowRight,
-        onClick = click,
-        contentColor = Design.colors.primary
+        onClick = click
     )
 }

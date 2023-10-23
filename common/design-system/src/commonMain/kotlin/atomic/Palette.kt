@@ -6,8 +6,8 @@ internal fun darkPalette() = Color()
 
 public data class Color(
     // Root BG
-    val primary: Color = Color(0xff000000), // hard-black Root
-    val secondary: Color = Color(0xff151521), // soft-gray Footer
+    val primary: Color = Color(0xff121219), // hard-black Root
+    val secondary: Color = Color(0xff1f2129), // soft-gray Footer
 
     val white5: Color = Color(0x0Dffffff), // has alpha (Inner Items)
     val white10: Color = Color(0x1Affffff), // has alpha (Inner Items)
@@ -20,7 +20,7 @@ public data class Color(
     // Color(0xff335bff) = Blue
 
     // Accent
-    val accent_primary: Color = Color(0xff9be03b),
+    val accent_primary: Color = Color(0xfff74d19),
     val accent_secondary: Color = Color(0xfffcb51c),
 
     // Text
