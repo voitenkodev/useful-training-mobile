@@ -24,10 +24,12 @@ include(
     ":shared",
 
     ":data:trainings",
+    ":data:exercises-bundle",
     ":data:authentication",
 
     ":domain:trainings",
     ":domain:authentication",
+    ":domain:exercises-bundle",
 
     ":services:network",
     ":services:database",
@@ -46,5 +48,6 @@ include(
     "features:bottom-menu",
     "features:trainings",
     "features:statistics",
+    "features:configurations",
     "features:training-builder",
 )

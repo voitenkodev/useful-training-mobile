@@ -13,7 +13,6 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(projects.domain.authentication)
-
                 implementation(projects.services.network)
                 implementation(projects.services.database)
                 implementation(projects.services.preferences)

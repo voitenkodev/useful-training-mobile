@@ -73,13 +73,4 @@ internal class TrainingRepositoryImpl(
         return remote
             .map { it.map { it.toDomain() } }
     }
-
-    override fun setExerciseNameOptions(names: List<String>) = local
-        .setExerciseNames(names)
-
-    override fun getExerciseNameOptions() = local
-        .getExerciseNames()
-
-    override fun removeExerciseNameOption(value: String) = local
-        .removeExerciseName(value)
 }

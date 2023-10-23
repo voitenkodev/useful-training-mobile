@@ -13,10 +13,4 @@ public interface TrainingRepository {
     public fun setTraining(training: Training): Flow<String>
 
     public fun deleteTraining(trainingId: String): Flow<Unit>
-
-    public fun getExerciseNameOptions(): Flow<List<String>>
-
-    public fun setExerciseNameOptions(names: List<String>): Flow<Unit>
-
-    public fun removeExerciseNameOption(value: String): Flow<String>
 }

@@ -17,5 +17,9 @@ internal enum class Menu(
     Statistics(
         text = "Statistics",
         icon = Time
+    ),
+    Wiki(
+        text = "Wiki",
+        icon = atomic.icons.Wiki
     )
 }

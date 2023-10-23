@@ -1,5 +1,6 @@
 package statistics.screen
 
+import ExercisesBundleRepository
 import TrainingRepository
 import ViewModel
 import kotlinx.collections.immutable.toImmutableList
@@ -28,7 +29,8 @@ internal class StatisticsViewModel : ViewModel() {
     private val _state = MutableStateFlow(State())
     internal val state: StateFlow<State> = _state
 
-    private val api by inject<TrainingRepository>()
+    private val trainingsApi by inject<TrainingRepository>()
+    private val exercisesApi by inject<ExercisesBundleRepository>()
 
     init {
         debounceGetExercises("")
@@ -45,7 +47,7 @@ internal class StatisticsViewModel : ViewModel() {
         flowOf(query)
             .debounce(500)
             .distinctUntilChanged()
-            .flatMapConcat { api.getExercises(query = query) }
+            .flatMapConcat { trainingsApi.getExercises(query = query) }
             .onStart {
                 _state.update { it.copy(loading = false) }
             }.onEach { response ->
@@ -61,7 +63,7 @@ internal class StatisticsViewModel : ViewModel() {
     }
 
     private fun getExerciseNameOptions() {
-        api
+        exercisesApi
             .getExerciseNameOptions()
             .onEach { r ->
                 _state.update {
@@ -73,7 +75,7 @@ internal class StatisticsViewModel : ViewModel() {
     }
 
     fun removeExerciseNameOption(value: String) {
-        api
+        exercisesApi
             .removeExerciseNameOption(value)
             .onEach { removedValue ->
                 _state.update {

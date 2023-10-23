@@ -8,6 +8,7 @@ import bottommenu.BottomMenuFeature
 import com.arkivanov.decompose.router.stack.bringToFront
 import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.parcelable.Parcelize
+import configurations.WikiFeature
 import io.github.xxfast.decompose.router.Router
 import io.github.xxfast.decompose.router.content.RoutedContent
 import io.github.xxfast.decompose.router.rememberRouter
@@ -16,7 +17,8 @@ import statistics.StatisticFeature
 @Parcelize
 internal sealed class BottomMenuRouter : Parcelable {
     data object Trainings : BottomMenuRouter()
-    data object Statistic : BottomMenuRouter()
+    data object Statistics : BottomMenuRouter()
+    data object Configurations : BottomMenuRouter()
 }
 
 @Composable
@@ -34,7 +36,8 @@ internal fun BottomMenuGraph(
     LaunchedEffect(router.stack.value.active.configuration) {
         when (router.stack.value.active.configuration) {
             BottomMenuRouter.Trainings -> selectedIndex.value = 0
-            BottomMenuRouter.Statistic -> selectedIndex.value = 1
+            BottomMenuRouter.Statistics -> selectedIndex.value = 1
+            BottomMenuRouter.Configurations -> selectedIndex.value = 2
         }
     }
 
@@ -43,7 +46,8 @@ internal fun BottomMenuGraph(
         onClick = {
             val newRoute = when (it) {
                 0 -> BottomMenuRouter.Trainings
-                else -> BottomMenuRouter.Statistic
+                1 -> BottomMenuRouter.Statistics
+                else -> BottomMenuRouter.Configurations
             }
             router.bringToFront(newRoute)
         },
@@ -57,7 +61,8 @@ internal fun BottomMenuGraph(
                         toTrainingDetails = toTrainingDetails
                     )
 
-                    BottomMenuRouter.Statistic -> StatisticFeature()
+                    BottomMenuRouter.Configurations -> WikiFeature()
+                    BottomMenuRouter.Statistics -> StatisticFeature()
                 }
             }
         }

@@ -7,17 +7,16 @@ plugins {
 apply(from = "../../config/gradle/build-scripts/kotlin.gradle")
 apply(from = "../../config/gradle/build-scripts/android.gradle")
 
-android { namespace = "com.voitenko.usefultraining.features.trainingbuilder" }
+android { namespace = "com.voitenko.usefultraining.features.configurations" }
 
 kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(projects.domain.trainings)
                 implementation(projects.domain.exercisesBundle)
-
                 implementation(projects.common.instruments)
                 implementation(projects.common.designSystem)
+                implementation(projects.common.charts)
                 implementation(projects.common.architectureComponent)
 
                 // Compose
@@ -26,9 +25,6 @@ kotlin {
 
                 // Collections
                 implementation(libs.immutable.collections)
-
-                // Utils
-                implementation(libs.uuid)
 
                 // Koin
                 implementation(libs.koin.core)

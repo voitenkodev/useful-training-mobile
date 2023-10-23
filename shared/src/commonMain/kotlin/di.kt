@@ -13,6 +13,7 @@ public fun initCommonKoin(
         servicesModule,
         trainingsDataDiModule,
         authDataDiModule,
+        exercisesBundleDataDiModule,
     )
 }
 

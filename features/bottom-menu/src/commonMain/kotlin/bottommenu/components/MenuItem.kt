@@ -1,7 +1,6 @@
 package bottommenu.components
 
 import Design
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -18,7 +17,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import controls.IconPrimary
-import controls.TextFieldBody2
 
 @Composable
 internal fun MenuItem(
@@ -63,12 +61,12 @@ internal fun MenuItem(
                 color = iconColor
             )
 
-            AnimatedVisibility(visible = isSelected) {
-                TextFieldBody2(
-                    provideText = { text },
-                    color = textColor
-                )
-            }
+//            AnimatedVisibility(visible = isSelected) {
+//                TextFieldBody2(
+//                    provideText = { text },
+//                    color = textColor
+//                )
+//            }
         }
     }
 }

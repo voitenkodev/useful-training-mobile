@@ -1,6 +1,7 @@
 package trainingbuilder.screen
 
 import DateTimeKtx
+import ExercisesBundleRepository
 import TrainingRepository
 import ViewModel
 import kotlinx.coroutines.FlowPreview
@@ -25,7 +26,8 @@ internal class TrainingViewModel : ViewModel() {
     private val _state = MutableStateFlow(State())
     internal val state: StateFlow<State> = _state
 
-    private val api by inject<TrainingRepository>()
+    private val trainingsApi by inject<TrainingRepository>()
+    private val exercisesApi by inject<ExercisesBundleRepository>()
 
     @FlowPreview
     fun saveTraining(onSuccess: (trainingId: String) -> Unit) {
@@ -42,7 +44,7 @@ internal class TrainingViewModel : ViewModel() {
 
         val exerciseNames = training.exercises.map { it.name }
 
-        api.setTraining(training = training.toBody())
+        trainingsApi.setTraining(training = training.toBody())
             .onStart {
                 _state.value = state.value.copy(loading = true)
             }.onEach {
@@ -51,13 +53,13 @@ internal class TrainingViewModel : ViewModel() {
             }.catch {
                 _state.value = state.value.copy(loading = false, error = it.message)
             }.flatMapConcat {
-                api.setExerciseNameOptions(exerciseNames)
+                exercisesApi.setExerciseNameOptions(exerciseNames)
             }
             .launchIn(this)
     }
 
     fun removeExerciseNameOption(value: String) {
-        api
+        exercisesApi
             .removeExerciseNameOption(value)
             .onEach { removedValue ->
                 _state.value = state.value.copy(
@@ -69,7 +71,7 @@ internal class TrainingViewModel : ViewModel() {
     }
 
     fun getExerciseNameOptions() {
-        api
+        exercisesApi
             .getExerciseNameOptions()
             .onEach {
                 _state.value = state.value.copy(exerciseNameOptions = it)
@@ -79,7 +81,7 @@ internal class TrainingViewModel : ViewModel() {
     }
 
     fun getTraining(trainingId: String) {
-        api
+        trainingsApi
             .getTraining(trainingId = trainingId)
             .onStart {
                 _state.value = state.value.copy(loading = true)
