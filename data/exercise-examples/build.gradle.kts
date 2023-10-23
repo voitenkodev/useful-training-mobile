@@ -6,13 +6,13 @@ plugins {
 apply(from = "../../config/gradle/build-scripts/kotlin.gradle")
 apply(from = "../../config/gradle/build-scripts/android.gradle")
 
-android { namespace = "com.voitenko.usefultraining.data.exercisesbundle" }
+android { namespace = "com.voitenko.usefultraining.data.exerciseexamples" }
 
 kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(projects.domain.exercisesBundle)
+                implementation(projects.domain.exerciseExamples)
                 implementation(projects.services.database)
 
                 implementation(libs.coroutines)

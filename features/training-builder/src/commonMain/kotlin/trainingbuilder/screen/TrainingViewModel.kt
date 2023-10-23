@@ -1,7 +1,7 @@
 package trainingbuilder.screen
 
 import DateTimeKtx
-import ExercisesBundleRepository
+import ExerciseExamplesRepository
 import TrainingRepository
 import ViewModel
 import kotlinx.coroutines.FlowPreview
@@ -27,7 +27,7 @@ internal class TrainingViewModel : ViewModel() {
     internal val state: StateFlow<State> = _state
 
     private val trainingsApi by inject<TrainingRepository>()
-    private val exercisesApi by inject<ExercisesBundleRepository>()
+    private val exercisesApi by inject<ExerciseExamplesRepository>()
 
     @FlowPreview
     fun saveTraining(onSuccess: (trainingId: String) -> Unit) {

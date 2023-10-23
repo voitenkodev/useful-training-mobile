@@ -24,12 +24,12 @@ include(
     ":shared",
 
     ":data:trainings",
-    ":data:exercises-bundle",
+    ":data:exercise-examples",
     ":data:authentication",
 
     ":domain:trainings",
     ":domain:authentication",
-    ":domain:exercises-bundle",
+    ":domain:exercise-examples",
 
     ":services:network",
     ":services:database",

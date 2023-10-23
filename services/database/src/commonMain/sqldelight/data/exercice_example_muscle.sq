@@ -1,0 +1,16 @@
+CREATE TABLE IF NOT EXISTS ExerciseExample (
+    id TEXT PRIMARY KEY,
+    name TEXT
+);
+
+CREATE TABLE IF NOT EXISTS Muscle (
+    id TEXT PRIMARY KEY,
+    name TEXT
+);
+
+CREATE TABLE ExerciseOptionsMuscleRef (
+    exerciseExampleId TEXT,
+    muscleId TEXT,
+    FOREIGN KEY (exerciseExampleId) REFERENCES ExerciseExample(id),
+    FOREIGN KEY (muscleId) REFERENCES Muscle(id)
+);

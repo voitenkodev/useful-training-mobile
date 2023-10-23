@@ -33,7 +33,7 @@ kotlin {
                 // Data
                 implementation(projects.data.trainings)
                 implementation(projects.data.authentication)
-                implementation(projects.data.exercisesBundle)
+                implementation(projects.data.exerciseExamples)
 
                 // Other
                 implementation(projects.common.platformApi)

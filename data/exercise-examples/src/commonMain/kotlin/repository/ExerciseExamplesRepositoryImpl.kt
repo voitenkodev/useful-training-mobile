@@ -1,11 +1,11 @@
 package repository
 
 import DataBaseSource
-import ExercisesBundleRepository
+import ExerciseExamplesRepository
 
-internal class ExercisesBundleRepositoryImpl(
+internal class ExerciseExamplesRepositoryImpl(
     private val local: DataBaseSource
-) : ExercisesBundleRepository {
+) : ExerciseExamplesRepository {
 
     override fun setExerciseNameOptions(names: List<String>) = local
         .setExerciseNames(names)

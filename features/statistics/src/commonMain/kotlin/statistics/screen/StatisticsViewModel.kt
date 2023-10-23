@@ -1,6 +1,6 @@
 package statistics.screen
 
-import ExercisesBundleRepository
+import ExerciseExamplesRepository
 import TrainingRepository
 import ViewModel
 import kotlinx.collections.immutable.toImmutableList
@@ -30,7 +30,7 @@ internal class StatisticsViewModel : ViewModel() {
     internal val state: StateFlow<State> = _state
 
     private val trainingsApi by inject<TrainingRepository>()
-    private val exercisesApi by inject<ExercisesBundleRepository>()
+    private val exercisesApi by inject<ExerciseExamplesRepository>()
 
     init {
         debounceGetExercises("")

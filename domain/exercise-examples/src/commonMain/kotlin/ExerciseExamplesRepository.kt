@@ -1,6 +1,6 @@
 import kotlinx.coroutines.flow.Flow
 
-public interface ExercisesBundleRepository {
+public interface ExerciseExamplesRepository {
 
     public fun getExerciseNameOptions(): Flow<List<String>>
 
