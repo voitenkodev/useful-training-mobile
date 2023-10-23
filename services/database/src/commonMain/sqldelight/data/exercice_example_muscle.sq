@@ -14,3 +14,46 @@ CREATE TABLE ExerciseOptionsMuscleRef (
     FOREIGN KEY (exerciseExampleId) REFERENCES ExerciseExample(id),
     FOREIGN KEY (muscleId) REFERENCES Muscle(id)
 );
+
+getExerciseWithMuscleExamplesByid:
+SELECT e.id AS exercise_id, e.name AS exercise_name, m.id AS muscle_id, m.name AS muscle_name
+FROM ExerciseOptionsMuscleRef AS emr
+JOIN ExerciseExample AS e ON emr.exerciseExampleId = e.id
+JOIN Muscle AS m ON emr.muscleId = m.id
+WHERE e.id = ?;
+
+getMuscleWithExerciseExamplesById:
+SELECT m.id AS muscle_id, m.name AS muscle_name, e.id AS exercise_id, e.name AS exercise_name
+FROM ExerciseOptionsMuscleRef AS emr
+JOIN Muscle AS m ON emr.muscleId = m.id
+JOIN ExerciseExample AS e ON emr.exerciseExampleId = e.id
+WHERE m.id = ?;
+
+getMuscles:
+SELECT *
+FROM Muscle;
+
+getExerciseExamples:
+SELECT *
+FROM ExerciseExample;
+
+setMuscle:
+INSERT INTO Muscle (id, name)
+VALUES (
+?1,
+?2
+);
+
+setExerciseExample:
+INSERT INTO ExerciseExample (id, name)
+VALUES (
+ ?1,
+ ?2
+);
+
+setExerciseExampleMuscleRef:
+INSERT INTO ExerciseOptionsMuscleRef (exerciseExampleId, muscleId)
+VALUES (
+ ?1,
+ ?2
+);

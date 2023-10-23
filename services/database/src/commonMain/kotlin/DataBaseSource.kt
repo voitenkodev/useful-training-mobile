@@ -59,13 +59,13 @@ public class DataBaseSource(nativeContext: NativeContext) {
             .getTrainingById(trainingId)
             .executeAsOne()
 
-        val Dao = getExercisesBy {
+        val dao = getExercisesBy {
             trainingsBd
                 .getExercisesByTrainingId(result.id)
                 .executeAsList()
         }
 
-        return flowOf(result.toDao(Dao))
+        return flowOf(result.toDao(dao))
     }
 
     public fun setTrainings(trainings: List<TrainingDao>) {
