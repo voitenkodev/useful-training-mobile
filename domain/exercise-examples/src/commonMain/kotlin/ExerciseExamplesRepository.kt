@@ -8,9 +8,9 @@ public interface ExerciseExamplesRepository {
 
     public fun getMuscles(): Flow<List<Muscle>>
 
-    public fun getExerciseExampleWithMusclesById(exerciseExampleId: Long): Flow<Pair<ExerciseExample, List<Muscle>>?>
+    public fun getExerciseExampleWithMusclesById(exerciseExampleId: String): Flow<Pair<ExerciseExample, List<Muscle>>?>
 
-    public fun getMuscleWithExerciseExamplesById(muscleId: Long): Flow<Pair<Muscle, List<ExerciseExample>>?>
+    public fun getMuscleWithExerciseExamplesById(muscleId: String): Flow<Pair<Muscle, List<ExerciseExample>>?>
 
     public fun setExerciseExampleWithMuscles(exerciseExample: ExerciseExample, muscles: List<Muscle>)
 

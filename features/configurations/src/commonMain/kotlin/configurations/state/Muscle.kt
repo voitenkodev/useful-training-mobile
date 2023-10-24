@@ -1,6 +1,6 @@
 package configurations.state
 
 internal data class Muscle(
-    val id: Long,
+    val id: String,
     val name: String,
 )

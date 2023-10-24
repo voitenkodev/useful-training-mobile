@@ -47,7 +47,7 @@ public class ExerciseExamplesSource(nativeContext: NativeContext) {
     }
 
 
-    public fun getExerciseExampleWithMusclesById(exerciseExampleId: Long): Flow<List<Pair<ExerciseExampleDao, List<MuscleDao>>>> {
+    public fun getExerciseExampleWithMusclesById(exerciseExampleId: String): Flow<List<Pair<ExerciseExampleDao, List<MuscleDao>>>> {
         return api
             .getExerciseExampleWithMusclesById(exerciseExampleId)
             .asFlow()
@@ -70,7 +70,7 @@ public class ExerciseExamplesSource(nativeContext: NativeContext) {
             }
     }
 
-    public fun getMuscleWithExerciseExamplesById(muscleId: Long): Flow<List<Pair<MuscleDao, List<ExerciseExampleDao>>>> {
+    public fun getMuscleWithExerciseExamplesById(muscleId: String): Flow<List<Pair<MuscleDao, List<ExerciseExampleDao>>>> {
         return api
             .getMuscleWithExerciseExamplesById(muscleId)
             .asFlow()
@@ -99,15 +99,13 @@ public class ExerciseExamplesSource(nativeContext: NativeContext) {
     ) {
         api.transaction {
             setExerciseExample(exerciseExample)
-            val exerciseExampleId = api.lastExerciseExampleId().executeAsOneOrNull()
 
             muscles.forEach { muscle ->
                 setMuscle(muscle)
-                val muscleId = api.lastMuscleId().executeAsOneOrNull()
 
                 setExerciseExampleMuscleRef(
-                    exerciseExampleId = exerciseExampleId ?: return@forEach,
-                    muscleId = muscleId ?: return@forEach
+                    exerciseExampleId = exerciseExample.id,
+                    muscleId = muscle.id
                 )
             }
         }
@@ -119,15 +117,13 @@ public class ExerciseExamplesSource(nativeContext: NativeContext) {
     ) {
         api.transaction {
             setMuscle(muscle)
-            val muscleId = api.lastMuscleId().executeAsOneOrNull()
 
             exerciseExamples.forEach { exerciseExample ->
                 setExerciseExample(exerciseExample)
-                val exerciseExampleId = api.lastExerciseExampleId().executeAsOneOrNull()
 
                 setExerciseExampleMuscleRef(
-                    exerciseExampleId = exerciseExampleId ?: return@forEach,
-                    muscleId = muscleId ?: return@forEach
+                    exerciseExampleId = exerciseExample.id,
+                    muscleId = muscle.id
                 )
             }
         }
@@ -147,7 +143,7 @@ public class ExerciseExamplesSource(nativeContext: NativeContext) {
         )
     }
 
-    private fun setExerciseExampleMuscleRef(exerciseExampleId: Long, muscleId: Long) {
+    private fun setExerciseExampleMuscleRef(exerciseExampleId: String, muscleId: String) {
         api.setExerciseExampleMuscleRef(
             exerciseExampleId = exerciseExampleId,
             muscleId = muscleId

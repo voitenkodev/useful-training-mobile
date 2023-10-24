@@ -1,6 +1,6 @@
 package models
 
 public data class Muscle(
-    val id: Long,
+    val id: String,
     val name: String,
 )

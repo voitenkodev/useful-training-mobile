@@ -1,6 +1,6 @@
 package models
 
 public data class ExerciseExample(
-    val id: Long,
+    val id: String,
     val name: String,
 )

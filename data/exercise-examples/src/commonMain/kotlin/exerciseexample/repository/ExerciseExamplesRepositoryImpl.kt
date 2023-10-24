@@ -27,7 +27,7 @@ internal class ExerciseExamplesRepositoryImpl(
             }
     }
 
-    override fun getExerciseExampleWithMusclesById(exerciseExampleId: Long): Flow<Pair<ExerciseExample, List<Muscle>>?> {
+    override fun getExerciseExampleWithMusclesById(exerciseExampleId: String): Flow<Pair<ExerciseExample, List<Muscle>>?> {
         return local
             .getExerciseExampleWithMusclesById(exerciseExampleId)
             .map {
@@ -38,7 +38,7 @@ internal class ExerciseExamplesRepositoryImpl(
             }
     }
 
-    override fun getMuscleWithExerciseExamplesById(muscleId: Long): Flow<Pair<Muscle, List<ExerciseExample>>?> {
+    override fun getMuscleWithExerciseExamplesById(muscleId: String): Flow<Pair<Muscle, List<ExerciseExample>>?> {
         return local
             .getMuscleWithExerciseExamplesById(muscleId)
             .map {
