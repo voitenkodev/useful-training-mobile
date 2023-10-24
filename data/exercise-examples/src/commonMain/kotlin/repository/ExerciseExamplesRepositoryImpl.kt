@@ -1,12 +1,13 @@
 package repository
 
 import ExerciseExamplesRepository
+import exercise_example_muscle.ExerciseExamplesSource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import models.ExerciseExample
 import models.Muscle
+import repository.mapping.toDao
 import repository.mapping.toDomain
-import exercise_example_muscle.ExerciseExamplesSource
 
 internal class ExerciseExamplesRepositoryImpl(
     private val local: ExerciseExamplesSource
@@ -35,10 +36,18 @@ internal class ExerciseExamplesRepositoryImpl(
     }
 
     override fun setExerciseExampleWithMuscles(exerciseExample: ExerciseExample, muscles: List<Muscle>) {
-        TODO("Not yet implemented")
+        return local
+            .setExerciseExampleWithMuscles(
+                exerciseExample = exerciseExample.toDao(),
+                muscles = muscles.toDao()
+            )
     }
 
     override fun setMuscleWithExerciseExamples(muscle: Muscle, exerciseExamples: List<ExerciseExample>) {
-        TODO("Not yet implemented")
+        return local
+            .setMuscleWithExerciseExamples(
+                muscle = muscle.toDao(),
+                exerciseExamples = exerciseExamples.toDao()
+            )
     }
 }

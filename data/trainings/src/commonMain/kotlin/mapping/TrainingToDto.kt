@@ -28,6 +28,7 @@ internal fun Training.toDto(exercises: List<ExerciseDto>): TrainingDto {
 }
 
 internal fun List<TrainingDto>.dtoToDomain(): List<Training> = map { it.dtoToDomain() }
+
 internal fun List<TrainingDao>.daoToDomain(): List<Training> = map { it.toDomain() }
 
 internal fun TrainingDto.dtoToDomain(): Training {
@@ -37,7 +38,6 @@ internal fun TrainingDto.dtoToDomain(): Training {
     }
     return toDomain(exercises)
 }
-
 
 internal fun TrainingDao.toDomain(): Training {
     val exercises = exercises.map { ex ->
@@ -58,7 +58,6 @@ internal fun TrainingDto.toDomain(exercises: List<Exercise>): Training {
         exercises = exercises
     )
 }
-
 
 internal fun TrainingDao.toDomain(exercises: List<Exercise>): Training {
     return Training(
