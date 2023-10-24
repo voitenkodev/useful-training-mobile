@@ -1,6 +1,6 @@
 package splash.screen
 
-import AuthRepository
+import AuthenticationRepository
 import ViewModel
 import splash.state.State
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -13,7 +13,7 @@ import splash.state.TokenStatus
 
 internal class SplashViewModel : ViewModel() {
 
-    private val api by inject<AuthRepository>()
+    private val api by inject<AuthenticationRepository>()
 
     private val _state = MutableStateFlow(State())
     val state: StateFlow<State> = _state

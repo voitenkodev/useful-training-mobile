@@ -2,7 +2,7 @@ import kotlinx.coroutines.flow.Flow
 import models.ExerciseDate
 import models.Training
 
-public interface TrainingRepository {
+public interface TrainingsRepository {
 
     public fun getTrainings(): Flow<List<Training>>
 

@@ -1,6 +1,6 @@
-package repository
+package authentication.repository
 
-import AuthRepository
+import AuthenticationRepository
 import NetworkSource
 import PreferencesSource
 import kotlinx.coroutines.flow.Flow
@@ -9,11 +9,11 @@ import kotlinx.coroutines.flow.map
 import models.AuthDto
 import traininig_exercise_iteration.TrainingsSource
 
-internal class AuthRepositoryImpl(
+internal class AuthenticationRepositoryImpl(
     private val remote: NetworkSource,
     private val preferences: PreferencesSource,
     private val local: TrainingsSource,
-) : AuthRepository {
+) : AuthenticationRepository {
 
     override fun login(email: String, password: String): Flow<Unit> =
         flow {

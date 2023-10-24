@@ -1,10 +1,13 @@
+import authentication.authenticationDataModule
 import kotlinx.coroutines.flow.firstOrNull
 import org.koin.core.KoinApplication
 import org.koin.dsl.KoinAppDeclaration
 import org.koin.dsl.module
 import org.koin.mp.KoinPlatformTools
 import exercise_example_muscle.ExerciseExamplesSource
+import exerciseexample.exerciseExamplesDataModule
 import traininig_exercise_iteration.TrainingsSource
+import traininigs.trainingsDataModule
 
 public fun initCommonKoin(
     appDeclaration: KoinAppDeclaration = {},
@@ -13,9 +16,9 @@ public fun initCommonKoin(
     modules(
         platformModule,
         servicesModule,
-        trainingsDataDiModule,
-        authDataDiModule,
-        exerciseExamplesDataDiModule,
+        trainingsDataModule,
+        authenticationDataModule,
+        exerciseExamplesDataModule,
     )
 }
 

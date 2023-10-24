@@ -1,6 +1,6 @@
 import kotlinx.coroutines.flow.Flow
 
-public interface AuthRepository {
+public interface AuthenticationRepository {
 
     public fun login(email: String, password: String): Flow<Unit>
 

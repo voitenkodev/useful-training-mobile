@@ -1,11 +1,10 @@
 package statistics.screen
 
 import ExerciseExamplesRepository
-import TrainingRepository
+import TrainingsRepository
 import ViewModel
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.collections.immutable.toImmutableMap
-import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -29,7 +28,7 @@ internal class StatisticsViewModel : ViewModel() {
     private val _state = MutableStateFlow(State())
     internal val state: StateFlow<State> = _state
 
-    private val trainingsApi by inject<TrainingRepository>()
+    private val trainingsApi by inject<TrainingsRepository>()
     private val exercisesApi by inject<ExerciseExamplesRepository>()
 
     init {

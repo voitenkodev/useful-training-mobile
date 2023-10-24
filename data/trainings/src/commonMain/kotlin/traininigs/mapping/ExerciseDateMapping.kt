@@ -1,4 +1,4 @@
-package mapping
+package traininigs.mapping
 
 import models.ExerciseDate
 import models.ExerciseDateDto

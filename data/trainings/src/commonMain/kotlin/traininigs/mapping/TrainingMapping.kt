@@ -1,4 +1,4 @@
-package mapping
+package traininigs.mapping
 
 import models.Exercise
 import traininig_exercise_iteration.models.ExerciseDao

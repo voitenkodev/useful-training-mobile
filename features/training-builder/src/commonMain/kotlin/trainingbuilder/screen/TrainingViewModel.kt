@@ -2,13 +2,12 @@ package trainingbuilder.screen
 
 import DateTimeKtx
 import ExerciseExamplesRepository
-import TrainingRepository
+import TrainingsRepository
 import ViewModel
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
@@ -26,7 +25,7 @@ internal class TrainingViewModel : ViewModel() {
     private val _state = MutableStateFlow(State())
     internal val state: StateFlow<State> = _state
 
-    private val trainingsApi by inject<TrainingRepository>()
+    private val trainingsApi by inject<TrainingsRepository>()
     private val exercisesApi by inject<ExerciseExamplesRepository>()
 
     @FlowPreview

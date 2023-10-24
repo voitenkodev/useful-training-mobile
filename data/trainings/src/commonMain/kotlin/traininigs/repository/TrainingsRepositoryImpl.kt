@@ -1,25 +1,25 @@
-package repository
+package traininigs.repository
 
 import NetworkSource
-import TrainingRepository
+import TrainingsRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flattenMerge
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
-import mapping.daoToDomain
-import mapping.dtoToDao
-import mapping.dtoToDomain
-import mapping.toDomain
-import mapping.toDto
+import traininigs.mapping.daoToDomain
+import traininigs.mapping.dtoToDao
+import traininigs.mapping.dtoToDomain
+import traininigs.mapping.toDomain
+import traininigs.mapping.toDto
 import models.ExerciseDate
 import models.Training
 import traininig_exercise_iteration.TrainingsSource
 
-internal class TrainingRepositoryImpl(
+internal class TrainingsRepositoryImpl(
     private val remote: NetworkSource,
     private val local: TrainingsSource
-) : TrainingRepository {
+) : TrainingsRepository {
 
     override fun getTrainings(): Flow<List<Training>> {
         val remote = flow {

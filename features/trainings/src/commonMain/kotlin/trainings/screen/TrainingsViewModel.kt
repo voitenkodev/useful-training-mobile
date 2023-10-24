@@ -2,7 +2,7 @@ package trainings.screen
 
 import DateTimeKtx
 import DateTimeKtx.addEarlyCalendarChunk
-import TrainingRepository
+import TrainingsRepository
 import ViewModel
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.collections.immutable.toPersistentList
@@ -24,7 +24,7 @@ internal class TrainingsViewModel : ViewModel() {
     private val _state = MutableStateFlow(State())
     internal val state: StateFlow<State> = _state
 
-    private val trainingApi by inject<TrainingRepository>()
+    private val trainingApi by inject<TrainingsRepository>()
 
     companion object {
         private const val DAY_PAGE_CHUNK = 40
