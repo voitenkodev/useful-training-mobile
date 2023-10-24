@@ -6,7 +6,8 @@ import kotlinx.collections.immutable.persistentListOf
 
 @Immutable
 internal data class State(
-    val exerciseNameOptions: ImmutableList<String> = persistentListOf(),
+    val exerciseExamples: ImmutableList<ExerciseExample> = persistentListOf(),
+    val muscles: ImmutableList<Muscle> = persistentListOf(),
     val error: String? = null,
     val loading: Boolean = false
 )

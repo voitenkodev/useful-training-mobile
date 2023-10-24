@@ -53,6 +53,20 @@ FROM Exercise
 WHERE name = ?
 ORDER BY id DESC;
 
+-------------- SET --------------
+
+setTraining:
+INSERT OR REPLACE INTO Training (id,duration,date,tonnage,countOfLifting,intensity)
+VALUES (?1,?2,?3,?4,?5,?6);
+
+setExercise:
+INSERT INTO Exercise (id,trainingId,name,tonnage,countOfLifting,intensity)
+VALUES (?7,?1,?8,?9,?10,?11);
+
+setIteration:
+INSERT INTO Iteration (id,exerciseId,weight,repeat)
+VALUES (?12,?7,?13,?14);
+
 -------------- DELETE --------------
 
 dropTable:
@@ -70,17 +84,3 @@ deleteIterationsByExerciseId:
 DELETE FROM Iteration
 WHERE exerciseId
 IN (SELECT id FROM Exercise WHERE trainingId = ?1);
-
--------------- SET --------------
-
-setTraining:
-INSERT OR REPLACE INTO Training (id,duration,date,tonnage,countOfLifting,intensity)
-VALUES (?1,?2,?3,?4,?5,?6);
-
-setExercise:
-INSERT INTO Exercise (id,trainingId,name,tonnage,countOfLifting,intensity)
-VALUES (?7,?1,?8,?9,?10,?11);
-
-setIteration:
-INSERT INTO Iteration (id,exerciseId,weight,repeat)
-VALUES (?12,?7,?13,?14);

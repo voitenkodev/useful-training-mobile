@@ -1,34 +1,60 @@
 package components.chips
 
 import Design
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
-import conditional
 import molecular.ButtonIconSecondary
+import molecular.PaddingXS
 import molecular.TextBody2
+import molecular.accentCircleBackground
 import molecular.secondaryCircleBackground
 import molecular.transparentCircleBackground
 
+public enum class ChipStatus {
+    DEFAULT,
+    SELECTED,
+    DISABLED,
+    HIGHLIGHTED
+}
+
 @Composable
 public fun Chip(
-    isSelected: Boolean,
+    chipStatus: ChipStatus = ChipStatus.DEFAULT,
+    text: String,
+    icon: ImageVector? = null,
     onClick: () -> Unit,
 ) {
+
+    val modifier = when (chipStatus) {
+        ChipStatus.DEFAULT -> Modifier
+            .secondaryCircleBackground()
+
+        ChipStatus.SELECTED -> Modifier
+            .transparentCircleBackground()
+
+        ChipStatus.DISABLED -> Modifier
+            .secondaryCircleBackground()
+            .alpha(0.5f)
+
+        ChipStatus.HIGHLIGHTED -> Modifier
+            .accentCircleBackground()
+    }
+
     Row(
         modifier = Modifier
-            .conditional(
-                condition = isSelected,
-                onYes = { transparentCircleBackground() },
-                onNot = { secondaryCircleBackground() }
-            )
+            .clickable(
+                enabled = chipStatus != ChipStatus.DISABLED,
+                onClick = onClick
+            ).then(modifier)
             .padding(
                 horizontal = Design.dp.paddingM,
                 vertical = Design.dp.paddingS
@@ -37,13 +63,19 @@ public fun Chip(
         verticalAlignment = Alignment.CenterVertically
     ) {
 
-        ButtonIconSecondary(
-            modifier = Modifier.size(18.dp),
-            imageVector = Icons.Default.Search
-        )
+        if (icon != null) {
+            ButtonIconSecondary(
+                modifier = Modifier.size(18.dp),
+                imageVector = icon
+            )
+        } else {
+            PaddingXS()
+        }
 
         TextBody2(
-            provideText = { "Some chip" }
+            provideText = { text }
         )
+
+        PaddingXS()
     }
 }

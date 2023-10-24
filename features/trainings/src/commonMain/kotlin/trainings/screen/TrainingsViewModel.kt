@@ -52,10 +52,10 @@ internal class TrainingsViewModel : ViewModel() {
                         .map { c -> c.dateTimeIso }
 
                     it.copy(
-                        loading = false,
                         trainings = trainings,
                         displayedTrainings = trainings.getTrainingsByDate(selectedDates).toPersistentList(),
-                        calendar = it.calendar.syncWithTrainings(trainings).toPersistentList()
+                        calendar = it.calendar.syncWithTrainings(trainings).toPersistentList(),
+                        loading = false
                     )
                 }
             }.catch { t ->

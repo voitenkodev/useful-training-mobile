@@ -50,8 +50,8 @@ internal class StatisticsViewModel : ViewModel() {
             }.onEach { response ->
                 _state.update {
                     it.copy(
-                        loading = false,
                         exercises = response.processingExercises(),
+                        loading = false
                     )
                 }
             }.catch { t ->

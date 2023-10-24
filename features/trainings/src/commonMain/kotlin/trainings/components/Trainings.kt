@@ -24,7 +24,9 @@ internal fun Trainings(
     openTraining: (trainingId: String) -> Unit,
     trainingWithTemplate: (trainingId: String) -> Unit,
 ) {
-    LazyColumn(modifier = Modifier.fillMaxSize()) {
+    LazyColumn(
+        modifier = Modifier.fillMaxSize(),
+    ) {
 
         if (selectedDateIsToday) {
             item {

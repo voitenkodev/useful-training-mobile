@@ -68,11 +68,10 @@ internal class TrainingViewModel : ViewModel() {
                 _state.value = state.value.copy(loading = true)
             }.onEach {
                 _state.value = state.value.copy(
-                    loading = false,
-                    error = null,
                     training = it
                         .toTrainingState()
-                        .provideEmptyIterations()
+                        .provideEmptyIterations(),
+                    loading = false,
                 )
             }.catch {
                 _state.value = state.value.copy(loading = false, error = it.message)

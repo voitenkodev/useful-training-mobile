@@ -24,6 +24,15 @@ public fun Modifier.accentDefaultBackground(): Modifier = this
     )
 
 @Composable
+public fun Modifier.accentCircleBackground(): Modifier = this
+    .background(
+        color = Design.colors.accentPrimary,
+        shape = Design.shape.circleShape
+    ).clip(
+        shape = Design.shape.circleShape
+    )
+
+@Composable
 public fun Modifier.secondaryDefaultBackground(): Modifier = this
     .border(
         color = Design.colors.white5,
