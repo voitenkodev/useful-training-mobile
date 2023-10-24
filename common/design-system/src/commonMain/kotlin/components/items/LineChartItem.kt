@@ -21,10 +21,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import chart.LineChart
-import chart.PointLine
-import controls.TextFieldBody2
-import controls.quaternaryBackground
+import components.chart.LineChart
+import components.chart.PointLine
+import molecular.TextBody2
+import molecular.secondaryDefaultBackground
 import recomposeHighlighter
 
 @Composable
@@ -34,7 +34,7 @@ public fun LineChartItem(
 ) {
     LineChartBox(
         modifier = modifier
-            .quaternaryBackground()
+            .secondaryDefaultBackground()
             .padding(Design.dp.paddingM),
         lines = lines,
     )
@@ -129,7 +129,7 @@ private fun XLabels(
     }
 
     texts.forEach {
-        TextFieldBody2(
+        TextBody2(
             modifier = Modifier.recomposeHighlighter(),
             provideText = { it })
     }
@@ -155,31 +155,31 @@ private fun YLabels(
         verticalArrangement = Arrangement.SpaceBetween
     ) {
 
-        TextFieldBody2(
+        TextBody2(
             modifier = Modifier.recomposeHighlighter(),
             provideText = { max },
             textAlign = TextAlign.End
         )
 
-        TextFieldBody2(
+        TextBody2(
             modifier = Modifier.recomposeHighlighter(),
             provideText = { threeQuarters },
             textAlign = TextAlign.End
         )
 
-        TextFieldBody2(
+        TextBody2(
             modifier = Modifier.recomposeHighlighter(),
             provideText = { middle },
             textAlign = TextAlign.End
         )
 
-        TextFieldBody2(
+        TextBody2(
             modifier = Modifier.recomposeHighlighter(),
             provideText = { quarter },
             textAlign = TextAlign.End
         )
 
-        TextFieldBody2(
+        TextBody2(
             modifier = Modifier.recomposeHighlighter(),
             provideText = { min },
             textAlign = TextAlign.End
@@ -212,7 +212,7 @@ private fun Label(
             ).recomposeHighlighter(),
     )
 
-    TextFieldBody2(
+    TextBody2(
         modifier = Modifier.recomposeHighlighter(),
         provideText = { label },
         color = Design.colors.caption

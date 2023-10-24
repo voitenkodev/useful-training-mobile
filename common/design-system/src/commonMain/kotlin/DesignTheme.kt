@@ -2,12 +2,11 @@ import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
+import atomic.darkPalette
 import atomic.dp
 import atomic.shape
 import atomic.typography
-import atomic.darkPalette
-import atomic.duration
-import controls.rootBackground
+import molecular.rootBackground
 
 @Composable
 public fun DesignTheme(
@@ -26,8 +25,6 @@ public fun DesignTheme(
     LocalDp provides dp(),
 
     LocalShape provides shape(),
-
-    LocalDuration provides duration(),
 
     content = {
         Surface(

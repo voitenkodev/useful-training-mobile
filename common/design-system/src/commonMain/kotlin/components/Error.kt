@@ -17,9 +17,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
-import controls.TextFieldBody1
-import controls.TextFieldH4
 import kotlinx.coroutines.delay
+import molecular.TextBody1
+import molecular.TextH4
 import platformInsets
 import recomposeHighlighter
 
@@ -83,19 +83,19 @@ private fun ErrorContent(
             .platformInsets()
             .padding(Design.dp.paddingM)
             .background(
-                color = Design.colors.accent_primary,
+                color = Design.colors.accentPrimary,
                 shape = Design.shape.default
             )
             .padding(Design.dp.paddingM)
             .recomposeHighlighter(),
         verticalArrangement = Arrangement.spacedBy(Design.dp.paddingM),
         content = {
-            TextFieldH4(
+            TextH4(
                 modifier = Modifier.recomposeHighlighter(),
                 provideText = { "Error!" },
                 fontWeight = FontWeight.Bold
             )
-            TextFieldBody1(
+            TextBody1(
                 modifier = Modifier.recomposeHighlighter(),
                 provideText = provideMessage
             )

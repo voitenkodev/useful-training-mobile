@@ -18,8 +18,8 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.unit.dp
 import components.labels.AccentLabel
-import controls.IconPrimary
-import controls.InputFieldPrimary
+import molecular.ButtonIconSecondary
+import molecular.InputPrimary
 import recomposeHighlighter
 
 @Composable
@@ -32,7 +32,7 @@ public fun InputExerciseName(
 ) {
     val focusManager = LocalFocusManager.current
 
-    InputFieldPrimary(
+    InputPrimary(
         modifier = modifier
             .fillMaxHeight()
             .recomposeHighlighter(),
@@ -52,7 +52,7 @@ public fun InputExerciseName(
             )
         },
         trailing = {
-            IconPrimary(
+            ButtonIconSecondary(
                 modifier = Modifier
                     .height(20.dp)
                     .width(50.dp)

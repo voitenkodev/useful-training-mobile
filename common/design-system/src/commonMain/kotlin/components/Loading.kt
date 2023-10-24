@@ -28,7 +28,7 @@ public fun Loading(visible: () -> Boolean) {
             .recomposeHighlighter(),
     ) {
         CircularProgressIndicator(
-            color = Design.colors.accent_primary,
+            color = Design.colors.accentPrimary,
             modifier = Modifier
                 .size(80.dp)
                 .padding(16.dp)

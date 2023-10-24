@@ -1,4 +1,4 @@
-package controls
+package molecular
 
 import Design
 import androidx.compose.foundation.text.BasicText
@@ -12,7 +12,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import recomposeHighlighter
 
 @Composable
-public fun TextFieldH1(
+public fun TextH1(
     provideText: () -> String?,
     modifier: Modifier = Modifier,
     placeholder: String? = null,
@@ -38,7 +38,7 @@ public fun TextFieldH1(
 }
 
 @Composable
-public fun TextFieldH2(
+public fun TextH2(
     provideText: () -> String?,
     modifier: Modifier = Modifier,
     placeholder: String? = null,
@@ -61,9 +61,8 @@ public fun TextFieldH2(
     )
 }
 
-
 @Composable
-public fun TextFieldH3(
+public fun TextH3(
     provideText: () -> String?,
     modifier: Modifier = Modifier,
     placeholder: String? = null,
@@ -87,7 +86,7 @@ public fun TextFieldH3(
 }
 
 @Composable
-public fun TextFieldH4(
+public fun TextH4(
     provideText: () -> String?,
     modifier: Modifier = Modifier,
     placeholder: String? = null,
@@ -111,31 +110,7 @@ public fun TextFieldH4(
 }
 
 @Composable
-public fun TextFieldLabel(
-    provideText: () -> String?,
-    modifier: Modifier = Modifier,
-    placeholder: String? = null,
-    color: Color? = null,
-    textAlign: TextAlign? = null,
-    maxLines: Int = Int.MAX_VALUE,
-    fontWeight: FontWeight? = null,
-    overflow: TextOverflow = TextOverflow.Clip
-) {
-    TextField(
-        modifier = modifier,
-        provideText = provideText,
-        placeholder = placeholder,
-        textStyle = Design.typography.Label,
-        maxLines = maxLines,
-        color = color ?: Design.colors.content,
-        textAlign = textAlign,
-        fontWeight = fontWeight,
-        overflow = overflow
-    )
-}
-
-@Composable
-public fun TextFieldBody1(
+public fun TextBody1(
     provideText: () -> String?,
     modifier: Modifier = Modifier,
     placeholder: String? = null,
@@ -159,7 +134,7 @@ public fun TextFieldBody1(
 }
 
 @Composable
-public fun TextFieldBody2(
+public fun TextBody2(
     provideText: () -> String?,
     modifier: Modifier = Modifier,
     placeholder: String? = null,

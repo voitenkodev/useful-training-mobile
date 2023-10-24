@@ -1,5 +1,7 @@
-package calendar
+package components.calendar
 
+import DateTimeKtx.firstDayOfMonth
+import DateTimeKtx.getDaysInMonth
 import Design
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.fillMaxSize
@@ -22,8 +24,6 @@ import androidx.compose.ui.text.drawText
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.unit.dp
-import DateTimeKtx.firstDayOfMonth
-import DateTimeKtx.getDaysInMonth
 import recomposeHighlighter
 import kotlin.math.ceil
 

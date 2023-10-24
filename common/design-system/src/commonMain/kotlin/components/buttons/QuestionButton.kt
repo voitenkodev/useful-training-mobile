@@ -7,8 +7,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import controls.ButtonTextLink
-import controls.TextFieldBody1
+import molecular.ButtonTextLink
+import molecular.TextBody1
 import recomposeHighlighter
 
 @Composable
@@ -24,7 +24,7 @@ public fun ButtonQuestion(
         verticalAlignment = Alignment.CenterVertically
     ) {
 
-        TextFieldBody1(
+        TextBody1(
             modifier = Modifier.recomposeHighlighter(),
             provideText = { question },
             color = Design.colors.caption

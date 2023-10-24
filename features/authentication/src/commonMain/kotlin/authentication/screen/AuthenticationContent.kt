@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -18,7 +17,6 @@ import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.unit.dp
 import authentication.state.TokenStatus
 import components.Error
 import components.Loading
@@ -32,9 +30,11 @@ import components.inputs.InputPassword
 import components.overlay.AlphaOverlay
 import components.roots.Root
 import components.states.keyboardFloatAsState
-import controls.ButtonBrand
-import controls.TextFieldBody1
-import controls.TextFieldH1
+import molecular.ButtonPrimary
+import molecular.PaddingL
+import molecular.PaddingM
+import molecular.TextBody1
+import molecular.TextH1
 import platformInsets
 import recomposeHighlighter
 
@@ -124,16 +124,16 @@ private fun Content(
 
             Spacer(Modifier.weight(keyboardFloatAsState.value))
 
-            TextFieldH1(
+            TextH1(
                 provideText = { "WELCOME BACK" }
             )
 
-            TextFieldBody1(
+            TextBody1(
                 provideText = { "Good to see you again, enter your details\nbelow to continue exercises" },
                 color = Design.colors.caption
             )
 
-            Spacer(Modifier.size(32.dp))
+            PaddingL()
 
             InputEmail(
                 modifier = Modifier
@@ -143,7 +143,7 @@ private fun Content(
                 onValueChange = updateEmail
             )
 
-            Spacer(Modifier.size(16.dp))
+            PaddingM()
 
             InputPassword(
                 modifier = Modifier
@@ -153,9 +153,9 @@ private fun Content(
                 onValueChange = updatePassword
             )
 
-            Spacer(Modifier.size(32.dp))
+            PaddingL()
 
-            ButtonBrand(
+            ButtonPrimary(
                 modifier = Modifier
                     .fillMaxWidth(0.7f)
                     .align(Alignment.CenterHorizontally)
@@ -177,11 +177,11 @@ private fun Content(
         }
 
         BrandGradientCenterStart(
-            color = Design.colors.accent_secondary
+            color = Design.colors.accentSecondary
         )
 
         BrandGradientBottomEnd(
-            color = Design.colors.accent_secondary
+            color = Design.colors.accentSecondary
         )
 
         AlphaOverlay(

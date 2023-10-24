@@ -5,17 +5,17 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
-import controls.TextFieldBody1
-import controls.TextFieldH4
-import controls.secondarySmallBackground
+import molecular.PaddingM
+import molecular.PaddingS
+import molecular.TextBody1
+import molecular.TextH4
+import molecular.secondarySmallBackground
 import recomposeHighlighter
 import trainings.state.Exercise
 
@@ -31,9 +31,7 @@ internal fun Exercise(
             .padding(horizontal = Design.dp.paddingM),
     ) {
 
-        Spacer(
-            modifier = Modifier.size(Design.dp.paddingS)
-        )
+        PaddingS()
 
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -41,22 +39,20 @@ internal fun Exercise(
             verticalAlignment = Alignment.CenterVertically
         ) {
 
-            TextFieldH4(
+            TextH4(
                 modifier = Modifier,
                 provideText = { "$number" },
                 fontWeight = FontWeight.Bold
             )
 
-            TextFieldH4(
+            TextH4(
                 modifier = Modifier.recomposeHighlighter(),
                 provideText = { exercise.name },
                 fontWeight = FontWeight.Bold
             )
         }
 
-        Spacer(
-            modifier = Modifier.size(Design.dp.paddingS)
-        )
+        PaddingS()
 
         FlowRow(
             modifier = Modifier.recomposeHighlighter(),
@@ -65,7 +61,7 @@ internal fun Exercise(
         ) {
 
             exercise.iterations.forEach {
-                TextFieldBody1(
+                TextBody1(
                     modifier = Modifier
                         .secondarySmallBackground()
                         .padding(
@@ -77,8 +73,6 @@ internal fun Exercise(
             }
         }
 
-        Spacer(
-            modifier = Modifier.size(Design.dp.paddingM)
-        )
+        PaddingM()
     }
 }

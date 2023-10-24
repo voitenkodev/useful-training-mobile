@@ -15,9 +15,9 @@ import androidx.compose.ui.text.input.VisualTransformation
 import atomic.icons.Eye
 import atomic.icons.EyeOff
 import components.labels.InputLabel
-import controls.IconPrimary
-import controls.InputFieldPrimary
-import controls.reversedCircleBackground
+import molecular.ButtonIconSecondary
+import molecular.InputPrimary
+import molecular.reversedCircleBackground
 import recomposeHighlighter
 
 @Composable
@@ -28,7 +28,7 @@ public fun InputPassword(
 ) {
     val passwordVisibility = rememberSaveable { mutableStateOf(false) }
 
-    InputFieldPrimary(
+    InputPrimary(
         modifier = modifier
             .reversedCircleBackground()
             .padding(horizontal = Design.dp.paddingM)
@@ -44,7 +44,7 @@ public fun InputPassword(
             )
         },
         trailing = {
-            IconPrimary(
+            ButtonIconSecondary(
                 imageVector = if (passwordVisibility.value) EyeOff else Eye,
                 color = Design.colors.caption,
                 onClick = { passwordVisibility.value = passwordVisibility.value.not() }

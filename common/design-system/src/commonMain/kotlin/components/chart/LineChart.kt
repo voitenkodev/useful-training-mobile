@@ -1,7 +1,9 @@
-package chart
+package components.chart
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
@@ -11,19 +13,21 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import recomposeHighlighter
 
 @Composable
-public fun BarChart(
+public fun LineChart(
     modifier: Modifier = Modifier,
-    lines: List<PointLine>,
+    lines: () -> List<PointLine>,
 ) {
 
-    if (lines.isEmpty()) return
+    val line by rememberUpdatedState(lines())
+
+    if (line.isEmpty()) return
 
     Canvas(modifier = modifier.recomposeHighlighter()) {
 
         val innerLines = calculatePath(
             width = size.width,
             height = size.height,
-            lines = lines,
+            lines = line,
         )
 
         innerLines.forEach {

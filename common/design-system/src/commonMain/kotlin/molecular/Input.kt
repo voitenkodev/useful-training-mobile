@@ -1,8 +1,7 @@
-package controls
+package molecular
 
 import Design
 import androidx.compose.foundation.background
-import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -30,7 +29,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 
 @Composable
-public fun InputFieldPrimary(
+public fun InputPrimary(
     modifier: Modifier = Modifier,
     provideValue: () -> String,
     onValueChange: (String) -> Unit,
@@ -70,7 +69,7 @@ public fun InputFieldPrimary(
 }
 
 @Composable
-public fun InputFieldSecondary(
+public fun InputSecondary(
     modifier: Modifier = Modifier,
     provideValue: () -> String,
     onValueChange: (String) -> Unit,
@@ -150,9 +149,9 @@ private fun InputField(
 
         if (leading != null) {
             leading.invoke()
-            DividerPrimary(
-                modifier = Modifier.requiredHeight(Design.dp.componentM - Design.dp.paddingM - Design.dp.paddingM),
-                orientation = Orientation.Vertical
+            DividerVertical(
+                modifier = Modifier
+                    .requiredHeight(Design.dp.componentM - Design.dp.paddingM - Design.dp.paddingM),
             )
         }
 

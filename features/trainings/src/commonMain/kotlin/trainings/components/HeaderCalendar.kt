@@ -35,16 +35,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.unit.dp
 import components.ShadowDivider
-import controls.TextFieldBody1
-import controls.TextFieldH1
-import controls.TextFieldH2
 import kotlinx.collections.immutable.ImmutableList
+import molecular.PaddingM
+import molecular.TextBody1
+import molecular.TextH1
+import molecular.TextH2
 import platformTopInset
 import trainings.state.SelectableCalendar
 
 @Composable
-internal fun PaginatedCalendar(
-    modifier: Modifier = Modifier,
+internal fun HeaderCalendar(
     calendar: ImmutableList<SelectableCalendar>,
     onAddMore: () -> Unit,
     selectCalendarDay: (dateTimeIso: String) -> Unit
@@ -78,9 +78,7 @@ internal fun PaginatedCalendar(
             .platformTopInset(),
     ) {
 
-        Spacer(
-            modifier = Modifier.size(Design.dp.paddingM)
-        )
+        PaddingM()
 
         Box(
             modifier = Modifier
@@ -101,9 +99,7 @@ internal fun PaginatedCalendar(
             )
         }
 
-        Spacer(
-            modifier = Modifier.size(Design.dp.paddingM)
-        )
+        PaddingM()
 
         CalendarRow(
             lazyColumnListState = lazyColumnListState,
@@ -112,9 +108,7 @@ internal fun PaginatedCalendar(
             onAddMore = onAddMore
         )
 
-        Spacer(
-            modifier = Modifier.size(Design.dp.paddingM)
-        )
+        PaddingM()
 
         ShadowDivider()
     }
@@ -168,20 +162,20 @@ private fun CalendarRow(
                     .clickable { selectCalendarDay.invoke(it.dateTimeIso) }
             ) {
 
-                TextFieldBody1(
+                TextBody1(
                     modifier = Modifier
                         .align(Alignment.TopCenter)
                         .padding(top = 18.dp),
                     provideText = { if (it.isToday) "TODAY" else it.weekDay },
-                    color = if (it.isToday) Design.colors.accent_primary else if (it.isSelected) Design.colors.content else Design.colors.caption
+                    color = if (it.isToday) Design.colors.accentPrimary else if (it.isSelected) Design.colors.content else Design.colors.caption
                 )
 
-                TextFieldH2(
+                TextH2(
                     modifier = Modifier
                         .align(Alignment.BottomCenter)
                         .padding(bottom = 14.dp),
                     provideText = { it.day },
-                    color = if (it.isToday) Design.colors.accent_primary else Design.colors.content
+                    color = if (it.isToday) Design.colors.accentPrimary else Design.colors.content
                 )
 
                 if (it.countOfTrainings != 0) {
@@ -196,7 +190,7 @@ private fun CalendarRow(
                                 modifier = Modifier
                                     .size(10.dp)
                                     .background(
-                                        color = Design.colors.accent_secondary,
+                                        color = Design.colors.accentSecondary,
                                         shape = Design.shape.circleShape
                                     )
                             )
@@ -241,7 +235,7 @@ private fun MonthSwiper(
             )
         }
     ) { target ->
-        TextFieldH1(
+        TextH1(
             modifier = Modifier.fillMaxWidth(),
             provideText = { target },
             softWrap = false

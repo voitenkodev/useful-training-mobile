@@ -18,12 +18,12 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import atomic.icons.HandWeight
 import atomic.icons.Weight
 import basic.BasicLineChart
-import controls.IconPrimary
-import controls.TextFieldBody2
-import controls.TextFieldH4
-import controls.accentBackground
-import controls.secondaryBackground
 import kotlinx.collections.immutable.ImmutableList
+import molecular.ButtonIconSecondary
+import molecular.TextBody2
+import molecular.TextH4
+import molecular.accentDefaultBackground
+import molecular.secondaryDefaultBackground
 import recomposeHighlighter
 import trainings.state.Training
 
@@ -44,7 +44,7 @@ internal fun TrainingHeader(
             modifier = Modifier
                 .weight(0.8f)
                 .fillMaxHeight()
-                .secondaryBackground(),
+                .secondaryDefaultBackground(),
             title = "TONNAGE",
             value = training.tonnage,
             icon = Weight,
@@ -58,7 +58,7 @@ internal fun TrainingHeader(
 
             DefaultItem(
                 modifier = Modifier
-                    .secondaryBackground()
+                    .secondaryDefaultBackground()
                     .padding(Design.dp.paddingS),
                 title = "Duration",
                 subTitle = training.duration,
@@ -67,7 +67,7 @@ internal fun TrainingHeader(
 
             DefaultItem(
                 modifier = Modifier
-                    .secondaryBackground()
+                    .secondaryDefaultBackground()
                     .padding(Design.dp.paddingS),
                 title = "Intensity",
                 subTitle = training.intensity,
@@ -90,10 +90,10 @@ private fun DefaultItem(
         verticalAlignment = Alignment.CenterVertically
     ) {
 
-        IconPrimary(
+        ButtonIconSecondary(
             modifier = Modifier
                 .size(Design.dp.componentS)
-                .accentBackground()
+                .accentDefaultBackground()
                 .padding(Design.dp.paddingS),
             color = Design.colors.content,
             imageVector = icon
@@ -104,11 +104,11 @@ private fun DefaultItem(
             verticalArrangement = Arrangement.Center
         ) {
 
-            TextFieldH4(
+            TextH4(
                 provideText = { title }
             )
 
-            TextFieldBody2(
+            TextBody2(
                 provideText = { subTitle },
                 color = Design.colors.caption
             )
@@ -133,7 +133,7 @@ private fun ChartBlock(
                 .padding(start = Design.dp.paddingM, end = Design.dp.paddingM, top = Design.dp.paddingM)
                 .recomposeHighlighter(),
             values = values,
-            color = Design.colors.accent_primary,
+            color = Design.colors.accentPrimary,
             bottomSpacing = 20f,
             circleColor = Design.colors.content
         )

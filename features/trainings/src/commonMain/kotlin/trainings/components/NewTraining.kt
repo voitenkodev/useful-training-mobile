@@ -12,7 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-import controls.TextFieldH3
+import molecular.TextH3
 
 @Composable
 internal fun NewTraining(newTraining: () -> Unit) {
@@ -29,7 +29,7 @@ internal fun NewTraining(newTraining: () -> Unit) {
             .clip(shape = Design.shape.default),
         content = {
 
-            TextFieldH3(
+            TextH3(
                 modifier = Modifier
                     .align(Alignment.Center),
                 provideText = { "ADD WORKOUT" },

@@ -13,7 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import atomic.icons.ArrowRight
-import controls.ButtonIconBrand
+import molecular.ButtonIconPrimary
 
 @Composable
 internal fun BoxScope.TodayControl(
@@ -27,13 +27,13 @@ internal fun BoxScope.TodayControl(
     val animatedDp by animateDpAsState(
         targetValue = if (visibilityCondition()) 0.dp else width + Design.dp.paddingL,
         animationSpec = tween(
-            durationMillis = Design.duration.animDurationS,
+            durationMillis = 300,
             delayMillis = 250,
             easing = EaseOut
         )
     )
 
-    ButtonIconBrand(
+    ButtonIconPrimary(
         modifier = modifier
             .width(width)
             .align(Alignment.CenterEnd)

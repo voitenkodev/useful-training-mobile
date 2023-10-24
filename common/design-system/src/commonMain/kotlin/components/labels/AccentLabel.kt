@@ -8,17 +8,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import controls.TextFieldBody1
+import molecular.TextBody2
 import recomposeHighlighter
 
 @Composable
 public fun AccentLabel(
     modifier: Modifier = Modifier,
     provideText: () -> String,
-    backgroundColor: Color = Design.colors.accent_primary
+    backgroundColor: Color = Design.colors.accentPrimary
 ) {
 
-    TextFieldBody1(
+    TextBody2(
         modifier = modifier
             .background(
                 color = backgroundColor,

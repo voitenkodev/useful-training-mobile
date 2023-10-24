@@ -26,10 +26,9 @@ import components.Error
 import components.Loading
 import components.Popup
 import components.roots.ScrollableRoot
-import controls.IconPrimary
-import controls.TextFieldH4
-import controls.rootBackground
 import kotlinx.coroutines.delay
+import molecular.ButtonIconSecondary
+import molecular.TextH4
 import recomposeHighlighter
 import trainingbuilder.components.EditExercise
 import trainingbuilder.state.Exercise
@@ -155,16 +154,16 @@ private fun Content(
         },
         header = {
             Row {
-                IconPrimary(
-                    modifier = Modifier.size(Design.dp.componentM).rootBackground(),
+                ButtonIconSecondary(
+                    modifier = Modifier.size(Design.dp.componentM),
                     imageVector = ArrowLeft,
                     onClick = openExitScreenPopupProvider
                 )
 
                 Spacer(Modifier.weight(1f))
 
-                IconPrimary(
-                    modifier = Modifier.size(Design.dp.componentM).rootBackground(),
+                ButtonIconSecondary(
+                    modifier = Modifier.size(Design.dp.componentM),
                     imageVector = Done,
                     onClick = saveTrainingProvider
                 )
@@ -214,17 +213,16 @@ private fun NewExercise(
         modifier = modifier
             .fillMaxWidth()
             .height(128.dp)
-            .rootBackground()
-            .border(width = 1.dp, shape = Design.shape.default, color = Design.colors.accent_primary)
+            .border(width = 1.dp, shape = Design.shape.default, color = Design.colors.accentPrimary)
             .clickable(onClick = onClick)
             .recomposeHighlighter(),
         content = {
-            TextFieldH4(
+            TextH4(
                 modifier = Modifier
                     .align(Alignment.Center)
                     .recomposeHighlighter(),
                 provideText = { "Add Exercise" },
-                color = Design.colors.accent_primary
+                color = Design.colors.accentPrimary
             )
         }
     )

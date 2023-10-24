@@ -22,9 +22,9 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import components.labels.InputLabel
-import controls.IconPrimary
-import controls.InputFieldPrimary
-import controls.reversedCircleBackground
+import molecular.ButtonIconSecondary
+import molecular.InputPrimary
+import molecular.reversedCircleBackground
 import recomposeHighlighter
 
 @Composable
@@ -36,7 +36,7 @@ public fun InputEmail(
 
     val focusManager = LocalFocusManager.current
 
-    InputFieldPrimary(
+    InputPrimary(
         modifier = modifier
             .reversedCircleBackground()
             .padding(horizontal = Design.dp.paddingM)
@@ -51,7 +51,7 @@ public fun InputEmail(
                 enter = fadeIn() + scaleIn(),
                 exit = scaleOut() + fadeOut(),
             ) {
-                IconPrimary(
+                ButtonIconSecondary(
                     modifier = Modifier
                         .wrapContentSize()
                         .height(IntrinsicSize.Min)

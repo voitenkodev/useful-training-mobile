@@ -10,10 +10,6 @@ import androidx.compose.ui.text.style.BaselineShift
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.sp
 
-// Paragraph + line height +  trim issues on:
-// https://github.com/JetBrains/compose-multiplatform/issues/2602
-// https://github.com/JetBrains/compose-multiplatform/issues/3453
-
 @Composable
 internal fun typography() = Typography(
     H1 = TextStyle(

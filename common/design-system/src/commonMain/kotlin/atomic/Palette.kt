@@ -5,23 +5,16 @@ import androidx.compose.ui.graphics.Color
 internal fun darkPalette() = Color()
 
 public data class Color(
-    // Root BG
-    val primary: Color = Color(0xff121219), // hard-black Root
-    val secondary: Color = Color(0xff1f2129), // soft-gray Footer
+    val primary: Color = Color(0xff121219),
+    val secondary: Color = Color(0xff1f2129),
 
-    val white5: Color = Color(0x0Dffffff), // has alpha (Inner Items)
-    val white10: Color = Color(0x1Affffff), // has alpha (Inner Items)
-    val black30: Color = Color(0x80000000), // has alpha (Inner Items)
-
-    // Color(0xffEA3469) = Red / Pink
-    // Color(0xff228D57) = Green soft
-    // Color(0xff31353b) = Gray
-    // Color(0xfffcb51c) = Yellow
-    // Color(0xff335bff) = Blue
+    val white5: Color = Color(0x0Dffffff),
+    val white10: Color = Color(0x1Affffff),
+    val black30: Color = Color(0x80000000),
 
     // Accent
-    val accent_primary: Color = Color(0xfff74d19),
-    val accent_secondary: Color = Color(0xfffcb51c),
+    val accentPrimary: Color = Color(0xfff74d19),
+    val accentSecondary: Color = Color(0xfffcb51c),
 
     // Text
     val content: Color = Color(0xffffffff),

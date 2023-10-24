@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import controls.TextFieldBody2
+import molecular.TextBody2
 import recomposeHighlighter
 
 @Composable
@@ -23,7 +23,7 @@ public fun IterationCaptionItem() {
             .width(60.dp)
             .recomposeHighlighter()
     ) {
-        TextFieldBody2(
+        TextBody2(
             modifier = Modifier
                 .height(Design.dp.componentM)
                 .fillMaxWidth()
@@ -36,7 +36,7 @@ public fun IterationCaptionItem() {
             fontWeight = FontWeight.Bold
         )
 
-        TextFieldBody2(
+        TextBody2(
             modifier = Modifier
                 .height(Design.dp.componentM)
                 .fillMaxWidth()

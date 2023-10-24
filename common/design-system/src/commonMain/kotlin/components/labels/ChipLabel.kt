@@ -19,9 +19,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import controls.IconPrimary
-import controls.TextFieldBody1
-import controls.quaternaryBackground
+import molecular.ButtonIconSecondary
+import molecular.TextBody1
+import molecular.secondaryDefaultBackground
 import recomposeHighlighter
 
 @Composable
@@ -39,12 +39,12 @@ public fun ChipLabel(
                 color = Design.colors.white10,
                 shape = CircleShape
             )
-            .quaternaryBackground()
+            .secondaryDefaultBackground()
             .padding(6.dp),
         horizontalArrangement = Arrangement.spacedBy(6.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        TextFieldBody1(
+        TextBody1(
             modifier = modifier
                 .padding(horizontal = 8.dp, vertical = 2.dp)
                 .clickable(
@@ -57,7 +57,7 @@ public fun ChipLabel(
             fontWeight = FontWeight.Bold
         )
 
-        IconPrimary(
+        ButtonIconSecondary(
             modifier = Modifier.recomposeHighlighter(),
             imageVector = Icons.Default.Clear,
             onClick = { remove.invoke(txt) }

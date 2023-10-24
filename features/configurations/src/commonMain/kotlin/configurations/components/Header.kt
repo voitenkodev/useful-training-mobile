@@ -4,16 +4,15 @@ import Design
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import components.ShadowDivider
-import controls.TextFieldH1
+import molecular.PaddingM
+import molecular.TextH1
 import platformTopInset
 
 @Composable
@@ -26,9 +25,7 @@ internal fun Header(
             .platformTopInset(),
     ) {
 
-        Spacer(
-            modifier = Modifier.size(Design.dp.paddingM)
-        )
+        PaddingM()
 
         Box(
             modifier = Modifier
@@ -36,7 +33,7 @@ internal fun Header(
                 .fillMaxWidth(),
             contentAlignment = Alignment.CenterStart
         ) {
-            TextFieldH1(
+            TextH1(
                 modifier = Modifier
                     .padding(horizontal = Design.dp.paddingM)
                     .fillMaxWidth(),
@@ -45,9 +42,7 @@ internal fun Header(
             )
         }
 
-        Spacer(
-            modifier = Modifier.size(Design.dp.paddingM)
-        )
+        PaddingM()
 
         ShadowDivider()
     }

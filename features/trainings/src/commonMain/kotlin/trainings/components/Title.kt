@@ -10,8 +10,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import atomic.icons.ArrowRight
-import controls.ButtonIconBrand
-import controls.TextFieldH2
+import molecular.ButtonIconPrimary
+import molecular.TextH2
 import recomposeHighlighter
 
 @Composable
@@ -28,14 +28,14 @@ internal fun TrainingTitle(
         horizontalArrangement = Arrangement.SpaceBetween,
     ) {
 
-        TextFieldH2(
+        TextH2(
             modifier = Modifier
                 .wrapContentHeight()
                 .recomposeHighlighter(),
             provideText = mainTitle,
         )
 
-        ButtonIconBrand(
+        ButtonIconPrimary(
             backgroundColor = Design.colors.secondary,
             imageVector = ArrowRight,
             onClick = click

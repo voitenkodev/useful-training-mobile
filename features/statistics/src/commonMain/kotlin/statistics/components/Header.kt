@@ -4,11 +4,9 @@ import Design
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -20,8 +18,9 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.platform.LocalFocusManager
 import components.ShadowDivider
 import components.inputs.InputSearch
-import controls.TextFieldH1
 import kotlinx.collections.immutable.ImmutableList
+import molecular.PaddingM
+import molecular.TextH1
 import platformTopInset
 
 @Composable
@@ -50,9 +49,7 @@ internal fun Header(
             .platformTopInset(),
     ) {
 
-        Spacer(
-            modifier = Modifier.size(Design.dp.paddingM)
-        )
+        PaddingM()
 
         Box(
             modifier = Modifier
@@ -61,7 +58,7 @@ internal fun Header(
             contentAlignment = Alignment.CenterStart
         ) {
 
-            TextFieldH1(
+            TextH1(
                 modifier = Modifier
                     .padding(horizontal = Design.dp.paddingM)
                     .fillMaxWidth(),
@@ -70,9 +67,7 @@ internal fun Header(
             )
         }
 
-        Spacer(
-            modifier = Modifier.size(Design.dp.paddingM)
-        )
+        PaddingM()
 
         InputSearch(
             modifier = Modifier
@@ -90,9 +85,7 @@ internal fun Header(
             options = nameOptions
         )
 
-        Spacer(
-            modifier = Modifier.size(Design.dp.paddingM)
-        )
+        PaddingM()
 
         ShadowDivider()
     }

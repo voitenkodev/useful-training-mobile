@@ -20,10 +20,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import controls.ButtonBrand
-import controls.TextFieldBody1
-import controls.TextFieldH4
-import controls.quaternaryBackground
+import molecular.ButtonPrimary
+import molecular.TextBody1
+import molecular.TextH4
+import molecular.secondaryDefaultBackground
 import platformInsets
 import recomposeHighlighter
 
@@ -76,25 +76,25 @@ public fun Popup(
             modifier = Modifier
                 .platformInsets()
                 .padding(Design.dp.paddingM)
-                .quaternaryBackground()
+                .secondaryDefaultBackground()
                 .padding(Design.dp.paddingM)
                 .recomposeHighlighter(),
             verticalArrangement = Arrangement.spacedBy(Design.dp.paddingM),
             content = {
 
-                TextFieldH4(
+                TextH4(
                     modifier = Modifier.recomposeHighlighter(),
                     provideText = { title },
                     fontWeight = FontWeight.Bold
                 )
 
-                TextFieldBody1(
+                TextBody1(
                     modifier = Modifier.recomposeHighlighter(),
                     provideText = { message }
                 )
 
                 button?.let {
-                    ButtonBrand(
+                    ButtonPrimary(
                         modifier = Modifier.fillMaxWidth().recomposeHighlighter(),
                         text = button,
                         onClick = click

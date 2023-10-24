@@ -16,7 +16,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
-import controls.IconPrimary
+import molecular.ButtonIconSecondary
 
 @Composable
 internal fun MenuItem(
@@ -28,11 +28,7 @@ internal fun MenuItem(
 ) {
 
     val background =
-        if (isSelected) Design.colors.accent_primary
-        else Color.Transparent
-
-    val textColor =
-        if (isSelected) Design.colors.content
+        if (isSelected) Design.colors.accentPrimary
         else Color.Transparent
 
     val iconColor =
@@ -54,19 +50,12 @@ internal fun MenuItem(
             horizontalArrangement = Arrangement.spacedBy(4.dp)
         ) {
 
-            IconPrimary(
+            ButtonIconSecondary(
                 modifier = Modifier.size(26.dp),
                 imageVector = if (isSelected) icon else icon,
                 onClick = onClick,
                 color = iconColor
             )
-
-//            AnimatedVisibility(visible = isSelected) {
-//                TextFieldBody2(
-//                    provideText = { text },
-//                    color = textColor
-//                )
-//            }
         }
     }
 }

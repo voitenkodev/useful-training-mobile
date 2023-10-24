@@ -7,7 +7,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import controls.rootBackground
+import molecular.rootBackground
 import splash.state.TokenStatus
 
 @Composable

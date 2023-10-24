@@ -11,8 +11,7 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
 import components.inputs.InputExerciseName
 import components.items.HelpExerciseNameItem
-import controls.DividerPrimary
-import controls.quaternaryBackground
+import molecular.secondaryDefaultBackground
 import recomposeHighlighter
 import trainingbuilder.state.Iteration
 
@@ -30,7 +29,7 @@ internal fun EditExercise(
     remove: () -> Unit,
 ) {
     Column(
-        modifier = modifier.quaternaryBackground()
+        modifier = modifier.secondaryDefaultBackground()
     ) {
 
         val focusManager = LocalFocusManager.current
@@ -57,12 +56,6 @@ internal fun EditExercise(
             },
             remove = removeNameOption,
             options = nameOptions
-        )
-
-        DividerPrimary(
-            modifier = Modifier
-                .padding(horizontal = 12.dp)
-                .recomposeHighlighter()
         )
 
         WeightRepeatSection(

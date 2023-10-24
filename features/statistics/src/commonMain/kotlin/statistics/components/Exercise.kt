@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -19,8 +18,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import controls.TextFieldBody1
-import controls.TextFieldH4
+import molecular.PaddingM
+import molecular.TextBody1
+import molecular.TextH4
 import recomposeHighlighter
 import statistics.state.Exercise
 
@@ -36,14 +36,14 @@ internal fun Exercise(
             .padding(top = 8.dp, start = 4.dp, end = 4.dp)
             .height(IntrinsicSize.Min)
             .recomposeHighlighter(),
-        horizontalArrangement = Arrangement.spacedBy(4.dp)
+        horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingXS)
     ) {
 
         Column(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-            TextFieldH4(
+            TextH4(
                 modifier = Modifier.padding(Design.dp.paddingS),
                 provideText = { "${provideNumber()}" },
                 fontWeight = FontWeight.Bold
@@ -78,19 +78,13 @@ private fun InternalExercise(
         modifier = modifier.recomposeHighlighter(),
     ) {
 
-        TextFieldH4(
+        TextH4(
             modifier = Modifier.recomposeHighlighter(),
             provideText = { exercise().name },
             fontWeight = FontWeight.Bold
         )
 
-        Spacer(
-            modifier = Modifier.size(Design.dp.paddingS)
-        )
-
-        Spacer(
-            modifier = Modifier.size(Design.dp.paddingS)
-        )
+        PaddingM()
 
         FlowRow(
             modifier = Modifier.recomposeHighlighter(),
@@ -99,7 +93,7 @@ private fun InternalExercise(
         ) {
 
             exercise().iterations.forEach {
-                TextFieldBody1(
+                TextBody1(
                     modifier = Modifier
                         .background(
                             shape = Design.shape.small,

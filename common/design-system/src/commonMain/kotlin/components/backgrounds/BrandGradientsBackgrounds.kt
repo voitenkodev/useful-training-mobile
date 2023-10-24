@@ -19,12 +19,12 @@ import androidx.compose.ui.unit.dp
 @Composable
 public fun BoxScope.BrandGradientCenterStart(
     modifier: Modifier = Modifier,
-    color: Color = Design.colors.accent_primary,
+    color: Color = Design.colors.accentPrimary,
 ) {
 
     val colorAnimation = animateColorAsState(
         color,
-        animationSpec = tween(Design.duration.animDurationM)
+        animationSpec = tween(500)
     )
 
     BackgroundLight(
@@ -47,12 +47,12 @@ public fun BoxScope.BrandGradientCenterStart(
 @Composable
 public fun BoxScope.BrandGradientCenterEnd(
     modifier: Modifier = Modifier,
-    color: Color = Design.colors.accent_primary,
+    color: Color = Design.colors.accentPrimary,
 ) {
 
     val colorAnimation = animateColorAsState(
         color,
-        animationSpec = tween(Design.duration.animDurationM)
+        animationSpec = tween(500)
     )
 
     BackgroundLight(
@@ -72,7 +72,7 @@ public fun BoxScope.BrandGradientCenterEnd(
 @Composable
 public fun BoxScope.BrandGradientBottomEnd(
     modifier: Modifier = Modifier,
-    color: Color = Design.colors.accent_primary,
+    color: Color = Design.colors.accentPrimary,
 ) {
 
     BackgroundLight(

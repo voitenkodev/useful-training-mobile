@@ -7,7 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
-import controls.TextFieldH3
+import molecular.TextH3
 
 @Composable
 public fun EmptyTraining(modifier: Modifier = Modifier) {
@@ -18,7 +18,7 @@ public fun EmptyTraining(modifier: Modifier = Modifier) {
         verticalArrangement = Arrangement.spacedBy(Design.dp.paddingM, Alignment.CenterVertically)
     ) {
 
-        TextFieldH3(
+        TextH3(
             provideText = { "There is no Trainings" },
             color = Design.colors.caption.copy(alpha = 0.5f),
             textAlign = TextAlign.Center

@@ -1,4 +1,4 @@
-package controls
+package molecular
 
 import Design
 import androidx.compose.foundation.background
@@ -15,25 +15,16 @@ public fun Modifier.rootBackground(): Modifier = this
     )
 
 @Composable
-public fun Modifier.accentBackground(): Modifier = this
+public fun Modifier.accentDefaultBackground(): Modifier = this
     .background(
-        color = Design.colors.accent_primary,
+        color = Design.colors.accentPrimary,
         shape = Design.shape.default
     ).clip(
         shape = Design.shape.default
     )
 
 @Composable
-public fun Modifier.quaternaryBackground(): Modifier = this
-    .background(
-        color = Design.colors.black30,
-        shape = Design.shape.default
-    ).clip(
-        shape = Design.shape.default
-    )
-
-@Composable
-public fun Modifier.secondaryBackground(): Modifier = this
+public fun Modifier.secondaryDefaultBackground(): Modifier = this
     .border(
         color = Design.colors.white5,
         width = 1.dp,
@@ -56,6 +47,29 @@ public fun Modifier.secondarySmallBackground(): Modifier = this
         shape = Design.shape.small
     ).clip(
         shape = Design.shape.small
+    )
+
+@Composable
+public fun Modifier.secondaryCircleBackground(): Modifier = this
+    .border(
+        color = Design.colors.white5,
+        width = 1.dp,
+        shape = Design.shape.circleShape
+    ).background(
+        color = Design.colors.secondary,
+        shape = Design.shape.circleShape
+    ).clip(
+        shape = Design.shape.circleShape
+    )
+
+@Composable
+public fun Modifier.transparentCircleBackground(): Modifier = this
+    .border(
+        color = Design.colors.caption,
+        width = 1.dp,
+        shape = Design.shape.circleShape
+    ).clip(
+        shape = Design.shape.circleShape
     )
 
 @Composable

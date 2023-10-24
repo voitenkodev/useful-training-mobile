@@ -9,8 +9,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import controls.TextFieldBody2
-import controls.TextFieldH4
+import molecular.TextBody2
+import molecular.TextH4
 
 
 @Composable
@@ -24,13 +24,13 @@ internal fun ExerciseHeader(
     verticalAlignment = Alignment.CenterVertically,
 ) {
 
-    TextFieldH4(
+    TextH4(
         modifier = Modifier
             .padding(end = 4.dp),
         provideText = { weekDay },
     )
 
-    TextFieldBody2(
+    TextBody2(
         modifier = Modifier,
         provideText = { date },
         color = Design.colors.caption,

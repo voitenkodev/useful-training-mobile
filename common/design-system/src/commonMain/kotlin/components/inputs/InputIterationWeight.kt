@@ -9,8 +9,7 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
-import controls.InputFieldSecondary
-import controls.rootBackground
+import molecular.InputSecondary
 import recomposeHighlighter
 
 @Composable
@@ -21,9 +20,8 @@ public fun InputWeight(
 ) {
     val focusManager = LocalFocusManager.current
 
-    InputFieldSecondary(
+    InputSecondary(
         modifier = modifier
-            .rootBackground()
             .recomposeHighlighter(),
         provideValue = provideValue,
         onValueChange = onValueChange,

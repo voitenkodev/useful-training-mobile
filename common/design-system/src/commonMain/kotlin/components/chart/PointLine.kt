@@ -1,4 +1,4 @@
-package chart
+package components.chart
 
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
