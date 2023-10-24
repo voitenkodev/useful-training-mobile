@@ -1,6 +1,5 @@
 package repository
 
-import DataBaseSource
 import NetworkSource
 import TrainingRepository
 import kotlinx.coroutines.flow.Flow
@@ -8,17 +7,18 @@ import kotlinx.coroutines.flow.flattenMerge
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
-import mappers.daoToDomain
-import mappers.dtoToDao
-import mappers.dtoToDomain
-import mappers.toDomain
-import mappers.toDto
+import mapping.daoToDomain
+import mapping.dtoToDao
+import mapping.dtoToDomain
+import mapping.toDomain
+import mapping.toDto
 import models.ExerciseDate
 import models.Training
+import traininig_exercise_iteration.TrainingsSource
 
 internal class TrainingRepositoryImpl(
     private val remote: NetworkSource,
-    private val local: DataBaseSource
+    private val local: TrainingsSource
 ) : TrainingRepository {
 
     override fun getTrainings(): Flow<List<Training>> {

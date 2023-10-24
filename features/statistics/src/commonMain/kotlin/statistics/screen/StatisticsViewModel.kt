@@ -63,33 +63,11 @@ internal class StatisticsViewModel : ViewModel() {
     }
 
     private fun getExerciseNameOptions() {
-        exercisesApi
-            .getExerciseNameOptions()
-            .onEach { r ->
-                _state.update {
-                    it.copy(exerciseNameOptions = r.toPersistentList())
-                }
-            }.catch { t ->
-                _state.update { it.copy(error = t.message) }
-            }.launchIn(this)
+
     }
 
     fun removeExerciseNameOption(value: String) {
-        exercisesApi
-            .removeExerciseNameOption(value)
-            .onEach { removedValue ->
-                _state.update {
-                    it.copy(
-                        exerciseNameOptions = state
-                            .value
-                            .exerciseNameOptions
-                            .filterNot { f -> f == removedValue }
-                            .toPersistentList()
-                    )
-                }
-            }.catch { t ->
-                _state.update { it.copy(error = t.message) }
-            }.launchIn(this)
+
     }
 
     fun clearError() {

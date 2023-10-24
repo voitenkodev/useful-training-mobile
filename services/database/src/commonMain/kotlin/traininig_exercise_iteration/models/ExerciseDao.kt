@@ -1,4 +1,4 @@
-package models
+package traininig_exercise_iteration.models
 
 public data class ExerciseDao(
     val id: String? = null,

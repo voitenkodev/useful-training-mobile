@@ -1,10 +1,10 @@
-package mappers
+package mapping
 
 import models.Exercise
-import models.ExerciseDao
+import traininig_exercise_iteration.models.ExerciseDao
 import models.ExerciseDto
 import models.Iteration
-import models.IterationDao
+import traininig_exercise_iteration.models.IterationDao
 import models.IterationDto
 
 internal fun ExerciseDto.toDomain(

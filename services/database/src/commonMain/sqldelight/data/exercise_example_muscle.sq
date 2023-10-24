@@ -1,0 +1,72 @@
+CREATE TABLE IF NOT EXISTS ExerciseExample (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT
+);
+
+CREATE TABLE IF NOT EXISTS Muscle (
+   id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT
+);
+
+CREATE TABLE ExerciseExampleMuscleRef(
+    exerciseExampleId INTEGER,
+    muscleId INTEGER,
+    FOREIGN KEY (exerciseExampleId) REFERENCES ExerciseExample(id) ON DELETE CASCADE,
+    FOREIGN KEY (muscleId) REFERENCES Muscle(id) ON DELETE CASCADE
+);
+
+-------------- GET --------------
+
+getExerciseExampleWithMusclesById:
+SELECT e.id AS exercise_id, e.name AS exercise_name, m.id AS muscle_id, m.name AS muscle_name
+FROM ExerciseExampleMuscleRef AS emr
+JOIN ExerciseExample AS e ON emr.exerciseExampleId = e.id
+JOIN Muscle AS m ON emr.muscleId = m.id
+WHERE e.id = ?;
+
+getMuscleWithExerciseExamplesById:
+SELECT m.id AS muscle_id, m.name AS muscle_name, e.id AS exercise_id, e.name AS exercise_name
+FROM ExerciseExampleMuscleRef AS emr
+JOIN Muscle AS m ON emr.muscleId = m.id
+JOIN ExerciseExample AS e ON emr.exerciseExampleId = e.id
+WHERE m.id = ?;
+
+getMuscles:
+SELECT *
+FROM Muscle;
+
+getExerciseExamples:
+SELECT *
+FROM ExerciseExample;
+
+lastExerciseExampleId:
+SELECT last_insert_rowid()
+FROM ExerciseExample;
+
+lastMuscleId:
+SELECT last_insert_rowid()
+FROM Muscle;
+
+-------------- DELETE --------------
+
+deleteExerciseExampleById:
+DELETE FROM ExerciseExample
+WHERE id = ?;
+
+deleteMuscleById:
+DELETE FROM Muscle
+WHERE id = ?;
+
+-------------- SET --------------
+
+setExerciseExampleMuscleRef:
+INSERT INTO ExerciseExampleMuscleRef (exerciseExampleId, muscleId)
+VALUES ( ?,?);
+
+setMuscle:
+INSERT INTO Muscle
+VALUES (?,?);
+
+setExerciseExample:
+INSERT INTO ExerciseExample
+VALUES (?,?);

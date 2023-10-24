@@ -1,7 +1,7 @@
-package mappers
+package mapping
 
 import models.Iteration
-import models.IterationDao
+import traininig_exercise_iteration.models.IterationDao
 import models.IterationDto
 
 internal fun IterationDto.toDomain(): Iteration {

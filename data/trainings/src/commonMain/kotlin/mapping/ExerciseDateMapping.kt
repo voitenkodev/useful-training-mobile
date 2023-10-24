@@ -1,4 +1,4 @@
-package mappers
+package mapping
 
 import models.ExerciseDate
 import models.ExerciseDateDto

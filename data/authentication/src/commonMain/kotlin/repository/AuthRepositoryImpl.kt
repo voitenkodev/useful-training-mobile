@@ -1,18 +1,18 @@
 package repository
 
 import AuthRepository
-import DataBaseSource
 import NetworkSource
 import PreferencesSource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import models.AuthDto
+import traininig_exercise_iteration.TrainingsSource
 
 internal class AuthRepositoryImpl(
     private val remote: NetworkSource,
     private val preferences: PreferencesSource,
-    private val local: DataBaseSource
+    private val local: TrainingsSource,
 ) : AuthRepository {
 
     override fun login(email: String, password: String): Flow<Unit> =
@@ -33,6 +33,6 @@ internal class AuthRepositoryImpl(
 
     override suspend fun logout() {
         preferences.removeToken()
-        local.deleteAll()
+        local.dropTable()
     }
 }

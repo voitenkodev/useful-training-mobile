@@ -1,10 +1,14 @@
 import kotlinx.coroutines.flow.Flow
+import models.ExerciseExample
+import models.Muscle
 
 public interface ExerciseExamplesRepository {
 
-    public fun getExerciseNameOptions(): Flow<List<String>>
+    public fun getExerciseExampleWithMusclesById(exerciseExampleId: Long): Flow<Pair<ExerciseExample, List<Muscle>>?>
 
-    public fun setExerciseNameOptions(names: List<String>): Flow<Unit>
+    public fun getMuscleWithExerciseExamplesById(muscleId: Long): Flow<Pair<Muscle, List<ExerciseExample>>?>
 
-    public fun removeExerciseNameOption(value: String): Flow<String>
+    public fun setExerciseExampleWithMuscles(exerciseExample: ExerciseExample, muscles: List<Muscle>)
+
+    public fun setMuscleWithExerciseExamples(muscle: Muscle, exerciseExamples: List<ExerciseExample>)
 }

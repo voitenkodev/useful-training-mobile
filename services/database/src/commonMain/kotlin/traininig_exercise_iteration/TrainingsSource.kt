@@ -1,39 +1,29 @@
+package traininig_exercise_iteration
+
+import NativeContext
+import UsefulTrainingDatabase
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
 import data.Exercise
 import data.Iteration
+import database
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
-import mappers.toDao
-import models.ExerciseDao
-import models.IterationDao
-import models.TrainingDao
+import traininig_exercise_iteration.mapping.toDao
+import traininig_exercise_iteration.models.ExerciseDao
+import traininig_exercise_iteration.models.IterationDao
+import traininig_exercise_iteration.models.TrainingDao
 
-public class DataBaseSource(nativeContext: NativeContext) {
+public class TrainingsSource(nativeContext: NativeContext) {
 
     private val database: UsefulTrainingDatabase = nativeContext.database()
-    private val userExerciseNamesBd by lazy { database.user_exercise_namesQueries }
-    private val trainingsBd by lazy { database.trainingsQueries }
-
-    public fun setExerciseNames(names: List<String>): Flow<Unit> {
-        val request = names.forEach { userExerciseNamesBd.insert(it) }
-        return flowOf(request)
-    }
-
-    public fun getExerciseNames(): Flow<List<String>> {
-        return flowOf(userExerciseNamesBd.selectAll().executeAsList())
-    }
-
-    public fun removeExerciseName(value: String): Flow<String> {
-        return flowOf(userExerciseNamesBd.delete(value_ = value))
-            .map { value }
-    }
+    private val api by lazy { database.training_exercise_iterationQueries }
 
     public fun getTrainings(): Flow<List<TrainingDao>> {
 
-        val result = trainingsBd
+        val result = api
             .getTrainings()
             .asFlow()
             .mapToList(Dispatchers.Default)
@@ -41,7 +31,7 @@ public class DataBaseSource(nativeContext: NativeContext) {
                 trainings.map { trainingEntity ->
 
                     val exercises = getExercisesBy {
-                        trainingsBd
+                        api
                             .getExercisesByTrainingId(trainingEntity.id)
                             .executeAsList()
                     }
@@ -55,12 +45,12 @@ public class DataBaseSource(nativeContext: NativeContext) {
 
     public fun getTraining(trainingId: String): Flow<TrainingDao> {
 
-        val result = trainingsBd
+        val result = api
             .getTrainingById(trainingId)
             .executeAsOne()
 
         val dao = getExercisesBy {
-            trainingsBd
+            api
                 .getExercisesByTrainingId(result.id)
                 .executeAsList()
         }
@@ -69,7 +59,7 @@ public class DataBaseSource(nativeContext: NativeContext) {
     }
 
     public fun setTrainings(trainings: List<TrainingDao>) {
-        trainingsBd.transaction {
+        api.transaction {
             trainings.map { setTraining(it) }
         }
     }
@@ -78,7 +68,7 @@ public class DataBaseSource(nativeContext: NativeContext) {
 
         val trainingId = training.id ?: return null
 
-        trainingsBd.setTraining(
+        api.setTraining(
             id = trainingId,
             duration = training.duration,
             date = training.date,
@@ -87,13 +77,13 @@ public class DataBaseSource(nativeContext: NativeContext) {
             intensity = training.intensity
         )
 
-        trainingsBd.deleteExercisesByTrainingId(training.id)
+        api.deleteExercisesByTrainingId(training.id)
 
         for (exercise in training.exercises) {
 
             val exerciseId = exercise.id ?: continue
 
-            trainingsBd.setExercise(
+            api.setExercise(
                 id = exerciseId,
                 trainingId = training.id,
                 name = exercise.name,
@@ -106,7 +96,7 @@ public class DataBaseSource(nativeContext: NativeContext) {
 
                 val iterationId = iteration.id ?: continue
 
-                trainingsBd.setIteration(
+                api.setIteration(
                     id = iterationId,
                     exerciseId = exerciseId,
                     weight = iteration.weight,
@@ -118,19 +108,18 @@ public class DataBaseSource(nativeContext: NativeContext) {
         return trainingId
     }
 
-    public fun deleteAll() {
-        trainingsBd.deleteAll()
-        userExerciseNamesBd.deleteAll()
+    public fun dropTable() {
+        api.dropTable()
     }
 
     public fun deleteTraining(trainingId: String) {
-        trainingsBd.deleteTrainingById(id = trainingId)
+        api.deleteTrainingById(id = trainingId)
     }
 
     private fun getExercisesBy(action: () -> List<Exercise>): List<ExerciseDao> {
         return action().map { exerciseEntity ->
             val iterations = getIterationsBy {
-                trainingsBd
+                api
                     .getIterationsByExercisesId(exerciseEntity.id)
                     .executeAsList()
             }

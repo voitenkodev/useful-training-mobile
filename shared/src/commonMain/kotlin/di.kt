@@ -3,6 +3,8 @@ import org.koin.core.KoinApplication
 import org.koin.dsl.KoinAppDeclaration
 import org.koin.dsl.module
 import org.koin.mp.KoinPlatformTools
+import exercise_example_muscle.ExerciseExamplesSource
+import traininig_exercise_iteration.TrainingsSource
 
 public fun initCommonKoin(
     appDeclaration: KoinAppDeclaration = {},
@@ -25,5 +27,6 @@ internal val servicesModule = module {
     }
     single { PreferencesSource(get()) }
     single { NetworkSource(get()) }
-    single { DataBaseSource(get()) }
+    single { ExerciseExamplesSource(get()) }
+    single { TrainingsSource(get()) }
 }

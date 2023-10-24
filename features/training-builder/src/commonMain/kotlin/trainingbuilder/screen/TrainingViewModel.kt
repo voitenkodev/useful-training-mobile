@@ -52,32 +52,16 @@ internal class TrainingViewModel : ViewModel() {
                 onSuccess.invoke(it)
             }.catch {
                 _state.value = state.value.copy(loading = false, error = it.message)
-            }.flatMapConcat {
-                exercisesApi.setExerciseNameOptions(exerciseNames)
             }
             .launchIn(this)
     }
 
     fun removeExerciseNameOption(value: String) {
-        exercisesApi
-            .removeExerciseNameOption(value)
-            .onEach { removedValue ->
-                _state.value = state.value.copy(
-                    exerciseNameOptions = state.value.exerciseNameOptions.filterNot { it == removedValue }
-                )
-            }.catch {
-                _state.value = state.value.copy(error = it.message)
-            }.launchIn(this)
+
     }
 
     fun getExerciseNameOptions() {
-        exercisesApi
-            .getExerciseNameOptions()
-            .onEach {
-                _state.value = state.value.copy(exerciseNameOptions = it)
-            }.catch {
-                _state.value = state.value.copy(error = it.message)
-            }.launchIn(this)
+
     }
 
     fun getTraining(trainingId: String) {

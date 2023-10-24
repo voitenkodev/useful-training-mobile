@@ -1,10 +1,10 @@
-package mappers
+package mapping
 
 import models.Exercise
-import models.ExerciseDao
+import traininig_exercise_iteration.models.ExerciseDao
 import models.ExerciseDto
 import models.Training
-import models.TrainingDao
+import traininig_exercise_iteration.models.TrainingDao
 import models.TrainingDto
 
 internal fun Training.toDto(): TrainingDto {
