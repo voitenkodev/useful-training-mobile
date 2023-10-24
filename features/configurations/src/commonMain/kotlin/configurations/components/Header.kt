@@ -10,8 +10,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import components.ShadowDivider
 import molecular.PaddingM
+import molecular.Shadow
 import molecular.TextH1
 import platformTopInset
 
@@ -44,6 +44,6 @@ internal fun Header(
 
         PaddingM()
 
-        ShadowDivider()
+        Shadow()
     }
 }

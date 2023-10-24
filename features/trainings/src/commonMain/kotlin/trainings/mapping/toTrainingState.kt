@@ -6,9 +6,9 @@ import toDoubleOrIntString
 import toShortString
 import trainings.state.Training
 
-internal fun models.Training.toTrainingState() = Training(
+internal fun models.Training.toState() = Training(
     id = id.toString(),
-    exercises = exercises.toExerciseStateList(),
+    exercises = exercises.toState(),
     duration = duration?.let { DateTimeKtx.formattedDuration(it) } ?: "",
     dateIso = date ?: "",
     startDate = date?.let { DateTimeKtx.formattedTime(it) } ?: "",

@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.update
 import org.koin.core.component.inject
-import trainings.mapping.toTrainingState
+import trainings.mapping.toState
 import trainings.state.SelectableCalendar
 import trainings.state.State
 import trainings.state.Training
@@ -43,7 +43,7 @@ internal class TrainingsViewModel : ViewModel() {
             }.onEach { t ->
 
                 val trainings = t
-                    .map { it.toTrainingState() }
+                    .map { it.toState() }
                     .toPersistentList()
 
                 _state.update {

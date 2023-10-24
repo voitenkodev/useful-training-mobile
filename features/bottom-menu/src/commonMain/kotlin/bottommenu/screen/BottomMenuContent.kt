@@ -15,8 +15,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import bottommenu.components.MenuItem
 import bottommenu.state.Menu
-import components.ShadowDivider
 import kotlinx.collections.immutable.ImmutableList
+import molecular.Shadow
 import platformBottomInset
 
 @Composable
@@ -60,7 +60,7 @@ private fun Content(
                 .fillMaxWidth(),
         ) {
 
-            ShadowDivider()
+            Shadow()
 
             Row(
                 modifier = Modifier

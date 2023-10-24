@@ -4,6 +4,10 @@ import models.Muscle
 
 public interface ExerciseExamplesRepository {
 
+    public fun getExerciseExamples(): Flow<List<ExerciseExample>>
+
+    public fun getMuscles(): Flow<List<Muscle>>
+
     public fun getExerciseExampleWithMusclesById(exerciseExampleId: Long): Flow<Pair<ExerciseExample, List<Muscle>>?>
 
     public fun getMuscleWithExerciseExamplesById(muscleId: Long): Flow<Pair<Muscle, List<ExerciseExample>>?>

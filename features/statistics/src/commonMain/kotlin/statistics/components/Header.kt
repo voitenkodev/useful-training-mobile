@@ -16,10 +16,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.platform.LocalFocusManager
-import components.ShadowDivider
 import components.inputs.InputSearch
 import kotlinx.collections.immutable.ImmutableList
 import molecular.PaddingM
+import molecular.Shadow
 import molecular.TextH1
 import platformTopInset
 
@@ -87,6 +87,6 @@ internal fun Header(
 
         PaddingM()
 
-        ShadowDivider()
+        Shadow()
     }
 }

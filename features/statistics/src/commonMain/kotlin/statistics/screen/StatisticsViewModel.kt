@@ -18,7 +18,7 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.update
 import models.ExerciseDate
 import org.koin.core.component.inject
-import statistics.mapping.toExerciseState
+import statistics.mapping.toState
 import statistics.state.Info
 import statistics.state.State
 
@@ -73,7 +73,7 @@ internal class StatisticsViewModel : ViewModel() {
 
     private fun List<ExerciseDate>.processingExercises() = this.groupBy(
         { Info(trainingId = it.trainingId, date = it.date) },
-        { it.exercise.toExerciseState() }
+        { it.exercise.toState() }
     ).mapValues { it.value.toImmutableList() }
         .toImmutableMap()
 

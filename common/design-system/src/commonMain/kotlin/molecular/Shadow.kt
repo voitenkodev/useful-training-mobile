@@ -1,4 +1,4 @@
-package components
+package molecular
 
 import Design
 import androidx.compose.foundation.background
@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-public fun ShadowDivider() {
+public fun Shadow() {
     Spacer(
         modifier = Modifier
             .fillMaxWidth()

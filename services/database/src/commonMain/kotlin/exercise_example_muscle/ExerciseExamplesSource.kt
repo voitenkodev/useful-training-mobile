@@ -16,6 +16,37 @@ public class ExerciseExamplesSource(nativeContext: NativeContext) {
     private val database: UsefulTrainingDatabase = nativeContext.database()
     private val api by lazy { database.exercise_example_muscleQueries }
 
+    public fun getExerciseExamples(): Flow<List<ExerciseExampleDao>> {
+        return api
+            .getExerciseExamples()
+            .asFlow()
+            .mapToList(Dispatchers.Default)
+            .map { list ->
+                list.map { model ->
+                    ExerciseExampleDao(
+                        id = model.id,
+                        name = model.name
+                    )
+                }
+            }
+    }
+
+    public fun getMuscles(): Flow<List<MuscleDao>> {
+        return api
+            .getMuscles()
+            .asFlow()
+            .mapToList(Dispatchers.Default)
+            .map { list ->
+                list.map { model ->
+                    MuscleDao(
+                        id = model.id,
+                        name = model.name
+                    )
+                }
+            }
+    }
+
+
     public fun getExerciseExampleWithMusclesById(exerciseExampleId: Long): Flow<List<Pair<ExerciseExampleDao, List<MuscleDao>>>> {
         return api
             .getExerciseExampleWithMusclesById(exerciseExampleId)

@@ -34,9 +34,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.unit.dp
-import components.ShadowDivider
 import kotlinx.collections.immutable.ImmutableList
 import molecular.PaddingM
+import molecular.Shadow
 import molecular.TextBody1
 import molecular.TextH1
 import molecular.TextH2
@@ -110,7 +110,7 @@ internal fun HeaderCalendar(
 
         PaddingM()
 
-        ShadowDivider()
+        Shadow()
     }
 }
 
