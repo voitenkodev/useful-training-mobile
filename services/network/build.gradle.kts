@@ -13,7 +13,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                // Platform Context
+                // NativeContext
                 implementation(projects.common.platformApi)
 
                 // Ktor

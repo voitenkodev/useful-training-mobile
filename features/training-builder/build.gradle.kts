@@ -15,7 +15,6 @@ kotlin {
             dependencies {
                 implementation(projects.domain.trainings)
                 implementation(projects.domain.exerciseExamples)
-
                 implementation(projects.common.instruments)
                 implementation(projects.common.designSystem)
                 implementation(projects.common.architectureComponent)
