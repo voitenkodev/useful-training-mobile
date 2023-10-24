@@ -14,7 +14,6 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(projects.domain.trainings)
-                implementation(projects.domain.exerciseExamples)
                 implementation(projects.common.instruments)
                 implementation(projects.common.designSystem)
                 implementation(projects.common.architectureComponent)
@@ -25,9 +24,6 @@ kotlin {
 
                 // Collections
                 implementation(libs.immutable.collections)
-
-                // Utils
-                implementation(libs.uuid)
 
                 // Koin
                 implementation(libs.koin.core)

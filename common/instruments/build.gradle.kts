@@ -18,6 +18,7 @@ kotlin {
 
                 // Utils
                 implementation(libs.datetime)
+                implementation(libs.uuid)
             }
         }
         val androidMain by getting {

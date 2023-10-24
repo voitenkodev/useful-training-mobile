@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.sp
 internal fun typography() = Typography(
     H1 = TextStyle(
         baselineShift = BaselineShift.None,
-        fontSize = 34.sp,
+        fontSize = 30.sp,
         fontWeight = FontWeight.Bold,
         fontStyle = FontStyle.Normal,
         fontFamily = Fonts.GunterzFamily(),

@@ -10,7 +10,7 @@ import components.Loading
 import components.roots.Root
 import kotlinx.collections.immutable.ImmutableList
 import statistics.components.Exercises
-import statistics.components.Search
+import statistics.components.Header
 import statistics.state.Exercise
 import statistics.state.Info
 
@@ -54,7 +54,7 @@ private fun Content(
 
         Column {
 
-            Search(
+            Header(
                 query = query,
                 search = search,
                 removeNameOption = removeNameOption,

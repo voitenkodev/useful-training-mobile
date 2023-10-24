@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyListState
@@ -72,7 +73,7 @@ internal fun PaginatedCalendar(
     }
 
     Column(
-        modifier = modifier
+        modifier = Modifier
             .background(Design.colors.secondary)
             .platformTopInset(),
     ) {
@@ -82,14 +83,14 @@ internal fun PaginatedCalendar(
         )
 
         Box(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .height(Design.dp.componentM)
+                .fillMaxWidth(),
             contentAlignment = Alignment.CenterStart
         ) {
 
             MonthSwiper(
-                modifier = Modifier
-                    .padding(top = 4.dp)
-                    .padding(horizontal = Design.dp.paddingM),
+                modifier = Modifier.padding(horizontal = Design.dp.paddingM),
                 monthNumber = monthIndex,
                 month = month,
             )
@@ -100,11 +101,19 @@ internal fun PaginatedCalendar(
             )
         }
 
+        Spacer(
+            modifier = Modifier.size(Design.dp.paddingM)
+        )
+
         CalendarRow(
             lazyColumnListState = lazyColumnListState,
             calendar = calendar,
             selectCalendarDay = selectCalendarDay,
             onAddMore = onAddMore
+        )
+
+        Spacer(
+            modifier = Modifier.size(Design.dp.paddingM)
         )
 
         ShadowDivider()
@@ -143,7 +152,7 @@ private fun CalendarRow(
         modifier = Modifier.fillMaxWidth(),
         reverseLayout = true,
         horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM),
-        contentPadding = PaddingValues(Design.dp.paddingM)
+        contentPadding = PaddingValues(horizontal = Design.dp.paddingM)
     ) {
 
         items(calendar) {

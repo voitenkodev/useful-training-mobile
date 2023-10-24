@@ -6,9 +6,10 @@ import androidx.compose.runtime.getValue
 import components.Error
 import components.Loading
 import components.roots.Root
+import configurations.components.Header
 
 @Composable
-internal fun StatisticsContent(
+internal fun ConfigurationsContent(
     vm: ConfigurationsViewModel,
 ) {
 
@@ -17,9 +18,8 @@ internal fun StatisticsContent(
     Content(
         loading = { state.loading },
         error = { state.error },
-        clearError = vm::clearError,
-
-        )
+        clearError = vm::clearError
+    )
 }
 
 @Composable
@@ -34,5 +34,6 @@ private fun Content(
         error = { Error(message = error, close = clearError) },
     ) {
 
+        Header()
     }
 }
