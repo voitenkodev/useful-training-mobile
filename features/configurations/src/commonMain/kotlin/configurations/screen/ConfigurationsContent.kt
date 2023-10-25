@@ -17,9 +17,11 @@ import components.chips.Chip
 import components.chips.ChipStatus
 import components.roots.Root
 import configurations.components.Header
+import configurations.popups.SetNewMusclePopup
 import configurations.state.ExerciseExample
 import configurations.state.Muscle
 import kotlinx.collections.immutable.ImmutableList
+import molecular.BottomSheet
 import molecular.PaddingL
 import molecular.PaddingM
 import molecular.PaddingS
@@ -32,18 +34,26 @@ internal fun ConfigurationsContent(
 
     val state by vm.state.collectAsState()
 
-    Content(
-        loading = { state.loading },
-        error = { state.error },
-        clearError = vm::clearError,
+    BottomSheet(
+        visibility = true,
+        sheetContent = {
+            SetNewMusclePopup()
+        },
+        content = {
+            Content(
+                loading = { state.loading },
+                error = { state.error },
+                clearError = vm::clearError,
 
-        exerciseExamples = state.exerciseExamples,
-        muscles = state.muscles,
+                exerciseExamples = state.exerciseExamples,
+                muscles = state.muscles,
 
-        addExerciseExample = vm::addExerciseExample,
-        selectExerciseExample = vm::selectExerciseExample,
-        addMuscle = vm::addMuscle,
-        selectMuscle = vm::selectMuscle
+                addExerciseExample = vm::addExerciseExample,
+                selectExerciseExample = vm::selectExerciseExample,
+                addMuscle = vm::addMuscle,
+                selectMuscle = vm::selectMuscle
+            )
+        }
     )
 }
 
@@ -99,7 +109,7 @@ private fun Content(
                     Chip(
                         chipStatus = ChipStatus.DEFAULT,
                         text = exerciseExample.name,
-                        onClick = {}
+                        onClick = { selectExerciseExample.invoke(exerciseExample.id) }
                     )
                 }
             }
@@ -132,7 +142,7 @@ private fun Content(
                     Chip(
                         chipStatus = ChipStatus.DEFAULT,
                         text = muscle.name,
-                        onClick = {}
+                        onClick = { selectMuscle.invoke(muscle.id) }
                     )
                 }
             }
