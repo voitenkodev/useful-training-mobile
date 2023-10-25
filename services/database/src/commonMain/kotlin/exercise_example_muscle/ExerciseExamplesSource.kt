@@ -46,7 +46,6 @@ public class ExerciseExamplesSource(nativeContext: NativeContext) {
             }
     }
 
-
     public fun getExerciseExampleWithMusclesById(exerciseExampleId: String): Flow<List<Pair<ExerciseExampleDao, List<MuscleDao>>>> {
         return api
             .getExerciseExampleWithMusclesById(exerciseExampleId)
@@ -78,7 +77,7 @@ public class ExerciseExamplesSource(nativeContext: NativeContext) {
             .asFlow()
             .mapToList(Dispatchers.Default)
             .map { list ->
-                list.mapNotNull { model ->
+                list.map { model ->
                     val exercise = ExerciseExampleDao(
                         id = model.exercise_id,
                         name = model.exercise_name

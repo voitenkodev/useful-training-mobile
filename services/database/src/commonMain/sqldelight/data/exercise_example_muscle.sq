@@ -44,15 +44,15 @@ WHERE m.id = ?;
 -------------- SET --------------
 
 setExerciseExample:
-INSERT INTO ExerciseExample
+INSERT OR REPLACE INTO ExerciseExample
 VALUES (?,?);
 
 setMuscle:
-INSERT INTO Muscle
+INSERT OR REPLACE INTO Muscle
 VALUES (?,?);
 
 setExerciseExampleMuscleRef:
-INSERT INTO ExerciseExampleMuscleRef (exerciseExampleId, muscleId)
+INSERT OR REPLACE INTO ExerciseExampleMuscleRef (exerciseExampleId, muscleId)
 VALUES ( ?,?);
 
 -------------- DELETE --------------

@@ -60,10 +60,8 @@ internal fun ConfigurationsContent(
                 loading = { state.loading },
                 error = { state.error },
                 clearError = vm::clearError,
-
                 exerciseExamples = state.exerciseExamples,
                 muscles = state.muscles,
-
                 addExerciseExample = vm::addExerciseExample,
                 selectExerciseExample = vm::selectExerciseExample,
                 addMuscle = vm::addMuscle,
