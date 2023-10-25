@@ -46,15 +46,14 @@ internal fun ConfigurationsContent(
             state.musclePopupState?.let { popupState ->
                 MusclePopup(
                     state = popupState,
-                    confirm = {}
+                    confirm = vm::setMuscleWithExerciseExamples
                 )
             } ?: state.exerciseExamplePopupState?.let { popupState ->
                 ExerciseExamplePopup(
                     state = popupState,
-                    confirm = {}
+                    confirm = vm::setExerciseExampleWithMuscles
                 )
             }
-
         },
         content = {
             Content(
@@ -84,9 +83,9 @@ private fun Content(
     muscles: ImmutableList<Muscle>,
 
     addExerciseExample: () -> Unit,
-    selectExerciseExample: (exerciseExamples: ExerciseExample) -> Unit,
+    selectExerciseExample: (exerciseExampleId: String) -> Unit,
     addMuscle: () -> Unit,
-    selectMuscle: (muscle: Muscle) -> Unit,
+    selectMuscle: (muscleId: String) -> Unit,
 ) {
 
     Root(
@@ -126,7 +125,7 @@ private fun Content(
                     Chip(
                         chipStatus = ChipStatus.DEFAULT,
                         text = exerciseExample.name,
-                        onClick = { selectExerciseExample.invoke(exerciseExample) }
+                        onClick = { selectExerciseExample.invoke(exerciseExample.id) }
                     )
                 }
             }
@@ -159,7 +158,7 @@ private fun Content(
                     Chip(
                         chipStatus = ChipStatus.DEFAULT,
                         text = muscle.name,
-                        onClick = { selectMuscle.invoke(muscle) }
+                        onClick = { selectMuscle.invoke(muscle.id) }
                     )
                 }
             }

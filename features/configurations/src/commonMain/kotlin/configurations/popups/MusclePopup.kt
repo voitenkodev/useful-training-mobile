@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -18,6 +17,8 @@ import components.inputs.InputSearch
 import configurations.state.ExerciseExample
 import configurations.state.Muscle
 import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
+import kotlinx.collections.immutable.toPersistentList
 import molecular.ButtonIconSecondary
 import molecular.ButtonPrimary
 import molecular.PaddingM
@@ -41,12 +42,20 @@ internal sealed class MusclePopupState {
 @Composable
 internal fun MusclePopup(
     state: MusclePopupState,
-    confirm: () -> Unit
+    confirm: (muscle: Muscle, appliedExerciseExamples: ImmutableList<ExerciseExample>) -> Unit
 ) {
+
+    val muscle = remember(state) {
+        val item = when (state) {
+            is MusclePopupState.CREATE -> Muscle()
+            is MusclePopupState.UPDATE -> state.muscle
+        }
+        mutableStateOf(item)
+    }
 
     val appliedExerciseExamples = remember(state) {
         val list = when (state) {
-            is MusclePopupState.CREATE -> emptyList()
+            is MusclePopupState.CREATE -> persistentListOf()
             is MusclePopupState.UPDATE -> state.appliedExerciseExamples
         }
         mutableStateOf(list)
@@ -56,7 +65,9 @@ internal fun MusclePopup(
         val list = when (state) {
             is MusclePopupState.CREATE -> state.allExerciseExamples
             is MusclePopupState.UPDATE -> state.allExerciseExamples
-        }.filterNot { appliedExerciseExamples.value.contains(it) }
+        }
+            .filterNot { appliedExerciseExamples.value.contains(it) }
+            .toPersistentList()
         mutableStateOf(list)
     }
 
@@ -68,7 +79,10 @@ internal fun MusclePopup(
 
     when (state) {
         is MusclePopupState.CREATE -> {
-            InputSearch(value = { "" }, onValueChange = {})
+            InputSearch(
+                value = { muscle.value.name },
+                onValueChange = { muscle.value = muscle.value.copy(name = it) }
+            )
         }
 
         is MusclePopupState.UPDATE -> {
@@ -99,9 +113,7 @@ internal fun MusclePopup(
     PaddingS()
 
     FlowRow(
-        modifier = Modifier
-            .padding(horizontal = Design.dp.paddingM)
-            .fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(Design.dp.paddingS),
         horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
     ) {
@@ -110,7 +122,17 @@ internal fun MusclePopup(
             Chip(
                 chipStatus = ChipStatus.DEFAULT,
                 text = muscle.name,
-                onClick = { }
+                onClick = {
+                    appliedExerciseExamples.value = buildList {
+                        addAll(appliedExerciseExamples.value)
+                        remove(muscle)
+                    }.toPersistentList()
+
+                    availableExerciseExamples.value = buildList {
+                        addAll(availableExerciseExamples.value)
+                        add(muscle)
+                    }.toPersistentList()
+                }
             )
         }
     }
@@ -124,9 +146,7 @@ internal fun MusclePopup(
     PaddingS()
 
     FlowRow(
-        modifier = Modifier
-            .padding(horizontal = Design.dp.paddingM)
-            .fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(Design.dp.paddingS),
         horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
     ) {
@@ -136,7 +156,15 @@ internal fun MusclePopup(
                 chipStatus = ChipStatus.DEFAULT,
                 text = muscle.name,
                 onClick = {
+                    appliedExerciseExamples.value = buildList {
+                        addAll(appliedExerciseExamples.value)
+                        add(muscle)
+                    }.toPersistentList()
 
+                    availableExerciseExamples.value = buildList {
+                        addAll(availableExerciseExamples.value)
+                        remove(muscle)
+                    }.toPersistentList()
                 }
             )
         }
@@ -147,6 +175,6 @@ internal fun MusclePopup(
     ButtonPrimary(
         modifier = Modifier.fillMaxWidth(),
         text = "Confirm",
-        onClick = {}
+        onClick = { confirm.invoke(muscle.value, appliedExerciseExamples.value) }
     )
 }

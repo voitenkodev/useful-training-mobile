@@ -2,17 +2,18 @@ package configurations.screen
 
 import ExerciseExamplesRepository
 import ViewModel
+import configurations.mapping.toDomain
 import configurations.mapping.toState
 import configurations.popups.ExerciseExampleState
 import configurations.popups.MusclePopupState
 import configurations.state.ExerciseExample
 import configurations.state.Muscle
 import configurations.state.State
-import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.flatMapConcat
+import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
@@ -37,7 +38,7 @@ internal class ConfigurationsViewModel : ViewModel() {
                 _state.update { it.copy(loading = true) }
             }.onEach { r ->
                 _state.update { it.copy(exerciseExamples = r.toState()) }
-            }.flatMapConcat {
+            }.flatMapLatest {
                 api.getMuscles()
             }.onEach { r ->
                 _state.update { it.copy(muscles = r.toState(), loading = false) }
@@ -66,42 +67,54 @@ internal class ConfigurationsViewModel : ViewModel() {
         }
     }
 
-    fun selectMuscle(muscle: Muscle) {
-        _state.update {
-            it.copy(
-                musclePopupState = MusclePopupState.UPDATE(
-                    muscle = muscle,
-                    allExerciseExamples = it.exerciseExamples,
-                    appliedExerciseExamples = persistentListOf() // TODO FIX IT
-                )
-            )
-        }
+    fun selectMuscle(muscleId: String) {
+        api.getMuscleWithExerciseExamplesById(muscleId)
+            .filterNotNull()
+            .onEach { r ->
+                _state.update {
+                    it.copy(
+                        musclePopupState = MusclePopupState.UPDATE(
+                            muscle = r.first.toState(),
+                            allExerciseExamples = it.exerciseExamples,
+                            appliedExerciseExamples = r.second.toState()
+                        )
+                    )
+                }
+            }.launchIn(this)
+
     }
 
-    fun selectExerciseExample(exerciseExample: ExerciseExample) {
-        _state.update {
-            it.copy(
-                exerciseExamplePopupState = ExerciseExampleState.UPDATE(
-                    exerciseExample = exerciseExample,
-                    allMuscles = it.muscles,
-                    appliedMuscles = persistentListOf() // TODO FIX IT
-                )
-            )
-        }
-    }
-
-    fun getMuscleWithExerciseExamplesById(muscleId: Long) {
-
+    fun selectExerciseExample(exerciseExampleId: String) {
+        api.getExerciseExampleWithMusclesById(exerciseExampleId)
+            .filterNotNull()
+            .onEach { r ->
+                _state.update {
+                    it.copy(
+                        exerciseExamplePopupState = ExerciseExampleState.UPDATE(
+                            exerciseExample = r.first.toState(),
+                            allMuscles = it.muscles,
+                            appliedMuscles = r.second.toState()
+                        )
+                    )
+                }
+            }.launchIn(this)
     }
 
     fun setExerciseExampleWithMuscles(exerciseExample: ExerciseExample, muscles: List<Muscle>) {
-
+        closePopups()
+        api.setExerciseExampleWithMuscles(
+            exerciseExample = exerciseExample.toDomain(),
+            muscles = muscles.toDomain()
+        )
     }
 
     fun setMuscleWithExerciseExamples(muscle: Muscle, exerciseExamples: List<ExerciseExample>) {
-
+        closePopups()
+        api.setMuscleWithExerciseExamples(
+            muscle = muscle.toDomain(),
+            exerciseExamples = exerciseExamples.toDomain()
+        )
     }
-
 
     fun closePopups() {
         _state.update {
@@ -115,5 +128,4 @@ internal class ConfigurationsViewModel : ViewModel() {
     fun clearError() {
         _state.update { it.copy(error = null) }
     }
-
 }

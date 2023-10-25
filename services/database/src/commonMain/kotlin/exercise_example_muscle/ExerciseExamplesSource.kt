@@ -66,7 +66,9 @@ public class ExerciseExamplesSource(nativeContext: NativeContext) {
                 }.groupBy(
                     keySelector = { it.first },
                     valueTransform = { it.second }
-                ).toList()
+                ).mapValues {
+                    it.value.filterNot { it.id == "" }
+                }.toList()
             }
     }
 
@@ -76,7 +78,7 @@ public class ExerciseExamplesSource(nativeContext: NativeContext) {
             .asFlow()
             .mapToList(Dispatchers.Default)
             .map { list ->
-                list.map { model ->
+                list.mapNotNull { model ->
                     val exercise = ExerciseExampleDao(
                         id = model.exercise_id,
                         name = model.exercise_name
@@ -89,7 +91,9 @@ public class ExerciseExamplesSource(nativeContext: NativeContext) {
                 }.groupBy(
                     keySelector = { it.first },
                     valueTransform = { it.second }
-                ).toList()
+                ).mapValues {
+                    it.value.filterNot { it.id == "" }
+                }.toList()
             }
     }
 
@@ -137,7 +141,7 @@ public class ExerciseExamplesSource(nativeContext: NativeContext) {
     }
 
     private fun setExerciseExample(exerciseExample: ExerciseExampleDao) {
-        api.setMuscle(
+        api.setExerciseExample(
             id = exerciseExample.id,
             name = exerciseExample.name
         )

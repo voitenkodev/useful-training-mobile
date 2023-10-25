@@ -3,7 +3,6 @@ package molecular
 import Design
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredSize
@@ -11,7 +10,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
@@ -56,20 +54,23 @@ public fun ButtonIconPrimary(
     )
 }
 
-
 @Composable
 public fun ButtonIconSecondary(
     modifier: Modifier = Modifier,
     imageVector: ImageVector,
     color: Color = Design.colors.content,
-    onClick: () -> Unit = {}
+    onClick: (() -> Unit)? = null
 ) {
 
-    val interactionSource = remember { MutableInteractionSource() }
-
-    IconButton(
+    if (onClick == null) Icon(
+        imageVector = imageVector,
+        tint = color,
+        modifier = modifier
+            .size(18.dp)
+            .clip(shape = Design.shape.default),
+        contentDescription = null,
+    ) else IconButton(
         modifier = modifier.size(18.dp),
-        interactionSource = interactionSource,
         onClick = onClick
     ) {
         Icon(
