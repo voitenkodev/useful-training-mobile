@@ -3,7 +3,12 @@ package configurations.screen
 import ExerciseExamplesRepository
 import ViewModel
 import configurations.mapping.toState
+import configurations.popups.ExerciseExampleState
+import configurations.popups.MusclePopupState
+import configurations.state.ExerciseExample
+import configurations.state.Muscle
 import configurations.state.State
+import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
@@ -12,8 +17,6 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.update
-import models.ExerciseExample
-import models.Muscle
 import org.koin.core.component.inject
 
 internal class ConfigurationsViewModel : ViewModel() {
@@ -33,37 +36,58 @@ internal class ConfigurationsViewModel : ViewModel() {
             .onStart {
                 _state.update { it.copy(loading = true) }
             }.onEach { r ->
-                _state.update {
-                    it.copy(exerciseExamples = r.toState())
-                }
+                _state.update { it.copy(exerciseExamples = r.toState()) }
             }.flatMapConcat {
                 api.getMuscles()
             }.onEach { r ->
-                _state.update {
-                    it.copy(
-                        muscles = r.toState(),
-                        loading = false
-                    )
-                }
+                _state.update { it.copy(muscles = r.toState(), loading = false) }
             }.catch { t ->
                 _state.update { it.copy(loading = false, error = t.message) }
             }.launchIn(this)
     }
 
     fun addMuscle() {
-
+        _state.update {
+            it.copy(
+                musclePopupState = MusclePopupState.CREATE(
+                    allExerciseExamples = it.exerciseExamples
+                )
+            )
+        }
     }
 
     fun addExerciseExample() {
-
+        _state.update {
+            it.copy(
+                exerciseExamplePopupState = ExerciseExampleState.CREATE(
+                    allMuscles = it.muscles
+                )
+            )
+        }
     }
 
-    fun selectMuscle(id: String) {
-
+    fun selectMuscle(muscle: Muscle) {
+        _state.update {
+            it.copy(
+                musclePopupState = MusclePopupState.UPDATE(
+                    muscle = muscle,
+                    allExerciseExamples = it.exerciseExamples,
+                    appliedExerciseExamples = persistentListOf() // TODO FIX IT
+                )
+            )
+        }
     }
 
-    fun selectExerciseExample(id: String) {
-
+    fun selectExerciseExample(exerciseExample: ExerciseExample) {
+        _state.update {
+            it.copy(
+                exerciseExamplePopupState = ExerciseExampleState.UPDATE(
+                    exerciseExample = exerciseExample,
+                    allMuscles = it.muscles,
+                    appliedMuscles = persistentListOf() // TODO FIX IT
+                )
+            )
+        }
     }
 
     fun getMuscleWithExerciseExamplesById(muscleId: Long) {
@@ -78,6 +102,15 @@ internal class ConfigurationsViewModel : ViewModel() {
 
     }
 
+
+    fun closePopups() {
+        _state.update {
+            it.copy(
+                musclePopupState = null,
+                exerciseExamplePopupState = null
+            )
+        }
+    }
 
     fun clearError() {
         _state.update { it.copy(error = null) }

@@ -11,13 +11,15 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import atomic.icons.Add
+import buildBoolean
 import components.Error
 import components.Loading
 import components.chips.Chip
 import components.chips.ChipStatus
 import components.roots.Root
 import configurations.components.Header
-import configurations.popups.SetNewMusclePopup
+import configurations.popups.ExerciseExamplePopup
+import configurations.popups.MusclePopup
 import configurations.state.ExerciseExample
 import configurations.state.Muscle
 import kotlinx.collections.immutable.ImmutableList
@@ -35,9 +37,24 @@ internal fun ConfigurationsContent(
     val state by vm.state.collectAsState()
 
     BottomSheet(
-        visibility = true,
+        visibility = buildBoolean {
+            addCondition(state.musclePopupState != null)
+            addCondition(state.exerciseExamplePopupState != null)
+        },
+        onClose = vm::closePopups,
         sheetContent = {
-            SetNewMusclePopup()
+            state.musclePopupState?.let { popupState ->
+                MusclePopup(
+                    state = popupState,
+                    confirm = {}
+                )
+            } ?: state.exerciseExamplePopupState?.let { popupState ->
+                ExerciseExamplePopup(
+                    state = popupState,
+                    confirm = {}
+                )
+            }
+
         },
         content = {
             Content(
@@ -67,9 +84,9 @@ private fun Content(
     muscles: ImmutableList<Muscle>,
 
     addExerciseExample: () -> Unit,
-    selectExerciseExample: (id: String) -> Unit,
+    selectExerciseExample: (exerciseExamples: ExerciseExample) -> Unit,
     addMuscle: () -> Unit,
-    selectMuscle: (id: String) -> Unit,
+    selectMuscle: (muscle: Muscle) -> Unit,
 ) {
 
     Root(
@@ -109,7 +126,7 @@ private fun Content(
                     Chip(
                         chipStatus = ChipStatus.DEFAULT,
                         text = exerciseExample.name,
-                        onClick = { selectExerciseExample.invoke(exerciseExample.id) }
+                        onClick = { selectExerciseExample.invoke(exerciseExample) }
                     )
                 }
             }
@@ -142,7 +159,7 @@ private fun Content(
                     Chip(
                         chipStatus = ChipStatus.DEFAULT,
                         text = muscle.name,
-                        onClick = { selectMuscle.invoke(muscle.id) }
+                        onClick = { selectMuscle.invoke(muscle) }
                     )
                 }
             }
