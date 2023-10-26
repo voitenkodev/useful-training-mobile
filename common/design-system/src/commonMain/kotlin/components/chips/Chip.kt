@@ -18,39 +18,41 @@ import molecular.ButtonIconSecondary
 import molecular.PaddingXS
 import molecular.TextBody2
 import molecular.accentCircleBackground
-import molecular.secondaryCircleBackground
 import molecular.transparentCircleBackground
+import molecular.white5CircleBackground
+import molecular.white5CircleBackgroundNoBorder
 
-public enum class ChipStatus {
-    DEFAULT,
-    SELECTED,
-    DISABLED,
-    HIGHLIGHTED
+public sealed class ChipState(public open val enabled: Boolean) {
+    public data class HalfTransparent(override val enabled: Boolean = true) : ChipState(enabled)
+    public data class Default(override val enabled: Boolean = true) : ChipState(enabled)
+    public data class Selected(override val enabled: Boolean = true) : ChipState(enabled)
+    public data class Highlighted(override val enabled: Boolean = true) : ChipState(enabled)
 }
 
 @Composable
 public fun Chip(
-    chipStatus: ChipStatus = ChipStatus.DEFAULT,
+    chipState: ChipState = ChipState.Default(true),
     text: String,
     icon: ImageVector? = null,
-    onClick: () -> Unit,
+    onClick: () -> Unit = {},
 ) {
 
     val interactionSource = remember { MutableInteractionSource() }
 
-    val modifier = when (chipStatus) {
-        ChipStatus.DEFAULT -> Modifier
-            .secondaryCircleBackground()
+    val modifier = when (chipState) {
 
-        ChipStatus.SELECTED -> Modifier
+        is ChipState.Default -> Modifier
+            .white5CircleBackground()
+
+        is ChipState.Highlighted -> Modifier
+            .accentCircleBackground()
+
+        is ChipState.Selected -> Modifier
             .transparentCircleBackground()
 
-        ChipStatus.DISABLED -> Modifier
-            .secondaryCircleBackground()
+        is ChipState.HalfTransparent -> Modifier
+            .white5CircleBackgroundNoBorder()
             .alpha(0.5f)
-
-        ChipStatus.HIGHLIGHTED -> Modifier
-            .accentCircleBackground()
     }
 
     Row(
@@ -58,7 +60,7 @@ public fun Chip(
             .clickable(
                 interactionSource = interactionSource,
                 indication = null,
-                enabled = chipStatus != ChipStatus.DISABLED,
+                enabled = chipState.enabled,
                 onClick = onClick
             ).then(modifier)
             .padding(

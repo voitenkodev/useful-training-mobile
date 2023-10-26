@@ -15,7 +15,7 @@ import buildBoolean
 import components.Error
 import components.Loading
 import components.chips.Chip
-import components.chips.ChipStatus
+import components.chips.ChipState
 import components.roots.Root
 import configurations.components.Header
 import configurations.popups.ExerciseExamplePopup
@@ -46,12 +46,14 @@ internal fun ConfigurationsContent(
             state.musclePopupState?.let { popupState ->
                 MusclePopup(
                     state = popupState,
-                    confirm = vm::setMuscleWithExerciseExamples
+                    confirm = vm::setMuscleWithExerciseExamples,
+                    delete = vm::deleteMuscle
                 )
             } ?: state.exerciseExamplePopupState?.let { popupState ->
                 ExerciseExamplePopup(
                     state = popupState,
-                    confirm = vm::setExerciseExampleWithMuscles
+                    confirm = vm::setExerciseExampleWithMuscles,
+                    delete = vm::deleteExerciseExample
                 )
             }
         },
@@ -113,7 +115,7 @@ private fun Content(
             ) {
 
                 Chip(
-                    chipStatus = ChipStatus.HIGHLIGHTED,
+                    chipState = ChipState.Highlighted(),
                     text = "Add new",
                     icon = Add,
                     onClick = addExerciseExample
@@ -121,7 +123,7 @@ private fun Content(
 
                 exerciseExamples.forEach { exerciseExample ->
                     Chip(
-                        chipStatus = ChipStatus.DEFAULT,
+                        chipState = ChipState.Default(),
                         text = exerciseExample.name,
                         onClick = { selectExerciseExample.invoke(exerciseExample.id) }
                     )
@@ -146,7 +148,7 @@ private fun Content(
             ) {
 
                 Chip(
-                    chipStatus = ChipStatus.HIGHLIGHTED,
+                    chipState = ChipState.Highlighted(),
                     text = "Add new",
                     icon = Add,
                     onClick = addMuscle
@@ -154,7 +156,7 @@ private fun Content(
 
                 muscles.forEach { muscle ->
                     Chip(
-                        chipStatus = ChipStatus.DEFAULT,
+                        chipState = ChipState.Default(),
                         text = muscle.name,
                         onClick = { selectMuscle.invoke(muscle.id) }
                     )

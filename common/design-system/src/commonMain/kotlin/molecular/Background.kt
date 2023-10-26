@@ -9,7 +9,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 
 @Composable
-public fun Modifier.rootBackground(): Modifier = this
+public fun Modifier.primaryBackground(): Modifier = this
     .background(
         color = Design.colors.primary
     )
@@ -59,19 +59,6 @@ public fun Modifier.secondarySmallBackground(): Modifier = this
     )
 
 @Composable
-public fun Modifier.secondaryCircleBackground(): Modifier = this
-    .border(
-        color = Design.colors.white5,
-        width = 1.dp,
-        shape = Design.shape.circleShape
-    ).background(
-        color = Design.colors.secondary,
-        shape = Design.shape.circleShape
-    ).clip(
-        shape = Design.shape.circleShape
-    )
-
-@Composable
 public fun Modifier.transparentCircleBackground(): Modifier = this
     .border(
         color = Design.colors.caption,
@@ -97,4 +84,26 @@ public fun Modifier.reversedRoundBackground(): Modifier = this
         shape = Design.shape.default
     ).clip(
         shape = Design.shape.default
+    )
+
+@Composable
+public fun Modifier.white5CircleBackground(): Modifier = this
+    .border(
+        color = Design.colors.white5,
+        width = 1.dp,
+        shape = Design.shape.circleShape
+    ).background(
+        color = Design.colors.white5,
+        shape = Design.shape.circleShape
+    ).clip(
+        shape = Design.shape.circleShape
+    )
+
+@Composable
+public fun Modifier.white5CircleBackgroundNoBorder(): Modifier = this
+    .background(
+        color = Design.colors.white5,
+        shape = Design.shape.circleShape
+    ).clip(
+        shape = Design.shape.circleShape
     )

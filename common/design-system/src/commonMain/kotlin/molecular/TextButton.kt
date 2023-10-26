@@ -35,7 +35,10 @@ public fun ButtonPrimary(
         textStyle = Design.typography.PrimaryButton.copy(color = textColor),
         enabled = enabled,
         onClick = onClick,
-        colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor),
+        colors = ButtonDefaults.buttonColors(
+            backgroundColor = backgroundColor,
+            disabledBackgroundColor = Design.colors.caption,
+        ),
         shape = Design.shape.circleShape,
         borderStroke = null,
         leadIcon = null

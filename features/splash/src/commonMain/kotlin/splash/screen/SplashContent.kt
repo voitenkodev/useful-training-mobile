@@ -7,7 +7,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import molecular.rootBackground
+import molecular.primaryBackground
 import splash.state.TokenStatus
 
 @Composable
@@ -32,6 +32,6 @@ private fun Content() {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .rootBackground()
+            .primaryBackground()
     )
 }

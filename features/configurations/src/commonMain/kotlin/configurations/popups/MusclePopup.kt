@@ -5,15 +5,17 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import atomic.icons.Delete
 import components.chips.Chip
-import components.chips.ChipStatus
-import components.inputs.InputSearch
+import components.chips.ChipState
+import components.inputs.InputMuscleName
 import configurations.state.ExerciseExample
 import configurations.state.Muscle
 import kotlinx.collections.immutable.ImmutableList
@@ -23,7 +25,6 @@ import molecular.ButtonIconSecondary
 import molecular.ButtonPrimary
 import molecular.PaddingM
 import molecular.PaddingS
-import molecular.TextBody2
 import molecular.TextH2
 import molecular.TextH4
 
@@ -42,7 +43,8 @@ internal sealed class MusclePopupState {
 @Composable
 internal fun MusclePopup(
     state: MusclePopupState,
-    confirm: (muscle: Muscle, appliedExerciseExamples: ImmutableList<ExerciseExample>) -> Unit
+    confirm: (muscle: Muscle, appliedExerciseExamples: ImmutableList<ExerciseExample>) -> Unit,
+    delete: (muscleId: String) -> Unit
 ) {
 
     val muscle = remember(state) {
@@ -79,7 +81,7 @@ internal fun MusclePopup(
 
     when (state) {
         is MusclePopupState.CREATE -> {
-            InputSearch(
+            InputMuscleName(
                 value = { muscle.value.name },
                 onValueChange = { muscle.value = muscle.value.copy(name = it) }
             )
@@ -91,14 +93,16 @@ internal fun MusclePopup(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                TextBody2(
-                    provideText = { state.muscle.name }
+                Chip(
+                    chipState = ChipState.Highlighted(enabled = false),
+                    text = state.muscle.name
                 )
 
                 ButtonIconSecondary(
+                    modifier = Modifier.size(24.dp),
                     imageVector = Delete,
                     color = Design.colors.accentPrimary,
-                    onClick = {}
+                    onClick = { delete.invoke(muscle.value.id) }
                 )
             }
         }
@@ -115,25 +119,32 @@ internal fun MusclePopup(
     FlowRow(
         modifier = Modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(Design.dp.paddingS),
-        horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
+        horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS),
     ) {
 
-        appliedExerciseExamples.value.forEach { muscle ->
+        if (appliedExerciseExamples.value.isEmpty()) {
             Chip(
-                chipStatus = ChipStatus.DEFAULT,
-                text = muscle.name,
-                onClick = {
-                    appliedExerciseExamples.value = buildList {
-                        addAll(appliedExerciseExamples.value)
-                        remove(muscle)
-                    }.toPersistentList()
-
-                    availableExerciseExamples.value = buildList {
-                        addAll(availableExerciseExamples.value)
-                        add(muscle)
-                    }.toPersistentList()
-                }
+                chipState = ChipState.HalfTransparent(enabled = false),
+                text = "Empty",
             )
+        } else {
+            appliedExerciseExamples.value.forEach { muscle ->
+                Chip(
+                    chipState = ChipState.Selected(),
+                    text = muscle.name,
+                    onClick = {
+                        appliedExerciseExamples.value = buildList {
+                            addAll(appliedExerciseExamples.value)
+                            remove(muscle)
+                        }.toPersistentList()
+
+                        availableExerciseExamples.value = buildList {
+                            addAll(availableExerciseExamples.value)
+                            add(muscle)
+                        }.toPersistentList()
+                    }
+                )
+            }
         }
     }
 
@@ -151,22 +162,29 @@ internal fun MusclePopup(
         horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
     ) {
 
-        availableExerciseExamples.value.forEach { muscle ->
+        if (availableExerciseExamples.value.isEmpty()) {
             Chip(
-                chipStatus = ChipStatus.DEFAULT,
-                text = muscle.name,
-                onClick = {
-                    appliedExerciseExamples.value = buildList {
-                        addAll(appliedExerciseExamples.value)
-                        add(muscle)
-                    }.toPersistentList()
-
-                    availableExerciseExamples.value = buildList {
-                        addAll(availableExerciseExamples.value)
-                        remove(muscle)
-                    }.toPersistentList()
-                }
+                chipState = ChipState.HalfTransparent(enabled = false),
+                text = "Empty",
             )
+        } else {
+            availableExerciseExamples.value.forEach { muscle ->
+                Chip(
+                    chipState = ChipState.Default(),
+                    text = muscle.name,
+                    onClick = {
+                        appliedExerciseExamples.value = buildList {
+                            addAll(appliedExerciseExamples.value)
+                            add(muscle)
+                        }.toPersistentList()
+
+                        availableExerciseExamples.value = buildList {
+                            addAll(availableExerciseExamples.value)
+                            remove(muscle)
+                        }.toPersistentList()
+                    }
+                )
+            }
         }
     }
 
@@ -175,6 +193,7 @@ internal fun MusclePopup(
     ButtonPrimary(
         modifier = Modifier.fillMaxWidth(),
         text = "Confirm",
-        onClick = { confirm.invoke(muscle.value, appliedExerciseExamples.value) }
+        onClick = { confirm.invoke(muscle.value, appliedExerciseExamples.value) },
+        enabled = muscle.value.name.isNotBlank()
     )
 }

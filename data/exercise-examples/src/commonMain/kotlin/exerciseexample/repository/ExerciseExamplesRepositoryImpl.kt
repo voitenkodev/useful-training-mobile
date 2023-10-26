@@ -6,6 +6,7 @@ import exerciseexample.repository.mapping.toDao
 import exerciseexample.repository.mapping.toDomain
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.mapNotNull
 import models.ExerciseExample
 import models.Muscle
 
@@ -27,23 +28,23 @@ internal class ExerciseExamplesRepositoryImpl(
             }
     }
 
-    override fun getExerciseExampleWithMusclesById(exerciseExampleId: String): Flow<Pair<ExerciseExample, List<Muscle>>?> {
+    override fun getExerciseExampleWithMusclesById(exerciseExampleId: String): Flow<Pair<ExerciseExample, List<Muscle>>> {
         return local
             .getExerciseExampleWithMusclesById(exerciseExampleId)
-            .map {
-                val value = it.firstOrNull() ?: return@map null
-                val exerciseExample = value.first.toDomain() ?: return@map null
+            .mapNotNull {
+                val value = it.firstOrNull() ?: return@mapNotNull null
+                val exerciseExample = value.first.toDomain() ?: return@mapNotNull null
                 val muscles = value.second.toDomain()
                 exerciseExample to muscles
             }
     }
 
-    override fun getMuscleWithExerciseExamplesById(muscleId: String): Flow<Pair<Muscle, List<ExerciseExample>>?> {
+    override fun getMuscleWithExerciseExamplesById(muscleId: String): Flow<Pair<Muscle, List<ExerciseExample>>> {
         return local
             .getMuscleWithExerciseExamplesById(muscleId)
-            .map {
-                val value = it.firstOrNull() ?: return@map null
-                val muscle = value.first.toDomain() ?: return@map null
+            .mapNotNull {
+                val value = it.firstOrNull() ?: return@mapNotNull null
+                val muscle = value.first.toDomain() ?: return@mapNotNull null
                 val exerciseExamples = value.second.toDomain()
                 muscle to exerciseExamples
             }
@@ -63,5 +64,17 @@ internal class ExerciseExamplesRepositoryImpl(
                 muscle = muscle.toDao(),
                 exerciseExamples = exerciseExamples.toDao()
             )
+    }
+
+    override fun deleteExerciseExample(exerciseExampleId: String) {
+        local.deleteExerciseExample(
+            exerciseExampleId = exerciseExampleId
+        )
+    }
+
+    override fun deleteMuscle(muscleId: String) {
+        local.deleteMuscle(
+            muscleId = muscleId
+        )
     }
 }

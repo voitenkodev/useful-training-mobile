@@ -132,6 +132,18 @@ public class ExerciseExamplesSource(nativeContext: NativeContext) {
         }
     }
 
+    public fun deleteExerciseExample(exerciseExampleId: String) {
+        api.deleteExerciseExampleById(
+            id = exerciseExampleId
+        )
+    }
+
+    public fun deleteMuscle(muscleId: String) {
+        api.deleteMuscleById(
+            id = muscleId
+        )
+    }
+
     private fun setMuscle(muscle: MuscleDao) {
         api.setMuscle(
             id = muscle.id,

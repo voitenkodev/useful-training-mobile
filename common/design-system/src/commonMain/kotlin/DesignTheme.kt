@@ -6,7 +6,7 @@ import atomic.darkPalette
 import atomic.dp
 import atomic.shape
 import atomic.typography
-import molecular.rootBackground
+import molecular.primaryBackground
 
 @Composable
 public fun DesignTheme(
@@ -28,7 +28,7 @@ public fun DesignTheme(
 
     content = {
         Surface(
-            modifier = Modifier.rootBackground().then(modifier),
+            modifier = Modifier.primaryBackground().then(modifier),
             color = Design.colors.primary,
             content = content
         )

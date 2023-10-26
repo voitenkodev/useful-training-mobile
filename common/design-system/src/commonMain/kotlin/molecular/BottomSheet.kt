@@ -26,8 +26,8 @@ public fun BottomSheet(
         initialValue = ModalBottomSheetValue.Hidden,
         skipHalfExpanded = true,
         confirmValueChange = {
-            if (cancelable) {
-                if (it == ModalBottomSheetValue.Hidden) onClose?.invoke()
+            if (cancelable && it == ModalBottomSheetValue.Hidden) {
+                onClose?.invoke()
             }
             cancelable
         }
@@ -53,10 +53,11 @@ public fun BottomSheet(
                 modifier = Modifier.padding(
                     vertical = Design.dp.paddingL,
                     horizontal = Design.dp.paddingM
-                )
-            ) {
-                sheetContent.invoke(this)
-            }
+                ),
+                content = {
+                    sheetContent.invoke(this)
+                }
+            )
         },
         scrimColor = Design.colors.black30,
         content = content

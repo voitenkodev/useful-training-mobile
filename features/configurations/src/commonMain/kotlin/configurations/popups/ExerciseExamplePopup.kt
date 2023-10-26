@@ -5,15 +5,17 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import atomic.icons.Delete
 import components.chips.Chip
-import components.chips.ChipStatus
-import components.inputs.InputSearch
+import components.chips.ChipState
+import components.inputs.InputExerciseExampleName
 import configurations.state.ExerciseExample
 import configurations.state.Muscle
 import kotlinx.collections.immutable.ImmutableList
@@ -23,7 +25,6 @@ import molecular.ButtonIconSecondary
 import molecular.ButtonPrimary
 import molecular.PaddingM
 import molecular.PaddingS
-import molecular.TextBody2
 import molecular.TextH2
 import molecular.TextH4
 
@@ -42,7 +43,8 @@ internal sealed class ExerciseExampleState {
 @Composable
 internal fun ExerciseExamplePopup(
     state: ExerciseExampleState,
-    confirm: (exerciseExample: ExerciseExample, muscles: ImmutableList<Muscle>) -> Unit
+    confirm: (exerciseExample: ExerciseExample, muscles: ImmutableList<Muscle>) -> Unit,
+    delete: (exerciseExampleId: String) -> Unit
 ) {
 
     val exerciseExample = remember(state) {
@@ -78,7 +80,7 @@ internal fun ExerciseExamplePopup(
 
     when (state) {
         is ExerciseExampleState.CREATE -> {
-            InputSearch(
+            InputExerciseExampleName(
                 value = { exerciseExample.value.name },
                 onValueChange = { exerciseExample.value = exerciseExample.value.copy(name = it) }
             )
@@ -90,14 +92,16 @@ internal fun ExerciseExamplePopup(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                TextBody2(
-                    provideText = { state.exerciseExample.name }
+                Chip(
+                    chipState = ChipState.Highlighted(enabled = false),
+                    text = state.exerciseExample.name
                 )
 
                 ButtonIconSecondary(
+                    modifier = Modifier.size(24.dp),
                     imageVector = Delete,
                     color = Design.colors.accentPrimary,
-                    onClick = {}
+                    onClick = { delete.invoke(state.exerciseExample.id) }
                 )
             }
         }
@@ -118,22 +122,29 @@ internal fun ExerciseExamplePopup(
         horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
     ) {
 
-        appliedMuscles.value.forEach { muscle ->
+        if (appliedMuscles.value.isEmpty()) {
             Chip(
-                chipStatus = ChipStatus.DEFAULT,
-                text = muscle.name,
-                onClick = {
-                    appliedMuscles.value = buildList {
-                        addAll(appliedMuscles.value)
-                        remove(muscle)
-                    }.toPersistentList()
-
-                    availableMuscles.value = buildList {
-                        addAll(availableMuscles.value)
-                        add(muscle)
-                    }.toPersistentList()
-                }
+                chipState = ChipState.HalfTransparent(enabled = false),
+                text = "Empty",
             )
+        } else {
+            appliedMuscles.value.forEach { muscle ->
+                Chip(
+                    chipState = ChipState.Selected(),
+                    text = muscle.name,
+                    onClick = {
+                        appliedMuscles.value = buildList {
+                            addAll(appliedMuscles.value)
+                            remove(muscle)
+                        }.toPersistentList()
+
+                        availableMuscles.value = buildList {
+                            addAll(availableMuscles.value)
+                            add(muscle)
+                        }.toPersistentList()
+                    }
+                )
+            }
         }
     }
 
@@ -151,23 +162,29 @@ internal fun ExerciseExamplePopup(
         verticalArrangement = Arrangement.spacedBy(Design.dp.paddingS),
         horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
     ) {
-
-        availableMuscles.value.forEach { muscle ->
+        if (availableMuscles.value.isEmpty()) {
             Chip(
-                chipStatus = ChipStatus.DEFAULT,
-                text = muscle.name,
-                onClick = {
-                    appliedMuscles.value = buildList {
-                        addAll(appliedMuscles.value)
-                        add(muscle)
-                    }.toPersistentList()
-
-                    availableMuscles.value = buildList {
-                        addAll(availableMuscles.value)
-                        remove(muscle)
-                    }.toPersistentList()
-                }
+                chipState = ChipState.HalfTransparent(enabled = false),
+                text = "Empty",
             )
+        } else {
+            availableMuscles.value.forEach { muscle ->
+                Chip(
+                    chipState = ChipState.Default(),
+                    text = muscle.name,
+                    onClick = {
+                        appliedMuscles.value = buildList {
+                            addAll(appliedMuscles.value)
+                            add(muscle)
+                        }.toPersistentList()
+
+                        availableMuscles.value = buildList {
+                            addAll(availableMuscles.value)
+                            remove(muscle)
+                        }.toPersistentList()
+                    }
+                )
+            }
         }
     }
 
@@ -176,6 +193,7 @@ internal fun ExerciseExamplePopup(
     ButtonPrimary(
         modifier = Modifier.fillMaxWidth(),
         text = "Confirm",
-        onClick = { confirm.invoke(exerciseExample.value, appliedMuscles.value) }
+        onClick = { confirm.invoke(exerciseExample.value, appliedMuscles.value) },
+        enabled = exerciseExample.value.name.isNotBlank()
     )
 }

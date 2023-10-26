@@ -12,12 +12,13 @@ import configurations.state.State
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import org.koin.core.component.inject
 
 internal class ConfigurationsViewModel : ViewModel() {
@@ -32,19 +33,17 @@ internal class ConfigurationsViewModel : ViewModel() {
     }
 
     private fun fetchData() {
-        api
-            .getExerciseExamples()
-            .onStart {
-                _state.update { it.copy(loading = true) }
-            }.onEach { r ->
-                _state.update { it.copy(exerciseExamples = r.toState()) }
-            }.flatMapLatest {
-                api.getMuscles()
-            }.onEach { r ->
-                _state.update { it.copy(muscles = r.toState(), loading = false) }
-            }.catch { t ->
-                _state.update { it.copy(loading = false, error = t.message) }
-            }.launchIn(this)
+        api.getExerciseExamples().onStart {
+            _state.update { it.copy(loading = true) }
+        }.onEach { r ->
+            _state.update { it.copy(exerciseExamples = r.toState()) }
+        }.flatMapLatest {
+            api.getMuscles()
+        }.onEach { r ->
+            _state.update { it.copy(muscles = r.toState(), loading = false) }
+        }.catch { t ->
+            _state.update { it.copy(loading = false, error = t.message) }
+        }.launchIn(this)
     }
 
     fun addMuscle() {
@@ -67,37 +66,54 @@ internal class ConfigurationsViewModel : ViewModel() {
         }
     }
 
-    fun selectMuscle(muscleId: String) {
-        api.getMuscleWithExerciseExamplesById(muscleId)
-            .filterNotNull()
-            .onEach { r ->
-                _state.update {
-                    it.copy(
-                        musclePopupState = MusclePopupState.UPDATE(
-                            muscle = r.first.toState(),
-                            allExerciseExamples = it.exerciseExamples,
-                            appliedExerciseExamples = r.second.toState()
-                        )
-                    )
-                }
-            }.launchIn(this)
+    fun deleteExerciseExample(exerciseExampleId: String) {
+        closePopups()
+        api.deleteExerciseExample(
+            exerciseExampleId = exerciseExampleId
+        )
+    }
 
+    fun deleteMuscle(muscleId: String) {
+        closePopups()
+        api.deleteMuscle(
+            muscleId = muscleId
+        )
+    }
+
+    fun selectMuscle(muscleId: String) {
+        launch {
+            val result = api
+                .getMuscleWithExerciseExamplesById(muscleId)
+                .firstOrNull() ?: return@launch
+
+            _state.update {
+                it.copy(
+                    musclePopupState = MusclePopupState.UPDATE(
+                        muscle = result.first.toState(),
+                        appliedExerciseExamples = result.second.toState(),
+                        allExerciseExamples = it.exerciseExamples
+                    )
+                )
+            }
+        }
     }
 
     fun selectExerciseExample(exerciseExampleId: String) {
-        api.getExerciseExampleWithMusclesById(exerciseExampleId)
-            .filterNotNull()
-            .onEach { r ->
-                _state.update {
-                    it.copy(
-                        exerciseExamplePopupState = ExerciseExampleState.UPDATE(
-                            exerciseExample = r.first.toState(),
-                            allMuscles = it.muscles,
-                            appliedMuscles = r.second.toState()
-                        )
+        launch {
+            val result = api
+                .getExerciseExampleWithMusclesById(exerciseExampleId)
+                .firstOrNull() ?: return@launch
+
+            _state.update {
+                it.copy(
+                    exerciseExamplePopupState = ExerciseExampleState.UPDATE(
+                        exerciseExample = result.first.toState(),
+                        appliedMuscles = result.second.toState(),
+                        allMuscles = it.muscles
                     )
-                }
-            }.launchIn(this)
+                )
+            }
+        }
     }
 
     fun setExerciseExampleWithMuscles(exerciseExample: ExerciseExample, muscles: List<Muscle>) {
