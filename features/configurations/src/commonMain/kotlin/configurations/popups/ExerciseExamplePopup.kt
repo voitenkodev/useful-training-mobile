@@ -16,6 +16,7 @@ import atomic.icons.Delete
 import components.chips.Chip
 import components.chips.ChipState
 import components.inputs.InputExerciseExampleName
+import configurations.components.MuscleRangeSlider
 import configurations.state.ExerciseExample
 import configurations.state.Muscle
 import kotlinx.collections.immutable.ImmutableList
@@ -106,6 +107,10 @@ internal fun ExerciseExamplePopup(
             }
         }
     }
+
+    PaddingM()
+
+    MuscleRangeSlider()
 
     PaddingM()
 

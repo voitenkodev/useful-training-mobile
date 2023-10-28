@@ -8,6 +8,9 @@ apply(from = "../../config/gradle/build-scripts/kotlin.gradle")
 apply(from = "../../config/gradle/build-scripts/android.gradle")
 
 android { namespace = "com.voitenko.usefultraining.features.configurations" }
+dependencies {
+    implementation(libs.material3)
+}
 
 kotlin {
     sourceSets {
