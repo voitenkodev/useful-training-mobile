@@ -7,18 +7,33 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
-import molecular.MultiThumbRangeSlider
+import molecular.MultiRangeSlider
+import molecular.ThumbRangeSliderState
 
 @Composable
 public fun MuscleRangeSlider() {
-    val thumbs = remember { mutableStateOf(listOf(10, 20, 50, 80)) }
-    var trackColor by remember { mutableStateOf(Color.Gray) }
-
-    MultiThumbRangeSlider(
+    MultiRangeSlider(
         thumbs = listOf(
-            "as" to 40f,
-            "asd" to 55f,
-            "ewq" to 90f
+            ThumbRangeSliderState(
+                id = "as",
+                positionInRange = 40f,
+                color = Color.Red
+            ),
+            ThumbRangeSliderState(
+                id = "asd",
+                positionInRange = 60f,
+                color = Color.Cyan
+            ),
+            ThumbRangeSliderState(
+                id = "ast",
+                positionInRange = 70f,
+                color = Color.Green
+            ),
+            ThumbRangeSliderState(
+                id = "asy",
+                positionInRange = 90f,
+                color = Color.Black
+            ),
         ),
         lineColor = Design.colors.caption
     )
