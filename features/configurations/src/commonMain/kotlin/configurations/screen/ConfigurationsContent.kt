@@ -147,13 +147,6 @@ private fun Content(
                 horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
             ) {
 
-                Chip(
-                    chipState = ChipState.Highlighted(),
-                    text = "Add new",
-                    icon = Add,
-                    onClick = addMuscle
-                )
-
                 muscles.forEach { muscle ->
                     Chip(
                         chipState = ChipState.Default(),

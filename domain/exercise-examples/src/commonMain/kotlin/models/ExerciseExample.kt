@@ -2,5 +2,6 @@ package models
 
 public data class ExerciseExample(
     val id: String,
-    val name: String,
+    val muscleExerciseBundles: List<MuscleExerciseBundle> = emptyList(),
+    val name: String
 )

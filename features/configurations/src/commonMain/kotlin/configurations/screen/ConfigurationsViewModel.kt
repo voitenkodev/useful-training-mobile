@@ -68,68 +68,68 @@ internal class ConfigurationsViewModel : ViewModel() {
 
     fun deleteExerciseExample(exerciseExampleId: String) {
         closePopups()
-        api.deleteExerciseExample(
-            exerciseExampleId = exerciseExampleId
-        )
+//        api.deleteExerciseExample(
+//            exerciseExampleId = exerciseExampleId
+//        )
     }
 
     fun deleteMuscle(muscleId: String) {
         closePopups()
-        api.deleteMuscle(
-            muscleId = muscleId
-        )
+//        api.deleteMuscle(
+//            muscleId = muscleId
+//        )
     }
 
     fun selectMuscle(muscleId: String) {
         launch {
-            val result = api
-                .getMuscleWithExerciseExamplesById(muscleId)
-                .firstOrNull() ?: return@launch
-
-            _state.update {
-                it.copy(
-                    musclePopupState = MusclePopupState.UPDATE(
-                        muscle = result.first.toState(),
-                        appliedExerciseExamples = result.second.toState(),
-                        allExerciseExamples = it.exerciseExamples
-                    )
-                )
-            }
+//            val result = api
+//                .getMuscleWithExerciseExamplesById(muscleId)
+//                .firstOrNull() ?: return@launch
+//
+//            _state.update {
+//                it.copy(
+//                    musclePopupState = MusclePopupState.UPDATE(
+//                        muscle = result.first.toState(),
+//                        appliedExerciseExamples = result.second.toState(),
+//                        allExerciseExamples = it.exerciseExamples
+//                    )
+//                )
+//            }
         }
     }
 
     fun selectExerciseExample(exerciseExampleId: String) {
         launch {
-            val result = api
-                .getExerciseExampleWithMusclesById(exerciseExampleId)
-                .firstOrNull() ?: return@launch
-
-            _state.update {
-                it.copy(
-                    exerciseExamplePopupState = ExerciseExampleState.UPDATE(
-                        exerciseExample = result.first.toState(),
-                        appliedMuscles = result.second.toState(),
-                        allMuscles = it.muscles
-                    )
-                )
-            }
+//            val result = api
+//                .getExerciseExampleWithMusclesById(exerciseExampleId)
+//                .firstOrNull() ?: return@launch
+//
+//            _state.update {
+//                it.copy(
+//                    exerciseExamplePopupState = ExerciseExampleState.UPDATE(
+//                        exerciseExample = result.first.toState(),
+//                        appliedMuscles = result.second.toState(),
+//                        allMuscles = it.muscles
+//                    )
+//                )
+//            }
         }
     }
 
     fun setExerciseExampleWithMuscles(exerciseExample: ExerciseExample, muscles: List<Muscle>) {
         closePopups()
-        api.setExerciseExampleWithMuscles(
-            exerciseExample = exerciseExample.toDomain(),
-            muscles = muscles.toDomain()
-        )
+//        api.setExerciseExampleWithMuscles(
+//            exerciseExample = exerciseExample.toDomain(),
+//            muscles = muscles.toDomain()
+//        )
     }
 
     fun setMuscleWithExerciseExamples(muscle: Muscle, exerciseExamples: List<ExerciseExample>) {
         closePopups()
-        api.setMuscleWithExerciseExamples(
-            muscle = muscle.toDomain(),
-            exerciseExamples = exerciseExamples.toDomain()
-        )
+//        api.setMuscleWithExerciseExamples(
+//            muscle = muscle.toDomain(),
+//            exerciseExamples = exerciseExamples.toDomain()
+//        )
     }
 
     fun closePopups() {
