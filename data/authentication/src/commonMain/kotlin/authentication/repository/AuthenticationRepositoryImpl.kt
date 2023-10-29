@@ -19,13 +19,13 @@ internal class AuthenticationRepositoryImpl(
         flow {
             emit(remote.login(AuthDto(email, password)))
         }.map {
-            val token = it.token
+            val token = it.accessToken
             if (token != null) preferences.setToken(token)
         }
 
     override fun registration(email: String, password: String): Flow<Unit> =
         flow {
-            emit(remote.registration(AuthDto(email, password)))
+            emit(remote.register(AuthDto(email, password)))
         }.map { }
 
     override fun getToken(): Flow<String?> =

@@ -9,5 +9,5 @@ internal data class State(
     val error: String? = null,
     val loading: Boolean = false,
     val exitWarningVisibility: Boolean = false,
-    val removeExerciseId: String? = null
+    val removeExerciseIndex: Int? = null
 )

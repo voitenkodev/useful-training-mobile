@@ -1,37 +1,37 @@
 package traininigs.mapping
 
 import models.Iteration
-import traininig_exercise_iteration.models.IterationDao
 import models.IterationDto
+import traininig_exercise_iteration.models.IterationDao
 
 internal fun IterationDto.toDomain(): Iteration {
     return Iteration(
-        id = this.id,
-        weight = this.weight,
-        repeat = this.repeat
+        id = id,
+        weight = weight,
+        repeat = repeat
     )
 }
 
 internal fun IterationDao.toDomain(): Iteration {
     return Iteration(
-        id = this.id,
-        weight = this.weight,
-        repeat = this.repeat
+        id = id,
+        weight = weight,
+        repeat = repeat
     )
 }
 
 internal fun IterationDto.toDao(): IterationDao {
     return IterationDao(
-        id = this.id,
-        weight = this.weight,
-        repeat = this.repeat
+        id = id,
+        weight = weight,
+        repeat = repeat
     )
 }
 
 internal fun Iteration.toDto(): IterationDto {
     return IterationDto(
-        id = this.id,
-        weight = this.weight,
-        repeat = this.repeat
+        id = id,
+        weight = weight,
+        repeat = repeat
     )
 }

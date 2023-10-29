@@ -5,63 +5,81 @@ import io.ktor.http.HttpMethod
 import io.ktor.http.contentType
 import io.ktor.http.path
 import models.AuthDto
-import models.ExerciseDateDto
+import models.ExerciseExampleDto
+import models.MuscleDto
 import models.TokenDto
 import models.TrainingDto
 
 public class NetworkSource(private val clientBackend: ClientBackend) {
 
-    public suspend fun setTraining(body: TrainingDto): String {
+    public suspend fun login(body: AuthDto): TokenDto {
         return callRequest(
             method = HttpMethod.Post,
-            path = "/training",
+            path = "/auth/login",
             body = body
         )
     }
 
-    public suspend fun getTrainings(): List<TrainingDto> {
+    public suspend fun register(body: AuthDto): TokenDto {
         return callRequest(
-            method = HttpMethod.Get,
-            path = "/trainings"
+            method = HttpMethod.Post,
+            path = "/auth/register",
+            body = body
         )
     }
 
-    public suspend fun getExercises(query: String): List<ExerciseDateDto> {
+    public suspend fun getTrainings(startDate: String, endDate: String): List<TrainingDto> {
         return callRequest(
             method = HttpMethod.Get,
-            path = "/exercises",
-            queryParams = mapOf("name" to query)
+            path = "/trainings",
+            queryParams = mapOf(
+                "start" to startDate,
+                "end" to endDate
+            )
+        )
+    }
+
+    public suspend fun setTraining(body: TrainingDto): TrainingDto {
+        return callRequest(
+            method = HttpMethod.Post,
+            path = "/trainings",
+            body = body
         )
     }
 
     public suspend fun getTraining(trainingId: String): TrainingDto {
         return callRequest(
             method = HttpMethod.Get,
-            path = "/training/$trainingId"
+            path = "/trainings/$trainingId"
         )
     }
 
-    public suspend fun deleteTraining(trainingId: String) {
-        callRequest<Unit>(
-            method = HttpMethod.Delete,
-            path = "/training",
-            queryParams = mapOf("id" to trainingId)
+    public suspend fun getExerciseExamples(): List<ExerciseExampleDto> {
+        return callRequest(
+            method = HttpMethod.Get,
+            path = "/exercise-examples"
         )
     }
 
-    public suspend fun login(body: AuthDto): TokenDto {
+    public suspend fun setExerciseExample(body: ExerciseExampleDto): ExerciseExampleDto {
         return callRequest(
             method = HttpMethod.Post,
-            path = "/login",
+            path = "/exercise-examples",
             body = body
         )
     }
 
-    public suspend fun registration(body: AuthDto): TokenDto {
+    public suspend fun getExerciseExample(exerciseExampleId: String): ExerciseExampleDto {
         return callRequest(
-            method = HttpMethod.Post,
-            path = "/register",
-            body = body
+            method = HttpMethod.Get,
+            path = "/exercise-examples/$exerciseExampleId"
+        )
+    }
+
+    public suspend fun getMuscles(): List<MuscleDto> {
+        return callRequest(
+            method = HttpMethod.Get,
+            path = "/muscles"
         )
     }
 

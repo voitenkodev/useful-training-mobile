@@ -41,22 +41,22 @@ internal class StatisticsViewModel : ViewModel() {
 
     @OptIn(FlowPreview::class)
     private fun debounceGetExercises(query: String) {
-        flowOf(query)
-            .debounce(500)
-            .distinctUntilChanged()
-            .flatMapConcat { trainingsApi.getExercises(query = query) }
-            .onStart {
-                _state.update { it.copy(loading = false) }
-            }.onEach { response ->
-                _state.update {
-                    it.copy(
-                        exercises = response.processingExercises(),
-                        loading = false
-                    )
-                }
-            }.catch { t ->
-                _state.update { it.copy(loading = false, error = t.message) }
-            }.launchIn(this)
+//        flowOf(query)
+//            .debounce(500)
+//            .distinctUntilChanged()
+//            .flatMapConcat { trainingsApi.getExercises(query = query) }
+//            .onStart {
+//                _state.update { it.copy(loading = false) }
+//            }.onEach { response ->
+//                _state.update {
+//                    it.copy(
+//                        exercises = response.processingExercises(),
+//                        loading = false
+//                    )
+//                }
+//            }.catch { t ->
+//                _state.update { it.copy(loading = false, error = t.message) }
+//            }.launchIn(this)
     }
 
     private fun getExerciseNameOptions() {

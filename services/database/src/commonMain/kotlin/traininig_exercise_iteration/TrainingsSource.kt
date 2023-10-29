@@ -61,7 +61,7 @@ public class TrainingsSource(nativeContext: NativeContext) {
 
         api.setTraining(
             id = trainingId,
-            duration = training.duration,
+            duration = training.duration?.toLong(),
             date = training.date,
             tonnage = training.tonnage,
             countOfLifting = training.countOfLifting?.toLong(),

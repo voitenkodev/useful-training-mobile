@@ -69,7 +69,7 @@ internal fun TrainingContent(
             back.invoke()
         },
 
-        removeExerciseId = { state.removeExerciseId },
+        removeExerciseIndex = { state.removeExerciseIndex },
         removeExercise = vm::removeExercise,
         closeRemoveExercisePopup = vm::closeRemoveExercisePopup,
 
@@ -99,8 +99,8 @@ private fun Content(
     exitWarningVisibility: Boolean,
     closeExitScreenPopup: () -> Unit,
 
-    removeExerciseId: () -> String?,
-    removeExercise: (id: String?) -> Unit,
+    removeExerciseIndex: () -> Int?,
+    removeExercise: (index: Int?) -> Unit,
     closeRemoveExercisePopup: () -> Unit,
 
     openExitScreenPopup: () -> Unit,
@@ -110,10 +110,10 @@ private fun Content(
     removeExerciseNameOption: (String) -> Unit,
 
     exercises: State<List<Exercise>>,
-    updateName: (id: String, value: String) -> Unit,
-    updateWeight: (id: String, number: Int, value: String) -> Unit,
-    updateRepeat: (id: String, number: Int, value: String) -> Unit,
-    openRemoveExercisePopup: (id: String) -> Unit,
+    updateName: (exerciseNumber: Int, value: String) -> Unit,
+    updateWeight: (exerciseNumber: Int, iterationNumber: Int, value: String) -> Unit,
+    updateRepeat: (exerciseNumber: Int, iterationNumber: Int, value: String) -> Unit,
+    openRemoveExercisePopup: (index: Int) -> Unit,
     addExercise: () -> Unit,
 ) {
 
@@ -141,12 +141,12 @@ private fun Content(
                 back = closeExitScreenPopup
             )
             Popup(
-                visibility = removeExerciseId() != null,
+                visibility = removeExerciseIndex() != null,
                 title = "Warning",
                 message = "Are you sure to remove exercise?",
                 button = "Yes",
                 click = {
-                    removeExercise(removeExerciseId())
+                    removeExercise(removeExerciseIndex())
                     closeRemoveExercisePopup()
                 },
                 back = closeRemoveExercisePopup
@@ -171,9 +171,8 @@ private fun Content(
         },
         content = {
 
-            itemsIndexed(exercises.value, key = { _, exercise -> exercise.id }) { index, exercise ->
-
-                val id by rememberUpdatedState(exercise.id)
+            itemsIndexed(exercises.value) { index, exercise ->
+                val indexProvider by rememberUpdatedState(index)
                 val name by rememberUpdatedState(exercise.name)
                 val number by rememberUpdatedState(index + 1)
                 val iterations by rememberUpdatedState(exercise.iterations)
@@ -183,11 +182,11 @@ private fun Content(
                     number = { number },
                     nameOptions = exerciseNamesProvider,
                     name = { name },
-                    updateName = { updateName(id, it) },
-                    updateWeight = { num, value -> updateWeight(id, num, value) },
-                    updateRepeat = { num, value -> updateRepeat(id, num, value) },
+                    updateName = { updateName(indexProvider, it) },
+                    updateWeight = { num, value -> updateWeight(indexProvider, num, value) },
+                    updateRepeat = { num, value -> updateRepeat(indexProvider, num, value) },
                     iterations = { iterations },
-                    remove = { openRemoveExercisePopup(id) },
+                    remove = { openRemoveExercisePopup(indexProvider) },
                     removeNameOption = removeExerciseNameOptionProvider
                 )
             }

@@ -39,13 +39,12 @@ internal class TrainingViewModel : ViewModel() {
             return
         }
 
-        val exerciseNames = training.exercises.map { it.name }
-
         trainingsApi.setTraining(training = training.toBody())
             .onStart {
                 _state.value = state.value.copy(loading = true)
             }.onEach {
                 _state.value = state.value.copy(loading = false, error = null)
+                it ?: return@onEach
                 onSuccess.invoke(it)
             }.catch {
                 _state.value = state.value.copy(loading = false, error = it.message)
@@ -86,8 +85,8 @@ internal class TrainingViewModel : ViewModel() {
         _state.value = state.value.copy(error = message)
     }
 
-    fun openRemoveExercisePopup(exerciseId: String) {
-        _state.value = state.value.copy(removeExerciseId = exerciseId)
+    fun openRemoveExercisePopup(exerciseIndex: Int) {
+        _state.value = state.value.copy(removeExerciseIndex = exerciseIndex)
     }
 
     fun openExitScreenPopup() {
@@ -99,7 +98,7 @@ internal class TrainingViewModel : ViewModel() {
     }
 
     fun tryBack() {
-        if (state.value.removeExerciseId != null) {
+        if (state.value.removeExerciseIndex != null) {
             closeRemoveExercisePopup()
             return
         }
@@ -113,13 +112,14 @@ internal class TrainingViewModel : ViewModel() {
     }
 
     fun closeRemoveExercisePopup() {
-        _state.value = state.value.copy(removeExerciseId = null)
+        _state.value = state.value.copy(removeExerciseIndex = null)
     }
 
-    fun removeExercise(exerciseId: String?) {
-        exerciseId?.let {
+    fun removeExercise(exerciseIndex: Int?) {
+
+        exerciseIndex?.let {
             val training = state.value.training
-                .removeExercise(exerciseId)
+                .removeExercise(exerciseIndex)
 
             _state.value = state.value.copy(training = training)
         }
@@ -127,25 +127,25 @@ internal class TrainingViewModel : ViewModel() {
         closeRemoveExercisePopup()
     }
 
-    fun updateName(exerciseId: String, name: String) {
+    fun updateName(exerciseIndex: Int, name: String) {
         val training = state.value.training
-            .setNameOfExercise(exerciseId, name)
+            .setNameOfExercise(exerciseIndex, name)
 
         _state.value = state.value.copy(training = training)
     }
 
-    fun updateWeight(exerciseId: String, number: Int, weight: String) {
+    fun updateWeight(exerciseIndex: Int, number: Int, weight: String) {
         val training = state.value.training
-            .setWeightOfIteration(exerciseId, number, weight)
-            .provideEmptyIteration(exerciseId)
+            .setWeightOfIteration(exerciseIndex, number, weight)
+            .provideEmptyIteration(exerciseIndex)
 
         _state.value = state.value.copy(training = training)
     }
 
-    fun updateRepeat(exerciseId: String, number: Int, repeat: String) {
+    fun updateRepeat(exerciseIndex: Int, number: Int, repeat: String) {
         val training = state.value.training
-            .setRepeatOfIteration(exerciseId, number, repeat)
-            .provideEmptyIteration(exerciseId)
+            .setRepeatOfIteration(exerciseIndex, number, repeat)
+            .provideEmptyIteration(exerciseIndex)
 
         _state.value = state.value.copy(training = training)
     }
@@ -157,50 +157,50 @@ internal class TrainingViewModel : ViewModel() {
         _state.value = state.value.copy(training = training)
     }
 
-    private fun Training.setNameOfExercise(id: String, name: String): Training {
+    private fun Training.setNameOfExercise(exerciseIndex: Int, name: String): Training {
         return this.copy(
-            exercises = this.exercises.map {
-                if (it.id == id) {
-                    it.copy(name = name)
-                } else it
+            exercises = this.exercises.mapIndexed { index, item ->
+                if (exerciseIndex == index) {
+                    item.copy(name = name)
+                } else item
             }
         )
     }
 
-    private fun Training.setRepeatOfIteration(exerciseId: String, numberOfIteration: Int, repeat: String): Training {
-        val exercises = this.exercises.map {
-            if (it.id != exerciseId) {
-                it
+    private fun Training.setRepeatOfIteration(exerciseIndex: Int, numberOfIteration: Int, repeat: String): Training {
+        val exercises = this.exercises.mapIndexed { index, item ->
+            if (exerciseIndex != index) {
+                item
             } else {
-                val iterations = it.iterations.mapIndexedNotNull { index, iteration ->
-                    val newRepeat = if (numberOfIteration == index) repeat else iteration.repeat
+                val iterations = item.iterations.mapIndexedNotNull { iterationIndex, iteration ->
+                    val newRepeat = if (numberOfIteration == iterationIndex) repeat else iteration.repeat
                     if (newRepeat == "" && iteration.weight == "") null
                     else Iteration(weight = iteration.weight, repeat = newRepeat)
                 }
-                it.copy(iterations = iterations)
+                item.copy(iterations = iterations)
             }
         }
         return copy(exercises = exercises)
     }
 
-    private fun Training.setWeightOfIteration(exerciseId: String, numberOfIteration: Int, weight: String): Training {
-        val exercises = this.exercises.map {
-            if (it.id != exerciseId) {
-                it
+    private fun Training.setWeightOfIteration(exerciseIndex: Int, numberOfIteration: Int, weight: String): Training {
+        val exercises = this.exercises.mapIndexed { index, item ->
+            if (exerciseIndex != index) {
+                item
             } else {
-                val iterations = it.iterations.mapIndexedNotNull { index, iteration ->
-                    val newWeight = if (numberOfIteration == index) weight else iteration.weight
+                val iterations = item.iterations.mapIndexedNotNull { iterationIndex, iteration ->
+                    val newWeight = if (numberOfIteration == iterationIndex) weight else iteration.weight
                     if (newWeight == "" && iteration.repeat == "") null
                     else Iteration(weight = newWeight, repeat = iteration.repeat)
                 }
-                it.copy(iterations = iterations)
+                item.copy(iterations = iterations)
             }
         }
         return copy(exercises = exercises)
     }
 
-    private fun Training.removeExercise(id: String): Training {
-        val newList = this.exercises.mapNotNull { old -> if (old.id == id) null else old }
+    private fun Training.removeExercise(exerciseIndex: Int): Training {
+        val newList = this.exercises.mapIndexedNotNull { index, old -> if (exerciseIndex == index) null else old }
         return this.copy(exercises = newList)
     }
 
@@ -254,7 +254,7 @@ internal class TrainingViewModel : ViewModel() {
     }
 
     private fun Training.calculateDuration(): Training {
-        return if (duration == null) this.copy(duration = DateTimeKtx.durationFrom(this.startDateTime))
+        return if (duration == null) this.copy(duration = DateTimeKtx.minutesFrom(this.startDateTime))
         else this
     }
 
@@ -268,12 +268,12 @@ internal class TrainingViewModel : ViewModel() {
         )
     }
 
-    private fun Training.provideEmptyIteration(exerciseId: String): Training {
-        val exercise = this.exercises.find { it.id == exerciseId } ?: return this
+    private fun Training.provideEmptyIteration(exerciseIndex: Int): Training {
+        val exercise = this.exercises.getOrNull(exerciseIndex) ?: return this
         val lastIsNotEmpty = exercise.iterations.lastOrNull()?.weight != "" || exercise.iterations.lastOrNull()?.repeat != ""
         if (lastIsNotEmpty.not()) return this
         val newExercise = exercise.copy(iterations = exercise.iterations + Iteration())
-        val newExercises = this.exercises.map { if (it.id == exerciseId) newExercise else it }
+        val newExercises = this.exercises.mapIndexed() { index, item -> if (index == exerciseIndex) newExercise else item }
         return this.copy(exercises = newExercises)
     }
 }

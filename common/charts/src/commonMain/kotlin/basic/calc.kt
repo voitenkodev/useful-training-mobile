@@ -48,13 +48,13 @@ internal fun generatePath(
     val maxY = line.max()
     val minY = line.min()
 
-    val spaceX = width / (line.size - 1)
-    val spacyY = (height - bottomSpacing) / (maxY - minY)
+    val spaceX = if (line.size > 1) width / (line.size - 1) else 0f
+    val spaceY = if (maxY > minY) (height - bottomSpacing) / (maxY - minY) else 0f
 
     val p = Path().apply {
         for (i in line.indices) {
             val currentX = i * spaceX
-            val currentY = height - bottomSpacing - ((line[i] - minY) * spacyY)
+            val currentY = height - bottomSpacing - ((line[i] - minY) * spaceY)
 
             if (i == 0) {
                 moveTo(currentX, currentY)
@@ -62,7 +62,7 @@ internal fun generatePath(
 
                 val previousX = (i - 1) * spaceX
                 val conX = (previousX + currentX) / 2f
-                val conY = height - bottomSpacing - ((line[i - 1] - minY) * spacyY)
+                val conY = height - bottomSpacing - ((line[i - 1] - minY) * spaceY)
 
                 cubicTo(
                     x1 = conX,
@@ -86,5 +86,5 @@ internal fun generatePath(
             width = 4.dp
         ),
         listOfPoints = listOfPoints,
-        )
+    )
 }

@@ -174,6 +174,17 @@ public object DateTimeKtx {
     /**
      * Input 2022-10-21T13:20:18.496Z
      *
+     * Output 55
+     * */
+    public fun minutesFrom(iso8601Timestamp: String): Long {
+        val now: Instant = Clock.System.now()
+        val result: Duration = (now - Instant.parse(iso8601Timestamp))
+        return result.inWholeMinutes
+    }
+
+    /**
+     * Input 2022-10-21T13:20:18.496Z
+     *
      * Output 21.10.2022
      * */
 

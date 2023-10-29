@@ -1,11 +1,11 @@
 package traininigs.mapping
 
 import models.Exercise
-import traininig_exercise_iteration.models.ExerciseDao
 import models.ExerciseDto
 import models.Iteration
-import traininig_exercise_iteration.models.IterationDao
 import models.IterationDto
+import traininig_exercise_iteration.models.ExerciseDao
+import traininig_exercise_iteration.models.IterationDao
 
 internal fun ExerciseDto.toDomain(
     iterations: List<Iteration>
@@ -37,11 +37,11 @@ internal fun Exercise.toDto(
     iterations: List<IterationDto>
 ): ExerciseDto {
     return ExerciseDto(
-        id = this.id,
-        name = this.name,
-        tonnage = this.tonnage,
-        countOfLifting = this.countOfLifting,
-        intensity = this.intensity,
+        id = id,
+        name = name,
+        tonnage = tonnage,
+        countOfLifting = countOfLifting,
+        intensity = intensity,
         iterations = iterations
     )
 }

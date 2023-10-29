@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS Training (
     id TEXT PRIMARY KEY,
-    duration TEXT,
+    duration INTEGER,
     date TEXT,
     tonnage REAL,
     countOfLifting INTEGER,

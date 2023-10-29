@@ -37,7 +37,10 @@ internal class TrainingsViewModel : ViewModel() {
     }
 
     private fun getTrainings() {
-        trainingApi.getTrainings()
+        trainingApi.getTrainings(
+            startDate = "2022-10-29T19:39:37.988Z",
+            endDate = "2024-10-29T19:39:37.989Z"
+        )
             .onStart {
                 _state.update { it.copy(loading = true) }
             }.onEach { t ->

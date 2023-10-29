@@ -1,11 +1,11 @@
 package traininigs.mapping
 
 import models.Exercise
-import traininig_exercise_iteration.models.ExerciseDao
 import models.ExerciseDto
 import models.Training
-import traininig_exercise_iteration.models.TrainingDao
 import models.TrainingDto
+import traininig_exercise_iteration.models.ExerciseDao
+import traininig_exercise_iteration.models.TrainingDao
 
 internal fun Training.toDto(): TrainingDto {
     val exercises = exercises.map { ex ->
@@ -19,7 +19,6 @@ internal fun Training.toDto(exercises: List<ExerciseDto>): TrainingDto {
     return TrainingDto(
         id = id,
         duration = duration,
-        date = date,
         tonnage = tonnage,
         countOfLifting = countOfLifting,
         intensity = intensity,
@@ -51,7 +50,7 @@ internal fun TrainingDto.toDomain(exercises: List<Exercise>): Training {
     return Training(
         id = id,
         duration = duration,
-        date = date,
+        date = createdAt,
         tonnage = tonnage,
         countOfLifting = countOfLifting,
         intensity = intensity,
@@ -85,7 +84,7 @@ internal fun TrainingDto.toDao(exercises: List<ExerciseDao>): TrainingDao {
     return TrainingDao(
         id = id,
         duration = duration,
-        date = date,
+        date = createdAt,
         tonnage = tonnage,
         countOfLifting = countOfLifting,
         intensity = intensity,

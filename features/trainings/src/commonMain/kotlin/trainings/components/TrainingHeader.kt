@@ -61,7 +61,7 @@ internal fun TrainingHeader(
                     .secondaryDefaultBackground()
                     .padding(Design.dp.paddingS),
                 title = "Duration",
-                subTitle = training.duration,
+                subTitle = "${training.duration} min",
                 icon = Time
             )
 

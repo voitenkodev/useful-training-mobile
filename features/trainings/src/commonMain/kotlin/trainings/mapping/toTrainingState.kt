@@ -9,7 +9,7 @@ import trainings.state.Training
 internal fun models.Training.toState() = Training(
     id = id.toString(),
     exercises = exercises.toState(),
-    duration = duration?.let { DateTimeKtx.formattedDuration(it) } ?: "",
+    duration = duration ?: 0,
     dateIso = date ?: "",
     startDate = date?.let { DateTimeKtx.formattedTime(it) } ?: "",
     tonnage = tonnage?.toShortString() ?: "-",

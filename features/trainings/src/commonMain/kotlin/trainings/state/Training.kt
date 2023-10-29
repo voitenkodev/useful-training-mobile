@@ -11,7 +11,7 @@ internal data class Training(
     val tonnageExerciseList: ImmutableList<Float>,
     val dateIso: String,
     val startDate: String,
-    val duration: String,
+    val duration: Long,
     val tonnage: String,
     val intensity: String,
 )
