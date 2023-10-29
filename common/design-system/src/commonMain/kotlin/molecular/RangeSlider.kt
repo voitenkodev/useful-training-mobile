@@ -17,7 +17,7 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.dp
 import kotlin.math.abs
 
-public data class ThumbRangeSliderState(
+public data class ThumbRangeStateState(
     val id: String,
     val positionInRange: Int,
     val color: Color,
@@ -32,16 +32,16 @@ private data class ThumbInternalState(
 )
 
 @Composable
-public fun MultiRangeSlider(
+public fun RangeSlider(
     range: ClosedRange<Int>,
-    thumbs: List<ThumbRangeSliderState>,
-    onValueChange: (List<ThumbRangeSliderState>) -> Unit,
+    thumbs: List<ThumbRangeStateState>,
+    onValueChange: (List<ThumbRangeStateState>) -> Unit,
     minimalRange: Float = 5f,
     lineColor: Color,
     requiredFilledRange: Boolean = true,
 ) {
-    if (requiredFilledRange && thumbs.sumOf { it.positionInRange } != range.endInclusive) {
-        throw RuntimeException("Using 'requiredFilledRange = true', sum of items should be ${range.endInclusive}, but == ${thumbs.sumOf { it.positionInRange }}")
+    require((requiredFilledRange && thumbs.sumOf { it.positionInRange } != range.endInclusive).not()) {
+        "Using 'requiredFilledRange = true', sum of items should be ${range.endInclusive}, but == ${thumbs.sumOf { it.positionInRange }}"
     }
 
     val canvasSize = remember { mutableStateOf(Size(0f, 0f)) }
@@ -86,7 +86,7 @@ public fun MultiRangeSlider(
                 detectDragGestures(
                     onDragEnd = {
                         val result = internalThumbs.value.mapIndexed { index, item ->
-                            ThumbRangeSliderState(
+                            ThumbRangeStateState(
                                 id = item.id,
                                 positionInRange = item.positionInLine - (internalThumbs.value.getOrNull(index - 1)?.positionInLine ?: 0),
                                 color = item.color

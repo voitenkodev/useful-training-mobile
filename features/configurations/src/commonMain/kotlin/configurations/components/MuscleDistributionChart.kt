@@ -5,25 +5,31 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
-import molecular.MultiRangeSlider
-import molecular.ThumbRangeSliderState
+import configurations.state.Muscle
+import kotlinx.collections.immutable.ImmutableList
+import molecular.RangeSlider
+import molecular.ThumbRangeStateState
 
 @Composable
-public fun MuscleRangeSlider() {
+internal fun MusclesRangeSlider(
+    value: ImmutableList<Muscle>,
+    onValueChange: (ImmutableList<Muscle>)-> Unit
+) {
+
     val list = remember {
         mutableStateOf(
             listOf(
-                ThumbRangeSliderState(
+                ThumbRangeStateState(
                     id = "as",
                     positionInRange = 20,
                     color = Color.Red
                 ),
-                ThumbRangeSliderState(
+                ThumbRangeStateState(
                     id = "asd",
                     positionInRange = 30,
                     color = Color.Cyan
                 ),
-                ThumbRangeSliderState(
+                ThumbRangeStateState(
                     id = "ast",
                     positionInRange = 50,
                     color = Color.Green
@@ -31,7 +37,7 @@ public fun MuscleRangeSlider() {
             )
         )
     }
-    MultiRangeSlider(
+    RangeSlider(
         range = 0..100,
         thumbs = list.value,
         lineColor = Design.colors.caption,
