@@ -37,7 +37,13 @@ public fun MultiRangeSlider(
     minimalRange: Float = 5f,
     thumbs: List<ThumbRangeSliderState>,
     lineColor: Color,
+    requiredFilledRange: Boolean = true
 ) {
+
+    if(requiredFilledRange && thumbs.last().positionInRange != range.endInclusive){
+        throw RuntimeException("Using 'requiredFilledRange = true', last item should == range.endInclusive all time")
+    }
+
     val canvasSize = remember { mutableStateOf(Size(0f, 0f)) }
     val minimalRangeWidth = remember(minimalRange, canvasSize.value) {
         canvasSize.value.width / range.endInclusive * minimalRange
@@ -62,7 +68,11 @@ public fun MultiRangeSlider(
             .pointerInput(canvasSize.value) {
                 detectTapGestures(
                     onPress = {
-                        val nearThumb = internalThumbs.value
+                        val availableInteractionList = if (requiredFilledRange) {
+                            internalThumbs.value.dropLast(1)
+                        } else internalThumbs.value
+
+                        val nearThumb = availableInteractionList
                             .findNearTo(it.x)
                             ?: return@detectTapGestures
 

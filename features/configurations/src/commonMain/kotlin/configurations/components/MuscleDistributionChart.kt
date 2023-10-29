@@ -2,10 +2,6 @@ package configurations.components
 
 import Design
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
 import molecular.MultiRangeSlider
 import molecular.ThumbRangeSliderState
@@ -31,7 +27,7 @@ public fun MuscleRangeSlider() {
             ),
             ThumbRangeSliderState(
                 id = "asy",
-                positionInRange = 90f,
+                positionInRange = 100f,
                 color = Color.Black
             ),
         ),
