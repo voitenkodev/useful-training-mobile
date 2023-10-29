@@ -19,13 +19,13 @@ import kotlin.math.abs
 
 public data class ThumbRangeSliderState(
     val id: String,
-    val positionInRange: Float = 0.5f,
+    val positionInRange: Int,
     val color: Color,
 )
 
 private data class ThumbInternalState(
     val id: String,
-    val positionInRange: Float = 0.5f,
+    val positionInLine: Int = 5,
     val color: Color,
     val positionX: Float,
     val isSelected: Boolean = false,
@@ -33,15 +33,15 @@ private data class ThumbInternalState(
 
 @Composable
 public fun MultiRangeSlider(
-    range: ClosedFloatingPointRange<Float> = 0f..100f,
-    minimalRange: Float = 5f,
+    range: ClosedRange<Int>,
     thumbs: List<ThumbRangeSliderState>,
+    onValueChange: (List<ThumbRangeSliderState>) -> Unit,
+    minimalRange: Float = 5f,
     lineColor: Color,
-    requiredFilledRange: Boolean = true
+    requiredFilledRange: Boolean = true,
 ) {
-
-    if(requiredFilledRange && thumbs.last().positionInRange != range.endInclusive){
-        throw RuntimeException("Using 'requiredFilledRange = true', last item should == range.endInclusive all time")
+    if (requiredFilledRange && thumbs.sumOf { it.positionInRange } != range.endInclusive) {
+        throw RuntimeException("Using 'requiredFilledRange = true', sum of items should be ${range.endInclusive}, but == ${thumbs.sumOf { it.positionInRange }}")
     }
 
     val canvasSize = remember { mutableStateOf(Size(0f, 0f)) }
@@ -50,12 +50,13 @@ public fun MultiRangeSlider(
     }
 
     val internalThumbs = remember(canvasSize.value) {
-        val thumbInternalStates = thumbs.map {
+        val thumbInternalStates = thumbs.mapIndexed { index, item ->
+            val linePosition = thumbs.take(index + 1).sumOf { it.positionInRange }
             ThumbInternalState(
-                id = it.id,
-                positionInRange = it.positionInRange,
-                positionX = (canvasSize.value.width / range.endInclusive) * it.positionInRange,
-                color = it.color
+                id = item.id,
+                positionInLine = linePosition,
+                positionX = (canvasSize.value.width / range.endInclusive) * linePosition,
+                color = item.color
             )
         }
         mutableStateOf(thumbInternalStates)
@@ -82,7 +83,18 @@ public fun MultiRangeSlider(
                     },
                 )
             }.pointerInput(canvasSize.value) {
-                detectDragGestures { change, dragAmount ->
+                detectDragGestures(
+                    onDragEnd = {
+                        val result = internalThumbs.value.mapIndexed { index, item ->
+                            ThumbRangeSliderState(
+                                id = item.id,
+                                positionInRange = item.positionInLine - (internalThumbs.value.getOrNull(index - 1)?.positionInLine ?: 0),
+                                color = item.color
+                            )
+                        }
+                        onValueChange.invoke(result)
+                    }
+                ) { change, dragAmount ->
                     change.consume()
 
                     val selectedThumb = internalThumbs.value.firstOrNull { it.isSelected } ?: return@detectDragGestures
@@ -117,7 +129,7 @@ public fun MultiRangeSlider(
 
                     val updatedThumbs = internalThumbs.value.mapIndexed { index, thumb ->
                         thumb.copy(
-                            positionInRange = range.endInclusive / (canvasSize.value.width / newPositions[index]),
+                            positionInLine = (range.endInclusive / (canvasSize.value.width / newPositions[index])).toInt(),
                             positionX = newPositions[index]
                         )
                     }
