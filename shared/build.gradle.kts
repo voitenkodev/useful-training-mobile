@@ -27,7 +27,7 @@ kotlin {
                 implementation(projects.features.trainingBuilder)
                 implementation(projects.features.exerciseExampleBuilder)
 
-                // Services for DI
+                // Services
                 implementation(projects.services.network)
                 implementation(projects.services.database)
                 implementation(projects.services.preferences)

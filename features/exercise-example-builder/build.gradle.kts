@@ -14,7 +14,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(projects.domain.exerciseExamples)
-                implementation(projects.common.instruments)
+                implementation(projects.common.utils)
                 implementation(projects.common.designSystem)
                 implementation(projects.common.architectureComponent)
 

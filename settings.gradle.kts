@@ -37,7 +37,7 @@ include(
 
     "common:design-system",
     "common:architecture-component",
-    "common:instruments",
+    "common:utils",
     "common:platform-api",
     "common:compose-player",
     "common:resources",
