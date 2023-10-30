@@ -12,12 +12,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import molecular.ButtonIconSecondary
 import molecular.PaddingXS
 import molecular.TextBody2
 import molecular.accentCircleBackground
+import molecular.coloredCircleBackgroundNoBorder
 import molecular.transparentCircleBackground
 import molecular.white5CircleBackground
 import molecular.white5CircleBackgroundNoBorder
@@ -27,6 +29,7 @@ public sealed class ChipState(public open val enabled: Boolean) {
     public data class Default(override val enabled: Boolean = true) : ChipState(enabled)
     public data class Selected(override val enabled: Boolean = true) : ChipState(enabled)
     public data class Highlighted(override val enabled: Boolean = true) : ChipState(enabled)
+    public data class Colored(val color: Color, override val enabled: Boolean = true) : ChipState(enabled)
 }
 
 @Composable
@@ -53,6 +56,9 @@ public fun Chip(
         is ChipState.HalfTransparent -> Modifier
             .white5CircleBackgroundNoBorder()
             .alpha(0.5f)
+
+        is ChipState.Colored -> Modifier
+            .coloredCircleBackgroundNoBorder(color = chipState.color)
     }
 
     Row(

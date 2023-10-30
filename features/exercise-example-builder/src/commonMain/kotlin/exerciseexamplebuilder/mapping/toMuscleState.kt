@@ -1,6 +1,6 @@
-package configurations.mapping
+package exerciseexamplebuilder.mapping
 
-import configurations.state.Muscle
+import exerciseexamplebuilder.state.Muscle
 import kotlinx.collections.immutable.toImmutableList
 
 internal fun List<models.Muscle>.toState() = this
@@ -9,5 +9,5 @@ internal fun List<models.Muscle>.toState() = this
 
 internal fun models.Muscle.toState() = Muscle(
     id = id,
-    name = name
+    name = name,
 )

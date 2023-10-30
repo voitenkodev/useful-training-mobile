@@ -25,7 +25,9 @@ internal sealed class BottomMenuRouter : Parcelable {
 internal fun BottomMenuGraph(
     toTrainingBuilder: (id: String?) -> Unit,
     toTrainingDetails: (id: String) -> Unit,
-) {
+    toExerciseExampleBuilder: (id: String?) -> Unit,
+
+    ) {
 
     val router: Router<BottomMenuRouter> = rememberRouter(BottomMenuRouter::class) {
         listOf(BottomMenuRouter.Trainings)
@@ -61,7 +63,10 @@ internal fun BottomMenuGraph(
                         toTrainingDetails = toTrainingDetails
                     )
 
-                    BottomMenuRouter.Configurations -> ConfigurationsFeature()
+                    BottomMenuRouter.Configurations -> ConfigurationsFeature(
+                        toExerciseExampleBuilder = toExerciseExampleBuilder
+                    )
+
                     BottomMenuRouter.Statistics -> StatisticFeature()
                 }
             }

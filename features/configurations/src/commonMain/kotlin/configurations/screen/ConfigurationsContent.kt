@@ -1,66 +1,44 @@
 package configurations.screen
 
 import Design
+import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.FlowRow
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import atomic.icons.Add
-import buildBoolean
 import components.Error
 import components.Loading
 import components.chips.Chip
 import components.chips.ChipState
 import components.roots.Root
 import configurations.components.Header
-import configurations.popups.ExerciseExamplePopup
 import configurations.state.ExerciseExample
 import configurations.state.Muscle
 import kotlinx.collections.immutable.ImmutableList
-import molecular.BottomSheet
-import molecular.PaddingL
-import molecular.PaddingM
-import molecular.PaddingS
 import molecular.TextH2
 
 @Composable
 internal fun ConfigurationsContent(
     vm: ConfigurationsViewModel,
+    toExerciseExampleBuilder: (id: String?) -> Unit
 ) {
 
     val state by vm.state.collectAsState()
 
-    BottomSheet(
-        visibility = buildBoolean {
-            addCondition(state.exerciseExamplePopupState != null)
-        },
-        onClose = vm::closePopups,
-        sheetContent = {
-            state.exerciseExamplePopupState?.let { popupState ->
-                ExerciseExamplePopup(
-                    state = popupState,
-                    confirm = vm::setExerciseExample,
-                    delete = vm::deleteExerciseExample
-                )
-            }
-        },
-        content = {
-            Content(
-                loading = { state.loading },
-                error = { state.error },
-                clearError = vm::clearError,
-                exerciseExamples = state.exerciseExamples,
-                muscles = state.muscles,
-                addExerciseExample = vm::addExerciseExample,
-                selectExerciseExample = vm::selectExerciseExample,
-                selectMuscle = vm::selectMuscle
-            )
-        }
+    Content(
+        loading = { state.loading },
+        error = { state.error },
+        clearError = vm::clearError,
+        exerciseExamples = state.exerciseExamples,
+        muscles = state.muscles,
+        toExerciseExample = toExerciseExampleBuilder,
+        toMuscle = { }
     )
 }
 
@@ -73,9 +51,8 @@ private fun Content(
     exerciseExamples: ImmutableList<ExerciseExample>,
     muscles: ImmutableList<Muscle>,
 
-    addExerciseExample: () -> Unit,
-    selectExerciseExample: (exerciseExampleId: String?) -> Unit,
-    selectMuscle: (muscleId: String?) -> Unit,
+    toExerciseExample: (exerciseExampleId: String?) -> Unit,
+    toMuscle: (muscleId: String?) -> Unit,
 ) {
 
     Root(
@@ -83,65 +60,51 @@ private fun Content(
         error = { Error(message = error, close = clearError) },
     ) {
 
-        Column {
+        Column(modifier = Modifier.fillMaxSize()) {
 
             Header()
 
-            PaddingM()
-
-            TextH2(
-                modifier = Modifier.padding(horizontal = Design.dp.paddingM),
-                provideText = { "Exercises" }
-            )
-
-            PaddingS()
-
-            FlowRow(
+            LazyColumn(
                 modifier = Modifier
-                    .padding(horizontal = Design.dp.paddingM)
-                    .fillMaxWidth(),
-                verticalArrangement = Arrangement.spacedBy(Design.dp.paddingS),
-                horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
+                    .animateContentSize()
+                    .weight(1f),
+                contentPadding = PaddingValues(Design.dp.paddingM),
+                verticalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
             ) {
 
-                Chip(
-                    chipState = ChipState.Highlighted(),
-                    text = "Add new",
-                    icon = Add,
-                    onClick = addExerciseExample
-                )
-
-                exerciseExamples.forEach { exerciseExample ->
-                    Chip(
-                        chipState = ChipState.Default(),
-                        text = exerciseExample.name,
-                        onClick = { selectExerciseExample.invoke(exerciseExample.id) }
+                item {
+                    TextH2(
+                        provideText = { "Exercise examples" }
                     )
                 }
-            }
 
-            PaddingL()
+                item {
+                    Chip(
+                        chipState = ChipState.Highlighted(),
+                        text = "ADD NEW",
+                        onClick = { toExerciseExample(null) }
+                    )
+                }
 
-            TextH2(
-                modifier = Modifier.padding(horizontal = Design.dp.paddingM),
-                provideText = { "Muscles" }
-            )
+                items(exerciseExamples, key = { it.id }) { muscleExercise ->
+                    Chip(
+                        chipState = ChipState.Default(),
+                        text = muscleExercise.name,
+                        onClick = { toExerciseExample(muscleExercise.id) }
+                    )
+                }
 
-            PaddingS()
+                item {
+                    TextH2(
+                        provideText = { "Muscles" }
+                    )
+                }
 
-            FlowRow(
-                modifier = Modifier
-                    .padding(horizontal = Design.dp.paddingM)
-                    .fillMaxWidth(),
-                verticalArrangement = Arrangement.spacedBy(Design.dp.paddingS),
-                horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
-            ) {
-
-                muscles.forEach { muscle ->
+                items(muscles, key = { it.id }) { muscle ->
                     Chip(
                         chipState = ChipState.Default(),
                         text = muscle.name,
-                        onClick = { selectMuscle.invoke(muscle.id) }
+                        onClick = { toMuscle.invoke(muscle.id) }
                     )
                 }
             }

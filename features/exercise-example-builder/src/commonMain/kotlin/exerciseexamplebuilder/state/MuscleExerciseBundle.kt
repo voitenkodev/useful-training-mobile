@@ -1,4 +1,4 @@
-package configurations.state
+package exerciseexamplebuilder.state
 
 import ColorUtils
 import androidx.compose.runtime.Immutable

@@ -25,6 +25,7 @@ kotlin {
                 implementation(projects.features.statistics)
                 implementation(projects.features.configurations)
                 implementation(projects.features.trainingBuilder)
+                implementation(projects.features.exerciseExampleBuilder)
 
                 // Services for DI
                 implementation(projects.services.network)

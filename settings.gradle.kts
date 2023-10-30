@@ -50,4 +50,5 @@ include(
     "features:statistics",
     "features:configurations",
     "features:training-builder",
+    "features:exercise-example-builder",
 )

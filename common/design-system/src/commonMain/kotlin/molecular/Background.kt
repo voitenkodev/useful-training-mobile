@@ -6,6 +6,7 @@ import androidx.compose.foundation.border
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -103,6 +104,15 @@ public fun Modifier.white5CircleBackground(): Modifier = this
 public fun Modifier.white5CircleBackgroundNoBorder(): Modifier = this
     .background(
         color = Design.colors.white5,
+        shape = Design.shape.circleShape
+    ).clip(
+        shape = Design.shape.circleShape
+    )
+
+@Composable
+public fun Modifier.coloredCircleBackgroundNoBorder(color: Color): Modifier = this
+    .background(
+        color = color,
         shape = Design.shape.circleShape
     ).clip(
         shape = Design.shape.circleShape

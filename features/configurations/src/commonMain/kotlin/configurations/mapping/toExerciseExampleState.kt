@@ -4,10 +4,12 @@ import configurations.state.ExerciseExample
 import kotlinx.collections.immutable.toImmutableList
 
 internal fun List<models.ExerciseExample>.toState() = this
-    .map { it.toState() }
+    .mapNotNull { it.toState() }
     .toImmutableList()
 
-internal fun models.ExerciseExample.toState() = ExerciseExample(
-    id = id,
-    name = name,
-)
+internal fun models.ExerciseExample.toState(): ExerciseExample? {
+    return ExerciseExample(
+        id = id ?: return null,
+        name = name
+    )
+}

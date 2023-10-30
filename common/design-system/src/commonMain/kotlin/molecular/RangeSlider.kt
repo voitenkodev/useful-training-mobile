@@ -3,8 +3,6 @@ package molecular
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.gestures.detectTapGestures
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -14,7 +12,6 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.unit.dp
 import kotlin.math.abs
 
 public data class ThumbRangeStateState(
@@ -33,6 +30,7 @@ private data class ThumbInternalState(
 
 @Composable
 public fun RangeSlider(
+    modifier: Modifier = Modifier,
     range: ClosedRange<Int>,
     thumbs: List<ThumbRangeStateState>,
     onValueChange: (List<ThumbRangeStateState>) -> Unit,
@@ -59,13 +57,11 @@ public fun RangeSlider(
                 color = item.color
             )
         }
-        mutableStateOf(thumbInternalStates)
+        mutableStateOf(if (canvasSize.value.width == 0f) emptyList() else thumbInternalStates)
     }
 
     Canvas(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(20.dp)
+        modifier = modifier
             .pointerInput(canvasSize.value, thumbs) {
                 detectTapGestures(
                     onPress = {
