@@ -25,7 +25,7 @@ public fun MainUIController(routerContext: RouterContext): UIViewController = Co
             backIcon = { progress, _ ->
                 PredictiveBackGestureIcon(
                     imageVector = Icons.Default.ArrowBack,
-                    progress = progress,
+                    progress = progress
                 )
             },
             content = { Main() }

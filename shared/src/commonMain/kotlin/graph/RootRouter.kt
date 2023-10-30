@@ -26,9 +26,7 @@ internal fun RootGraph() {
         listOf(RootRouter.Auth)
     }
 
-    RoutedContent(
-        router = router,
-    ) { child ->
+    RoutedContent(router = router) { child ->
         when (child) {
             RootRouter.Auth -> AuthGraph(
                 toTrainings = { router.replaceAll(RootRouter.BottomMenu) }

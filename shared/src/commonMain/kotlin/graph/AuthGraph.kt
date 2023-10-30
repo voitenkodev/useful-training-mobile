@@ -26,9 +26,7 @@ internal fun AuthGraph(
         listOf(AuthRouter.Splash)
     }
 
-    RoutedContent(
-        router = router,
-    ) { child ->
+    RoutedContent(router = router) { child ->
         when (child) {
             AuthRouter.Splash -> SplashFeature(
                 toAuthentication = { router.replaceAll(AuthRouter.Authentication) },

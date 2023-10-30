@@ -15,7 +15,7 @@ import kotlinx.serialization.json.Json
 
 public class ClientBackend(
     nativeContext: NativeContext,
-    private val token: suspend () -> String,
+    private val token: suspend () -> String
 ) {
 
     private val client: HttpClient = nativeContext.driver()

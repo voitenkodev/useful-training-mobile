@@ -16,7 +16,7 @@ internal actual fun NativeContext.preferences(): DataStore<Preferences> {
                 inDomain = NSUserDomainMask,
                 appropriateForURL = null,
                 create = false,
-                error = null,
+                error = null
             )
             requireNotNull(documentDirectory).path + "/$dataStoreFileName"
         }

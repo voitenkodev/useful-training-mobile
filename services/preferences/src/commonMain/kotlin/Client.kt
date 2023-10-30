@@ -11,7 +11,7 @@ internal fun createDataStore(
     corruptionHandler = null,
     migrations = emptyList(),
     scope = coroutineScope,
-    produceFile = { producePath().toPath() },
+    produceFile = { producePath().toPath() }
 )
 
 internal const val dataStoreFileName = "usefultraining.preferences_pb"

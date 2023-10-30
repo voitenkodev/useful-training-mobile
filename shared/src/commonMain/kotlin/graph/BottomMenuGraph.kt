@@ -54,9 +54,7 @@ internal fun BottomMenuGraph(
             router.bringToFront(newRoute)
         },
         screen = {
-            RoutedContent(
-                router = router
-            ) { child ->
+            RoutedContent(router = router) { child ->
                 when (child) {
                     BottomMenuRouter.Trainings -> TrainingsGraph(
                         toTrainingBuilder = toTrainingBuilder,

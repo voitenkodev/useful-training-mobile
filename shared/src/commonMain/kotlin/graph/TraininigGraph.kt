@@ -24,9 +24,7 @@ internal fun TrainingGraph(
         listOf(TrainingRouter.TrainingBuilder(id))
     }
 
-    RoutedContent(
-        router = router,
-    ) { child ->
+    RoutedContent(router = router) { child ->
         when (child) {
             is TrainingRouter.TrainingBuilder -> TrainingFeature(
                 trainingId = child.id,

@@ -24,9 +24,7 @@ internal fun TrainingsGraph(
         listOf(TrainingsRouter.Tab)
     }
 
-    RoutedContent(
-        router = router,
-    ) { child ->
+    RoutedContent(router = router) { child ->
 
         when (child) {
             TrainingsRouter.Tab -> TrainingsFeature(
