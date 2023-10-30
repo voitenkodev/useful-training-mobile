@@ -33,28 +33,30 @@ internal class ExerciseExampleBuilderViewModel(
     private val api by inject<ExerciseExamplesRepository>()
 
     init {
-        exerciseExampleId
+        val flow = exerciseExampleId
             ?.let(api::getExerciseExample)
             ?: flowOf<models.ExerciseExample?>(null)
-                .onStart {
-                    _state.update { it.copy(loading = false) }
-                }.onEach { r ->
-                    val exerciseExample = r?.toState() ?: ExerciseExample()
-                    _state.update { it.copy(exerciseExample = exerciseExample) }
-                }.flatMapLatest {
-                    api.getMuscles()
-                }.onEach { r ->
-                    _state.update {
-                        it.copy(
-                            availableMuscles = r
-                                .filterNot { f -> it.exerciseExample?.muscleExerciseBundles?.map { it.muscle.id }?.contains(f.id) == true }
-                                .toState(),
-                            loading = false
-                        )
-                    }
-                }.catch { t ->
-                    _state.update { it.copy(loading = false, error = t.message) }
-                }.launchIn(this)
+
+        flow
+            .onStart {
+                _state.update { it.copy(loading = false) }
+            }.onEach { r ->
+                val exerciseExample = r?.toState() ?: ExerciseExample()
+                _state.update { it.copy(exerciseExample = exerciseExample) }
+            }.flatMapLatest {
+                api.getMuscles()
+            }.onEach { r ->
+                _state.update {
+                    it.copy(
+                        availableMuscles = r
+                            .filterNot { f -> it.exerciseExample?.muscleExerciseBundles?.map { it.muscle.id }?.contains(f.id) == true }
+                            .toState(),
+                        loading = false
+                    )
+                }
+            }.catch { t ->
+                _state.update { it.copy(loading = false, error = t.message) }
+            }.launchIn(this)
 
     }
 
@@ -163,7 +165,7 @@ internal class ExerciseExampleBuilderViewModel(
 
     private fun ImmutableList<MuscleExerciseBundle>.removeMuscleBundle(
         muscleExerciseBundle: MuscleExerciseBundle,
-        maximalRange: Int,
+        maximalRange: Int
     ): ImmutableList<MuscleExerciseBundle> {
 
         val newList = this

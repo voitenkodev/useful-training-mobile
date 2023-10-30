@@ -1,9 +1,10 @@
-package exerciseexample.repository
+package exerciseexamples.repository
 
 import ExerciseExamplesRepository
 import NetworkSource
-import exerciseexample.repository.mapping.domainToDto
-import exerciseexample.repository.mapping.dtoToDomain
+import exercise_example_muscle.ExerciseExamplesSource
+import exerciseexamples.repository.mapping.domainToDto
+import exerciseexamples.repository.mapping.dtoToDomain
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import models.ExerciseExample
@@ -11,6 +12,7 @@ import models.Muscle
 
 internal class ExerciseExamplesRepositoryImpl(
     private val remote: NetworkSource,
+    private val local: ExerciseExamplesSource
 ) : ExerciseExamplesRepository {
 
     override fun getExerciseExamples(): Flow<List<ExerciseExample>> {

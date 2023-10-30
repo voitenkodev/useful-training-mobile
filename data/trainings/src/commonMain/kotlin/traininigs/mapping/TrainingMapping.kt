@@ -26,9 +26,14 @@ internal fun Training.toDto(exercises: List<ExerciseDto>): TrainingDto {
     )
 }
 
-internal fun List<TrainingDto>.dtoToDomain(): List<Training> = mapNotNull { it.dtoToDomain() }
+internal fun List<TrainingDto>.dtoToDomain(): List<Training> {
+    return mapNotNull { it.dtoToDomain() }
+}
 
-internal fun List<TrainingDao>.daoToDomain(): List<Training> = mapNotNull { it.toDomain() }
+internal fun List<TrainingDao>.daoToDomain(): List<Training> {
+    return mapNotNull { it.toDomain() }
+}
+
 
 internal fun TrainingDto.dtoToDomain(): Training? {
     val exercises = exercises.mapNotNull { ex ->
@@ -62,7 +67,7 @@ internal fun TrainingDao.toDomain(exercises: List<Exercise>): Training? {
     return Training(
         id = id,
         duration = duration ?: return null,
-        createdAt = date,
+        createdAt = createdAt,
         tonnage = tonnage ?: return null,
         countOfLifting = countOfLifting ?: return null,
         intensity = intensity ?: return null,
@@ -70,7 +75,9 @@ internal fun TrainingDao.toDomain(exercises: List<Exercise>): Training? {
     )
 }
 
-internal fun List<TrainingDto>.dtoToDao(): List<TrainingDao> = map { it.dtoToDao() }
+internal fun List<TrainingDto>.dtoToDao(): List<TrainingDao> {
+    return map { it.dtoToDao() }
+}
 
 internal fun TrainingDto.dtoToDao(): TrainingDao {
     val exercises = exercises.map { ex ->
@@ -84,7 +91,7 @@ internal fun TrainingDto.toDao(exercises: List<ExerciseDao>): TrainingDao {
     return TrainingDao(
         id = id,
         duration = duration,
-        date = createdAt,
+        createdAt = createdAt,
         tonnage = tonnage,
         countOfLifting = countOfLifting,
         intensity = intensity,

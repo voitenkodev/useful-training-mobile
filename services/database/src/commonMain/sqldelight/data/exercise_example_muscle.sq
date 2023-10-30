@@ -1,18 +1,24 @@
 CREATE TABLE IF NOT EXISTS ExerciseExample (
     id TEXT PRIMARY KEY,
-    name TEXT
+    name TEXT,
+    createdAt TEXT,
+    updatedAt TEXT
 );
 
 CREATE TABLE IF NOT EXISTS Muscle (
-   id TEXT PRIMARY KEY,
-    name TEXT
+    id TEXT PRIMARY KEY,
+    name TEXT,
+    createdAt TEXT,
+    updatedAt TEXT
 );
 
-CREATE TABLE IF NOT EXISTS ExerciseExampleMuscleRef(
-    exerciseExampleId TEXT,
-    muscleId TEXT,
-    FOREIGN KEY (exerciseExampleId) REFERENCES ExerciseExample(id) ON DELETE CASCADE,
-    FOREIGN KEY (muscleId) REFERENCES Muscle(id) ON DELETE CASCADE
+CREATE TABLE IF NOT EXISTS MuscleExerciseBundle (
+    id TEXT PRIMARY KEY,
+    exerciseExampleId TEXT REFERENCES ExerciseExample(id) ON DELETE CASCADE,
+    muscleId TEXT REFERENCES Muscle(id) ON DELETE CASCADE,
+    value INTEGER,
+    createdAt TEXT,
+    updatedAt TEXT
 );
 
 -------------- GET --------------
@@ -25,35 +31,21 @@ getExerciseExamples:
 SELECT *
 FROM ExerciseExample;
 
-getExerciseExampleWithMusclesById:
-SELECT e.id AS exercise_id, e.name AS exercise_name,
-       COALESCE(m.id, '') AS muscle_id, COALESCE(m.name, '') AS muscle_name
-FROM ExerciseExample AS e
-LEFT JOIN ExerciseExampleMuscleRef AS emr ON e.id = emr.exerciseExampleId
-LEFT JOIN Muscle AS m ON emr.muscleId = m.id
-WHERE e.id = ?;
-
-getMuscleWithExerciseExamplesById:
-SELECT m.id AS muscle_id, m.name AS muscle_name,
-       COALESCE(e.id, '') AS exercise_id, COALESCE(e.name, '') AS exercise_name
-FROM Muscle AS m
-LEFT JOIN ExerciseExampleMuscleRef AS emr ON m.id = emr.muscleId
-LEFT JOIN ExerciseExample AS e ON emr.exerciseExampleId = e.id
-WHERE m.id = ?;
 
 -------------- SET --------------
 
 setExerciseExample:
 INSERT OR REPLACE INTO ExerciseExample
-VALUES (?,?);
+VALUES (?,?,?,?);
 
 setMuscle:
 INSERT OR REPLACE INTO Muscle
-VALUES (?,?);
+VALUES (?,?,?,?);
 
-setExerciseExampleMuscleRef:
-INSERT OR REPLACE INTO ExerciseExampleMuscleRef (exerciseExampleId, muscleId)
-VALUES ( ?,?);
+setMuscleExerciseBundle:
+INSERT OR REPLACE INTO MuscleExerciseBundle
+VALUES (?,?,?,?,?,?);
+
 
 -------------- DELETE --------------
 

@@ -59,16 +59,16 @@ public class TrainingsSource(nativeContext: NativeContext) {
 
         val trainingId = training.id ?: return null
 
+        api.deleteTrainingById(training.id)
+
         api.setTraining(
             id = trainingId,
-            duration = training.duration?.toLong(),
-            date = training.date,
+            duration = training.duration,
+            createdAt = training.createdAt,
             tonnage = training.tonnage,
             countOfLifting = training.countOfLifting?.toLong(),
             intensity = training.intensity
         )
-
-        api.deleteExercisesByTrainingId(training.id)
 
         for (exercise in training.exercises) {
 

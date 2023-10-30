@@ -8,7 +8,7 @@ internal fun Training.toDao(exercises: List<ExerciseDao>): TrainingDao {
     return TrainingDao(
         id = id,
         duration = duration,
-        date = date,
+        createdAt = createdAt,
         tonnage = tonnage,
         countOfLifting = countOfLifting?.toInt(),
         intensity = intensity,

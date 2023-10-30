@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS Training (
     id TEXT PRIMARY KEY,
     duration INTEGER,
-    date TEXT,
+    createdAt TEXT,
     tonnage REAL,
     countOfLifting INTEGER,
     intensity REAL
@@ -47,16 +47,10 @@ FROM Iteration
 WHERE exerciseId = :exerciseId
 ORDER BY id;
 
-getExercisesByName:
-SELECT *
-FROM Exercise
-WHERE name = ?
-ORDER BY id DESC;
-
 -------------- SET --------------
 
 setTraining:
-INSERT OR REPLACE INTO Training (id,duration,date,tonnage,countOfLifting,intensity)
+INSERT OR REPLACE INTO Training (id,duration,createdAt,tonnage,countOfLifting,intensity)
 VALUES (?1,?2,?3,?4,?5,?6);
 
 setExercise:
@@ -75,12 +69,3 @@ DELETE FROM Training;
 deleteTrainingById:
 DELETE FROM Training
 WHERE id = ?;
-
-deleteExercisesByTrainingId:
-DELETE FROM Exercise
-WHERE trainingId = ?1;
-
-deleteIterationsByExerciseId:
-DELETE FROM Iteration
-WHERE exerciseId
-IN (SELECT id FROM Exercise WHERE trainingId = ?1);

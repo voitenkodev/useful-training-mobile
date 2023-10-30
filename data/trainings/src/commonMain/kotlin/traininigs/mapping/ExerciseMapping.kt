@@ -7,9 +7,7 @@ import models.IterationDto
 import traininig_exercise_iteration.models.ExerciseDao
 import traininig_exercise_iteration.models.IterationDao
 
-internal fun ExerciseDto.toDomain(
-    iterations: List<Iteration>
-): Exercise? {
+internal fun ExerciseDto.toDomain(iterations: List<Iteration>): Exercise? {
     return Exercise(
         id = id,
         name = name ?: return null,
@@ -20,9 +18,7 @@ internal fun ExerciseDto.toDomain(
     )
 }
 
-internal fun ExerciseDao.toDomain(
-    iterations: List<Iteration>
-): Exercise? {
+internal fun ExerciseDao.toDomain(iterations: List<Iteration>): Exercise? {
     return Exercise(
         id = id,
         name = name ?: return null,
@@ -33,9 +29,7 @@ internal fun ExerciseDao.toDomain(
     )
 }
 
-internal fun Exercise.toDto(
-    iterations: List<IterationDto>
-): ExerciseDto {
+internal fun Exercise.toDto(iterations: List<IterationDto>): ExerciseDto {
     return ExerciseDto(
         id = id,
         name = name,
@@ -46,9 +40,7 @@ internal fun Exercise.toDto(
     )
 }
 
-internal fun ExerciseDto.toDao(
-    iterations: List<IterationDao>
-): ExerciseDao {
+internal fun ExerciseDto.toDao(iterations: List<IterationDao>): ExerciseDao {
     return ExerciseDao(
         id = id,
         name = name,

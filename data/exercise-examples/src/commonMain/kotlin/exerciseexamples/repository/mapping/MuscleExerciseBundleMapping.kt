@@ -1,9 +1,7 @@
-package exerciseexample.repository.mapping
+package exerciseexamples.repository.mapping
 
 import models.MuscleExerciseBundle
 import models.MuscleExerciseBundleDto
-
-// _______ NETWORK _______
 
 internal fun List<MuscleExerciseBundleDto>.dtoToDomain(): List<MuscleExerciseBundle> {
     return mapNotNull { it.dtoToDomain() }
@@ -16,8 +14,6 @@ internal fun MuscleExerciseBundleDto.dtoToDomain(): MuscleExerciseBundle? {
         muscle = muscle?.dtoToDomain() ?: return null
     )
 }
-
-// _______ DOMAIN _______
 
 internal fun List<MuscleExerciseBundle>.domainToDto(): List<MuscleExerciseBundleDto> {
     return mapNotNull { it.domainToDto() }

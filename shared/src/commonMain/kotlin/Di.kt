@@ -1,6 +1,6 @@
 import authentication.authenticationDataModule
 import exercise_example_muscle.ExerciseExamplesSource
-import exerciseexample.exerciseExamplesDataModule
+import exerciseexamples.exerciseExamplesDataModule
 import kotlinx.coroutines.flow.firstOrNull
 import org.koin.core.KoinApplication
 import org.koin.dsl.KoinAppDeclaration
