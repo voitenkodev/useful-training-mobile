@@ -18,13 +18,13 @@ import androidx.compose.ui.unit.dp
 import kotlin.math.abs
 
 public data class ThumbRangeStateState(
-    val id: String,
+    val id: String?,
     val positionInRange: Int,
     val color: Color,
 )
 
 private data class ThumbInternalState(
-    val id: String,
+    val id: String?,
     val positionInLine: Int = 5,
     val color: Color,
     val positionX: Float,
@@ -36,7 +36,7 @@ public fun RangeSlider(
     range: ClosedRange<Int>,
     thumbs: List<ThumbRangeStateState>,
     onValueChange: (List<ThumbRangeStateState>) -> Unit,
-    minimalRange: Float = 5f,
+    minimalRange: Int,
     lineColor: Color,
     requiredFilledRange: Boolean = true,
 ) {
@@ -49,7 +49,7 @@ public fun RangeSlider(
         canvasSize.value.width / range.endInclusive * minimalRange
     }
 
-    val internalThumbs = remember(canvasSize.value) {
+    val internalThumbs = remember(canvasSize.value, thumbs) {
         val thumbInternalStates = thumbs.mapIndexed { index, item ->
             val linePosition = thumbs.take(index + 1).sumOf { it.positionInRange }
             ThumbInternalState(
@@ -66,7 +66,7 @@ public fun RangeSlider(
         modifier = Modifier
             .fillMaxWidth()
             .height(20.dp)
-            .pointerInput(canvasSize.value) {
+            .pointerInput(canvasSize.value, thumbs) {
                 detectTapGestures(
                     onPress = {
                         val availableInteractionList = if (requiredFilledRange) {
@@ -80,9 +80,9 @@ public fun RangeSlider(
                         internalThumbs.value = internalThumbs.value.map { item ->
                             item.copy(isSelected = item.id == nearThumb.id)
                         }
-                    },
+                    }
                 )
-            }.pointerInput(canvasSize.value) {
+            }.pointerInput(canvasSize.value, thumbs) {
                 detectDragGestures(
                     onDragEnd = {
                         val result = internalThumbs.value.mapIndexed { index, item ->
@@ -141,15 +141,15 @@ public fun RangeSlider(
         canvasSize.value = size
 
         drawTrack(
-            size,
-            lineColor
+            size = size,
+            trackColor = lineColor
         )
 
         internalThumbs.value.asReversed().forEach { thumb ->
 
             drawTrack(
-                Size(height = size.height, width = thumb.positionX),
-                thumb.color
+                size = Size(height = size.height, width = thumb.positionX),
+                trackColor = thumb.color
             )
 
             drawCircle(

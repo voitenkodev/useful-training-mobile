@@ -8,7 +8,7 @@ import bottommenu.BottomMenuFeature
 import com.arkivanov.decompose.router.stack.bringToFront
 import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.parcelable.Parcelize
-import configurations.WikiFeature
+import configurations.ConfigurationsFeature
 import io.github.xxfast.decompose.router.Router
 import io.github.xxfast.decompose.router.content.RoutedContent
 import io.github.xxfast.decompose.router.rememberRouter
@@ -61,7 +61,7 @@ internal fun BottomMenuGraph(
                         toTrainingDetails = toTrainingDetails
                     )
 
-                    BottomMenuRouter.Configurations -> WikiFeature()
+                    BottomMenuRouter.Configurations -> ConfigurationsFeature()
                     BottomMenuRouter.Statistics -> StatisticFeature()
                 }
             }

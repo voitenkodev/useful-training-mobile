@@ -5,9 +5,7 @@ import ViewModel
 import configurations.mapping.toDomain
 import configurations.mapping.toState
 import configurations.popups.ExerciseExampleState
-import configurations.popups.MusclePopupState
 import configurations.state.ExerciseExample
-import configurations.state.Muscle
 import configurations.state.State
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -46,96 +44,57 @@ internal class ConfigurationsViewModel : ViewModel() {
         }.launchIn(this)
     }
 
-    fun addMuscle() {
-        _state.update {
-            it.copy(
-                musclePopupState = MusclePopupState.CREATE(
-                    allExerciseExamples = it.exerciseExamples
-                )
-            )
-        }
-    }
-
     fun addExerciseExample() {
         _state.update {
             it.copy(
                 exerciseExamplePopupState = ExerciseExampleState.CREATE(
-                    allMuscles = it.muscles
+                    allMuscles = it.muscles,
+                    exerciseExample = ExerciseExample()
                 )
             )
         }
     }
 
-    fun deleteExerciseExample(exerciseExampleId: String) {
+    fun deleteExerciseExample(exerciseExampleId: String?) {
         closePopups()
 //        api.deleteExerciseExample(
 //            exerciseExampleId = exerciseExampleId
 //        )
     }
 
-    fun deleteMuscle(muscleId: String) {
-        closePopups()
-//        api.deleteMuscle(
-//            muscleId = muscleId
-//        )
-    }
+    fun selectExerciseExample(exerciseExampleId: String?) {
+        exerciseExampleId ?: return
 
-    fun selectMuscle(muscleId: String) {
         launch {
-//            val result = api
-//                .getMuscleWithExerciseExamplesById(muscleId)
-//                .firstOrNull() ?: return@launch
-//
-//            _state.update {
-//                it.copy(
-//                    musclePopupState = MusclePopupState.UPDATE(
-//                        muscle = result.first.toState(),
-//                        appliedExerciseExamples = result.second.toState(),
-//                        allExerciseExamples = it.exerciseExamples
-//                    )
-//                )
-//            }
+            val result = api
+                .getExerciseExample(exerciseExampleId)
+                .firstOrNull() ?: return@launch
+
+            _state.update {
+                it.copy(
+                    exerciseExamplePopupState = ExerciseExampleState.UPDATE(
+                        exerciseExample = result.toState(),
+                        allMuscles = it.muscles
+                    )
+                )
+            }
         }
     }
 
-    fun selectExerciseExample(exerciseExampleId: String) {
-        launch {
-//            val result = api
-//                .getExerciseExampleWithMusclesById(exerciseExampleId)
-//                .firstOrNull() ?: return@launch
-//
-//            _state.update {
-//                it.copy(
-//                    exerciseExamplePopupState = ExerciseExampleState.UPDATE(
-//                        exerciseExample = result.first.toState(),
-//                        appliedMuscles = result.second.toState(),
-//                        allMuscles = it.muscles
-//                    )
-//                )
-//            }
-        }
+    fun selectMuscle(muscleId: String?) {
+
     }
 
-    fun setExerciseExampleWithMuscles(exerciseExample: ExerciseExample, muscles: List<Muscle>) {
+    fun setExerciseExample(exerciseExample: ExerciseExample) {
         closePopups()
-//        api.setExerciseExampleWithMuscles(
-//            exerciseExample = exerciseExample.toDomain(),
-//            muscles = muscles.toDomain()
-//        )
-    }
-
-    fun setMuscleWithExerciseExamples(muscle: Muscle, exerciseExamples: List<ExerciseExample>) {
-        closePopups()
-//        api.setMuscleWithExerciseExamples(
-//            muscle = muscle.toDomain(),
-//            exerciseExamples = exerciseExamples.toDomain()
-//        )
+        api.setExerciseExample(
+            exerciseExample = exerciseExample.toDomain(),
+        )
     }
 
     fun closePopups() {
         _state.update {
             it.copy(
-                musclePopupState = null,
                 exerciseExamplePopupState = null
             )
         }

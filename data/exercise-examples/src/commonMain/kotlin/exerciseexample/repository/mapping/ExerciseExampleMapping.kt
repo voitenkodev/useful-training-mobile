@@ -26,23 +26,23 @@ internal fun List<ExerciseExampleDao>.daoToDomain(): List<ExerciseExample> {
 
 internal fun ExerciseExampleDao.daoToDomain(): ExerciseExample? {
     return ExerciseExample(
-        id = id ?: return null,
+        id = id,
         name = name ?: return null
     )
 }
 
 // _______ DOMAIN _______
 
-internal fun List<ExerciseExample>.domainToDao(): List<ExerciseExampleDao> {
-    return mapNotNull { it.domainToDao() }
-}
-
-internal fun ExerciseExample.domainToDao(): ExerciseExampleDao {
-    return ExerciseExampleDao(
-        id = id,
-        name = name
-    )
-}
+//internal fun List<ExerciseExample>.domainToDao(): List<ExerciseExampleDao> {
+//    return mapNotNull { it.domainToDao() }
+//}
+//
+//internal fun ExerciseExample.domainToDao(): ExerciseExampleDao {
+//    return ExerciseExampleDao(
+//        id = id,
+//        name = name
+//    )
+//}
 
 internal fun ExerciseExample.domainToDto(): ExerciseExampleDto {
     return ExerciseExampleDto(

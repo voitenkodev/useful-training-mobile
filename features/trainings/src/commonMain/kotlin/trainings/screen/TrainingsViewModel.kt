@@ -45,9 +45,7 @@ internal class TrainingsViewModel : ViewModel() {
                 _state.update { it.copy(loading = true) }
             }.onEach { t ->
 
-                val trainings = t
-                    .map { it.toState() }
-                    .toPersistentList()
+                val trainings = t.toState()
 
                 _state.update {
                     val selectedDates = it.calendar

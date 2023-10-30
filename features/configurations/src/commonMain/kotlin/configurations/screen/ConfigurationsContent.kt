@@ -19,7 +19,6 @@ import components.chips.ChipState
 import components.roots.Root
 import configurations.components.Header
 import configurations.popups.ExerciseExamplePopup
-import configurations.popups.MusclePopup
 import configurations.state.ExerciseExample
 import configurations.state.Muscle
 import kotlinx.collections.immutable.ImmutableList
@@ -38,21 +37,14 @@ internal fun ConfigurationsContent(
 
     BottomSheet(
         visibility = buildBoolean {
-            addCondition(state.musclePopupState != null)
             addCondition(state.exerciseExamplePopupState != null)
         },
         onClose = vm::closePopups,
         sheetContent = {
-            state.musclePopupState?.let { popupState ->
-                MusclePopup(
-                    state = popupState,
-                    confirm = vm::setMuscleWithExerciseExamples,
-                    delete = vm::deleteMuscle
-                )
-            } ?: state.exerciseExamplePopupState?.let { popupState ->
+            state.exerciseExamplePopupState?.let { popupState ->
                 ExerciseExamplePopup(
                     state = popupState,
-                    confirm = vm::setExerciseExampleWithMuscles,
+                    confirm = vm::setExerciseExample,
                     delete = vm::deleteExerciseExample
                 )
             }
@@ -66,7 +58,6 @@ internal fun ConfigurationsContent(
                 muscles = state.muscles,
                 addExerciseExample = vm::addExerciseExample,
                 selectExerciseExample = vm::selectExerciseExample,
-                addMuscle = vm::addMuscle,
                 selectMuscle = vm::selectMuscle
             )
         }
@@ -83,9 +74,8 @@ private fun Content(
     muscles: ImmutableList<Muscle>,
 
     addExerciseExample: () -> Unit,
-    selectExerciseExample: (exerciseExampleId: String) -> Unit,
-    addMuscle: () -> Unit,
-    selectMuscle: (muscleId: String) -> Unit,
+    selectExerciseExample: (exerciseExampleId: String?) -> Unit,
+    selectMuscle: (muscleId: String?) -> Unit,
 ) {
 
     Root(

@@ -16,61 +16,43 @@ import atomic.icons.Delete
 import components.chips.Chip
 import components.chips.ChipState
 import components.inputs.InputExerciseExampleName
-import configurations.components.MusclesRangeSlider
 import configurations.state.ExerciseExample
-import configurations.state.Muscle
-import kotlinx.collections.immutable.ImmutableList
-import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toPersistentList
 import molecular.ButtonIconSecondary
 import molecular.ButtonPrimary
 import molecular.PaddingM
 import molecular.PaddingS
+import molecular.RangeSlider
 import molecular.TextH2
 import molecular.TextH4
-
-internal sealed class ExerciseExampleState {
-    data class CREATE(
-        val allMuscles: ImmutableList<Muscle>,
-    ) : ExerciseExampleState()
-
-    data class UPDATE(
-        val exerciseExample: ExerciseExample,
-        val appliedMuscles: ImmutableList<Muscle>,
-        val allMuscles: ImmutableList<Muscle>,
-    ) : ExerciseExampleState()
-}
+import molecular.ThumbRangeStateState
 
 @Composable
 internal fun ExerciseExamplePopup(
     state: ExerciseExampleState,
-    confirm: (exerciseExample: ExerciseExample, muscles: ImmutableList<Muscle>) -> Unit,
-    delete: (exerciseExampleId: String) -> Unit
+    confirm: (exerciseExample: ExerciseExample) -> Unit,
+    delete: (exerciseExampleId: String?) -> Unit
 ) {
 
     val exerciseExample = remember(state) {
-        val item = when (state) {
-            is ExerciseExampleState.CREATE -> ExerciseExample()
-            is ExerciseExampleState.UPDATE -> state.exerciseExample
-        }
-        mutableStateOf(item)
+        mutableStateOf(state.exerciseExample)
     }
 
     val appliedMuscles = remember(state) {
-        val list = when (state) {
-            is ExerciseExampleState.CREATE -> persistentListOf()
-            is ExerciseExampleState.UPDATE -> state.appliedMuscles
-        }
+        mutableStateOf(state.exerciseExample.muscleBundles)
+    }
+
+    val availableMuscles = remember(state, appliedMuscles.value) {
+        val list = state.allMuscles
+            .filterNot { appliedMuscles.value.map { it.muscle.id }.contains(it.id) }
+            .toPersistentList()
         mutableStateOf(list)
     }
 
-    val availableMuscles = remember(state, appliedMuscles) {
-        val list = when (state) {
-            is ExerciseExampleState.CREATE -> state.allMuscles
-            is ExerciseExampleState.UPDATE -> state.allMuscles
-        }.filterNot { appliedMuscles.value.contains(it) }
-            .toPersistentList()
-        mutableStateOf(list)
+    val thumbs = remember(appliedMuscles.value) {
+        appliedMuscles.value.map {
+            ThumbRangeStateState(id = it.muscle.id, positionInRange = it.value, color = it.color)
+        }
     }
 
     TextH2(
@@ -110,10 +92,24 @@ internal fun ExerciseExamplePopup(
 
     PaddingM()
 
-    MusclesRangeSlider(
-        persistentListOf(),
-        {}
-    )
+    if (thumbs.isNotEmpty()) {
+        RangeSlider(
+            range = SLIDER_RANGE,
+            minimalRange = MINIMAL_RANGE,
+            thumbs = thumbs,
+            lineColor = Design.colors.caption,
+            onValueChange = { updatedThumbs ->
+                val newList = appliedMuscles.value.map {
+                    val newValue = updatedThumbs
+                        .find { th -> it.muscle.id == th.id }
+                        ?.positionInRange ?: it.value
+                    it.copy(value = newValue)
+                }.toPersistentList()
+
+                appliedMuscles.value = newList
+            }
+        )
+    }
 
     PaddingM()
 
@@ -136,19 +132,20 @@ internal fun ExerciseExamplePopup(
                 text = "Empty",
             )
         } else {
-            appliedMuscles.value.forEach { muscle ->
+            appliedMuscles.value.forEach { muscleExerciseBundle ->
                 Chip(
                     chipState = ChipState.Selected(),
-                    text = muscle.name,
+                    text = muscleExerciseBundle.muscle.name,
                     onClick = {
-                        appliedMuscles.value = buildList {
-                            addAll(appliedMuscles.value)
-                            remove(muscle)
-                        }.toPersistentList()
+                        appliedMuscles.value = appliedMuscles.value
+                            .removeMuscleBundle(
+                                muscleExerciseBundle = muscleExerciseBundle,
+                                maximalRange = SLIDER_RANGE.last
+                            )
 
                         availableMuscles.value = buildList {
                             addAll(availableMuscles.value)
-                            add(muscle)
+                            add(muscleExerciseBundle.muscle)
                         }.toPersistentList()
                     }
                 )
@@ -181,10 +178,12 @@ internal fun ExerciseExamplePopup(
                     chipState = ChipState.Default(),
                     text = muscle.name,
                     onClick = {
-                        appliedMuscles.value = buildList {
-                            addAll(appliedMuscles.value)
-                            add(muscle)
-                        }.toPersistentList()
+                        appliedMuscles.value = appliedMuscles.value
+                            .addMuscle(
+                                muscle = muscle,
+                                minimalRange = MINIMAL_RANGE,
+                                maximalRange = SLIDER_RANGE.last
+                            )
 
                         availableMuscles.value = buildList {
                             addAll(availableMuscles.value)
@@ -201,7 +200,7 @@ internal fun ExerciseExamplePopup(
     ButtonPrimary(
         modifier = Modifier.fillMaxWidth(),
         text = "Confirm",
-        onClick = { confirm.invoke(exerciseExample.value, appliedMuscles.value) },
+        onClick = { confirm.invoke(exerciseExample.value.copy(muscleBundles = appliedMuscles.value)) },
         enabled = exerciseExample.value.name.isNotBlank()
     )
 }
