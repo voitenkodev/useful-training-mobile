@@ -1,6 +1,5 @@
 package exerciseexamplebuilder
 
-import NavStringParam
 import androidx.compose.runtime.Composable
 import exerciseexamplebuilder.screen.ExerciseExampleBuilderContent
 import exerciseexamplebuilder.screen.ExerciseExampleBuilderViewModel
@@ -11,12 +10,8 @@ public fun ExerciseExampleBuilderFeature(
     exerciseExampleId: String?,
     back: () -> Unit
 ) {
-
-    val vm = rememberOnRoute(
-        ExerciseExampleBuilderViewModel::class,
-        key = NavStringParam(exerciseExampleId)
-    ) { saveState ->
-        ExerciseExampleBuilderViewModel(saveState)
+    val vm = rememberOnRoute(ExerciseExampleBuilderViewModel::class) {
+        ExerciseExampleBuilderViewModel(exerciseExampleId)
     }
 
     ExerciseExampleBuilderContent(

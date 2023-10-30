@@ -7,16 +7,7 @@ import kotlinx.collections.immutable.toImmutableMap
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.debounce
-import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.flatMapConcat
-import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.update
-import models.ExerciseDate
 import org.koin.core.component.inject
 import statistics.mapping.toState
 import statistics.state.Info
@@ -70,11 +61,4 @@ internal class StatisticsViewModel : ViewModel() {
     fun clearError() {
         _state.update { it.copy(error = null) }
     }
-
-    private fun List<ExerciseDate>.processingExercises() = this.groupBy(
-        { Info(trainingId = it.trainingId, date = it.date) },
-        { it.exercise.toState() }
-    ).mapValues { it.value.toImmutableList() }
-        .toImmutableMap()
-
 }

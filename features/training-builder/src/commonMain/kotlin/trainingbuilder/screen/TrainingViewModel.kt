@@ -7,6 +7,7 @@ import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
@@ -65,7 +66,8 @@ internal class TrainingViewModel : ViewModel() {
             .getTraining(trainingId = trainingId)
             .onStart {
                 _state.value = state.value.copy(loading = true)
-            }.onEach {
+            }.filterNotNull()
+            .onEach {
                 _state.value = state.value.copy(
                     training = it
                         .toTrainingState()

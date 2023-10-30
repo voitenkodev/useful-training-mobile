@@ -9,26 +9,26 @@ import traininig_exercise_iteration.models.IterationDao
 
 internal fun ExerciseDto.toDomain(
     iterations: List<Iteration>
-): Exercise {
+): Exercise? {
     return Exercise(
         id = id,
-        name = name,
-        tonnage = tonnage,
-        countOfLifting = countOfLifting,
-        intensity = intensity,
+        name = name ?: return null,
+        tonnage = tonnage ?: return null,
+        countOfLifting = countOfLifting ?: return null,
+        intensity = intensity ?: return null,
         iterations = iterations
     )
 }
 
 internal fun ExerciseDao.toDomain(
     iterations: List<Iteration>
-): Exercise {
+): Exercise? {
     return Exercise(
         id = id,
-        name = name,
-        tonnage = tonnage,
-        countOfLifting = countOfLifting,
-        intensity = intensity,
+        name = name ?: return null,
+        tonnage = tonnage ?: return null,
+        countOfLifting = countOfLifting ?: return null,
+        intensity = intensity ?: return null,
         iterations = iterations
     )
 }

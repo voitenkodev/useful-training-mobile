@@ -8,10 +8,11 @@ internal fun Training.toBody() = models.Training(
         models.Exercise(
             id = null,
             name = it.name,
-            iterations = it.iterations.map {
+            iterations = it.iterations.mapNotNull {
                 models.Iteration(
-                    weight = it.weight.toDoubleOrNull(),
-                    repeat = it.repeat.toIntOrNull()
+                    id = null,
+                    weight = it.weight.toDoubleOrNull() ?: return@mapNotNull null,
+                    repeat = it.repeat.toIntOrNull() ?: return@mapNotNull null
                 )
             },
             tonnage = it.tonnage,
@@ -20,7 +21,7 @@ internal fun Training.toBody() = models.Training(
         )
     },
     duration = duration,
-    date = startDateTime,
+    createdAt = startDateTime,
     tonnage = tonnage,
     countOfLifting = countOfLifting,
     intensity = intensity,

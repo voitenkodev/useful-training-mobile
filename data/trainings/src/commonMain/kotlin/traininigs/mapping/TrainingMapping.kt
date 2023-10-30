@@ -26,46 +26,46 @@ internal fun Training.toDto(exercises: List<ExerciseDto>): TrainingDto {
     )
 }
 
-internal fun List<TrainingDto>.dtoToDomain(): List<Training> = map { it.dtoToDomain() }
+internal fun List<TrainingDto>.dtoToDomain(): List<Training> = mapNotNull { it.dtoToDomain() }
 
-internal fun List<TrainingDao>.daoToDomain(): List<Training> = map { it.toDomain() }
+internal fun List<TrainingDao>.daoToDomain(): List<Training> = mapNotNull { it.toDomain() }
 
-internal fun TrainingDto.dtoToDomain(): Training {
-    val exercises = exercises.map { ex ->
-        val iterations = ex.iterations.map { it.toDomain() }
+internal fun TrainingDto.dtoToDomain(): Training? {
+    val exercises = exercises.mapNotNull { ex ->
+        val iterations = ex.iterations.mapNotNull { it.toDomain() }
         ex.toDomain(iterations)
     }
     return toDomain(exercises)
 }
 
-internal fun TrainingDao.toDomain(): Training {
-    val exercises = exercises.map { ex ->
-        val iterations = ex.iterations.map { it.toDomain() }
+internal fun TrainingDao.toDomain(): Training? {
+    val exercises = exercises.mapNotNull { ex ->
+        val iterations = ex.iterations.mapNotNull { it.toDomain() }
         ex.toDomain(iterations)
     }
     return toDomain(exercises)
 }
 
-internal fun TrainingDto.toDomain(exercises: List<Exercise>): Training {
+internal fun TrainingDto.toDomain(exercises: List<Exercise>): Training? {
     return Training(
         id = id,
-        duration = duration,
-        date = createdAt,
-        tonnage = tonnage,
-        countOfLifting = countOfLifting,
-        intensity = intensity,
+        duration = duration ?: return null,
+        createdAt = createdAt,
+        tonnage = tonnage ?: return null,
+        countOfLifting = countOfLifting ?: return null,
+        intensity = intensity ?: return null,
         exercises = exercises
     )
 }
 
-internal fun TrainingDao.toDomain(exercises: List<Exercise>): Training {
+internal fun TrainingDao.toDomain(exercises: List<Exercise>): Training? {
     return Training(
         id = id,
-        duration = duration,
-        date = date,
-        tonnage = tonnage,
-        countOfLifting = countOfLifting,
-        intensity = intensity,
+        duration = duration ?: return null,
+        createdAt = date,
+        tonnage = tonnage ?: return null,
+        countOfLifting = countOfLifting ?: return null,
+        intensity = intensity ?: return null,
         exercises = exercises
     )
 }

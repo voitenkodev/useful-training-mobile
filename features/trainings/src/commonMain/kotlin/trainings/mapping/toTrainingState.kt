@@ -16,8 +16,8 @@ internal fun models.Training.toState(): Training? {
         id = id ?: return null,
         exercises = exercises.toState(),
         duration = duration ?: 0,
-        dateIso = date ?: "",
-        startDate = date?.let { DateTimeKtx.formattedTime(it) } ?: "",
+        dateIso = createdAt ?: "",
+        startDate = createdAt?.let { DateTimeKtx.formattedTime(it) } ?: "",
         tonnage = tonnage?.toShortString() ?: "-",
         intensity = intensity?.toDoubleOrIntString() ?: "-",
         tonnageExerciseList = exercises.mapNotNull { it.tonnage?.toFloat() }.toPersistentList()

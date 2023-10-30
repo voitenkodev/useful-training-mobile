@@ -4,19 +4,19 @@ import models.Iteration
 import models.IterationDto
 import traininig_exercise_iteration.models.IterationDao
 
-internal fun IterationDto.toDomain(): Iteration {
+internal fun IterationDto.toDomain(): Iteration? {
     return Iteration(
         id = id,
-        weight = weight,
-        repeat = repeat
+        weight = weight ?: return null,
+        repeat = repeat ?: return null
     )
 }
 
-internal fun IterationDao.toDomain(): Iteration {
+internal fun IterationDao.toDomain(): Iteration? {
     return Iteration(
         id = id,
-        weight = weight,
-        repeat = repeat
+        weight = weight ?: return null,
+        repeat = repeat ?: return null
     )
 }
 

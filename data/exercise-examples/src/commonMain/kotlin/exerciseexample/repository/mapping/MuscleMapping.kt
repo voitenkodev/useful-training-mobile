@@ -25,7 +25,7 @@ internal fun List<MuscleDao>.daoToDomain(): List<Muscle> {
 
 internal fun MuscleDao.daoToDomain(): Muscle? {
     return Muscle(
-        id = id ?: return null,
+        id = id,
         name = name ?: return null
     )
 }

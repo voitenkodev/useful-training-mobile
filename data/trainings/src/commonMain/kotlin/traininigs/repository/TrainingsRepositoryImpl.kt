@@ -37,14 +37,15 @@ internal class TrainingsRepositoryImpl(
             .flattenMerge()
     }
 
-    override fun getTraining(trainingId: String): Flow<Training> {
+    override fun getTraining(trainingId: String): Flow<Training?> {
         val remote = flow {
             val response = remote.getTraining(trainingId)
             local.setTraining(response.dtoToDao())
             emit(response.dtoToDomain())
         }
 
-        val local = local.getTraining(trainingId)
+        val local = local
+            .getTraining(trainingId)
             .map { it.toDomain() }
 
         return flowOf(local, remote)

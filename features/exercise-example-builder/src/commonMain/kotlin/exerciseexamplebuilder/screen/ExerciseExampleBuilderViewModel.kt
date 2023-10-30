@@ -1,7 +1,6 @@
 package exerciseexamplebuilder.screen
 
 import ExerciseExamplesRepository
-import NavStringParam
 import ViewModel
 import exerciseexamplebuilder.mapping.toDomain
 import exerciseexamplebuilder.mapping.toState
@@ -9,7 +8,6 @@ import exerciseexamplebuilder.state.ExerciseExample
 import exerciseexamplebuilder.state.Muscle
 import exerciseexamplebuilder.state.MuscleExerciseBundle
 import exerciseexamplebuilder.state.State
-import io.github.xxfast.decompose.router.SavedStateHandle
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toImmutableList
@@ -26,7 +24,7 @@ import kotlinx.coroutines.flow.update
 import org.koin.core.component.inject
 
 internal class ExerciseExampleBuilderViewModel(
-    savedStateHandle: SavedStateHandle
+    exerciseExampleId: String?
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(State())
@@ -35,28 +33,28 @@ internal class ExerciseExampleBuilderViewModel(
     private val api by inject<ExerciseExamplesRepository>()
 
     init {
-        savedStateHandle.get<NavStringParam>()?.param?.let { exerciseExampleId ->
-            api.getExerciseExample(exerciseExampleId)
-        } ?: flowOf<models.ExerciseExample?>(null)
-            .onStart {
-                _state.update { it.copy(loading = false) }
-            }.onEach { r ->
-                val exerciseExample = r?.toState() ?: ExerciseExample()
-                _state.update { it.copy(exerciseExample = exerciseExample) }
-            }.flatMapLatest {
-                api.getMuscles()
-            }.onEach { r ->
-                _state.update {
-                    it.copy(
-                        availableMuscles = r
-                            .filterNot { f -> it.exerciseExample?.muscleExerciseBundles?.map { it.muscle.id }?.contains(f.id) == true }
-                            .toState(),
-                        loading = false
-                    )
-                }
-            }.catch { t ->
-                _state.update { it.copy(loading = false, error = t.message) }
-            }.launchIn(this)
+        exerciseExampleId
+            ?.let(api::getExerciseExample)
+            ?: flowOf<models.ExerciseExample?>(null)
+                .onStart {
+                    _state.update { it.copy(loading = false) }
+                }.onEach { r ->
+                    val exerciseExample = r?.toState() ?: ExerciseExample()
+                    _state.update { it.copy(exerciseExample = exerciseExample) }
+                }.flatMapLatest {
+                    api.getMuscles()
+                }.onEach { r ->
+                    _state.update {
+                        it.copy(
+                            availableMuscles = r
+                                .filterNot { f -> it.exerciseExample?.muscleExerciseBundles?.map { it.muscle.id }?.contains(f.id) == true }
+                                .toState(),
+                            loading = false
+                        )
+                    }
+                }.catch { t ->
+                    _state.update { it.copy(loading = false, error = t.message) }
+                }.launchIn(this)
 
     }
 
