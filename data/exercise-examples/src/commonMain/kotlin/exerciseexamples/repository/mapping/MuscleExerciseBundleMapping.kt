@@ -11,7 +11,7 @@ internal fun List<MuscleExerciseBundleDao>.daoToDomain(): List<MuscleExerciseBun
 internal fun MuscleExerciseBundleDao.daoToDomain(): MuscleExerciseBundle {
     return MuscleExerciseBundle(
         id = id,
-        value = value,
+        percentage = percentage,
         muscle = muscle.daoToDomain()
     )
 }
@@ -23,7 +23,7 @@ internal fun List<MuscleExerciseBundleDto>.dtoToDao(): List<MuscleExerciseBundle
 internal fun MuscleExerciseBundleDto.dtoToDao(): MuscleExerciseBundleDao? {
     return MuscleExerciseBundleDao(
         id = id ?: return null,
-        value = value ?: return null,
+        percentage = percentage ?: return null,
         muscle = muscle?.dtoToDao() ?: return null,
         createdAt = createdAt ?: return null,
         updatedAt = updatedAt ?: return null,
@@ -41,6 +41,6 @@ internal fun MuscleExerciseBundle.domainToDto(): MuscleExerciseBundleDto {
         id = id,
         muscle = muscle.domainToDto(),
         muscleId = muscle.id,
-        value = value
+        percentage = percentage
     )
 }

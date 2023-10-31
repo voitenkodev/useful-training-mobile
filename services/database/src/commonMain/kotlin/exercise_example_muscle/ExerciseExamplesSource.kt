@@ -102,10 +102,10 @@ public class ExerciseExamplesSource(nativeContext: NativeContext) {
 
             exerciseExample.muscleExerciseBundles.forEach { muscleExerciseBundle ->
                 setMuscleExerciseBundle(
-                    muscleExerciseBundle
+                    muscleExerciseBundle = muscleExerciseBundle
                 )
                 setMuscle(
-                    muscleExerciseBundle.muscle
+                    muscle = muscleExerciseBundle.muscle
                 )
             }
         }
@@ -123,7 +123,7 @@ public class ExerciseExamplesSource(nativeContext: NativeContext) {
     private fun setMuscleExerciseBundle(muscleExerciseBundle: MuscleExerciseBundleDao) {
         api.setMuscleExerciseBundle(
             id = muscleExerciseBundle.id,
-            value_ = muscleExerciseBundle.value?.toLong(),
+            percentage = muscleExerciseBundle.percentage.toLong(),
             createdAt = muscleExerciseBundle.createdAt,
             updatedAt = muscleExerciseBundle.updatedAt,
             muscleId = muscleExerciseBundle.muscleId,

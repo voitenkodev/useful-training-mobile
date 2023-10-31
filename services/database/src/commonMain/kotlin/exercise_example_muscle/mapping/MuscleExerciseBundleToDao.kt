@@ -9,7 +9,7 @@ internal fun MuscleExerciseBundle.toDao(muscle: MuscleDao): MuscleExerciseBundle
         id = id,
         exerciseExampleId = exerciseExampleId,
         muscle = muscle,
-        value = value_?.toInt() ?: 0,
+        percentage = percentage?.toInt() ?: 0,
         createdAt = createdAt ?: "",
         updatedAt = updatedAt ?: "",
         muscleId = muscleId

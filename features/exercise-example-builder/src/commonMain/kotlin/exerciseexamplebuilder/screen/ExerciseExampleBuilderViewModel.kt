@@ -143,16 +143,16 @@ internal class ExerciseExampleBuilderViewModel(exerciseExampleId: String?) : Vie
 
         val newOne = MuscleExerciseBundle(
             muscle = muscle,
-            value = if (this.isEmpty()) maximalRange else minimalRange
+            percentage = if (this.isEmpty()) maximalRange else minimalRange
         )
 
         if (this.isEmpty()) return listOf(newOne).toPersistentList()
 
-        val theMostBigItem = maxBy { it.value }
+        val theMostBigItem = maxBy { it.percentage }
 
         return buildList {
             val list = this@addMuscle.map { item ->
-                if (item == theMostBigItem) item.copy(value = item.value - minimalRange)
+                if (item == theMostBigItem) item.copy(percentage = item.percentage - minimalRange)
                 else item
             }
 
@@ -172,14 +172,14 @@ internal class ExerciseExampleBuilderViewModel(exerciseExampleId: String?) : Vie
         if (newList.isEmpty()) return persistentListOf()
 
         if (newList.size == 1) return newList
-            .map { it.copy(value = maximalRange) }
+            .map { it.copy(percentage = maximalRange) }
             .toImmutableList()
 
-        val theMostMinItem = newList.minBy { it.value }
+        val theMostMinItem = newList.minBy { it.percentage }
 
         return buildList {
             val list = newList.map { item ->
-                if (item == theMostMinItem) item.copy(value = item.value + muscleExerciseBundle.value)
+                if (item == theMostMinItem) item.copy(percentage = item.percentage + muscleExerciseBundle.percentage)
                 else item
             }
 

@@ -9,7 +9,7 @@ internal fun List<MuscleExerciseBundle>.toDomain(): List<models.MuscleExerciseBu
 internal fun MuscleExerciseBundle.toDomain(): models.MuscleExerciseBundle {
     return models.MuscleExerciseBundle(
         id = id,
-        value = value,
+        percentage = percentage,
         muscle = muscle.toDomain()
     )
 }

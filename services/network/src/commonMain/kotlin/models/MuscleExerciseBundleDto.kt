@@ -17,6 +17,6 @@ public data class MuscleExerciseBundleDto(
     val muscleId: String? = null,
     @SerialName("updatedAt")
     val updatedAt: String? = null,
-    @SerialName("value")
-    val value: Int? = null
+    @SerialName("percentage")
+    val percentage: Int? = null
 )

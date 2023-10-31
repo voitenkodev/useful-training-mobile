@@ -7,5 +7,5 @@ public data class MuscleExerciseBundleDao(
     val muscle: MuscleDao,
     val muscleId: String,
     val updatedAt: String,
-    val value: Int
+    val percentage: Int
 )

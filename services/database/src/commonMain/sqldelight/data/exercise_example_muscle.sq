@@ -5,18 +5,18 @@ CREATE TABLE IF NOT EXISTS ExerciseExample (
     updatedAt TEXT
 );
 
-CREATE TABLE IF NOT EXISTS Muscle (
-    id TEXT NOT NULL PRIMARY KEY,
-    name TEXT NOT NULL,
-    createdAt TEXT,
-    updatedAt TEXT
-);
-
 CREATE TABLE IF NOT EXISTS MuscleExerciseBundle (
     id TEXT PRIMARY KEY,
     exerciseExampleId TEXT NOT NULL REFERENCES ExerciseExample(id) ON DELETE CASCADE,
     muscleId TEXT NOT NULL REFERENCES Muscle(id) ON DELETE CASCADE,
-    value INTEGER,
+    percentage INTEGER,
+    createdAt TEXT,
+    updatedAt TEXT
+);
+
+CREATE TABLE IF NOT EXISTS Muscle (
+    id TEXT NOT NULL PRIMARY KEY,
+    name TEXT NOT NULL,
     createdAt TEXT,
     updatedAt TEXT
 );
@@ -41,16 +41,6 @@ SELECT *
 FROM Muscle
 WHERE id = ?;
 
-getMuscleExerciseBundles:
-SELECT *
-FROM MuscleExerciseBundle;
-
-
-getMuscleExerciseBundlesById:
-SELECT *
-FROM MuscleExerciseBundle
-WHERE id = ?;
-
 getMuscleExerciseBundlesByExerciseExampleId:
 SELECT *
 FROM MuscleExerciseBundle
@@ -63,7 +53,7 @@ INSERT OR REPLACE INTO ExerciseExample
 VALUES (?,?,?,?);
 
 setMuscle:
-INSERT OR REPLACE INTO Muscle
+INSERT OR IGNORE INTO Muscle
 VALUES (?,?,?,?);
 
 setMuscleExerciseBundle:

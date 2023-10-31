@@ -38,7 +38,7 @@ internal fun Trainings(
 
         trainings.forEach { training ->
 
-            item("header:${training.id}") {
+            item(key = "header:${training.id}") {
 
                 PaddingM()
 
@@ -51,17 +51,14 @@ internal fun Trainings(
 
                 TrainingTitle(
                     mainTitle = { "At ${training.startDate}" },
-                    click = {
-                        val id = training.id ?: return@TrainingTitle
-                        openTraining.invoke(id)
-                    },
+                    click = { openTraining.invoke(training.id) }
                 )
 
                 PaddingM()
             }
 
             itemsIndexed(
-                training.exercises,
+                items = training.exercises,
                 key = { _, item -> "${training.id}:${item.id}" }
             ) { index, item ->
 
@@ -81,10 +78,7 @@ internal fun Trainings(
                     modifier = Modifier.fillMaxWidth(),
                     question = "Use training as",
                     answer = "Template",
-                    onClick = {
-                        val id = training.id ?: return@ButtonQuestion
-                        trainingWithTemplate.invoke(id)
-                    }
+                    onClick = { trainingWithTemplate.invoke(training.id) }
                 )
 
                 PaddingM()

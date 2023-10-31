@@ -12,7 +12,7 @@ internal fun List<models.MuscleExerciseBundle>.toState(): ImmutableList<MuscleEx
 internal fun models.MuscleExerciseBundle.toState(): MuscleExerciseBundle {
     return MuscleExerciseBundle(
         id = id,
-        value = value,
+        percentage = percentage,
         muscle = muscle.toState()
     )
 }

@@ -100,7 +100,7 @@ private fun Content(
             exerciseExample?.muscleExerciseBundles?.map {
                 ThumbRangeStateState(
                     id = it.muscle.id,
-                    positionInRange = it.value,
+                    positionInRange = it.percentage,
                     color = it.color
                 )
             } ?: persistentListOf()
@@ -162,8 +162,8 @@ private fun Content(
                         val newList = exerciseExample.muscleExerciseBundles.map {
                             val newValue = updatedThumbs
                                 .find { th -> it.muscle.id == th.id }
-                                ?.positionInRange ?: it.value
-                            it.copy(value = newValue)
+                                ?.positionInRange ?: it.percentage
+                            it.copy(percentage = newValue)
                         }.toPersistentList()
 
                         onMuscleBundleChange(newList)
@@ -199,7 +199,7 @@ private fun Content(
                             text = buildString {
                                 append(muscleExerciseBundle.muscle.name)
                                 append(" ")
-                                append(muscleExerciseBundle.value)
+                                append(muscleExerciseBundle.percentage)
                                 append("%")
                             },
                             onClick = { removeMuscleBundle(muscleExerciseBundle) }
