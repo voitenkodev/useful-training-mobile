@@ -7,10 +7,13 @@ import traininig_exercise_iteration.models.IterationDao
 internal fun Exercise.toDao(iterations: List<IterationDao>): ExerciseDao {
     return ExerciseDao(
         id = id,
-        name = name,
-        tonnage = tonnage,
-        countOfLifting = countOfLifting?.toInt(),
-        intensity = intensity,
-        iterations = iterations
+        trainingId = trainingId,
+        name = name ?: "",
+        tonnage = tonnage ?: 0.0,
+        countOfLifting = countOfLifting?.toInt() ?: 0,
+        intensity = intensity ?: 0.0,
+        iterations = iterations,
+        createdAt = createdAt ?: "",
+        updatedAt = updatedAt ?: ""
     )
 }

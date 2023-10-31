@@ -2,7 +2,6 @@ package traininigs.mapping
 
 import models.Iteration
 import models.IterationDto
-import traininig_exercise_iteration.models.IterationDao
 
 internal fun IterationDto.toDomain(): Iteration? {
     return Iteration(

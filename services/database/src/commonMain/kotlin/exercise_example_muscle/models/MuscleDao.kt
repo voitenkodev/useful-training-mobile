@@ -2,7 +2,7 @@ package exercise_example_muscle.models
 
 public data class MuscleDao(
     val id: String,
-    val name: String? = null,
+    val name: String,
     val createdAt: String,
-    val updatedAt: String? = null
+    val updatedAt: String
 )

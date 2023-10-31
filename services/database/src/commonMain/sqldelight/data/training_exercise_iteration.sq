@@ -1,26 +1,31 @@
 CREATE TABLE IF NOT EXISTS Training (
-    id TEXT PRIMARY KEY,
+    id TEXT NOT NULL PRIMARY KEY,
     duration INTEGER,
     createdAt TEXT,
     tonnage REAL,
     countOfLifting INTEGER,
-    intensity REAL
+    intensity REAL,
+    updatedAt TEXT
 );
 
 CREATE TABLE IF NOT EXISTS Exercise (
-    id TEXT PRIMARY KEY,
-    trainingId TEXT REFERENCES Training(id) ON DELETE CASCADE,
+    id TEXT NOT NULL PRIMARY KEY,
+    trainingId TEXT NOT NULL REFERENCES Training(id) ON DELETE CASCADE,
     name TEXT,
     tonnage REAL,
     countOfLifting INTEGER,
-    intensity REAL
+    intensity REAL,
+    createdAt TEXT,
+    updatedAt TEXT
 );
 
 CREATE TABLE IF NOT EXISTS  Iteration (
-    id TEXT PRIMARY KEY,
-    exerciseId TEXT REFERENCES Exercise(id) ON DELETE CASCADE,
+    id TEXT NOT NULL PRIMARY KEY,
+    exerciseId TEXT NOT NULL REFERENCES Exercise(id) ON DELETE CASCADE,
     weight REAL,
-    repeat INTEGER
+    repeat INTEGER,
+    createdAt TEXT,
+    updatedAt TEXT
 );
 
 -------------- GET --------------
@@ -50,16 +55,16 @@ ORDER BY id;
 -------------- SET --------------
 
 setTraining:
-INSERT OR REPLACE INTO Training (id,duration,createdAt,tonnage,countOfLifting,intensity)
-VALUES (?1,?2,?3,?4,?5,?6);
+INSERT OR REPLACE INTO Training
+VALUES (?,?,?,?,?,?,?);
 
 setExercise:
-INSERT OR REPLACE INTO Exercise (id,trainingId,name,tonnage,countOfLifting,intensity)
-VALUES (?7,?1,?8,?9,?10,?11);
+INSERT OR REPLACE INTO Exercise (id,trainingId,name,tonnage,countOfLifting,intensity, createdAt, updatedAt)
+VALUES (?,?,?,?,?,?,?,?);
 
 setIteration:
-INSERT OR REPLACE INTO Iteration (id,exerciseId,weight,repeat)
-VALUES (?12,?7,?13,?14);
+INSERT OR REPLACE INTO Iteration (id,exerciseId,weight,repeat,createdAt, updatedAt)
+VALUES (?,?,?,?,?,?);
 
 -------------- DELETE --------------
 

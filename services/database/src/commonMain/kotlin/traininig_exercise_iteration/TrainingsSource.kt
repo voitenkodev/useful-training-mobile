@@ -50,53 +50,50 @@ public class TrainingsSource(nativeContext: NativeContext) {
     }
 
     public fun setTrainings(trainings: List<TrainingDao>) {
-        api.transaction {
-            trainings.map { setTraining(it) }
-        }
+        trainings.map { setTraining(it) }
     }
 
-    public fun setTraining(training: TrainingDao): String? {
+    public fun setTraining(training: TrainingDao): String {
+        api.transaction {
+            api.deleteTrainingById(training.id)
 
-        val trainingId = training.id ?: return null
-
-        api.deleteTrainingById(training.id)
-
-        api.setTraining(
-            id = trainingId,
-            duration = training.duration,
-            createdAt = training.createdAt,
-            tonnage = training.tonnage,
-            countOfLifting = training.countOfLifting?.toLong(),
-            intensity = training.intensity
-        )
-
-        for (exercise in training.exercises) {
-
-            val exerciseId = exercise.id ?: continue
-
-            api.setExercise(
-                id = exerciseId,
-                trainingId = training.id,
-                name = exercise.name,
-                tonnage = exercise.tonnage,
-                countOfLifting = exercise.countOfLifting?.toLong(),
-                intensity = exercise.intensity
+            api.setTraining(
+                id = training.id,
+                duration = training.duration,
+                createdAt = training.createdAt,
+                tonnage = training.tonnage,
+                countOfLifting = training.countOfLifting.toLong(),
+                intensity = training.intensity,
+                updatedAt = training.updatedAt
             )
 
-            for (iteration in exercise.iterations) {
+            for (exercise in training.exercises) {
 
-                val iterationId = iteration.id ?: continue
-
-                api.setIteration(
-                    id = iterationId,
-                    exerciseId = exerciseId,
-                    weight = iteration.weight,
-                    repeat = iteration.repeat?.toLong()
+                api.setExercise(
+                    id = exercise.id,
+                    trainingId = training.id,
+                    name = exercise.name,
+                    tonnage = exercise.tonnage,
+                    countOfLifting = exercise.countOfLifting.toLong(),
+                    intensity = exercise.intensity,
+                    updatedAt = training.updatedAt,
+                    createdAt = training.createdAt,
                 )
+
+                for (iteration in exercise.iterations) {
+
+                    api.setIteration(
+                        id = iteration.id,
+                        exerciseId = exercise.id,
+                        weight = iteration.weight,
+                        repeat = iteration.repeat.toLong(),
+                        updatedAt = training.updatedAt,
+                        createdAt = training.createdAt,
+                    )
+                }
             }
         }
-
-        return trainingId
+        return training.id
     }
 
     public fun dropTable() {

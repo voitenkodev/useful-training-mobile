@@ -1,10 +1,13 @@
 package traininig_exercise_iteration.models
 
 public data class ExerciseDao(
-    val id: String? = null,
-    val name: String?,
+    val id: String,
+    val countOfLifting: Int,
+    val createdAt: String,
+    val intensity: Double,
     val iterations: List<IterationDao> = emptyList(),
-    val tonnage: Double?,
-    val countOfLifting: Int?,
-    val intensity: Double?,
+    val name: String,
+    val tonnage: Double,
+    val trainingId: String,
+    val updatedAt: String
 )

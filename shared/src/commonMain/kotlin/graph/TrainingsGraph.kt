@@ -31,7 +31,7 @@ internal fun TrainingsGraph(
                 toEditTraining = { id -> toTrainingBuilder.invoke(id) },
                 toNewTraining = { toTrainingBuilder.invoke(null) },
                 addTrainingWithTemplate = { id -> toTrainingDetails.invoke(id) },
-                back = router::pop,
+                back = router::pop
             )
         }
     }

@@ -4,8 +4,6 @@ import models.Exercise
 import models.ExerciseDto
 import models.Training
 import models.TrainingDto
-import traininig_exercise_iteration.models.ExerciseDao
-import traininig_exercise_iteration.models.TrainingDao
 
 internal fun Training.toDto(): TrainingDto {
     val exercises = exercises.map { ex ->

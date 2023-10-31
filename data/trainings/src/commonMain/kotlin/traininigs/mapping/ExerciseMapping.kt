@@ -4,8 +4,6 @@ import models.Exercise
 import models.ExerciseDto
 import models.Iteration
 import models.IterationDto
-import traininig_exercise_iteration.models.ExerciseDao
-import traininig_exercise_iteration.models.IterationDao
 
 internal fun ExerciseDto.toDomain(iterations: List<Iteration>): Exercise? {
     return Exercise(
