@@ -21,7 +21,7 @@ public fun TextH1(
     maxLines: Int = Int.MAX_VALUE,
     fontWeight: FontWeight? = null,
     overflow: TextOverflow = TextOverflow.Clip,
-    softWrap: Boolean = true,
+    softWrap: Boolean = true
 ) {
     TextField(
         provideText = provideText,
@@ -46,7 +46,8 @@ public fun TextH2(
     textAlign: TextAlign? = null,
     maxLines: Int = Int.MAX_VALUE,
     fontWeight: FontWeight? = null,
-    overflow: TextOverflow = TextOverflow.Clip
+    overflow: TextOverflow = TextOverflow.Clip,
+    softWrap: Boolean = true
 ) {
     TextField(
         provideText = provideText,
@@ -57,7 +58,8 @@ public fun TextH2(
         color = color ?: Design.colors.content,
         textAlign = textAlign,
         fontWeight = fontWeight,
-        overflow = overflow
+        overflow = overflow,
+        softWrap = softWrap
     )
 }
 
