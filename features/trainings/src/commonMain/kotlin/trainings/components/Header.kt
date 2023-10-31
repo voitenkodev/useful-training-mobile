@@ -44,7 +44,7 @@ import platformTopInset
 import trainings.state.SelectableCalendar
 
 @Composable
-internal fun HeaderCalendar(
+internal fun Header(
     calendar: ImmutableList<SelectableCalendar>,
     onAddMore: () -> Unit,
     selectCalendarDay: (dateTimeIso: String) -> Unit

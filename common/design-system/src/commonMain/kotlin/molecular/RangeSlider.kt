@@ -1,5 +1,6 @@
 package molecular
 
+import Design
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.gestures.detectTapGestures
@@ -7,25 +8,29 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.text.drawText
+import androidx.compose.ui.text.rememberTextMeasurer
+import isInteger
 import kotlin.math.abs
 
 public data class ThumbRangeStateState(
     val id: String?,
     val positionInRange: Int,
-    val color: Color,
+    val color: Color
 )
 
 private data class ThumbInternalState(
     val id: String?,
-    val positionInLine: Int = 5,
+    val positionInLine: Int,
+    val positionBetween: Int,
     val color: Color,
-    val positionX: Float,
-    val isSelected: Boolean = false,
+    val offsetX: Float,
+    val isSelected: Boolean = false
 )
 
 @Composable
@@ -36,13 +41,17 @@ public fun RangeSlider(
     onValueChange: (List<ThumbRangeStateState>) -> Unit,
     minimalRange: Int,
     lineColor: Color,
-    requiredFilledRange: Boolean = true,
+    requiredFilledRange: Boolean = true
 ) {
+
     require((requiredFilledRange && thumbs.sumOf { it.positionInRange } != range.endInclusive).not()) {
         "Using 'requiredFilledRange = true', sum of items should be ${range.endInclusive}, but == ${thumbs.sumOf { it.positionInRange }}"
     }
 
-    val canvasSize = remember { mutableStateOf(Size(0f, 0f)) }
+    val canvasSize = remember {
+        mutableStateOf(Size(0f, 0f))
+    }
+
     val minimalRangeWidth = remember(minimalRange, canvasSize.value) {
         canvasSize.value.width / range.endInclusive * minimalRange
     }
@@ -53,12 +62,17 @@ public fun RangeSlider(
             ThumbInternalState(
                 id = item.id,
                 positionInLine = linePosition,
-                positionX = (canvasSize.value.width / range.endInclusive) * linePosition,
+                positionBetween = item.positionInRange,
+                offsetX = (canvasSize.value.width / range.endInclusive) * linePosition,
                 color = item.color
             )
         }
         mutableStateOf(if (canvasSize.value.width == 0f) emptyList() else thumbInternalStates)
     }
+
+    val style = Design.typography.Body2.copy(color = Design.colors.content)
+
+    val textMeasurer = rememberTextMeasurer()
 
     Canvas(
         modifier = modifier
@@ -91,43 +105,44 @@ public fun RangeSlider(
                         onValueChange.invoke(result)
                     }
                 ) { change, dragAmount ->
+
+                    if (dragAmount.x.isInteger().not()) return@detectDragGestures
+
                     change.consume()
+
 
                     val selectedThumb = internalThumbs.value.firstOrNull { it.isSelected } ?: return@detectDragGestures
 
-                    val thumbsInOrder = internalThumbs.value.sortedBy { it.positionX }
+                    val thumbsInOrder = internalThumbs.value.sortedBy { it.offsetX }
 
                     val newPositions = thumbsInOrder.mapIndexed { index, thumb ->
 
                         val prevPosition =
-                            if (index > 0) thumbsInOrder[index - 1].positionX
+                            if (index > 0) thumbsInOrder[index - 1].offsetX
                             else 0f
 
                         val nextPosition =
-                            if (index < thumbsInOrder.size - 1) thumbsInOrder[index + 1].positionX
+                            if (index < thumbsInOrder.size - 1) thumbsInOrder[index + 1].offsetX
                             else canvasSize.value.width
 
                         val newPosition =
-                            if (selectedThumb == thumb) thumb.positionX + dragAmount.x
-                            else thumb.positionX
+                            if (selectedThumb == thumb) thumb.offsetX + dragAmount.x
+                            else thumb.offsetX
 
                         val coerceValue = takeIf { index == internalThumbs.value.lastIndex }
                             ?.let { nextPosition }
                             ?: let { nextPosition - minimalRangeWidth }
 
-                        val newPositionInRange = newPosition.coerceIn(
+                        newPosition.coerceIn(
                             minimumValue = prevPosition + minimalRangeWidth,
                             maximumValue = coerceValue.coerceAtLeast(0f)
                         )
-
-                        newPositionInRange
                     }
 
                     val updatedThumbs = internalThumbs.value.mapIndexed { index, thumb ->
-                        thumb.copy(
-                            positionInLine = (range.endInclusive / (canvasSize.value.width / newPositions[index])).toInt(),
-                            positionX = newPositions[index]
-                        )
+                        val newPositionInLine = (range.endInclusive / (canvasSize.value.width / newPositions[index])).toInt()
+                        val newPositionBetween = newPositionInLine.minus((internalThumbs.value.getOrNull(index - 1)?.positionInLine ?: 0))
+                        thumb.copy(positionInLine = newPositionInLine, positionBetween = newPositionBetween, offsetX = newPositions[index])
                     }
 
                     internalThumbs.value = updatedThumbs
@@ -135,35 +150,43 @@ public fun RangeSlider(
             }
     ) {
         canvasSize.value = size
+        val lineHeight = canvasSize.value.height / 8
+        val circleRadius = lineHeight * 2
+        val circlePositionY = canvasSize.value.height - circleRadius
+        val linePositionY = canvasSize.value.height - circleRadius
 
-        drawTrack(
-            size = size,
-            trackColor = lineColor
+        drawRoundRect(
+            color = lineColor,
+            size = size.copy(height = lineHeight),
+            topLeft = Offset(x = 0f, y = linePositionY),
+            cornerRadius = CornerRadius(lineHeight / 2, lineHeight / 2)
         )
 
         internalThumbs.value.asReversed().forEach { thumb ->
 
-            drawTrack(
-                size = Size(height = size.height, width = thumb.positionX),
-                trackColor = thumb.color
+            val dimensions = textMeasurer.measure(thumb.positionBetween.toString(), style)
+
+            drawText(
+                textMeasurer = textMeasurer,
+                text = thumb.positionBetween.toString(),
+                style = style,
+                topLeft = Offset(x = thumb.offsetX - dimensions.size.width / 2, y = 0f)
+            )
+
+            drawRoundRect(
+                color = thumb.color,
+                size = Size(height = lineHeight, width = thumb.offsetX),
+                topLeft = Offset(x = 0f, y = linePositionY),
+                cornerRadius = CornerRadius(lineHeight / 2, lineHeight / 2)
             )
 
             drawCircle(
                 color = thumb.color,
-                radius = canvasSize.value.height / 2,
-                center = Offset(thumb.positionX, size.height / 2f)
+                radius = circleRadius,
+                center = Offset(thumb.offsetX, circlePositionY)
             )
         }
     }
-}
-
-private fun DrawScope.drawTrack(size: Size, trackColor: Color) {
-    val height = size.height / 4
-    drawRect(
-        color = trackColor,
-        size = size.copy(height = height),
-        topLeft = Offset(x = 0f, y = size.height / 2 - (height / 2))
-    )
 }
 
 private fun List<ThumbInternalState>.findNearTo(offsetX: Float): ThumbInternalState? {
@@ -172,10 +195,10 @@ private fun List<ThumbInternalState>.findNearTo(offsetX: Float): ThumbInternalSt
     }
 
     var nearest = this[0]
-    var minDifference = abs(this[0].positionX.minus(offsetX))
+    var minDifference = abs(this[0].offsetX.minus(offsetX))
 
     for (element in this) {
-        val difference = abs(element.positionX - offsetX)
+        val difference = abs(element.offsetX - offsetX)
         if (difference < minDifference) {
             nearest = element
             minDifference = difference

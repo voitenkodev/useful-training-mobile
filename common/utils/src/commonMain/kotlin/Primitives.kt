@@ -7,6 +7,11 @@ public fun Double.round(decimals: Int): Double {
     return kotlin.math.round(this * multiplier) / multiplier
 }
 
+public fun Float.isInteger(): Boolean {
+    val intValue = this.toInt()
+    return (this - intValue.toFloat()).toInt() == 0
+}
+
 /**
  * Map 15.0 to `15` and 15.2 to `15.2`
  */

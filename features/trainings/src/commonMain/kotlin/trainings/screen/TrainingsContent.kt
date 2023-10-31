@@ -13,7 +13,7 @@ import components.Loading
 import components.placeholders.EmptyTraining
 import components.roots.Root
 import kotlinx.collections.immutable.ImmutableList
-import trainings.components.HeaderCalendar
+import trainings.components.Header
 import trainings.components.Trainings
 import trainings.state.SelectableCalendar
 import trainings.state.Training
@@ -73,7 +73,7 @@ private fun Content(
     ) {
 
         Column {
-            HeaderCalendar(
+            Header(
                 calendar = calendar,
                 onAddMore = addCalendarChunk,
                 selectCalendarDay = selectCalendarDay

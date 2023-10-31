@@ -12,5 +12,5 @@ internal data class State(
     val loading: Boolean = false,
 
     val sliderRange: ClosedRange<Int> = 0..100,
-    val minimalRange: Int = 5
+    val minimalRange: Int = 3
 )

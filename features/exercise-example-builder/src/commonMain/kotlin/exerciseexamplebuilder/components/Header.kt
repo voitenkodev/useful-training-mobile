@@ -36,12 +36,9 @@ import platformTopInset
 @Composable
 internal fun Header(
     modifier: Modifier = Modifier,
-
     exerciseExample: ExerciseExample?,
-
     minimalRange: Int,
     sliderRange: ClosedRange<Int>,
-
     setExerciseExampleName: (String) -> Unit,
     onMuscleBundleChange: (ImmutableList<MuscleExerciseBundle>) -> Unit,
     deleteExercise: () -> Unit,
@@ -119,7 +116,7 @@ internal fun Header(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = Design.dp.paddingM)
-                    .height(20.dp),
+                    .height(40.dp),
                 range = sliderRange,
                 minimalRange = minimalRange,
                 thumbs = thumbs,
