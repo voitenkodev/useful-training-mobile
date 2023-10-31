@@ -38,8 +38,11 @@ internal class TrainingsRepositoryImpl(
 
     override fun setTraining(training: Training): Flow<String?> {
         return flow {
-            val response = remote.setTraining(body = training.domainToDto())
-            emit(response.id)
+            val id = remote
+                .setTraining(body = training.domainToDto())
+                .dtoToDao()
+                ?.let { dao -> local.setTraining(dao) }
+            emit(id)
         }
     }
 

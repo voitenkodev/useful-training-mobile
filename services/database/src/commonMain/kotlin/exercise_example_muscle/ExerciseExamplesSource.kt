@@ -65,6 +65,27 @@ public class ExerciseExamplesSource(nativeContext: NativeContext) {
         }
     }
 
+    public fun setExerciseExample(exerciseExample: ExerciseExampleDao): String {
+        api.transaction {
+            api.setExerciseExample(
+                id = exerciseExample.id,
+                name = exerciseExample.name,
+                createdAt = exerciseExample.createdAt,
+                updatedAt = exerciseExample.updatedAt
+            )
+
+            exerciseExample.muscleExerciseBundles.forEach { muscleExerciseBundle ->
+                setMuscleExerciseBundle(
+                    muscleExerciseBundle = muscleExerciseBundle
+                )
+                setMuscle(
+                    muscle = muscleExerciseBundle.muscle
+                )
+            }
+        }
+        return exerciseExample.id
+    }
+
     public fun getMuscles(): Flow<List<MuscleDao>> {
         return api
             .getMuscles()
@@ -88,26 +109,6 @@ public class ExerciseExamplesSource(nativeContext: NativeContext) {
     public fun setMuscles(muscles: List<MuscleDao>) {
         api.transaction {
             muscles.forEach { setMuscle(it) }
-        }
-    }
-
-    private fun setExerciseExample(exerciseExample: ExerciseExampleDao) {
-        api.transaction {
-            api.setExerciseExample(
-                id = exerciseExample.id,
-                name = exerciseExample.name,
-                createdAt = exerciseExample.createdAt,
-                updatedAt = exerciseExample.updatedAt
-            )
-
-            exerciseExample.muscleExerciseBundles.forEach { muscleExerciseBundle ->
-                setMuscleExerciseBundle(
-                    muscleExerciseBundle = muscleExerciseBundle
-                )
-                setMuscle(
-                    muscle = muscleExerciseBundle.muscle
-                )
-            }
         }
     }
 
