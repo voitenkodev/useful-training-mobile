@@ -34,6 +34,15 @@ internal class ConfigurationsViewModel : ViewModel() {
             }.catch { t ->
                 _state.update { it.copy(loading = false, error = t.message) }
             }.launchIn(this)
+
+        api.syncExerciseExamples()
+            .catch { t -> _state.update { it.copy(error = t.message) } }
+            .launchIn(this)
+
+        api
+            .syncMuscles()
+            .catch { t -> _state.update { it.copy(error = t.message) } }
+            .launchIn(this)
     }
 
     fun clearError() {

@@ -34,10 +34,18 @@ internal class TrainingsViewModel : ViewModel() {
         addCalendarChunk()
         selectCalendarDay(DateTimeKtx.currentDateTime())
         getTrainings()
+        syncTrainings()
+    }
+
+    private fun syncTrainings() {
+        trainingApi.syncTrainings(
+            startDate = "2022-10-29T19:39:37.988Z",
+            endDate = "2024-10-29T19:39:37.989Z"
+        ).launchIn(this)
     }
 
     private fun getTrainings() {
-        trainingApi.getTrainings(
+        trainingApi.observeTrainings(
             startDate = "2022-10-29T19:39:37.988Z",
             endDate = "2024-10-29T19:39:37.989Z"
         )

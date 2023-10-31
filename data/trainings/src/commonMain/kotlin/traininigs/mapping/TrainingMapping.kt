@@ -7,15 +7,15 @@ import models.TrainingDto
 import traininig_exercise_iteration.models.ExerciseDao
 import traininig_exercise_iteration.models.TrainingDao
 
-internal fun Training.dtoToDto(): TrainingDto {
+internal fun Training.domainToDto(): TrainingDto {
     val exercises = exercises.map { ex ->
         val iterations = ex.iterations.map { it.dtoToDto() }
         ex.dtoToDto(iterations)
     }
-    return dtoToDto(exercises)
+    return domainToDto(exercises)
 }
 
-internal fun Training.dtoToDto(exercises: List<ExerciseDto>): TrainingDto {
+internal fun Training.domainToDto(exercises: List<ExerciseDto>): TrainingDto {
     return TrainingDto(
         id = id,
         duration = duration,
@@ -31,7 +31,7 @@ internal fun List<TrainingDto>.dtoToDomain(): List<Training> {
 }
 
 internal fun List<TrainingDao>.daoToDomain(): List<Training> {
-    return mapNotNull { it.toDomain() }
+    return mapNotNull { it.daoToDomain() }
 }
 
 
@@ -43,7 +43,7 @@ internal fun TrainingDto.dtoToDomain(): Training? {
     return toDomain(exercises)
 }
 
-internal fun TrainingDao.toDomain(): Training {
+internal fun TrainingDao.daoToDomain(): Training {
     val exercises = exercises.map { ex ->
         val iterations = ex.iterations.map { it.toDomain() }
         ex.toDomain(iterations)

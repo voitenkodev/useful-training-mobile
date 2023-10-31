@@ -63,7 +63,7 @@ internal class TrainingViewModel : ViewModel() {
 
     fun getTraining(trainingId: String) {
         trainingsApi
-            .getTraining(trainingId = trainingId)
+            .observeTraining(trainingId = trainingId)
             .onStart {
                 _state.value = state.value.copy(loading = true)
             }.filterNotNull()

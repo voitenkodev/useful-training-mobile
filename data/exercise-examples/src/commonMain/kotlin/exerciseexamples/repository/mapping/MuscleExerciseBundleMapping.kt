@@ -4,15 +4,15 @@ import exercise_example_muscle.models.MuscleExerciseBundleDao
 import models.MuscleExerciseBundle
 import models.MuscleExerciseBundleDto
 
-internal fun List<MuscleExerciseBundleDto>.dtoToDomain(): List<MuscleExerciseBundle> {
-    return mapNotNull { it.dtoToDomain() }
+internal fun List<MuscleExerciseBundleDao>.daoToDomain(): List<MuscleExerciseBundle> {
+    return mapNotNull { it.daoToDomain() }
 }
 
-internal fun MuscleExerciseBundleDto.dtoToDomain(): MuscleExerciseBundle? {
+internal fun MuscleExerciseBundleDao.daoToDomain(): MuscleExerciseBundle {
     return MuscleExerciseBundle(
-        id = id ?: return null,
-        value = value ?: return null,
-        muscle = muscle?.dtoToDomain() ?: return null
+        id = id,
+        value = value,
+        muscle = muscle.daoToDomain()
     )
 }
 
