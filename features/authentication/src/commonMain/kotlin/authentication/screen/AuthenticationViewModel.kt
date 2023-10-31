@@ -31,7 +31,7 @@ internal class AuthenticationViewModel : ViewModel() {
             .getToken()
             .filterNotNull()
             .onEach {
-                _state.update { it.copy(loading = false, error = null, tokenStatus = TokenStatus.Available) }
+                _state.update { it.copy(tokenStatus = TokenStatus.Available) }
             }.launchIn(this)
     }
 
@@ -42,6 +42,8 @@ internal class AuthenticationViewModel : ViewModel() {
             api.login(state.value.email, state.value.password)
                 .onStart {
                     _state.update { it.copy(loading = true) }
+                }.onEach {
+                    _state.update { it.copy(loading = false) }
                 }.catch { t ->
                     _state.update { it.copy(loading = false, error = t.message) }
                 }.launchIn(this)
@@ -55,6 +57,8 @@ internal class AuthenticationViewModel : ViewModel() {
             api.registration(state.value.email, state.value.password)
                 .onStart {
                     _state.update { it.copy(loading = true) }
+                }.onEach {
+                    _state.update { it.copy(loading = false) }
                 }.catch { t ->
                     _state.update { it.copy(loading = false, error = t.message) }
                 }.launchIn(this)

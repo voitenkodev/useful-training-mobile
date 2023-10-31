@@ -8,7 +8,7 @@ import splash.screen.SplashViewModel
 @Composable
 public fun SplashFeature(
     toTrainings: () -> Unit,
-    toAuthentication: () -> Unit,
+    toAuthentication: () -> Unit
 ) {
     val vm = rememberOnRoute(SplashViewModel::class) {
         SplashViewModel()
@@ -17,6 +17,6 @@ public fun SplashFeature(
     SplashContent(
         vm = vm,
         toTrainings = toTrainings,
-        toAuthentication = toAuthentication,
+        toAuthentication = toAuthentication
     )
 }

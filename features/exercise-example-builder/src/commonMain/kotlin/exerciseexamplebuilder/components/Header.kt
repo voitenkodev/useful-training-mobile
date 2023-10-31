@@ -16,9 +16,7 @@ import molecular.TextH1
 import platformTopInset
 
 @Composable
-internal fun Header(
-    modifier: Modifier = Modifier,
-) {
+internal fun Header(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .background(Design.colors.secondary)

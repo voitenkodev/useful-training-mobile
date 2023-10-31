@@ -16,7 +16,7 @@ import statistics.state.Info
 @Composable
 internal fun Exercises(
     modifier: Modifier = Modifier,
-    exercises: Map<Info, List<Exercise>>,
+    exercises: Map<Info, List<Exercise>>
 ) {
 
     LazyColumn(

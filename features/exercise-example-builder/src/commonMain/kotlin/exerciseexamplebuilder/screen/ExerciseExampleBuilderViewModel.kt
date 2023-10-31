@@ -23,9 +23,7 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.update
 import org.koin.core.component.inject
 
-internal class ExerciseExampleBuilderViewModel(
-    exerciseExampleId: String?
-) : ViewModel() {
+internal class ExerciseExampleBuilderViewModel(exerciseExampleId: String?) : ViewModel() {
 
     private val _state = MutableStateFlow(State())
     internal val state: StateFlow<State> = _state

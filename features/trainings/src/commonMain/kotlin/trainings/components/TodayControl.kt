@@ -19,7 +19,7 @@ import molecular.ButtonIconPrimary
 internal fun BoxScope.TodayControl(
     modifier: Modifier = Modifier,
     visibilityCondition: () -> Boolean = { true },
-    click: () -> Unit,
+    click: () -> Unit
 ) {
 
     val width = Design.dp.componentM + Design.dp.paddingL

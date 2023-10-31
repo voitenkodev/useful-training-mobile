@@ -24,7 +24,7 @@ internal fun TrainingsContent(
     toTrainingById: (trainingId: String) -> Unit,
     toNewTraining: () -> Unit,
     addTrainingWithTemplate: (trainingId: String) -> Unit,
-    back: () -> Unit,
+    back: () -> Unit
 ) {
 
     val state by vm.state.collectAsState()
@@ -58,7 +58,7 @@ private fun Content(
     openTraining: (trainingId: String) -> Unit,
     trainingWithTemplate: (trainingId: String) -> Unit,
     addCalendarChunk: () -> Unit,
-    selectCalendarDay: (dateTimeIso: String) -> Unit,
+    selectCalendarDay: (dateTimeIso: String) -> Unit
 ) {
 
     val backProvider by rememberUpdatedState(back)

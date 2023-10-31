@@ -4,5 +4,7 @@ import androidx.compose.runtime.Immutable
 
 @Immutable
 internal enum class TokenStatus {
-    Available, Unavailable, Unknown
+    Available,
+    Unavailable,
+    Unknown
 }

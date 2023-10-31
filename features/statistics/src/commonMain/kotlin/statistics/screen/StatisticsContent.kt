@@ -15,9 +15,7 @@ import statistics.state.Exercise
 import statistics.state.Info
 
 @Composable
-internal fun StatisticsContent(
-    vm: StatisticsViewModel,
-) {
+internal fun StatisticsContent(vm: StatisticsViewModel) {
 
     val state by vm.state.collectAsState()
 

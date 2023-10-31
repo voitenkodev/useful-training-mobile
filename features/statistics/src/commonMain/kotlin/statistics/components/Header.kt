@@ -28,7 +28,7 @@ internal fun Header(
     query: () -> String,
     search: (String) -> Unit,
     removeNameOption: (String) -> Unit,
-    nameOptions: ImmutableList<String>,
+    nameOptions: ImmutableList<String>
 ) {
     val queryProvide = rememberUpdatedState(query())
 

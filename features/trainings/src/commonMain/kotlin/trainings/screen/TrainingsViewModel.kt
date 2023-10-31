@@ -11,7 +11,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.update
 import org.koin.core.component.inject
 import trainings.mapping.toState
@@ -33,7 +32,7 @@ internal class TrainingsViewModel : ViewModel() {
     init {
         addCalendarChunk()
         selectCalendarDay(DateTimeKtx.currentDateTime())
-        getTrainings()
+        observeTrainings()
         syncTrainings()
     }
 
@@ -44,32 +43,28 @@ internal class TrainingsViewModel : ViewModel() {
         ).launchIn(this)
     }
 
-    private fun getTrainings() {
+    private fun observeTrainings() {
         trainingApi.observeTrainings(
             startDate = "2022-10-29T19:39:37.988Z",
             endDate = "2024-10-29T19:39:37.989Z"
-        )
-            .onStart {
-                _state.update { it.copy(loading = true) }
-            }.onEach { t ->
+        ).onEach { t ->
 
-                val trainings = t.toState()
+            val trainings = t.toState()
 
-                _state.update {
-                    val selectedDates = it.calendar
-                        .filter { c -> c.isSelected }
-                        .map { c -> c.dateTimeIso }
+            _state.update {
+                val selectedDates = it.calendar
+                    .filter { c -> c.isSelected }
+                    .map { c -> c.dateTimeIso }
 
-                    it.copy(
-                        trainings = trainings,
-                        displayedTrainings = trainings.getTrainingsByDate(selectedDates).toPersistentList(),
-                        calendar = it.calendar.syncWithTrainings(trainings).toPersistentList(),
-                        loading = false
-                    )
-                }
-            }.catch { t ->
-                _state.update { it.copy(loading = false, error = t.message) }
-            }.launchIn(this)
+                it.copy(
+                    trainings = trainings,
+                    displayedTrainings = trainings.getTrainingsByDate(selectedDates).toPersistentList(),
+                    calendar = it.calendar.syncWithTrainings(trainings).toPersistentList(),
+                )
+            }
+        }.catch { t ->
+            _state.update { it.copy(error = t.message) }
+        }.launchIn(this)
     }
 
     fun addCalendarChunk() {

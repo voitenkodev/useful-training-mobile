@@ -17,7 +17,7 @@ import recomposeHighlighter
 @Composable
 internal fun TrainingTitle(
     mainTitle: () -> String,
-    click: () -> Unit,
+    click: () -> Unit
 ) {
 
     Row(

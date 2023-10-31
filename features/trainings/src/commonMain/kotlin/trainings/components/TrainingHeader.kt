@@ -30,7 +30,7 @@ import trainings.state.Training
 @Composable
 internal fun TrainingHeader(
     modifier: Modifier = Modifier,
-    training: Training,
+    training: Training
 ) {
     Row(
         modifier = modifier

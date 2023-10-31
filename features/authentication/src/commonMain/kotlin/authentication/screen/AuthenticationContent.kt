@@ -78,7 +78,7 @@ private fun Content(
     email: () -> String,
     updateEmail: (String) -> Unit,
     password: () -> String,
-    updatePassword: (String) -> Unit,
+    updatePassword: (String) -> Unit
 ) {
 
     val focus = LocalFocusManager.current

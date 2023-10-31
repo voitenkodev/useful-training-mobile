@@ -2,13 +2,13 @@ package splash.screen
 
 import AuthenticationRepository
 import ViewModel
-import splash.state.State
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.koin.core.component.inject
+import splash.state.State
 import splash.state.TokenStatus
 
 internal class SplashViewModel : ViewModel() {
@@ -22,10 +22,12 @@ internal class SplashViewModel : ViewModel() {
         subscribeToken()
     }
 
-    private fun subscribeToken() = launch {
-        _state.update {
-            if (api.getToken().firstOrNull() == null) it.copy(tokenStatus = TokenStatus.Unavailable)
-            else it.copy(tokenStatus = TokenStatus.Available)
+    private fun subscribeToken() {
+        launch {
+            _state.update {
+                if (api.getToken().firstOrNull() == null) it.copy(tokenStatus = TokenStatus.Unavailable)
+                else it.copy(tokenStatus = TokenStatus.Available)
+            }
         }
     }
 }

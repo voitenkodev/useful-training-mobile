@@ -87,7 +87,7 @@ private fun Content(
     setExerciseExampleName: (String) -> Unit,
     onMuscleBundleChange: (ImmutableList<MuscleExerciseBundle>) -> Unit,
     deleteExercise: () -> Unit,
-    confirm: () -> Unit,
+    confirm: () -> Unit
 ) {
 
     Root(

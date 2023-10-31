@@ -22,7 +22,7 @@ internal fun Trainings(
 
     newTraining: () -> Unit,
     openTraining: (trainingId: String) -> Unit,
-    trainingWithTemplate: (trainingId: String) -> Unit,
+    trainingWithTemplate: (trainingId: String) -> Unit
 ) {
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
