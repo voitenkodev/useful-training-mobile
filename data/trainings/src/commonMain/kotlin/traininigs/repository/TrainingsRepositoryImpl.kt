@@ -13,7 +13,7 @@ import traininigs.mapping.daoToDomain
 import traininigs.mapping.dtoToDao
 import traininigs.mapping.dtoToDomain
 import traininigs.mapping.toDomain
-import traininigs.mapping.toDto
+import traininigs.mapping.dtoToDto
 
 internal class TrainingsRepositoryImpl(
     private val remote: NetworkSource,
@@ -54,7 +54,7 @@ internal class TrainingsRepositoryImpl(
 
     override fun setTraining(training: Training): Flow<String?> {
         val remote = flow {
-            val response = remote.setTraining(body = training.toDto())
+            val response = remote.setTraining(body = training.dtoToDto())
             emit(response)
         }
 

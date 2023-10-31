@@ -22,13 +22,13 @@ internal class ConfigurationsViewModel : ViewModel() {
     private val api by inject<ExerciseExamplesRepository>()
 
     init {
-        api.getExerciseExamples()
+        api.observeExerciseExamples()
             .onStart {
                 _state.update { it.copy(loading = true) }
             }.onEach { r ->
                 _state.update { it.copy(exerciseExamples = r.toState()) }
             }.flatMapLatest {
-                api.getMuscles()
+                api.observeMuscles()
             }.onEach { r ->
                 _state.update { it.copy(muscles = r.toState(), loading = false) }
             }.catch { t ->

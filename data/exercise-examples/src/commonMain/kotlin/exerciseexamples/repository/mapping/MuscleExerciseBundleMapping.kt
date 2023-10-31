@@ -1,5 +1,6 @@
 package exerciseexamples.repository.mapping
 
+import exercise_example_muscle.models.MuscleExerciseBundleDao
 import models.MuscleExerciseBundle
 import models.MuscleExerciseBundleDto
 
@@ -12,6 +13,22 @@ internal fun MuscleExerciseBundleDto.dtoToDomain(): MuscleExerciseBundle? {
         id = id ?: return null,
         value = value ?: return null,
         muscle = muscle?.dtoToDomain() ?: return null
+    )
+}
+
+internal fun List<MuscleExerciseBundleDto>.dtoToDao(): List<MuscleExerciseBundleDao> {
+    return mapNotNull { it.dtoToDao() }
+}
+
+internal fun MuscleExerciseBundleDto.dtoToDao(): MuscleExerciseBundleDao? {
+    return MuscleExerciseBundleDao(
+        id = id ?: return null,
+        value = value ?: return null,
+        muscle = muscle?.dtoToDao() ?: return null,
+        createdAt = createdAt ?: return null,
+        updatedAt = updatedAt ?: return null,
+        muscleId = muscleId ?: return null,
+        exerciseExampleId = exerciseExampleId ?: return null
     )
 }
 

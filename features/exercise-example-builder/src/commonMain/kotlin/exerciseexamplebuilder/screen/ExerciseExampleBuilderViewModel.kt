@@ -34,7 +34,7 @@ internal class ExerciseExampleBuilderViewModel(
 
     init {
         val flow = exerciseExampleId
-            ?.let(api::getExerciseExample)
+            ?.let(api::observeExerciseExample)
             ?: flowOf<models.ExerciseExample?>(null)
 
         flow
@@ -44,7 +44,7 @@ internal class ExerciseExampleBuilderViewModel(
                 val exerciseExample = r?.toState() ?: ExerciseExample()
                 _state.update { it.copy(exerciseExample = exerciseExample) }
             }.flatMapLatest {
-                api.getMuscles()
+                api.observeMuscles()
             }.onEach { r ->
                 _state.update {
                     it.copy(

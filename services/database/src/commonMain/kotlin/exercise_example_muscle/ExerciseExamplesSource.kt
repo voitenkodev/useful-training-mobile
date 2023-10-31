@@ -59,21 +59,9 @@ public class ExerciseExamplesSource(nativeContext: NativeContext) {
             }
     }
 
-    private fun setExerciseExample(exerciseExample: ExerciseExampleDao) {
-        api.setExerciseExample(
-            id = exerciseExample.id,
-            name = exerciseExample.name,
-            createdAt = exerciseExample.createdAt,
-            updatedAt = exerciseExample.updatedAt
-        )
-
-        exerciseExample.muscleExerciseBundles.forEach { muscleExerciseBundle ->
-            setMuscleExerciseBundle(
-                muscleExerciseBundle
-            )
-            setMuscle(
-                muscleExerciseBundle.muscle
-            )
+    public fun setExerciseExamples(exerciseExamples: List<ExerciseExampleDao>) {
+        exerciseExamples.onEach { exerciseExample ->
+            setExerciseExample(exerciseExample)
         }
     }
 
@@ -97,9 +85,29 @@ public class ExerciseExamplesSource(nativeContext: NativeContext) {
         )
     }
 
-    private fun setMuscles(muscles: List<MuscleDao>) {
+    public fun setMuscles(muscles: List<MuscleDao>) {
         api.transaction {
             muscles.forEach { setMuscle(it) }
+        }
+    }
+
+    private fun setExerciseExample(exerciseExample: ExerciseExampleDao) {
+        api.transaction {
+            api.setExerciseExample(
+                id = exerciseExample.id,
+                name = exerciseExample.name,
+                createdAt = exerciseExample.createdAt,
+                updatedAt = exerciseExample.updatedAt
+            )
+
+            exerciseExample.muscleExerciseBundles.forEach { muscleExerciseBundle ->
+                setMuscleExerciseBundle(
+                    muscleExerciseBundle
+                )
+                setMuscle(
+                    muscleExerciseBundle.muscle
+                )
+            }
         }
     }
 

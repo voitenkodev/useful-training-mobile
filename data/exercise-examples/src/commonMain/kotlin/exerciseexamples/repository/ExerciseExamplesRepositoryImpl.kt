@@ -4,6 +4,7 @@ import ExerciseExamplesRepository
 import NetworkSource
 import exercise_example_muscle.ExerciseExamplesSource
 import exerciseexamples.repository.mapping.domainToDto
+import exerciseexamples.repository.mapping.dtoToDao
 import exerciseexamples.repository.mapping.dtoToDomain
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -15,11 +16,11 @@ internal class ExerciseExamplesRepositoryImpl(
     private val local: ExerciseExamplesSource
 ) : ExerciseExamplesRepository {
 
-    override fun getExerciseExamples(): Flow<List<ExerciseExample>> {
+    override fun observeExerciseExamples(): Flow<List<ExerciseExample>> {
         return flow { emit(remote.getExerciseExamples().dtoToDomain()) }
     }
 
-    override fun getExerciseExample(exerciseExampleId: String): Flow<ExerciseExample?> {
+    override fun observeExerciseExample(exerciseExampleId: String): Flow<ExerciseExample?> {
         return flow {
             val remote = remote
                 .getExerciseExample(exerciseExampleId)
@@ -28,7 +29,7 @@ internal class ExerciseExamplesRepositoryImpl(
         }
     }
 
-    override fun getMuscles(): Flow<List<Muscle>> {
+    override fun observeMuscles(): Flow<List<Muscle>> {
         return flow {
             val remote = remote
                 .getMuscles()
@@ -39,8 +40,23 @@ internal class ExerciseExamplesRepositoryImpl(
 
     override fun setExerciseExample(exerciseExample: ExerciseExample): Flow<Unit> {
         return flow {
-            remote
-                .setExerciseExample(exerciseExample.domainToDto())
+            remote.setExerciseExample(exerciseExample.domainToDto())
+            emit(Unit)
+        }
+    }
+
+    override fun syncExerciseExamples(): Flow<Unit> {
+        return flow {
+            val result = remote.getExerciseExamples()
+            local.setExerciseExamples(result.dtoToDao())
+            emit(Unit)
+        }
+    }
+
+    override fun syncMuscles(): Flow<Unit> {
+        return flow {
+            val result = remote.getMuscles()
+            local.setMuscles(result.dtoToDao())
             emit(Unit)
         }
     }

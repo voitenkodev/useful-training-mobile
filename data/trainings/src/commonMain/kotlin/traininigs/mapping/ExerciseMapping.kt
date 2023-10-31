@@ -4,6 +4,8 @@ import models.Exercise
 import models.ExerciseDto
 import models.Iteration
 import models.IterationDto
+import traininig_exercise_iteration.models.ExerciseDao
+import traininig_exercise_iteration.models.IterationDao
 
 internal fun ExerciseDto.toDomain(iterations: List<Iteration>): Exercise? {
     return Exercise(
@@ -16,18 +18,18 @@ internal fun ExerciseDto.toDomain(iterations: List<Iteration>): Exercise? {
     )
 }
 
-internal fun ExerciseDao.toDomain(iterations: List<Iteration>): Exercise? {
+internal fun ExerciseDao.toDomain(iterations: List<Iteration>): Exercise {
     return Exercise(
         id = id,
-        name = name ?: return null,
-        tonnage = tonnage ?: return null,
-        countOfLifting = countOfLifting ?: return null,
-        intensity = intensity ?: return null,
+        name = name,
+        tonnage = tonnage,
+        countOfLifting = countOfLifting,
+        intensity = intensity,
         iterations = iterations
     )
 }
 
-internal fun Exercise.toDto(iterations: List<IterationDto>): ExerciseDto {
+internal fun Exercise.dtoToDto(iterations: List<IterationDto>): ExerciseDto {
     return ExerciseDto(
         id = id,
         name = name,
@@ -38,13 +40,16 @@ internal fun Exercise.toDto(iterations: List<IterationDto>): ExerciseDto {
     )
 }
 
-internal fun ExerciseDto.toDao(iterations: List<IterationDao>): ExerciseDao {
+internal fun ExerciseDto.dtoToDao(iterations: List<IterationDao>): ExerciseDao? {
     return ExerciseDao(
-        id = id,
-        name = name,
-        tonnage = tonnage,
-        countOfLifting = countOfLifting,
-        intensity = intensity,
-        iterations = iterations
+        id = id ?: return null,
+        name = name ?: return null,
+        tonnage = tonnage ?: return null,
+        countOfLifting = countOfLifting ?: return null,
+        intensity = intensity ?: return null,
+        iterations = iterations,
+        updatedAt = updatedAt ?: return null,
+        createdAt = createdAt ?: return null,
+        trainingId = trainingId ?: return null
     )
 }
