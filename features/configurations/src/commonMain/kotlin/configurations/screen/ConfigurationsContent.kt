@@ -52,7 +52,7 @@ private fun Content(
     muscles: ImmutableList<Muscle>,
 
     toExerciseExample: (exerciseExampleId: String?) -> Unit,
-    toMuscle: (muscleId: String?) -> Unit,
+    toMuscle: (muscleId: String?) -> Unit
 ) {
 
     Root(

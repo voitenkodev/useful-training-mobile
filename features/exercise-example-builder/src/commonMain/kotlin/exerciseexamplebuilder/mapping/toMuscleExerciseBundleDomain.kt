@@ -2,11 +2,14 @@ package exerciseexamplebuilder.mapping
 
 import exerciseexamplebuilder.state.MuscleExerciseBundle
 
-internal fun List<MuscleExerciseBundle>.toDomain() = this
-    .map { it.toDomain() }
+internal fun List<MuscleExerciseBundle>.toDomain(): List<models.MuscleExerciseBundle> {
+    return map { it.toDomain() }
+}
 
-internal fun MuscleExerciseBundle.toDomain() = models.MuscleExerciseBundle(
-    id = id,
-    value = value,
-    muscle = muscle.toDomain()
-)
+internal fun MuscleExerciseBundle.toDomain(): models.MuscleExerciseBundle {
+    return models.MuscleExerciseBundle(
+        id = id,
+        value = value,
+        muscle = muscle.toDomain()
+    )
+}

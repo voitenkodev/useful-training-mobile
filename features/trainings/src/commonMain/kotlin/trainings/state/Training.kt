@@ -13,5 +13,5 @@ internal data class Training(
     val startDate: String,
     val duration: Long,
     val tonnage: String,
-    val intensity: String,
+    val intensity: String
 )
