@@ -116,7 +116,7 @@ internal fun Header(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = Design.dp.paddingM)
-                    .height(40.dp),
+                    .height(46.dp),
                 range = sliderRange,
                 minimalRange = minimalRange,
                 thumbs = thumbs,

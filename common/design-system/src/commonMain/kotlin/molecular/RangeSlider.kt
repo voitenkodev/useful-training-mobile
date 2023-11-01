@@ -15,7 +15,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.text.drawText
 import androidx.compose.ui.text.rememberTextMeasurer
-import isInteger
+import androidx.compose.ui.text.style.TextOverflow
 import kotlin.math.abs
 
 public data class ThumbRangeStateState(
@@ -48,13 +48,7 @@ public fun RangeSlider(
         "Using 'requiredFilledRange = true', sum of items should be ${range.endInclusive}, but == ${thumbs.sumOf { it.positionInRange }}"
     }
 
-    val canvasSize = remember {
-        mutableStateOf(Size(0f, 0f))
-    }
-
-    val minimalRangeWidth = remember(minimalRange, canvasSize.value) {
-        canvasSize.value.width / range.endInclusive * minimalRange
-    }
+    val canvasSize = remember { mutableStateOf(Size(0f, 0f)) }
 
     val internalThumbs = remember(canvasSize.value, thumbs) {
         val thumbInternalStates = thumbs.mapIndexed { index, item ->
@@ -70,9 +64,9 @@ public fun RangeSlider(
         mutableStateOf(if (canvasSize.value.width == 0f) emptyList() else thumbInternalStates)
     }
 
-    val style = Design.typography.Body2.copy(color = Design.colors.content)
-
     val textMeasurer = rememberTextMeasurer()
+
+    val style = Design.typography.Body2.copy(color = Design.colors.content)
 
     Canvas(
         modifier = modifier
@@ -104,45 +98,64 @@ public fun RangeSlider(
                         }
                         onValueChange.invoke(result)
                     }
-                ) { change, dragAmount ->
-
-                    if (dragAmount.x.isInteger().not()) return@detectDragGestures
+                ) { change, _ ->
 
                     change.consume()
 
+                    val selectedThumb = internalThumbs
+                        .value
+                        .firstOrNull { it.isSelected }
+                        ?: return@detectDragGestures
 
-                    val selectedThumb = internalThumbs.value.firstOrNull { it.isSelected } ?: return@detectDragGestures
+                    val recalculatedPositionInLine = proportionForPosition(
+                        range = range,
+                        canvasSize = canvasSize.value,
+                        newOffsetX = change.position.x
+                    )
 
-                    val thumbsInOrder = internalThumbs.value.sortedBy { it.offsetX }
+                    if (selectedThumb.positionInLine == recalculatedPositionInLine) return@detectDragGestures
 
-                    val newPositions = thumbsInOrder.mapIndexed { index, thumb ->
+                    val newThumbPositions = internalThumbs.value.mapIndexed { index, thumb ->
 
-                        val prevPosition =
-                            if (index > 0) thumbsInOrder[index - 1].offsetX
-                            else 0f
+                        val undoPosition =
+                            if (index > 0) internalThumbs.value[index - 1].positionInLine
+                            else range.start
 
-                        val nextPosition =
-                            if (index < thumbsInOrder.size - 1) thumbsInOrder[index + 1].offsetX
-                            else canvasSize.value.width
+                        val afterPosition =
+                            if (index < internalThumbs.value.size - 1) internalThumbs.value[index + 1].positionInLine
+                            else range.endInclusive
 
                         val newPosition =
-                            if (selectedThumb == thumb) thumb.offsetX + dragAmount.x
-                            else thumb.offsetX
+                            if (selectedThumb == thumb) ((change.position.x / canvasSize.value.width) * range.endInclusive).toInt()
+                            else thumb.positionInLine
+
+                        if (newPosition == thumb.positionInLine && selectedThumb == thumb) return@detectDragGestures
 
                         val coerceValue = takeIf { index == internalThumbs.value.lastIndex }
-                            ?.let { nextPosition }
-                            ?: let { nextPosition - minimalRangeWidth }
+                            ?.let { afterPosition }
+                            ?: let { afterPosition - minimalRange }
 
                         newPosition.coerceIn(
-                            minimumValue = prevPosition + minimalRangeWidth,
-                            maximumValue = coerceValue.coerceAtLeast(0f)
+                            minimumValue = undoPosition + minimalRange,
+                            maximumValue = coerceValue.coerceAtLeast(0)
                         )
                     }
 
                     val updatedThumbs = internalThumbs.value.mapIndexed { index, thumb ->
-                        val newPositionInLine = (range.endInclusive / (canvasSize.value.width / newPositions[index])).toInt()
-                        val newPositionBetween = newPositionInLine.minus((internalThumbs.value.getOrNull(index - 1)?.positionInLine ?: 0))
-                        thumb.copy(positionInLine = newPositionInLine, positionBetween = newPositionBetween, offsetX = newPositions[index])
+                        val newPositionBetween = newThumbPositions[index]
+                            .minus((internalThumbs.value.getOrNull(index - 1)?.positionInLine ?: 0))
+
+                        val newOffsetX = proportionForOffset(
+                            range = range,
+                            canvasSize = canvasSize.value,
+                            newPosition = newThumbPositions[index]
+                        )
+
+                        thumb.copy(
+                            positionInLine = newThumbPositions[index],
+                            positionBetween = newPositionBetween,
+                            offsetX = newOffsetX
+                        )
                     }
 
                     internalThumbs.value = updatedThumbs
@@ -164,13 +177,17 @@ public fun RangeSlider(
 
         internalThumbs.value.asReversed().forEach { thumb ->
 
-            val dimensions = textMeasurer.measure(thumb.positionBetween.toString(), style)
+            val text = thumb.positionBetween.toString()
+            val dimensions = textMeasurer.measure(text, style)
 
             drawText(
                 textMeasurer = textMeasurer,
-                text = thumb.positionBetween.toString(),
+                text = text,
                 style = style,
-                topLeft = Offset(x = thumb.offsetX - dimensions.size.width / 2, y = 0f)
+                topLeft = Offset(x = thumb.offsetX - (dimensions.size.width / 2), y = 0f),
+                maxLines = 1,
+                softWrap = false,
+                overflow = TextOverflow.Visible
             )
 
             drawRoundRect(
@@ -187,6 +204,14 @@ public fun RangeSlider(
             )
         }
     }
+}
+
+private fun proportionForPosition(range: ClosedRange<Int>, canvasSize: Size, newOffsetX: Float): Int {
+    return (range.endInclusive / canvasSize.width * newOffsetX).toInt()
+}
+
+private fun proportionForOffset(range: ClosedRange<Int>, canvasSize: Size, newPosition: Int): Float {
+    return (canvasSize.width / range.endInclusive) * newPosition
 }
 
 private fun List<ThumbInternalState>.findNearTo(offsetX: Float): ThumbInternalState? {
