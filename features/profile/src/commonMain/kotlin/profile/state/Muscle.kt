@@ -1,4 +1,4 @@
-package configurations.state
+package profile.state
 
 import androidx.compose.runtime.Immutable
 

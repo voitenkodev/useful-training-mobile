@@ -23,7 +23,7 @@ kotlin {
                 implementation(projects.features.authentication)
                 implementation(projects.features.trainings)
                 implementation(projects.features.statistics)
-                implementation(projects.features.configurations)
+                implementation(projects.features.profile)
                 implementation(projects.features.trainingBuilder)
                 implementation(projects.features.exerciseExampleBuilder)
 

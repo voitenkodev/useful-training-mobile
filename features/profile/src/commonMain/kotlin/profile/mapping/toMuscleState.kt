@@ -1,8 +1,8 @@
-package configurations.mapping
+package profile.mapping
 
-import configurations.state.Muscle
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
+import profile.state.Muscle
 
 internal fun List<models.Muscle>.toState(): ImmutableList<Muscle> {
     return map { it.toState() }

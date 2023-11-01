@@ -48,7 +48,7 @@ include(
     "features:bottom-menu",
     "features:trainings",
     "features:statistics",
-    "features:configurations",
+    "features:profile",
     "features:training-builder",
-    "features:exercise-example-builder",
+    "features:exercise-example-builder"
 )

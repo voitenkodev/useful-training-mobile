@@ -1,4 +1,4 @@
-package configurations.components
+package profile.components
 
 import Design
 import androidx.compose.foundation.background
@@ -35,7 +35,7 @@ internal fun Header(modifier: Modifier = Modifier) {
                 modifier = Modifier
                     .padding(horizontal = Design.dp.paddingM)
                     .fillMaxWidth(),
-                provideText = { "Configurations" },
+                provideText = { "Profile" },
                 softWrap = false
             )
         }

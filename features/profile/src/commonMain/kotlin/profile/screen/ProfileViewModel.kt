@@ -1,9 +1,7 @@
-package configurations.screen
+package profile.screen
 
 import ExerciseExamplesRepository
 import ViewModel
-import configurations.mapping.toState
-import configurations.state.State
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
@@ -13,8 +11,10 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.update
 import org.koin.core.component.inject
+import profile.mapping.toState
+import profile.state.State
 
-internal class ConfigurationsViewModel : ViewModel() {
+internal class ProfileViewModel : ViewModel() {
 
     private val _state = MutableStateFlow(State())
     internal val state: StateFlow<State> = _state

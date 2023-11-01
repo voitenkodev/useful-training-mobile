@@ -1,4 +1,4 @@
-package configurations.screen
+package profile.screen
 
 import Design
 import androidx.compose.animation.animateContentSize
@@ -17,15 +17,15 @@ import components.Loading
 import components.chips.Chip
 import components.chips.ChipState
 import components.roots.Root
-import configurations.components.Header
-import configurations.state.ExerciseExample
-import configurations.state.Muscle
 import kotlinx.collections.immutable.ImmutableList
 import molecular.TextH2
+import profile.components.Header
+import profile.state.ExerciseExample
+import profile.state.Muscle
 
 @Composable
-internal fun ConfigurationsContent(
-    vm: ConfigurationsViewModel,
+internal fun ProfileContent(
+    vm: ProfileViewModel,
     toExerciseExampleBuilder: (id: String?) -> Unit
 ) {
 

@@ -7,7 +7,7 @@ plugins {
 apply(from = "../../config/gradle/build-scripts/kotlin.gradle")
 apply(from = "../../config/gradle/build-scripts/android.gradle")
 
-android { namespace = "com.voitenko.usefultraining.features.configurations" }
+android { namespace = "com.voitenko.usefultraining.features.profile" }
 
 kotlin {
     sourceSets {

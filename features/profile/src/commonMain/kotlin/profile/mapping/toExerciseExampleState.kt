@@ -1,8 +1,8 @@
-package configurations.mapping
+package profile.mapping
 
-import configurations.state.ExerciseExample
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
+import profile.state.ExerciseExample
 
 internal fun List<models.ExerciseExample>.toState(): ImmutableList<ExerciseExample> {
     return mapNotNull { it.toState() }
