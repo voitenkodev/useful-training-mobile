@@ -98,7 +98,7 @@ public fun RangeSlider(
                         }
                         onValueChange.invoke(result)
                     }
-                ) { change, offset ->
+                ) { change, _ ->
 
                     change.consume()
 
