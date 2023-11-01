@@ -89,16 +89,16 @@ public fun RangeSlider(
             }.pointerInput(canvasSize.value, thumbs) {
                 detectDragGestures(
                     onDragEnd = {
-                        val result = internalThumbs.value.mapIndexed { index, item ->
+                        val result = internalThumbs.value.map { item ->
                             ThumbRangeStateState(
                                 id = item.id,
-                                positionInRange = item.positionInLine - (internalThumbs.value.getOrNull(index - 1)?.positionInLine ?: 0),
+                                positionInRange = item.positionBetween,
                                 color = item.color
                             )
                         }
                         onValueChange.invoke(result)
                     }
-                ) { change, _ ->
+                ) { change, offset ->
 
                     change.consume()
 
@@ -126,8 +126,11 @@ public fun RangeSlider(
                             else range.endInclusive
 
                         val newPosition =
-                            if (selectedThumb == thumb) ((change.position.x / canvasSize.value.width) * range.endInclusive).toInt()
-                            else thumb.positionInLine
+                            if (selectedThumb == thumb) proportionForPosition(
+                                range = range,
+                                canvasSize = canvasSize.value,
+                                newOffsetX = change.position.x
+                            ) else thumb.positionInLine
 
                         if (newPosition == thumb.positionInLine && selectedThumb == thumb) return@detectDragGestures
 
@@ -142,9 +145,6 @@ public fun RangeSlider(
                     }
 
                     val updatedThumbs = internalThumbs.value.mapIndexed { index, thumb ->
-                        val newPositionBetween = newThumbPositions[index]
-                            .minus((internalThumbs.value.getOrNull(index - 1)?.positionInLine ?: 0))
-
                         val newOffsetX = proportionForOffset(
                             range = range,
                             canvasSize = canvasSize.value,
@@ -153,12 +153,16 @@ public fun RangeSlider(
 
                         thumb.copy(
                             positionInLine = newThumbPositions[index],
-                            positionBetween = newPositionBetween,
                             offsetX = newOffsetX
                         )
                     }
 
-                    internalThumbs.value = updatedThumbs
+                    val updatedThumbPositionsBetween = updatedThumbs.mapIndexed { index, item ->
+                        val newPositionBetween = item.positionInLine - (updatedThumbs.getOrNull(index - 1)?.positionInLine ?: 0)
+                        item.copy(positionBetween = newPositionBetween)
+                    }
+
+                    internalThumbs.value = updatedThumbPositionsBetween
                 }
             }
     ) {
