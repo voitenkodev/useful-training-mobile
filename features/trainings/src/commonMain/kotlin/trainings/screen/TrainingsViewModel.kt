@@ -40,7 +40,9 @@ internal class TrainingsViewModel : ViewModel() {
         trainingApi.syncTrainings(
             startDate = "2022-10-29T19:39:37.988Z",
             endDate = "2024-10-29T19:39:37.989Z"
-        ).launchIn(this)
+        )
+            .catch { t -> _state.update { it.copy(error = t.message) } }
+            .launchIn(this)
     }
 
     private fun observeTrainings() {

@@ -21,7 +21,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 
 @Composable
-public fun ButtonPrimary(
+public fun ButtonDefault(
     modifier: Modifier = Modifier,
     text: String,
     enabled: Boolean = true,
@@ -32,6 +32,32 @@ public fun ButtonPrimary(
     Button(
         modifier = modifier.requiredHeight(Design.dp.componentM),
         text = text,
+        textStyle = Design.typography.PrimaryButton.copy(color = textColor),
+        enabled = enabled,
+        onClick = onClick,
+        colors = ButtonDefaults.buttonColors(
+            backgroundColor = backgroundColor,
+            disabledBackgroundColor = Design.colors.caption,
+        ),
+        shape = Design.shape.circleShape,
+        borderStroke = null,
+        leadIcon = null
+    )
+}
+
+@Composable
+public fun ButtonSmall(
+    modifier: Modifier = Modifier,
+    text: String,
+    enabled: Boolean = true,
+    textColor: Color = Design.colors.content,
+    backgroundColor: Color = Design.colors.accentPrimary,
+    onClick: () -> Unit,
+) {
+    Button(
+        modifier = modifier,
+        text = text,
+        contentPadding = PaddingValues(horizontal = Design.dp.paddingL, vertical = Design.dp.paddingS),
         textStyle = Design.typography.PrimaryButton.copy(color = textColor),
         enabled = enabled,
         onClick = onClick,

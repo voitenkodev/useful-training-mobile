@@ -19,7 +19,7 @@ import platformTopInset
 internal fun Header(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
-            .background(Design.colors.secondary)
+//            .background(Design.colors.secondary)
             .platformTopInset(),
     ) {
 
@@ -31,6 +31,7 @@ internal fun Header(modifier: Modifier = Modifier) {
                 .fillMaxWidth(),
             contentAlignment = Alignment.CenterStart
         ) {
+
             TextH1(
                 modifier = Modifier
                     .padding(horizontal = Design.dp.paddingM)
@@ -39,8 +40,6 @@ internal fun Header(modifier: Modifier = Modifier) {
                 softWrap = false
             )
         }
-
-        PaddingM()
 
         Shadow()
     }

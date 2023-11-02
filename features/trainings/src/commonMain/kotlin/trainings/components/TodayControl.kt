@@ -22,10 +22,10 @@ internal fun BoxScope.TodayControl(
     click: () -> Unit
 ) {
 
-    val width = Design.dp.componentM + Design.dp.paddingL
+    val width = Design.dp.componentM + Design.dp.paddingXL
 
     val animatedDp by animateDpAsState(
-        targetValue = if (visibilityCondition()) 0.dp else width + Design.dp.paddingL,
+        targetValue = if (visibilityCondition()) 0.dp else width + Design.dp.paddingXL,
         animationSpec = tween(
             durationMillis = 300,
             delayMillis = 250,

@@ -67,8 +67,6 @@ internal fun Header(
             )
         }
 
-        PaddingM()
-
         InputSearch(
             modifier = Modifier
                 .padding(horizontal = Design.dp.paddingM)

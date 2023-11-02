@@ -30,8 +30,8 @@ import components.inputs.InputPassword
 import components.overlay.AlphaOverlay
 import components.roots.Root
 import components.states.keyboardFloatAsState
-import molecular.ButtonPrimary
-import molecular.PaddingL
+import molecular.ButtonDefault
+import molecular.PaddingXL
 import molecular.PaddingM
 import molecular.TextBody1
 import molecular.TextH1
@@ -133,7 +133,7 @@ private fun Content(
                 color = Design.colors.caption
             )
 
-            PaddingL()
+            PaddingXL()
 
             InputEmail(
                 modifier = Modifier
@@ -153,9 +153,9 @@ private fun Content(
                 onValueChange = updatePassword
             )
 
-            PaddingL()
+            PaddingXL()
 
-            ButtonPrimary(
+            ButtonDefault(
                 modifier = Modifier
                     .fillMaxWidth(0.7f)
                     .align(Alignment.CenterHorizontally)

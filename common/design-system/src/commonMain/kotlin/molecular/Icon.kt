@@ -18,7 +18,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 
 @Composable
-public fun ButtonIconPrimary(
+public fun IconPrimary(
     modifier: Modifier = Modifier,
     imageVector: ImageVector,
     enabled: Boolean = true,
@@ -55,29 +55,17 @@ public fun ButtonIconPrimary(
 }
 
 @Composable
-public fun ButtonIconSecondary(
+public fun IconSecondary(
     modifier: Modifier = Modifier,
     imageVector: ImageVector,
     color: Color = Design.colors.content,
-    onClick: (() -> Unit)? = null
 ) {
-
-    if (onClick == null) Icon(
+    Icon(
         imageVector = imageVector,
         tint = color,
         modifier = modifier
             .size(18.dp)
             .clip(shape = Design.shape.default),
-        contentDescription = null,
-    ) else IconButton(
-        modifier = modifier.size(18.dp),
-        onClick = onClick
-    ) {
-        Icon(
-            imageVector = imageVector,
-            tint = color,
-            modifier = Modifier.clip(shape = Design.shape.default),
-            contentDescription = null,
-        )
-    }
+        contentDescription = null
+    )
 }

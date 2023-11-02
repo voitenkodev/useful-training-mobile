@@ -19,10 +19,10 @@ import atomic.icons.HandWeight
 import atomic.icons.Weight
 import basic.BasicLineChart
 import kotlinx.collections.immutable.ImmutableList
-import molecular.ButtonIconSecondary
+import molecular.IconSecondary
 import molecular.TextBody2
 import molecular.TextH4
-import molecular.accentDefaultBackground
+import molecular.accentPrimaryDefaultBackground
 import molecular.secondaryDefaultBackground
 import recomposeHighlighter
 import trainings.state.Training
@@ -90,10 +90,10 @@ private fun DefaultItem(
         verticalAlignment = Alignment.CenterVertically
     ) {
 
-        ButtonIconSecondary(
+        IconSecondary(
             modifier = Modifier
                 .size(Design.dp.componentS)
-                .accentDefaultBackground()
+                .accentPrimaryDefaultBackground()
                 .padding(Design.dp.paddingS),
             color = Design.colors.content,
             imageVector = icon

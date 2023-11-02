@@ -14,11 +14,11 @@ public data class Color(
 
     // Accent
     val accentPrimary: Color = Color(0xfff74d19),
-    val accentSecondary: Color = Color(0xfffcb51c),
+    val accentSecondary: Color = Color(0xffa3ec3f),
 
     // Text
     val content: Color = Color(0xffffffff),
-    val caption: Color = Color(0xffa6a6a6),
+    val caption: Color = Color(0xffa6a6a6)
 )
 
 /*

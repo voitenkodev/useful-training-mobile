@@ -20,6 +20,7 @@ import components.roots.Root
 import kotlinx.collections.immutable.ImmutableList
 import molecular.TextH2
 import profile.components.Header
+import profile.components.ProfileCart
 import profile.state.ExerciseExample
 import profile.state.Muscle
 
@@ -41,6 +42,7 @@ internal fun ProfileContent(
         toMuscle = { }
     )
 }
+
 
 @Composable
 private fun Content(
@@ -71,6 +73,13 @@ private fun Content(
                 contentPadding = PaddingValues(Design.dp.paddingM),
                 verticalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
             ) {
+
+                item {
+                    ProfileCart(
+                        visibility = true,
+                        onClose = {}
+                    )
+                }
 
                 item {
                     TextH2(

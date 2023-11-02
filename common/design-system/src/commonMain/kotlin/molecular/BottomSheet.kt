@@ -51,7 +51,7 @@ public fun BottomSheet(
         sheetContent = {
             Column(
                 modifier = Modifier.padding(
-                    vertical = Design.dp.paddingL,
+                    vertical = Design.dp.paddingXL,
                     horizontal = Design.dp.paddingM
                 ),
                 content = {

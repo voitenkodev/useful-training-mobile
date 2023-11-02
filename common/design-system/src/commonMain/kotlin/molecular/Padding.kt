@@ -25,3 +25,8 @@ public fun PaddingM(modifier: Modifier = Modifier) {
 public fun PaddingL(modifier: Modifier = Modifier) {
     Spacer(modifier = modifier.size(Design.dp.paddingL))
 }
+
+@Composable
+public fun PaddingXL(modifier: Modifier = Modifier) {
+    Spacer(modifier = modifier.size(Design.dp.paddingXL))
+}

@@ -7,11 +7,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import molecular.ButtonPrimary
+import molecular.ButtonDefault
 import molecular.PaddingM
 import molecular.Shadow
 import platformBottomInset
-import platformTopInset
 
 @Composable
 internal fun Footer(
@@ -29,7 +28,7 @@ internal fun Footer(
 
         PaddingM()
 
-        ButtonPrimary(
+        ButtonDefault(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = Design.dp.paddingM),

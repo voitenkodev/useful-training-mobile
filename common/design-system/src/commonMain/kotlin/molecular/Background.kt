@@ -16,9 +16,18 @@ public fun Modifier.primaryBackground(): Modifier = this
     )
 
 @Composable
-public fun Modifier.accentDefaultBackground(): Modifier = this
+public fun Modifier.accentPrimaryDefaultBackground(): Modifier = this
     .background(
         color = Design.colors.accentPrimary,
+        shape = Design.shape.default
+    ).clip(
+        shape = Design.shape.default
+    )
+
+@Composable
+public fun Modifier.accentSecondaryDefaultBackground(): Modifier = this
+    .background(
+        color = Design.colors.accentSecondary,
         shape = Design.shape.default
     ).clip(
         shape = Design.shape.default
