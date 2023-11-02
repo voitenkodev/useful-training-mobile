@@ -138,6 +138,8 @@ private fun Content(
                 onValueChange = updatePassword
             )
 
+            PaddingM()
+
             PaddingWeight(value = keyboardFloatAsState.value)
 
             ButtonPrimary(
@@ -148,6 +150,8 @@ private fun Content(
                 onClick = loginProvider,
                 enabled = email.isNotBlank() && password.isNotBlank()
             )
+
+            PaddingWeight(value = 1 - keyboardFloatAsState.value)
 
             PaddingS()
 

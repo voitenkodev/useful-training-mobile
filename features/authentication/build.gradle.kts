@@ -17,6 +17,7 @@ kotlin {
                 implementation(projects.common.utils)
                 implementation(projects.common.platformApi)
                 implementation(projects.common.architectureComponent)
+
                 implementation(projects.designSystem.molecule)
                 implementation(projects.designSystem.components)
 

@@ -2,9 +2,8 @@ plugins {
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.kotlin.cocoapods)
     alias(libs.plugins.android.library)
-    alias(libs.plugins.compose)
-    // For Navigation Decompose Graph
     alias(libs.plugins.kotlin.parcelize)
+    alias(libs.plugins.compose)
 }
 
 apply(from = "../config/gradle/build-scripts/android.gradle")
