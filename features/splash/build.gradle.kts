@@ -14,14 +14,13 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(projects.domain.authentication)
-                implementation(projects.common.designSystem)
                 implementation(projects.common.architectureComponent)
 
-                // Compose
+                implementation(projects.designSystem.molecule)
+                implementation(projects.designSystem.components)
+
                 implementation(compose.ui)
                 implementation(compose.foundation)
-
-                // Koin
                 implementation(libs.koin.core)
             }
         }

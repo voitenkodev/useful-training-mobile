@@ -15,17 +15,16 @@ kotlin {
             dependencies {
                 implementation(projects.domain.trainings)
                 implementation(projects.common.utils)
-                implementation(projects.common.designSystem)
                 implementation(projects.common.architectureComponent)
 
-                // Compose
+                implementation(projects.designSystem.atom)
+                implementation(projects.designSystem.molecule)
+                implementation(projects.designSystem.components)
+                implementation(projects.designSystem.resources)
+
                 implementation(compose.ui)
                 implementation(compose.foundation)
-
-                // Collections
                 implementation(libs.immutable.collections)
-
-                // Koin
                 implementation(libs.koin.core)
             }
         }

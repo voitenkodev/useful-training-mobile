@@ -18,8 +18,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import atom.Design
 import kotlinx.coroutines.delay
-import molecular.molecule.TextBody1
-import molecular.molecule.TextH4
+import molecule.TextBody1
+import molecule.TextH4
 import platformInsets
 
 @Composable

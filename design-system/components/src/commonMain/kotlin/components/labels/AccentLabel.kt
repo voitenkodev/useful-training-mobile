@@ -8,7 +8,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import atom.Design
-import molecular.molecule.TextBody2
+import molecule.TextBody2
 
 @Composable
 public fun AccentLabel(

@@ -13,18 +13,17 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(projects.common.designSystem)
                 implementation(projects.common.architectureComponent)
                 implementation(projects.common.platformApi)
 
-                // Compose
+                implementation(projects.designSystem.atom)
+                implementation(projects.designSystem.molecule)
+                implementation(projects.designSystem.components)
+                implementation(projects.designSystem.resources)
+
                 implementation(compose.ui)
                 implementation(compose.foundation)
-
-                // Collections
                 implementation(libs.immutable.collections)
-
-                // Koin
                 implementation(libs.koin.core)
             }
         }

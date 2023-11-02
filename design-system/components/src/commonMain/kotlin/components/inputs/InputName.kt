@@ -22,9 +22,9 @@ import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import atom.Design
 import components.labels.InputLabel
-import molecular.molecule.ButtonIconSecondary
-import molecular.molecule.InputPrimary
-import molecular.molecule.reversedCircleBackground
+import molecule.ButtonIconSecondary
+import molecule.InputPrimary
+import molecule.reversedCircleBackground
 
 @Composable
 public fun InputName(

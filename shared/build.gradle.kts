@@ -40,7 +40,7 @@ kotlin {
 
                 // Other
                 implementation(projects.common.platformApi)
-                implementation(projects.common.designSystem)
+                implementation(projects.designSystem.atom)
                 implementation(projects.common.architectureComponent)
 
                 // Compose

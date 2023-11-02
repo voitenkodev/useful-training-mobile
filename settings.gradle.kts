@@ -35,8 +35,6 @@ include(
     ":services:database",
     ":services:preferences",
 
-    "common:design-system",
-
     "common:architecture-component",
     "common:utils",
     "common:platform-api",

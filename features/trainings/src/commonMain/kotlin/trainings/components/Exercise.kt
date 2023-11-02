@@ -1,6 +1,5 @@
 package trainings.components
 
-import Design
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.FlowRow
@@ -11,11 +10,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
-import molecular.PaddingM
-import molecular.PaddingS
-import molecular.TextBody1
-import molecular.TextH4
-import molecular.secondarySmallBackground
+import atom.Design
+import molecule.PaddingM
+import molecule.PaddingS
+import molecule.TextBody1
+import molecule.TextH4
+import molecule.secondarySmallBackground
 import recomposeHighlighter
 import trainings.state.Exercise
 

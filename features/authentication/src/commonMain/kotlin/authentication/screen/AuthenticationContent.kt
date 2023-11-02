@@ -1,11 +1,9 @@
 package authentication.screen
 
-import Design
 import PlatformBackHandler
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -25,13 +23,14 @@ import components.inputs.InputPassword
 import components.overlay.AlphaOverlay
 import components.roots.Root
 import components.states.keyboardFloatAsState
-import molecular.ButtonPrimary
-import molecular.PaddingM
-import molecular.PaddingS
-import molecular.PaddingWeight
-import molecular.PaddingXL
-import molecular.TextBody1
-import molecular.TextH1
+import molecule.ButtonPrimary
+import molecule.PaddingM
+import molecule.PaddingS
+import molecule.PaddingWeight
+import molecule.PaddingXL
+import molecule.TextBody1
+import molecule.TextH1
+import molecule.paddingM
 import platformInsets
 
 @Composable
@@ -105,7 +104,7 @@ private fun Content(
             modifier = Modifier
                 .fillMaxSize()
                 .platformInsets()
-                .padding(Design.dp.paddingM),
+                .paddingM(),
         ) {
 
             PaddingXL()

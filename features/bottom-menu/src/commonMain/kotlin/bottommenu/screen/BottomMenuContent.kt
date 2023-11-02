@@ -1,13 +1,10 @@
 package bottommenu.screen
 
-import Design
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -16,7 +13,9 @@ import androidx.compose.ui.Modifier
 import bottommenu.components.MenuItem
 import bottommenu.state.Menu
 import kotlinx.collections.immutable.ImmutableList
-import molecular.Shadow
+import molecule.Shadow
+import molecule.paddingS
+import molecule.secondaryRoundBackground
 import platformBottomInset
 
 @Composable
@@ -55,7 +54,7 @@ private fun Content(
 
         Column(
             modifier = Modifier
-                .background(color = Design.colors.secondary)
+                .secondaryRoundBackground()
                 .platformBottomInset()
                 .fillMaxWidth(),
         ) {
@@ -64,7 +63,7 @@ private fun Content(
 
             Row(
                 modifier = Modifier
-                    .padding(Design.dp.paddingS)
+                    .paddingS()
                     .fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceEvenly,
                 verticalAlignment = Alignment.CenterVertically

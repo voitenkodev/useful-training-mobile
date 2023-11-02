@@ -19,9 +19,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import atom.Design
-import molecular.molecule.ButtonIconSecondary
-import molecular.molecule.TextBody1
-import molecular.molecule.secondaryDefaultBackground
+import molecule.ButtonIconSecondary
+import molecule.TextBody1
+import molecule.secondaryDefaultBackground
 
 @Composable
 public fun ChipLabel(

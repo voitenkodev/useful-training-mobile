@@ -1,6 +1,5 @@
 package statistics.components
 
-import Design
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -16,11 +15,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.platform.LocalFocusManager
+import atom.Design
 import components.inputs.InputSearch
 import kotlinx.collections.immutable.ImmutableList
-import molecular.PaddingM
-import molecular.Shadow
-import molecular.TextH1
+import molecule.PaddingM
+import molecule.Shadow
+import molecule.TextH1
 import platformTopInset
 
 @Composable

@@ -1,6 +1,5 @@
 package exerciseexamplebuilder.components
 
-import Design
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -16,21 +15,22 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import atom.icons.Delete
+import atom.Design
 import components.chips.Chip
 import components.chips.ChipState
 import components.inputs.InputExerciseExampleName
 import exerciseexamplebuilder.state.ExerciseExample
 import exerciseexamplebuilder.state.MuscleExerciseBundle
+import icons.Delete
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toPersistentList
-import molecular.ButtonIconSecondary
-import molecular.PaddingM
-import molecular.RangeSlider
-import molecular.Shadow
-import molecular.TextH2
-import molecular.ThumbRangeStateState
+import molecule.ButtonIconSecondary
+import molecule.PaddingM
+import molecule.RangeSlider
+import molecule.Shadow
+import molecule.TextH2
+import molecule.ThumbRangeStateState
 import platformTopInset
 
 @Composable

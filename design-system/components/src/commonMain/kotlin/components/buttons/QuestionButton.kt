@@ -7,8 +7,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import atom.Design
-import molecular.molecule.ButtonTextLink
-import molecular.molecule.TextBody1
+import molecule.ButtonTextLink
+import molecule.TextBody1
 
 @Composable
 public fun ButtonQuestion(

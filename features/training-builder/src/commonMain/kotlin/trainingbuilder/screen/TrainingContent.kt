@@ -1,6 +1,5 @@
 package trainingbuilder.screen
 
-import Design
 import PlatformBackHandler
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -20,15 +19,16 @@ import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import atom.icons.ArrowLeft
-import atom.icons.Done
+import atom.Design
 import components.Error
 import components.Loading
 import components.Popup
 import components.roots.ScrollableRoot
+import icons.ArrowLeft
+import icons.Done
 import kotlinx.coroutines.delay
-import molecular.ButtonIconSecondary
-import molecular.TextH4
+import molecule.ButtonIconSecondary
+import molecule.TextH4
 import recomposeHighlighter
 import trainingbuilder.components.EditExercise
 import trainingbuilder.state.Exercise

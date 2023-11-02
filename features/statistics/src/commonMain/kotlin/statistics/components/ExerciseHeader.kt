@@ -1,6 +1,5 @@
 package statistics.components
 
-import Design
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
@@ -9,8 +8,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import molecular.TextBody2
-import molecular.TextH4
+import atom.Design
+import molecule.TextBody2
+import molecule.TextH4
 
 
 @Composable

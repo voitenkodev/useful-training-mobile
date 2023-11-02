@@ -7,7 +7,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import atom.Design
-import molecular.molecule.TextH3
+import molecule.TextH3
 
 @Composable
 public fun EmptyTraining(modifier: Modifier = Modifier) {

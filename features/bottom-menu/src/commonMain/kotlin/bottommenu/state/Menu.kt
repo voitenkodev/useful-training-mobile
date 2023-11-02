@@ -1,9 +1,10 @@
 package bottommenu.state
 
-import Time
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.vector.ImageVector
-import atom.icons.Weight
+import icons.Time
+import icons.Weight
+import icons.Wiki
 
 @Immutable
 internal enum class Menu(
@@ -20,6 +21,6 @@ internal enum class Menu(
     ),
     Wiki(
         text = "Wiki",
-        icon = atom.icons.Wiki
+        icon = icons.Wiki
     )
 }

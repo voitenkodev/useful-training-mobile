@@ -1,6 +1,5 @@
 package trainings.components
 
-import Design
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -12,7 +11,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-import molecular.TextH3
+import atom.Design
+import molecule.TextH3
 
 @Composable
 internal fun NewTraining(newTraining: () -> Unit) {

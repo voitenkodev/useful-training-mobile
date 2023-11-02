@@ -1,7 +1,5 @@
 package trainings.components
 
-import Design
-import Time
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
@@ -15,15 +13,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import atom.icons.HandWeight
-import atom.icons.Weight
+import atom.Design
 import basic.BasicLineChart
+import icons.HandWeight
+import icons.Time
+import icons.Weight
 import kotlinx.collections.immutable.ImmutableList
-import molecular.IconSecondary
-import molecular.TextBody2
-import molecular.TextH4
-import molecular.accentPrimaryDefaultBackground
-import molecular.secondaryDefaultBackground
+import molecule.IconSecondary
+import molecule.TextBody2
+import molecule.TextH4
+import molecule.accentPrimaryDefaultBackground
+import molecule.secondaryDefaultBackground
 import recomposeHighlighter
 import trainings.state.Training
 

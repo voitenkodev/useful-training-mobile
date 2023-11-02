@@ -20,10 +20,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import atom.Design
-import molecular.molecule.ButtonPrimary
-import molecular.molecule.TextBody1
-import molecular.molecule.TextH4
-import molecular.molecule.secondaryDefaultBackground
+import molecule.ButtonPrimary
+import molecule.TextBody1
+import molecule.TextH4
+import molecule.secondaryDefaultBackground
 import platformInsets
 
 @Composable

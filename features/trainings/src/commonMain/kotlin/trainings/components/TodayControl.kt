@@ -1,6 +1,5 @@
 package trainings.components
 
-import Design
 import androidx.compose.animation.core.EaseOut
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
@@ -12,8 +11,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import atom.icons.ArrowRight
-import molecular.ButtonIconPrimary
+import atom.Design
+import icons.ArrowRight
+import molecule.ButtonIconPrimary
 
 @Composable
 internal fun BoxScope.TodayControl(

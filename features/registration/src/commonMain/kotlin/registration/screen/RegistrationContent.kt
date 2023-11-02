@@ -16,7 +16,7 @@ import components.Error
 import components.Loading
 import components.roots.Root
 import components.states.keyboardFloatAsState
-import molecular.PaddingL
+import molecule.PaddingL
 import platformInsets
 import registration.components.PreviewPage
 import registration.state.TokenStatus

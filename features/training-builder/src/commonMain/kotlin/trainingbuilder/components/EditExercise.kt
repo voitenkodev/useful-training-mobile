@@ -11,7 +11,7 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
 import components.inputs.InputExerciseName
 import components.items.HelpExerciseNameItem
-import molecular.secondaryDefaultBackground
+import molecule.secondaryDefaultBackground
 import recomposeHighlighter
 import trainingbuilder.state.Iteration
 
@@ -28,9 +28,7 @@ internal fun EditExercise(
     updateRepeat: (Int, String) -> Unit,
     remove: () -> Unit,
 ) {
-    Column(
-        modifier = modifier.secondaryDefaultBackground()
-    ) {
+    Column(modifier = modifier.secondaryDefaultBackground()) {
 
         val focusManager = LocalFocusManager.current
 

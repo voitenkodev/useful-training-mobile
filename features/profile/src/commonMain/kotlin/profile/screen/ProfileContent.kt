@@ -1,6 +1,5 @@
 package profile.screen
 
-import Design
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -12,13 +11,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import atom.Design
 import components.Error
 import components.Loading
 import components.chips.Chip
 import components.chips.ChipState
 import components.roots.Root
 import kotlinx.collections.immutable.ImmutableList
-import molecular.TextH2
+import molecule.TextH2
 import profile.components.Header
 import profile.components.ProfileCart
 import profile.state.ExerciseExample

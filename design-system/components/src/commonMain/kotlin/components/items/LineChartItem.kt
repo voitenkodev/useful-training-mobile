@@ -23,8 +23,8 @@ import androidx.compose.ui.unit.dp
 import atom.Design
 import components.chart.LineChart
 import components.chart.PointLine
-import molecular.molecule.TextBody2
-import molecular.molecule.secondaryDefaultBackground
+import molecule.TextBody2
+import molecule.secondaryDefaultBackground
 
 @Composable
 public fun LineChartItem(

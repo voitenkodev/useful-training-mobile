@@ -15,14 +15,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import atom.Design
-import molecular.molecule.IconSecondary
-import molecular.molecule.PaddingXS
-import molecular.molecule.TextBody2
-import molecular.molecule.accentCircleBackground
-import molecular.molecule.coloredCircleBackgroundNoBorder
-import molecular.molecule.transparentCircleBackground
-import molecular.molecule.white5CircleBackground
-import molecular.molecule.white5CircleBackgroundNoBorder
+import molecule.IconSecondary
+import molecule.PaddingXS
+import molecule.TextBody2
+import molecule.accentCircleBackground
+import molecule.coloredCircleBackgroundNoBorder
+import molecule.transparentCircleBackground
+import molecule.white5CircleBackground
+import molecule.white5CircleBackgroundNoBorder
 
 public sealed class ChipState(public open val enabled: Boolean) {
     public data class HalfTransparent(override val enabled: Boolean = true) : ChipState(enabled)

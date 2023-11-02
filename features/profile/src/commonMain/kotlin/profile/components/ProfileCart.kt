@@ -1,6 +1,5 @@
 package profile.components
 
-import Design
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.animateDpAsState
@@ -22,14 +21,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import atom.Design
 import kotlinx.coroutines.delay
-import molecular.ButtonSmall
-import molecular.PaddingM
-import molecular.PaddingS
-import molecular.PaddingXS
-import molecular.TextBody2
-import molecular.TextH2
-import molecular.accentSecondaryDefaultBackground
+import molecule.ButtonSmall
+import molecule.PaddingM
+import molecule.PaddingS
+import molecule.PaddingXS
+import molecule.TextBody2
+import molecule.TextH2
+import molecule.accentSecondaryDefaultBackground
 
 @Composable
 public fun ProfileCart(

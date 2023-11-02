@@ -1,12 +1,27 @@
-package molecular.molecule
+package molecule
 
-import atom.Design
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import atom.Design
+
+@Composable
+public fun Modifier.paddingHorizontalM(): Modifier {
+    return padding(horizontal = Design.dp.paddingM)
+}
+
+@Composable
+public fun Modifier.paddingS(): Modifier {
+    return padding(Design.dp.paddingS)
+}
+@Composable
+public fun Modifier.paddingM(): Modifier {
+    return padding(Design.dp.paddingM)
+}
 
 @Composable
 public fun PaddingXS(modifier: Modifier = Modifier) {

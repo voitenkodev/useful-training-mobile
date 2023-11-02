@@ -1,6 +1,5 @@
 package statistics.components
 
-import Design
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.fadeIn
@@ -16,6 +15,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import atom.Design
 import components.labels.ChipLabel
 import kotlinx.collections.immutable.ImmutableList
 

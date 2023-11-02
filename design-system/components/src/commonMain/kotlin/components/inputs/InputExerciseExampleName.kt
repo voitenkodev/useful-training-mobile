@@ -20,9 +20,9 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import atom.Design
-import molecular.molecule.ButtonIconSecondary
-import molecular.molecule.InputPrimary
-import molecular.molecule.reversedCircleBackground
+import molecule.ButtonIconSecondary
+import molecule.InputPrimary
+import molecule.reversedCircleBackground
 
 @Composable
 public fun InputExerciseExampleName(

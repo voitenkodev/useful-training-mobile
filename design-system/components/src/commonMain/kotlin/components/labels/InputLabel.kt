@@ -6,7 +6,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import atom.Design
-import molecular.molecule.TextBody2
+import molecule.TextBody2
 
 @Composable
 public fun InputLabel(

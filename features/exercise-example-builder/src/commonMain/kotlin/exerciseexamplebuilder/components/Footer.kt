@@ -1,15 +1,15 @@
 package exerciseexamplebuilder.components
 
-import Design
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import molecular.ButtonPrimary
-import molecular.PaddingM
-import molecular.Shadow
+import atom.Design
+import molecule.ButtonPrimary
+import molecule.PaddingM
+import molecule.Shadow
 import platformBottomInset
 
 @Composable

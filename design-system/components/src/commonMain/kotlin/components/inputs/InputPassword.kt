@@ -17,9 +17,9 @@ import atom.Design
 import icons.Eye
 import icons.EyeOff
 import components.labels.InputLabel
-import molecular.molecule.ButtonIconSecondary
-import molecular.molecule.InputPrimary
-import molecular.molecule.secondaryDefaultBackground
+import molecule.ButtonIconSecondary
+import molecule.InputPrimary
+import molecule.secondaryDefaultBackground
 
 @Composable
 public fun InputPassword(

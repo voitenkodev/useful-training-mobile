@@ -10,10 +10,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
-import atom.icons.ArrowRight
-import atom.icons.Weight
-import molecular.IconSecondary
-import molecular.TextBody1
+import icons.ArrowRight
+import icons.Weight
+import molecule.IconSecondary
+import molecule.TextBody1
 
 @Composable
 public fun MenuItem(

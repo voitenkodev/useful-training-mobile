@@ -16,14 +16,12 @@ kotlin {
                 implementation(projects.domain.authentication)
                 implementation(projects.common.utils)
                 implementation(projects.common.platformApi)
-                implementation(projects.common.designSystem)
                 implementation(projects.common.architectureComponent)
+                implementation(projects.designSystem.molecule)
+                implementation(projects.designSystem.components)
 
-                // Compose
                 implementation(compose.ui)
                 implementation(compose.foundation)
-
-                // Koin
                 implementation(libs.koin.core)
             }
         }

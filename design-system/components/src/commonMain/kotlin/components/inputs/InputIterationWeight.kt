@@ -9,7 +9,7 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
-import molecular.molecule.InputSecondary
+import molecule.InputSecondary
 
 @Composable
 public fun InputWeight(

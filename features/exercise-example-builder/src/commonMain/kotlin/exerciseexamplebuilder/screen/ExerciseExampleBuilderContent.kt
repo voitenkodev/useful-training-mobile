@@ -1,6 +1,5 @@
 package exerciseexamplebuilder.screen
 
-import Design
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -13,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import atom.Design
 import components.Error
 import components.Loading
 import components.chips.Chip
@@ -24,7 +24,7 @@ import exerciseexamplebuilder.state.ExerciseExample
 import exerciseexamplebuilder.state.Muscle
 import exerciseexamplebuilder.state.MuscleExerciseBundle
 import kotlinx.collections.immutable.ImmutableList
-import molecular.TextH4
+import molecule.TextH4
 
 @Composable
 internal fun ExerciseExampleBuilderContent(

@@ -18,8 +18,8 @@ import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.unit.dp
 import atom.Design
 import components.labels.AccentLabel
-import molecular.molecule.ButtonIconSecondary
-import molecular.molecule.InputPrimary
+import molecule.ButtonIconSecondary
+import molecule.InputPrimary
 
 @Composable
 public fun InputExerciseName(

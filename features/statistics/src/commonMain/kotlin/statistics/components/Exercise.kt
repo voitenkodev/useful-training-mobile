@@ -1,6 +1,5 @@
 package statistics.components
 
-import Design
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -18,9 +17,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import molecular.PaddingM
-import molecular.TextBody1
-import molecular.TextH4
+import atom.Design
+import molecule.PaddingM
+import molecule.TextBody1
+import molecule.TextH4
 import recomposeHighlighter
 import statistics.state.Exercise
 

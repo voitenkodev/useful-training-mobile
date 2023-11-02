@@ -1,6 +1,5 @@
-package molecular.molecule
+package molecule
 
-import atom.Design
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.runtime.Composable
@@ -8,6 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import atom.Design
 
 @Composable
 public fun Modifier.primaryBackground(): Modifier = this
@@ -40,6 +40,12 @@ public fun Modifier.accentCircleBackground(): Modifier = this
         shape = Design.shape.circleShape
     ).clip(
         shape = Design.shape.circleShape
+    )
+
+@Composable
+public fun Modifier.secondaryRoundBackground(): Modifier = this
+    .background(
+        color = Design.colors.secondary,
     )
 
 @Composable

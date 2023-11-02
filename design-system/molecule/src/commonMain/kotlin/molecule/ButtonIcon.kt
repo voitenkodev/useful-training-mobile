@@ -1,4 +1,4 @@
-package molecular.molecule
+package molecule
 
 import atom.Design
 import androidx.compose.foundation.background

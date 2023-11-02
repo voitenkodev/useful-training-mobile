@@ -1,7 +1,6 @@
 package trainings.components
 
 import DateTimeKtx
-import Design
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.core.tween
@@ -34,12 +33,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.unit.dp
+import atom.Design
 import kotlinx.collections.immutable.ImmutableList
-import molecular.PaddingM
-import molecular.Shadow
-import molecular.TextBody1
-import molecular.TextH1
-import molecular.TextH2
+import molecule.PaddingM
+import molecule.Shadow
+import molecule.TextBody1
+import molecule.TextH1
+import molecule.TextH2
 import platformTopInset
 import trainings.state.SelectableCalendar
 
