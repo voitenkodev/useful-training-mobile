@@ -2,10 +2,10 @@ import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
-import atomic.darkPalette
-import atomic.dp
-import atomic.shape
-import atomic.typography
+import atom.darkPalette
+import atom.dp
+import atom.shape
+import atom.typography
 import molecular.primaryBackground
 
 @Composable

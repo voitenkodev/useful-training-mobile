@@ -20,7 +20,7 @@ internal fun Header(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
 //            .background(Design.colors.secondary)
-            .platformTopInset(),
+            .platformTopInset()
     ) {
 
         PaddingM()

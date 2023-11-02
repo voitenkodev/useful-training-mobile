@@ -15,6 +15,7 @@ kotlin {
             dependencies {
                 implementation(projects.domain.authentication)
                 implementation(projects.common.utils)
+                implementation(projects.common.platformApi)
                 implementation(projects.common.designSystem)
                 implementation(projects.common.architectureComponent)
 

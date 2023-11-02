@@ -2,7 +2,6 @@ package components.inputs
 
 import Design
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.requiredWidth
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.runtime.Composable
@@ -15,12 +14,11 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
-import atomic.icons.Eye
-import atomic.icons.EyeOff
+import icons.Eye
+import icons.EyeOff
 import components.labels.InputLabel
 import molecular.ButtonIconSecondary
 import molecular.InputPrimary
-import molecular.reversedCircleBackground
 import molecular.secondaryDefaultBackground
 import recomposeHighlighter
 

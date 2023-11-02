@@ -1,9 +1,9 @@
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.staticCompositionLocalOf
-import atomic.Color
-import atomic.Dp
-import atomic.Shape
-import atomic.Typography
+import atom.Color
+import atom.Dp
+import atom.Shape
+import atom.Typography
 
 public object Design {
 

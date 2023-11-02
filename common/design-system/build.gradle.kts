@@ -13,12 +13,11 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
+                implementation(projects.designSystem.resources)
                 implementation(projects.common.utils)
-                implementation(projects.common.resources)
                 implementation(projects.common.composePlayer)
                 implementation(projects.common.platformApi)
 
-                // Compose
                 implementation(compose.ui)
                 implementation(compose.foundation)
                 implementation(compose.material)

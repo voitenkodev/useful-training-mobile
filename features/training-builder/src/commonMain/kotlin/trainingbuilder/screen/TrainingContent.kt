@@ -20,8 +20,8 @@ import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import atomic.icons.ArrowLeft
-import atomic.icons.Done
+import atom.icons.ArrowLeft
+import atom.icons.Done
 import components.Error
 import components.Loading
 import components.Popup

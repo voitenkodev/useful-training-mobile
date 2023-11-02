@@ -36,12 +36,17 @@ include(
     ":services:preferences",
 
     "common:design-system",
+
     "common:architecture-component",
     "common:utils",
     "common:platform-api",
     "common:compose-player",
-    "common:resources",
     "common:charts",
+
+    "design-system:atom",
+    "design-system:molecule",
+    "design-system:components",
+    "design-system:resources",
 
     "features:splash",
     "features:authentication",

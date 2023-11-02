@@ -9,7 +9,7 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import atomic.icons.ArrowRight
+import atom.icons.ArrowRight
 import molecular.ButtonIconPrimary
 import molecular.TextH2
 import recomposeHighlighter

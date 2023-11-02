@@ -14,9 +14,8 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(projects.common.platformApi)
-                implementation(projects.common.resources)
+                implementation(projects.designSystem.resources)
 
-                // Compose
                 implementation(compose.ui)
             }
         }

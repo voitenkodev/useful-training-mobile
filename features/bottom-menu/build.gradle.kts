@@ -15,6 +15,7 @@ kotlin {
             dependencies {
                 implementation(projects.common.designSystem)
                 implementation(projects.common.architectureComponent)
+                implementation(projects.common.platformApi)
 
                 // Compose
                 implementation(compose.ui)

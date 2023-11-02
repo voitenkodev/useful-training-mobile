@@ -10,8 +10,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
-import atomic.icons.ArrowRight
-import atomic.icons.Weight
+import atom.icons.ArrowRight
+import atom.icons.Weight
 import molecular.IconSecondary
 import molecular.TextBody1
 

@@ -16,6 +16,7 @@ kotlin {
                 implementation(projects.domain.exerciseExamples)
                 implementation(projects.common.utils)
                 implementation(projects.common.designSystem)
+                implementation(projects.common.platformApi)
                 implementation(projects.common.architectureComponent)
 
                 // Compose

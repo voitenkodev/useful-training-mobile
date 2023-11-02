@@ -17,6 +17,7 @@ kotlin {
                 implementation(projects.common.utils)
                 implementation(projects.common.designSystem)
                 implementation(projects.common.charts)
+                implementation(projects.common.platformApi)
                 implementation(projects.common.architectureComponent)
 
                 // Compose

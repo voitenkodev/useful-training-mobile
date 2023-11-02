@@ -15,8 +15,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import atomic.icons.HandWeight
-import atomic.icons.Weight
+import atom.icons.HandWeight
+import atom.icons.Weight
 import basic.BasicLineChart
 import kotlinx.collections.immutable.ImmutableList
 import molecular.IconSecondary

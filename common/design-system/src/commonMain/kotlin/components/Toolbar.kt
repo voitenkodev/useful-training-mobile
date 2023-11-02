@@ -3,7 +3,7 @@ package components
 import androidx.compose.foundation.layout.Row
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
-import atomic.icons.ArrowLeft
+import icons.ArrowLeft
 import molecular.ButtonIconToolbar
 import molecular.PaddingS
 import molecular.TextH1
