@@ -1,6 +1,9 @@
 package authentication.screen
 
 import PlatformBackHandler
+import androidx.compose.animation.core.LinearOutSlowInEasing
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -23,11 +26,12 @@ import components.inputs.InputEmail
 import components.inputs.InputPassword
 import components.overlay.AlphaOverlay
 import components.roots.Root
+import components.states.animateAlignmentAsState
+import components.states.keyboardAsBoolean
 import components.states.keyboardFloatAsState
 import molecule.ButtonPrimary
 import molecule.PaddingM
 import molecule.PaddingS
-import molecule.PaddingWeight
 import molecule.PaddingXL
 import molecule.TextBody1
 import molecule.TextH1
@@ -92,7 +96,7 @@ private fun Content(
 
     val keyboardFloatAsState = keyboardFloatAsState(
         initialValue = 1f,
-        targetValue = 0.1f
+        targetValue = 0f
     )
 
     Root(
@@ -107,7 +111,7 @@ private fun Content(
             modifier = Modifier
                 .fillMaxSize()
                 .platformInsets()
-                .paddingM(),
+                .paddingM()
         ) {
 
             PaddingXL()
@@ -119,7 +123,7 @@ private fun Content(
             )
 
             TextBody1(
-                provideText = { "Good to see you again, enter your details\nbelow to continue exercises." },
+                provideText = { "Good to see you again, enter your details\nbelow to continue trainings." },
             )
 
             PaddingXL()
@@ -140,18 +144,26 @@ private fun Content(
 
             PaddingM()
 
-            PaddingWeight(value = keyboardFloatAsState.value)
-
-            ButtonPrimary(
-                modifier = Modifier
-                    .width(200.dp)
-                    .align(Alignment.CenterHorizontally),
-                text = "Sign In",
-                onClick = loginProvider,
-                enabled = email.isNotBlank() && password.isNotBlank()
+            val align = animateAlignmentAsState(
+                targetAlignment = if (keyboardAsBoolean()) Alignment.TopCenter else Alignment.BottomCenter,
+                animationSpec = tween(
+                    durationMillis = 400,
+                    easing = LinearOutSlowInEasing
+                )
             )
 
-            PaddingWeight(value = 1 - keyboardFloatAsState.value)
+            Box(
+                modifier = Modifier.fillMaxWidth().weight(1f),
+                contentAlignment = align.value
+            ) {
+
+                ButtonPrimary(
+                    modifier = Modifier.width(200.dp),
+                    text = "Sign In",
+                    onClick = loginProvider,
+                    enabled = email.isNotBlank() && password.isNotBlank()
+                )
+            }
 
             PaddingS()
 

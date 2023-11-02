@@ -19,7 +19,7 @@ public fun keyboardFloatAsState(
     // Threshold on change between two input fields (doesn't have sense, waiting for JC fix)
 
     val threshold = 0
-    val isImeVisible = WindowInsets.ime.getBottom(LocalDensity.current) > 0
+    val isImeVisible = keyboardAsBoolean()
     val value = if (isImeVisible) targetValue else initialValue
 
     return animateFloatAsState(
@@ -30,4 +30,9 @@ public fun keyboardFloatAsState(
             easing = LinearOutSlowInEasing
         )
     )
+}
+
+@Composable
+public fun keyboardAsBoolean(): Boolean {
+    return WindowInsets.ime.getBottom(LocalDensity.current) > 0
 }
