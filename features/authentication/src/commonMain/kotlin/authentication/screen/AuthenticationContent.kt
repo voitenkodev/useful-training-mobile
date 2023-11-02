@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import authentication.state.TokenStatus
 import components.Error
 import components.Loading
+import components.backgrounds.SpaceBackground
 import components.buttons.ButtonQuestion
 import components.inputs.InputEmail
 import components.inputs.InputPassword
@@ -99,6 +100,8 @@ private fun Content(
         error = { Error(message = error, close = clearError) },
         back = { PlatformBackHandler(backProvider) }
     ) {
+
+        SpaceBackground()
 
         Column(
             modifier = Modifier
