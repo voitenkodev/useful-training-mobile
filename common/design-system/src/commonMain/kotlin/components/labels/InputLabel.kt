@@ -1,26 +1,25 @@
 package components.labels
 
 import Design
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.dp
 import molecular.TextBody2
-import recomposeHighlighter
 
 @Composable
 public fun InputLabel(
     modifier: Modifier = Modifier,
-    provideText: () -> String
+    provideText: () -> String,
+    textAlign: TextAlign? = null
 ) {
     TextBody2(
-        modifier = modifier
-            .width(72.dp)
-            .recomposeHighlighter(),
+        modifier = modifier.padding(Design.dp.paddingXS),
         provideText = provideText,
         color = Design.colors.caption,
         maxLines = 1,
-        overflow = TextOverflow.Ellipsis
+        overflow = TextOverflow.Ellipsis,
+        textAlign = textAlign
     )
 }

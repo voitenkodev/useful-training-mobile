@@ -2,13 +2,11 @@ package authentication.screen
 
 import Design
 import PlatformBackHandler
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -17,31 +15,30 @@ import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.unit.dp
 import authentication.state.TokenStatus
 import components.Error
 import components.Loading
-import components.backgrounds.BackgroundIntro
-import components.backgrounds.BottomShadowBackground
-import components.backgrounds.BrandGradientBottomEnd
-import components.backgrounds.BrandGradientCenterStart
 import components.buttons.ButtonQuestion
 import components.inputs.InputEmail
 import components.inputs.InputPassword
 import components.overlay.AlphaOverlay
 import components.roots.Root
 import components.states.keyboardFloatAsState
-import molecular.ButtonDefault
-import molecular.PaddingXL
+import molecular.ButtonPrimary
 import molecular.PaddingM
+import molecular.PaddingS
+import molecular.PaddingWeight
+import molecular.PaddingXL
 import molecular.TextBody1
 import molecular.TextH1
 import platformInsets
-import recomposeHighlighter
 
 @Composable
 internal fun AuthenticationContent(
     vm: AuthenticationViewModel,
     toTrainings: () -> Unit,
+    toRegistration: () -> Unit,
     back: () -> Unit
 ) {
 
@@ -57,10 +54,10 @@ internal fun AuthenticationContent(
         clearError = vm::clearError,
         back = back,
         login = vm::login,
-        registration = vm::registration,
-        email = { state.email },
+        registration = toRegistration,
+        email = state.email,
         updateEmail = vm::updateEmail,
-        password = { state.password },
+        password = state.password,
         updatePassword = vm::updatePassword
     )
 }
@@ -75,9 +72,9 @@ private fun Content(
     login: () -> Unit,
     registration: () -> Unit,
 
-    email: () -> String,
+    email: String,
     updateEmail: (String) -> Unit,
-    password: () -> String,
+    password: String,
     updatePassword: (String) -> Unit
 ) {
 
@@ -95,25 +92,14 @@ private fun Content(
 
     val keyboardFloatAsState = keyboardFloatAsState(
         initialValue = 1f,
-        targetValue = 0.3f
+        targetValue = 0.1f
     )
 
     Root(
         loading = { Loading(loading) },
         error = { Error(message = error, close = clearError) },
-        back = { PlatformBackHandler(backProvider) },
+        back = { PlatformBackHandler(backProvider) }
     ) {
-
-        Box(
-            Modifier
-                .fillMaxWidth()
-                .aspectRatio(0.7f)
-        ) {
-
-            BackgroundIntro(modifier = Modifier.fillMaxSize())
-
-            BottomShadowBackground()
-        }
 
         Column(
             modifier = Modifier
@@ -122,67 +108,54 @@ private fun Content(
                 .padding(Design.dp.paddingM),
         ) {
 
-            Spacer(Modifier.weight(keyboardFloatAsState.value))
+            PaddingXL()
+
+            PaddingXL()
 
             TextH1(
                 provideText = { "WELCOME BACK" }
             )
 
             TextBody1(
-                provideText = { "Good to see you again, enter your details\nbelow to continue exercises" },
-                color = Design.colors.caption
+                provideText = { "Good to see you again, enter your details\nbelow to continue exercises." },
             )
 
             PaddingXL()
 
             InputEmail(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .recomposeHighlighter(),
-                provideValue = email,
+                modifier = Modifier.fillMaxWidth(),
+                provideValue = { email },
                 onValueChange = updateEmail
             )
 
             PaddingM()
 
             InputPassword(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .recomposeHighlighter(),
-                provideValue = password,
+                modifier = Modifier.fillMaxWidth(),
+                provideValue = { password },
                 onValueChange = updatePassword
             )
 
-            PaddingXL()
+            PaddingWeight(value = keyboardFloatAsState.value)
 
-            ButtonDefault(
+            ButtonPrimary(
                 modifier = Modifier
-                    .fillMaxWidth(0.7f)
-                    .align(Alignment.CenterHorizontally)
-                    .recomposeHighlighter(),
-                text = "SIGN IN",
-                onClick = loginProvider
+                    .width(200.dp)
+                    .align(Alignment.CenterHorizontally),
+                text = "Sign In",
+                onClick = loginProvider,
+                enabled = email.isNotBlank() && password.isNotBlank()
             )
 
-            Spacer(Modifier.weight(1f))
+            PaddingS()
 
             ButtonQuestion(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .recomposeHighlighter(),
+                modifier = Modifier.fillMaxWidth(),
                 question = "Don't have an account yet?",
                 answer = "Join Us!",
                 onClick = registrationProvider
             )
         }
-
-        BrandGradientCenterStart(
-            color = Design.colors.accentSecondary
-        )
-
-        BrandGradientBottomEnd(
-            color = Design.colors.accentSecondary
-        )
 
         AlphaOverlay(
             modifier = Modifier.fillMaxSize()

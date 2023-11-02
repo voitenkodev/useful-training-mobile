@@ -45,6 +45,7 @@ include(
 
     "features:splash",
     "features:authentication",
+    "features:registration",
     "features:bottom-menu",
     "features:trainings",
     "features:statistics",

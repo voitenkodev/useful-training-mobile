@@ -55,6 +55,34 @@ public fun ButtonIconPrimary(
 }
 
 @Composable
+public fun ButtonIconToolbar(
+    modifier: Modifier = Modifier,
+    imageVector: ImageVector,
+    enabled: Boolean = true,
+    contentColor: Color = Design.colors.content,
+    onClick: () -> Unit,
+) {
+    IconButton(
+        modifier = modifier
+            .requiredSize(Design.dp.componentS)
+            .alpha(if (enabled) 1f else 0.5f)
+            .clip(Design.shape.circleShape),
+        onClick = onClick,
+        enabled = enabled,
+        content = {
+            Icon(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(Design.dp.paddingS),
+                tint = contentColor,
+                imageVector = imageVector,
+                contentDescription = null
+            )
+        }
+    )
+}
+
+@Composable
 public fun ButtonIconSecondary(
     modifier: Modifier = Modifier,
     imageVector: ImageVector,

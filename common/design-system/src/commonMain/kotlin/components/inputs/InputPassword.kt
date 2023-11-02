@@ -2,6 +2,8 @@ package components.inputs
 
 import Design
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredWidth
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -12,12 +14,14 @@ import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.unit.dp
 import atomic.icons.Eye
 import atomic.icons.EyeOff
 import components.labels.InputLabel
 import molecular.ButtonIconSecondary
 import molecular.InputPrimary
 import molecular.reversedCircleBackground
+import molecular.secondaryDefaultBackground
 import recomposeHighlighter
 
 @Composable
@@ -30,16 +34,17 @@ public fun InputPassword(
 
     InputPrimary(
         modifier = modifier
-            .reversedCircleBackground()
+            .secondaryDefaultBackground()
             .padding(horizontal = Design.dp.paddingM)
             .recomposeHighlighter(),
         provideValue = provideValue,
         onValueChange = onValueChange,
-        color = Design.colors.primary,
+        color = Design.colors.content,
         visualTransformation = if (passwordVisibility.value) VisualTransformation.None else PasswordVisualTransformation(),
         leading = {
             InputLabel(
-                modifier = Modifier.recomposeHighlighter(),
+                modifier = Modifier
+                    .width(72.dp),
                 provideText = { "Password" }
             )
         },

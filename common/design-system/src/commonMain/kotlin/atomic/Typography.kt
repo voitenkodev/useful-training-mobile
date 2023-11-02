@@ -53,7 +53,8 @@ internal fun typography() = Typography(
         fontSize = 16.sp,
         fontWeight = FontWeight.Normal,
         fontStyle = FontStyle.Normal,
-        fontFamily = FontFamily.Default
+        fontFamily = FontFamily.Default,
+        lineHeight = 20.sp
     ),
     Body2 = TextStyle(
         fontSize = 14.sp,
@@ -95,6 +96,5 @@ public data class Typography(
 
     val PrimaryButton: TextStyle,
     val SecondaryButton: TextStyle,
-    val TertiaryButton: TextStyle,
+    val TertiaryButton: TextStyle
 )
-

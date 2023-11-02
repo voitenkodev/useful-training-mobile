@@ -9,7 +9,6 @@ import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -22,16 +21,14 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.unit.dp
 import components.labels.InputLabel
 import molecular.ButtonIconSecondary
 import molecular.InputPrimary
 import molecular.reversedCircleBackground
-import molecular.secondaryDefaultBackground
 import recomposeHighlighter
 
 @Composable
-public fun InputEmail(
+public fun InputName(
     modifier: Modifier = Modifier,
     provideValue: () -> String,
     onValueChange: (String) -> Unit,
@@ -41,12 +38,12 @@ public fun InputEmail(
 
     InputPrimary(
         modifier = modifier
-            .secondaryDefaultBackground()
+            .reversedCircleBackground()
             .padding(horizontal = Design.dp.paddingM)
             .recomposeHighlighter(),
         provideValue = provideValue,
         onValueChange = onValueChange,
-        color = Design.colors.content,
+        color = Design.colors.primary,
         trailing = {
 
             AnimatedVisibility(
@@ -67,8 +64,8 @@ public fun InputEmail(
         },
         leading = {
             InputLabel(
-                modifier = Modifier.width(72.dp),
-                provideText = { "Email" }
+                modifier = Modifier.recomposeHighlighter(),
+                provideText = { "Name" }
             )
         },
         maxLines = 1,
@@ -76,7 +73,7 @@ public fun InputEmail(
         keyboardOptions = KeyboardOptions(
             capitalization = KeyboardCapitalization.None,
             imeAction = ImeAction.Next,
-            keyboardType = KeyboardType.Email,
+            keyboardType = KeyboardType.Text,
         )
     )
 }

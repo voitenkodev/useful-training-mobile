@@ -1,9 +1,9 @@
-package authentication.screen
+package registration.screen
 
 import AuthenticationRepository
 import ViewModel
-import authentication.state.State
-import authentication.state.TokenStatus
+import registration.state.State
+import registration.state.TokenStatus
 import isEmailValid
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.update
 import org.koin.core.component.inject
 
-internal class AuthenticationViewModel : ViewModel() {
+internal class RegistrationViewModel : ViewModel() {
 
     private val api by inject<AuthenticationRepository>()
 
@@ -40,6 +40,21 @@ internal class AuthenticationViewModel : ViewModel() {
 
         if (state.value.error == null) {
             api.login(state.value.email, state.value.password)
+                .onStart {
+                    _state.update { it.copy(loading = true) }
+                }.onEach {
+                    _state.update { it.copy(loading = false) }
+                }.catch { t ->
+                    _state.update { it.copy(loading = false, error = t.message) }
+                }.launchIn(this)
+        }
+    }
+
+    fun registration() {
+        _state.update { it.validate() }
+
+        if (state.value.error == null) {
+            api.registration(state.value.email, state.value.password)
                 .onStart {
                     _state.update { it.copy(loading = true) }
                 }.onEach {

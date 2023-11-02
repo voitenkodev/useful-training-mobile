@@ -4,7 +4,6 @@ import Design
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.ButtonColors
 import androidx.compose.material.ButtonDefaults
@@ -21,7 +20,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 
 @Composable
-public fun ButtonDefault(
+public fun ButtonPrimary(
     modifier: Modifier = Modifier,
     text: String,
     enabled: Boolean = true,
@@ -30,14 +29,15 @@ public fun ButtonDefault(
     onClick: () -> Unit,
 ) {
     Button(
-        modifier = modifier.requiredHeight(Design.dp.componentM),
+        modifier = modifier,
+        contentPadding = PaddingValues(horizontal = Design.dp.paddingXL + Design.dp.paddingXL, vertical = Design.dp.paddingM),
         text = text,
         textStyle = Design.typography.PrimaryButton.copy(color = textColor),
         enabled = enabled,
         onClick = onClick,
         colors = ButtonDefaults.buttonColors(
             backgroundColor = backgroundColor,
-            disabledBackgroundColor = Design.colors.caption,
+            disabledBackgroundColor = Design.colors.caption.copy(alpha = 0.1f),
         ),
         shape = Design.shape.circleShape,
         borderStroke = null,
