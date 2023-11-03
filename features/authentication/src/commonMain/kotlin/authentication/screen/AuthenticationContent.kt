@@ -15,6 +15,7 @@ import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.text.font.FontWeight
 import authentication.state.TokenStatus
 import components.Error
 import components.Loading
@@ -26,8 +27,8 @@ import components.overlay.AlphaOverlay
 import components.roots.Root
 import components.states.animateAlignmentAsState
 import components.states.keyboardAsBoolean
-import components.states.keyboardFloatAsState
 import molecule.ButtonPrimary
+import molecule.PaddingL
 import molecule.PaddingM
 import molecule.PaddingS
 import molecule.PaddingXL
@@ -92,11 +93,6 @@ private fun Content(
     }
     val backProvider by rememberUpdatedState(back)
 
-    val keyboardFloatAsState = keyboardFloatAsState(
-        initialValue = 1f,
-        targetValue = 0f
-    )
-
     Root(
         loading = { Loading(loading) },
         error = { Error(message = error, close = clearError) },
@@ -109,7 +105,8 @@ private fun Content(
             modifier = Modifier
                 .fillMaxSize()
                 .platformInsets()
-                .paddingM()
+                .paddingM(),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
             PaddingXL()
@@ -117,14 +114,17 @@ private fun Content(
             PaddingXL()
 
             TextH1(
-                provideText = { "WELCOME BACK" }
+                provideText = { "Useful Training" }
             )
 
             TextBody1(
-                provideText = { "Good to see you again, enter your details\nbelow to continue trainings." },
+                provideText = { "Take your power-up" },
+                fontWeight = FontWeight.Medium
             )
 
             PaddingXL()
+
+            PaddingL()
 
             InputEmail(
                 modifier = Modifier.fillMaxWidth(),
@@ -151,12 +151,11 @@ private fun Content(
             )
 
             Box(
-                modifier = Modifier.fillMaxWidth().weight(1f),
+                modifier = Modifier.weight(1f),
                 contentAlignment = align.value
             ) {
 
                 ButtonPrimary(
-                    modifier = Modifier,
                     text = "Sign In",
                     onClick = loginProvider,
                     enabled = email.isNotBlank() && password.isNotBlank(),

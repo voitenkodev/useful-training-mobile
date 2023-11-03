@@ -73,7 +73,7 @@ public fun SpaceBackground(modifier: Modifier = Modifier) {
         val height = with(density) { maxHeight.toPx() }
         val stars = remember {
             buildList {
-                repeat(1000) {
+                repeat(500) {
                     val star = Star(
                         x = (Random.nextFloat() * width),
                         y = (Random.nextFloat() * height),
@@ -97,7 +97,7 @@ public fun SpaceBackground(modifier: Modifier = Modifier) {
                     star.y += deltaY
 
                     drawCircle(
-                        color = Color.White.copy(alpha = 0.5f),
+                        color = Color.White.copy(alpha = 0.3f),
                         center = Offset(star.x, star.y),
                         radius = 2f,
                         alpha = star.alpha,
