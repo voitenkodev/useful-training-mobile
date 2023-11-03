@@ -19,7 +19,8 @@ import androidx.compose.ui.text.font.FontWeight
 import authentication.state.TokenStatus
 import components.Error
 import components.Loading
-import components.backgrounds.SpaceBackground
+import components.brand.SpaceBackground
+import components.brand.Alien
 import components.buttons.ButtonQuestion
 import components.inputs.InputEmail
 import components.inputs.InputPassword
@@ -109,12 +110,14 @@ private fun Content(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-            PaddingXL()
+            PaddingL()
 
-            PaddingXL()
+            Alien()
+
+            PaddingM()
 
             TextH1(
-                provideText = { "Useful Training" }
+                provideText = { "Space Workout" }
             )
 
             TextBody1(
@@ -123,8 +126,6 @@ private fun Content(
             )
 
             PaddingXL()
-
-            PaddingL()
 
             InputEmail(
                 modifier = Modifier.fillMaxWidth(),

@@ -1,4 +1,4 @@
-package components.backgrounds
+package components.brand
 
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
@@ -8,8 +8,7 @@ import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.BoxWithConstraints
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -63,11 +62,8 @@ public fun SpaceBackground(modifier: Modifier = Modifier) {
         animationController.value = true
     }
 
-    BoxWithConstraints(
-        modifier = modifier
-            .fillMaxWidth()
-            .fillMaxHeight(),
-    ) {
+    BoxWithConstraints(modifier = modifier.fillMaxSize()) {
+
         val density = LocalDensity.current
         val width = with(density) { maxWidth.toPx() }
         val height = with(density) { maxHeight.toPx() }
@@ -83,11 +79,8 @@ public fun SpaceBackground(modifier: Modifier = Modifier) {
                 }
             }
         }
-        Canvas(
-            modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight()
-        ) {
+        Canvas(modifier = Modifier.fillMaxSize()) {
+
             scale(scale) {
                 for (star in stars) {
                     star.update(infinitelyAnimatedFloat.value)
