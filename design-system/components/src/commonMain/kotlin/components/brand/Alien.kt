@@ -24,11 +24,11 @@ import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
 import kotlin.random.Random
 
-private enum class AlienAnimationTargetState { INITIAL, STARTED, FINISHED }
+private enum class AlienAnimationState { INITIAL, STARTED, FINISHED }
 
 @Composable
 public fun Alien() {
-    val animController = remember { mutableStateOf(AlienAnimationTargetState.INITIAL) }
+    val animController = remember { mutableStateOf(AlienAnimationState.INITIAL) }
     val customEasing = CubicBezierEasing(0.30f, 1f, 0.72f, 1f)
 
     val levitationX = remember { Animatable(0f) }
@@ -46,13 +46,13 @@ public fun Alien() {
     )
 
     LaunchedEffect(Unit) {
-        animController.value = AlienAnimationTargetState.STARTED
+        animController.value = AlienAnimationState.STARTED
         delay(1300)
         appear.animateTo(
             targetValue = 0f,
             animationSpec = tween(durationMillis = 2500, easing = customEasing)
         )
-        animController.value = AlienAnimationTargetState.FINISHED
+        animController.value = AlienAnimationState.FINISHED
     }
 
     LaunchedEffect(animController.value) {

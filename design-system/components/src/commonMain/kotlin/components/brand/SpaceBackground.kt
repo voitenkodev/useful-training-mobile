@@ -2,7 +2,6 @@ package components.brand
 
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
-import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
@@ -10,16 +9,13 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.drawscope.scale
 import androidx.compose.ui.platform.LocalDensity
 import kotlin.math.PI
+import kotlin.math.atan2
 import kotlin.math.cos
 import kotlin.math.sin
 import kotlin.random.Random
@@ -27,7 +23,8 @@ import kotlin.random.Random
 private data class Star(
     var x: Float,
     var y: Float,
-    var alpha: Float
+    var alpha: Float,
+    var velocity: Float
 ) {
     private val initialAlpha = alpha
 
@@ -38,10 +35,18 @@ private data class Star(
     }
 }
 
-@Composable
-public fun SpaceBackground(modifier: Modifier = Modifier) {
+public enum class SpaceBackgroundAnimationState {
+    INITIAL,
+    DEFAULT_INFINITY,
+    DEFAULT_INSIDE,
+    FINISHED
+}
 
-    val animationController = remember { mutableStateOf(false) }
+@Composable
+public fun SpaceBackground(
+    modifier: Modifier = Modifier,
+    animateStars: Boolean = true
+) {
 
     val infinitelyAnimatedFloat = rememberInfiniteTransition().animateFloat(
         initialValue = 0f,
@@ -52,36 +57,31 @@ public fun SpaceBackground(modifier: Modifier = Modifier) {
         )
     )
 
-    val scale by animateFloatAsState(
-        targetValue = if (animationController.value) 1.0f else 1.1f,
-        animationSpec = tween(durationMillis = 3000)
-    )
-
-    LaunchedEffect(scale) {
-        animationController.value = true
-    }
-
     BoxWithConstraints(modifier = modifier.fillMaxSize()) {
 
         val density = LocalDensity.current
         val width = with(density) { maxWidth.toPx() }
         val height = with(density) { maxHeight.toPx() }
+        val centerX = width / 2f
+        val centerY = height / 2f
+
         val stars = remember {
             buildList {
                 repeat(500) {
                     val star = Star(
                         x = (Random.nextFloat() * width),
                         y = (Random.nextFloat() * height),
-                        alpha = (Random.nextFloat() * 2.0 * PI).toFloat()
+                        alpha = (Random.nextFloat() * 2.0 * PI).toFloat(),
+                        velocity = (Random.nextFloat() * 2f + 1f)
                     )
                     add(star)
                 }
             }
         }
-        Canvas(modifier = Modifier.fillMaxSize()) {
 
-            scale(scale) {
-                for (star in stars) {
+        Canvas(modifier = Modifier.fillMaxSize()) {
+            for (star in stars) {
+                if (animateStars) {
                     star.update(infinitelyAnimatedFloat.value)
                     val deltaX = (star.alpha * cos(star.alpha))
                     val deltaY = (star.alpha * sin(star.alpha))
@@ -107,6 +107,33 @@ public fun SpaceBackground(modifier: Modifier = Modifier) {
                     if (star.y > height) {
                         star.y = 0f
                     }
+                } else {
+                    star.update(infinitelyAnimatedFloat.value)
+
+                    // From outside to center
+                    // val angle = atan2(star.y - height / 2f, star.x - width / 2f)
+
+                    //From Center to outside
+                    val angle = atan2(star.y - centerY, star.x - centerX)
+
+                    val distance = star.velocity/* * 0.1f*/
+                    star.x -= distance * cos(angle)
+                    star.y -= distance * sin(angle)
+
+                    drawCircle(
+                        color = Color.White.copy(alpha = 0.3f),
+                        center = Offset(star.x, star.y),
+                        radius = 2f,
+                        alpha = star.alpha
+                    )
+
+                    // Moving Star back to screen
+                    if (star.x < 0 || star.x > width || star.y < 0 || star.y > height) {
+                        star.x = width / 2f
+                        star.y = height / 2f
+                    }
+
+                    star.update(infinitelyAnimatedFloat.value)
                 }
             }
         }
