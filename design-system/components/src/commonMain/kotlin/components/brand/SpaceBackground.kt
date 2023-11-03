@@ -27,7 +27,7 @@ import kotlin.random.Random
 private data class Star(
     var x: Float,
     var y: Float,
-    var alpha: Float,
+    var alpha: Float
 ) {
     private val initialAlpha = alpha
 
@@ -43,8 +43,7 @@ public fun SpaceBackground(modifier: Modifier = Modifier) {
 
     val animationController = remember { mutableStateOf(false) }
 
-    val infiniteTransition = rememberInfiniteTransition()
-    val infinitelyAnimatedFloat = infiniteTransition.animateFloat(
+    val infinitelyAnimatedFloat = rememberInfiniteTransition().animateFloat(
         initialValue = 0f,
         targetValue = 2f * PI.toFloat(),
         animationSpec = infiniteRepeatable(

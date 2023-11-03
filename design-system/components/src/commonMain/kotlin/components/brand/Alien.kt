@@ -61,7 +61,7 @@ public fun Alien() {
             levitationX.animateTo(
                 targetValue = randomX.toFloat(),
                 animationSpec = tween(
-                    durationMillis = Random.nextInt(1300, 2400),
+                    durationMillis = Random.nextInt(2300, 4400),
                     easing = FastOutSlowInEasing
                 )
             )
@@ -74,7 +74,7 @@ public fun Alien() {
             levitationY.animateTo(
                 targetValue = randomY.toFloat(),
                 animationSpec = tween(
-                    durationMillis = Random.nextInt(1300, 2400),
+                    durationMillis = Random.nextInt(2300, 4400),
                     easing = FastOutSlowInEasing
                 )
             )
@@ -87,7 +87,7 @@ public fun Alien() {
             rotation.animateTo(
                 targetValue = randomRotation,
                 animationSpec = tween(
-                    durationMillis = Random.nextInt(1300, 2400),
+                    durationMillis = Random.nextInt(2300, 4400),
                     easing = FastOutSlowInEasing
                 )
             )
