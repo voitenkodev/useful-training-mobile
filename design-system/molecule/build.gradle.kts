@@ -14,6 +14,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(projects.designSystem.atom)
+                implementation(projects.designSystem.resources)
 
                 implementation(compose.ui)
                 implementation(compose.material)

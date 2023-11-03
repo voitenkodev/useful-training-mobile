@@ -49,7 +49,7 @@ public fun SpaceBackground(modifier: Modifier = Modifier) {
         initialValue = 0f,
         targetValue = 2f * PI.toFloat(),
         animationSpec = infiniteRepeatable(
-            animation = tween(10000),
+            animation = tween(5000),
             repeatMode = RepeatMode.Restart
         )
     )
@@ -97,7 +97,7 @@ public fun SpaceBackground(modifier: Modifier = Modifier) {
                     star.y += deltaY
 
                     drawCircle(
-                        color = Color.White.copy(alpha = 0.8f),
+                        color = Color.White.copy(alpha = 0.5f),
                         center = Offset(star.x, star.y),
                         radius = 2f,
                         alpha = star.alpha,

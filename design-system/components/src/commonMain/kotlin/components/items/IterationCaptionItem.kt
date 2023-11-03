@@ -23,7 +23,7 @@ public fun IterationCaptionItem() {
     ) {
         TextBody2(
             modifier = Modifier
-                .height(Design.dp.componentM)
+                .height(Design.dp.componentL)
                 .fillMaxWidth()
                 .wrapContentHeight(),
             provideText = { "Weight" },
@@ -35,7 +35,7 @@ public fun IterationCaptionItem() {
 
         TextBody2(
             modifier = Modifier
-                .height(Design.dp.componentM)
+                .height(Design.dp.componentL)
                 .fillMaxWidth()
                 .wrapContentHeight(),
             provideText = { "Repeat" },

@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -16,7 +15,6 @@ import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.unit.dp
 import authentication.state.TokenStatus
 import components.Error
 import components.Loading
@@ -158,10 +156,11 @@ private fun Content(
             ) {
 
                 ButtonPrimary(
-                    modifier = Modifier.width(200.dp),
+                    modifier = Modifier,
                     text = "Sign In",
                     onClick = loginProvider,
-                    enabled = email.isNotBlank() && password.isNotBlank()
+                    enabled = email.isNotBlank() && password.isNotBlank(),
+                    loading = loading()
                 )
             }
 

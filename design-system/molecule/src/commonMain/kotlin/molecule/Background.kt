@@ -50,11 +50,8 @@ public fun Modifier.secondaryRoundBackground(): Modifier = this
 
 @Composable
 public fun Modifier.secondaryDefaultBackground(): Modifier = this
-    .border(
-        color = Design.colors.white5,
-        width = 1.dp,
-        shape = Design.shape.default
-    ).background(
+    .borderDefaultPrimary()
+    .background(
         color = Design.colors.secondary,
         shape = Design.shape.default
     ).clip(
@@ -63,11 +60,8 @@ public fun Modifier.secondaryDefaultBackground(): Modifier = this
 
 @Composable
 public fun Modifier.secondarySmallBackground(): Modifier = this
-    .border(
-        color = Design.colors.white5,
-        width = 1.dp,
-        shape = Design.shape.small
-    ).background(
+    .borderSmallPrimary()
+    .background(
         color = Design.colors.secondary,
         shape = Design.shape.small
     ).clip(
@@ -104,11 +98,8 @@ public fun Modifier.reversedRoundBackground(): Modifier = this
 
 @Composable
 public fun Modifier.white5CircleBackground(): Modifier = this
-    .border(
-        color = Design.colors.white5,
-        width = 1.dp,
-        shape = Design.shape.circleShape
-    ).background(
+    .borderCirclePrimary()
+    .background(
         color = Design.colors.white5,
         shape = Design.shape.circleShape
     ).clip(

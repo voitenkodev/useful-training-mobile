@@ -28,12 +28,8 @@ public fun IconPrimary(
 ) {
     IconButton(
         modifier = modifier
-            .border(
-                color = Design.colors.white5,
-                width = 0.5.dp,
-                shape = Design.shape.circleShape
-            )
-            .requiredSize(Design.dp.componentM)
+            .borderCirclePrimary()
+            .requiredSize(Design.dp.componentL)
             .alpha(if (enabled) 1f else 0.5f)
             .background(
                 color = backgroundColor,

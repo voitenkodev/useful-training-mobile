@@ -65,7 +65,7 @@ internal fun Header(
 
         Box(
             modifier = Modifier
-                .height(Design.dp.componentM)
+                .height(Design.dp.componentL)
                 .fillMaxWidth(),
             contentAlignment = Alignment.CenterStart
         ) {

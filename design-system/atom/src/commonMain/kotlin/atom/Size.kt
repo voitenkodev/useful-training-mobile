@@ -10,7 +10,8 @@ internal fun dp() = Dp(
     paddingL = 24.dp,
     paddingXL = 32.dp,
     componentS = 42.dp,
-    componentM = 56.dp,
+    componentM = 50.dp,
+    componentL = 56.dp
 )
 
 public data class Dp(
@@ -21,4 +22,5 @@ public data class Dp(
     val paddingXL: Dp,
     val componentS: Dp,
     val componentM: Dp,
+    val componentL: Dp
 )

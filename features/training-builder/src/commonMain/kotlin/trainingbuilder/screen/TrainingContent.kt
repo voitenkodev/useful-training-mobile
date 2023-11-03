@@ -155,7 +155,7 @@ private fun Content(
         header = {
             Row {
                 ButtonIconSecondary(
-                    modifier = Modifier.size(Design.dp.componentM),
+                    modifier = Modifier.size(Design.dp.componentL),
                     imageVector = ArrowLeft,
                     onClick = openExitScreenPopupProvider
                 )
@@ -163,7 +163,7 @@ private fun Content(
                 Spacer(Modifier.weight(1f))
 
                 ButtonIconSecondary(
-                    modifier = Modifier.size(Design.dp.componentM),
+                    modifier = Modifier.size(Design.dp.componentL),
                     imageVector = Done,
                     onClick = saveTrainingProvider
                 )
@@ -212,7 +212,10 @@ private fun NewExercise(
         modifier = modifier
             .fillMaxWidth()
             .height(128.dp)
-            .border(width = 1.dp, shape = Design.shape.default, color = Design.colors.accentPrimary)
+            .border(
+                width = 1.dp,
+                shape = Design.shape.default, color = Design.colors.accentPrimary
+            )
             .clickable(onClick = onClick)
             .recomposeHighlighter(),
         content = {
