@@ -19,7 +19,7 @@ import androidx.compose.ui.text.font.FontWeight
 import authentication.state.TokenStatus
 import components.Error
 import components.Loading
-import components.brand.Alien
+import brandartifacts.Alien
 import components.buttons.ButtonQuestion
 import components.inputs.InputEmail
 import components.inputs.InputPassword

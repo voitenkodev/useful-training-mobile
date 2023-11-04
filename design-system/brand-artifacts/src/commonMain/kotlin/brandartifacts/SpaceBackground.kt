@@ -1,4 +1,4 @@
-package components.brand
+package brandartifacts
 
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat

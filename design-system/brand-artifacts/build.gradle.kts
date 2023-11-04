@@ -7,15 +7,13 @@ plugins {
 apply(from = "../../config/gradle/build-scripts/kotlin.gradle")
 apply(from = "../../config/gradle/build-scripts/android.gradle")
 
-android { namespace = "com.voitenko.usefultraining.designsystem.atom" }
+android { namespace = "com.voitenko.usefultraining.designsystem.brandartifacts" }
 
 kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
                 implementation(projects.designSystem.resources)
-                implementation(projects.designSystem.brandArtifacts)
-
 
                 implementation(compose.ui)
                 implementation(compose.material)

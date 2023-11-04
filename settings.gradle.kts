@@ -45,6 +45,7 @@ include(
     "design-system:molecule",
     "design-system:components",
     "design-system:resources",
+    "design-system:brand-artifacts",
 
     "features:splash",
     "features:authentication",

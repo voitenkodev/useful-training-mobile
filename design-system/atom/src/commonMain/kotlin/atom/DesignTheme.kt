@@ -1,10 +1,10 @@
 package atom
 
-import androidx.compose.foundation.background
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
+import brandartifacts.SpaceBackground
 
 @Composable
 public fun DesignTheme(
@@ -26,9 +26,12 @@ public fun DesignTheme(
 
     content = {
         Surface(
-            modifier = Modifier.background(Design.colors.primary).then(modifier),
+            modifier = Modifier.then(modifier),
             color = Design.colors.primary,
-            content = content
+            content = {
+                SpaceBackground()
+                content.invoke()
+            }
         )
     }
 )

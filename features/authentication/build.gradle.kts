@@ -20,6 +20,7 @@ kotlin {
 
                 implementation(projects.designSystem.molecule)
                 implementation(projects.designSystem.components)
+                implementation(projects.designSystem.brandArtifacts)
 
                 implementation(compose.ui)
                 implementation(compose.foundation)
