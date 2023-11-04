@@ -17,9 +17,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.font.FontWeight
 import authentication.state.TokenStatus
+import brandartifacts.Alien
 import components.Error
 import components.Loading
-import brandartifacts.Alien
 import components.buttons.ButtonQuestion
 import components.inputs.InputEmail
 import components.inputs.InputPassword
@@ -112,14 +112,9 @@ private fun Content(
 
             PaddingM()
 
-            TextH1(
-                provideText = { "Space Workout" }
-            )
+            TextH1(provideText = { "Space Workout" })
 
-            TextBody1(
-                provideText = { "Take your power-up" },
-                fontWeight = FontWeight.Medium
-            )
+            TextBody1(provideText = { "Take your power-up" }, fontWeight = FontWeight.Medium)
 
             PaddingL()
 

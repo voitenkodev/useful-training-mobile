@@ -6,34 +6,40 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import atom.Design
+import brandartifacts.Alien
+import brandartifacts.Planet1
 import components.inputs.InputName
 import molecule.ButtonPrimary
 import molecule.PaddingL
-import molecule.PaddingS
+import molecule.PaddingM
 import molecule.PaddingWeight
 import molecule.TextBody1
+import molecule.TextH1
 import molecule.TextH2
 
 @Composable
-internal fun PreviewPage() {
+internal fun NamePage() {
 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(horizontal = Design.dp.paddingM),
+            .padding(Design.dp.paddingM),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
+        PaddingM()
+
+        Planet1()
+
+        PaddingM()
+
+        TextH1(provideText = { "Nice to meet you." })
+
+        TextBody1(provideText = { "How can we call you?" }, fontWeight = FontWeight.Medium)
+
         PaddingL()
-
-        TextH2(provideText = { "Nice to meet you." })
-
-        PaddingL()
-
-        TextBody1(provideText = { "How can we call you?" })
-
-        PaddingS()
 
         InputName(
             onValueChange = {},

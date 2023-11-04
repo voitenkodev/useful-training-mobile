@@ -11,14 +11,11 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalFocusManager
 import components.Error
 import components.Loading
 import components.roots.Root
-import components.states.keyboardFloatAsState
-import molecule.PaddingL
 import platformInsets
-import registration.components.PreviewPage
+import registration.components.NamePage
 import registration.state.TokenStatus
 
 @Composable
@@ -64,22 +61,7 @@ private fun Content(
     updatePassword: (String) -> Unit
 ) {
 
-    val focus = LocalFocusManager.current
-
-    val loginProvider by rememberUpdatedState {
-        focus.clearFocus()
-        login.invoke()
-    }
-    val registrationProvider by rememberUpdatedState {
-        focus.clearFocus()
-        registration.invoke()
-    }
     val backProvider by rememberUpdatedState(back)
-
-    val keyboardFloatAsState = keyboardFloatAsState(
-        initialValue = 1f,
-        targetValue = 0.3f
-    )
 
     Root(
         loading = { Loading(loading) },
@@ -93,15 +75,13 @@ private fun Content(
 
         Column(modifier = Modifier.platformInsets()) {
 
-            PaddingL()
-
             HorizontalPager(
                 modifier = Modifier.fillMaxSize(),
                 state = pagerState,
                 userScrollEnabled = false
             ) {
                 when (it) {
-                    0 -> PreviewPage()
+                    0 -> NamePage()
                 }
             }
         }

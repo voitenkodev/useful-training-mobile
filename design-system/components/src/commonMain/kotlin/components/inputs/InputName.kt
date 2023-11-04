@@ -25,6 +25,7 @@ import components.labels.InputLabel
 import molecule.ButtonIconSecondary
 import molecule.InputPrimary
 import molecule.reversedCircleBackground
+import molecule.secondaryDefaultBackground
 
 @Composable
 public fun InputName(
@@ -37,11 +38,11 @@ public fun InputName(
 
     InputPrimary(
         modifier = modifier
-            .reversedCircleBackground()
+            .secondaryDefaultBackground()
             .padding(horizontal = Design.dp.paddingM),
         provideValue = provideValue,
         onValueChange = onValueChange,
-        color = Design.colors.primary,
+        color = Design.colors.content,
         trailing = {
 
             AnimatedVisibility(
