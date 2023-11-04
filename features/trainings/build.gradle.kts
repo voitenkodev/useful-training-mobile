@@ -4,8 +4,8 @@ plugins {
     alias(libs.plugins.compose)
 }
 
-apply(from = "../../config/gradle/build-scripts/kotlin.gradle")
-apply(from = "../../config/gradle/build-scripts/android.gradle")
+apply(from = "../../gradle/configs/kotlin.gradle")
+apply(from = "../../gradle/configs/android.gradle")
 
 android { namespace = "com.voitenko.usefultraining.features.trainings" }
 
@@ -15,7 +15,6 @@ kotlin {
             dependencies {
                 implementation(projects.domain.trainings)
                 implementation(projects.common.utils)
-                implementation(projects.common.charts)
                 implementation(projects.common.architectureComponent)
                 implementation(projects.common.platformApi)
 
@@ -23,6 +22,8 @@ kotlin {
                 implementation(projects.designSystem.molecule)
                 implementation(projects.designSystem.components)
                 implementation(projects.designSystem.resources)
+
+                implementation(projects.composeLibs.charts)
 
                 implementation(compose.ui)
                 implementation(compose.foundation)

@@ -22,7 +22,7 @@ import molecule.TextBody1
 import molecule.TextH1
 
 @Composable
-internal fun NamePage() {
+internal fun WeightHeightPage() {
 
     Column(
         modifier = Modifier

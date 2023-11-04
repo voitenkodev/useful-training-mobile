@@ -17,11 +17,9 @@ import platform.AVFoundation.volume
 import platform.AVKit.AVPlayerViewController
 import platform.CoreGraphics.CGRect
 import platform.CoreMedia.CMTimeMake
-import platform.Foundation.NSNotification
 import platform.QuartzCore.CATransaction
 import platform.QuartzCore.kCATransactionDisableActions
 import platform.UIKit.UIView
-import platform.darwin.NSObject
 
 @Composable
 public actual fun VideoPlayer(

@@ -4,8 +4,8 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
 }
 
-apply(from = "../../config/gradle/build-scripts/kotlin.gradle")
-apply(from = "../../config/gradle/build-scripts/android.gradle")
+apply(from = "../../gradle/configs/kotlin.gradle")
+apply(from = "../../gradle/configs/android.gradle")
 
 android { namespace = "com.voitenko.usefultraining.services.network" }
 

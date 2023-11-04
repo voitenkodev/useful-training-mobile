@@ -3,7 +3,7 @@ plugins {
     alias(libs.plugins.android.app)
 }
 
-apply(from = "../config/gradle/build-scripts/android.gradle")
+apply(from = "../gradle/configs/android.gradle")
 
 android.defaultConfig { applicationId = "com.voitenko.usefultraining" }
 

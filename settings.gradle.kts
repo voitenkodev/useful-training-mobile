@@ -38,14 +38,16 @@ include(
     "common:architecture-component",
     "common:utils",
     "common:platform-api",
-    "common:compose-player",
-    "common:charts",
 
     "design-system:atom",
     "design-system:molecule",
     "design-system:components",
     "design-system:resources",
     "design-system:brand-artifacts",
+
+    "compose-libs:charts",
+    "compose-libs:compose-player",
+    "compose-libs:weight-picker",
 
     "features:splash",
     "features:authentication",

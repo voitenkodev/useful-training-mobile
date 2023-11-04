@@ -4,19 +4,18 @@ plugins {
     alias(libs.plugins.compose)
 }
 
-apply(from = "../../gradle/configs/kotlin.gradle")
 apply(from = "../../gradle/configs/android.gradle")
+apply(from = "../../gradle/configs/kotlin.gradle")
 
-android { namespace = "com.voitenko.usefultraining.designsystem.brandartifacts" }
+android { namespace = "com.voitenko.usefultraining.composelibs.weightpicker" }
 
 kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(projects.designSystem.resources)
-
+                // Compose
                 implementation(compose.ui)
-                implementation(compose.material)
+                implementation(compose.foundation)
             }
         }
     }

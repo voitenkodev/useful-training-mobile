@@ -6,9 +6,9 @@ plugins {
     alias(libs.plugins.compose)
 }
 
-apply(from = "../config/gradle/build-scripts/android.gradle")
-apply(from = "../config/gradle/build-scripts/ios.gradle")
-apply(from = "../config/gradle/build-scripts/kotlin.gradle")
+apply(from = "../gradle/configs/android.gradle")
+apply(from = "../gradle/configs/ios.gradle")
+apply(from = "../gradle/configs/kotlin.gradle")
 
 kotlin.cocoapods { podfile = project.file("../iosApp/Podfile") }
 
