@@ -1,7 +1,7 @@
 package exercise_example_muscle
 
 import NativeContext
-import UsefulTrainingDatabase
+import AlienWorkoutDatabase
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
 import app.cash.sqldelight.coroutines.mapToOne
@@ -16,7 +16,7 @@ import kotlinx.coroutines.flow.map
 
 public class ExerciseExamplesSource(nativeContext: NativeContext) {
 
-    private val database: UsefulTrainingDatabase = nativeContext.database()
+    private val database: AlienWorkoutDatabase = nativeContext.database()
     private val api by lazy { database.exercise_example_muscleQueries }
 
     public fun getExerciseExamples(): Flow<List<ExerciseExampleDao>> {

@@ -5,7 +5,7 @@ plugins {
 
 apply(from = "../gradle/configs/android.gradle")
 
-android.defaultConfig { applicationId = "com.voitenko.usefultraining" }
+android.defaultConfig { applicationId = "com.voitenko.alienworkout" }
 
 kotlin {
     androidTarget()

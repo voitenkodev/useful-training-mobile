@@ -1,4 +1,4 @@
-package com.voitenko.usefultraining
+package com.voitenko.alienworkout
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

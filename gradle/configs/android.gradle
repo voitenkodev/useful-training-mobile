@@ -1,12 +1,12 @@
 /*
     use with custom:
-    android { namespace = "com.voitenko.usefultraining.***" }
+    android { namespace = "com.voitenko.alienworkout.***" }
 */
 
 android {
     compileSdk = 34
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
-    namespace = "com.voitenko.usefultraining"
+    namespace = "com.voitenko.alienworkout"
 
     defaultConfig {
         minSdk = 24

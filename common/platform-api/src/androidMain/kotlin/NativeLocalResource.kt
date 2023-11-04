@@ -3,6 +3,6 @@ public actual class NativeLocalResource private actual constructor() {
         private set
 
     public constructor(id: Int) : this() {
-        this.url = "android.resource://com.voitenko.usefultraining/${id}"
+        this.url = "android.resource://com.voitenko.alienworkout/${id}"
     }
 }

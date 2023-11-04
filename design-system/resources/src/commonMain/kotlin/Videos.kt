@@ -1,4 +1,4 @@
-import com.voitenko.usefultraining.SharedRes
+import com.voitenko.alienworkout.SharedRes
 
 public object Videos {
     public val motivation: NativeLocalResource = SharedRes.files.motivation.toNativeLocalResource()

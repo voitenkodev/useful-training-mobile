@@ -1,7 +1,7 @@
 package traininig_exercise_iteration
 
 import NativeContext
-import UsefulTrainingDatabase
+import AlienWorkoutDatabase
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
 import app.cash.sqldelight.coroutines.mapToOne
@@ -18,7 +18,7 @@ import traininig_exercise_iteration.models.TrainingDao
 
 public class TrainingsSource(nativeContext: NativeContext) {
 
-    private val database: UsefulTrainingDatabase = nativeContext.database()
+    private val database: AlienWorkoutDatabase = nativeContext.database()
     private val api by lazy { database.training_exercise_iterationQueries }
 
     public fun getTrainings(): Flow<List<TrainingDao>> {

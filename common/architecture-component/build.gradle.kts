@@ -8,7 +8,7 @@ plugins {
 apply(from = "../../gradle/configs/kotlin.gradle")
 apply(from = "../../gradle/configs/android.gradle")
 
-android { namespace = "com.voitenko.usefultraining.common.architecturecomponent" }
+android { namespace = "com.voitenko.alienworkout.common.architecturecomponent" }
 
 kotlin {
     sourceSets {

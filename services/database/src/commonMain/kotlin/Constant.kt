@@ -1,1 +1,1 @@
-internal const val DB_FILE_NAME = "UsefulTraining.db"
+internal const val DB_FILE_NAME = "AlienWorkout.db"

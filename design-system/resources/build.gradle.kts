@@ -10,12 +10,12 @@ apply(from = "../../gradle/configs/android.gradle")
 apply(from = "../../gradle/configs/ios.gradle")
 apply(from = "../../gradle/configs/kotlin.gradle")
 
-android { namespace = "com.voitenko.usefultraining.designsystem.resources" }
+android { namespace = "com.voitenko.alienworkout.designsystem.resources" }
 
 kotlin.cocoapods { podfile = project.file("../../iosApp/Podfile") }
 
 multiplatformResources {
-    multiplatformResourcesPackage = "com.voitenko.usefultraining"
+    multiplatformResourcesPackage = "com.voitenko.alienworkout"
     multiplatformResourcesClassName = "SharedRes"
 }
 

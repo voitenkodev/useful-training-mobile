@@ -1,6 +1,6 @@
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.painter.Painter
-import com.voitenko.usefultraining.SharedRes
+import com.voitenko.alienworkout.SharedRes
 import dev.icerock.moko.resources.compose.painterResource
 
 

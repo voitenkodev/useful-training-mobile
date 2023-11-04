@@ -112,7 +112,7 @@ private fun Content(
 
             PaddingM()
 
-            TextH1(provideText = { "Space Workout" })
+            TextH1(provideText = { "Alien Workout" })
 
             TextBody1(provideText = { "Take your power-up" }, fontWeight = FontWeight.Medium)
 

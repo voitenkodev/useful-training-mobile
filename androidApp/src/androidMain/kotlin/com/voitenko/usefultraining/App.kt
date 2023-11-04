@@ -1,4 +1,4 @@
-package com.voitenko.usefultraining
+package com.voitenko.alienworkout
 
 import android.app.Application
 import initCommonKoin

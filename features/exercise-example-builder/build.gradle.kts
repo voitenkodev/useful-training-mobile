@@ -7,7 +7,7 @@ plugins {
 apply(from = "../../gradle/configs/kotlin.gradle")
 apply(from = "../../gradle/configs/android.gradle")
 
-android { namespace = "com.voitenko.usefultraining.features.exerciseexamplebuilder" }
+android { namespace = "com.voitenko.alienworkout.features.exerciseexamplebuilder" }
 
 kotlin {
     sourceSets {

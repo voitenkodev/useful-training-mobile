@@ -8,18 +8,20 @@
 
 /* Begin PBXBuildFile section */
 		2152FB042600AC8F00CF470E /* iosApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152FB032600AC8F00CF470E /* iosApp.swift */; };
-		407ADC4F59CAD481D9256D6E /* Pods_UsefulTraining.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82541EC36874236B11086C21 /* Pods_UsefulTraining.framework */; };
+		73AC8113F00CEE3F7580E3F3 /* Pods_AlienWorkout.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 406491242F9921D57A386FCC /* Pods_AlienWorkout.framework */; };
 		FAEB08E429A3B06700B1FB06 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = FAEB08E229A3B05400B1FB06 /* libsqlite3.tbd */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		2152FB032600AC8F00CF470E /* iosApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iosApp.swift; sourceTree = "<group>"; };
+		406491242F9921D57A386FCC /* Pods_AlienWorkout.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AlienWorkout.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		64A7CC90FA160A797FE74363 /* Pods-UsefulTraining.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UsefulTraining.debug.xcconfig"; path = "Target Support Files/Pods-UsefulTraining/Pods-UsefulTraining.debug.xcconfig"; sourceTree = "<group>"; };
 		7555FF8C242A565B00829871 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		82541EC36874236B11086C21 /* Pods_UsefulTraining.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UsefulTraining.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		841E22D47CFB2CC9C099009B /* Pods-AlienWorkout.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AlienWorkout.debug.xcconfig"; path = "Target Support Files/Pods-AlienWorkout/Pods-AlienWorkout.debug.xcconfig"; sourceTree = "<group>"; };
 		AB3632DC29227652001CCB65 /* TeamId.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = TeamId.xcconfig; sourceTree = "<group>"; };
+		B782F51BB57818FD9A2F5C39 /* Pods-AlienWorkout.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AlienWorkout.release.xcconfig"; path = "Target Support Files/Pods-AlienWorkout/Pods-AlienWorkout.release.xcconfig"; sourceTree = "<group>"; };
 		CE8E45766A5E71E5ADD2EEF7 /* Pods-UsefulTraining.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UsefulTraining.release.xcconfig"; path = "Target Support Files/Pods-UsefulTraining/Pods-UsefulTraining.release.xcconfig"; sourceTree = "<group>"; };
-		FA19FA7729A4F070006648F6 /* UsefulTraining.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UsefulTraining.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA19FA7729A4F070006648F6 /* AlienWorkout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AlienWorkout.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAEB08E229A3B05400B1FB06 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -29,7 +31,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FAEB08E429A3B06700B1FB06 /* libsqlite3.tbd in Frameworks */,
-				407ADC4F59CAD481D9256D6E /* Pods_UsefulTraining.framework in Frameworks */,
+				73AC8113F00CEE3F7580E3F3 /* Pods_AlienWorkout.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -43,7 +45,7 @@
 				7555FF7D242A565900829871 /* iosApp */,
 				E1DAFBE8E1CFC0878361EF0E /* Pods */,
 				B62309C7396AD7BF607A63B2 /* Frameworks */,
-				FA19FA7729A4F070006648F6 /* UsefulTraining.app */,
+				FA19FA7729A4F070006648F6 /* AlienWorkout.app */,
 			);
 			sourceTree = "<group>";
 		};
@@ -68,7 +70,7 @@
 			isa = PBXGroup;
 			children = (
 				FAEB08E229A3B05400B1FB06 /* libsqlite3.tbd */,
-				82541EC36874236B11086C21 /* Pods_UsefulTraining.framework */,
+				406491242F9921D57A386FCC /* Pods_AlienWorkout.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -78,6 +80,8 @@
 			children = (
 				64A7CC90FA160A797FE74363 /* Pods-UsefulTraining.debug.xcconfig */,
 				CE8E45766A5E71E5ADD2EEF7 /* Pods-UsefulTraining.release.xcconfig */,
+				841E22D47CFB2CC9C099009B /* Pods-AlienWorkout.debug.xcconfig */,
+				B782F51BB57818FD9A2F5C39 /* Pods-AlienWorkout.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -85,24 +89,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		7555FF7A242A565900829871 /* UsefulTraining */ = {
+		7555FF7A242A565900829871 /* AlienWorkout */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7555FFA5242A565B00829871 /* Build configuration list for PBXNativeTarget "UsefulTraining" */;
+			buildConfigurationList = 7555FFA5242A565B00829871 /* Build configuration list for PBXNativeTarget "AlienWorkout" */;
 			buildPhases = (
 				E8D673591E7196AEA2EA10E2 /* [CP] Check Pods Manifest.lock */,
 				7555FF77242A565900829871 /* Sources */,
 				7555FF79242A565900829871 /* Resources */,
 				9964867F0862B4D9FB6ABFC7 /* Frameworks */,
 				BA602DAC2A7C1DD00037E0AC /* ShellScript */,
-				6F7FCDE942E7A56BAF4362A6 /* [CP] Copy Pods Resources */,
+				0281481AB85A4C3AF45FA4DB /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = UsefulTraining;
+			name = AlienWorkout;
 			productName = iosApp;
-			productReference = FA19FA7729A4F070006648F6 /* UsefulTraining.app */;
+			productReference = FA19FA7729A4F070006648F6 /* AlienWorkout.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -120,7 +124,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 7555FF76242A565900829871 /* Build configuration list for PBXProject "UsefulTraining" */;
+			buildConfigurationList = 7555FF76242A565900829871 /* Build configuration list for PBXProject "AlienWorkout" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -133,7 +137,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				7555FF7A242A565900829871 /* UsefulTraining */,
+				7555FF7A242A565900829871 /* AlienWorkout */,
 			);
 		};
 /* End PBXProject section */
@@ -149,21 +153,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		6F7FCDE942E7A56BAF4362A6 /* [CP] Copy Pods Resources */ = {
+		0281481AB85A4C3AF45FA4DB /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-UsefulTraining/Pods-UsefulTraining-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-AlienWorkout/Pods-AlienWorkout-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-UsefulTraining/Pods-UsefulTraining-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-AlienWorkout/Pods-AlienWorkout-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-UsefulTraining/Pods-UsefulTraining-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AlienWorkout/Pods-AlienWorkout-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		BA602DAC2A7C1DD00037E0AC /* ShellScript */ = {
@@ -198,7 +202,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-UsefulTraining-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-AlienWorkout-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -339,7 +343,7 @@
 		};
 		7555FFA6242A565B00829871 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 64A7CC90FA160A797FE74363 /* Pods-UsefulTraining.debug.xcconfig */;
+			baseConfigurationReference = 841E22D47CFB2CC9C099009B /* Pods-AlienWorkout.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -353,7 +357,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.voitenko.usefultraining;
+				PRODUCT_BUNDLE_IDENTIFIER = com.voitenko.alienworkout;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -363,7 +367,7 @@
 		};
 		7555FFA7242A565B00829871 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CE8E45766A5E71E5ADD2EEF7 /* Pods-UsefulTraining.release.xcconfig */;
+			baseConfigurationReference = B782F51BB57818FD9A2F5C39 /* Pods-AlienWorkout.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -377,7 +381,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.voitenko.usefultraining;
+				PRODUCT_BUNDLE_IDENTIFIER = com.voitenko.alienworkout;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -388,7 +392,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		7555FF76242A565900829871 /* Build configuration list for PBXProject "UsefulTraining" */ = {
+		7555FF76242A565900829871 /* Build configuration list for PBXProject "AlienWorkout" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				7555FFA3242A565B00829871 /* Debug */,
@@ -397,7 +401,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7555FFA5242A565B00829871 /* Build configuration list for PBXNativeTarget "UsefulTraining" */ = {
+		7555FFA5242A565B00829871 /* Build configuration list for PBXNativeTarget "AlienWorkout" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				7555FFA6242A565B00829871 /* Debug */,

@@ -17,7 +17,7 @@ dependencyResolutionManagement.repositories {
     maven("https://s01.oss.sonatype.org/content/repositories/snapshots/")
 }
 
-rootProject.name = "UsefulTraining"
+rootProject.name = "AlienWorkout"
 
 include(
     ":androidApp",

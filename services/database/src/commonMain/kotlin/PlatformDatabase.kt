@@ -1,1 +1,1 @@
-internal expect fun NativeContext.database(): UsefulTrainingDatabase
+internal expect fun NativeContext.database(): AlienWorkoutDatabase

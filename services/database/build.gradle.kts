@@ -7,11 +7,11 @@ plugins {
 apply(from = "../../gradle/configs/kotlin.gradle")
 apply(from = "../../gradle/configs/android.gradle")
 
-android { namespace = "com.voitenko.usefultraining.services.database" }
+android { namespace = "com.voitenko.alienworkout.services.database" }
 
 sqldelight {
     databases {
-        create("UsefulTrainingDatabase") {
+        create("AlienWorkoutDatabase") {
             packageName.set("")
             schemaOutputDirectory.set(file("src/commonMain/sqldelight/data/schema"))
             migrationOutputDirectory.set(file("src/commonMain/sqldelight/migrations"))

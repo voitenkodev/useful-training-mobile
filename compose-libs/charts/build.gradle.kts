@@ -7,7 +7,7 @@ plugins {
 apply(from = "../../gradle/configs/android.gradle")
 apply(from = "../../gradle/configs/kotlin.gradle")
 
-android { namespace = "com.voitenko.usefultraining.composelibs.charts" }
+android { namespace = "com.voitenko.alienworkout.composelibs.charts" }
 
 kotlin {
     sourceSets {
