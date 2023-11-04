@@ -2,7 +2,6 @@ package registration.screen
 
 import PlatformBackHandler
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
@@ -14,6 +13,7 @@ import androidx.compose.ui.Modifier
 import components.Error
 import components.Loading
 import components.roots.Root
+import molecule.PaddingM
 import platformInsets
 import registration.components.NamePage
 import registration.state.TokenStatus
@@ -76,7 +76,8 @@ private fun Content(
         Column(modifier = Modifier.platformInsets()) {
 
             HorizontalPager(
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier
+                    .weight(1f),
                 state = pagerState,
                 userScrollEnabled = false
             ) {
@@ -84,6 +85,7 @@ private fun Content(
                     0 -> NamePage()
                 }
             }
+
         }
     }
 }
