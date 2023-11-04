@@ -27,10 +27,10 @@ import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toPersistentList
 import molecule.ButtonIconSecondary
 import molecule.PaddingM
-import molecule.RangeSlider
 import molecule.Shadow
 import molecule.TextH2
-import molecule.ThumbRangeStateState
+import percentagepicker.RangeSlider
+import percentagepicker.ThumbRangeState
 import platformTopInset
 
 @Composable
@@ -46,7 +46,7 @@ internal fun Header(
 
     val thumbs = remember(exerciseExample?.muscleExerciseBundles) {
         exerciseExample?.muscleExerciseBundles?.map {
-            ThumbRangeStateState(
+            ThumbRangeState(
                 id = it.muscle.id,
                 positionInRange = it.percentage,
                 color = it.color

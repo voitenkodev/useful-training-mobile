@@ -86,15 +86,10 @@ private fun Content(
         back = { PlatformBackHandler(backProvider) },
     ) {
 
-        val pagerState = rememberPagerState(
-            pageCount = { steps.size }
-        )
+        val pagerState = rememberPagerState(pageCount = { steps.size })
 
         LaunchedEffect(selectedStep) {
-            pagerState.animateScrollToPage(
-                steps.indexOf(selectedStep),
-//                animationSpec = tween(durationMillis = 5000)
-            )
+            pagerState.animateScrollToPage(steps.indexOf(selectedStep))
         }
 
         Column(modifier = Modifier) {

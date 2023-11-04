@@ -14,20 +14,20 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(projects.domain.authentication)
-                implementation(projects.common.utils)
-                implementation(projects.common.platformApi)
                 implementation(projects.common.architectureComponent)
+                implementation(projects.common.platformApi)
+                implementation(projects.common.utils)
 
                 implementation(projects.designSystem.atom)
                 implementation(projects.designSystem.molecule)
                 implementation(projects.designSystem.components)
-                implementation(projects.designSystem.resources)
                 implementation(projects.designSystem.brandArtifacts)
 
                 implementation(projects.composeLibs.weightPicker)
 
                 implementation(compose.ui)
                 implementation(compose.foundation)
+
                 implementation(libs.koin.core)
             }
         }

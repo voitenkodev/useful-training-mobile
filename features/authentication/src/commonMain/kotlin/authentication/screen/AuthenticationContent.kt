@@ -164,8 +164,6 @@ private fun Content(
             PaddingM()
         }
 
-        AlphaOverlay(
-            modifier = Modifier.fillMaxSize()
-        )
+        AlphaOverlay(modifier = Modifier.fillMaxSize())
     }
 }

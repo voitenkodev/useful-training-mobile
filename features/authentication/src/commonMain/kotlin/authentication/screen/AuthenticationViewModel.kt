@@ -7,6 +7,7 @@ import authentication.state.TokenStatus
 import isEmailValid
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.launchIn
@@ -20,7 +21,7 @@ internal class AuthenticationViewModel : ViewModel() {
     private val api by inject<AuthenticationRepository>()
 
     private val _state = MutableStateFlow(State())
-    val state: StateFlow<State> = _state
+    val state: StateFlow<State> = _state.asStateFlow()
 
     init {
         subscribeToken()
@@ -30,9 +31,8 @@ internal class AuthenticationViewModel : ViewModel() {
         api
             .getToken()
             .filterNotNull()
-            .onEach {
-                _state.update { it.copy(tokenStatus = TokenStatus.Available) }
-            }.launchIn(this)
+            .onEach { _state.update { it.copy(tokenStatus = TokenStatus.Available) } }
+            .launchIn(this)
     }
 
     fun login() {
@@ -40,13 +40,10 @@ internal class AuthenticationViewModel : ViewModel() {
 
         if (state.value.error == null) {
             api.login(state.value.email, state.value.password)
-                .onStart {
-                    _state.update { it.copy(loading = true) }
-                }.onEach {
-                    _state.update { it.copy(loading = false) }
-                }.catch { t ->
-                    _state.update { it.copy(loading = false, error = t.message) }
-                }.launchIn(this)
+                .onStart { _state.update { it.copy(loading = true) } }
+                .onEach { _state.update { it.copy(loading = false) } }
+                .catch { t -> _state.update { it.copy(loading = false, error = t.message) } }
+                .launchIn(this)
         }
     }
 

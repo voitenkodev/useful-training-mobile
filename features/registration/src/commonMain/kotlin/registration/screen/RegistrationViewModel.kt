@@ -30,9 +30,8 @@ internal class RegistrationViewModel : ViewModel() {
         api
             .getToken()
             .filterNotNull()
-            .onEach {
-                _state.update { it.copy(tokenStatus = TokenStatus.Available) }
-            }.launchIn(this)
+            .onEach { _state.update { it.copy(tokenStatus = TokenStatus.Available) } }
+            .launchIn(this)
     }
 
     fun registration() {
@@ -40,13 +39,10 @@ internal class RegistrationViewModel : ViewModel() {
 
         if (state.value.error == null) {
             api.registration(state.value.email, state.value.password)
-                .onStart {
-                    _state.update { it.copy(loading = true) }
-                }.onEach {
-                    _state.update { it.copy(loading = false) }
-                }.catch { t ->
-                    _state.update { it.copy(loading = false, error = t.message) }
-                }.launchIn(this)
+                .onStart { _state.update { it.copy(loading = true) } }
+                .onEach { _state.update { it.copy(loading = false) } }
+                .catch { t -> _state.update { it.copy(loading = false, error = t.message) } }
+                .launchIn(this)
         }
     }
 

@@ -1,6 +1,5 @@
-package molecule
+package percentagepicker
 
-import atom.Design
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.gestures.detectTapGestures
@@ -16,29 +15,14 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.text.drawText
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.text.style.TextOverflow
-import kotlin.math.abs
-
-public data class ThumbRangeStateState(
-    val id: String?,
-    val positionInRange: Int,
-    val color: Color
-)
-
-private data class ThumbInternalState(
-    val id: String?,
-    val positionInLine: Int,
-    val positionBetween: Int,
-    val color: Color,
-    val offsetX: Float,
-    val isSelected: Boolean = false
-)
+import atom.Design
 
 @Composable
 public fun RangeSlider(
     modifier: Modifier = Modifier,
     range: ClosedRange<Int>,
-    thumbs: List<ThumbRangeStateState>,
-    onValueChange: (List<ThumbRangeStateState>) -> Unit,
+    thumbs: List<ThumbRangeState>,
+    onValueChange: (List<ThumbRangeState>) -> Unit,
     minimalRange: Int,
     lineColor: Color,
     requiredFilledRange: Boolean = true
@@ -90,7 +74,7 @@ public fun RangeSlider(
                 detectDragGestures(
                     onDragEnd = {
                         val result = internalThumbs.value.map { item ->
-                            ThumbRangeStateState(
+                            ThumbRangeState(
                                 id = item.id,
                                 positionInRange = item.positionBetween,
                                 color = item.color
@@ -208,31 +192,4 @@ public fun RangeSlider(
             )
         }
     }
-}
-
-private fun proportionForPosition(range: ClosedRange<Int>, canvasSize: Size, newOffsetX: Float): Int {
-    return (range.endInclusive / canvasSize.width * newOffsetX).toInt()
-}
-
-private fun proportionForOffset(range: ClosedRange<Int>, canvasSize: Size, newPosition: Int): Float {
-    return (canvasSize.width / range.endInclusive) * newPosition
-}
-
-private fun List<ThumbInternalState>.findNearTo(offsetX: Float): ThumbInternalState? {
-    if (isEmpty()) {
-        return null
-    }
-
-    var nearest = this[0]
-    var minDifference = abs(this[0].offsetX.minus(offsetX))
-
-    for (element in this) {
-        val difference = abs(element.offsetX - offsetX)
-        if (difference < minDifference) {
-            nearest = element
-            minDifference = difference
-        }
-    }
-
-    return nearest
 }

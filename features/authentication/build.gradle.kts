@@ -24,6 +24,7 @@ kotlin {
 
                 implementation(compose.ui)
                 implementation(compose.foundation)
+
                 implementation(libs.koin.core)
             }
         }

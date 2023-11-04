@@ -25,7 +25,7 @@ import platformInsets
 internal fun NamePage(
     name: String,
     updateName: (String) -> Unit,
-    confirm: () -> Unit,
+    confirm: () -> Unit
 ) {
 
     Column(
@@ -56,10 +56,7 @@ internal fun NamePage(
 
         val align = animateAlignmentAsState(
             targetAlignment = if (keyboardAsBoolean()) Alignment.TopCenter else Alignment.BottomCenter,
-            animationSpec = tween(
-                durationMillis = 400,
-                easing = LinearOutSlowInEasing
-            )
+            animationSpec = tween(durationMillis = 400, easing = LinearOutSlowInEasing)
         )
 
         Box(
