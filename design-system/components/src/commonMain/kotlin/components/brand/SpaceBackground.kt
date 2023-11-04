@@ -15,7 +15,6 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalDensity
 import kotlin.math.PI
-import kotlin.math.atan2
 import kotlin.math.cos
 import kotlin.math.sin
 import kotlin.random.Random
@@ -43,10 +42,7 @@ public enum class SpaceBackgroundAnimationState {
 }
 
 @Composable
-public fun SpaceBackground(
-    modifier: Modifier = Modifier,
-    animateStars: Boolean = true
-) {
+public fun SpaceBackground(modifier: Modifier = Modifier) {
 
     val infinitelyAnimatedFloat = rememberInfiniteTransition().animateFloat(
         initialValue = 0f,
@@ -62,8 +58,6 @@ public fun SpaceBackground(
         val density = LocalDensity.current
         val width = with(density) { maxWidth.toPx() }
         val height = with(density) { maxHeight.toPx() }
-        val centerX = width / 2f
-        val centerY = height / 2f
 
         val stars = remember {
             buildList {
@@ -81,59 +75,30 @@ public fun SpaceBackground(
 
         Canvas(modifier = Modifier.fillMaxSize()) {
             for (star in stars) {
-                if (animateStars) {
-                    star.update(infinitelyAnimatedFloat.value)
-                    val deltaX = (star.alpha * cos(star.alpha))
-                    val deltaY = (star.alpha * sin(star.alpha))
-                    star.x += deltaX
-                    star.y += deltaY
+                star.update(infinitelyAnimatedFloat.value)
+                val deltaX = (star.alpha * cos(star.alpha))
+                val deltaY = (star.alpha * sin(star.alpha))
+                star.x += deltaX
+                star.y += deltaY
 
-                    drawCircle(
-                        color = Color.White.copy(alpha = 0.3f),
-                        center = Offset(star.x, star.y),
-                        radius = 2f,
-                        alpha = star.alpha,
-                    )
+                drawCircle(
+                    color = Color.White.copy(alpha = 0.3f),
+                    center = Offset(star.x, star.y),
+                    radius = 2f,
+                    alpha = star.alpha,
+                )
 
-                    if (star.x < 0) {
-                        star.x = width
-                    }
-                    if (star.x > width) {
-                        star.x = 0f
-                    }
-                    if (star.y < 0) {
-                        star.y = height
-                    }
-                    if (star.y > height) {
-                        star.y = 0f
-                    }
-                } else {
-                    star.update(infinitelyAnimatedFloat.value)
-
-                    // From outside to center
-                    // val angle = atan2(star.y - height / 2f, star.x - width / 2f)
-
-                    //From Center to outside
-                    val angle = atan2(star.y - centerY, star.x - centerX)
-
-                    val distance = star.velocity/* * 0.1f*/
-                    star.x -= distance * cos(angle)
-                    star.y -= distance * sin(angle)
-
-                    drawCircle(
-                        color = Color.White.copy(alpha = 0.3f),
-                        center = Offset(star.x, star.y),
-                        radius = 2f,
-                        alpha = star.alpha
-                    )
-
-                    // Moving Star back to screen
-                    if (star.x < 0 || star.x > width || star.y < 0 || star.y > height) {
-                        star.x = width / 2f
-                        star.y = height / 2f
-                    }
-
-                    star.update(infinitelyAnimatedFloat.value)
+                if (star.x < 0) {
+                    star.x = width
+                }
+                if (star.x > width) {
+                    star.x = 0f
+                }
+                if (star.y < 0) {
+                    star.y = height
+                }
+                if (star.y > height) {
+                    star.y = 0f
                 }
             }
         }

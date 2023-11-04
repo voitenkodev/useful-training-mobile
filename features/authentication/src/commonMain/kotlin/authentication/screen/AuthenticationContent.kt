@@ -19,7 +19,6 @@ import androidx.compose.ui.text.font.FontWeight
 import authentication.state.TokenStatus
 import components.Error
 import components.Loading
-import components.brand.SpaceBackground
 import components.brand.Alien
 import components.buttons.ButtonQuestion
 import components.inputs.InputEmail
@@ -32,7 +31,6 @@ import molecule.ButtonPrimary
 import molecule.PaddingL
 import molecule.PaddingM
 import molecule.PaddingS
-import molecule.PaddingXL
 import molecule.TextBody1
 import molecule.TextH1
 import molecule.paddingM
@@ -100,8 +98,6 @@ private fun Content(
         back = { PlatformBackHandler(backProvider) }
     ) {
 
-        SpaceBackground()
-
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -110,7 +106,7 @@ private fun Content(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-            PaddingL()
+            PaddingM()
 
             Alien()
 
@@ -125,7 +121,7 @@ private fun Content(
                 fontWeight = FontWeight.Medium
             )
 
-            PaddingXL()
+            PaddingL()
 
             InputEmail(
                 modifier = Modifier.fillMaxWidth(),

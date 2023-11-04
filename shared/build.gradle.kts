@@ -27,6 +27,9 @@ kotlin {
                 implementation(projects.features.trainingBuilder)
                 implementation(projects.features.exerciseExampleBuilder)
 
+                // Design
+                implementation(projects.designSystem.components)
+
                 // Services
                 implementation(projects.services.network)
                 implementation(projects.services.database)
