@@ -6,6 +6,7 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
@@ -24,7 +25,6 @@ import atom.Design
 import components.labels.InputLabel
 import molecule.ButtonIconSecondary
 import molecule.InputPrimary
-import molecule.reversedCircleBackground
 import molecule.secondaryDefaultBackground
 
 @Composable
@@ -38,6 +38,8 @@ public fun InputName(
 
     InputPrimary(
         modifier = modifier
+            .fillMaxWidth()
+            .padding(horizontal = Design.dp.paddingM)
             .secondaryDefaultBackground()
             .padding(horizontal = Design.dp.paddingM),
         provideValue = provideValue,

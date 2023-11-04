@@ -15,15 +15,6 @@ public fun Modifier.paddingHorizontalM(): Modifier {
 }
 
 @Composable
-public fun Modifier.paddingS(): Modifier {
-    return padding(Design.dp.paddingS)
-}
-@Composable
-public fun Modifier.paddingM(): Modifier {
-    return padding(Design.dp.paddingM)
-}
-
-@Composable
 public fun PaddingXS(modifier: Modifier = Modifier) {
     Spacer(modifier = modifier.size(Design.dp.paddingXS))
 }

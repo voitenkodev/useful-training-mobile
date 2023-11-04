@@ -13,7 +13,6 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                // Compose
                 implementation(compose.ui)
                 implementation(compose.foundation)
             }

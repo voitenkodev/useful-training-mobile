@@ -31,9 +31,9 @@ import molecule.ButtonPrimary
 import molecule.PaddingL
 import molecule.PaddingM
 import molecule.PaddingS
+import molecule.PaddingXL
 import molecule.TextBody1
 import molecule.TextH1
-import molecule.paddingM
 import platformInsets
 
 @Composable
@@ -101,12 +101,11 @@ private fun Content(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .platformInsets()
-                .paddingM(),
+                .platformInsets(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-            PaddingM()
+            PaddingXL()
 
             Alien()
 
@@ -119,7 +118,6 @@ private fun Content(
             PaddingL()
 
             InputEmail(
-                modifier = Modifier.fillMaxWidth(),
                 provideValue = { email },
                 onValueChange = updateEmail
             )
@@ -127,7 +125,6 @@ private fun Content(
             PaddingM()
 
             InputPassword(
-                modifier = Modifier.fillMaxWidth(),
                 provideValue = { password },
                 onValueChange = updatePassword
             )
@@ -163,6 +160,8 @@ private fun Content(
                 answer = "Join Us!",
                 onClick = registrationProvider
             )
+
+            PaddingM()
         }
 
         AlphaOverlay(

@@ -5,12 +5,10 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
-import atom.Design
 import brandartifacts.Planet1
 import components.inputs.InputName
 import components.states.animateAlignmentAsState
@@ -18,34 +16,40 @@ import components.states.keyboardAsBoolean
 import molecule.ButtonPrimary
 import molecule.PaddingL
 import molecule.PaddingM
+import molecule.PaddingXL
 import molecule.TextBody1
 import molecule.TextH1
+import platformInsets
 
 @Composable
-internal fun NamePage() {
+internal fun NamePage(
+    name: String,
+    updateName: (String) -> Unit,
+    confirm: () -> Unit,
+) {
 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(Design.dp.paddingM),
+            .platformInsets(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        PaddingM()
+        PaddingXL()
 
         Planet1()
 
         PaddingM()
 
-        TextH1(provideText = { "Nice to meet you." })
+        TextH1(provideText = { "Nice to meet you" })
 
         TextBody1(provideText = { "How can we call you?" }, fontWeight = FontWeight.Medium)
 
         PaddingL()
 
         InputName(
-            onValueChange = {},
-            provideValue = { "" }
+            provideValue = { name },
+            onValueChange = updateName
         )
 
         PaddingM()
@@ -64,12 +68,12 @@ internal fun NamePage() {
         ) {
 
             ButtonPrimary(
-                text = "Submit",
-                onClick = {},
-                enabled = true
+                text = "Confirm",
+                onClick = confirm,
+                enabled = name.isNotBlank()
             )
         }
 
-        PaddingM()
+        PaddingXL()
     }
 }

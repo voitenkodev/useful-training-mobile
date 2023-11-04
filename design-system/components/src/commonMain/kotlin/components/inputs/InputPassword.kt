@@ -1,5 +1,6 @@
 package components.inputs
 
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardOptions
@@ -14,9 +15,9 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import atom.Design
+import components.labels.InputLabel
 import icons.Eye
 import icons.EyeOff
-import components.labels.InputLabel
 import molecule.ButtonIconSecondary
 import molecule.InputPrimary
 import molecule.secondaryDefaultBackground
@@ -31,6 +32,8 @@ public fun InputPassword(
 
     InputPrimary(
         modifier = modifier
+            .fillMaxWidth()
+            .padding(horizontal = Design.dp.paddingM)
             .secondaryDefaultBackground()
             .padding(horizontal = Design.dp.paddingM),
         provideValue = provideValue,

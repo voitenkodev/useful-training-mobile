@@ -13,9 +13,9 @@ import androidx.compose.ui.Modifier
 import components.Error
 import components.Loading
 import components.roots.Root
-import molecule.PaddingM
-import platformInsets
 import registration.components.NamePage
+import registration.components.WeightPage
+import registration.state.RegistrationSteps
 import registration.state.TokenStatus
 
 @Composable
@@ -36,12 +36,19 @@ internal fun RegistrationContent(
         error = { state.error },
         clearError = vm::clearError,
         back = back,
-        login = vm::login,
         registration = vm::registration,
-        email = { state.email },
+        name = state.name,
+        updateName = vm::updateName,
+        weight = state.weight,
+        updateWeight = vm::updateWeight,
+        email = state.email,
         updateEmail = vm::updateEmail,
-        password = { state.password },
-        updatePassword = vm::updatePassword
+        password = state.password,
+        updatePassword = vm::updatePassword,
+        nextStep = vm::nextStep,
+        previousStep = vm::previousStep,
+        steps = state.steps,
+        selectedStep = state.selectedStep
     )
 }
 
@@ -52,12 +59,22 @@ private fun Content(
     clearError: () -> Unit,
     back: () -> Unit,
 
-    login: () -> Unit,
     registration: () -> Unit,
 
-    email: () -> String,
+    steps: List<RegistrationSteps>,
+    selectedStep: RegistrationSteps,
+    nextStep: () -> Unit,
+    previousStep: () -> Unit,
+
+    name: String,
+    updateName: (String) -> Unit,
+
+    weight: Int,
+    updateWeight: (Int) -> Unit,
+
+    email: String,
     updateEmail: (String) -> Unit,
-    password: () -> String,
+    password: String,
     updatePassword: (String) -> Unit
 ) {
 
@@ -70,22 +87,37 @@ private fun Content(
     ) {
 
         val pagerState = rememberPagerState(
-            pageCount = { 5 }
+            pageCount = { steps.size }
         )
 
-        Column(modifier = Modifier.platformInsets()) {
+        LaunchedEffect(selectedStep) {
+            pagerState.animateScrollToPage(
+                steps.indexOf(selectedStep),
+//                animationSpec = tween(durationMillis = 5000)
+            )
+        }
+
+        Column(modifier = Modifier) {
 
             HorizontalPager(
-                modifier = Modifier
-                    .weight(1f),
+                modifier = Modifier.weight(1f),
                 state = pagerState,
                 userScrollEnabled = false
             ) {
                 when (it) {
-                    0 -> NamePage()
+                    0 -> NamePage(
+                        name = name,
+                        updateName = updateName,
+                        confirm = nextStep
+                    )
+
+                    1 -> WeightPage(
+                        weight = weight,
+                        updateWeight = updateWeight,
+                        confirm = previousStep
+                    )
                 }
             }
-
         }
     }
 }

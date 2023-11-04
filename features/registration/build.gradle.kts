@@ -24,9 +24,11 @@ kotlin {
                 implementation(projects.designSystem.resources)
                 implementation(projects.designSystem.brandArtifacts)
 
+                implementation(projects.composeLibs.weightPicker)
+
                 implementation(compose.ui)
                 implementation(compose.foundation)
-    implementation(libs.koin.core)
+                implementation(libs.koin.core)
             }
         }
     }

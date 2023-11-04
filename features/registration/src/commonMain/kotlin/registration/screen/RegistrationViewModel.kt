@@ -2,8 +2,6 @@ package registration.screen
 
 import AuthenticationRepository
 import ViewModel
-import registration.state.State
-import registration.state.TokenStatus
 import isEmailValid
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -14,6 +12,8 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.update
 import org.koin.core.component.inject
+import registration.state.State
+import registration.state.TokenStatus
 
 internal class RegistrationViewModel : ViewModel() {
 
@@ -33,21 +33,6 @@ internal class RegistrationViewModel : ViewModel() {
             .onEach {
                 _state.update { it.copy(tokenStatus = TokenStatus.Available) }
             }.launchIn(this)
-    }
-
-    fun login() {
-        _state.update { it.validate() }
-
-        if (state.value.error == null) {
-            api.login(state.value.email, state.value.password)
-                .onStart {
-                    _state.update { it.copy(loading = true) }
-                }.onEach {
-                    _state.update { it.copy(loading = false) }
-                }.catch { t ->
-                    _state.update { it.copy(loading = false, error = t.message) }
-                }.launchIn(this)
-        }
     }
 
     fun registration() {
@@ -73,8 +58,32 @@ internal class RegistrationViewModel : ViewModel() {
         _state.update { it.copy(email = value) }
     }
 
+    fun updateName(value: String) {
+        _state.update { it.copy(name = value) }
+    }
+
     fun updatePassword(value: String) {
         _state.update { it.copy(password = value) }
+    }
+
+    fun updateWeight(value: Int) {
+        _state.update { it.copy(weight = value) }
+    }
+
+    fun previousStep() {
+        _state.update {
+            val newStepIndex = it.steps.indexOf(it.selectedStep).minus(1)
+            if (newStepIndex < 0) it
+            else it.copy(selectedStep = it.steps[newStepIndex])
+        }
+    }
+
+    fun nextStep() {
+        _state.update {
+            val newStepIndex = it.steps.indexOf(it.selectedStep).plus(1)
+            if (newStepIndex > it.steps.lastIndex) it
+            else it.copy(selectedStep = it.steps[newStepIndex])
+        }
     }
 
     private fun State.validate(): State {
