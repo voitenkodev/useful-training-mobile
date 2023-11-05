@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -16,8 +17,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
 import authentication.state.TokenStatus
-import brandartifacts.Alien
+import brandartifacts.LevitatingIcon
 import components.Error
 import components.Loading
 import components.buttons.ButtonQuestion
@@ -27,6 +29,7 @@ import components.overlay.AlphaOverlay
 import components.roots.Root
 import components.states.animateAlignmentAsState
 import components.states.keyboardAsBoolean
+import icons.Planet5
 import molecule.ButtonPrimary
 import molecule.PaddingL
 import molecule.PaddingM
@@ -107,7 +110,10 @@ private fun Content(
 
             PaddingXL()
 
-            Alien()
+            LevitatingIcon(
+                modifier = Modifier.size(80.dp),
+                imageVector = Planet5
+            )
 
             PaddingM()
 

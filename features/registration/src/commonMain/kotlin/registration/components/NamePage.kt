@@ -5,14 +5,17 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
-import brandartifacts.Planet1
+import androidx.compose.ui.unit.dp
+import brandartifacts.LevitatingIcon
 import components.inputs.InputName
 import components.states.animateAlignmentAsState
 import components.states.keyboardAsBoolean
+import icons.Planet2
 import molecule.ButtonPrimary
 import molecule.PaddingL
 import molecule.PaddingM
@@ -27,17 +30,17 @@ internal fun NamePage(
     updateName: (String) -> Unit,
     confirm: () -> Unit
 ) {
-
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .platformInsets(),
+        modifier = Modifier.fillMaxSize().platformInsets(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
         PaddingXL()
 
-        Planet1()
+        LevitatingIcon(
+            modifier = Modifier.size(80.dp),
+            imageVector = Planet2
+        )
 
         PaddingM()
 

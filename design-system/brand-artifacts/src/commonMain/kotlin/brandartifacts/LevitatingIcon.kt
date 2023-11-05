@@ -9,7 +9,6 @@ import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.offset
-import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -19,15 +18,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.TransformOrigin
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import kotlin.random.Random
 
-private enum class Planet1AnimationState { INITIAL, STARTED, FINISHED }
-
 @Composable
-public fun Planet1() {
-    val animController = remember { mutableStateOf(Planet1AnimationState.INITIAL) }
+public fun LevitatingIcon(modifier: Modifier = Modifier, imageVector: ImageVector) {
 
+    val animController = remember { mutableStateOf(false) }
     val levitationX = remember { Animatable(0f) }
     val levitationY = remember { Animatable(0f) }
     val rotation = remember { Animatable(0f) }
@@ -41,9 +39,7 @@ public fun Planet1() {
         )
     )
 
-    LaunchedEffect(Unit) {
-        animController.value = Planet1AnimationState.FINISHED
-    }
+    LaunchedEffect(Unit) { animController.value = true }
 
     LaunchedEffect(animController.value) {
         while (true) {
@@ -85,8 +81,7 @@ public fun Planet1() {
     }
 
     Image(
-        modifier = Modifier
-            .size(90.dp)
+        modifier = modifier
             .graphicsLayer(
                 transformOrigin = TransformOrigin(
                     pivotFractionX = 0.5f,
@@ -96,7 +91,7 @@ public fun Planet1() {
             )
             .offset(x = levitationX.value.dp, y = levitationY.value.dp)
             .rotate(rotation.value),
-        imageVector = icons.Planet1,
+        imageVector = imageVector,
         contentDescription = null
     )
 }

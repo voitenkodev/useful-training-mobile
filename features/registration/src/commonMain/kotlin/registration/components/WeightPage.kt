@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -11,7 +12,8 @@ import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import atom.Design
-import brandartifacts.Planet1
+import brandartifacts.LevitatingIcon
+import icons.Planet1
 import kg
 import molecule.ButtonPrimary
 import molecule.PaddingM
@@ -32,15 +34,16 @@ internal fun WeightPage(
 ) {
 
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .platformTopInset(),
+        modifier = Modifier.fillMaxSize().platformTopInset(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
         PaddingXL()
 
-        Planet1()
+        LevitatingIcon(
+            modifier = Modifier.size(80.dp),
+            imageVector = Planet1
+        )
 
         PaddingM()
 
