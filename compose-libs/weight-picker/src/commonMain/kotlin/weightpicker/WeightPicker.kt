@@ -154,17 +154,16 @@ public fun WeightPicker(
             )
             val bottomLeft = Offset(
                 x = circleCenter.x - 12f,
-                y = circleCenter.y - innerRadius
+                y = circleCenter.y - innerRadius + 20
             )
             val bottomRight = Offset(
                 x = circleCenter.x + 12f,
-                y = circleCenter.y - innerRadius
+                y = circleCenter.y - innerRadius + 20
             )
 
             val indicator = Path().apply {
                 moveTo(middleTop.x, middleTop.y)
 
-                // Создаем плавные углы с помощью кривых Безье
                 cubicTo(
                     middleTop.x - 6f, middleTop.y + 6f,
                     bottomLeft.x - 6f, bottomLeft.y - 6f,
