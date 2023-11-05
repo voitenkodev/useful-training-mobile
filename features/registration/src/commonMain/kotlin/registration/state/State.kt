@@ -4,7 +4,7 @@ import androidx.compose.runtime.Immutable
 
 @Immutable
 internal data class State(
-    val name: String = "",
+    val name: String = "asd",
     val weight: Int = 650,
     val email: String = "",
     val password: String = "",

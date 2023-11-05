@@ -65,7 +65,8 @@ internal fun WeightPage(
                     fiveStepLineColor = Design.colors.accentPrimary,
                     normalLineColor = Design.colors.caption,
                     scaleIndicatorColor = Design.colors.accentSecondary,
-                    backgroundColor = Design.colors.secondary
+                    backgroundColor = Design.colors.secondary,
+                    designLinesColor = Design.colors.white5
                 )
             )
 

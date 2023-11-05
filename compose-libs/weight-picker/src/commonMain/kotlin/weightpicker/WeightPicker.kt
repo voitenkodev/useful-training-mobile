@@ -79,6 +79,7 @@ public fun WeightPicker(
                 }),
         onDraw = {
             center = this.center
+
             circleCenter = Offset(center.x, scaleWidth.toPx() / 2f + radius.toPx())
             val outerRadius = radius.toPx() + scaleWidth.toPx() / 2f
             val innerRadius = radius.toPx() - scaleWidth.toPx() / 2f
@@ -118,6 +119,14 @@ public fun WeightPicker(
                     x = outerRadius * cos(angleInRad) + circleCenter.x,
                     y = outerRadius * sin(angleInRad) + circleCenter.y
                 )
+                val designLineStart = Offset(
+                    x = (innerRadius - outerRadius) * cos(angleInRad) + circleCenter.x,
+                    y = (innerRadius - outerRadius) * sin(angleInRad) + circleCenter.y
+                )
+                val designLineEnd = Offset(
+                    x = (innerRadius + 175) * cos(angleInRad) + circleCenter.x,
+                    y = (innerRadius + 175) * sin(angleInRad) + circleCenter.y
+                )
                 if (lineType is LineType.TenStep) {
                     val textRadius = outerRadius - lineLength - style.fontSize.toPx()
                     val x = textRadius * cos(angleInRad) + circleCenter.x
@@ -138,6 +147,13 @@ public fun WeightPicker(
                             topLeft = Offset(x = x - (dimensions.size.width / 2), y = y),
                         )
                     }
+
+                    drawLine(
+                        color = pickerStyle.designLinesColor,
+                        start = designLineStart,
+                        end = designLineEnd,
+                        strokeWidth = 1.dp.toPx()
+                    )
                 }
 
                 drawLine(
