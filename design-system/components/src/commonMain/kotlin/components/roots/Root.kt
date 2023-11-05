@@ -25,9 +25,7 @@ public fun Root(
         modifier = modifier
             .fillMaxSize()
             .pointerInput(Unit) {
-                detectTapGestures(
-                    onTap = { focusManager.clearFocus() },
-                )
+                detectTapGestures(onTap = { focusManager.clearFocus() })
             },
         content = content
     )

@@ -93,6 +93,12 @@ private fun Content(
         focus.clearFocus()
         registration.invoke()
     }
+
+    val align = animateAlignmentAsState(
+        targetAlignment = if (keyboardAsBoolean()) Alignment.TopCenter else Alignment.BottomCenter,
+        animationSpec = tween(durationMillis = 400, easing = LinearOutSlowInEasing)
+    )
+
     val backProvider by rememberUpdatedState(back)
 
     Root(
@@ -119,7 +125,10 @@ private fun Content(
 
             TextH1(provideText = { "Alien Workout" })
 
-            TextBody1(provideText = { "Take your power-up" }, fontWeight = FontWeight.Medium)
+            TextBody1(
+                provideText = { "Take your power-up" },
+                fontWeight = FontWeight.Medium
+            )
 
             PaddingL()
 
@@ -136,14 +145,6 @@ private fun Content(
             )
 
             PaddingM()
-
-            val align = animateAlignmentAsState(
-                targetAlignment = if (keyboardAsBoolean()) Alignment.TopCenter else Alignment.BottomCenter,
-                animationSpec = tween(
-                    durationMillis = 400,
-                    easing = LinearOutSlowInEasing
-                )
-            )
 
             Box(
                 modifier = Modifier.weight(1f),
