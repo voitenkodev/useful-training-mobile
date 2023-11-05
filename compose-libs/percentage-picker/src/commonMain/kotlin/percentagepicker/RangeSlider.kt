@@ -27,7 +27,6 @@ public fun RangeSlider(
     lineColor: Color,
     requiredFilledRange: Boolean = true
 ) {
-
     require((requiredFilledRange && thumbs.sumOf { it.positionInRange } != range.endInclusive).not()) {
         "Using 'requiredFilledRange = true', sum of items should be ${range.endInclusive}, but == ${thumbs.sumOf { it.positionInRange }}"
     }
@@ -35,16 +34,7 @@ public fun RangeSlider(
     val canvasSize = remember { mutableStateOf(Size(0f, 0f)) }
 
     val internalThumbs = remember(canvasSize.value, thumbs) {
-        val thumbInternalStates = thumbs.mapIndexed { index, item ->
-            val linePosition = thumbs.take(index + 1).sumOf { it.positionInRange }
-            ThumbInternalState(
-                id = item.id,
-                positionInLine = linePosition,
-                positionBetween = item.positionInRange,
-                offsetX = (canvasSize.value.width / range.endInclusive) * linePosition,
-                color = item.color
-            )
-        }
+        val thumbInternalStates = thumbs.toInternal(range = range, canvasSize = canvasSize.value)
         mutableStateOf(if (canvasSize.value.width == 0f) emptyList() else thumbInternalStates)
     }
 
@@ -52,102 +42,94 @@ public fun RangeSlider(
     val textMeasurer = rememberTextMeasurer()
 
     Canvas(
-        modifier = modifier
-            .pointerInput(canvasSize.value, thumbs) {
-                detectTapGestures(
-                    onPress = {
-                        val availableInteractionList = if (requiredFilledRange) {
-                            internalThumbs.value.dropLast(1)
-                        } else internalThumbs.value
+        modifier = modifier.pointerInput(canvasSize.value, thumbs) {
+            detectTapGestures(
+                onPress = {
+                    val availableInteractionList =
+                        if (requiredFilledRange) internalThumbs.value.dropLast(1)
+                        else internalThumbs.value
 
-                        val nearThumb = availableInteractionList
-                            .findNearTo(it.x)
-                            ?: return@detectTapGestures
+                    val nearThumb = availableInteractionList
+                        .findNearTo(it.x)
+                        ?: return@detectTapGestures
 
-                        internalThumbs.value = internalThumbs.value.map { item ->
-                            item.copy(isSelected = item.id == nearThumb.id)
-                        }
+                    internalThumbs.value = internalThumbs.value.map { item ->
+                        item.copy(isSelected = item.id == nearThumb.id)
                     }
+                }
+            )
+        }.pointerInput(canvasSize.value, thumbs) {
+            detectDragGestures(
+                onDragEnd = {
+                    onValueChange.invoke(internalThumbs.value.toExternal())
+                }
+            ) { change, _ ->
+
+                change.consume()
+
+                val selectedThumb = internalThumbs
+                    .value
+                    .firstOrNull { it.isSelected }
+                    ?: return@detectDragGestures
+
+                val recalculatedPositionInLine = proportionForPosition(
+                    range = range,
+                    canvasSize = canvasSize.value,
+                    newOffsetX = change.position.x
                 )
-            }.pointerInput(canvasSize.value, thumbs) {
-                detectDragGestures(
-                    onDragEnd = {
-                        val result = internalThumbs.value.map { item ->
-                            ThumbRangeState(
-                                id = item.id,
-                                positionInRange = item.positionBetween,
-                                color = item.color
-                            )
-                        }
-                        onValueChange.invoke(result)
-                    }
-                ) { change, _ ->
 
-                    change.consume()
+                if (selectedThumb.positionInLine == recalculatedPositionInLine) return@detectDragGestures
 
-                    val selectedThumb = internalThumbs
-                        .value
-                        .firstOrNull { it.isSelected }
-                        ?: return@detectDragGestures
+                val newThumbPositions = internalThumbs.value.mapIndexed { index, thumb ->
 
-                    val recalculatedPositionInLine = proportionForPosition(
-                        range = range,
-                        canvasSize = canvasSize.value,
-                        newOffsetX = change.position.x
-                    )
+                    val undoPosition =
+                        if (index > 0) internalThumbs.value[index - 1].positionInLine
+                        else range.start
 
-                    if (selectedThumb.positionInLine == recalculatedPositionInLine) return@detectDragGestures
+                    val afterPosition =
+                        if (index < internalThumbs.value.size - 1) internalThumbs.value[index + 1].positionInLine
+                        else range.endInclusive
 
-                    val newThumbPositions = internalThumbs.value.mapIndexed { index, thumb ->
-
-                        val undoPosition =
-                            if (index > 0) internalThumbs.value[index - 1].positionInLine
-                            else range.start
-
-                        val afterPosition =
-                            if (index < internalThumbs.value.size - 1) internalThumbs.value[index + 1].positionInLine
-                            else range.endInclusive
-
-                        val newPosition =
-                            if (selectedThumb == thumb) proportionForPosition(
-                                range = range,
-                                canvasSize = canvasSize.value,
-                                newOffsetX = change.position.x
-                            ) else thumb.positionInLine
-
-                        if (newPosition == thumb.positionInLine && selectedThumb == thumb) return@detectDragGestures
-
-                        val coerceValue = takeIf { index == internalThumbs.value.lastIndex }
-                            ?.let { afterPosition }
-                            ?: let { afterPosition - minimalRange }
-
-                        newPosition.coerceIn(
-                            minimumValue = undoPosition + minimalRange,
-                            maximumValue = coerceValue.coerceAtLeast(0)
-                        )
-                    }
-
-                    val updatedThumbs = internalThumbs.value.mapIndexed { index, thumb ->
-                        val newOffsetX = proportionForOffset(
+                    val newPosition =
+                        if (selectedThumb == thumb) proportionForPosition(
                             range = range,
                             canvasSize = canvasSize.value,
-                            newPosition = newThumbPositions[index]
-                        )
+                            newOffsetX = change.position.x
+                        ) else thumb.positionInLine
 
-                        thumb.copy(
-                            positionInLine = newThumbPositions[index],
-                            offsetX = newOffsetX
-                        )
-                    }
+                    if (newPosition == thumb.positionInLine && selectedThumb == thumb) return@detectDragGestures
 
-                    val updatedThumbPositionsBetween = updatedThumbs.mapIndexed { index, item ->
-                        val newPositionBetween = item.positionInLine - (updatedThumbs.getOrNull(index - 1)?.positionInLine ?: 0)
-                        item.copy(positionBetween = newPositionBetween)
-                    }
+                    val coerceValue = takeIf { index == internalThumbs.value.lastIndex }
+                        ?.let { afterPosition }
+                        ?: let { afterPosition - minimalRange }
 
-                    internalThumbs.value = updatedThumbPositionsBetween
+                    newPosition.coerceIn(
+                        minimumValue = undoPosition + minimalRange,
+                        maximumValue = coerceValue.coerceAtLeast(0)
+                    )
                 }
+
+                val updatedThumbs = internalThumbs.value.mapIndexed { index, thumb ->
+                    val newOffsetX = proportionForOffset(
+                        range = range,
+                        canvasSize = canvasSize.value,
+                        newPosition = newThumbPositions[index]
+                    )
+
+                    thumb.copy(
+                        positionInLine = newThumbPositions[index],
+                        offsetX = newOffsetX
+                    )
+                }
+
+                val updatedThumbPositionsBetween = updatedThumbs.mapIndexed { index, item ->
+                    val newPositionBetween = item.positionInLine - (updatedThumbs.getOrNull(index - 1)?.positionInLine ?: 0)
+                    item.copy(positionBetween = newPositionBetween)
+                }
+
+                internalThumbs.value = updatedThumbPositionsBetween
             }
+        }
     ) {
         canvasSize.value = size
         val lineHeight = canvasSize.value.height / 8

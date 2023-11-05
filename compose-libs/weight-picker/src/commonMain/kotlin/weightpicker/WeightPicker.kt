@@ -33,11 +33,11 @@ public fun WeightPicker(
     onValueChange: (Int) -> Unit
 ) {
 
-    val internalInitialWeight = remember { initial }
+    val style = Design.typography.Body2.copy(color = Design.colors.content)
     val textMeasurer = rememberTextMeasurer()
+    val internalInitialWeight = remember { initial }
     val radius = pickerStyle.radius
     val scaleWidth = pickerStyle.scaleWidth
-    val style = Design.typography.Body2.copy(color = Design.colors.content)
     val angleVisibilityRange = 30f
 
     var center by remember { mutableStateOf(Offset.Zero) }
