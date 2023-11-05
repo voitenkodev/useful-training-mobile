@@ -34,53 +34,49 @@ public fun WeightPicker(
 ) {
 
     val internalInitialWeight = remember { initial }
+    val textMeasurer = rememberTextMeasurer()
     val radius = pickerStyle.radius
     val scaleWidth = pickerStyle.scaleWidth
+    val style = Design.typography.Body2.copy(color = Design.colors.content)
+    val angleVisibilityRange = 30f
+
     var center by remember { mutableStateOf(Offset.Zero) }
     var circleCenter by remember { mutableStateOf(Offset.Zero) }
     var angle by remember { mutableStateOf(0f) }
     var dragStartedAngle by remember { mutableStateOf(0f) }
     var oldAngle by remember { mutableStateOf(0f) }
-    val textMeasurer = rememberTextMeasurer()
-    val style = Design.typography.Body2.copy(color = Design.colors.content)
-    val angleVisibilityRange = 30f
 
     Canvas(
-        modifier = modifier
-            .pointerInput(
-                key1 = true,
-                block = {
-                    detectDragGestures(
-                        onDragStart = { offset ->
-                            dragStartedAngle = -atan2(
-                                y = circleCenter.x - offset.x,
-                                x = circleCenter.y - offset.y
-                            ) * (180f / PI.toFloat())
-                        },
-                        onDragEnd = {
-                            oldAngle = angle
-                        }
-                    ) { change, _ ->
-
-                        val touchAngle = -atan2(
-                            y = circleCenter.x - change.position.x,
-                            x = circleCenter.y - change.position.y
-                        ) * (180f / PI.toFloat())
-
-                        val newAngle = oldAngle + (touchAngle - dragStartedAngle)
-
-                        angle = newAngle.coerceIn(
-                            minimumValue = internalInitialWeight - maximum.toFloat(),
-                            maximumValue = internalInitialWeight - minimal.toFloat()
-                        )
-
-                        onValueChange((internalInitialWeight - angle).roundToInt())
-                    }
+        modifier = modifier.pointerInput(key1 = true) {
+            detectDragGestures(
+                onDragStart = { offset ->
+                    dragStartedAngle = -atan2(
+                        y = circleCenter.x - offset.x,
+                        x = circleCenter.y - offset.y
+                    ) * (180f / PI.toFloat())
+                },
+                onDragEnd = {
+                    oldAngle = angle
                 }
-            ),
+            ) { change, _ ->
+
+                val touchAngle = -atan2(
+                    y = circleCenter.x - change.position.x,
+                    x = circleCenter.y - change.position.y
+                ) * (180f / PI.toFloat())
+
+                val newAngle = oldAngle + (touchAngle - dragStartedAngle)
+
+                angle = newAngle.coerceIn(
+                    minimumValue = internalInitialWeight - maximum.toFloat(),
+                    maximumValue = internalInitialWeight - minimal.toFloat()
+                )
+
+                onValueChange((internalInitialWeight - angle).roundToInt())
+            }
+        },
         onDraw = {
             center = this.center
-
             circleCenter = Offset(center.x, scaleWidth.toPx() / 2f + radius.toPx())
             val outerRadius = radius.toPx() + scaleWidth.toPx() / 2f
             val innerRadius = radius.toPx() - scaleWidth.toPx() / 2f
@@ -95,7 +91,8 @@ public fun WeightPicker(
             val localMaxWeightGram = (internalInitialWeight - angle + angleVisibilityRange).toInt()
 
             for (i in localMinWeightGram..localMaxWeightGram) {
-                val angleInRad = (i - internalInitialWeight + angle - 90) * (PI / 180f).toFloat()
+                val angleInRad =
+                    (i - internalInitialWeight + angle - 90) * (PI / 180f).toFloat()
 
                 val lineType = when {
                     i % 10 == 0 -> LineType.TenStep
