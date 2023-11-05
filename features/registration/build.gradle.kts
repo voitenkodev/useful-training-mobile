@@ -23,6 +23,7 @@ kotlin {
                 implementation(projects.designSystem.components)
 
                 implementation(projects.composeLibs.weightPicker)
+                implementation(projects.composeLibs.heightPicker)
 
                 implementation(compose.ui)
                 implementation(compose.foundation)

@@ -27,13 +27,13 @@ import kotlin.math.sin
 public fun WeightPicker(
     modifier: Modifier = Modifier,
     pickerStyle: WeightPickerStyle,
-    minWeightGram: Int = 300,
-    maxWeightGram: Int = 3000,
-    initialWeightGram: Int = 300,
-    onWeightChange: (Int) -> Unit
+    minimal: Int = 300,
+    maximum: Int = 3000,
+    initial: Int = 300,
+    onValueChange: (Int) -> Unit
 ) {
 
-    val internalInitialWeight = remember { initialWeightGram }
+    val internalInitialWeight = remember { initial }
     val radius = pickerStyle.radius
     val scaleWidth = pickerStyle.scaleWidth
     var center by remember { mutableStateOf(Offset.Zero) }
@@ -70,13 +70,14 @@ public fun WeightPicker(
                         val newAngle = oldAngle + (touchAngle - dragStartedAngle)
 
                         angle = newAngle.coerceIn(
-                            minimumValue = internalInitialWeight - maxWeightGram.toFloat(),
-                            maximumValue = internalInitialWeight - minWeightGram.toFloat()
+                            minimumValue = internalInitialWeight - maximum.toFloat(),
+                            maximumValue = internalInitialWeight - minimal.toFloat()
                         )
 
-                        onWeightChange((internalInitialWeight - angle).roundToInt())
+                        onValueChange((internalInitialWeight - angle).roundToInt())
                     }
-                }),
+                }
+            ),
         onDraw = {
             center = this.center
 

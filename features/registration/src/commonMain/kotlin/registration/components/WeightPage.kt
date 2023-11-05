@@ -57,8 +57,8 @@ internal fun WeightPage(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(170.dp),
-                initialWeightGram = weight,
-                onWeightChange = updateWeight,
+                initial = weight,
+                onValueChange = updateWeight,
                 pickerStyle = WeightPickerStyle(
                     scaleWidth = 140.dp,
                     tenStepLineColor = Design.colors.content,

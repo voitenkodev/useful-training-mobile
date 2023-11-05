@@ -48,9 +48,8 @@ public fun RangeSlider(
         mutableStateOf(if (canvasSize.value.width == 0f) emptyList() else thumbInternalStates)
     }
 
-    val textMeasurer = rememberTextMeasurer()
-
     val style = Design.typography.Body2.copy(color = Design.colors.content)
+    val textMeasurer = rememberTextMeasurer()
 
     Canvas(
         modifier = modifier

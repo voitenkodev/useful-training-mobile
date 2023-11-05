@@ -48,6 +48,7 @@ include(
     "compose-libs:charts",
     "compose-libs:compose-player",
     "compose-libs:weight-picker",
+    "compose-libs:height-picker",
     "compose-libs:percentage-picker",
 
     "features:splash",

@@ -18,6 +18,7 @@ import components.roots.Root
 import molecule.PaddingL
 import molecule.PaddingXL
 import platformTopInset
+import registration.components.HeightPage
 import registration.components.NamePage
 import registration.components.WeightPage
 import registration.state.RegistrationSteps
@@ -46,6 +47,8 @@ internal fun RegistrationContent(
         updateName = vm::updateName,
         weight = state.weight,
         updateWeight = vm::updateWeight,
+        height = state.height,
+        updateHeight = vm::updateHeight,
         email = state.email,
         updateEmail = vm::updateEmail,
         password = state.password,
@@ -76,6 +79,9 @@ private fun Content(
 
     weight: Int,
     updateWeight: (Int) -> Unit,
+
+    height: Int,
+    updateHeight: (Int) -> Unit,
 
     email: String,
     updateEmail: (String) -> Unit,
@@ -123,6 +129,12 @@ private fun Content(
                     1 -> WeightPage(
                         weight = weight,
                         updateWeight = updateWeight,
+                        confirm = nextStep
+                    )
+
+                    2 -> HeightPage(
+                        height = height,
+                        updateHeight = updateHeight,
                         confirm = previousStep
                     )
                 }

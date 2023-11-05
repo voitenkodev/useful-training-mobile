@@ -66,6 +66,10 @@ internal class RegistrationViewModel : ViewModel() {
         _state.update { it.copy(weight = value) }
     }
 
+    fun updateHeight(value: Int) {
+        _state.update { it.copy(height = value) }
+    }
+
     fun previousStep() {
         _state.update {
             val newStepIndex = it.steps.indexOf(it.selectedStep).minus(1)

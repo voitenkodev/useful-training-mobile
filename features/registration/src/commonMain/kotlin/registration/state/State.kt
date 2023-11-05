@@ -6,6 +6,7 @@ import androidx.compose.runtime.Immutable
 internal data class State(
     val name: String = "asd",
     val weight: Int = 650,
+    val height: Int = 1400,
     val email: String = "",
     val password: String = "",
 
