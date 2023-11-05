@@ -81,17 +81,17 @@ internal fun typography() = Typography(
 )
 
 public data class Typography(
-    val H1: TextStyle, // big titles
-    val H2: TextStyle, // medium titles
-    val H3: TextStyle, // little titles
-    val H4: TextStyle, // little titles
+    val H1: TextStyle, // Big titles
+    val H2: TextStyle, // Medium titles
+    val H3: TextStyle, // Little titles
+    val H4: TextStyle, // Little titles
 
-    val Input: TextStyle, // main inputs + fields
+    val Input: TextStyle, // Main inputs + fields
 
-    val Body: TextStyle, // fields
-    val Body2: TextStyle, // additional little input
+    val Body: TextStyle, // Fields
+    val Body2: TextStyle, // Additional little input
 
-    val Label: TextStyle, // additional little input
+    val Label: TextStyle, // Additional little input
 
     val PrimaryButton: TextStyle,
     val SecondaryButton: TextStyle,
