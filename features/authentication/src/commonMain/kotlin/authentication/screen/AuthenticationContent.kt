@@ -1,5 +1,6 @@
 package authentication.screen
 
+import Planet6
 import PlatformBackHandler
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.tween
@@ -29,7 +30,6 @@ import components.overlay.AlphaOverlay
 import components.roots.Root
 import components.states.animateAlignmentAsState
 import components.states.keyboardAsBoolean
-import icons.Planet5
 import molecule.ButtonPrimary
 import molecule.PaddingL
 import molecule.PaddingM
@@ -112,7 +112,7 @@ private fun Content(
 
             LevitatingIcon(
                 modifier = Modifier.size(80.dp),
-                imageVector = Planet5
+                imageVector = Planet6
             )
 
             PaddingM()
