@@ -21,8 +21,6 @@ kotlin {
 
                 implementation(projects.designSystem.molecule)
                 implementation(projects.designSystem.components)
-                implementation(projects.designSystem.brandArtifacts)
-                implementation(projects.designSystem.resources)
 
                 implementation(compose.ui)
                 implementation(compose.foundation)

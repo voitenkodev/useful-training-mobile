@@ -2,6 +2,7 @@ package authentication.screen
 
 import AuthenticationRepository
 import ViewModel
+import authentication.state.ScreenState
 import authentication.state.State
 import authentication.state.TokenStatus
 import isEmailValid
@@ -49,6 +50,10 @@ internal class AuthenticationViewModel : ViewModel() {
 
     fun clearError() {
         _state.update { it.copy(error = null) }
+    }
+
+    fun markScreenAsShowedOnce() {
+        _state.update { it.copy(screenState = ScreenState.ShowedOnce) }
     }
 
     fun updateEmail(value: String) {

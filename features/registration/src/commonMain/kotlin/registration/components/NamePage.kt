@@ -5,24 +5,19 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
-import brandartifacts.LevitatingIcon
 import components.inputs.InputName
 import components.states.animateAlignmentAsState
 import components.states.keyboardAsBoolean
-import icons.Planet2
 import molecule.ButtonPrimary
-import molecule.PaddingL
 import molecule.PaddingM
 import molecule.PaddingXL
 import molecule.TextBody1
 import molecule.TextH1
-import platformInsets
+import platformBottomInset
 
 @Composable
 internal fun NamePage(
@@ -31,24 +26,17 @@ internal fun NamePage(
     confirm: () -> Unit
 ) {
     Column(
-        modifier = Modifier.fillMaxSize().platformInsets(),
+        modifier = Modifier.fillMaxSize().platformBottomInset(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
         PaddingXL()
 
-        LevitatingIcon(
-            modifier = Modifier.size(80.dp),
-            imageVector = Planet2
-        )
-
-        PaddingM()
-
         TextH1(provideText = { "Nice to meet you" })
 
         TextBody1(provideText = { "How can we call you?" }, fontWeight = FontWeight.Medium)
 
-        PaddingL()
+        PaddingXL()
 
         InputName(
             provideValue = { name },

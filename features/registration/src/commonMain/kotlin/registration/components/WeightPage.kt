@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -12,17 +11,13 @@ import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import atom.Design
-import brandartifacts.LevitatingIcon
-import icons.Planet1
 import kg
 import molecule.ButtonPrimary
-import molecule.PaddingM
 import molecule.PaddingWeight
 import molecule.PaddingXL
 import molecule.TextBody1
 import molecule.TextH1
 import platformBottomInset
-import platformTopInset
 import weightpicker.WeightPicker
 import weightpicker.WeightPickerStyle
 
@@ -34,18 +29,11 @@ internal fun WeightPage(
 ) {
 
     Column(
-        modifier = Modifier.fillMaxSize().platformTopInset(),
+        modifier = Modifier.fillMaxSize().platformBottomInset(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
         PaddingXL()
-
-        LevitatingIcon(
-            modifier = Modifier.size(80.dp),
-            imageVector = Planet1
-        )
-
-        PaddingM()
 
         TextH1(provideText = { "Your weight?" })
 

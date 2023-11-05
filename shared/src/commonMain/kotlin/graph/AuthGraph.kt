@@ -2,6 +2,8 @@ package graph
 
 import androidx.compose.runtime.Composable
 import authentication.AuthenticationFeature
+import com.arkivanov.decompose.extensions.compose.jetbrains.stack.animation.slide
+import com.arkivanov.decompose.extensions.compose.jetbrains.stack.animation.stackAnimation
 import com.arkivanov.decompose.router.stack.pop
 import com.arkivanov.decompose.router.stack.push
 import com.arkivanov.decompose.router.stack.replaceAll
@@ -29,7 +31,10 @@ internal fun AuthGraph(
         listOf(AuthRouter.Splash)
     }
 
-    RoutedContent(router = router) { child ->
+    RoutedContent(
+        router = router,
+        animation  = stackAnimation(slide())
+    ) { child ->
         when (child) {
             AuthRouter.Splash -> SplashFeature(
                 toAuthentication = { router.replaceAll(AuthRouter.Authentication) },

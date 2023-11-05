@@ -16,24 +16,30 @@ import atom.Design
 @Composable
 public fun AlphaOverlay(
     modifier: Modifier = Modifier,
-    visibilityCondition: () -> Boolean = { true },
+    condition: Boolean = true,
+    finishedListener: () -> Unit,
     initialAlpha: Float = 1f,
     targetAlpha: Float = 0f,
     animationDuration: Int = 1200,
     delayDuration: Int = 500
 ) {
 
-    val animatedValue = remember { mutableStateOf(initialAlpha) }
+    if (condition.not()) return
+
+    val animatedValue = remember {
+        mutableStateOf(initialAlpha)
+    }
     val animatedFloat by animateFloatAsState(
         targetValue = animatedValue.value,
         animationSpec = tween(
             durationMillis = animationDuration,
             delayMillis = delayDuration
-        )
+        ),
+        finishedListener = { finishedListener.invoke() }
     )
 
-    LaunchedEffect(visibilityCondition()) {
-        if (visibilityCondition()) animatedValue.value = targetAlpha
+    LaunchedEffect(condition) {
+        if (condition) animatedValue.value = targetAlpha
     }
 
     Spacer(

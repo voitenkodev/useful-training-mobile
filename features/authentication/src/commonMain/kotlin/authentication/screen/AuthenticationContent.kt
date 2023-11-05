@@ -1,6 +1,5 @@
 package authentication.screen
 
-import Planet6
 import PlatformBackHandler
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.tween
@@ -8,7 +7,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -18,9 +16,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
+import authentication.state.ScreenState
 import authentication.state.TokenStatus
-import brandartifacts.LevitatingIcon
 import components.Error
 import components.Loading
 import components.buttons.ButtonQuestion
@@ -31,7 +28,6 @@ import components.roots.Root
 import components.states.animateAlignmentAsState
 import components.states.keyboardAsBoolean
 import molecule.ButtonPrimary
-import molecule.PaddingL
 import molecule.PaddingM
 import molecule.PaddingS
 import molecule.PaddingXL
@@ -63,7 +59,9 @@ internal fun AuthenticationContent(
         email = state.email,
         updateEmail = vm::updateEmail,
         password = state.password,
-        updatePassword = vm::updatePassword
+        updatePassword = vm::updatePassword,
+        screenState = state.screenState,
+        markScreenAsShowedOnce = vm::markScreenAsShowedOnce
     )
 }
 
@@ -74,13 +72,16 @@ private fun Content(
     clearError: () -> Unit,
     back: () -> Unit,
 
+    screenState: ScreenState,
+    markScreenAsShowedOnce: () -> Unit,
+
     login: () -> Unit,
     registration: () -> Unit,
 
     email: String,
     updateEmail: (String) -> Unit,
     password: String,
-    updatePassword: (String) -> Unit
+    updatePassword: (String) -> Unit,
 ) {
 
     val focus = LocalFocusManager.current
@@ -116,12 +117,7 @@ private fun Content(
 
             PaddingXL()
 
-            LevitatingIcon(
-                modifier = Modifier.size(80.dp),
-                imageVector = Planet6
-            )
-
-            PaddingM()
+            PaddingXL()
 
             TextH1(provideText = { "Alien Workout" })
 
@@ -130,7 +126,7 @@ private fun Content(
                 fontWeight = FontWeight.Medium
             )
 
-            PaddingL()
+            PaddingXL()
 
             InputEmail(
                 provideValue = { email },
@@ -171,6 +167,10 @@ private fun Content(
             PaddingM()
         }
 
-        AlphaOverlay(modifier = Modifier.fillMaxSize())
+        AlphaOverlay(
+            modifier = Modifier.fillMaxSize(),
+            condition = screenState == ScreenState.Default,
+            finishedListener = markScreenAsShowedOnce
+        )
     }
 }

@@ -9,10 +9,15 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberUpdatedState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import components.Error
 import components.Loading
+import components.indication.SlideIndicator
 import components.roots.Root
+import molecule.PaddingL
+import molecule.PaddingXL
+import platformTopInset
 import registration.components.NamePage
 import registration.components.WeightPage
 import registration.state.RegistrationSteps
@@ -92,7 +97,16 @@ private fun Content(
             pagerState.animateScrollToPage(steps.indexOf(selectedStep))
         }
 
-        Column(modifier = Modifier) {
+        Column(
+            modifier = Modifier.platformTopInset(),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+
+            PaddingXL()
+
+            SlideIndicator(pagerState)
+
+            PaddingL()
 
             HorizontalPager(
                 modifier = Modifier.weight(1f),
