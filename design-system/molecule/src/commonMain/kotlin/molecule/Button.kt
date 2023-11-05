@@ -65,11 +65,11 @@ public fun ButtonPrimary(
             .background(
                 shape = Design.shape.circleShape,
                 color = bgColor.value
+            ).clip(
+                shape = Design.shape.circleShape
             ).clickable(
                 onClick = onClick,
                 enabled = enabled && loading.not()
-            ).clip(
-                shape = Design.shape.circleShape
             ),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center

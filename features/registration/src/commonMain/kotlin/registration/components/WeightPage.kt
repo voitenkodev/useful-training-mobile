@@ -56,7 +56,7 @@ internal fun WeightPage(
             WeightPicker(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(170.dp),
+                    .height(190.dp),
                 initial = weight,
                 onValueChange = updateWeight,
                 pickerStyle = WeightPickerStyle(
@@ -64,7 +64,7 @@ internal fun WeightPage(
                     tenStepLineColor = Design.colors.content,
                     fiveStepLineColor = Design.colors.accentPrimary,
                     normalLineColor = Design.colors.caption,
-                    scaleIndicatorColor = Design.colors.accentSecondary,
+                    indicatorColor = Design.colors.accentSecondary,
                     backgroundColor = Design.colors.secondary,
                     designLinesColor = Design.colors.white5
                 )

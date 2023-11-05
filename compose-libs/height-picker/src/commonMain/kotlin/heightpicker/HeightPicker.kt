@@ -1,89 +1,152 @@
 package heightpicker
 
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Slider
-import androidx.compose.material3.SliderColors
-import androidx.compose.material3.SliderDefaults
+import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.text.drawText
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.dp
 import atom.Design
+import kotlin.math.abs
+import kotlin.math.roundToInt
 
 @Composable
-public fun HeightPicker(dates: List<String>, value: Float, onValueChange: (Int) -> Unit) {
-    val disableColor = Design.colors.caption
-
-    val (sliderValue, setSliderValue) = remember { mutableStateOf(value) }
-    val drawPadding = with(LocalDensity.current) { 10.dp.toPx() }
-    val lineHeightDp = 10.dp
-    val lineHeightPx = with(LocalDensity.current) { lineHeightDp.toPx() }
-    val canvasHeight = 50.dp
-
+public fun HeightPicker(
+    modifier: Modifier = Modifier,
+    pickerStyle: HeightPickerStyle,
+    minimal: Int = 300,
+    maximum: Int = 600,
+    initial: Int,
+    onValueChange: (Int) -> Unit
+) {
     val style = Design.typography.Body2.copy(color = Design.colors.content)
     val textMeasurer = rememberTextMeasurer()
+    var targetDistant by remember { mutableStateOf(0f) }
+    var startDragPoint by remember { mutableStateOf(0f) }
+    var oldDragPoint by remember { mutableStateOf(0f) }
+    var selectedHeight by remember { mutableStateOf(0) }
 
-    Box(contentAlignment = Alignment.Center) {
-        Canvas(
-            modifier = Modifier
-                .height(canvasHeight)
-                .fillMaxWidth()
-                .padding(
-                    top = canvasHeight
-                        .div(2)
-                        .minus(lineHeightDp.div(2))
-                )
-        ) {
-            val yStart = 0f
-            val distance = (size.width.minus(2 * drawPadding)).div(dates.size.minus(1))
-            dates.forEachIndexed { index, date ->
-                drawLine(
-                    color = disableColor,
-                    start = Offset(x = drawPadding + index.times(distance), y = yStart),
-                    end = Offset(x = drawPadding + index.times(distance), y = lineHeightPx)
-                )
-                if (index.rem(2) == 1) {
-                    val dimensions = textMeasurer.measure(date, style)
 
-                    drawText(
-                        textMeasurer = textMeasurer,
-                        text = date,
-                        style = style,
-                        topLeft = Offset(x = drawPadding + index.times(distance), y = 30f),
-                        maxLines = 1,
-                        softWrap = false,
-                        overflow = TextOverflow.Visible
-                    )
+    Canvas(
+        modifier = modifier.pointerInput(Unit) {
+            detectDragGestures(
+                onDragStart = {
+                    startDragPoint = it.x
+                },
+                onDragEnd = {
+                    oldDragPoint = targetDistant
                 }
+            ) { change, _ ->
+                val newDistance = oldDragPoint + (change.position.x - startDragPoint)
+                targetDistant = newDistance.coerceIn(
+                    minimumValue = ((initial) * pickerStyle.spaceInterval - maximum * pickerStyle.spaceInterval).toFloat(),
+                    maximumValue = ((initial) * pickerStyle.spaceInterval - minimal * pickerStyle.spaceInterval).toFloat()
+                )
             }
         }
-        Slider(
-            modifier = Modifier.fillMaxWidth(),
-            value = sliderValue,
-            valueRange = 0f..dates.size.minus(1).toFloat(),
-            steps = dates.size.minus(2),
-            colors = customSliderColors(),
-            onValueChange = {
-                setSliderValue(it)
-                onValueChange(it.toInt())
-            })
+    ) {
+
+        val middlePoint = Offset(x = this.size.width / 2f, y = this.size.height / 2f)
+
+        drawRect(
+            topLeft = Offset.Zero,
+            size = this.size,
+            color = pickerStyle.backgroundColor
+        )
+
+        for (height in minimal..maximum) {
+            val degreeLineScaleX =
+                middlePoint.x + (pickerStyle.spaceInterval * (height - initial.toFloat()) + targetDistant)
+            val lineType = when {
+                height % 10 == 0 -> LineType.TenStep
+                height % 5 == 0 -> LineType.FiveStep
+                else -> LineType.Normal
+            }
+
+            val lineColor = when (lineType) {
+                LineType.TenStep -> pickerStyle.tenStepLineColor
+                LineType.FiveStep -> pickerStyle.fiveStepLineColor
+                else -> pickerStyle.normalLineColor
+            }
+
+            val lineHeightSize = when (lineType) {
+                LineType.TenStep -> pickerStyle.tenStepLineLength.toPx()
+                LineType.FiveStep -> pickerStyle.fiveStepLineLength.toPx()
+                else -> pickerStyle.normalLineLength.toPx()
+            }
+
+            drawLine(
+                start = Offset(degreeLineScaleX, 0f),
+                end = Offset(degreeLineScaleX, lineHeightSize * 2f),
+                brush = SolidColor(lineColor)
+            )
+
+            if (abs(middlePoint.x - degreeLineScaleX.roundToInt()) < 5) {
+                selectedHeight = height
+                onValueChange(selectedHeight)
+            }
+
+
+            if (lineType == LineType.TenStep) {
+                val dimensions = textMeasurer.measure(
+                    text = (abs(height) / 10).toString(),
+                    style = style,
+                    maxLines = 1,
+                    softWrap = false,
+                    overflow = TextOverflow.Visible
+                )
+
+                drawText(
+                    textLayoutResult = dimensions,
+                    topLeft = Offset(x = degreeLineScaleX - (dimensions.size.width / 2), y = lineHeightSize * 2f + 10),
+                )
+            }
+        }
+
+        val middleTop = Offset(
+            x = center.x,
+            y = size.height / 4
+        )
+        val bottomLeft = Offset(
+            x = center.x - 12f,
+            y = size.height - (size.height / 4)
+        )
+        val bottomRight = Offset(
+            x = center.x + 12f,
+            y = size.height - (size.height / 4)
+        )
+
+        val indicator = Path().apply {
+            moveTo(middleTop.x, middleTop.y)
+
+            cubicTo(
+                middleTop.x - 6f, middleTop.y + 6f,
+                bottomLeft.x - 6f, bottomLeft.y - 6f,
+                bottomLeft.x, bottomLeft.y
+            )
+
+            lineTo(bottomRight.x, bottomRight.y)
+
+            cubicTo(
+                bottomRight.x + 6f, bottomRight.y - 6f,
+                middleTop.x + 6f, middleTop.y + 6f,
+                middleTop.x, middleTop.y
+            )
+            close()
+        }
+
+        drawPath(
+            path = indicator,
+            color = pickerStyle.indicatorColor
+        )
     }
 }
-
-@Composable
-private fun customSliderColors(): SliderColors = SliderDefaults.colors(
-    activeTickColor = Color.Transparent,
-    inactiveTickColor = Color.Transparent
-)

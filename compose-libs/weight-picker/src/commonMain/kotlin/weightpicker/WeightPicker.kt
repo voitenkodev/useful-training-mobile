@@ -196,7 +196,7 @@ public fun WeightPicker(
 
             drawPath(
                 path = indicator,
-                color = pickerStyle.scaleIndicatorColor
+                color = pickerStyle.indicatorColor
             )
         }
     )
