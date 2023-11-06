@@ -38,8 +38,8 @@ import kotlinx.collections.immutable.ImmutableList
 import molecule.PaddingM
 import molecule.Shadow
 import molecule.TextBody1
-import molecule.TextH1
 import molecule.TextH2
+import molecule.TextH3
 import platformTopInset
 import trainings.state.SelectableCalendar
 
@@ -170,7 +170,7 @@ private fun CalendarRow(
                     color = if (it.isToday) Design.colors.accentPrimary else if (it.isSelected) Design.colors.content else Design.colors.caption
                 )
 
-                TextH2(
+                TextH3(
                     modifier = Modifier
                         .align(Alignment.BottomCenter)
                         .padding(bottom = 14.dp),
@@ -235,7 +235,7 @@ private fun MonthSwiper(
             )
         }
     ) { target ->
-        TextH1(
+        TextH2(
             modifier = Modifier.fillMaxWidth(),
             provideText = { target },
             softWrap = false

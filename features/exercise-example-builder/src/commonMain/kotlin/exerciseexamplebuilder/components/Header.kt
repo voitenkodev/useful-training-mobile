@@ -28,7 +28,7 @@ import kotlinx.collections.immutable.toPersistentList
 import molecule.ButtonIconSecondary
 import molecule.PaddingM
 import molecule.Shadow
-import molecule.TextH2
+import molecule.TextH3
 import percentagepicker.RangeSlider
 import percentagepicker.ThumbRangeState
 import platformTopInset
@@ -69,7 +69,7 @@ internal fun Header(
                 .fillMaxWidth(),
             contentAlignment = Alignment.CenterStart
         ) {
-            TextH2(
+            TextH3(
                 modifier = Modifier
                     .padding(horizontal = Design.dp.paddingM)
                     .fillMaxWidth(),

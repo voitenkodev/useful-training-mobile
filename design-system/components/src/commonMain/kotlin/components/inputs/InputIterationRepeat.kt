@@ -12,7 +12,7 @@ import molecule.InputSecondary
 public fun InputRepeat(
     modifier: Modifier = Modifier,
     provideValue: () -> String,
-    onValueChange: (String) -> Unit,
+    onValueChange: (String) -> Unit
 ) {
     InputSecondary(
         modifier = modifier,

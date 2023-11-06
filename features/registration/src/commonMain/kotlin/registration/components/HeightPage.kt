@@ -7,17 +7,20 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import atom.Design
-import meter
 import heightpicker.HeightPicker
 import heightpicker.HeightPickerStyle
+import meter
 import molecule.ButtonPrimary
+import molecule.PaddingL
 import molecule.PaddingWeight
 import molecule.PaddingXL
 import molecule.TextBody1
 import molecule.TextH1
+import molecule.TextH2
 import molecule.secondaryRoundBackground
 import platformBottomInset
 
@@ -33,11 +36,11 @@ internal fun HeightPage(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        PaddingXL()
+        PaddingL()
 
-        TextH1(provideText = { "Your height?" })
+        TextH2(provideText = { "Your height" })
 
-        TextBody1(provideText = { "Also helpful info for us!" }, fontWeight = FontWeight.Medium)
+        TextBody1(provideText = { "Enter your current height." }, fontWeight = FontWeight.Medium)
 
         PaddingWeight()
 
@@ -48,7 +51,8 @@ internal fun HeightPage(
         HeightPicker(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(150.dp),
+                .height(164.dp)
+                .clipToBounds(),
             pickerStyle = HeightPickerStyle(
                 backgroundColor = Design.colors.secondary,
                 tenStepLineColor = Design.colors.content,

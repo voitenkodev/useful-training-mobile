@@ -15,7 +15,7 @@ import molecule.InputSecondary
 public fun InputWeight(
     modifier: Modifier = Modifier,
     provideValue: () -> String,
-    onValueChange: (String) -> Unit,
+    onValueChange: (String) -> Unit
 ) {
     val focusManager = LocalFocusManager.current
 

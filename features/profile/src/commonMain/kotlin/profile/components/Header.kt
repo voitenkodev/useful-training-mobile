@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import atom.Design
 import molecule.PaddingM
 import molecule.Shadow
-import molecule.TextH1
+import molecule.TextH2
 import platformTopInset
 
 @Composable
@@ -30,7 +30,7 @@ internal fun Header(modifier: Modifier = Modifier) {
             contentAlignment = Alignment.CenterStart
         ) {
 
-            TextH1(
+            TextH2(
                 modifier = Modifier
                     .padding(horizontal = Design.dp.paddingM)
                     .fillMaxWidth(),

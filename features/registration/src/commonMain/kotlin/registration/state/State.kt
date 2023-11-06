@@ -9,6 +9,7 @@ internal data class State(
     val height: Int = 1650,
     val email: String = "",
     val password: String = "",
+    val passwordRepeat: String = "",
 
     val selectedStep: RegistrationSteps = RegistrationSteps.Name,
     val steps: List<RegistrationSteps> = RegistrationSteps.entries,

@@ -13,10 +13,11 @@ import components.inputs.InputName
 import components.states.animateAlignmentAsState
 import components.states.keyboardAsBoolean
 import molecule.ButtonPrimary
+import molecule.PaddingL
 import molecule.PaddingM
 import molecule.PaddingXL
 import molecule.TextBody1
-import molecule.TextH1
+import molecule.TextH2
 import platformBottomInset
 
 @Composable
@@ -30,9 +31,9 @@ internal fun NamePage(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        PaddingXL()
+        PaddingL()
 
-        TextH1(provideText = { "Nice to meet you" })
+        TextH2(provideText = { "Nice to meet you" })
 
         TextBody1(provideText = { "How can we call you?" }, fontWeight = FontWeight.Medium)
 

@@ -20,7 +20,7 @@ import components.inputs.InputSearch
 import kotlinx.collections.immutable.ImmutableList
 import molecule.PaddingM
 import molecule.Shadow
-import molecule.TextH1
+import molecule.TextH2
 import platformTopInset
 
 @Composable
@@ -58,7 +58,7 @@ internal fun Header(
             contentAlignment = Alignment.CenterStart
         ) {
 
-            TextH1(
+            TextH2(
                 modifier = Modifier
                     .padding(horizontal = Design.dp.paddingM)
                     .fillMaxWidth(),

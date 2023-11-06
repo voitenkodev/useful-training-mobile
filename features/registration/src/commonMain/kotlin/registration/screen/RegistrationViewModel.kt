@@ -62,6 +62,10 @@ internal class RegistrationViewModel : ViewModel() {
         _state.update { it.copy(password = value) }
     }
 
+    fun updatePasswordRepeat(value: String) {
+        _state.update { it.copy(passwordRepeat = value) }
+    }
+
     fun updateWeight(value: Int) {
         _state.update { it.copy(weight = value) }
     }

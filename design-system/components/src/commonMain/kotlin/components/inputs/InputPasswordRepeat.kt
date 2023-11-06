@@ -23,7 +23,7 @@ import molecule.InputPrimary
 import molecule.secondaryDefaultBackground
 
 @Composable
-public fun InputPassword(
+public fun InputPasswordRepeat(
     modifier: Modifier = Modifier,
     provideValue: () -> String,
     onValueChange: (String) -> Unit
@@ -44,7 +44,7 @@ public fun InputPassword(
             InputLabel(
                 modifier = Modifier
                     .width(72.dp),
-                provideText = { "Password" }
+                provideText = { "Repeat" }
             )
         },
         trailing = {

@@ -18,7 +18,7 @@ import components.chips.Chip
 import components.chips.ChipState
 import components.roots.Root
 import kotlinx.collections.immutable.ImmutableList
-import molecule.TextH2
+import molecule.TextH3
 import profile.components.Header
 import profile.components.ProfileCart
 import profile.state.ExerciseExample
@@ -82,7 +82,7 @@ private fun Content(
                 }
 
                 item {
-                    TextH2(
+                    TextH3(
                         provideText = { "Exercise examples" }
                     )
                 }
@@ -104,7 +104,7 @@ private fun Content(
                 }
 
                 item {
-                    TextH2(
+                    TextH3(
                         provideText = { "Muscles" }
                     )
                 }

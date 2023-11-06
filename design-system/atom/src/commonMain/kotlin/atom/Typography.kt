@@ -1,5 +1,6 @@
 package atom
 
+import Fonts
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
@@ -12,21 +13,21 @@ import androidx.compose.ui.unit.sp
 @Composable
 internal fun typography() = Typography(
     H1 = TextStyle(
+        fontSize = 44.sp,
+        fontWeight = FontWeight.Bold,
+        fontStyle = FontStyle.Normal,
+        fontFamily = Fonts.GunterzFamily()
+    ),
+    H2 = TextStyle(
         baselineShift = BaselineShift.None,
         fontSize = 30.sp,
         fontWeight = FontWeight.Bold,
         fontStyle = FontStyle.Normal,
         fontFamily = Fonts.GunterzFamily(),
     ),
-    H2 = TextStyle(
+    H3 = TextStyle(
         fontSize = 22.sp,
         fontWeight = FontWeight.ExtraBold,
-        fontStyle = FontStyle.Normal,
-        fontFamily = Fonts.GunterzFamily()
-    ),
-    H3 = TextStyle(
-        fontSize = 16.sp,
-        fontWeight = FontWeight.Bold,
         fontStyle = FontStyle.Normal,
         fontFamily = Fonts.GunterzFamily()
     ),
@@ -81,10 +82,10 @@ internal fun typography() = Typography(
 )
 
 public data class Typography(
-    val H1: TextStyle, // Big titles
-    val H2: TextStyle, // Medium titles
-    val H3: TextStyle, // Little titles
-    val H4: TextStyle, // Little titles
+    val H1: TextStyle,
+    val H2: TextStyle,
+    val H3: TextStyle,
+    val H4: TextStyle,
 
     val Input: TextStyle, // Main inputs + fields
 

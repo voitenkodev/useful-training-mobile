@@ -31,7 +31,7 @@ import molecule.secondaryDefaultBackground
 public fun InputName(
     modifier: Modifier = Modifier,
     provideValue: () -> String,
-    onValueChange: (String) -> Unit,
+    onValueChange: (String) -> Unit
 ) {
 
     val focusManager = LocalFocusManager.current

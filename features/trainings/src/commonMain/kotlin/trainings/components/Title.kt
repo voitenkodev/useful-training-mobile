@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import atom.Design
 import icons.ArrowRight
 import molecule.ButtonIconPrimary
-import molecule.TextH2
+import molecule.TextH3
 import recomposeHighlighter
 
 @Composable
@@ -28,7 +28,7 @@ internal fun TrainingTitle(
         horizontalArrangement = Arrangement.SpaceBetween,
     ) {
 
-        TextH2(
+        TextH3(
             modifier = Modifier
                 .wrapContentHeight()
                 .recomposeHighlighter(),

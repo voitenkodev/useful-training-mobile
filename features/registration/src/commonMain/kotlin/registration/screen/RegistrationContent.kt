@@ -19,6 +19,7 @@ import io.github.xxfast.decompose.router.LocalRouterContext
 import molecule.PaddingL
 import molecule.PaddingXL
 import platformTopInset
+import registration.components.CredentialsPage
 import registration.components.HeightPage
 import registration.components.NamePage
 import registration.components.WeightPage
@@ -39,8 +40,8 @@ internal fun RegistrationContent(
     }
 
     Content(
-        loading = { state.loading },
-        error = { state.error },
+        loading = state.loading,
+        error = state.error,
         clearError = vm::clearError,
         back = back,
         registration = vm::registration,
@@ -57,14 +58,16 @@ internal fun RegistrationContent(
         nextStep = vm::nextStep,
         previousStep = vm::previousStep,
         steps = state.steps,
-        selectedStep = state.selectedStep
+        selectedStep = state.selectedStep,
+        passwordRepeat = state.passwordRepeat,
+        updatePasswordRepeat = vm::updatePasswordRepeat
     )
 }
 
 @Composable
 private fun Content(
-    loading: () -> Boolean,
-    error: () -> String?,
+    loading: Boolean,
+    error: String?,
     clearError: () -> Unit,
     back: () -> Unit,
 
@@ -87,7 +90,9 @@ private fun Content(
     email: String,
     updateEmail: (String) -> Unit,
     password: String,
-    updatePassword: (String) -> Unit
+    updatePassword: (String) -> Unit,
+    passwordRepeat: String,
+    updatePasswordRepeat: (String) -> Unit
 ) {
 
     val backProvider by rememberUpdatedState(back)
@@ -96,8 +101,8 @@ private fun Content(
     backHandler.register(BackCallback { previousStep.invoke(backProvider) })
 
     Root(
-        loading = { Loading(loading) },
-        error = { Error(message = error, close = clearError) },
+        loading = { Loading { loading } },
+        error = { Error(message = { error }, close = clearError) },
     ) {
 
         val pagerState = rememberPagerState(pageCount = { steps.size })
@@ -139,6 +144,17 @@ private fun Content(
                         height = height,
                         updateHeight = updateHeight,
                         confirm = nextStep
+                    )
+
+                    3 -> CredentialsPage(
+                        password = password,
+                        email = email,
+                        updateEmail = updateEmail,
+                        updatePassword = updatePassword,
+                        passwordRepeat = passwordRepeat,
+                        updatePasswordRepeat = updatePasswordRepeat,
+                        loading = loading,
+                        confirm = {},
                     )
                 }
             }

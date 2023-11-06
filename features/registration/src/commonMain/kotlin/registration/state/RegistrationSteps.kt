@@ -6,5 +6,6 @@ import androidx.compose.runtime.Immutable
 internal enum class RegistrationSteps {
     Name,
     Weight,
-    Height
+    Height,
+    EmailPassword
 }

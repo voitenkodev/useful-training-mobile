@@ -13,10 +13,12 @@ import androidx.compose.ui.unit.dp
 import atom.Design
 import kg
 import molecule.ButtonPrimary
+import molecule.PaddingL
 import molecule.PaddingWeight
 import molecule.PaddingXL
 import molecule.TextBody1
 import molecule.TextH1
+import molecule.TextH2
 import molecule.secondaryRoundBackground
 import platformBottomInset
 import weightpicker.WeightPicker
@@ -34,11 +36,11 @@ internal fun WeightPage(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        PaddingXL()
+        PaddingL()
 
-        TextH1(provideText = { "Your weight?" })
+        TextH2(provideText = { "Your weight" })
 
-        TextBody1(provideText = { "Helpful info for analysis!" }, fontWeight = FontWeight.Medium)
+        TextBody1(provideText = { "Enter your current weight." }, fontWeight = FontWeight.Medium)
 
         PaddingWeight()
 
@@ -81,40 +83,5 @@ internal fun WeightPage(
 
             PaddingXL()
         }
-
-//        Column(
-//            modifier = Modifier
-//                .fillMaxWidth()
-//                .clipToBounds()
-//                .platformBottomInset(),
-//            horizontalAlignment = Alignment.CenterHorizontally
-//        ) {
-//
-//            WeightPicker(
-//                modifier = Modifier
-//                    .fillMaxWidth()
-//                    .height(180.dp),
-//                initial = weight,
-//                onValueChange = updateWeight,
-//                pickerStyle = WeightPickerStyle(
-//                    scaleWidth = 140.dp,
-//                    tenStepLineColor = Design.colors.content,
-//                    fiveStepLineColor = Design.colors.accentPrimary,
-//                    normalLineColor = Design.colors.caption,
-//                    indicatorColor = Design.colors.accentSecondary,
-//                    backgroundColor = Design.colors.secondary,
-//                    designLinesColor = Design.colors.white5
-//                )
-//            )
-//
-//            ButtonPrimary(
-//                modifier = Modifier,
-//                text = "Confirm",
-//                onClick = confirm,
-//                enabled = true
-//            )
-//
-//            PaddingXL()
-//        }
     }
 }

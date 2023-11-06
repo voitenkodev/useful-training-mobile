@@ -27,7 +27,7 @@ public fun InputExerciseName(
     provideNumber: () -> Int,
     provideName: () -> String,
     update: (String) -> Unit,
-    remove: () -> Unit,
+    remove: () -> Unit
 ) {
     val focusManager = LocalFocusManager.current
 

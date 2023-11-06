@@ -27,7 +27,7 @@ import molecule.reversedCircleBackground
 public fun InputSearch(
     modifier: Modifier = Modifier,
     value: () -> String,
-    onValueChange: (String) -> Unit,
+    onValueChange: (String) -> Unit
 ) {
     val focusManager = LocalFocusManager.current
 

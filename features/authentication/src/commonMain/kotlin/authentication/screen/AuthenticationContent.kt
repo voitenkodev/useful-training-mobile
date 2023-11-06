@@ -31,7 +31,7 @@ import molecule.PaddingM
 import molecule.PaddingS
 import molecule.PaddingXL
 import molecule.TextBody1
-import molecule.TextH1
+import molecule.TextH2
 import platformInsets
 
 @Composable
@@ -112,7 +112,7 @@ private fun Content(
 
             PaddingXL()
 
-            TextH1(provideText = { "Alien Workout" })
+            TextH2(provideText = { "Alien Workout" })
 
             TextBody1(
                 provideText = { "Take your power-up" },

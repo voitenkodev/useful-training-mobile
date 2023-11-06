@@ -28,7 +28,7 @@ import molecule.reversedCircleBackground
 public fun InputMuscleName(
     modifier: Modifier = Modifier,
     value: () -> String,
-    onValueChange: (String) -> Unit,
+    onValueChange: (String) -> Unit
 ) {
     val focusManager = LocalFocusManager.current
 
