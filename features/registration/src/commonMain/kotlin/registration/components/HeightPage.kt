@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import atom.Design
-import cm
+import meter
 import heightpicker.HeightPicker
 import heightpicker.HeightPickerStyle
 import molecule.ButtonPrimary
@@ -41,7 +41,7 @@ internal fun HeightPage(
 
         PaddingWeight()
 
-        TextH1(provideText = { height.cm() })
+        TextH1(provideText = { height.meter() })
 
         PaddingWeight()
 

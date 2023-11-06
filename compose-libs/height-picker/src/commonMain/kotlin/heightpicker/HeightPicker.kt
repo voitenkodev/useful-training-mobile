@@ -23,8 +23,8 @@ import kotlin.math.roundToInt
 public fun HeightPicker(
     modifier: Modifier = Modifier,
     pickerStyle: HeightPickerStyle,
-    minimal: Int = 300,
-    maximum: Int = 600,
+    minimal: Int = 1100,
+    maximum: Int = 2500,
     initial: Int,
     onValueChange: (Int) -> Unit
 ) {
@@ -34,7 +34,7 @@ public fun HeightPicker(
     var targetDistant by remember { mutableStateOf(0f) }
     var startDragPoint by remember { mutableStateOf(0f) }
     var oldDragPoint by remember { mutableStateOf(0f) }
-    var selectedHeight by remember { mutableStateOf(0) }
+    var selectedHeight by remember { mutableStateOf(initial) }
 
     Canvas(
         modifier = modifier.pointerInput(Unit) {
@@ -57,6 +57,8 @@ public fun HeightPicker(
 
         val topLinerY = this.size.height / 2f
         val middlePoint = Offset(x = this.size.width / 2f, y = this.size.height / 2f)
+        val rangeStart = selectedHeight - 40
+        val rangeEnd = selectedHeight + 40
 
         drawRect(
             topLeft = Offset(x = 0f, y = topLinerY),
@@ -64,53 +66,55 @@ public fun HeightPicker(
             color = pickerStyle.backgroundColor
         )
 
-        for (height in minimal..maximum) {
-            val positionLineScaleX =
-                middlePoint.x + (pickerStyle.spaceInterval * (height - internalInitial.toFloat()) + targetDistant)
+        for (height in rangeStart..rangeEnd) {
+            if (height in minimal..maximum) {
+                val positionLineScaleX =
+                    middlePoint.x + (pickerStyle.spaceInterval * (height - internalInitial.toFloat()) + targetDistant)
 
-            val lineType = when {
-                height % 10 == 0 -> LineType.TenStep
-                height % 5 == 0 -> LineType.FiveStep
-                else -> LineType.Normal
-            }
+                val lineType = when {
+                    height % 10 == 0 -> LineType.TenStep
+                    height % 5 == 0 -> LineType.FiveStep
+                    else -> LineType.Normal
+                }
 
-            val lineColor = when (lineType) {
-                LineType.TenStep -> pickerStyle.tenStepLineColor
-                LineType.FiveStep -> pickerStyle.fiveStepLineColor
-                else -> pickerStyle.normalLineColor
-            }
+                val lineColor = when (lineType) {
+                    LineType.TenStep -> pickerStyle.tenStepLineColor
+                    LineType.FiveStep -> pickerStyle.fiveStepLineColor
+                    else -> pickerStyle.normalLineColor
+                }
 
-            val lineHeightSize = when (lineType) {
-                LineType.TenStep -> pickerStyle.tenStepLineLength.toPx()
-                LineType.FiveStep -> pickerStyle.fiveStepLineLength.toPx()
-                else -> pickerStyle.normalLineLength.toPx()
-            }
+                val lineHeightSize = when (lineType) {
+                    LineType.TenStep -> pickerStyle.tenStepLineLength.toPx()
+                    LineType.FiveStep -> pickerStyle.fiveStepLineLength.toPx()
+                    else -> pickerStyle.normalLineLength.toPx()
+                }
 
-            drawLine(
-                start = Offset(positionLineScaleX, topLinerY),
-                end = Offset(positionLineScaleX, topLinerY + lineHeightSize * 2f),
-                brush = SolidColor(lineColor),
-                strokeWidth = pickerStyle.strokeWidth.toPx()
-            )
-
-            if (abs(middlePoint.x - positionLineScaleX.roundToInt()) < 5) {
-                selectedHeight = height
-                onValueChange(selectedHeight)
-            }
-
-            if (lineType == LineType.TenStep) {
-                val dimensions = textMeasurer.measure(
-                    text = (abs(height) / 10).toString(),
-                    style = style,
-                    maxLines = 1,
-                    softWrap = false,
-                    overflow = TextOverflow.Visible
+                drawLine(
+                    start = Offset(positionLineScaleX, topLinerY),
+                    end = Offset(positionLineScaleX, topLinerY + lineHeightSize * 2f),
+                    brush = SolidColor(lineColor),
+                    strokeWidth = pickerStyle.strokeWidth.toPx()
                 )
 
-                drawText(
-                    textLayoutResult = dimensions,
-                    topLeft = Offset(x = positionLineScaleX - (dimensions.size.width / 2), y = topLinerY + (lineHeightSize * 2f + 10)),
-                )
+                if (abs(middlePoint.x - positionLineScaleX.roundToInt()) < 5) {
+                    selectedHeight = height
+                    onValueChange(selectedHeight)
+                }
+
+                if (lineType == LineType.TenStep) {
+                    val dimensions = textMeasurer.measure(
+                        text = (abs(height) / 10).toString(),
+                        style = style,
+                        maxLines = 1,
+                        softWrap = false,
+                        overflow = TextOverflow.Visible
+                    )
+
+                    drawText(
+                        textLayoutResult = dimensions,
+                        topLeft = Offset(x = positionLineScaleX - (dimensions.size.width / 2), y = topLinerY + (lineHeightSize * 2f + 10)),
+                    )
+                }
             }
         }
 
