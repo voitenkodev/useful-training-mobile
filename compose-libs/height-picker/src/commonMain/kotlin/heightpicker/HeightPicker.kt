@@ -15,6 +15,7 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.text.drawText
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.dp
 import atom.Design
 import kotlin.math.abs
 import kotlin.math.roundToInt
@@ -30,6 +31,7 @@ public fun HeightPicker(
 ) {
     val style = Design.typography.Body2.copy(color = Design.colors.content)
     val textMeasurer = rememberTextMeasurer()
+    val internalInitial = remember { initial }
     var targetDistant by remember { mutableStateOf(0f) }
     var startDragPoint by remember { mutableStateOf(0f) }
     var oldDragPoint by remember { mutableStateOf(0f) }
@@ -48,8 +50,8 @@ public fun HeightPicker(
             ) { change, _ ->
                 val newDistance = oldDragPoint + (change.position.x - startDragPoint)
                 targetDistant = newDistance.coerceIn(
-                    minimumValue = ((initial) * pickerStyle.spaceInterval - maximum * pickerStyle.spaceInterval).toFloat(),
-                    maximumValue = ((initial) * pickerStyle.spaceInterval - minimal * pickerStyle.spaceInterval).toFloat()
+                    minimumValue = ((internalInitial) * pickerStyle.spaceInterval - maximum * pickerStyle.spaceInterval).toFloat(),
+                    maximumValue = ((internalInitial) * pickerStyle.spaceInterval - minimal * pickerStyle.spaceInterval).toFloat()
                 )
             }
         }
@@ -64,8 +66,9 @@ public fun HeightPicker(
         )
 
         for (height in minimal..maximum) {
-            val degreeLineScaleX =
-                middlePoint.x + (pickerStyle.spaceInterval * (height - initial.toFloat()) + targetDistant)
+            val positionLineScaleX =
+                middlePoint.x + (pickerStyle.spaceInterval * (height - internalInitial.toFloat()) + targetDistant)
+
             val lineType = when {
                 height % 10 == 0 -> LineType.TenStep
                 height % 5 == 0 -> LineType.FiveStep
@@ -85,12 +88,13 @@ public fun HeightPicker(
             }
 
             drawLine(
-                start = Offset(degreeLineScaleX, 0f),
-                end = Offset(degreeLineScaleX, lineHeightSize * 2f),
-                brush = SolidColor(lineColor)
+                start = Offset(positionLineScaleX, 0f),
+                end = Offset(positionLineScaleX, lineHeightSize * 2f),
+                brush = SolidColor(lineColor),
+                strokeWidth = pickerStyle.strokeWidth.toPx()
             )
 
-            if (abs(middlePoint.x - degreeLineScaleX.roundToInt()) < 5) {
+            if (abs(middlePoint.x - positionLineScaleX.roundToInt()) < 5) {
                 selectedHeight = height
                 onValueChange(selectedHeight)
             }
@@ -107,7 +111,7 @@ public fun HeightPicker(
 
                 drawText(
                     textLayoutResult = dimensions,
-                    topLeft = Offset(x = degreeLineScaleX - (dimensions.size.width / 2), y = lineHeightSize * 2f + 10),
+                    topLeft = Offset(x = positionLineScaleX - (dimensions.size.width / 2), y = lineHeightSize * 2f + 10),
                 )
             }
         }

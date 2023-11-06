@@ -56,7 +56,7 @@ internal fun WeightPage(
             WeightPicker(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(190.dp),
+                    .height(180.dp),
                 initial = weight,
                 onValueChange = updateWeight,
                 pickerStyle = WeightPickerStyle(

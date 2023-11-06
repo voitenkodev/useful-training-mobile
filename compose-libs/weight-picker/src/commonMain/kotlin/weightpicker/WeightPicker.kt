@@ -15,7 +15,6 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.text.drawText
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.dp
 import atom.Design
 import kotlin.math.PI
 import kotlin.math.atan2
@@ -35,7 +34,7 @@ public fun WeightPicker(
 
     val style = Design.typography.Body2.copy(color = Design.colors.content)
     val textMeasurer = rememberTextMeasurer()
-    val internalInitialWeight = remember { initial }
+    val internalInitial = remember { initial }
     val radius = pickerStyle.radius
     val scaleWidth = pickerStyle.scaleWidth
     val angleVisibilityRange = 30f
@@ -68,11 +67,11 @@ public fun WeightPicker(
                 val newAngle = oldAngle + (touchAngle - dragStartedAngle)
 
                 angle = newAngle.coerceIn(
-                    minimumValue = internalInitialWeight - maximum.toFloat(),
-                    maximumValue = internalInitialWeight - minimal.toFloat()
+                    minimumValue = internalInitial - maximum.toFloat(),
+                    maximumValue = internalInitial - minimal.toFloat()
                 )
 
-                onValueChange((internalInitialWeight - angle).roundToInt())
+                onValueChange((internalInitial - angle).roundToInt())
             }
         },
         onDraw = {
@@ -87,12 +86,12 @@ public fun WeightPicker(
                 center = circleCenter
             )
 
-            val localMinWeightGram = (internalInitialWeight - angle - angleVisibilityRange).toInt()
-            val localMaxWeightGram = (internalInitialWeight - angle + angleVisibilityRange).toInt()
+            val localMinWeightGram = (internalInitial - angle - angleVisibilityRange).toInt()
+            val localMaxWeightGram = (internalInitial - angle + angleVisibilityRange).toInt()
 
             for (i in localMinWeightGram..localMaxWeightGram) {
                 val angleInRad =
-                    (i - internalInitialWeight + angle - 90) * (PI / 180f).toFloat()
+                    (i - internalInitial + angle - 90) * (PI / 180f).toFloat()
 
                 val lineType = when {
                     i % 10 == 0 -> LineType.TenStep
@@ -150,7 +149,7 @@ public fun WeightPicker(
                         color = pickerStyle.designLinesColor,
                         start = designLineStart,
                         end = designLineEnd,
-                        strokeWidth = 1.dp.toPx()
+                        strokeWidth = pickerStyle.strokeWidth.toPx()
                     )
                 }
 
@@ -158,7 +157,7 @@ public fun WeightPicker(
                     color = lineColor,
                     start = lineStart,
                     end = lineEnd,
-                    strokeWidth = 1.dp.toPx()
+                    strokeWidth = pickerStyle.strokeWidth.toPx()
                 )
             }
 
