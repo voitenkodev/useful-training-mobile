@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import atom.Design
@@ -30,7 +29,7 @@ internal fun HeightPage(
 ) {
 
     Column(
-        modifier = Modifier.fillMaxSize().platformBottomInset(),
+        modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
@@ -49,7 +48,7 @@ internal fun HeightPage(
         HeightPicker(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(140.dp),
+                .height(150.dp),
             pickerStyle = HeightPickerStyle(
                 backgroundColor = Design.colors.secondary,
                 tenStepLineColor = Design.colors.content,

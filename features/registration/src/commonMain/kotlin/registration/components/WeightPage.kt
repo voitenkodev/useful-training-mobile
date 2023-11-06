@@ -17,6 +17,7 @@ import molecule.PaddingWeight
 import molecule.PaddingXL
 import molecule.TextBody1
 import molecule.TextH1
+import molecule.secondaryRoundBackground
 import platformBottomInset
 import weightpicker.WeightPicker
 import weightpicker.WeightPickerStyle
@@ -29,7 +30,7 @@ internal fun WeightPage(
 ) {
 
     Column(
-        modifier = Modifier.fillMaxSize().platformBottomInset(),
+        modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
@@ -45,30 +46,31 @@ internal fun WeightPage(
 
         PaddingWeight()
 
+
+        WeightPicker(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(170.dp)
+                .clipToBounds(),
+            initial = weight,
+            onValueChange = updateWeight,
+            pickerStyle = WeightPickerStyle(
+                scaleWidth = 140.dp,
+                tenStepLineColor = Design.colors.content,
+                fiveStepLineColor = Design.colors.accentPrimary,
+                normalLineColor = Design.colors.caption,
+                indicatorColor = Design.colors.accentSecondary,
+                backgroundColor = Design.colors.secondary,
+                designLinesColor = Design.colors.white5
+            )
+        )
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .clipToBounds()
+                .secondaryRoundBackground()
                 .platformBottomInset(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-
-            WeightPicker(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(180.dp),
-                initial = weight,
-                onValueChange = updateWeight,
-                pickerStyle = WeightPickerStyle(
-                    scaleWidth = 140.dp,
-                    tenStepLineColor = Design.colors.content,
-                    fiveStepLineColor = Design.colors.accentPrimary,
-                    normalLineColor = Design.colors.caption,
-                    indicatorColor = Design.colors.accentSecondary,
-                    backgroundColor = Design.colors.secondary,
-                    designLinesColor = Design.colors.white5
-                )
-            )
 
             ButtonPrimary(
                 modifier = Modifier,
@@ -79,5 +81,40 @@ internal fun WeightPage(
 
             PaddingXL()
         }
+
+//        Column(
+//            modifier = Modifier
+//                .fillMaxWidth()
+//                .clipToBounds()
+//                .platformBottomInset(),
+//            horizontalAlignment = Alignment.CenterHorizontally
+//        ) {
+//
+//            WeightPicker(
+//                modifier = Modifier
+//                    .fillMaxWidth()
+//                    .height(180.dp),
+//                initial = weight,
+//                onValueChange = updateWeight,
+//                pickerStyle = WeightPickerStyle(
+//                    scaleWidth = 140.dp,
+//                    tenStepLineColor = Design.colors.content,
+//                    fiveStepLineColor = Design.colors.accentPrimary,
+//                    normalLineColor = Design.colors.caption,
+//                    indicatorColor = Design.colors.accentSecondary,
+//                    backgroundColor = Design.colors.secondary,
+//                    designLinesColor = Design.colors.white5
+//                )
+//            )
+//
+//            ButtonPrimary(
+//                modifier = Modifier,
+//                text = "Confirm",
+//                onClick = confirm,
+//                enabled = true
+//            )
+//
+//            PaddingXL()
+//        }
     }
 }

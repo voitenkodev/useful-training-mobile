@@ -15,7 +15,6 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.text.drawText
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.dp
 import atom.Design
 import kotlin.math.abs
 import kotlin.math.roundToInt
@@ -56,10 +55,11 @@ public fun HeightPicker(
         }
     ) {
 
+        val topLinerY = this.size.height / 2f
         val middlePoint = Offset(x = this.size.width / 2f, y = this.size.height / 2f)
 
         drawRect(
-            topLeft = Offset.Zero,
+            topLeft = Offset(x = 0f, y = topLinerY),
             size = this.size,
             color = pickerStyle.backgroundColor
         )
@@ -87,8 +87,8 @@ public fun HeightPicker(
             }
 
             drawLine(
-                start = Offset(positionLineScaleX, 0f),
-                end = Offset(positionLineScaleX, lineHeightSize * 2f),
+                start = Offset(positionLineScaleX, topLinerY),
+                end = Offset(positionLineScaleX, topLinerY + lineHeightSize * 2f),
                 brush = SolidColor(lineColor),
                 strokeWidth = pickerStyle.strokeWidth.toPx()
             )
@@ -109,22 +109,22 @@ public fun HeightPicker(
 
                 drawText(
                     textLayoutResult = dimensions,
-                    topLeft = Offset(x = positionLineScaleX - (dimensions.size.width / 2), y = lineHeightSize * 2f + 10),
+                    topLeft = Offset(x = positionLineScaleX - (dimensions.size.width / 2), y = topLinerY + (lineHeightSize * 2f + 10)),
                 )
             }
         }
 
         val middleTop = Offset(
             x = center.x,
-            y = size.height / 4
+            y = topLinerY - 30
         )
         val bottomLeft = Offset(
             x = center.x - 12f,
-            y = size.height - (size.height / 4)
+            y = 0f
         )
         val bottomRight = Offset(
             x = center.x + 12f,
-            y = size.height - (size.height / 4)
+            y = 0f
         )
 
         val indicator = Path().apply {
