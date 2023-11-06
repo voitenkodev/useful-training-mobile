@@ -1,6 +1,5 @@
 package registration.screen
 
-import PlatformBackHandler
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
@@ -11,10 +10,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.arkivanov.essenty.backhandler.BackCallback
 import components.Error
 import components.Loading
 import components.indication.SlideIndicator
 import components.roots.Root
+import io.github.xxfast.decompose.router.LocalRouterContext
 import molecule.PaddingL
 import molecule.PaddingXL
 import platformTopInset
@@ -91,10 +92,12 @@ private fun Content(
 
     val backProvider by rememberUpdatedState(back)
 
+    val backHandler = LocalRouterContext.current.backHandler
+    backHandler.register(BackCallback { previousStep.invoke(backProvider) })
+
     Root(
         loading = { Loading(loading) },
         error = { Error(message = error, close = clearError) },
-        back = { PlatformBackHandler { previousStep.invoke(backProvider) } },
     ) {
 
         val pagerState = rememberPagerState(pageCount = { steps.size })

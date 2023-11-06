@@ -1,6 +1,5 @@
 package authentication.screen
 
-import PlatformBackHandler
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Box
@@ -39,8 +38,7 @@ import platformInsets
 internal fun AuthenticationContent(
     vm: AuthenticationViewModel,
     toTrainings: () -> Unit,
-    toRegistration: () -> Unit,
-    back: () -> Unit
+    toRegistration: () -> Unit
 ) {
 
     val state by vm.state.collectAsState()
@@ -53,7 +51,6 @@ internal fun AuthenticationContent(
         loading = { state.loading },
         error = { state.error },
         clearError = vm::clearError,
-        back = back,
         login = vm::login,
         registration = toRegistration,
         email = state.email,
@@ -70,7 +67,6 @@ private fun Content(
     loading: () -> Boolean,
     error: () -> String?,
     clearError: () -> Unit,
-    back: () -> Unit,
 
     screenState: ScreenState,
     markScreenAsShowedOnce: () -> Unit,
@@ -81,7 +77,7 @@ private fun Content(
     email: String,
     updateEmail: (String) -> Unit,
     password: String,
-    updatePassword: (String) -> Unit,
+    updatePassword: (String) -> Unit
 ) {
 
     val focus = LocalFocusManager.current
@@ -100,12 +96,9 @@ private fun Content(
         animationSpec = tween(durationMillis = 400, easing = LinearOutSlowInEasing)
     )
 
-    val backProvider by rememberUpdatedState(back)
-
     Root(
         loading = { Loading(loading) },
         error = { Error(message = error, close = clearError) },
-        back = { PlatformBackHandler(backProvider) }
     ) {
 
         Column(

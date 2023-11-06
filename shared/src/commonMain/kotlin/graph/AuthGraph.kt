@@ -33,7 +33,7 @@ internal fun AuthGraph(
 
     RoutedContent(
         router = router,
-        animation  = stackAnimation(slide())
+        animation = stackAnimation(slide())
     ) { child ->
         when (child) {
             AuthRouter.Splash -> SplashFeature(
@@ -43,8 +43,7 @@ internal fun AuthGraph(
 
             AuthRouter.Authentication -> AuthenticationFeature(
                 toTrainings = toTrainings,
-                toRegistration = { router.push(AuthRouter.Registration) },
-                back = router::pop
+                toRegistration = { router.push(AuthRouter.Registration) }
             )
 
             AuthRouter.Registration -> RegistrationFeature(

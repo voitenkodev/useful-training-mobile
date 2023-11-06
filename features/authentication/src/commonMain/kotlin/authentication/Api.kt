@@ -8,8 +8,7 @@ import io.github.xxfast.decompose.router.rememberOnRoute
 @Composable
 public fun AuthenticationFeature(
     toTrainings: () -> Unit,
-    toRegistration: () -> Unit,
-    back: () -> Unit
+    toRegistration: () -> Unit
 ) {
     val vm = rememberOnRoute(AuthenticationViewModel::class) {
         AuthenticationViewModel()
@@ -18,7 +17,6 @@ public fun AuthenticationFeature(
     AuthenticationContent(
         vm = vm,
         toTrainings = toTrainings,
-        toRegistration = toRegistration,
-        back = back
+        toRegistration = toRegistration
     )
 }

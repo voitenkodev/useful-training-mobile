@@ -1,6 +1,5 @@
 package trainings.screen
 
-import PlatformBackHandler
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
@@ -61,15 +60,12 @@ private fun Content(
     selectCalendarDay: (dateTimeIso: String) -> Unit
 ) {
 
-    val backProvider by rememberUpdatedState(back)
-
     val selectedDate = calendar.findLast { it.isSelected } ?: return
     val selectedDateIsToday = selectedDate.isToday
 
     Root(
         loading = { Loading(loading) },
         error = { Error(message = error, close = clearError) },
-        back = { PlatformBackHandler(backProvider) },
     ) {
 
         Column {

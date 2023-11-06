@@ -14,7 +14,6 @@ public fun Root(
     modifier: Modifier = Modifier,
     loading: (@Composable () -> Unit)? = null,
     error: (@Composable () -> Unit)? = null,
-    back: (@Composable () -> Unit)? = null,
     popups: (@Composable () -> Unit)? = null,
     content: (@Composable BoxScope.() -> Unit),
 ) {
@@ -35,6 +34,4 @@ public fun Root(
     loading?.invoke()
 
     popups?.invoke()
-
-    back?.invoke()
 }
