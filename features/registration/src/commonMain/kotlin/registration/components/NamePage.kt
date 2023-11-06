@@ -6,8 +6,11 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.font.FontWeight
 import components.inputs.InputName
 import components.states.animateAlignmentAsState
@@ -26,6 +29,13 @@ internal fun NamePage(
     updateName: (String) -> Unit,
     confirm: () -> Unit
 ) {
+    val focus = LocalFocusManager.current
+
+    val confirmProvider by rememberUpdatedState {
+        focus.clearFocus()
+        confirm.invoke()
+    }
+
     Column(
         modifier = Modifier.fillMaxSize().platformBottomInset(),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -58,7 +68,7 @@ internal fun NamePage(
 
             ButtonPrimary(
                 text = "Confirm",
-                onClick = confirm,
+                onClick = confirmProvider,
                 enabled = name.isNotBlank()
             )
         }
