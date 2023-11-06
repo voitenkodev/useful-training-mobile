@@ -173,7 +173,6 @@ public fun WeightPicker(
                 x = circleCenter.x + 12f,
                 y = circleCenter.y - innerRadius + 20
             )
-
             val indicator = Path().apply {
                 moveTo(middleTop.x, middleTop.y)
 

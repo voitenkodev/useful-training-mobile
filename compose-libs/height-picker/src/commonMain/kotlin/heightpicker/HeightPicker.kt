@@ -37,7 +37,6 @@ public fun HeightPicker(
     var oldDragPoint by remember { mutableStateOf(0f) }
     var selectedHeight by remember { mutableStateOf(0) }
 
-
     Canvas(
         modifier = modifier.pointerInput(Unit) {
             detectDragGestures(
@@ -98,7 +97,6 @@ public fun HeightPicker(
                 selectedHeight = height
                 onValueChange(selectedHeight)
             }
-
 
             if (lineType == LineType.TenStep) {
                 val dimensions = textMeasurer.measure(
