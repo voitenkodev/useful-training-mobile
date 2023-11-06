@@ -70,11 +70,13 @@ internal class RegistrationViewModel : ViewModel() {
         _state.update { it.copy(height = value) }
     }
 
-    fun previousStep() {
+    fun previousStep(onNextEmpty: () -> Unit) {
         _state.update {
             val newStepIndex = it.steps.indexOf(it.selectedStep).minus(1)
-            if (newStepIndex < 0) it
-            else it.copy(selectedStep = it.steps[newStepIndex])
+            if (newStepIndex < 0) {
+                onNextEmpty.invoke()
+                it
+            } else it.copy(selectedStep = it.steps[newStepIndex])
         }
     }
 

@@ -72,7 +72,7 @@ private fun Content(
     steps: List<RegistrationSteps>,
     selectedStep: RegistrationSteps,
     nextStep: () -> Unit,
-    previousStep: () -> Unit,
+    previousStep: (onEmpty: () -> Unit) -> Unit,
 
     name: String,
     updateName: (String) -> Unit,
@@ -94,7 +94,7 @@ private fun Content(
     Root(
         loading = { Loading(loading) },
         error = { Error(message = error, close = clearError) },
-        back = { PlatformBackHandler(backProvider) },
+        back = { PlatformBackHandler { previousStep.invoke(backProvider) } },
     ) {
 
         val pagerState = rememberPagerState(pageCount = { steps.size })
@@ -135,7 +135,7 @@ private fun Content(
                     2 -> HeightPage(
                         height = height,
                         updateHeight = updateHeight,
-                        confirm = previousStep
+                        confirm = nextStep
                     )
                 }
             }

@@ -12,7 +12,7 @@ import traininig_exercise_iteration.TrainingsSource
 internal class AuthenticationRepositoryImpl(
     private val remote: NetworkSource,
     private val preferences: PreferencesSource,
-    private val local: TrainingsSource,
+    private val local: TrainingsSource
 ) : AuthenticationRepository {
 
     override fun login(email: String, password: String): Flow<Unit> =
