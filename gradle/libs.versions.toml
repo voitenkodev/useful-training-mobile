@@ -3,7 +3,7 @@
 kotlin = "1.9.10"
 agp = "8.1.2"
 compose = "1.5.10-beta02"
-coroutines = "1.7.1"
+coroutines = "1.7.3"
 moko-resources = "0.23.0"
 activity-compose = "1.8.0"
 appcompat = "1.6.1"
@@ -11,14 +11,12 @@ serialization = "1.5.0"
 datetime = "0.4.0"
 ktor = "2.3.0"
 datastore = "1.1.0-alpha04" # dont use alpha05 (broken for ios)
-uuid = "0.7.0"
 koin = "3.4.0"
 sqldelight = "2.0.0"
 media3-exoplayer = "1.1.1"
 decompose = "2.0.2-compose-experimental"
 decompose-router = "0.5.0"
 immutable-collections = "0.3.5"
-material3 = "1.1.2"
 
 [libraries]
 coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
@@ -27,8 +25,6 @@ datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "d
 immutable-collections = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version.ref = "immutable-collections" }
 
 datastore = { module = "androidx.datastore:datastore-preferences-core", version.ref = "datastore" }
-
-uuid = { module = "com.benasher44:uuid", version.ref = "uuid" }
 
 activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activity-compose" }
 appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
@@ -58,7 +54,6 @@ decompose-router = { module = "io.github.xxfast:decompose-router", version.ref =
 
 moko-resources = { module = "dev.icerock.moko:resources", version.ref = "moko-resources" }
 moko-resources-compose = { module = "dev.icerock.moko:resources-compose", version.ref = "moko-resources" }
-material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "material3" }
 
 [plugins]
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
