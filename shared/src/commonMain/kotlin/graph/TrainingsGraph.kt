@@ -25,7 +25,6 @@ internal fun TrainingsGraph(
     }
 
     RoutedContent(router = router) { child ->
-
         when (child) {
             TrainingsRouter.Tab -> TrainingsFeature(
                 toEditTraining = { id -> toTrainingBuilder.invoke(id) },

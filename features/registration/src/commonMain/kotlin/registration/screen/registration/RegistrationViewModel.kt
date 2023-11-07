@@ -1,4 +1,4 @@
-package registration.screen
+package registration.screen.registration
 
 import AuthenticationRepository
 import ViewModel

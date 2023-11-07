@@ -2,12 +2,13 @@ package registration
 
 import androidx.compose.runtime.Composable
 import io.github.xxfast.decompose.router.rememberOnRoute
-import registration.screen.RegistrationContent
-import registration.screen.RegistrationViewModel
+import registration.screen.registration.RegistrationContent
+import registration.screen.registration.RegistrationViewModel
+import registration.screen.success.SuccessRegistrationContent
 
 @Composable
 public fun RegistrationFeature(
-    toTrainings: () -> Unit,
+    toSuccessRegistration: () -> Unit,
     back: () -> Unit
 ) {
     val vm = rememberOnRoute(RegistrationViewModel::class) {
@@ -16,7 +17,17 @@ public fun RegistrationFeature(
 
     RegistrationContent(
         vm = vm,
-        toTrainings = toTrainings,
+        toSuccessRegistration = toSuccessRegistration,
         back = back
+    )
+}
+
+@Composable
+public fun SuccessRegistrationFeature(
+    toTrainings: () -> Unit
+) {
+
+    SuccessRegistrationContent(
+        toTrainings = toTrainings
     )
 }

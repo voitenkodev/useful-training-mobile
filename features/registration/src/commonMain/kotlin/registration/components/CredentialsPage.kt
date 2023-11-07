@@ -89,7 +89,7 @@ internal fun CredentialsPage(
             ButtonPrimary(
                 text = "Register",
                 onClick = confirmProvider,
-                enabled = email.isNotBlank() && password.isNotBlank(),
+                enabled = email.isNotBlank() && password.isNotBlank() && passwordRepeat.isNotBlank(),
                 loading = loading
             )
         }

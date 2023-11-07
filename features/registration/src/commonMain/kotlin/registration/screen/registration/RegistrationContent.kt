@@ -1,4 +1,4 @@
-package registration.screen
+package registration.screen.registration
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.pager.HorizontalPager
@@ -29,14 +29,14 @@ import registration.state.TokenStatus
 @Composable
 internal fun RegistrationContent(
     vm: RegistrationViewModel,
-    toTrainings: () -> Unit,
+    toSuccessRegistration: () -> Unit,
     back: () -> Unit
 ) {
 
     val state by vm.state.collectAsState()
 
     LaunchedEffect(state.tokenStatus) {
-        if (state.tokenStatus == TokenStatus.Available) toTrainings.invoke()
+        if (state.tokenStatus == TokenStatus.Available) toSuccessRegistration.invoke()
     }
 
     Content(
@@ -44,7 +44,8 @@ internal fun RegistrationContent(
         error = state.error,
         clearError = vm::clearError,
         back = back,
-        registration = vm::registration,
+//        registration = vm::registration, // TODO
+        registration = toSuccessRegistration,
         name = state.name,
         updateName = vm::updateName,
         weight = state.weight,
@@ -154,7 +155,7 @@ private fun Content(
                         passwordRepeat = passwordRepeat,
                         updatePasswordRepeat = updatePasswordRepeat,
                         loading = loading,
-                        confirm = {},
+                        confirm = registration
                     )
                 }
             }

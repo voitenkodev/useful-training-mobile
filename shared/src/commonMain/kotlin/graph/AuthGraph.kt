@@ -13,6 +13,7 @@ import io.github.xxfast.decompose.router.Router
 import io.github.xxfast.decompose.router.content.RoutedContent
 import io.github.xxfast.decompose.router.rememberRouter
 import registration.RegistrationFeature
+import registration.SuccessRegistrationFeature
 import splash.SplashFeature
 
 @Parcelize
@@ -20,21 +21,17 @@ internal sealed class AuthRouter : Parcelable {
     data object Splash : AuthRouter()
     data object Authentication : AuthRouter()
     data object Registration : AuthRouter()
+    data object SuccessRegistration : AuthRouter()
 }
 
 @Composable
-internal fun AuthGraph(
-    toTrainings: () -> Unit
-) {
+internal fun AuthGraph(toTrainings: () -> Unit) {
 
     val router: Router<AuthRouter> = rememberRouter(AuthRouter::class) {
         listOf(AuthRouter.Splash)
     }
 
-    RoutedContent(
-        router = router,
-        animation = stackAnimation(slide())
-    ) { child ->
+    RoutedContent(router = router, animation = stackAnimation(slide())) { child ->
         when (child) {
             AuthRouter.Splash -> SplashFeature(
                 toAuthentication = { router.replaceAll(AuthRouter.Authentication) },
@@ -47,8 +44,12 @@ internal fun AuthGraph(
             )
 
             AuthRouter.Registration -> RegistrationFeature(
-                toTrainings = toTrainings,
+                toSuccessRegistration = { router.push(AuthRouter.SuccessRegistration) },
                 back = router::pop
+            )
+
+            AuthRouter.SuccessRegistration -> SuccessRegistrationFeature(
+                toTrainings = toTrainings
             )
         }
     }
