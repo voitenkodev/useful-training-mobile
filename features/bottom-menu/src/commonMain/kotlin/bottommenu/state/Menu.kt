@@ -4,7 +4,6 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.vector.ImageVector
 import icons.Time
 import icons.Weight
-import icons.Wiki
 
 @Immutable
 internal enum class Menu(

@@ -14,7 +14,9 @@ import molecule.TextH2
 import platformInsets
 
 @Composable
-internal fun SuccessRegistrationContent(toTrainings: () -> Unit) {
+internal fun SuccessRegistrationContent(
+    toTrainings: () -> Unit
+) {
 
     Content(
         toTrainings = toTrainings
@@ -22,7 +24,9 @@ internal fun SuccessRegistrationContent(toTrainings: () -> Unit) {
 }
 
 @Composable
-private fun Content(toTrainings: () -> Unit) {
+private fun Content(
+    toTrainings: () -> Unit
+) {
 
     val backHandler = LocalRouterContext.current.backHandler
     backHandler.register(BackCallback(onBack = toTrainings))
@@ -38,7 +42,7 @@ private fun Content(toTrainings: () -> Unit) {
 
         PaddingXL()
 
-        TextH2(provideText = { "Welcome" })
+        TextH2(provideText = { "Success Registration!" })
 
         PaddingWeight()
 

@@ -44,6 +44,7 @@
 				E1DAFBE8E1CFC0878361EF0E /* Pods */,
 				B62309C7396AD7BF607A63B2 /* Frameworks */,
 				FA19FA7729A4F070006648F6 /* AlienWorkout.app */,
+				A574D3833C3F548BCE8DE0B8 /* xcschemes */,
 			);
 			sourceTree = "<group>";
 		};
@@ -54,6 +55,14 @@
 				2152FB032600AC8F00CF470E /* iosApp.swift */,
 			);
 			path = iosApp;
+			sourceTree = "<group>";
+		};
+		A574D3833C3F548BCE8DE0B8 /* xcschemes */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = xcschemes;
+			path = AlienWorkout.xcworkspace/xcuserdata/maxvoitenko.xcuserdatad/xcschemes;
 			sourceTree = "<group>";
 		};
 		AB1DB47929225F7C00F7AF9C /* Configuration */ = {
