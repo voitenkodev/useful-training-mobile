@@ -17,7 +17,6 @@ import androidx.compose.ui.platform.LocalFocusManager
 import authentication.state.AuthStatus
 import authentication.state.ScreenState
 import components.Error
-import components.Loading
 import components.buttons.ButtonQuestion
 import components.inputs.InputEmail
 import components.inputs.InputPassword
@@ -95,10 +94,7 @@ private fun Content(
         animationSpec = tween(durationMillis = 400, easing = LinearOutSlowInEasing)
     )
 
-    Root(
-        loading = { Loading(loading) },
-        error = { Error(message = error, close = clearError) },
-    ) {
+    Root(error = { Error(message = error, close = clearError) }) {
 
         Column(
             modifier = Modifier

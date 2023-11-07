@@ -7,11 +7,11 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
 import atom.Design
 import com.arkivanov.essenty.backhandler.BackCallback
 import io.github.xxfast.decompose.router.LocalRouterContext
 import molecule.ButtonPrimary
-import molecule.PaddingL
 import molecule.PaddingWeight
 import molecule.PaddingXL
 import molecule.TextBody1
@@ -52,9 +52,16 @@ private fun Content(
 
         PaddingXL()
 
-        TextH2(provideText = { "Success Registration!" }, color = Design.colors.accentSecondary)
+        TextH2(
+            provideText = { "Success Registration!" },
+            color = Design.colors.accentSecondary,
+            textAlign = TextAlign.Center
+        )
 
-        TextBody1(provideText = { "Hi, $name! Are you ready to workout!" })
+        TextBody1(
+            provideText = { "Hi, $name! Are you ready to workout!" },
+            textAlign = TextAlign.Center
+        )
 
         PaddingWeight()
 

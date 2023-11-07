@@ -12,7 +12,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.arkivanov.essenty.backhandler.BackCallback
 import components.Error
-import components.Loading
 import components.indication.SlideIndicator
 import components.roots.Root
 import io.github.xxfast.decompose.router.LocalRouterContext
@@ -100,10 +99,7 @@ private fun Content(
     val backHandler = LocalRouterContext.current.backHandler
     backHandler.register(BackCallback { previousStep.invoke(backProvider) })
 
-    Root(
-        loading = { Loading { loading } },
-        error = { Error(message = { error }, close = clearError) },
-    ) {
+    Root(error = { Error(message = { error }, close = clearError) }) {
 
         val pagerState = rememberPagerState(pageCount = { steps.size })
 
