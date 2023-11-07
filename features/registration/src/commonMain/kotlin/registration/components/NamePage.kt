@@ -11,7 +11,6 @@ import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.text.font.FontWeight
 import components.inputs.InputName
 import components.states.animateAlignmentAsState
 import components.states.keyboardAsBoolean
@@ -45,7 +44,7 @@ internal fun NamePage(
 
         TextH2(provideText = { "Nice to meet you" })
 
-        TextBody1(provideText = { "How can we call you?" }, fontWeight = FontWeight.Medium)
+        TextBody1(provideText = { "How can we call you?" })
 
         PaddingXL()
 

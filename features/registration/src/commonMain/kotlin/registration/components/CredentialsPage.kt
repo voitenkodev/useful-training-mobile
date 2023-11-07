@@ -11,7 +11,6 @@ import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.text.font.FontWeight
 import components.inputs.InputEmail
 import components.inputs.InputPassword
 import components.inputs.InputPasswordRepeat
@@ -57,7 +56,7 @@ internal fun CredentialsPage(
 
         TextH2(provideText = { "Credentials" })
 
-        TextBody1(provideText = { "Enter email and password." }, fontWeight = FontWeight.Medium)
+        TextBody1(provideText = { "Enter email and password." })
 
         PaddingXL()
 

@@ -14,7 +14,6 @@ import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.text.font.FontWeight
 import authentication.state.ScreenState
 import authentication.state.TokenStatus
 import components.Error
@@ -114,10 +113,7 @@ private fun Content(
 
             TextH2(provideText = { "Alien Workout" })
 
-            TextBody1(
-                provideText = { "Take your power-up" },
-                fontWeight = FontWeight.Medium
-            )
+            TextBody1(provideText = { "Take your power-up" })
 
             PaddingXL()
 

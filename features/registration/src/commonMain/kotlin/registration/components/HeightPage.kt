@@ -8,7 +8,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import atom.Design
 import heightpicker.HeightPicker
@@ -40,7 +39,7 @@ internal fun HeightPage(
 
         TextH2(provideText = { "Your height" })
 
-        TextBody1(provideText = { "Enter your current height." }, fontWeight = FontWeight.Medium)
+        TextBody1(provideText = { "Enter your current height." })
 
         PaddingWeight()
 
