@@ -5,6 +5,7 @@ import io.github.xxfast.decompose.router.rememberOnRoute
 import registration.screen.registration.RegistrationContent
 import registration.screen.registration.RegistrationViewModel
 import registration.screen.success.SuccessRegistrationContent
+import registration.screen.success.SuccessRegistrationViewModel
 
 @Composable
 public fun RegistrationFeature(
@@ -26,8 +27,12 @@ public fun RegistrationFeature(
 public fun SuccessRegistrationFeature(
     toTrainings: () -> Unit
 ) {
+    val vm = rememberOnRoute(SuccessRegistrationViewModel::class) {
+        SuccessRegistrationViewModel()
+    }
 
     SuccessRegistrationContent(
+        vm = vm,
         toTrainings = toTrainings
     )
 }

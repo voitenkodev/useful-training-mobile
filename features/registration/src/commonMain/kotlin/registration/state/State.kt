@@ -14,7 +14,7 @@ internal data class State(
     val selectedStep: RegistrationSteps = RegistrationSteps.Name,
     val steps: List<RegistrationSteps> = RegistrationSteps.entries,
 
-    val tokenStatus: TokenStatus = TokenStatus.Unavailable,
+    val registrationStatus: RegistrationStatus = RegistrationStatus.Unavailable,
     val error: String? = null,
     val loading: Boolean = false
 )

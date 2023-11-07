@@ -1,23 +1,26 @@
 package registration.screen.registration
 
 import AuthenticationRepository
+import UserRepository
 import ViewModel
 import isEmailValid
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.update
 import org.koin.core.component.inject
+import registration.state.RegistrationStatus
 import registration.state.State
-import registration.state.TokenStatus
 
 internal class RegistrationViewModel : ViewModel() {
 
-    private val api by inject<AuthenticationRepository>()
+    private val authApi by inject<AuthenticationRepository>()
+    private val userApi by inject<UserRepository>()
 
     private val _state = MutableStateFlow(State())
     val state: StateFlow<State> = _state
@@ -27,10 +30,10 @@ internal class RegistrationViewModel : ViewModel() {
     }
 
     private fun subscribeToken() {
-        api
+        authApi
             .getToken()
             .filterNotNull()
-            .onEach { _state.update { it.copy(tokenStatus = TokenStatus.Available) } }
+            .onEach { _state.update { it.copy(registrationStatus = RegistrationStatus.Available) } }
             .launchIn(this)
     }
 
@@ -38,7 +41,10 @@ internal class RegistrationViewModel : ViewModel() {
         _state.update { it.validate() }
 
         if (state.value.error == null) {
-            api.registration(state.value.email, state.value.password)
+            authApi
+                .registration(state.value.email, state.value.password)
+                .flatMapConcat { userApi.syncUser() }
+                .onEach { _state.update { it.copy(registrationStatus = RegistrationStatus.Available) } }
                 .onStart { _state.update { it.copy(loading = true) } }
                 .onEach { _state.update { it.copy(loading = false) } }
                 .catch { t -> _state.update { it.copy(loading = false, error = t.message) } }

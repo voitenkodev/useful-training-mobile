@@ -3,28 +3,38 @@ package registration.screen.success
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import atom.Design
 import com.arkivanov.essenty.backhandler.BackCallback
 import io.github.xxfast.decompose.router.LocalRouterContext
 import molecule.ButtonPrimary
+import molecule.PaddingL
 import molecule.PaddingWeight
 import molecule.PaddingXL
+import molecule.TextBody1
 import molecule.TextH2
 import platformInsets
 
 @Composable
 internal fun SuccessRegistrationContent(
+    vm: SuccessRegistrationViewModel,
     toTrainings: () -> Unit
 ) {
 
+    val state by vm.state.collectAsState()
+
     Content(
+        name = state.name,
         toTrainings = toTrainings
     )
 }
 
 @Composable
 private fun Content(
+    name: String,
     toTrainings: () -> Unit
 ) {
 
@@ -42,7 +52,9 @@ private fun Content(
 
         PaddingXL()
 
-        TextH2(provideText = { "Success Registration!" })
+        TextH2(provideText = { "Success Registration!" }, color = Design.colors.accentSecondary)
+
+        TextBody1(provideText = { "Hi, $name! Are you ready to workout!" })
 
         PaddingWeight()
 

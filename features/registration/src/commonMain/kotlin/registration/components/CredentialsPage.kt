@@ -65,7 +65,7 @@ internal fun CredentialsPage(
             onValueChange = updateEmail
         )
 
-        PaddingM()
+        PaddingL()
 
         InputPassword(
             provideValue = { password },

@@ -23,8 +23,8 @@ import registration.components.CredentialsPage
 import registration.components.HeightPage
 import registration.components.NamePage
 import registration.components.WeightPage
+import registration.state.RegistrationStatus
 import registration.state.RegistrationSteps
-import registration.state.TokenStatus
 
 @Composable
 internal fun RegistrationContent(
@@ -35,8 +35,8 @@ internal fun RegistrationContent(
 
     val state by vm.state.collectAsState()
 
-    LaunchedEffect(state.tokenStatus) {
-        if (state.tokenStatus == TokenStatus.Available) toSuccessRegistration.invoke()
+    LaunchedEffect(state.registrationStatus) {
+        if (state.registrationStatus == RegistrationStatus.Available) toSuccessRegistration.invoke()
     }
 
     Content(
@@ -44,8 +44,7 @@ internal fun RegistrationContent(
         error = state.error,
         clearError = vm::clearError,
         back = back,
-//        registration = vm::registration, // TODO
-        registration = toSuccessRegistration,
+        registration = vm::registration,
         name = state.name,
         updateName = vm::updateName,
         weight = state.weight,
