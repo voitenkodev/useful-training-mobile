@@ -15,7 +15,7 @@ internal fun models.Iteration.toState(): Iteration {
         weightAndRepeat = buildString {
             append(weight.toDoubleOrIntString())
             append(" x ")
-            append(repeat.toString())
+            append(repetitions.toString())
         }
     )
 }

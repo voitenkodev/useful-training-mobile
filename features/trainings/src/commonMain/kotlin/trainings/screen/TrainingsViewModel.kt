@@ -82,7 +82,7 @@ internal class TrainingsViewModel : ViewModel() {
                         dateTimeIso = item,
                         day = DateTimeKtx.formattedDate(item) ?: "-",
                         weekDay = DateTimeKtx.formattedDayOfWeek(item) ?: "-",
-                        countOfTrainings = 0
+                        repetitions = 0
                     )
                 }
                     .syncWithTrainings(it.trainings)
@@ -126,7 +126,7 @@ internal class TrainingsViewModel : ViewModel() {
 
     private fun List<SelectableCalendar>.syncWithTrainings(trainings: List<Training>) = map { item ->
         val count = trainings.count { DateTimeKtx.isTheSameDate(item.dateTimeIso, it.dateIso) }
-        item.copy(countOfTrainings = count)
+        item.copy(repetitions = count)
     }
 
     fun clearError() {

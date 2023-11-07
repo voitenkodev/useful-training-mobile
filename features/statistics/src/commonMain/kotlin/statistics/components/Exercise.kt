@@ -102,7 +102,7 @@ private fun InternalExercise(
                             horizontal = Design.dp.paddingM,
                             vertical = Design.dp.paddingXS
                         ).recomposeHighlighter(),
-                    provideText = { it.weightAndRepeat }
+                    provideText = { it.weightAndRepeatition }
                 )
             }
         }

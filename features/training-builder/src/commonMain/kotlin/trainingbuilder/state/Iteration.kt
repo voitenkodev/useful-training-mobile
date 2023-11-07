@@ -6,5 +6,5 @@ import androidx.compose.runtime.Immutable
 internal data class Iteration(
     val id: String? = null,
     val weight: String = "",
-    val repeat: String = ""
+    val repetitions: String = ""
 )

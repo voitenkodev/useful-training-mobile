@@ -11,8 +11,8 @@ public data class IterationDto(
     val exerciseId: String? = null,
     @SerialName("id")
     val id: String? = null,
-    @SerialName("repeat")
-    val repeat: Int? = null,
+    @SerialName("repetitions")
+    val repetitions: Int? = null,
     @SerialName("updatedAt")
     val updatedAt: String? = null,
     @SerialName("weight")

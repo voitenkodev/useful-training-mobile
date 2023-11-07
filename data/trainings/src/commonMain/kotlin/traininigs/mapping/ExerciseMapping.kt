@@ -12,7 +12,7 @@ internal fun ExerciseDto.toDomain(iterations: List<Iteration>): Exercise? {
         id = id,
         name = name ?: return null,
         volume = volume ?: return null,
-        countOfLifting = countOfLifting ?: return null,
+        repetitions = repetitions ?: return null,
         intensity = intensity ?: return null,
         iterations = iterations
     )
@@ -23,7 +23,7 @@ internal fun ExerciseDao.toDomain(iterations: List<Iteration>): Exercise {
         id = id,
         name = name,
         volume = volume,
-        countOfLifting = countOfLifting,
+        repetitions = repetitions,
         intensity = intensity,
         iterations = iterations
     )
@@ -34,7 +34,7 @@ internal fun Exercise.dtoToDto(iterations: List<IterationDto>): ExerciseDto {
         id = id,
         name = name,
         volume = volume,
-        countOfLifting = countOfLifting,
+        repetitions = repetitions,
         intensity = intensity,
         iterations = iterations
     )
@@ -45,7 +45,7 @@ internal fun ExerciseDto.dtoToDao(iterations: List<IterationDao>): ExerciseDao? 
         id = id ?: return null,
         name = name ?: return null,
         volume = volume ?: return null,
-        countOfLifting = countOfLifting ?: return null,
+        repetitions = repetitions ?: return null,
         intensity = intensity ?: return null,
         iterations = iterations,
         updatedAt = updatedAt ?: return null,

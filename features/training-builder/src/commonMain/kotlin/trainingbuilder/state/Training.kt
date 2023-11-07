@@ -10,6 +10,6 @@ internal data class Training(
     val startDateTime: String = DateTimeKtx.currentDateTime(),
     val duration: Long = 0,
     val volume: Double = 0.0,
-    val countOfLifting: Int = 0,
+    val repetitions: Int = 0,
     val intensity: Double = 0.0
 )

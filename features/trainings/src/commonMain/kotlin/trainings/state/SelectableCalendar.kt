@@ -9,5 +9,5 @@ internal data class SelectableCalendar(
     val dateTimeIso: String,
     val day: String,
     val weekDay: String,
-    val countOfTrainings: Int
+    val repetitions: Int
 )

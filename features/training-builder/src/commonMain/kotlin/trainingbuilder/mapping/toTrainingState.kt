@@ -8,6 +8,6 @@ internal fun models.Training.toTrainingState() = Training(
     duration = duration ?: 0,
     startDateTime = createdAt ?: "",
     volume = volume,
-    countOfLifting = countOfLifting,
+    repetitions = repetitions,
     intensity = intensity
 )

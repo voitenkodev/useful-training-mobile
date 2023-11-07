@@ -2,7 +2,7 @@ package traininig_exercise_iteration.models
 
 public data class ExerciseDao(
     val id: String,
-    val countOfLifting: Int,
+    val repetitions: Int,
     val createdAt: String,
     val intensity: Double,
     val iterations: List<IterationDao> = emptyList(),

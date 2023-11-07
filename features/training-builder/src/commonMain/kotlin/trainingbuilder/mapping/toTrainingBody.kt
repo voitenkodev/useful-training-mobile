@@ -12,17 +12,17 @@ internal fun Training.toBody() = models.Training(
                 models.Iteration(
                     id = null,
                     weight = it.weight.toDoubleOrNull() ?: return@mapNotNull null,
-                    repeat = it.repeat.toIntOrNull() ?: return@mapNotNull null
+                    repetitions = it.repetitions.toIntOrNull() ?: return@mapNotNull null
                 )
             },
             volume = it.volume,
-            countOfLifting = it.countOfLifting,
+            repetitions = it.repetitions,
             intensity = it.intensity
         )
     },
     duration = duration,
     createdAt = startDateTime,
     volume = volume,
-    countOfLifting = countOfLifting,
+    repetitions = repetitions,
     intensity = intensity,
 )

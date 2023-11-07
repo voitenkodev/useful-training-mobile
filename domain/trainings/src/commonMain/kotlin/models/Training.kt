@@ -6,6 +6,6 @@ public data class Training(
     val duration: Long,
     val createdAt: String?,
     val volume: Double,
-    val countOfLifting: Int,
+    val repetitions: Int,
     val intensity: Double
 )

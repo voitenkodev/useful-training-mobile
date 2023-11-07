@@ -32,12 +32,12 @@ internal fun WeightRepeatSection(
 
             val indexProvider by rememberUpdatedState(index)
             val weightProvider by rememberUpdatedState(iteration.weight)
-            val repeatProvider by rememberUpdatedState(iteration.repeat)
+            val repetitionsProvider by rememberUpdatedState(iteration.repetitions)
 
             IterationInputItem(
                 modifier = Modifier.recomposeHighlighter(),
                 provideWeight = { weightProvider },
-                provideRepeat = { repeatProvider },
+                provideRepeat = { repetitionsProvider },
                 updateWeight = { updateWeight.invoke(indexProvider, it) },
                 updateRepeat = { updateRepeat.invoke(indexProvider, it) }
             )

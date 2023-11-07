@@ -5,6 +5,6 @@ public data class Exercise(
     val name: String,
     val iterations: List<Iteration> = emptyList(),
     val volume: Double,
-    val countOfLifting: Int,
+    val repetitions: Int,
     val intensity: Double
 )

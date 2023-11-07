@@ -12,10 +12,10 @@ internal fun List<models.Iteration>.toState(): ImmutableList<Iteration> {
 
 internal fun models.Iteration.toState(): Iteration {
     return Iteration(
-        weightAndRepeat = buildString {
+        weightAndRepeatition = buildString {
             append(weight.toDoubleOrIntString())
             append(" x ")
-            append(repeat.toString())
+            append(repetitions.toString())
         }
     )
 }

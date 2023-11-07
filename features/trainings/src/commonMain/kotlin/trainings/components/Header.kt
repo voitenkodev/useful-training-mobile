@@ -178,14 +178,14 @@ private fun CalendarRow(
                     color = if (it.isToday) Design.colors.accentPrimary else Design.colors.content
                 )
 
-                if (it.countOfTrainings != 0) {
+                if (it.repetitions != 0) {
                     Column(
                         modifier = Modifier
                             .align(Alignment.TopEnd)
                             .padding(Design.dp.paddingS),
                         verticalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
                     ) {
-                        repeat(it.countOfTrainings) {
+                        repeat(it.repetitions) {
                             Spacer(
                                 modifier = Modifier
                                     .size(10.dp)

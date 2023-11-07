@@ -5,8 +5,8 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 public data class TrainingDto(
-    @SerialName("countOfLifting")
-    val countOfLifting: Int? = null,
+    @SerialName("repetitions")
+    val repetitions: Int? = null,
     @SerialName("createdAt")
     val createdAt: String? = null,
     @SerialName("duration")

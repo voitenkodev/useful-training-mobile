@@ -62,7 +62,7 @@ public class TrainingsSource(nativeContext: NativeContext) {
                 duration = training.duration,
                 createdAt = training.createdAt,
                 volume = training.volume,
-                countOfLifting = training.countOfLifting.toLong(),
+                repetitions = training.repetitions.toLong(),
                 intensity = training.intensity,
                 updatedAt = training.updatedAt
             )
@@ -74,7 +74,7 @@ public class TrainingsSource(nativeContext: NativeContext) {
                     trainingId = training.id,
                     name = exercise.name,
                     volume = exercise.volume,
-                    countOfLifting = exercise.countOfLifting.toLong(),
+                    repetitions = exercise.repetitions.toLong(),
                     intensity = exercise.intensity,
                     updatedAt = training.updatedAt,
                     createdAt = training.createdAt,
@@ -86,7 +86,7 @@ public class TrainingsSource(nativeContext: NativeContext) {
                         id = iteration.id,
                         exerciseId = exercise.id,
                         weight = iteration.weight,
-                        repeat = iteration.repeat.toLong(),
+                        repetitions = iteration.repetitions.toLong(),
                         updatedAt = training.updatedAt,
                         createdAt = training.createdAt,
                     )

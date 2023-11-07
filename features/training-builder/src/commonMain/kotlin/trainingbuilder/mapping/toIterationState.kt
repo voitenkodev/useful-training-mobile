@@ -7,5 +7,5 @@ internal fun List<models.Iteration>.toIterationStateList() = this.map { it.toIte
 
 internal fun models.Iteration.toIterationState() = Iteration(
     weight = weight?.toDoubleOrIntString() ?: "",
-    repeat = repeat?.toString() ?: ""
+    repetitions = repetitions?.toString() ?: ""
 )

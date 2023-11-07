@@ -175,9 +175,9 @@ internal class TrainingViewModel : ViewModel() {
                 item
             } else {
                 val iterations = item.iterations.mapIndexedNotNull { iterationIndex, iteration ->
-                    val newRepeat = if (numberOfIteration == iterationIndex) repeat else iteration.repeat
+                    val newRepeat = if (numberOfIteration == iterationIndex) repeat else iteration.repetitions
                     if (newRepeat == "" && iteration.weight == "") null
-                    else Iteration(weight = iteration.weight, repeat = newRepeat)
+                    else Iteration(weight = iteration.weight, repetitions = newRepeat)
                 }
                 item.copy(iterations = iterations)
             }
@@ -192,8 +192,8 @@ internal class TrainingViewModel : ViewModel() {
             } else {
                 val iterations = item.iterations.mapIndexedNotNull { iterationIndex, iteration ->
                     val newWeight = if (numberOfIteration == iterationIndex) weight else iteration.weight
-                    if (newWeight == "" && iteration.repeat == "") null
-                    else Iteration(weight = newWeight, repeat = iteration.repeat)
+                    if (newWeight == "" && iteration.repetitions == "") null
+                    else Iteration(weight = newWeight, repetitions = iteration.repetitions)
                 }
                 item.copy(iterations = iterations)
             }
@@ -215,9 +215,9 @@ internal class TrainingViewModel : ViewModel() {
         val exercises = exercises.mapNotNull {
             val isNameValid = it.name.isNotBlank()
             val iterations = it.iterations.filter { iteration ->
-                val repeat = iteration.repeat.toIntOrNull()
+                val repetitions = iteration.repetitions.toIntOrNull()
                 val weight = iteration.weight.toDoubleOrNull()
-                val isRepeatValid = repeat != null && repeat > 0.0
+                val isRepeatValid = repetitions != null && repetitions > 0.0
                 val isWeightValid = weight != null && weight > 0
                 isRepeatValid && isWeightValid
             }
@@ -230,27 +230,27 @@ internal class TrainingViewModel : ViewModel() {
     private fun Training.calculateValues(): Training {
         val calculatedExercises = exercises.map {
             val exVolume = it.iterations.sumOf { iteration ->
-                (iteration.repeat.toIntOrNull() ?: 0) * (iteration.weight.toDoubleOrNull() ?: 0.0)
+                (iteration.repetitions.toIntOrNull() ?: 0) * (iteration.weight.toDoubleOrNull() ?: 0.0)
             }
-            val exCountOfLifting = it.iterations.sumOf { iteration ->
-                iteration.repeat.toIntOrNull() ?: 0
+            val exRepetitions = it.iterations.sumOf { iteration ->
+                iteration.repetitions.toIntOrNull() ?: 0
             }
-            val exIntensity = (exVolume / exCountOfLifting)
+            val exIntensity = (exVolume / exRepetitions)
             it.copy(
                 volume = exVolume.round(2),
-                countOfLifting = exCountOfLifting,
+                repetitions = exRepetitions,
                 intensity = exIntensity.round(1)
             )
         }
 
         val trainVolume = calculatedExercises.sumOf { it.volume }
-        val trainCountOfLifting = calculatedExercises.sumOf { it.countOfLifting }
-        val trainIntensity = trainVolume / trainCountOfLifting
+        val trainRepetitions = calculatedExercises.sumOf { it.repetitions }
+        val trainIntensity = trainVolume / trainRepetitions
 
         return this.copy(
             exercises = calculatedExercises,
             volume = trainVolume.round(2),
-            countOfLifting = trainCountOfLifting,
+            repetitions = trainRepetitions,
             intensity = trainIntensity.round(1)
         )
     }
@@ -263,7 +263,7 @@ internal class TrainingViewModel : ViewModel() {
     private fun Training.provideEmptyIterations(): Training {
         return this.copy(
             exercises = exercises.map {
-                val lastIsNotEmpty = it.iterations.lastOrNull()?.weight != "" || it.iterations.lastOrNull()?.repeat != ""
+                val lastIsNotEmpty = it.iterations.lastOrNull()?.weight != "" || it.iterations.lastOrNull()?.repetitions != ""
                 if (lastIsNotEmpty) it.copy(iterations = it.iterations + Iteration())
                 else it
             }
@@ -272,7 +272,7 @@ internal class TrainingViewModel : ViewModel() {
 
     private fun Training.provideEmptyIteration(exerciseIndex: Int): Training {
         val exercise = this.exercises.getOrNull(exerciseIndex) ?: return this
-        val lastIsNotEmpty = exercise.iterations.lastOrNull()?.weight != "" || exercise.iterations.lastOrNull()?.repeat != ""
+        val lastIsNotEmpty = exercise.iterations.lastOrNull()?.weight != "" || exercise.iterations.lastOrNull()?.repetitions != ""
         if (lastIsNotEmpty.not()) return this
         val newExercise = exercise.copy(iterations = exercise.iterations + Iteration())
         val newExercises = this.exercises.mapIndexed() { index, item -> if (index == exerciseIndex) newExercise else item }
