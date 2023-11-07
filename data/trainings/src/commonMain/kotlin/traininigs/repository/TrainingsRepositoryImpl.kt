@@ -46,6 +46,10 @@ internal class TrainingsRepositoryImpl(
         }
     }
 
+    override fun clearCache(){
+        local.clearTables()
+    }
+
     override fun deleteTraining(trainingId: String): Flow<Unit> =
         flow {
 //            remote.deleteTraining(trainingId)

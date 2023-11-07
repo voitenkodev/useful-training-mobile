@@ -22,5 +22,5 @@ VALUES (?,?,?,?,?,?,?);
 
 -------------- DELETE --------------
 
-dropTable:
+deleteTableUser:
 DELETE FROM User;

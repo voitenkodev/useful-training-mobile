@@ -28,4 +28,8 @@ internal class UserRepositoryImpl(
             emit(Unit)
         }
     }
+
+    override fun clearCache() {
+        local.clearTable()
+    }
 }

@@ -7,4 +7,5 @@ public interface TrainingsRepository {
     public fun observeTraining(trainingId: String): Flow<Training?>
     public fun setTraining(training: Training): Flow<String?>
     public fun deleteTraining(trainingId: String): Flow<Unit>
+    public fun clearCache()
 }

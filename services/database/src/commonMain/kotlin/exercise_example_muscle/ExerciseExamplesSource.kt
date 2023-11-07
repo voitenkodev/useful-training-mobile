@@ -1,7 +1,7 @@
 package exercise_example_muscle
 
-import NativeContext
 import AlienWorkoutDatabase
+import NativeContext
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
 import app.cash.sqldelight.coroutines.mapToOne
@@ -110,6 +110,12 @@ public class ExerciseExamplesSource(nativeContext: NativeContext) {
         api.transaction {
             muscles.forEach { setMuscle(it) }
         }
+    }
+
+    public fun clearTables() {
+        api.deleteTableExerciseExample()
+        api.deleteTableMuscle()
+        api.deleteTableMuscleExerciseBundle()
     }
 
     private fun setMuscle(muscle: MuscleDao) {

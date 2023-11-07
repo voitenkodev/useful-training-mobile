@@ -75,7 +75,7 @@ private fun Content(
                 repeat(menu.size) {
                     MenuItem(
                         modifier = Modifier
-                            .requiredHeight(300.dp)
+                            .requiredHeight(56.dp)
                             .weight(1f),
                         text = menu[it].text,
                         icon = menu[it].icon,

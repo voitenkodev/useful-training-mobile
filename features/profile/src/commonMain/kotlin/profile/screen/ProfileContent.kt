@@ -17,7 +17,10 @@ import components.Loading
 import components.chips.Chip
 import components.chips.ChipState
 import components.roots.Root
+import icons.Dumbbell
 import kotlinx.collections.immutable.ImmutableList
+import molecule.ButtonIconPrimary
+import molecule.IconPrimary
 import molecule.TextH3
 import profile.components.Header
 import profile.components.ProfileCart
@@ -39,7 +42,8 @@ internal fun ProfileContent(
         exerciseExamples = state.exerciseExamples,
         muscles = state.muscles,
         toExerciseExample = toExerciseExampleBuilder,
-        toMuscle = { }
+        toMuscle = { },
+        logout = vm::logout
     )
 }
 
@@ -54,7 +58,8 @@ private fun Content(
     muscles: ImmutableList<Muscle>,
 
     toExerciseExample: (exerciseExampleId: String?) -> Unit,
-    toMuscle: (muscleId: String?) -> Unit
+    toMuscle: (muscleId: String?) -> Unit,
+    logout: () -> Unit
 ) {
 
     Root(
@@ -65,6 +70,11 @@ private fun Content(
         Column(modifier = Modifier.fillMaxSize()) {
 
             Header()
+
+            ButtonIconPrimary(
+                imageVector = Dumbbell,
+                onClick = logout
+            )
 
             LazyColumn(
                 modifier = Modifier

@@ -68,7 +68,7 @@ VALUES (?,?,?,?,?,?);
 
 -------------- DELETE --------------
 
-dropTable:
+deleteTableTraining:
 DELETE FROM Training;
 
 deleteTrainingById:

@@ -96,8 +96,8 @@ public class TrainingsSource(nativeContext: NativeContext) {
         return training.id
     }
 
-    public fun dropTable() {
-        api.dropTable()
+    public fun clearTables() {
+        api.deleteTableTraining()
     }
 
     public fun deleteTraining(trainingId: String) {

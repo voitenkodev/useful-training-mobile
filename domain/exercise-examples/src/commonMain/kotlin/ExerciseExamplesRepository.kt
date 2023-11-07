@@ -9,4 +9,5 @@ public interface ExerciseExamplesRepository {
     public fun observeMuscles(): Flow<List<Muscle>>
     public fun syncMuscles(): Flow<Unit>
     public fun setExerciseExample(exerciseExample: ExerciseExample): Flow<Unit>
+    public fun clearCache()
 }

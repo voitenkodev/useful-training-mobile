@@ -60,4 +60,8 @@ internal class ExerciseExamplesRepositoryImpl(
             emit(Unit)
         }
     }
+
+    override fun clearCache() {
+        local.clearTables()
+    }
 }

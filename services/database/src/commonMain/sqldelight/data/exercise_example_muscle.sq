@@ -70,3 +70,10 @@ WHERE id = ?;
 deleteMuscleById:
 DELETE FROM Muscle
 WHERE id = ?;
+
+deleteTableExerciseExample:
+DELETE FROM ExerciseExample;
+deleteTableMuscleExerciseBundle:
+DELETE FROM MuscleExerciseBundle;
+deleteTableMuscle:
+DELETE FROM Muscle;

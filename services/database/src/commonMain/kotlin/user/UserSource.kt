@@ -36,4 +36,8 @@ public class UserSource(nativeContext: NativeContext) {
                 createdAt = userDao.createdAt
             )
     }
+
+    public fun clearTable() {
+        api.deleteTableUser()
+    }
 }
