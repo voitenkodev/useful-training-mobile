@@ -1,0 +1,26 @@
+CREATE TABLE IF NOT EXISTS User (
+    id TEXT NOT NULL PRIMARY KEY,
+    weight INTEGER,
+    height INTEGER,
+    email TEXT,
+    name TEXT,
+    createdAt TEXT,
+    updatedAt TEXT
+);
+
+-------------- GET --------------
+
+getUser:
+SELECT *
+FROM User;
+
+-------------- SET --------------
+
+setUser:
+INSERT OR REPLACE INTO User
+VALUES (?,?,?,?,?,?,?);
+
+-------------- DELETE --------------
+
+dropTable:
+DELETE FROM User;

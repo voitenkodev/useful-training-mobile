@@ -8,6 +8,8 @@ import org.koin.dsl.module
 import org.koin.mp.KoinPlatformTools
 import traininig_exercise_iteration.TrainingsSource
 import traininigs.trainingsDataModule
+import user.UserSource
+import user.userDataModule
 
 public fun initCommonKoin(
     appDeclaration: KoinAppDeclaration = {},
@@ -18,7 +20,8 @@ public fun initCommonKoin(
         servicesModule,
         trainingsDataModule,
         authenticationDataModule,
-        exerciseExamplesDataModule
+        exerciseExamplesDataModule,
+        userDataModule
     )
 }
 
@@ -28,4 +31,5 @@ internal val servicesModule = module {
     single { NetworkSource(get()) }
     single { ExerciseExamplesSource(get()) }
     single { TrainingsSource(get()) }
+    single { UserSource(get()) }
 }

@@ -9,6 +9,7 @@ import models.ExerciseExampleDto
 import models.MuscleDto
 import models.TokenDto
 import models.TrainingDto
+import models.UserDto
 
 public class NetworkSource(private val clientBackend: ClientBackend) {
 
@@ -80,6 +81,13 @@ public class NetworkSource(private val clientBackend: ClientBackend) {
         return callRequest(
             method = HttpMethod.Get,
             path = "/muscles"
+        )
+    }
+
+  public suspend fun getUser(): UserDto {
+        return callRequest(
+            method = HttpMethod.Get,
+            path = "/users/profile"
         )
     }
 

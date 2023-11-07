@@ -26,10 +26,12 @@ include(
     ":data:trainings",
     ":data:exercise-examples",
     ":data:authentication",
+    ":data:user",
 
     ":domain:trainings",
     ":domain:authentication",
     ":domain:exercise-examples",
+    ":domain:user",
 
     ":services:network",
     ":services:database",
