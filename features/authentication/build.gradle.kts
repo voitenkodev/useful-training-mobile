@@ -14,6 +14,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(projects.domain.authentication)
+                implementation(projects.domain.user)
 
                 implementation(projects.common.utils)
                 implementation(projects.common.platformApi)

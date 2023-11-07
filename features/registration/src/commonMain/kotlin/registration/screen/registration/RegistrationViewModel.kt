@@ -42,11 +42,16 @@ internal class RegistrationViewModel : ViewModel() {
 
         if (state.value.error == null) {
             authApi
-                .registration(state.value.email, state.value.password)
+                .registration(
+                    email = state.value.email,
+                    password = state.value.password,
+                    name = state.value.name,
+                    weight = state.value.weight,
+                    height = state.value.height
+                )
                 .flatMapConcat { userApi.syncUser() }
-                .onEach { _state.update { it.copy(registrationStatus = RegistrationStatus.Available) } }
                 .onStart { _state.update { it.copy(loading = true) } }
-                .onEach { _state.update { it.copy(loading = false) } }
+                .onEach { _state.update { it.copy(registrationStatus = RegistrationStatus.Available, loading = false) } }
                 .catch { t -> _state.update { it.copy(loading = false, error = t.message) } }
                 .launchIn(this)
         }

@@ -7,6 +7,7 @@ import io.ktor.http.path
 import models.AuthDto
 import models.ExerciseExampleDto
 import models.MuscleDto
+import models.RegisterDto
 import models.TokenDto
 import models.TrainingDto
 import models.UserDto
@@ -21,7 +22,7 @@ public class NetworkSource(private val clientBackend: ClientBackend) {
         )
     }
 
-    public suspend fun register(body: AuthDto): TokenDto {
+    public suspend fun register(body: RegisterDto): TokenDto {
         return callRequest(
             method = HttpMethod.Post,
             path = "/auth/register",
@@ -84,7 +85,7 @@ public class NetworkSource(private val clientBackend: ClientBackend) {
         )
     }
 
-  public suspend fun getUser(): UserDto {
+    public suspend fun getUser(): UserDto {
         return callRequest(
             method = HttpMethod.Get,
             path = "/users/profile"

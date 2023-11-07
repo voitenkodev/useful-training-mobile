@@ -14,8 +14,8 @@ import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
+import authentication.state.AuthStatus
 import authentication.state.ScreenState
-import authentication.state.TokenStatus
 import components.Error
 import components.Loading
 import components.buttons.ButtonQuestion
@@ -42,8 +42,8 @@ internal fun AuthenticationContent(
 
     val state by vm.state.collectAsState()
 
-    LaunchedEffect(state.tokenStatus) {
-        if (state.tokenStatus == TokenStatus.Available) toTrainings.invoke()
+    LaunchedEffect(state.authStatus) {
+        if (state.authStatus == AuthStatus.Available) toTrainings.invoke()
     }
 
     Content(
