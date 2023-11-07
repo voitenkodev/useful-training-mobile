@@ -5,7 +5,7 @@ public data class Training(
     val exercises: List<Exercise> = emptyList(),
     val duration: Long,
     val createdAt: String?,
-    val tonnage: Double,
+    val volume: Double,
     val countOfLifting: Int,
     val intensity: Double
 )

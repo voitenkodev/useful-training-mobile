@@ -45,10 +45,10 @@ internal fun TrainingHeader(
                 .weight(0.8f)
                 .fillMaxHeight()
                 .secondaryDefaultBackground(),
-            title = "TONNAGE",
-            value = training.tonnage,
+            title = "VOLUME",
+            value = training.volume,
             icon = Weight,
-            values = training.tonnageExerciseList
+            values = training.volumeExerciseList
         )
 
         Column(

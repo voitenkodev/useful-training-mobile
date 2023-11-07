@@ -7,6 +7,6 @@ internal fun models.Exercise.toState(): Exercise? {
         id = id ?: return null,
         name = name,
         iterations = iterations.toState(),
-        tonnage = tonnage
+        volume = volume
     )
 }

@@ -7,7 +7,7 @@ internal fun models.Training.toTrainingState() = Training(
     exercises = exercises.toExerciseStateList(),
     duration = duration ?: 0,
     startDateTime = createdAt ?: "",
-    tonnage = tonnage,
+    volume = volume,
     countOfLifting = countOfLifting,
     intensity = intensity
 )

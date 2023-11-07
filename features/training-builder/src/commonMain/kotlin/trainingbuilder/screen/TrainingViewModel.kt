@@ -229,27 +229,27 @@ internal class TrainingViewModel : ViewModel() {
 
     private fun Training.calculateValues(): Training {
         val calculatedExercises = exercises.map {
-            val exTonnage = it.iterations.sumOf { iteration ->
+            val exVolume = it.iterations.sumOf { iteration ->
                 (iteration.repeat.toIntOrNull() ?: 0) * (iteration.weight.toDoubleOrNull() ?: 0.0)
             }
             val exCountOfLifting = it.iterations.sumOf { iteration ->
                 iteration.repeat.toIntOrNull() ?: 0
             }
-            val exIntensity = (exTonnage / exCountOfLifting)
+            val exIntensity = (exVolume / exCountOfLifting)
             it.copy(
-                tonnage = exTonnage.round(2),
+                volume = exVolume.round(2),
                 countOfLifting = exCountOfLifting,
                 intensity = exIntensity.round(1)
             )
         }
 
-        val trainTonnage = calculatedExercises.sumOf { it.tonnage }
+        val trainVolume = calculatedExercises.sumOf { it.volume }
         val trainCountOfLifting = calculatedExercises.sumOf { it.countOfLifting }
-        val trainIntensity = trainTonnage / trainCountOfLifting
+        val trainIntensity = trainVolume / trainCountOfLifting
 
         return this.copy(
             exercises = calculatedExercises,
-            tonnage = trainTonnage.round(2),
+            volume = trainVolume.round(2),
             countOfLifting = trainCountOfLifting,
             intensity = trainIntensity.round(1)
         )

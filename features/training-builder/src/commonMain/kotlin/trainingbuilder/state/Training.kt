@@ -9,7 +9,7 @@ internal data class Training(
     val exercises: List<Exercise> = listOf(Exercise()),
     val startDateTime: String = DateTimeKtx.currentDateTime(),
     val duration: Long = 0,
-    val tonnage: Double = 0.0,
+    val volume: Double = 0.0,
     val countOfLifting: Int = 0,
     val intensity: Double = 0.0
 )

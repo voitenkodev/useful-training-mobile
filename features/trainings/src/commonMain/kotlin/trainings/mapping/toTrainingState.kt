@@ -20,8 +20,8 @@ internal fun models.Training.toState(): Training? {
         duration = duration,
         dateIso = createdAt ?: "",
         startDate = createdAt?.let { DateTimeKtx.formattedTime(it) } ?: "",
-        tonnage = tonnage.toShortString(),
+        volume = volume.toShortString(),
         intensity = intensity.toDoubleOrIntString(),
-        tonnageExerciseList = exercises.map { it.tonnage.toFloat() }.toPersistentList()
+        volumeExerciseList = exercises.map { it.volume.toFloat() }.toPersistentList()
     )
 }

@@ -15,14 +15,14 @@ internal fun Training.toBody() = models.Training(
                     repeat = it.repeat.toIntOrNull() ?: return@mapNotNull null
                 )
             },
-            tonnage = it.tonnage,
+            volume = it.volume,
             countOfLifting = it.countOfLifting,
             intensity = it.intensity
         )
     },
     duration = duration,
     createdAt = startDateTime,
-    tonnage = tonnage,
+    volume = volume,
     countOfLifting = countOfLifting,
     intensity = intensity,
 )

@@ -9,5 +9,5 @@ internal data class Exercise(
     val id: String,
     val name: String = "",
     val iterations: ImmutableList<Iteration> = persistentListOf(),
-    val tonnage: Double = 0.0
+    val volume: Double = 0.0
 )

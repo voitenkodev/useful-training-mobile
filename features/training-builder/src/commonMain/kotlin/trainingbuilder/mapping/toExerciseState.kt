@@ -8,7 +8,7 @@ internal fun models.Exercise.toExerciseState() = Exercise(
     id = id ?: "",
     name = name ?: "",
     iterations = iterations.toIterationStateList(),
-    tonnage = tonnage ?: 0.0,
+    volume = volume ?: 0.0,
     countOfLifting = countOfLifting ?: 0,
     intensity = intensity ?: 0.0
 )

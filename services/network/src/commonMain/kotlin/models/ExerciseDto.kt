@@ -17,8 +17,8 @@ public data class ExerciseDto(
     val iterations: List<IterationDto> = emptyList(),
     @SerialName("name")
     val name: String? = null,
-    @SerialName("tonnage")
-    val tonnage: Double? = null,
+    @SerialName("volume")
+    val volume: Double? = null,
     @SerialName("trainingId")
     val trainingId: String? = null,
     @SerialName("updatedAt")

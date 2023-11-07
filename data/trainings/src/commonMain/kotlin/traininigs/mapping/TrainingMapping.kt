@@ -19,7 +19,7 @@ internal fun Training.domainToDto(exercises: List<ExerciseDto>): TrainingDto {
     return TrainingDto(
         id = id,
         duration = duration,
-        tonnage = tonnage,
+        volume = volume,
         countOfLifting = countOfLifting,
         intensity = intensity,
         exercises = exercises
@@ -56,7 +56,7 @@ internal fun TrainingDto.toDomain(exercises: List<Exercise>): Training? {
         id = id,
         duration = duration ?: return null,
         createdAt = createdAt,
-        tonnage = tonnage ?: return null,
+        volume = volume ?: return null,
         countOfLifting = countOfLifting ?: return null,
         intensity = intensity ?: return null,
         exercises = exercises
@@ -68,7 +68,7 @@ internal fun TrainingDao.toDomain(exercises: List<Exercise>): Training {
         id = id,
         duration = duration,
         createdAt = createdAt,
-        tonnage = tonnage,
+        volume = volume,
         countOfLifting = countOfLifting,
         intensity = intensity,
         exercises = exercises
@@ -92,7 +92,7 @@ internal fun TrainingDto.dtoToDao(exercises: List<ExerciseDao>): TrainingDao? {
         id = id ?: return null,
         duration = duration ?: return null,
         createdAt = createdAt ?: return null,
-        tonnage = tonnage ?: return null,
+        volume = volume ?: return null,
         countOfLifting = countOfLifting ?: return null,
         intensity = intensity ?: return null,
         exercises = exercises,

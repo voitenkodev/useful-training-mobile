@@ -9,7 +9,7 @@ internal fun Exercise.toDao(iterations: List<IterationDao>): ExerciseDao {
         id = id,
         trainingId = trainingId,
         name = name ?: "",
-        tonnage = tonnage ?: 0.0,
+        volume = volume ?: 0.0,
         countOfLifting = countOfLifting?.toInt() ?: 0,
         intensity = intensity ?: 0.0,
         iterations = iterations,

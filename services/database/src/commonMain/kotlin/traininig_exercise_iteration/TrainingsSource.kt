@@ -61,7 +61,7 @@ public class TrainingsSource(nativeContext: NativeContext) {
                 id = training.id,
                 duration = training.duration,
                 createdAt = training.createdAt,
-                tonnage = training.tonnage,
+                volume = training.volume,
                 countOfLifting = training.countOfLifting.toLong(),
                 intensity = training.intensity,
                 updatedAt = training.updatedAt
@@ -73,7 +73,7 @@ public class TrainingsSource(nativeContext: NativeContext) {
                     id = exercise.id,
                     trainingId = training.id,
                     name = exercise.name,
-                    tonnage = exercise.tonnage,
+                    volume = exercise.volume,
                     countOfLifting = exercise.countOfLifting.toLong(),
                     intensity = exercise.intensity,
                     updatedAt = training.updatedAt,

@@ -11,7 +11,7 @@ import components.chart.PointLine
 import components.items.LineChartItem
 
 @Composable
-public fun TonnageChart(
+public fun VolumeChart(
     modifier: Modifier = Modifier,
     provideData: () -> List<Float>,
     compareData: (() -> List<Float>) = { emptyList() },
@@ -28,7 +28,7 @@ public fun TonnageChart(
                     yValue = provideData(),
                     lineColor = color,
                     fillColor = color.copy(alpha = 0.2f),
-                    label = "Tonnage",
+                    label = "Volume",
                     point = PointCircle(color = colorDataPoint)
                 )
             )

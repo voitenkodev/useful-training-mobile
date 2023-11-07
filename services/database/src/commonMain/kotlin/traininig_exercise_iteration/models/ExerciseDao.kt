@@ -7,7 +7,7 @@ public data class ExerciseDao(
     val intensity: Double,
     val iterations: List<IterationDao> = emptyList(),
     val name: String,
-    val tonnage: Double,
+    val volume: Double,
     val trainingId: String,
     val updatedAt: String
 )
