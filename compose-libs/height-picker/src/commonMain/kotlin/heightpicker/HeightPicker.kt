@@ -23,8 +23,8 @@ import kotlin.math.roundToInt
 public fun HeightPicker(
     modifier: Modifier = Modifier,
     pickerStyle: HeightPickerStyle,
-    minimal: Int = 1100,
-    maximum: Int = 2500,
+    minimal: Int = 110,
+    maximum: Int = 250,
     initial: Int,
     onValueChange: (Int) -> Unit
 ) {
@@ -103,7 +103,7 @@ public fun HeightPicker(
 
                 if (lineType == LineType.TenStep) {
                     val dimensions = textMeasurer.measure(
-                        text = (abs(height) / 10).toString(),
+                        text = (abs(height)).toString(),
                         style = style,
                         maxLines = 1,
                         softWrap = false,

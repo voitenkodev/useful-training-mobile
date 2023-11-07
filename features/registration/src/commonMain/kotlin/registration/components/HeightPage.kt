@@ -39,7 +39,7 @@ internal fun HeightPage(
 
         TextH2(provideText = { "Your height" })
 
-        TextBody1(provideText = { "Enter your current height." })
+        TextBody1(provideText = { "Enter your current height!" })
 
         PaddingWeight()
 

@@ -56,7 +56,7 @@ internal fun CredentialsPage(
 
         TextH2(provideText = { "Credentials" })
 
-        TextBody1(provideText = { "Enter email and password." })
+        TextBody1(provideText = { "Enter email and password!" })
 
         PaddingXL()
 

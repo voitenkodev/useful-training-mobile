@@ -39,7 +39,7 @@ internal fun WeightPage(
 
         TextH2(provideText = { "Your weight" })
 
-        TextBody1(provideText = { "Enter your current weight." })
+        TextBody1(provideText = { "Enter your current weight!" })
 
         PaddingWeight()
 
