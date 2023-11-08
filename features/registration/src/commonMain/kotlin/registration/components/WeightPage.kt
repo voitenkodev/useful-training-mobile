@@ -47,7 +47,6 @@ internal fun WeightPage(
 
         PaddingWeight()
 
-
         WeightPicker(
             modifier = Modifier
                 .fillMaxWidth()

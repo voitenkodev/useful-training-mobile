@@ -107,12 +107,17 @@ internal class RegistrationViewModel : ViewModel() {
 
         val newEmail = this.email.trim().lowercase()
         val newPassword = this.password.trim()
+        val newPasswordRepeat = this.passwordRepeat.trim()
 
         val isEmailValid = isEmailValid(newEmail)
         val isPasswordValid = newPassword.length > 5
+        val isPasswordRepeatValid = newPasswordRepeat.length > 5
+        val passwordIsMatch = newPasswordRepeat == newPassword
 
         val newError = if (isEmailValid.not()) "Invalid Email Field"
         else if (isPasswordValid.not()) "Invalid password field"
+        else if (isPasswordRepeatValid.not()) "Invalid password repeat field"
+        else if (passwordIsMatch.not()) "Password mismatch"
         else null
 
         return this.copy(email = newEmail, password = newPassword, error = newError)
