@@ -17,6 +17,7 @@ public fun Modifier.primaryBackground(): Modifier = this
 
 @Composable
 public fun Modifier.accentPrimaryDefaultBackground(): Modifier = this
+    .borderDefaultPrimary()
     .background(
         color = Design.colors.accentPrimary,
         shape = Design.shape.default
@@ -88,8 +89,12 @@ public fun Modifier.reversedCircleBackground(): Modifier = this
     )
 
 @Composable
-public fun Modifier.reversedRoundBackground(): Modifier = this
-    .background(
+public fun Modifier.reversedDefaultBackground(): Modifier = this
+    .border(
+        color = Design.colors.black30,
+        width = 1.dp,
+        shape = Design.shape.default
+    ).background(
         color = Design.colors.content,
         shape = Design.shape.default
     ).clip(

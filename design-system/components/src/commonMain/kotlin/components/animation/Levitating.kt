@@ -1,4 +1,4 @@
-package brandartifacts
+package components.animation
 
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.FastOutSlowInEasing
@@ -7,7 +7,6 @@ import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.offset
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -18,12 +17,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.TransformOrigin
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import kotlin.random.Random
 
 @Composable
-public fun LevitatingIcon(modifier: Modifier = Modifier, imageVector: ImageVector) {
+public fun Levitating(content: @Composable (Modifier) -> Unit) {
 
     val animController = remember { mutableStateOf(false) }
     val levitationX = remember { Animatable(0f) }
@@ -31,10 +29,10 @@ public fun LevitatingIcon(modifier: Modifier = Modifier, imageVector: ImageVecto
     val rotation = remember { Animatable(0f) }
 
     val boundBell by rememberInfiniteTransition().animateFloat(
-        initialValue = 4f,
-        targetValue = -4f,
+        initialValue = 1f,
+        targetValue = -1f,
         animationSpec = infiniteRepeatable(
-            animation = tween(durationMillis = 2000, easing = FastOutSlowInEasing),
+            animation = tween(durationMillis = 4000, easing = FastOutSlowInEasing),
             repeatMode = RepeatMode.Reverse
         )
     )
@@ -43,7 +41,7 @@ public fun LevitatingIcon(modifier: Modifier = Modifier, imageVector: ImageVecto
 
     LaunchedEffect(animController.value) {
         while (true) {
-            val randomX = Random.nextInt(-5, 5)
+            val randomX = Random.nextInt(-3, 3)
             levitationX.animateTo(
                 targetValue = randomX.toFloat(),
                 animationSpec = tween(
@@ -56,7 +54,7 @@ public fun LevitatingIcon(modifier: Modifier = Modifier, imageVector: ImageVecto
 
     LaunchedEffect(animController.value) {
         while (true) {
-            val randomY = Random.nextInt(-5, 5)
+            val randomY = Random.nextInt(-3, 3)
             levitationY.animateTo(
                 targetValue = randomY.toFloat(),
                 animationSpec = tween(
@@ -69,7 +67,7 @@ public fun LevitatingIcon(modifier: Modifier = Modifier, imageVector: ImageVecto
 
     LaunchedEffect(animController.value) {
         while (true) {
-            val randomRotation = Random.nextInt(-5, 5).toFloat()
+            val randomRotation = Random.nextInt(-3, 3).toFloat()
             rotation.animateTo(
                 targetValue = randomRotation,
                 animationSpec = tween(
@@ -80,18 +78,16 @@ public fun LevitatingIcon(modifier: Modifier = Modifier, imageVector: ImageVecto
         }
     }
 
-    Image(
-        modifier = modifier
-            .graphicsLayer(
-                transformOrigin = TransformOrigin(
-                    pivotFractionX = 0.5f,
-                    pivotFractionY = 0.0f,
-                ),
-                rotationZ = boundBell
-            )
-            .offset(x = levitationX.value.dp, y = levitationY.value.dp)
-            .rotate(rotation.value),
-        imageVector = imageVector,
-        contentDescription = null
-    )
+    val modifier = Modifier
+        .graphicsLayer(
+            transformOrigin = TransformOrigin(
+                pivotFractionX = 0.5f,
+                pivotFractionY = 0.0f,
+            ),
+            rotationZ = boundBell
+        )
+        .offset(x = levitationX.value.dp, y = levitationY.value.dp)
+        .rotate(rotation.value)
+
+    content.invoke(modifier)
 }

@@ -15,7 +15,7 @@ import molecule.TextH3
 import molecule.accentSecondaryDefaultBackground
 
 @Composable
-public fun ProfileCart(
+public fun ProfileCard(
     visibility: Boolean,
     onClose: () -> Unit
 ) {

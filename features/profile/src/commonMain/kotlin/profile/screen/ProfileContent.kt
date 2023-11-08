@@ -20,10 +20,9 @@ import components.roots.Root
 import icons.Dumbbell
 import kotlinx.collections.immutable.ImmutableList
 import molecule.ButtonIconPrimary
-import molecule.IconPrimary
 import molecule.TextH3
 import profile.components.Header
-import profile.components.ProfileCart
+import profile.components.ProfileCard
 import profile.state.ExerciseExample
 import profile.state.Muscle
 
@@ -85,7 +84,7 @@ private fun Content(
             ) {
 
                 item {
-                    ProfileCart(
+                    ProfileCard(
                         visibility = true,
                         onClose = {}
                     )
