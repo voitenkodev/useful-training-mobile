@@ -20,6 +20,7 @@ import bottommenu.state.Menu
 import bottommenu.state.TokenStatus
 import kotlinx.collections.immutable.ImmutableList
 import molecule.Shadow
+import molecule.secondaryDefaultBackground
 import molecule.secondaryRoundBackground
 import platformBottomInset
 
@@ -54,9 +55,7 @@ private fun Content(
     screen: @Composable () -> Unit
 ) {
 
-    Column(
-        modifier = Modifier.fillMaxWidth()
-    ) {
+    Column(modifier = Modifier.fillMaxWidth()) {
         Box(
             modifier = Modifier.weight(1f),
             content = { screen.invoke() }
@@ -66,7 +65,7 @@ private fun Content(
             modifier = Modifier
                 .secondaryRoundBackground()
                 .platformBottomInset()
-                .fillMaxWidth(),
+                .fillMaxWidth()
         ) {
 
             Shadow()
@@ -82,9 +81,8 @@ private fun Content(
                 repeat(menu.size) {
                     MenuItem(
                         modifier = Modifier
-                            .requiredHeight(56.dp)
+                            .requiredHeight(Design.dp.componentM)
                             .weight(1f),
-                        text = menu[it].text,
                         icon = menu[it].icon,
                         isSelected = selectedIndex == it,
                         onClick = { onClick.invoke(it) }

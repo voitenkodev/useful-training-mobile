@@ -16,28 +16,28 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import atom.Design
 import molecule.ButtonIconSecondary
+import molecule.coloredDefaultBackgroundNoBorder
 
 @Composable
 internal fun MenuItem(
     modifier: Modifier = Modifier,
-    text: String,
     icon: ImageVector,
     isSelected: Boolean = false,
     onClick: () -> Unit
 ) {
 
     val background =
-        if (isSelected) Design.colors.orange
+        if (isSelected) Design.colors.toxic
         else Color.Transparent
 
     val iconColor =
-        if (isSelected) Design.colors.content
+        if (isSelected) Design.colors.primary
         else Design.colors.caption
 
     Box(
         modifier = modifier
             .fillMaxHeight()
-            .background(color = background)
+            .coloredDefaultBackgroundNoBorder(color = background)
             .clickable(onClick = onClick),
         contentAlignment = Alignment.Center
     ) {

@@ -5,6 +5,7 @@ import UserRepository
 import ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
@@ -25,6 +26,7 @@ internal class ProfileViewModel : ViewModel() {
         userApi
             .observeUser()
             .onEach { r -> _state.update { it.copy(user = r.toState()) } }
+            .catch { r -> _state.update { it.copy(error = r.message) } }
             .launchIn(this)
     }
 

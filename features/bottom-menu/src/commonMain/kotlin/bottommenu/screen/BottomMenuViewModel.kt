@@ -13,10 +13,10 @@ import org.koin.core.component.inject
 
 internal class BottomMenuViewModel : ViewModel() {
 
-    private val api by inject<AuthenticationRepository>()
-
     private val _state = MutableStateFlow(State())
     val state: StateFlow<State> = _state
+
+    private val api by inject<AuthenticationRepository>()
 
     init {
         subscribeToken()
