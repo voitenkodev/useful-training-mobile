@@ -37,7 +37,7 @@ public fun WeightPicker(
     val internalInitial = remember { initial }
     val radius = pickerStyle.radius
     val scaleWidth = pickerStyle.scaleWidth
-    val angleVisibilityRange = 30f
+    val angleVisibilityRange = pickerStyle.visibilityRange
 
     var center by remember { mutableStateOf(Offset.Zero) }
     var circleCenter by remember { mutableStateOf(Offset.Zero) }

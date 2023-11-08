@@ -57,8 +57,8 @@ public fun HeightPicker(
 
         val topLinerY = this.size.height / 2f
         val middlePoint = Offset(x = this.size.width / 2f, y = this.size.height / 2f)
-        val rangeStart = selectedHeight - 40
-        val rangeEnd = selectedHeight + 40
+        val rangeStart = selectedHeight - pickerStyle.visibilityRange
+        val rangeEnd = selectedHeight + pickerStyle.visibilityRange
 
         drawRect(
             topLeft = Offset(x = 0f, y = topLinerY),
