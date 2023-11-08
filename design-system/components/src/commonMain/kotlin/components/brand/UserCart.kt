@@ -114,7 +114,7 @@ private fun UserCardBackground(modifier: Modifier = Modifier) {
                 .size(120.dp)
                 .offset(x = 60.dp, y = 60.dp)
                 .background(
-                    color = Design.colors.accentSecondary.copy(alpha = 0.15f),
+                    color = Design.colors.toxic.copy(alpha = 0.15f),
                     shape = Design.shape.circleShape
                 )
         )
@@ -125,7 +125,7 @@ private fun UserCardBackground(modifier: Modifier = Modifier) {
                 .size(120.dp)
                 .offset(x = 45.dp, y = (-36).dp)
                 .background(
-                    color = Design.colors.accentSecondary.copy(alpha = 0.15f),
+                    color = Design.colors.toxic.copy(alpha = 0.15f),
                     shape = Design.shape.circleShape
                 )
         )
@@ -136,7 +136,7 @@ private fun UserCardBackground(modifier: Modifier = Modifier) {
                 .size(140.dp)
                 .offset(x = (-45).dp, y = (30).dp)
                 .background(
-                    color = Design.colors.accentSecondary.copy(alpha = 0.15f),
+                    color = Design.colors.toxic.copy(alpha = 0.15f),
                     shape = Design.shape.circleShape
                 )
         )

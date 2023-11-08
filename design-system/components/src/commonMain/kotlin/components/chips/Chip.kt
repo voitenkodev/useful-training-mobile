@@ -18,7 +18,6 @@ import atom.Design
 import molecule.IconSecondary
 import molecule.PaddingXS
 import molecule.TextBody2
-import molecule.accentCircleBackground
 import molecule.coloredCircleBackgroundNoBorder
 import molecule.transparentCircleBackground
 import molecule.white5CircleBackground
@@ -28,7 +27,6 @@ public sealed class ChipState(public open val enabled: Boolean) {
     public data class HalfTransparent(override val enabled: Boolean = true) : ChipState(enabled)
     public data class Default(override val enabled: Boolean = true) : ChipState(enabled)
     public data class Selected(override val enabled: Boolean = true) : ChipState(enabled)
-    public data class Highlighted(override val enabled: Boolean = true) : ChipState(enabled)
     public data class Colored(val color: Color, override val enabled: Boolean = true) : ChipState(enabled)
 }
 
@@ -46,9 +44,6 @@ public fun Chip(
 
         is ChipState.Default -> Modifier
             .white5CircleBackground()
-
-        is ChipState.Highlighted -> Modifier
-            .accentCircleBackground()
 
         is ChipState.Selected -> Modifier
             .transparentCircleBackground()

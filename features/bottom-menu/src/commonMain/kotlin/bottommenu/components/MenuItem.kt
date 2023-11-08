@@ -27,7 +27,7 @@ internal fun MenuItem(
 ) {
 
     val background =
-        if (isSelected) Design.colors.accentPrimary
+        if (isSelected) Design.colors.orange
         else Color.Transparent
 
     val iconColor =

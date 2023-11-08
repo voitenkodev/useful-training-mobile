@@ -13,6 +13,8 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
+                implementation(projects.domain.authentication)
+
                 implementation(projects.common.architectureComponent)
                 implementation(projects.common.platformApi)
 

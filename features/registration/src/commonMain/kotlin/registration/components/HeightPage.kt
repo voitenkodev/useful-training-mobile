@@ -55,9 +55,9 @@ internal fun HeightPage(
             pickerStyle = HeightPickerStyle(
                 backgroundColor = Design.colors.secondary,
                 tenStepLineColor = Design.colors.content,
-                fiveStepLineColor = Design.colors.accentPrimary,
+                fiveStepLineColor = Design.colors.orange,
                 normalLineColor = Design.colors.caption,
-                indicatorColor = Design.colors.accentSecondary
+                indicatorColor = Design.colors.toxic
             ),
             initial = height,
             onValueChange = updateHeight

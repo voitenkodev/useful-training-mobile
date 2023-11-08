@@ -14,7 +14,7 @@ import molecule.TextBody2
 public fun AccentLabel(
     modifier: Modifier = Modifier,
     provideText: () -> String,
-    backgroundColor: Color = Design.colors.accentPrimary
+    backgroundColor: Color = Design.colors.orange
 ) {
 
     TextBody2(

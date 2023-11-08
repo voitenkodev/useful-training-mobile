@@ -96,14 +96,14 @@ internal fun Header(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Chip(
-                    chipState = ChipState.Highlighted(enabled = false),
+                    chipState = ChipState.Colored(color = Design.colors.orange, enabled = false),
                     text = exerciseExample.name
                 )
 
                 ButtonIconSecondary(
                     modifier = Modifier.size(24.dp),
                     imageVector = Delete,
-                    color = Design.colors.accentPrimary,
+                    color = Design.colors.orange,
                     onClick = deleteExercise
                 )
             }

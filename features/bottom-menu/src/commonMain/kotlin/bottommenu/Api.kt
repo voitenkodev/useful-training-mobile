@@ -8,7 +8,8 @@ import io.github.xxfast.decompose.router.rememberOnRoute
 @Composable
 public fun BottomMenuFeature(
     selectedIndex: Int,
-    onClick: (index: Int) -> Unit,
+    menuItemClick: (index: Int) -> Unit,
+    toAuthentication: () -> Unit,
     screen: @Composable () -> Unit
 ) {
 
@@ -19,7 +20,8 @@ public fun BottomMenuFeature(
     BottomMenuContent(
         vm = vm,
         selectedIndex = selectedIndex,
-        onClick = onClick,
+        menuItemClick = menuItemClick,
+        toAuthentication = toAuthentication,
         screen = screen
     )
 }

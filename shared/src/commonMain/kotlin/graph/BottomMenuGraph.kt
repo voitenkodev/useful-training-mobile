@@ -25,7 +25,8 @@ internal sealed class BottomMenuRouter : Parcelable {
 internal fun BottomMenuGraph(
     toTrainingBuilder: (id: String?) -> Unit,
     toTrainingDetails: (id: String) -> Unit,
-    toExerciseExampleBuilder: (id: String?) -> Unit
+    toExerciseExampleBuilder: (id: String?) -> Unit,
+    toAuthentication: () -> Unit
 ) {
 
     val router: Router<BottomMenuRouter> = rememberRouter(BottomMenuRouter::class) {
@@ -44,7 +45,8 @@ internal fun BottomMenuGraph(
 
     BottomMenuFeature(
         selectedIndex = selectedIndex.value,
-        onClick = {
+        toAuthentication = toAuthentication,
+        menuItemClick = {
             val newRoute = when (it) {
                 0 -> BottomMenuRouter.Trainings
                 1 -> BottomMenuRouter.Statistics

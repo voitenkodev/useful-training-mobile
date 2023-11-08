@@ -26,7 +26,7 @@ public fun Loading(visible: () -> Boolean) {
             .clickable(enabled = false) {},
     ) {
         CircularProgressIndicator(
-            color = Design.colors.accentPrimary,
+            color = Design.colors.orange,
             modifier = Modifier
                 .size(80.dp)
                 .padding(16.dp)

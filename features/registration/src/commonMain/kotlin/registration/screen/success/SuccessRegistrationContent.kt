@@ -58,7 +58,7 @@ private fun Content(
 
         TextH2(
             provideText = { "Success Registration" },
-            color = Design.colors.accentSecondary,
+            color = Design.colors.toxic,
             textAlign = TextAlign.Center
         )
 

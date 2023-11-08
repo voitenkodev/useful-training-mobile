@@ -167,7 +167,7 @@ private fun CalendarRow(
                         .align(Alignment.TopCenter)
                         .padding(top = 18.dp),
                     provideText = { if (it.isToday) "TODAY" else it.weekDay },
-                    color = if (it.isToday) Design.colors.accentPrimary else if (it.isSelected) Design.colors.content else Design.colors.caption
+                    color = if (it.isToday) Design.colors.orange else if (it.isSelected) Design.colors.content else Design.colors.caption
                 )
 
                 TextH3(
@@ -175,7 +175,7 @@ private fun CalendarRow(
                         .align(Alignment.BottomCenter)
                         .padding(bottom = 14.dp),
                     provideText = { it.day },
-                    color = if (it.isToday) Design.colors.accentPrimary else Design.colors.content
+                    color = if (it.isToday) Design.colors.orange else Design.colors.content
                 )
 
                 if (it.repetitions != 0) {
@@ -190,7 +190,7 @@ private fun CalendarRow(
                                 modifier = Modifier
                                     .size(10.dp)
                                     .background(
-                                        color = Design.colors.accentSecondary,
+                                        color = Design.colors.toxic,
                                         shape = Design.shape.circleShape
                                     )
                             )

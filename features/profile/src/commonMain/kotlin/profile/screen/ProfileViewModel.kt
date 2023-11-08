@@ -25,7 +25,8 @@ internal class ProfileViewModel : ViewModel() {
     private val authApi by inject<AuthenticationRepository>()
 
     init {
-        exerciseExampleApi.observeExerciseExamples()
+        exerciseExampleApi
+            .observeExerciseExamples()
             .onStart {
                 _state.update { it.copy(loading = true) }
             }.onEach { r ->

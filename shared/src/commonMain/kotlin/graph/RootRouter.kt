@@ -37,6 +37,7 @@ internal fun RootGraph() {
                     router.push(RootRouter.Training(trainingId))
                 },
                 toTrainingDetails = {},
+                toAuthentication = { router.replaceAll(RootRouter.Auth) },
                 toExerciseExampleBuilder = { id ->
                     router.push(RootRouter.ExerciseExampleBuilder(id))
                 }

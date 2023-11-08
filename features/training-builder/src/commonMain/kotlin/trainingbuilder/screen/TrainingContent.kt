@@ -214,7 +214,7 @@ private fun NewExercise(
             .height(128.dp)
             .border(
                 width = 1.dp,
-                shape = Design.shape.default, color = Design.colors.accentPrimary
+                shape = Design.shape.default, color = Design.colors.orange
             )
             .clickable(onClick = onClick)
             .recomposeHighlighter(),
@@ -224,7 +224,7 @@ private fun NewExercise(
                     .align(Alignment.Center)
                     .recomposeHighlighter(),
                 provideText = { "Add Exercise" },
-                color = Design.colors.accentPrimary
+                color = Design.colors.orange
             )
         }
     )

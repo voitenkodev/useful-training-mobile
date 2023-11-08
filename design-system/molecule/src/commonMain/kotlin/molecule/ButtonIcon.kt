@@ -2,7 +2,6 @@ package molecule
 
 import atom.Design
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredSize
@@ -22,14 +21,14 @@ public fun ButtonIconPrimary(
     modifier: Modifier = Modifier,
     imageVector: ImageVector,
     enabled: Boolean = true,
-    backgroundColor: Color = Design.colors.accentPrimary,
+    backgroundColor: Color = Design.colors.orange,
     contentColor: Color = Design.colors.content,
     onClick: () -> Unit,
 ) {
     IconButton(
         modifier = modifier
             .borderCirclePrimary()
-            .requiredSize(Design.dp.componentL)
+            .size(Design.dp.componentL)
             .alpha(if (enabled) 1f else 0.5f)
             .background(
                 color = backgroundColor,
@@ -56,7 +55,7 @@ public fun ButtonIconToolbar(
     imageVector: ImageVector,
     enabled: Boolean = true,
     contentColor: Color = Design.colors.content,
-    onClick: () -> Unit,
+    onClick: () -> Unit
 ) {
     IconButton(
         modifier = modifier

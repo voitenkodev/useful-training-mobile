@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -16,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import atom.Design
 import bottommenu.components.MenuItem
 import bottommenu.state.Menu
+import bottommenu.state.TokenStatus
 import kotlinx.collections.immutable.ImmutableList
 import molecule.Shadow
 import molecule.secondaryRoundBackground
@@ -25,16 +27,21 @@ import platformBottomInset
 internal fun BottomMenuContent(
     vm: BottomMenuViewModel,
     selectedIndex: Int,
-    onClick: (index: Int) -> Unit,
+    menuItemClick: (index: Int) -> Unit,
+    toAuthentication: ()-> Unit,
     screen: @Composable () -> Unit
 ) {
 
     val state by vm.state.collectAsState()
 
+    LaunchedEffect(state.tokenStatus) {
+        if (state.tokenStatus == TokenStatus.Unavailable) toAuthentication.invoke()
+    }
+
     Content(
         menu = state.menu,
         selectedIndex = selectedIndex,
-        onClick = onClick,
+        onClick = menuItemClick,
         screen = screen
     )
 }

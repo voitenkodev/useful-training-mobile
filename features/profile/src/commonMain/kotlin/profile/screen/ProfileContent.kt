@@ -1,28 +1,36 @@
 package profile.screen
 
 import androidx.compose.animation.animateContentSize
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clipToBounds
 import atom.Design
 import components.Error
 import components.Loading
-import components.chips.Chip
-import components.chips.ChipState
+import components.brand.UserCard
 import components.roots.Root
 import icons.Dumbbell
+import icons.Logout
+import icons.Support
+import icons.Weight
 import kotlinx.collections.immutable.ImmutableList
-import molecule.ButtonIconPrimary
+import molecule.PaddingM
+import molecule.PaddingS
+import molecule.PaddingXL
 import molecule.TextH3
+import molecule.secondaryDefaultBackground
 import profile.components.Header
-import profile.components.ProfileCard
+import profile.components.MenuItem
 import profile.state.ExerciseExample
 import profile.state.Muscle
 
@@ -46,7 +54,6 @@ internal fun ProfileContent(
     )
 }
 
-
 @Composable
 private fun Content(
     loading: () -> Boolean,
@@ -61,68 +68,90 @@ private fun Content(
     logout: () -> Unit
 ) {
 
+    val listState = rememberLazyListState()
+
+    val isHeaderInTop = remember {
+        derivedStateOf { listState.layoutInfo.visibleItemsInfo.firstOrNull()?.key == HEADER_KEY }
+    }
+
     Root(
         loading = { Loading(loading) },
         error = { Error(message = error, close = clearError) },
     ) {
 
-        Column(modifier = Modifier.fillMaxSize()) {
+        LazyColumn(
+            state = listState,
+            modifier = Modifier
+                .animateContentSize()
+                .fillMaxSize()
+        ) {
 
-            Header()
+            item {
+                PaddingM()
+            }
 
-            ButtonIconPrimary(
-                imageVector = Dumbbell,
-                onClick = logout
-            )
+            stickyHeader(HEADER_KEY) {
+                Header(showBackground = isHeaderInTop.value)
+            }
 
-            LazyColumn(
-                modifier = Modifier
-                    .animateContentSize()
-                    .weight(1f),
-                contentPadding = PaddingValues(Design.dp.paddingM),
-                verticalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
-            ) {
+            item {
+                UserCard(
+                    modifier = Modifier.padding(Design.dp.paddingM),
+                    name = "Hello World",
+                    weight = "123kg",
+                    height = "184.4cm",
+                    btn = "Update" to {}
+                )
+            }
 
-                item {
-                    ProfileCard(
-                        visibility = true,
-                        onClose = {}
+            item { PaddingXL() }
+
+            item {
+                TextH3(
+                    modifier = Modifier.padding(horizontal = Design.dp.paddingM),
+                    provideText = { "Menu" }
+                )
+            }
+
+            item { PaddingS() }
+
+            item {
+                Column(
+                    modifier = Modifier
+                        .padding(horizontal = Design.dp.paddingM)
+                        .secondaryDefaultBackground()
+                        .fillMaxWidth()
+                        .padding(vertical = Design.dp.paddingS)
+                        .clipToBounds()
+                ) {
+
+                    MenuItem(
+                        icon = Weight,
+                        text = "Weight History",
+                        iconBackgroundColor = Design.colors.green.copy(alpha = 0.5f),
+                        onClick = {}
                     )
-                }
 
-                item {
-                    TextH3(
-                        provideText = { "Exercise examples" }
-                    )
-                }
-
-                item {
-                    Chip(
-                        chipState = ChipState.Highlighted(),
-                        text = "ADD NEW",
+                    MenuItem(
+                        icon = Dumbbell,
+                        text = "Exercise Examples",
+                        iconBackgroundColor = Design.colors.purple.copy(alpha = 0.5f),
                         onClick = { toExerciseExample(null) }
                     )
-                }
 
-                items(exerciseExamples, key = { it.id }) { muscleExercise ->
-                    Chip(
-                        chipState = ChipState.Default(),
-                        text = muscleExercise.name,
-                        onClick = { toExerciseExample(muscleExercise.id) }
+                    MenuItem(
+                        icon = Support,
+                        text = "Support",
+                        iconBackgroundColor = Design.colors.blue.copy(alpha = 0.5f),
+                        onClick = {}
                     )
-                }
 
-                item {
-                    TextH3(
-                        provideText = { "Muscles" }
-                    )
-                }
-
-                items(muscles, key = { it.id }) { muscle ->
-                    Chip(
-                        chipState = ChipState.Default(),
-                        text = muscle.name,
-                        onClick = { toMuscle.invoke(muscle.id) }
+                    MenuItem(
+                        icon = Logout,
+                        text = "Logout",
+                        contentColor = Design.colors.red,
+                        allowRightArrow = false,
+                        onClick = logout
                     )
                 }
             }

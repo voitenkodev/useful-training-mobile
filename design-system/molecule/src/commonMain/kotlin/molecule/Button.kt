@@ -43,7 +43,7 @@ public fun ButtonPrimary(
     text: String,
     enabled: Boolean = true,
     textColor: Color = Design.colors.content,
-    enableBackgroundColor: Color = Design.colors.accentPrimary,
+    enableBackgroundColor: Color = Design.colors.orange,
     disableBackgroundColor: Color = Design.colors.caption.copy(alpha = 0.1f),
     onClick: () -> Unit,
     loading: Boolean = false
@@ -114,7 +114,7 @@ public fun ButtonSmall(
     text: String,
     enabled: Boolean = true,
     textColor: Color = Design.colors.content,
-    backgroundColor: Color = Design.colors.accentPrimary,
+    backgroundColor: Color = Design.colors.orange,
     onClick: () -> Unit,
 ) {
     Button(

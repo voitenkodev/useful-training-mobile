@@ -3,47 +3,54 @@ package profile.components
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.unit.dp
+import atom.Design
 import icons.ArrowRight
-import icons.Weight
-import molecule.IconSecondary
-import molecule.TextBody1
+import molecule.IconPrimary
+import molecule.PaddingWeight
+import molecule.TextH4
+import molecule.coloredDefaultBackgroundNoBorder
 
 @Composable
 public fun MenuItem(
     icon: ImageVector,
     text: String,
+    allowRightArrow: Boolean = true,
+    contentColor: Color = Design.colors.content,
+    iconBackgroundColor: Color = Design.colors.white5,
     onClick: () -> Unit
 ) {
-
     Row(
         modifier = Modifier
-            .clickable(
-                onClick = onClick
-            ).height(36.dp),
-        horizontalArrangement = Arrangement.spacedBy(16.dp),
+            .fillMaxWidth()
+            .clickable(onClick = onClick)
+            .padding(vertical = Design.dp.paddingS, horizontal = Design.dp.paddingM),
+        horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM),
         verticalAlignment = Alignment.CenterVertically
     ) {
 
-        IconSecondary(
-            imageVector = Weight
+        IconPrimary(
+            modifier = Modifier.coloredDefaultBackgroundNoBorder(iconBackgroundColor),
+            imageVector = icon,
+            contentColor = contentColor
         )
 
-        TextBody1(
-            provideText = { text }
+        TextH4(
+            provideText = { text },
+            color = contentColor
         )
 
-        Spacer(Modifier.weight(1f))
+        PaddingWeight()
 
-        IconSecondary(
+        if (allowRightArrow) IconPrimary(
             imageVector = ArrowRight,
-            modifier = Modifier
+            contentColor = contentColor
         )
     }
 }

@@ -133,7 +133,7 @@ private fun ChartBlock(
                 .padding(start = Design.dp.paddingM, end = Design.dp.paddingM, top = Design.dp.paddingM)
                 .recomposeHighlighter(),
             values = values,
-            color = Design.colors.accentPrimary,
+            color = Design.colors.orange,
             bottomSpacing = 20f,
             circleColor = Design.colors.content
         )

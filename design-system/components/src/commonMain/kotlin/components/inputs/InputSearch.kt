@@ -21,7 +21,7 @@ import atom.Design
 import components.labels.InputLabel
 import molecule.ButtonIconSecondary
 import molecule.InputPrimary
-import molecule.reversedCircleBackground
+import molecule.secondaryDefaultBackground
 
 @Composable
 public fun InputSearch(
@@ -33,7 +33,7 @@ public fun InputSearch(
 
     InputPrimary(
         modifier = modifier
-            .reversedCircleBackground()
+            .secondaryDefaultBackground()
             .padding(horizontal = Design.dp.paddingM),
         provideValue = value,
         onValueChange = onValueChange,

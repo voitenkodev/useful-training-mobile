@@ -32,7 +32,7 @@ internal fun typography() = Typography(
         fontFamily = Fonts.GunterzFamily()
     ),
     H4 = TextStyle(
-        fontSize = 12.sp,
+        fontSize = 14.sp,
         fontWeight = FontWeight.Bold,
         fontStyle = FontStyle.Normal,
         fontFamily = Fonts.GunterzFamily(),

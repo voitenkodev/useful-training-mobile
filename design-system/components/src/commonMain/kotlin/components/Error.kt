@@ -81,7 +81,7 @@ private fun ErrorContent(
             .platformInsets()
             .padding(Design.dp.paddingM)
             .background(
-                color = Design.colors.accentPrimary,
+                color = Design.colors.orange,
                 shape = Design.shape.default
             )
             .padding(Design.dp.paddingM),

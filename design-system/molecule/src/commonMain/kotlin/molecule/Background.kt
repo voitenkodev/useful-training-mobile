@@ -19,28 +19,10 @@ public fun Modifier.primaryBackground(): Modifier = this
 public fun Modifier.accentPrimaryDefaultBackground(): Modifier = this
     .borderDefaultPrimary()
     .background(
-        color = Design.colors.accentPrimary,
+        color = Design.colors.orange,
         shape = Design.shape.default
     ).clip(
         shape = Design.shape.default
-    )
-
-@Composable
-public fun Modifier.accentSecondaryDefaultBackground(): Modifier = this
-    .background(
-        color = Design.colors.accentSecondary,
-        shape = Design.shape.default
-    ).clip(
-        shape = Design.shape.default
-    )
-
-@Composable
-public fun Modifier.accentCircleBackground(): Modifier = this
-    .background(
-        color = Design.colors.accentPrimary,
-        shape = Design.shape.circleShape
-    ).clip(
-        shape = Design.shape.circleShape
     )
 
 @Composable
@@ -80,22 +62,15 @@ public fun Modifier.transparentCircleBackground(): Modifier = this
     )
 
 @Composable
-public fun Modifier.reversedCircleBackground(): Modifier = this
+public fun Modifier.black30RoundBackground(): Modifier = this
     .background(
-        color = Design.colors.content,
-        shape = Design.shape.circleShape
-    ).clip(
-        shape = Design.shape.circleShape
+        color = Design.colors.black30
     )
 
 @Composable
-public fun Modifier.reversedDefaultBackground(): Modifier = this
-    .border(
-        color = Design.colors.black30,
-        width = 1.dp,
-        shape = Design.shape.default
-    ).background(
-        color = Design.colors.content,
+public fun Modifier.white5DefaultBackgroundNoBorder(): Modifier = this
+    .background(
+        color = Design.colors.white5,
         shape = Design.shape.default
     ).clip(
         shape = Design.shape.default
@@ -127,4 +102,13 @@ public fun Modifier.coloredCircleBackgroundNoBorder(color: Color): Modifier = th
         shape = Design.shape.circleShape
     ).clip(
         shape = Design.shape.circleShape
+    )
+
+@Composable
+public fun Modifier.coloredDefaultBackgroundNoBorder(color: Color): Modifier = this
+    .background(
+        color = color,
+        shape = Design.shape.default
+    ).clip(
+        shape = Design.shape.default
     )
