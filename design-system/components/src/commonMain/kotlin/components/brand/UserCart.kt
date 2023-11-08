@@ -25,6 +25,7 @@ import molecule.PaddingM
 import molecule.PaddingS
 import molecule.PaddingXS
 import molecule.TextBody2
+import molecule.TextH2
 import molecule.TextH3
 import molecule.secondaryDefaultBackground
 
@@ -44,9 +45,13 @@ public fun UserCard(
             .clipToBounds()
     ) {
 
-        UserCardBackground(
-            modifier = Modifier.fillMaxSize()
+        TextH2(
+            modifier = Modifier.align(Alignment.BottomEnd).offset(y = 11.dp),
+            provideText = { "Sport card" },
+            color = Design.colors.white5
         )
+
+        UserCardBackground(modifier = Modifier.fillMaxSize())
 
         Column(modifier = Modifier.padding(vertical = Design.dp.paddingL, horizontal = Design.dp.paddingXL)) {
 

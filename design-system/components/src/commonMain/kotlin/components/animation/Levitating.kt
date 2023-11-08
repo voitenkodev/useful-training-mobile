@@ -26,6 +26,7 @@ public fun Levitating(content: @Composable (Modifier) -> Unit) {
     val animController = remember { mutableStateOf(false) }
     val levitationX = remember { Animatable(0f) }
     val levitationY = remember { Animatable(0f) }
+    val levitationZ = remember { Animatable(0f) }
     val rotation = remember { Animatable(0f) }
 
     val boundBell by rememberInfiniteTransition().animateFloat(
@@ -65,6 +66,19 @@ public fun Levitating(content: @Composable (Modifier) -> Unit) {
         }
     }
 
+     LaunchedEffect(animController.value) {
+        while (true) {
+            val randomZ = Random.nextInt(-3, 3)
+            levitationZ.animateTo(
+                targetValue = randomZ.toFloat(),
+                animationSpec = tween(
+                    durationMillis = Random.nextInt(2300, 4400),
+                    easing = FastOutSlowInEasing
+                )
+            )
+        }
+    }
+
     LaunchedEffect(animController.value) {
         while (true) {
             val randomRotation = Random.nextInt(-3, 3).toFloat()
@@ -82,12 +96,17 @@ public fun Levitating(content: @Composable (Modifier) -> Unit) {
         .graphicsLayer(
             transformOrigin = TransformOrigin(
                 pivotFractionX = 0.5f,
-                pivotFractionY = 0.0f,
+                pivotFractionY = 0.0f
             ),
-            rotationZ = boundBell
+            rotationZ = boundBell,
+        ).graphicsLayer(
+            rotationY = levitationZ.value
+        ).offset(
+            x = levitationX.value.dp,
+            y = levitationY.value.dp
+        ).rotate(
+            degrees = rotation.value
         )
-        .offset(x = levitationX.value.dp, y = levitationY.value.dp)
-        .rotate(rotation.value)
 
     content.invoke(modifier)
 }

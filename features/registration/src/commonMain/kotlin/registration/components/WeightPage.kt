@@ -65,6 +65,7 @@ internal fun WeightPage(
                 designLinesColor = Design.colors.white5
             )
         )
+
         Column(
             modifier = Modifier
                 .fillMaxWidth()
