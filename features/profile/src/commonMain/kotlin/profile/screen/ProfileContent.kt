@@ -16,14 +16,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
 import atom.Design
 import components.Error
-import components.Loading
 import components.brand.UserCard
 import components.roots.Root
 import icons.Dumbbell
 import icons.Logout
 import icons.Support
 import icons.Weight
-import kotlinx.collections.immutable.ImmutableList
 import molecule.PaddingM
 import molecule.PaddingS
 import molecule.PaddingXL
@@ -31,8 +29,7 @@ import molecule.TextH3
 import molecule.secondaryDefaultBackground
 import profile.components.Header
 import profile.components.MenuItem
-import profile.state.ExerciseExample
-import profile.state.Muscle
+import profile.state.User
 
 @Composable
 internal fun ProfileContent(
@@ -43,28 +40,28 @@ internal fun ProfileContent(
     val state by vm.state.collectAsState()
 
     Content(
-        loading = { state.loading },
         error = { state.error },
         clearError = vm::clearError,
-        exerciseExamples = state.exerciseExamples,
-        muscles = state.muscles,
-        toExerciseExample = toExerciseExampleBuilder,
-        toMuscle = { },
+        user = state.user,
+        updateUser = {},
+        toExerciseExamples = {},
+        toWeightHistory = {},
+        toSupport = {},
         logout = vm::logout
     )
 }
 
 @Composable
 private fun Content(
-    loading: () -> Boolean,
     error: () -> String?,
     clearError: () -> Unit,
 
-    exerciseExamples: ImmutableList<ExerciseExample>,
-    muscles: ImmutableList<Muscle>,
+    user: User,
+    updateUser: () -> Unit,
 
-    toExerciseExample: (exerciseExampleId: String?) -> Unit,
-    toMuscle: (muscleId: String?) -> Unit,
+    toExerciseExamples: () -> Unit,
+    toSupport: () -> Unit,
+    toWeightHistory: () -> Unit,
     logout: () -> Unit
 ) {
 
@@ -75,7 +72,6 @@ private fun Content(
     }
 
     Root(
-        loading = { Loading(loading) },
         error = { Error(message = error, close = clearError) },
     ) {
 
@@ -97,10 +93,10 @@ private fun Content(
             item {
                 UserCard(
                     modifier = Modifier.padding(Design.dp.paddingM),
-                    name = "Hello World",
-                    weight = "123kg",
-                    height = "184.4cm",
-                    btn = "Update" to {}
+                    name = user.name,
+                    weight = user.weight,
+                    height = user.height,
+                    btn = "Update" to updateUser
                 )
             }
 
@@ -129,21 +125,21 @@ private fun Content(
                         icon = Weight,
                         text = "Weight History",
                         iconBackgroundColor = Design.colors.green.copy(alpha = 0.5f),
-                        onClick = {}
+                        onClick = toWeightHistory
                     )
 
                     MenuItem(
                         icon = Dumbbell,
                         text = "Exercise Examples",
                         iconBackgroundColor = Design.colors.purple.copy(alpha = 0.5f),
-                        onClick = { toExerciseExample(null) }
+                        onClick = toExerciseExamples
                     )
 
                     MenuItem(
                         icon = Support,
                         text = "Support",
                         iconBackgroundColor = Design.colors.blue.copy(alpha = 0.5f),
-                        onClick = {}
+                        onClick = toSupport
                     )
 
                     MenuItem(

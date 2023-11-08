@@ -1,13 +1,10 @@
 package profile.state
 
 import androidx.compose.runtime.Immutable
-import kotlinx.collections.immutable.ImmutableList
-import kotlinx.collections.immutable.persistentListOf
 
 @Immutable
 internal data class State(
-    val exerciseExamples: ImmutableList<ExerciseExample> = persistentListOf(),
-    val muscles: ImmutableList<Muscle> = persistentListOf(),
+    val user: User = User(),
 
     val error: String? = null,
     val loading: Boolean = false
