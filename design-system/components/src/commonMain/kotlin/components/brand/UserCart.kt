@@ -17,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import atom.Design
@@ -41,13 +42,14 @@ public fun UserCard(
         modifier = modifier
             .secondaryDefaultBackground()
             .fillMaxWidth()
-            .height(IntrinsicSize.Min)
             .clipToBounds()
     ) {
 
         TextH2(
-            modifier = Modifier.align(Alignment.BottomEnd).offset(y = 11.dp),
-            provideText = { "Sport card" },
+            modifier = Modifier
+                .align(Alignment.BottomEnd)
+                .offset(y = 11.dp),
+            provideText = { "Sport Card" },
             color = Design.colors.white5
         )
 
@@ -114,7 +116,7 @@ private fun UserCardBackground(modifier: Modifier = Modifier) {
                 .size(120.dp)
                 .offset(x = 60.dp, y = 60.dp)
                 .background(
-                    color = Design.colors.toxic.copy(alpha = 0.15f),
+                    color = Design.colors.black30.copy(alpha = 0.15f),
                     shape = Design.shape.circleShape
                 )
         )
@@ -125,7 +127,7 @@ private fun UserCardBackground(modifier: Modifier = Modifier) {
                 .size(120.dp)
                 .offset(x = 45.dp, y = (-36).dp)
                 .background(
-                    color = Design.colors.toxic.copy(alpha = 0.15f),
+                    color = Design.colors.black30.copy(alpha = 0.15f),
                     shape = Design.shape.circleShape
                 )
         )
@@ -136,7 +138,7 @@ private fun UserCardBackground(modifier: Modifier = Modifier) {
                 .size(140.dp)
                 .offset(x = (-45).dp, y = (30).dp)
                 .background(
-                    color = Design.colors.toxic.copy(alpha = 0.15f),
+                    color = Design.colors.black30.copy(alpha = 0.15f),
                     shape = Design.shape.circleShape
                 )
         )

@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
 import atom.Design
 import components.Error
+import components.animation.Levitating
 import components.brand.UserCard
 import components.roots.Root
 import icons.Dumbbell
@@ -77,9 +78,7 @@ private fun Content(
 
         LazyColumn(
             state = listState,
-            modifier = Modifier
-                .animateContentSize()
-                .fillMaxSize()
+            modifier = Modifier.animateContentSize().fillMaxSize()
         ) {
 
             item {
@@ -91,13 +90,15 @@ private fun Content(
             }
 
             item {
-                UserCard(
-                    modifier = Modifier.padding(Design.dp.paddingM),
-                    name = user.name,
-                    weight = user.weight,
-                    height = user.height,
-                    btn = "Update" to updateUser
-                )
+                Levitating { modifier ->
+                    UserCard(
+                        modifier = modifier.padding(Design.dp.paddingM),
+                        name = user.name,
+                        weight = user.weight,
+                        height = user.height,
+                        btn = "Update" to updateUser
+                    )
+                }
             }
 
             item { PaddingXL() }
