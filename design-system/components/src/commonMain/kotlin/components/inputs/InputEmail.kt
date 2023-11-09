@@ -75,7 +75,7 @@ public fun InputEmail(
         keyboardOptions = KeyboardOptions(
             capitalization = KeyboardCapitalization.None,
             imeAction = ImeAction.Next,
-            keyboardType = KeyboardType.Email,
+            keyboardType = KeyboardType.Email
         )
     )
 }

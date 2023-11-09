@@ -97,9 +97,7 @@ private fun Content(
     Root(error = { Error(message = error, close = clearError) }) {
 
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .platformInsets(),
+            modifier = Modifier.fillMaxSize().platformInsets(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 

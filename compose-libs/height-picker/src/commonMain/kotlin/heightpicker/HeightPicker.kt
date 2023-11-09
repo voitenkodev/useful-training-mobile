@@ -130,7 +130,6 @@ public fun HeightPicker(
             x = center.x + 12f,
             y = 0f
         )
-
         val indicator = Path().apply {
             moveTo(middleTop.x, middleTop.y)
 
@@ -149,7 +148,6 @@ public fun HeightPicker(
             )
             close()
         }
-
         drawPath(
             path = indicator,
             color = pickerStyle.indicatorColor

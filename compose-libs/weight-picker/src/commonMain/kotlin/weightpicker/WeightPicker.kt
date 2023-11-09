@@ -12,6 +12,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.rotate
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.drawText
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.text.style.TextOverflow
@@ -32,6 +33,8 @@ public fun WeightPicker(
     onValueChange: (Int) -> Unit
 ) {
 
+    val density = LocalDensity.current
+
     val style = Design.typography.Body2.copy(color = Design.colors.content)
     val textMeasurer = rememberTextMeasurer()
     val internalInitial = remember { initial }
@@ -44,6 +47,9 @@ public fun WeightPicker(
     var angle by remember { mutableStateOf(0f) }
     var dragStartedAngle by remember { mutableStateOf(0f) }
     var oldAngle by remember { mutableStateOf(0f) }
+    val outerRadius = with(density) { radius.toPx() + scaleWidth.toPx() / 2f }
+    val innerRadius = with(density) { radius.toPx() - scaleWidth.toPx() / 2f }
+
 
     Canvas(
         modifier = modifier.pointerInput(key1 = true) {
@@ -77,8 +83,6 @@ public fun WeightPicker(
         onDraw = {
             center = this.center
             circleCenter = Offset(center.x, scaleWidth.toPx() / 2f + radius.toPx())
-            val outerRadius = radius.toPx() + scaleWidth.toPx() / 2f
-            val innerRadius = radius.toPx() - scaleWidth.toPx() / 2f
 
             drawCircle(
                 color = pickerStyle.backgroundColor,
