@@ -26,8 +26,10 @@ import icons.Weight
 import molecule.PaddingM
 import molecule.PaddingS
 import molecule.PaddingXL
+import molecule.Shadow
 import molecule.TextH3
 import molecule.secondaryDefaultBackground
+import molecule.secondaryRoundBackground
 import profile.components.Header
 import profile.components.MenuItem
 import profile.state.User
@@ -92,7 +94,7 @@ private fun Content(
             item {
                 Levitating { modifier ->
                     UserCard(
-                        modifier = modifier.padding(Design.dp.paddingM),
+                        modifier = modifier.padding(Design.dp.paddingL),
                         name = user.name,
                         weight = user.weight,
                         height = user.height,
@@ -115,31 +117,29 @@ private fun Content(
             item {
                 Column(
                     modifier = Modifier
-                        .padding(horizontal = Design.dp.paddingM)
-                        .secondaryDefaultBackground()
+                        .secondaryRoundBackground()
                         .fillMaxWidth()
-                        .padding(vertical = Design.dp.paddingS)
-                        .clipToBounds()
                 ) {
+
+                    Shadow()
+
+                    PaddingS()
 
                     MenuItem(
                         icon = Weight,
                         text = "Weight History",
-                        iconBackgroundColor = Design.colors.green.copy(alpha = 0.5f),
                         onClick = toWeightHistory
                     )
 
                     MenuItem(
                         icon = Dumbbell,
                         text = "Exercise Examples",
-                        iconBackgroundColor = Design.colors.purple.copy(alpha = 0.5f),
                         onClick = toExerciseExamples
                     )
 
                     MenuItem(
                         icon = Support,
                         text = "Support",
-                        iconBackgroundColor = Design.colors.blue.copy(alpha = 0.5f),
                         onClick = toSupport
                     )
 
@@ -150,6 +150,10 @@ private fun Content(
                         allowRightArrow = false,
                         onClick = logout
                     )
+
+                    PaddingS()
+
+                    Shadow()
                 }
             }
         }

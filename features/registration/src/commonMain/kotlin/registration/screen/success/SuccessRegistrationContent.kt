@@ -71,7 +71,7 @@ private fun Content(
 
         Levitating { modifier ->
             UserCard(
-                modifier = modifier.padding(Design.dp.paddingM),
+                modifier = modifier.padding(Design.dp.paddingL),
                 name = name,
                 weight = weight,
                 height = height,

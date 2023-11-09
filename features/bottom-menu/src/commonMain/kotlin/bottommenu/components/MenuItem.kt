@@ -1,6 +1,5 @@
 package bottommenu.components
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -27,11 +26,11 @@ internal fun MenuItem(
 ) {
 
     val background =
-        if (isSelected) Design.colors.toxic
+        if (isSelected) Design.colors.black30
         else Color.Transparent
 
     val iconColor =
-        if (isSelected) Design.colors.primary
+        if (isSelected) Design.colors.content
         else Design.colors.caption
 
     Box(
