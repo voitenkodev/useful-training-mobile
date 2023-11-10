@@ -28,7 +28,7 @@ import molecule.ButtonPrimary
 import molecule.PaddingM
 import molecule.PaddingS
 import molecule.PaddingXL
-import molecule.TextBody1
+import molecule.TextBody2
 import molecule.TextH2
 import platformInsets
 
@@ -107,7 +107,7 @@ private fun Content(
 
             TextH2(provideText = { "Alien Workout" })
 
-            TextBody1(provideText = { "Take your power-up" })
+            TextBody2(provideText = { "Take your power-up" })
 
             PaddingXL()
 

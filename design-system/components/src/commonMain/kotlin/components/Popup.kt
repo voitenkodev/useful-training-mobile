@@ -21,7 +21,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import atom.Design
 import molecule.ButtonPrimary
-import molecule.TextBody1
+import molecule.TextBody2
 import molecule.TextH4
 import molecule.secondaryDefaultBackground
 import platformInsets
@@ -85,7 +85,7 @@ public fun Popup(
                     fontWeight = FontWeight.Bold
                 )
 
-                TextBody1(
+                TextBody2(
                     provideText = { message }
                 )
 

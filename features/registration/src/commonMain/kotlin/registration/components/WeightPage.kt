@@ -15,7 +15,7 @@ import molecule.ButtonPrimary
 import molecule.PaddingL
 import molecule.PaddingWeight
 import molecule.PaddingXL
-import molecule.TextBody1
+import molecule.TextBody2
 import molecule.TextH1
 import molecule.TextH2
 import molecule.secondaryRoundBackground
@@ -39,7 +39,7 @@ internal fun WeightPage(
 
         TextH2(provideText = { "Your weight" })
 
-        TextBody1(provideText = { "Enter your current weight!" })
+        TextBody2(provideText = { "Enter your current weight!" })
 
         PaddingWeight()
 

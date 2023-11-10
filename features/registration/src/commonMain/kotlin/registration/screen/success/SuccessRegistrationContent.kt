@@ -16,7 +16,7 @@ import components.brand.UserCard
 import io.github.xxfast.decompose.router.LocalRouterContext
 import molecule.PaddingWeight
 import molecule.PaddingXL
-import molecule.TextBody1
+import molecule.TextBody2
 import molecule.TextH2
 import platformInsets
 
@@ -62,7 +62,7 @@ private fun Content(
             textAlign = TextAlign.Center
         )
 
-        TextBody1(
+        TextBody2(
             provideText = { "Take your personal card!" },
             textAlign = TextAlign.Center
         )

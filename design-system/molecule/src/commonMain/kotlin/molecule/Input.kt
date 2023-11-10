@@ -91,7 +91,7 @@ public fun InputSecondary(
         modifier = modifier,
         provideValue = provideValue,
         onValueChange = onValueChange,
-        textStyle = Design.typography.Body2,
+        textStyle = Design.typography.Body3,
         maxLines = maxLines,
         color = color ?: Design.colors.content,
         textAlign = textAlign,

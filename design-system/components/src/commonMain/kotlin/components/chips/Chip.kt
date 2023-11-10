@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import atom.Design
 import molecule.IconSecondary
 import molecule.PaddingXS
-import molecule.TextBody2
+import molecule.TextBody3
 import molecule.coloredCircleBackgroundNoBorder
 import molecule.transparentCircleBackground
 import molecule.white5CircleBackground
@@ -81,7 +81,7 @@ public fun Chip(
             PaddingXS()
         }
 
-        TextBody2(
+        TextBody3(
             provideText = { text }
         )
 

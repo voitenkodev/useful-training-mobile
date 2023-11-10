@@ -125,7 +125,7 @@ public fun TextBody1(
         modifier = modifier,
         provideText = provideText,
         placeholder = placeholder,
-        textStyle = Design.typography.Body,
+        textStyle = Design.typography.Body2,
         maxLines = maxLines,
         color = color ?: Design.colors.content,
         textAlign = textAlign,
@@ -133,7 +133,6 @@ public fun TextBody1(
         overflow = overflow
     )
 }
-
 @Composable
 public fun TextBody2(
     provideText: () -> String?,
@@ -150,6 +149,30 @@ public fun TextBody2(
         provideText = provideText,
         placeholder = placeholder,
         textStyle = Design.typography.Body2,
+        maxLines = maxLines,
+        color = color ?: Design.colors.content,
+        textAlign = textAlign,
+        fontWeight = fontWeight,
+        overflow = overflow
+    )
+}
+
+@Composable
+public fun TextBody3(
+    provideText: () -> String?,
+    modifier: Modifier = Modifier,
+    placeholder: String? = null,
+    color: Color? = null,
+    textAlign: TextAlign? = null,
+    maxLines: Int = Int.MAX_VALUE,
+    fontWeight: FontWeight? = null,
+    overflow: TextOverflow = TextOverflow.Clip
+) {
+    TextField(
+        modifier = modifier,
+        provideText = provideText,
+        placeholder = placeholder,
+        textStyle = Design.typography.Body3,
         maxLines = maxLines,
         color = color ?: Design.colors.content,
         textAlign = textAlign,

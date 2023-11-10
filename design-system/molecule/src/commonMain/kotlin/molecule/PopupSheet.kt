@@ -1,14 +1,18 @@
 package molecule
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ModalBottomSheetLayout
 import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import atom.Design
@@ -50,12 +54,23 @@ public fun PopupSheet(
         ),
         sheetContent = {
             Column(
-                modifier = Modifier.padding(
-                    vertical = Design.dp.paddingXL,
-                    horizontal = Design.dp.paddingM
-                ),
+                modifier = Modifier.fillMaxWidth(),
                 content = {
+
+                    PaddingL()
+
+                    Box(
+                        modifier = Modifier
+                            .size(width = 28.dp, height = 6.dp)
+                            .background(color = Design.colors.caption.copy(alpha = 0.5f), shape = Design.shape.circleShape)
+                            .align(Alignment.CenterHorizontally)
+                    )
+
+                    PaddingL()
+
                     sheetContent.invoke(this)
+
+                    PaddingXL()
                 }
             )
         },

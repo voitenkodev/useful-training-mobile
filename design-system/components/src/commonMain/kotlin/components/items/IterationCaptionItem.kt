@@ -12,7 +12,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import atom.Design
-import molecule.TextBody2
+import molecule.TextBody3
 
 @Composable
 public fun IterationCaptionItem() {
@@ -21,7 +21,7 @@ public fun IterationCaptionItem() {
             .padding(vertical = 4.dp)
             .width(60.dp)
     ) {
-        TextBody2(
+        TextBody3(
             modifier = Modifier
                 .height(Design.dp.componentL)
                 .fillMaxWidth()
@@ -33,7 +33,7 @@ public fun IterationCaptionItem() {
             fontWeight = FontWeight.Bold
         )
 
-        TextBody2(
+        TextBody3(
             modifier = Modifier
                 .height(Design.dp.componentL)
                 .fillMaxWidth()

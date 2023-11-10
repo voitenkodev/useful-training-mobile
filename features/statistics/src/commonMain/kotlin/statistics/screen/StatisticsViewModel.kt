@@ -1,16 +1,19 @@
 package statistics.screen
 
+import ExerciseExamplesRepository
 import TrainingsRepository
 import ViewModel
-import kotlinx.collections.immutable.toImmutableList
-import kotlinx.collections.immutable.toImmutableMap
+import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import org.koin.core.component.inject
 import statistics.mapping.toState
-import statistics.state.Info
+import statistics.state.IntervalType
 import statistics.state.State
 
 internal class StatisticsViewModel : ViewModel() {
@@ -19,10 +22,65 @@ internal class StatisticsViewModel : ViewModel() {
     internal val state: StateFlow<State> = _state
 
     private val trainingsApi by inject<TrainingsRepository>()
+    private val exerciseExamplesApi by inject<ExerciseExamplesRepository>()
 
     init {
-        debounceGetExercises("")
-        getExerciseNameOptions()
+        exerciseExamplesApi
+            .observeMuscles()
+            .onEach { r -> _state.update { it.copy(muscles = r.toState()) } }
+            .launchIn(this)
+        exerciseExamplesApi
+            .observeExerciseExamples()
+            .onEach { r -> _state.update { it.copy(exerciseExamples = r.toState()) } }
+            .launchIn(this)
+
+        exerciseExamplesApi
+            .syncExerciseExamples()
+            .catch { t -> _state.update { it.copy(error = t.message) } }
+            .launchIn(this)
+
+        exerciseExamplesApi
+            .syncMuscles()
+            .catch { t -> _state.update { it.copy(error = t.message) } }
+            .launchIn(this)
+    }
+
+    fun setMuscleFilter(id: String) {
+        _state.update {
+            it.copy(
+                muscles = it.muscles.map { item ->
+                    if (item.id == id) {
+                        item.copy(isSelected = item.isSelected.not())
+                    } else item
+                }.toPersistentList()
+            )
+        }
+    }
+
+    fun setExerciseExampleFilter(id: String) {
+        _state.update {
+            it.copy(
+                exerciseExamples = it.exerciseExamples.map { item ->
+                    if (item.id == id) {
+                        item.copy(isSelected = item.isSelected.not())
+                    } else item
+                }.toPersistentList()
+            )
+        }
+    }
+
+    fun setIntervalFilter(intervalType: IntervalType) {
+        _state.update {
+            it.copy(
+                intervals = it.intervals.map { item ->
+                    item.copy(isSelected = item.type == intervalType)
+                }.toPersistentList()
+            )
+        }
+    }
+
+    fun openFilters() {
+        _state.update { it.copy(filterPopupIsShowed = true) }
     }
 
     fun setQuery(query: String) {
@@ -50,15 +108,12 @@ internal class StatisticsViewModel : ViewModel() {
 //            }.launchIn(this)
     }
 
-    private fun getExerciseNameOptions() {
-
-    }
-
-    fun removeExerciseNameOption(value: String) {
-
-    }
-
     fun clearError() {
         _state.update { it.copy(error = null) }
+    }
+
+    fun closePopups() {
+        _state.update { it.copy(filterPopupIsShowed = false) }
+
     }
 }

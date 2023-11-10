@@ -38,7 +38,7 @@ import kotlinx.collections.immutable.ImmutableList
 import molecule.PaddingM
 import molecule.PaddingS
 import molecule.Shadow
-import molecule.TextBody1
+import molecule.TextBody2
 import molecule.TextH2
 import molecule.TextH3
 import platformTopInset
@@ -163,7 +163,7 @@ private fun CalendarRow(
                     .clickable { selectCalendarDay.invoke(it.dateTimeIso) }
             ) {
 
-                TextBody1(
+                TextBody2(
                     modifier = Modifier
                         .align(Alignment.TopCenter)
                         .padding(top = 18.dp),

@@ -18,7 +18,7 @@ import molecule.ButtonPrimary
 import molecule.PaddingL
 import molecule.PaddingM
 import molecule.PaddingXL
-import molecule.TextBody1
+import molecule.TextBody2
 import molecule.TextH2
 import platformBottomInset
 
@@ -44,7 +44,7 @@ internal fun NamePage(
 
         TextH2(provideText = { "Nice to meet you" })
 
-        TextBody1(provideText = { "How can we call you?" })
+        TextBody2(provideText = { "How can we call you?" })
 
         PaddingXL()
 

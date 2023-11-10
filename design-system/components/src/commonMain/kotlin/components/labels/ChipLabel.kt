@@ -20,7 +20,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import atom.Design
 import molecule.ButtonIconSecondary
-import molecule.TextBody1
+import molecule.TextBody2
 import molecule.secondaryDefaultBackground
 
 @Composable
@@ -40,7 +40,7 @@ public fun ChipLabel(
         horizontalArrangement = Arrangement.spacedBy(6.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        TextBody1(
+        TextBody2(
             modifier = modifier
                 .padding(horizontal = 8.dp, vertical = 2.dp)
                 .clickable(

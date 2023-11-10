@@ -28,7 +28,7 @@ public fun HeightPicker(
     initial: Int,
     onValueChange: (Int) -> Unit
 ) {
-    val style = Design.typography.Body2.copy(color = Design.colors.content)
+    val style = Design.typography.Body3.copy(color = Design.colors.content)
     val textMeasurer = rememberTextMeasurer()
     val internalInitial = remember { initial }
     var targetDistant by remember { mutableStateOf(0f) }

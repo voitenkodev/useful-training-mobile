@@ -20,7 +20,7 @@ import icons.Time
 import icons.Weight
 import kotlinx.collections.immutable.ImmutableList
 import molecule.IconSecondary
-import molecule.TextBody2
+import molecule.TextBody3
 import molecule.TextH4
 import molecule.accentPrimaryDefaultBackground
 import molecule.secondaryDefaultBackground
@@ -108,7 +108,7 @@ private fun DefaultItem(
                 provideText = { title }
             )
 
-            TextBody2(
+            TextBody3(
                 provideText = { subTitle },
                 color = Design.colors.caption
             )

@@ -4,31 +4,40 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Modifier
+import buildBoolean
 import components.Error
 import components.Loading
 import components.roots.Root
-import kotlinx.collections.immutable.ImmutableList
-import statistics.components.Exercises
+import molecule.PopupSheet
 import statistics.components.Header
-import statistics.components.Search
-import statistics.state.Exercise
-import statistics.state.Info
+import statistics.popups.FilterPopup
 
 @Composable
 internal fun StatisticsContent(vm: StatisticsViewModel) {
 
     val state by vm.state.collectAsState()
 
-    Content(
-        loading = { state.loading },
-        error = { state.error },
-        clearError = vm::clearError,
-        removeNameOption = vm::removeExerciseNameOption,
-        nameOptions = state.exerciseNameOptions,
-        query = { state.query },
-        search = vm::setQuery,
-        exercises = state.exercises
+    PopupSheet(
+        visibility = buildBoolean { addCondition(state.filterPopupIsShowed) },
+        onClose = vm::closePopups,
+        sheetContent = {
+            if (state.filterPopupIsShowed) FilterPopup(
+                exerciseExamples = state.exerciseExamples,
+                muscles = state.muscles,
+                intervals = state.intervals,
+                muscleClick = vm::setMuscleFilter,
+                exerciseExampleClick = vm::setExerciseExampleFilter,
+                intervalClick = vm::setIntervalFilter
+            )
+        },
+        content = {
+            Content(
+                loading = { state.loading },
+                error = { state.error },
+                clearError = vm::clearError,
+                filterClick = vm::openFilters
+            )
+        }
     )
 }
 
@@ -36,14 +45,8 @@ internal fun StatisticsContent(vm: StatisticsViewModel) {
 private fun Content(
     loading: () -> Boolean,
     error: () -> String?,
-    clearError: () -> Unit,
-
-    query: () -> String,
-    search: (String) -> Unit,
-    removeNameOption: (String) -> Unit,
-
-    nameOptions: ImmutableList<String>,
-    exercises: Map<Info, List<Exercise>>
+    filterClick: () -> Unit,
+    clearError: () -> Unit
 ) {
 
     Root(
@@ -53,19 +56,8 @@ private fun Content(
 
         Column {
 
-            Header()
+            Header(filterClick = filterClick)
 
-            Search(
-                query = query,
-                search = search,
-                removeNameOption = removeNameOption,
-                nameOptions = nameOptions
-            )
-
-            Exercises(
-                modifier = Modifier.weight(1f),
-                exercises = exercises
-            )
         }
     }
 }

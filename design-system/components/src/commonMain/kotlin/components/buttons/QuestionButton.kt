@@ -8,7 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import atom.Design
 import molecule.ButtonTextLink
-import molecule.TextBody1
+import molecule.TextBody2
 
 @Composable
 public fun ButtonQuestion(
@@ -23,7 +23,7 @@ public fun ButtonQuestion(
         verticalAlignment = Alignment.CenterVertically
     ) {
 
-        TextBody1(
+        TextBody2(
             provideText = { question },
             color = Design.colors.caption
         )

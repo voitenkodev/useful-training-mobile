@@ -49,14 +49,21 @@ internal fun typography() = Typography(
         fontStyle = FontStyle.Normal,
         fontFamily = FontFamily.Default
     ),
-    Body = TextStyle(
+    Body1 = TextStyle(
+        fontSize = 18.sp,
+        fontWeight = FontWeight.Medium,
+        fontStyle = FontStyle.Normal,
+        fontFamily = FontFamily.Default,
+        lineHeight = 20.sp
+    ),
+    Body2 = TextStyle(
         fontSize = 16.sp,
         fontWeight = FontWeight.Normal,
         fontStyle = FontStyle.Normal,
         fontFamily = FontFamily.Default,
         lineHeight = 20.sp
     ),
-    Body2 = TextStyle(
+    Body3 = TextStyle(
         fontSize = 14.sp,
         fontWeight = FontWeight.Normal,
         fontStyle = FontStyle.Normal,
@@ -89,8 +96,9 @@ public data class Typography(
 
     val Input: TextStyle, // Main inputs + fields
 
-    val Body: TextStyle, // Fields
-    val Body2: TextStyle, // Additional little input
+    val Body1: TextStyle, // Fields
+    val Body2: TextStyle, // Fields
+    val Body3: TextStyle, // Additional little input
 
     val Label: TextStyle, // Additional little input
 

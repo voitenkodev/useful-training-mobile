@@ -20,7 +20,7 @@ import molecule.ButtonPrimary
 import molecule.PaddingL
 import molecule.PaddingM
 import molecule.PaddingXL
-import molecule.TextBody1
+import molecule.TextBody2
 import molecule.TextH2
 import platformBottomInset
 
@@ -56,7 +56,7 @@ internal fun CredentialsPage(
 
         TextH2(provideText = { "Credentials" })
 
-        TextBody1(provideText = { "Enter email and password!" })
+        TextBody2(provideText = { "Enter email and password!" })
 
         PaddingXL()
 

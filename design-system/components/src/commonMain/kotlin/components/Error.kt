@@ -18,7 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import atom.Design
 import kotlinx.coroutines.delay
-import molecule.TextBody1
+import molecule.TextBody2
 import molecule.TextH4
 import platformInsets
 
@@ -90,7 +90,7 @@ private fun ErrorContent(
 
             TextH4(provideText = { "Error!" }, fontWeight = FontWeight.Bold)
 
-            TextBody1(provideText = provideMessage)
+            TextBody2(provideText = provideMessage)
         }
     )
 }

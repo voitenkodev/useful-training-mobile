@@ -13,7 +13,7 @@ import androidx.compose.ui.text.font.FontWeight
 import atom.Design
 import molecule.PaddingM
 import molecule.PaddingS
-import molecule.TextBody1
+import molecule.TextBody2
 import molecule.TextH4
 import molecule.secondarySmallBackground
 import recomposeHighlighter
@@ -61,7 +61,7 @@ internal fun Exercise(
         ) {
 
             exercise.iterations.forEach {
-                TextBody1(
+                TextBody2(
                     modifier = Modifier
                         .secondarySmallBackground()
                         .padding(
