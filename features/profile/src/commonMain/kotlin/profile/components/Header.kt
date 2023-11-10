@@ -11,7 +11,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import atom.Design
 import conditional
+import icons.Notifications
+import molecule.IconPrimary
 import molecule.PaddingS
+import molecule.PaddingWeight
 import molecule.TextH2
 import molecule.black30RoundBackground
 import platformTopInset
@@ -46,6 +49,14 @@ internal fun Header(
                 provideText = { "Profile" },
                 softWrap = false
             )
+
+            PaddingWeight()
+
+            IconPrimary(
+                imageVector = Notifications,
+                contentColor = Design.colors.content
+            )
+
         }
 
         PaddingS()

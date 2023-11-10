@@ -14,8 +14,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(projects.designSystem.resources)
-                implementation(projects.designSystem.brandArtifacts)
-
+//                implementation(projects.designSystem.components)
 
                 implementation(compose.ui)
                 implementation(compose.material)

@@ -22,7 +22,6 @@ kotlin {
                 implementation(projects.designSystem.atom)
                 implementation(projects.designSystem.molecule)
                 implementation(projects.designSystem.components)
-                implementation(projects.designSystem.brandArtifacts)
 
                 implementation(projects.composeLibs.weightPicker)
                 implementation(projects.composeLibs.heightPicker)

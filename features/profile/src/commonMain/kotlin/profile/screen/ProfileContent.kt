@@ -23,7 +23,8 @@ import icons.Card
 import icons.Dumbbell
 import icons.Logout
 import icons.Support
-import icons.Weight
+import icons.Weigher
+import molecule.PaddingL
 import molecule.PaddingS
 import molecule.PaddingXL
 import molecule.Shadow
@@ -85,14 +86,16 @@ private fun Content(
             modifier = Modifier.animateContentSize().fillMaxSize()
         ) {
 
-            stickyHeader(HEADER_KEY) {
+            stickyHeader {
                 Header(showBackground = isHeaderInTop.value)
             }
+
+            item { PaddingXL() }
 
             item {
                 Levitating { modifier ->
                     UserCard(
-                        modifier = modifier.padding(Design.dp.paddingL),
+                        modifier = modifier.padding(horizontal = Design.dp.paddingL),
                         name = user.name,
                         weight = user.weight,
                         height = user.height,
@@ -100,6 +103,8 @@ private fun Content(
                     )
                 }
             }
+
+            item { PaddingL() }
 
             item { PaddingXL() }
 
@@ -113,18 +118,14 @@ private fun Content(
             item { PaddingS() }
 
             item {
-                Column(
-                    modifier = Modifier
-                        .secondaryRoundBackground()
-                        .fillMaxWidth()
-                ) {
+                Column(modifier = Modifier.secondaryRoundBackground().fillMaxWidth()) {
 
                     Shadow()
 
                     PaddingS()
 
                     MenuItem(
-                        icon = Weight,
+                        icon = Weigher,
                         text = "Weight History",
                         onClick = toWeightHistory
                     )
@@ -152,26 +153,22 @@ private fun Content(
             item { PaddingS() }
 
             item {
-                Column(
-                    modifier = Modifier
-                        .secondaryRoundBackground()
-                        .fillMaxWidth()
-                ) {
+                Column(modifier = Modifier.secondaryRoundBackground().fillMaxWidth()) {
 
                     Shadow()
 
                     PaddingS()
 
                     MenuItem(
-                        icon = Support,
-                        text = "Support",
-                        onClick = toSupport
-                    )
-
-                    MenuItem(
                         icon = Card,
                         text = "Subscriptions",
                         onClick = logout
+                    )
+
+                    MenuItem(
+                        icon = Support,
+                        text = "Support",
+                        onClick = toSupport
                     )
 
                     MenuItem(
