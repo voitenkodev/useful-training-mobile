@@ -36,6 +36,7 @@ import androidx.compose.ui.unit.dp
 import atom.Design
 import kotlinx.collections.immutable.ImmutableList
 import molecule.PaddingM
+import molecule.PaddingS
 import molecule.Shadow
 import molecule.TextBody1
 import molecule.TextH2
@@ -78,7 +79,7 @@ internal fun Header(
             .platformTopInset(),
     ) {
 
-        PaddingM()
+        PaddingS()
 
         Box(
             modifier = Modifier
@@ -99,7 +100,7 @@ internal fun Header(
             )
         }
 
-        PaddingM()
+        PaddingS()
 
         CalendarRow(
             lazyColumnListState = lazyColumnListState,

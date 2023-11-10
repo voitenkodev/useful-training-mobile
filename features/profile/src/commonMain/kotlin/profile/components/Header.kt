@@ -11,7 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import atom.Design
 import conditional
-import molecule.PaddingM
+import molecule.PaddingS
 import molecule.TextH2
 import molecule.black30RoundBackground
 import platformTopInset
@@ -31,9 +31,11 @@ internal fun Header(
             .platformTopInset()
     ) {
 
+        PaddingS()
+
         Row(
             modifier = Modifier
-                .height(Design.dp.componentL)
+                .height(Design.dp.componentM)
                 .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
@@ -46,6 +48,6 @@ internal fun Header(
             )
         }
 
-        PaddingM()
+        PaddingS()
     }
 }

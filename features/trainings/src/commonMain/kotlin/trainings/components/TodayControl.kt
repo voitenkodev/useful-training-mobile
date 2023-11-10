@@ -5,6 +5,7 @@ import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -22,10 +23,11 @@ internal fun BoxScope.TodayControl(
     click: () -> Unit
 ) {
 
-    val width = Design.dp.componentL + Design.dp.paddingXL
+    val width = Design.dp.componentL
+    val padding = Design.dp.paddingM
 
     val animatedDp by animateDpAsState(
-        targetValue = if (visibilityCondition()) 0.dp else width + Design.dp.paddingXL,
+        targetValue = if (visibilityCondition()) 0.dp else width + padding,
         animationSpec = tween(
             durationMillis = 300,
             delayMillis = 250,
@@ -35,6 +37,7 @@ internal fun BoxScope.TodayControl(
 
     ButtonIconPrimary(
         modifier = modifier
+            .padding(end = padding)
             .width(width)
             .align(Alignment.CenterEnd)
             .offset(x = animatedDp),

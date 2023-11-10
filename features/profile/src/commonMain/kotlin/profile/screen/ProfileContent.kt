@@ -14,6 +14,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import atom.Design
+import buildBoolean
 import components.Error
 import components.animation.Levitating
 import components.brand.UserCard
@@ -23,7 +24,6 @@ import icons.Dumbbell
 import icons.Logout
 import icons.Support
 import icons.Weight
-import molecule.PaddingM
 import molecule.PaddingS
 import molecule.PaddingXL
 import molecule.Shadow
@@ -70,21 +70,20 @@ private fun Content(
     val listState = rememberLazyListState()
 
     val isHeaderInTop = remember {
-        derivedStateOf { listState.layoutInfo.visibleItemsInfo.firstOrNull()?.key == HEADER_KEY }
+        derivedStateOf {
+            buildBoolean {
+                val item = listState.layoutInfo.visibleItemsInfo.firstOrNull()
+                addCondition(item?.key == HEADER_KEY)
+            }
+        }
     }
 
-    Root(
-        error = { Error(message = error, close = clearError) },
-    ) {
+    Root(error = { Error(message = error, close = clearError) }) {
 
         LazyColumn(
             state = listState,
             modifier = Modifier.animateContentSize().fillMaxSize()
         ) {
-
-            item {
-                PaddingM()
-            }
 
             stickyHeader(HEADER_KEY) {
                 Header(showBackground = isHeaderInTop.value)
