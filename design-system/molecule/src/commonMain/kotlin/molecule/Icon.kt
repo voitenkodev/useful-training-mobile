@@ -18,7 +18,7 @@ public fun IconPrimary(
     modifier: Modifier = Modifier,
     imageVector: ImageVector,
     enabled: Boolean = true,
-    contentColor: Color = Design.colors.content,
+    contentColor: Color = Design.colors.content
 ) {
     Icon(
         modifier = modifier.requiredSize(Design.dp.componentL)

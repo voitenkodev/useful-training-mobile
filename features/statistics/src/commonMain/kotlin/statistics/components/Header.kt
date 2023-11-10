@@ -1,8 +1,9 @@
 package statistics.components
 
-import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -17,74 +18,48 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.platform.LocalFocusManager
 import atom.Design
 import components.inputs.InputSearch
+import icons.Filters
+import icons.Notifications
 import kotlinx.collections.immutable.ImmutableList
-import molecule.PaddingM
-import molecule.Shadow
+import molecule.IconPrimary
+import molecule.PaddingS
+import molecule.PaddingWeight
 import molecule.TextH2
+import molecule.black30RoundBackground
 import platformTopInset
 
 @Composable
-internal fun Header(
-    query: () -> String,
-    search: (String) -> Unit,
-    removeNameOption: (String) -> Unit,
-    nameOptions: ImmutableList<String>
-) {
-    val queryProvide = rememberUpdatedState(query())
-
-    val focusManager = LocalFocusManager.current
-    val helpVisible = remember { mutableStateOf(false) }
-    val selectExerciseNameProvider by remember {
-        mutableStateOf(
-            { s: String ->
-                search.invoke(s)
-                focusManager.clearFocus()
-            }
-        )
-    }
-
+internal fun Header(modifier: Modifier = Modifier) {
     Column(
-        modifier = Modifier
-            .background(Design.colors.secondary)
-            .platformTopInset(),
+        modifier = modifier
+            .padding(horizontal = Design.dp.paddingM)
+            .platformTopInset()
     ) {
 
-        PaddingM()
+        PaddingS()
 
-        Box(
+        Row(
             modifier = Modifier
-                .height(Design.dp.componentL)
+                .height(Design.dp.componentM)
                 .fillMaxWidth(),
-            contentAlignment = Alignment.CenterStart
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
         ) {
 
             TextH2(
-                modifier = Modifier
-                    .padding(horizontal = Design.dp.paddingM)
-                    .fillMaxWidth(),
+                modifier = Modifier,
                 provideText = { "Statistics" },
                 softWrap = false
             )
+
+            PaddingWeight()
+
+            IconPrimary(
+                imageVector = Filters,
+            )
+
         }
 
-        InputSearch(
-            modifier = Modifier
-                .padding(horizontal = Design.dp.paddingM)
-                .onFocusChanged { helpVisible.value = it.hasFocus },
-            value = query,
-            onValueChange = search
-        )
-
-        ExerciseNameList(
-            querySort = queryProvide.value,
-            visible = helpVisible.value,
-            select = selectExerciseNameProvider,
-            remove = removeNameOption,
-            options = nameOptions
-        )
-
-        PaddingM()
-
-        Shadow()
+        PaddingS()
     }
 }

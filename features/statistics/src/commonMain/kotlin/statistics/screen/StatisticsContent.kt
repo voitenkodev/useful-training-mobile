@@ -11,6 +11,7 @@ import components.roots.Root
 import kotlinx.collections.immutable.ImmutableList
 import statistics.components.Exercises
 import statistics.components.Header
+import statistics.components.Search
 import statistics.state.Exercise
 import statistics.state.Info
 
@@ -52,7 +53,9 @@ private fun Content(
 
         Column {
 
-            Header(
+            Header()
+
+            Search(
                 query = query,
                 search = search,
                 removeNameOption = removeNameOption,
