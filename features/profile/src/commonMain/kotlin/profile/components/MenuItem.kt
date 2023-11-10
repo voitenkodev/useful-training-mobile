@@ -31,7 +31,7 @@ public fun MenuItem(
             .fillMaxWidth()
             .clickable(onClick = onClick)
             .padding(vertical = Design.dp.paddingS, horizontal = Design.dp.paddingM),
-        horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM),
+        horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS),
         verticalAlignment = Alignment.CenterVertically
     ) {
 

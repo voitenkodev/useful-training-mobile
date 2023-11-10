@@ -1,28 +1,32 @@
 package components.brand
 
+import Images
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clipToBounds
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import atom.Design
 import molecule.ButtonSmall
 import molecule.PaddingM
 import molecule.PaddingS
+import molecule.PaddingWeight
 import molecule.PaddingXS
 import molecule.TextBody2
 import molecule.TextH2
@@ -41,9 +45,16 @@ public fun UserCard(
         modifier = modifier
             .secondaryDefaultBackground()
             .fillMaxWidth()
-            .height(IntrinsicSize.Min)
+            .aspectRatio(1.68f)
             .clipToBounds()
     ) {
+
+        Image(
+            modifier = Modifier.alpha(0.5f).fillMaxSize(),
+            painter = Images.addTraining(),
+            contentScale = ContentScale.Crop,
+            contentDescription = null
+        )
 
         TextH2(
             modifier = Modifier
@@ -97,11 +108,13 @@ public fun UserCard(
                 )
             }
 
-            PaddingM()
+            PaddingWeight()
 
             ButtonSmall(
                 text = btn.first,
                 onClick = btn.second,
+                backgroundColor = Design.colors.toxic,
+                textColor = Design.colors.primary
             )
         }
     }

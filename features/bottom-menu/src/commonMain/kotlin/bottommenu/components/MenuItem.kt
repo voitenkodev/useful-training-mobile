@@ -1,6 +1,7 @@
 package bottommenu.components
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -8,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -25,19 +27,21 @@ internal fun MenuItem(
     onClick: () -> Unit
 ) {
 
-    val background =
-        if (isSelected) Design.colors.black30
-        else Color.Transparent
+    val background = Color.Transparent
 
     val iconColor =
-        if (isSelected) Design.colors.content
+        if (isSelected) Design.colors.toxic
         else Design.colors.caption
 
     Box(
         modifier = modifier
             .fillMaxHeight()
             .coloredDefaultBackgroundNoBorder(color = background)
-            .clickable(onClick = onClick),
+            .clickable(
+                interactionSource = remember { MutableInteractionSource() },
+                indication = null,
+                onClick = onClick
+            ),
         contentAlignment = Alignment.Center
     ) {
         Row(

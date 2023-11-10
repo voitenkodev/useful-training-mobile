@@ -13,12 +13,12 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clipToBounds
 import atom.Design
 import components.Error
 import components.animation.Levitating
 import components.brand.UserCard
 import components.roots.Root
+import icons.Card
 import icons.Dumbbell
 import icons.Logout
 import icons.Support
@@ -28,7 +28,6 @@ import molecule.PaddingS
 import molecule.PaddingXL
 import molecule.Shadow
 import molecule.TextH3
-import molecule.secondaryDefaultBackground
 import molecule.secondaryRoundBackground
 import profile.components.Header
 import profile.components.MenuItem
@@ -98,7 +97,7 @@ private fun Content(
                         name = user.name,
                         weight = user.weight,
                         height = user.height,
-                        btn = "Update" to updateUser
+                        btn = "Upgrade" to updateUser
                     )
                 }
             }
@@ -137,6 +136,33 @@ private fun Content(
                         onClick = toExerciseExamples
                     )
 
+                    PaddingS()
+
+                    Shadow()
+                }
+            }
+            item { PaddingXL() }
+
+            item {
+                TextH3(
+                    modifier = Modifier.padding(horizontal = Design.dp.paddingM),
+                    provideText = { "Settings" }
+                )
+            }
+
+            item { PaddingS() }
+
+            item {
+                Column(
+                    modifier = Modifier
+                        .secondaryRoundBackground()
+                        .fillMaxWidth()
+                ) {
+
+                    Shadow()
+
+                    PaddingS()
+
                     MenuItem(
                         icon = Support,
                         text = "Support",
@@ -144,10 +170,15 @@ private fun Content(
                     )
 
                     MenuItem(
+                        icon = Card,
+                        text = "Subscriptions",
+                        onClick = logout
+                    )
+
+                    MenuItem(
                         icon = Logout,
                         text = "Logout",
                         contentColor = Design.colors.red,
-                        allowRightArrow = false,
                         onClick = logout
                     )
 
