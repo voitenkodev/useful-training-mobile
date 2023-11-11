@@ -44,7 +44,7 @@ public fun UserCard(
         modifier = modifier
             .secondaryDefaultBackground()
             .fillMaxWidth()
-            .aspectRatio(1.68f)
+            .aspectRatio(1.72f)
             .clipToBounds()
     ) {
 
@@ -62,8 +62,6 @@ public fun UserCard(
             provideText = { "Sport Card" },
             color = Design.colors.white5
         )
-
-        UserCardBackground(modifier = Modifier.fillMaxSize())
 
         Column(modifier = Modifier.padding(vertical = Design.dp.paddingL, horizontal = Design.dp.paddingXL)) {
 

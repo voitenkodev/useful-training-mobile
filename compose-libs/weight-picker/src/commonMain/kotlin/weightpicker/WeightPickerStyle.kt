@@ -11,7 +11,6 @@ public data class WeightPickerStyle(
     val fiveStepLineColor: Color,
     val tenStepLineColor: Color,
     val backgroundColor: Color,
-    val designLinesColor: Color,
     val normalLineLength: Dp = 15.dp,
     val fiveStepLineLength: Dp = 25.dp,
     val tenStepLineLength: Dp = 35.dp,

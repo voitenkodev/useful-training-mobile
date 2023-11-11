@@ -34,11 +34,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.unit.dp
 import atom.Design
+import conditional
 import kotlinx.collections.immutable.ImmutableList
-import molecule.PaddingM
 import molecule.PaddingS
 import molecule.Shadow
-import molecule.TextBody2
+import molecule.TextBody3
 import molecule.TextH2
 import molecule.TextH3
 import platformTopInset
@@ -108,8 +108,7 @@ internal fun Header(
             selectCalendarDay = selectCalendarDay,
             onAddMore = onAddMore
         )
-
-        PaddingM()
+        PaddingS()
 
         Shadow()
     }
@@ -122,7 +121,6 @@ private fun CalendarRow(
     selectCalendarDay: (dateTimeIso: String) -> Unit,
     onAddMore: () -> Unit
 ) {
-
 
     val shouldStartPaginate = remember {
         derivedStateOf {
@@ -144,59 +142,56 @@ private fun CalendarRow(
 
     LazyRow(
         state = lazyColumnListState,
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth().padding(vertical = Design.dp.paddingXS),
         reverseLayout = true,
         horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM),
         contentPadding = PaddingValues(horizontal = Design.dp.paddingM)
     ) {
 
         items(calendar) {
-            Box(
-                modifier = Modifier
-                    .size(80.dp)
-                    .scale(if (it.isSelected) 1.1f else 1f)
-                    .border(
-                        width = if (it.isSelected) 1.dp else 0.5.dp,
-                        color = if (it.isSelected) Design.colors.content else Design.colors.caption,
-                        shape = Design.shape.default
+            Box(modifier = Modifier.scale(if (it.isSelected) 1.1f else 1f)) {
+                Box(
+                    modifier = Modifier
+                        .size(58.dp)
+                        .conditional(
+                            condition = it.isSelected,
+                            onYes = { border(width = 1.dp, color = Design.colors.content, shape = Design.shape.default) },
+                            onNot = { this }
+                        ).clickable { selectCalendarDay.invoke(it.dateTimeIso) }
+                ) {
+
+                    TextBody3(
+                        modifier = Modifier
+                            .align(Alignment.TopCenter)
+                            .padding(top = 6.dp),
+                        provideText = { if (it.isToday) "NOW" else it.weekDay },
+                        color = if (it.isToday) Design.colors.orange else if (it.isSelected) Design.colors.content else Design.colors.caption
                     )
-                    .clickable { selectCalendarDay.invoke(it.dateTimeIso) }
-            ) {
 
-                TextBody2(
-                    modifier = Modifier
-                        .align(Alignment.TopCenter)
-                        .padding(top = 18.dp),
-                    provideText = { if (it.isToday) "TODAY" else it.weekDay },
-                    color = if (it.isToday) Design.colors.orange else if (it.isSelected) Design.colors.content else Design.colors.caption
-                )
-
-                TextH3(
-                    modifier = Modifier
-                        .align(Alignment.BottomCenter)
-                        .padding(bottom = 14.dp),
-                    provideText = { it.day },
-                    color = if (it.isToday) Design.colors.orange else Design.colors.content
-                )
+                    TextH3(
+                        modifier = Modifier
+                            .align(Alignment.BottomCenter)
+                            .padding(bottom = 4.dp),
+                        provideText = { it.day },
+                        color = if (it.isToday) Design.colors.orange else Design.colors.content
+                    )
+                }
 
                 if (it.repetitions != 0) {
-                    Column(
+                    Spacer(
                         modifier = Modifier
                             .align(Alignment.TopEnd)
-                            .padding(Design.dp.paddingS),
-                        verticalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
-                    ) {
-                        repeat(it.repetitions) {
-                            Spacer(
-                                modifier = Modifier
-                                    .size(10.dp)
-                                    .background(
-                                        color = Design.colors.toxic,
-                                        shape = Design.shape.circleShape
-                                    )
+                            .size(10.dp)
+                            .background(
+                                color = Design.colors.secondary,
+                                shape = Design.shape.circleShape
                             )
-                        }
-                    }
+                            .padding(1.dp)
+                            .background(
+                                color = Design.colors.toxic,
+                                shape = Design.shape.circleShape
+                            )
+                    )
                 }
             }
         }
