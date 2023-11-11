@@ -152,7 +152,7 @@ private fun CalendarRow(
             Box(modifier = Modifier.scale(if (it.isSelected) 1.1f else 1f)) {
                 Box(
                     modifier = Modifier
-                        .size(58.dp)
+                        .size(60.dp)
                         .conditional(
                             condition = it.isSelected,
                             onYes = { border(width = 1.dp, color = Design.colors.content, shape = Design.shape.default) },
@@ -163,7 +163,7 @@ private fun CalendarRow(
                     TextBody3(
                         modifier = Modifier
                             .align(Alignment.TopCenter)
-                            .padding(top = 6.dp),
+                            .padding(top = 7.dp),
                         provideText = { if (it.isToday) "NOW" else it.weekDay },
                         color = if (it.isToday) Design.colors.orange else if (it.isSelected) Design.colors.content else Design.colors.caption
                     )
@@ -171,7 +171,7 @@ private fun CalendarRow(
                     TextH3(
                         modifier = Modifier
                             .align(Alignment.BottomCenter)
-                            .padding(bottom = 4.dp),
+                            .padding(bottom = 5.dp),
                         provideText = { it.day },
                         color = if (it.isToday) Design.colors.orange else Design.colors.content
                     )
