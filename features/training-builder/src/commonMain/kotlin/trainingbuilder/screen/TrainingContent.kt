@@ -34,6 +34,7 @@ import components.roots.ScrollableRoot
 import icons.ArrowLeft
 import icons.Done
 import io.github.xxfast.decompose.router.LocalRouterContext
+import kotlinx.collections.immutable.ImmutableList
 import kotlinx.coroutines.delay
 import molecule.ButtonIconSecondary
 import molecule.PaddingL
@@ -47,7 +48,9 @@ import trainingbuilder.components.EditExercise
 import trainingbuilder.components.ExercisesPage
 import trainingbuilder.components.SummaryPage
 import trainingbuilder.popups.EditExercisePopup
+import trainingbuilder.popups.MusclePickerPopup
 import trainingbuilder.state.Exercise
+import trainingbuilder.state.MuscleType
 import trainingbuilder.state.TrainingBuilderSteps
 
 @Composable
@@ -55,6 +58,7 @@ internal fun TrainingContent(
     vm: TrainingViewModel,
     trainingId: String?,
     toReview: (trainingId: String) -> Unit,
+    back: () -> Unit
 ) {
 
     val state by vm.state.collectAsState()
@@ -68,12 +72,18 @@ internal fun TrainingContent(
 
     PopupSheet(
         visibility = buildBoolean {
-            addCondition(state.editExercisePopupIsShowed)
+            addCondition(state.editExercisePopupIsVisible)
+            addCondition(state.musclePickerPopupVisible)
         },
         onClose = vm::closePopups,
         sheetContent = {
-            if (state.editExercisePopupIsShowed) {
+            if (state.editExercisePopupIsVisible) {
                 EditExercisePopup()
+            } else if (state.musclePickerPopupVisible) {
+                MusclePickerPopup(
+                    muscleTypes = state.muscleTypes,
+                    apply = vm::applyMuscles
+                )
             }
         },
         content = {
@@ -81,10 +91,13 @@ internal fun TrainingContent(
                 error = state.error,
                 nextStep = vm::nextStep,
                 previousStep = vm::previousStep,
-                back = { },
+                back = back,
                 clearError = vm::clearError,
                 selectedStep = state.selectedStep,
-                steps = state.steps
+                steps = state.steps,
+                selectedMuscles = state.muscleTypes,
+                addMuscle = vm::openMusclePicker,
+                unselectMuscle = vm::unselectMuscle
             )
         }
     )
@@ -94,8 +107,14 @@ internal fun TrainingContent(
 private fun Content(
     error: String?,
 
-    steps: List<TrainingBuilderSteps>,
+    steps: ImmutableList<TrainingBuilderSteps>,
+
     selectedStep: TrainingBuilderSteps,
+
+    selectedMuscles: ImmutableList<MuscleType>,
+    addMuscle: () -> Unit,
+    unselectMuscle: (id: String) -> Unit,
+
     nextStep: () -> Unit,
     previousStep: (onEmpty: () -> Unit) -> Unit,
 
@@ -130,7 +149,12 @@ private fun Content(
                 userScrollEnabled = false
             ) {
                 when (it) {
-                    0 -> ConfigurationPage()
+                    0 -> ConfigurationPage(
+                        selectedMuscles = selectedMuscles,
+                        addMuscle = addMuscle,
+                        unselectMuscle = unselectMuscle
+                    )
+
                     1 -> ExercisesPage()
                     2 -> SummaryPage()
                 }
