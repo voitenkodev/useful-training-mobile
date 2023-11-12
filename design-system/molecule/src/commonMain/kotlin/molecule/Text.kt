@@ -1,6 +1,5 @@
 package molecule
 
-import atom.Design
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -9,6 +8,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import atom.Design
 
 @Composable
 public fun TextH1(
@@ -125,7 +125,7 @@ public fun TextBody1(
         modifier = modifier,
         provideText = provideText,
         placeholder = placeholder,
-        textStyle = Design.typography.Body2,
+        textStyle = Design.typography.Body1,
         maxLines = maxLines,
         color = color ?: Design.colors.content,
         textAlign = textAlign,
@@ -133,6 +133,7 @@ public fun TextBody1(
         overflow = overflow
     )
 }
+
 @Composable
 public fun TextBody2(
     provideText: () -> String?,

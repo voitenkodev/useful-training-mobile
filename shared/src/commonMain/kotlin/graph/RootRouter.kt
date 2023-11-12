@@ -10,13 +10,11 @@ import exerciseexamplebuilder.ExerciseExampleBuilderFeature
 import io.github.xxfast.decompose.router.Router
 import io.github.xxfast.decompose.router.content.RoutedContent
 import io.github.xxfast.decompose.router.rememberRouter
-import musclepicker.MusclePickerFeature
 
 @Parcelize
 internal sealed class RootRouter : Parcelable {
     data object Auth : RootRouter()
     data class Training(val id: String? = null) : RootRouter()
-    data object MusclePicker : RootRouter()
     data class ExerciseExampleBuilder(val id: String? = null) : RootRouter()
     data object BottomMenu : RootRouter()
 }
@@ -34,16 +32,15 @@ internal fun RootGraph() {
                 toTrainings = { router.replaceAll(RootRouter.BottomMenu) }
             )
 
-            RootRouter.MusclePicker -> MusclePickerFeature()
-
             is RootRouter.BottomMenu -> BottomMenuGraph(
                 toTrainingBuilder = { trainingId: String? ->
-                    router.push(RootRouter.MusclePicker)
-//                    router.push(RootRouter.Training(trainingId))
+                    router.push(RootRouter.Training(trainingId))
                 },
                 toTrainingDetails = {
                 },
-                toAuthentication = { router.replaceAll(RootRouter.Auth) },
+                toAuthentication = {
+                    router.replaceAll(RootRouter.Auth)
+                },
                 toExerciseExampleBuilder = { id ->
                     router.push(RootRouter.ExerciseExampleBuilder(id))
                 }

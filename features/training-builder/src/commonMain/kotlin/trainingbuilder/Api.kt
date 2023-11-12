@@ -18,6 +18,7 @@ public fun TrainingFeature(
     TrainingContent(
         vm = vm,
         trainingId = trainingId,
-        toReview = toTrainingDetails
+        toReview = toTrainingDetails,
+        back = back
     )
 }

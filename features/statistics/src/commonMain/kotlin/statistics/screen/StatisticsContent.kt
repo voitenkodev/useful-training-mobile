@@ -20,11 +20,11 @@ internal fun StatisticsContent(vm: StatisticsViewModel) {
     val state by vm.state.collectAsState()
 
     PopupSheet(
-        visibility = buildBoolean { addCondition(state.filterPopupIsShowed) },
+        visibility = buildBoolean { addCondition(state.filterPopupIsVisible) },
         onClose = vm::closePopups,
         modifierSheet = Modifier.fillMaxSize(),
         sheetContent = {
-            if (state.filterPopupIsShowed) FilterPopup(
+            if (state.filterPopupIsVisible) FilterPopup(
                 exerciseExamples = state.exerciseExamples,
                 muscles = state.muscles,
                 intervals = state.intervals,

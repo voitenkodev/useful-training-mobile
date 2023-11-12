@@ -16,7 +16,7 @@ internal data class State(
         Interval(type = IntervalType.LastYear)
     ),
 
-    val filterPopupIsShowed: Boolean = false,
+    val filterPopupIsVisible: Boolean = false,
 
     val error: String? = null,
     val loading: Boolean = false

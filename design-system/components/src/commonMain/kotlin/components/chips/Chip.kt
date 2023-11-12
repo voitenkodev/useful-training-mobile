@@ -65,7 +65,7 @@ public fun Chip(
                 onClick = onClick
             ).then(modifier)
             .padding(
-                horizontal = Design.dp.paddingM,
+                horizontal = Design.dp.paddingS,
                 vertical = Design.dp.paddingS
             ),
         horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS),

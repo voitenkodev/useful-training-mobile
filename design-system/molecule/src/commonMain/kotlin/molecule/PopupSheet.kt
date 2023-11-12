@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -12,10 +13,13 @@ import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import atom.Design
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @Composable
 public fun PopupSheet(
@@ -27,12 +31,17 @@ public fun PopupSheet(
     content: @Composable () -> Unit,
 ) {
 
+    val scope = rememberCoroutineScope()
+
     val state = rememberModalBottomSheetState(
         initialValue = ModalBottomSheetValue.Hidden,
         skipHalfExpanded = true,
         confirmValueChange = {
             if (cancelable && it == ModalBottomSheetValue.Hidden) {
-                onClose?.invoke()
+                scope.launch {
+                    delay(200)
+                    onClose?.invoke()
+                }
             }
             cancelable
         }
@@ -55,7 +64,7 @@ public fun PopupSheet(
         ),
         sheetContent = {
             Column(
-                modifier = modifierSheet.fillMaxWidth(),
+                modifier = modifierSheet.fillMaxHeight(0.9f).fillMaxWidth(),
                 content = {
 
                     PaddingL()

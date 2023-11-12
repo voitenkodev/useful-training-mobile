@@ -80,7 +80,7 @@ internal class StatisticsViewModel : ViewModel() {
     }
 
     fun openFilters() {
-        _state.update { it.copy(filterPopupIsShowed = true) }
+        _state.update { it.copy(filterPopupIsVisible = true) }
     }
 
     fun setQuery(query: String) {
@@ -113,7 +113,6 @@ internal class StatisticsViewModel : ViewModel() {
     }
 
     fun closePopups() {
-        _state.update { it.copy(filterPopupIsShowed = false) }
-
+//        _state.update { it.copy(filterPopupIsShowed = false) }
     }
 }

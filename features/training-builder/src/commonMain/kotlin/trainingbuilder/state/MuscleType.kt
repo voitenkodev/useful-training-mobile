@@ -1,4 +1,4 @@
-package musclepicker.state
+package trainingbuilder.state
 
 import androidx.compose.runtime.Immutable
 

@@ -1,8 +1,10 @@
 package trainingbuilder.screen
 
 import DateTimeKtx
+import ExerciseExamplesRepository
 import TrainingsRepository
 import ViewModel
+import kotlinx.collections.immutable.ImmutableList
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -15,9 +17,11 @@ import kotlinx.coroutines.flow.update
 import org.koin.core.component.inject
 import round
 import trainingbuilder.mapping.toBody
+import trainingbuilder.mapping.toState
 import trainingbuilder.mapping.toTrainingState
 import trainingbuilder.state.Exercise
 import trainingbuilder.state.Iteration
+import trainingbuilder.state.MuscleType
 import trainingbuilder.state.State
 import trainingbuilder.state.Training
 
@@ -27,6 +31,33 @@ internal class TrainingViewModel : ViewModel() {
     internal val state: StateFlow<State> = _state
 
     private val trainingsApi by inject<TrainingsRepository>()
+    private val exerciseExampleApi by inject<ExerciseExamplesRepository>()
+
+    init {
+        exerciseExampleApi
+            .observeMuscles()
+            .onEach { r -> _state.update { it.copy(muscleTypes = r.toState()) } }
+            .catch { r -> _state.update { it.copy(error = r.message) } }
+            .launchIn(this)
+
+        exerciseExampleApi.syncMuscles()
+            .catch { r -> _state.update { it.copy(error = r.message) } }
+            .launchIn(this)
+    }
+
+
+    // ________________ MUSCLES  ________________
+
+    fun unselectMuscle(id: String) {}
+    fun openMusclePicker() {
+        _state.update { it.copy(musclePickerPopupVisible = true) }
+    }
+
+    fun applyMuscles(muscleTypes: ImmutableList<MuscleType>) {
+        _state.update { it.copy(muscleTypes = muscleTypes) }
+    }
+
+    // ________________ TRAININGS  ________________
 
     @FlowPreview
     fun saveTraining(onSuccess: (trainingId: String) -> Unit) {
@@ -118,7 +149,12 @@ internal class TrainingViewModel : ViewModel() {
     }
 
     fun closePopups() {
-        _state.update { it.copy(editExercisePopupIsShowed = false) }
+        _state.update {
+            it.copy(
+                editExercisePopupIsVisible = false,
+                musclePickerPopupVisible = false
+            )
+        }
     }
 
     fun previousStep(onNextEmpty: () -> Unit) {

@@ -29,7 +29,7 @@ internal fun TrainingGraph(
             is TrainingRouter.TrainingBuilder -> TrainingFeature(
                 trainingId = child.id,
                 toTrainingDetails = { id -> toTrainingDetails.invoke(id) },
-                back = closeFlow
+                back = closeFlow,
             )
         }
     }
