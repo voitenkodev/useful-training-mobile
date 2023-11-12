@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.update
 import org.koin.core.component.inject
 import round
 import trainingbuilder.mapping.toBody
@@ -29,14 +30,13 @@ internal class TrainingViewModel : ViewModel() {
 
     @FlowPreview
     fun saveTraining(onSuccess: (trainingId: String) -> Unit) {
-
         val training = state.value.training
             .validate()
             .calculateDuration()
             .calculateValues()
 
         if (training.exercises.isEmpty()) {
-            showError("Empty training")
+            _state.update { it.copy(error = "Empty training") }
             return
         }
 
@@ -51,14 +51,6 @@ internal class TrainingViewModel : ViewModel() {
                 _state.value = state.value.copy(loading = false, error = it.message)
             }
             .launchIn(this)
-    }
-
-    fun removeExerciseNameOption(value: String) {
-
-    }
-
-    fun getExerciseNameOptions() {
-
     }
 
     fun getTraining(trainingId: String) {
@@ -80,83 +72,71 @@ internal class TrainingViewModel : ViewModel() {
     }
 
     fun clearError() {
-        _state.value = state.value.copy(error = null)
-    }
-
-    private fun showError(message: String) {
-        _state.value = state.value.copy(error = message)
-    }
-
-    fun openRemoveExercisePopup(exerciseIndex: Int) {
-        _state.value = state.value.copy(removeExerciseIndex = exerciseIndex)
-    }
-
-    fun openExitScreenPopup() {
-        _state.value = state.value.copy(exitWarningVisibility = true)
-    }
-
-    fun closeExitScreenPopup() {
-        _state.value = state.value.copy(exitWarningVisibility = false)
-    }
-
-    fun tryBack() {
-        if (state.value.removeExerciseIndex != null) {
-            closeRemoveExercisePopup()
-            return
-        }
-        if (state.value.exitWarningVisibility.not()) {
-            openExitScreenPopup()
-            return
-        }
-        if (state.value.exitWarningVisibility) {
-            closeExitScreenPopup()
-        }
-    }
-
-    fun closeRemoveExercisePopup() {
-        _state.value = state.value.copy(removeExerciseIndex = null)
+        _state.update { it.copy(error = null) }
     }
 
     fun removeExercise(exerciseIndex: Int?) {
-
         exerciseIndex?.let {
-            val training = state.value.training
-                .removeExercise(exerciseIndex)
-
-            _state.value = state.value.copy(training = training)
+            _state.update {
+                it.copy(
+                    training = it.training.removeExercise(exerciseIndex)
+                )
+            }
         }
-
-        closeRemoveExercisePopup()
     }
 
     fun updateName(exerciseIndex: Int, name: String) {
-        val training = state.value.training
-            .setNameOfExercise(exerciseIndex, name)
-
-        _state.value = state.value.copy(training = training)
+        _state.update {
+            it.copy(
+                training = it.training.setNameOfExercise(exerciseIndex, name)
+            )
+        }
     }
 
     fun updateWeight(exerciseIndex: Int, number: Int, weight: String) {
-        val training = state.value.training
-            .setWeightOfIteration(exerciseIndex, number, weight)
-            .provideEmptyIteration(exerciseIndex)
-
-        _state.value = state.value.copy(training = training)
+        _state.update {
+            it.copy(
+                training = it.training
+                    .setWeightOfIteration(exerciseIndex, number, weight)
+                    .provideEmptyIteration(exerciseIndex)
+            )
+        }
     }
 
     fun updateRepeat(exerciseIndex: Int, number: Int, repeat: String) {
-        val training = state.value.training
-            .setRepeatOfIteration(exerciseIndex, number, repeat)
-            .provideEmptyIteration(exerciseIndex)
-
-        _state.value = state.value.copy(training = training)
+        _state.update {
+            it.copy(
+                training = it.training
+                    .setRepeatOfIteration(exerciseIndex, number, repeat)
+                    .provideEmptyIteration(exerciseIndex)
+            )
+        }
     }
 
     fun addExercise() {
-        val training = state.value.training
-            .addExercise()
+        _state.update { it.copy(training = it.training.addExercise()) }
+    }
 
-        _state.value = state.value.copy(training = training)
+    fun closePopups() {
+        _state.update { it.copy(editExercisePopupIsShowed = false) }
+    }
+
+    fun previousStep(onNextEmpty: () -> Unit) {
+        _state.update {
+            val newStepIndex = it.steps.indexOf(it.selectedStep).minus(1)
+            if (newStepIndex < 0) {
+                onNextEmpty.invoke()
+                it
+            } else it.copy(selectedStep = it.steps[newStepIndex])
+        }
+    }
+
+    fun nextStep() {
+        _state.update {
+            val newStepIndex = it.steps.indexOf(it.selectedStep).plus(1)
+            if (newStepIndex > it.steps.lastIndex) it
+            else it.copy(selectedStep = it.steps[newStepIndex])
+        }
     }
 
     private fun Training.setNameOfExercise(exerciseIndex: Int, name: String): Training {
@@ -275,7 +255,7 @@ internal class TrainingViewModel : ViewModel() {
         val lastIsNotEmpty = exercise.iterations.lastOrNull()?.weight != "" || exercise.iterations.lastOrNull()?.repetitions != ""
         if (lastIsNotEmpty.not()) return this
         val newExercise = exercise.copy(iterations = exercise.iterations + Iteration())
-        val newExercises = this.exercises.mapIndexed() { index, item -> if (index == exerciseIndex) newExercise else item }
+        val newExercises = this.exercises.mapIndexed { index, item -> if (index == exerciseIndex) newExercise else item }
         return this.copy(exercises = newExercises)
     }
 }

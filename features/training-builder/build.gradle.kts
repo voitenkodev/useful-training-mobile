@@ -16,6 +16,7 @@ kotlin {
                 implementation(projects.domain.trainings)
                 implementation(projects.common.utils)
                 implementation(projects.common.architectureComponent)
+                implementation(projects.common.platformApi)
 
                 implementation(projects.designSystem.atom)
                 implementation(projects.designSystem.molecule)

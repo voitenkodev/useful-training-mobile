@@ -1,9 +1,9 @@
 package exercise_example_muscle.models
 
-public data class MuscleDao(
+public data class MuscleTypeDao(
     val id: String,
     val name: String,
-    val muscleTypeId: String,
     val createdAt: String,
-    val updatedAt: String
+    val updatedAt: String,
+    val muscles: List<MuscleDao>
 )

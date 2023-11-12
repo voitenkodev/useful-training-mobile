@@ -16,6 +16,14 @@ CREATE TABLE IF NOT EXISTS MuscleExerciseBundle (
 
 CREATE TABLE IF NOT EXISTS Muscle (
     id TEXT NOT NULL PRIMARY KEY,
+    muscleTypeId TEXT NOT NULL REFERENCES MuscleType(id) ON DELETE CASCADE,
+    name TEXT NOT NULL,
+    createdAt TEXT NOT NULL,
+    updatedAt TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS MuscleType (
+    id TEXT NOT NULL PRIMARY KEY,
     name TEXT NOT NULL,
     createdAt TEXT,
     updatedAt TEXT
@@ -32,9 +40,19 @@ SELECT *
 FROM ExerciseExample
 WHERE id = ?;
 
+getMusclesByMuscleType:
+SELECT *
+FROM Muscle
+WHERE muscleTypeId = ?;
+
+
 getMuscles:
 SELECT *
 FROM Muscle;
+
+getMuscleTypes:
+SELECT *
+FROM MuscleType;
 
 getMusclesById:
 SELECT *
@@ -54,6 +72,10 @@ VALUES (?,?,?,?);
 
 setMuscle:
 INSERT OR IGNORE INTO Muscle
+VALUES (?,?,?,?,?);
+
+setMuscleType:
+INSERT OR IGNORE INTO MuscleType
 VALUES (?,?,?,?);
 
 setMuscleExerciseBundle:
@@ -73,7 +95,12 @@ WHERE id = ?;
 
 deleteTableExerciseExample:
 DELETE FROM ExerciseExample;
+
 deleteTableMuscleExerciseBundle:
 DELETE FROM MuscleExerciseBundle;
+
 deleteTableMuscle:
 DELETE FROM Muscle;
+
+deleteTableMuscleType:
+DELETE FROM MuscleType;

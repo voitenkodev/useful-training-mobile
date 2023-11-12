@@ -16,7 +16,7 @@ public class UserSource(nativeContext: NativeContext) {
     private val database: AlienWorkoutDatabase = nativeContext.database()
     private val api by lazy { database.userQueries }
 
-    public fun getUser(): Flow<UserDao> {
+    public fun getUser(): Flow<UserDao?> {
         return api
             .getUser()
             .asFlow()

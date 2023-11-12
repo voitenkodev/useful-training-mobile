@@ -19,6 +19,7 @@ import atom.Design
 
 @Composable
 public fun PopupSheet(
+    modifierSheet: Modifier = Modifier,
     onClose: (() -> Unit)? = null,
     visibility: Boolean,
     cancelable: Boolean = true,
@@ -54,7 +55,7 @@ public fun PopupSheet(
         ),
         sheetContent = {
             Column(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = modifierSheet.fillMaxWidth(),
                 content = {
 
                     PaddingL()

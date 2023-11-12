@@ -3,6 +3,7 @@ package user.repository
 import NetworkSource
 import UserRepository
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import models.User
@@ -18,7 +19,8 @@ internal class UserRepositoryImpl(
     override fun observeUser(): Flow<User> {
         return local
             .getUser()
-            .map { it.daoToDomain() }
+            .map { it?.daoToDomain() }
+            .filterNotNull()
     }
 
     override fun syncUser(): Flow<Unit> {

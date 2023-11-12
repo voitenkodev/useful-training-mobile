@@ -12,6 +12,7 @@ internal fun List<models.Muscle>.toState(): ImmutableList<Muscle> {
 internal fun models.Muscle.toState(): Muscle {
     return Muscle(
         id = id,
-        name = name
+        name = name,
+        muscleTypeId = muscleTypeId
     )
 }

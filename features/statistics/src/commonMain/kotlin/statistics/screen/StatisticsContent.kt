@@ -1,9 +1,11 @@
 package statistics.screen
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
 import buildBoolean
 import components.Error
 import components.Loading
@@ -20,6 +22,7 @@ internal fun StatisticsContent(vm: StatisticsViewModel) {
     PopupSheet(
         visibility = buildBoolean { addCondition(state.filterPopupIsShowed) },
         onClose = vm::closePopups,
+        modifierSheet = Modifier.fillMaxSize(),
         sheetContent = {
             if (state.filterPopupIsShowed) FilterPopup(
                 exerciseExamples = state.exerciseExamples,

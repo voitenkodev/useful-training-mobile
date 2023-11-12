@@ -8,8 +8,8 @@ import app.cash.sqldelight.coroutines.mapToOne
 import database
 import exercise_example_muscle.mapping.toDao
 import exercise_example_muscle.models.ExerciseExampleDao
-import exercise_example_muscle.models.MuscleDao
 import exercise_example_muscle.models.MuscleExerciseBundleDao
+import exercise_example_muscle.models.MuscleTypeDao
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -78,20 +78,25 @@ public class ExerciseExamplesSource(nativeContext: NativeContext) {
                 setMuscleExerciseBundle(
                     muscleExerciseBundle = muscleExerciseBundle
                 )
-                setMuscle(
-                    muscle = muscleExerciseBundle.muscle
-                )
             }
         }
         return exerciseExample.id
     }
 
-    public fun getMuscles(): Flow<List<MuscleDao>> {
+    public fun getMuscles(): Flow<List<MuscleTypeDao>> {
         return api
-            .getMuscles()
+            .getMuscleTypes()
             .asFlow()
             .mapToList(Dispatchers.Default)
-            .map { list -> list.map { item -> item.toDao() } }
+            .map { list ->
+                list.map { muscleType ->
+                    val muscles = api
+                        .getMusclesByMuscleType(muscleType.id)
+                        .executeAsList()
+                        .map { it.toDao() }
+                    muscleType.toDao(muscles)
+                }
+            }
     }
 
     public fun deleteExerciseExample(exerciseExampleId: String) {
@@ -106,7 +111,7 @@ public class ExerciseExamplesSource(nativeContext: NativeContext) {
         )
     }
 
-    public fun setMuscles(muscles: List<MuscleDao>) {
+    public fun setMuscles(muscles: List<MuscleTypeDao>) {
         api.transaction {
             muscles.forEach { setMuscle(it) }
         }
@@ -116,15 +121,25 @@ public class ExerciseExamplesSource(nativeContext: NativeContext) {
         api.deleteTableExerciseExample()
         api.deleteTableMuscle()
         api.deleteTableMuscleExerciseBundle()
+        api.deleteTableMuscleType()
     }
 
-    private fun setMuscle(muscle: MuscleDao) {
-        api.setMuscle(
-            id = muscle.id,
-            name = muscle.name,
-            createdAt = muscle.createdAt,
-            updatedAt = muscle.updatedAt
+    private fun setMuscle(muscleType: MuscleTypeDao) {
+        api.setMuscleType(
+            id = muscleType.id,
+            name = muscleType.name,
+            createdAt = muscleType.createdAt,
+            updatedAt = muscleType.updatedAt
         )
+        muscleType.muscles.forEach {
+            api.setMuscle(
+                id = it.id,
+                name = it.name,
+                createdAt = it.createdAt,
+                updatedAt = it.updatedAt,
+                muscleTypeId = it.id
+            )
+        }
     }
 
     private fun setMuscleExerciseBundle(muscleExerciseBundle: MuscleExerciseBundleDao) {

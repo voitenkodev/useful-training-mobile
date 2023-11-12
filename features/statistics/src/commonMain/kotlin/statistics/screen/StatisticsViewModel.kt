@@ -25,10 +25,10 @@ internal class StatisticsViewModel : ViewModel() {
     private val exerciseExamplesApi by inject<ExerciseExamplesRepository>()
 
     init {
-        exerciseExamplesApi
-            .observeMuscles()
-            .onEach { r -> _state.update { it.copy(muscles = r.toState()) } }
-            .launchIn(this)
+//        exerciseExamplesApi
+//            .observeMuscles()
+//            .onEach { r -> _state.update { it.copy(muscles = r.toState()) } }
+//            .launchIn(this)
         exerciseExamplesApi
             .observeExerciseExamples()
             .onEach { r -> _state.update { it.copy(exerciseExamples = r.toState()) } }

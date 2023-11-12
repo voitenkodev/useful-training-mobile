@@ -98,15 +98,13 @@ private fun Content(
 
     val backHandler = LocalRouterContext.current.backHandler
     backHandler.register(BackCallback { previousStep.invoke(backProvider) })
+    val pagerState = rememberPagerState(pageCount = { steps.size })
+
+    LaunchedEffect(selectedStep) {
+        pagerState.animateScrollToPage(steps.indexOf(selectedStep))
+    }
 
     Root(error = { Error(message = { error }, close = clearError) }) {
-
-        val pagerState = rememberPagerState(pageCount = { steps.size })
-
-        LaunchedEffect(selectedStep) {
-            pagerState.animateScrollToPage(steps.indexOf(selectedStep))
-        }
-
         Column(
             modifier = Modifier.platformTopInset(),
             horizontalAlignment = Alignment.CenterHorizontally

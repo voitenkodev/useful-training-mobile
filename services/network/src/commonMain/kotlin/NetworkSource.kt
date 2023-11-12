@@ -6,7 +6,7 @@ import io.ktor.http.contentType
 import io.ktor.http.path
 import models.AuthDto
 import models.ExerciseExampleDto
-import models.MuscleDto
+import models.MuscleTypeDto
 import models.RegisterDto
 import models.TokenDto
 import models.TrainingDto
@@ -78,7 +78,7 @@ public class NetworkSource(private val clientBackend: ClientBackend) {
         )
     }
 
-    public suspend fun getMuscles(): List<MuscleDto> {
+    public suspend fun getMuscles(): List<MuscleTypeDto> {
         return callRequest(
             method = HttpMethod.Get,
             path = "/muscles"

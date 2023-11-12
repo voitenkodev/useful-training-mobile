@@ -4,12 +4,15 @@ import PlatformBackHandler
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
@@ -20,32 +23,41 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import atom.Design
+import buildBoolean
+import com.arkivanov.essenty.backhandler.BackCallback
 import components.Error
 import components.Loading
 import components.Popup
+import components.indication.SlideIndicator
+import components.roots.Root
 import components.roots.ScrollableRoot
 import icons.ArrowLeft
 import icons.Done
+import io.github.xxfast.decompose.router.LocalRouterContext
 import kotlinx.coroutines.delay
 import molecule.ButtonIconSecondary
+import molecule.PaddingL
+import molecule.PaddingXL
+import molecule.PopupSheet
 import molecule.TextH4
+import platformTopInset
 import recomposeHighlighter
+import trainingbuilder.components.ConfigurationPage
 import trainingbuilder.components.EditExercise
+import trainingbuilder.components.ExercisesPage
+import trainingbuilder.components.SummaryPage
+import trainingbuilder.popups.EditExercisePopup
 import trainingbuilder.state.Exercise
+import trainingbuilder.state.TrainingBuilderSteps
 
 @Composable
 internal fun TrainingContent(
     vm: TrainingViewModel,
     trainingId: String?,
     toReview: (trainingId: String) -> Unit,
-    back: () -> Unit
 ) {
 
     val state by vm.state.collectAsState()
-
-    LaunchedEffect(Unit) {
-        vm.getExerciseNameOptions()
-    }
 
     LaunchedEffect(trainingId) {
         if (trainingId != null) {
@@ -54,42 +66,82 @@ internal fun TrainingContent(
         }
     }
 
-    val exercisesProvider = rememberUpdatedState(state.training.exercises)
-
-    Content(
-        loading = { state.loading },
-        error = { state.error },
-        clearError = vm::clearError,
-        tryBack = vm::tryBack,
-
-        exitWarningVisibility = state.exitWarningVisibility,
-        closeExitScreenPopup = vm::closeExitScreenPopup,
-        back = {
-            vm.closeExitScreenPopup()
-            back.invoke()
+    PopupSheet(
+        visibility = buildBoolean {
+            addCondition(state.editExercisePopupIsShowed)
         },
-
-        removeExerciseIndex = { state.removeExerciseIndex },
-        removeExercise = vm::removeExercise,
-        closeRemoveExercisePopup = vm::closeRemoveExercisePopup,
-
-        openExitScreenPopup = vm::openExitScreenPopup,
-        saveTraining = { vm.saveTraining(toReview) },
-
-        exerciseNames = { state.exerciseNameOptions },
-
-        exercises = exercisesProvider,
-        updateName = vm::updateName,
-        updateWeight = vm::updateWeight,
-        updateRepeat = vm::updateRepeat,
-        openRemoveExercisePopup = vm::openRemoveExercisePopup,
-        addExercise = vm::addExercise,
-        removeExerciseNameOption = vm::removeExerciseNameOption
+        onClose = vm::closePopups,
+        sheetContent = {
+            if (state.editExercisePopupIsShowed) {
+                EditExercisePopup()
+            }
+        },
+        content = {
+            Content(
+                error = state.error,
+                nextStep = vm::nextStep,
+                previousStep = vm::previousStep,
+                back = { },
+                clearError = vm::clearError,
+                selectedStep = state.selectedStep,
+                steps = state.steps
+            )
+        }
     )
 }
 
 @Composable
 private fun Content(
+    error: String?,
+
+    steps: List<TrainingBuilderSteps>,
+    selectedStep: TrainingBuilderSteps,
+    nextStep: () -> Unit,
+    previousStep: (onEmpty: () -> Unit) -> Unit,
+
+    back: () -> Unit,
+    clearError: () -> Unit,
+) {
+
+    val backProvider by rememberUpdatedState(back)
+    val backHandler = LocalRouterContext.current.backHandler
+    backHandler.register(BackCallback { previousStep.invoke(backProvider) })
+    val pagerState = rememberPagerState(pageCount = { steps.size })
+
+    LaunchedEffect(selectedStep) {
+        pagerState.animateScrollToPage(steps.indexOf(selectedStep))
+    }
+
+    Root(error = { Error(message = { error }, close = clearError) }) {
+        Column(
+            modifier = Modifier.platformTopInset(),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+
+            PaddingXL()
+
+            SlideIndicator(pagerState)
+
+            PaddingL()
+
+            HorizontalPager(
+                modifier = Modifier.weight(1f),
+                state = pagerState,
+                userScrollEnabled = false
+            ) {
+                when (it) {
+                    0 -> ConfigurationPage()
+                    1 -> ExercisesPage()
+                    2 -> SummaryPage()
+                }
+            }
+        }
+    }
+}
+
+@Deprecated("use Content")
+@Composable
+private fun Content2(
     loading: () -> Boolean,
     error: () -> String?,
     clearError: () -> Unit,

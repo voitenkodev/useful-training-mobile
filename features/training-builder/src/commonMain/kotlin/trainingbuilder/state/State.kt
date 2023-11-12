@@ -5,9 +5,12 @@ import androidx.compose.runtime.Immutable
 @Immutable
 internal data class State(
     val training: Training = Training(),
-    val exerciseNameOptions: List<String> = emptyList(),
+
+    val selectedStep: TrainingBuilderSteps = TrainingBuilderSteps.Configurations,
+    val steps: List<TrainingBuilderSteps> = TrainingBuilderSteps.entries,
+
+    val editExercisePopupIsShowed: Boolean = false,
+
     val error: String? = null,
-    val loading: Boolean = false,
-    val exitWarningVisibility: Boolean = false,
-    val removeExerciseIndex: Int? = null
+    val loading: Boolean = false
 )

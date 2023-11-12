@@ -44,14 +44,14 @@ internal class ExerciseExampleBuilderViewModel(exerciseExampleId: String?) : Vie
             }.flatMapLatest {
                 api.observeMuscles()
             }.onEach { r ->
-                _state.update {
-                    it.copy(
-                        availableMuscles = r
-                            .filterNot { f -> it.exerciseExample?.muscleExerciseBundles?.map { it.muscle.id }?.contains(f.id) == true }
-                            .toState(),
-                        loading = false
-                    )
-                }
+//                _state.update {
+//                    it.copy(
+//                        availableMuscles = r
+//                            .filterNot { f -> it.exerciseExample?.muscleExerciseBundles?.map { it.muscle.id }?.contains(f.id) == true }
+//                            .toState(),
+//                        loading = false
+//                    )
+//                }
             }.catch { t ->
                 _state.update { it.copy(loading = false, error = t.message) }
             }.launchIn(this)

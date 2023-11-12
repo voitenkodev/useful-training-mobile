@@ -5,6 +5,7 @@ import exerciseexamplebuilder.state.Muscle
 internal fun Muscle.toDomain(): models.Muscle {
     return models.Muscle(
         id = id,
-        name = name
+        name = name,
+        muscleTypeId = muscleTypeId
     )
 }
