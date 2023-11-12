@@ -15,7 +15,6 @@ kotlin {
             dependencies {
                 implementation(compose.ui)
                 implementation(compose.foundation)
-//                implementation(compose.material)
             }
         }
         val androidMain by getting {

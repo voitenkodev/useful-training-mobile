@@ -16,6 +16,7 @@ kotlin {
                 implementation(projects.designSystem.molecule)
                 implementation(projects.designSystem.atom)
                 implementation(projects.designSystem.resources)
+
                 implementation(projects.common.platformApi)
 
                 implementation(compose.ui)

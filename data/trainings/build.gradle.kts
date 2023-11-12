@@ -13,9 +13,9 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(projects.domain.trainings)
+
                 implementation(projects.services.network)
                 implementation(projects.services.database)
-                implementation(projects.services.preferences)
 
                 implementation(libs.coroutines)
                 implementation(libs.koin.core)

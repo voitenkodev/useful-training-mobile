@@ -14,6 +14,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(projects.domain.trainings)
+
                 implementation(projects.common.utils)
                 implementation(projects.common.architectureComponent)
                 implementation(projects.common.platformApi)

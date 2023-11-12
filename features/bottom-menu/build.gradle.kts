@@ -25,6 +25,7 @@ kotlin {
 
                 implementation(compose.ui)
                 implementation(compose.foundation)
+
                 implementation(libs.immutable.collections)
                 implementation(libs.koin.core)
             }
