@@ -55,6 +55,13 @@ internal fun ConfigurationPage(
                 buildList { selectedMuscles.map { addAll(it.muscles.filter { it.isSelected }) } }
             }
 
+            if (muscles.isEmpty()) {
+                Chip(
+                    chipState = ChipState.HalfTransparent(enabled = false),
+                    text = "Empty"
+                )
+            }
+
             muscles.forEach { muscle ->
                 Chip(
                     chipState = ChipState.Selected(),
@@ -63,5 +70,11 @@ internal fun ConfigurationPage(
                 )
             }
         }
+
+        PaddingM()
+
+        TextBody2(provideText = { "Preferred training duration?" })
+
+        PaddingM()
     }
 }
