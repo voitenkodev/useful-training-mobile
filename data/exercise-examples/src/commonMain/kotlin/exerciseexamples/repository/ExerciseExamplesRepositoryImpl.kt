@@ -46,7 +46,7 @@ internal class ExerciseExamplesRepositoryImpl(
     override fun syncMuscles(): Flow<Unit> {
         return flow {
             val result = remote.getMuscles()
-            local.setMuscles(result.dtoToDao())
+            local.setMuscleTypesWithMuscles(result.dtoToDao())
             emit(Unit)
         }
     }

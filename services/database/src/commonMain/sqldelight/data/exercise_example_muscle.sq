@@ -45,11 +45,6 @@ SELECT *
 FROM Muscle
 WHERE muscleTypeId = ?;
 
-
-getMuscles:
-SELECT *
-FROM Muscle;
-
 getMuscleTypes:
 SELECT *
 FROM MuscleType;

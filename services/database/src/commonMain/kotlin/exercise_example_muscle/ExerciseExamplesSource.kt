@@ -111,9 +111,9 @@ public class ExerciseExamplesSource(nativeContext: NativeContext) {
         )
     }
 
-    public fun setMuscles(muscles: List<MuscleTypeDao>) {
+    public fun setMuscleTypesWithMuscles(muscles: List<MuscleTypeDao>) {
         api.transaction {
-            muscles.forEach { setMuscle(it) }
+            muscles.forEach { setMuscleTypeWithMuscles(it) }
         }
     }
 
@@ -124,7 +124,7 @@ public class ExerciseExamplesSource(nativeContext: NativeContext) {
         api.deleteTableMuscleType()
     }
 
-    private fun setMuscle(muscleType: MuscleTypeDao) {
+    private fun setMuscleTypeWithMuscles(muscleType: MuscleTypeDao) {
         api.setMuscleType(
             id = muscleType.id,
             name = muscleType.name,
@@ -137,7 +137,7 @@ public class ExerciseExamplesSource(nativeContext: NativeContext) {
                 name = it.name,
                 createdAt = it.createdAt,
                 updatedAt = it.updatedAt,
-                muscleTypeId = it.id
+                muscleTypeId = muscleType.id
             )
         }
     }
