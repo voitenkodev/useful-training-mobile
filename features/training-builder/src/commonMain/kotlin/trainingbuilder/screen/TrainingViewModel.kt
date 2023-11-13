@@ -47,7 +47,10 @@ internal class TrainingViewModel : ViewModel() {
 
     // ________________ MUSCLES  ________________
 
-    fun unselectMuscle(id: String) {}
+    fun unselectMuscle(id: String) {
+
+    }
+
     fun openMusclePicker() {
         _state.update { it.copy(musclePickerPopupVisible = true) }
     }

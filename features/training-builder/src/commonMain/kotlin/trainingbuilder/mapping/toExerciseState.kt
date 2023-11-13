@@ -6,9 +6,9 @@ internal fun List<models.Exercise>.toExerciseStateList() = this.map { it.toExerc
 
 internal fun models.Exercise.toExerciseState() = Exercise(
     id = id ?: "",
-    name = name ?: "",
+    name = name,
     iterations = iterations.toIterationStateList(),
-    volume = volume ?: 0.0,
-    repetitions = repetitions ?: 0,
-    intensity = intensity ?: 0.0
+    volume = volume,
+    repetitions = repetitions,
+    intensity = intensity
 )

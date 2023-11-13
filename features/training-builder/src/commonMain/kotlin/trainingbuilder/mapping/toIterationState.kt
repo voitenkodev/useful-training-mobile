@@ -6,6 +6,6 @@ import trainingbuilder.state.Iteration
 internal fun List<models.Iteration>.toIterationStateList() = this.map { it.toIterationState() }
 
 internal fun models.Iteration.toIterationState() = Iteration(
-    weight = weight?.toDoubleOrIntString() ?: "",
-    repetitions = repetitions?.toString() ?: ""
+    weight = weight.toDoubleOrIntString(),
+    repetitions = repetitions.toString()
 )
