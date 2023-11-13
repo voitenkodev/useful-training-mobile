@@ -14,7 +14,7 @@ import heightpicker.HeightPicker
 import heightpicker.HeightPickerStyle
 import meter
 import molecule.ButtonPrimary
-import molecule.PaddingL
+import molecule.PaddingM
 import molecule.PaddingWeight
 import molecule.PaddingXL
 import molecule.TextBody2
@@ -35,7 +35,7 @@ internal fun HeightPage(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        PaddingL()
+        PaddingM()
 
         TextH2(provideText = { "Your height" })
 

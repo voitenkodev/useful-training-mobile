@@ -12,7 +12,7 @@ import androidx.compose.ui.unit.dp
 import atom.Design
 import kg
 import molecule.ButtonPrimary
-import molecule.PaddingL
+import molecule.PaddingM
 import molecule.PaddingWeight
 import molecule.PaddingXL
 import molecule.TextBody2
@@ -35,7 +35,7 @@ internal fun WeightPage(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        PaddingL()
+        PaddingM()
 
         TextH2(provideText = { "Your weight" })
 

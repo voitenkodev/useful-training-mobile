@@ -17,7 +17,6 @@ import components.inputs.InputPasswordRepeat
 import components.states.animateAlignmentAsState
 import components.states.keyboardAsBoolean
 import molecule.ButtonPrimary
-import molecule.PaddingL
 import molecule.PaddingM
 import molecule.PaddingXL
 import molecule.TextBody2
@@ -52,7 +51,7 @@ internal fun CredentialsPage(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        PaddingL()
+        PaddingM()
 
         TextH2(provideText = { "Credentials" })
 
@@ -65,7 +64,7 @@ internal fun CredentialsPage(
             onValueChange = updateEmail
         )
 
-        PaddingL()
+        PaddingXL()
 
         InputPassword(
             provideValue = { password },

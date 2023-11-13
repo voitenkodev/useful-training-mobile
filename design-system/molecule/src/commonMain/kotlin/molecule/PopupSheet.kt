@@ -24,7 +24,7 @@ public fun PopupSheet(
         sheetState = modalBottomSheetState,
         dragHandle = { BottomSheetDefaults.DragHandle() },
         containerColor = Design.colors.secondary,
-        windowInsets= WindowInsets(top = 110.dp),
+        windowInsets = WindowInsets(top = 0.dp),
         content = content
     )
 }

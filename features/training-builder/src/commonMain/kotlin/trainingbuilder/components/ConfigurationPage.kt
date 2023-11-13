@@ -14,8 +14,8 @@ import atom.Design
 import components.chips.Chip
 import components.chips.ChipState
 import kotlinx.collections.immutable.ImmutableList
-import molecule.PaddingL
 import molecule.PaddingM
+import molecule.PaddingXL
 import molecule.TextBody2
 import molecule.TextH2
 import platformBottomInset
@@ -31,9 +31,11 @@ internal fun ConfigurationPage(
         modifier = Modifier.fillMaxSize().platformBottomInset(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        PaddingL()
+        PaddingM()
 
         TextH2(provideText = { "Workout Goal" })
+
+        PaddingM()
 
         TextBody2(provideText = { "Which muscle do you want to train?" })
 
@@ -41,7 +43,7 @@ internal fun ConfigurationPage(
 
         FlowRow(
             modifier = Modifier.fillMaxWidth().padding(horizontal = Design.dp.paddingM),
-            horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS),
+            horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS, Alignment.CenterHorizontally),
             verticalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
         ) {
 
@@ -71,7 +73,7 @@ internal fun ConfigurationPage(
             }
         }
 
-        PaddingM()
+        PaddingXL()
 
         TextBody2(provideText = { "Preferred training duration?" })
 
