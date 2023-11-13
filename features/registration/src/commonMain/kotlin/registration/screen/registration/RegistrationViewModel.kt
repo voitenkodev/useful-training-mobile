@@ -13,6 +13,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.flow.updateAndGet
 import org.koin.core.component.inject
 import registration.state.RegistrationStatus
 import registration.state.State
@@ -38,16 +39,16 @@ internal class RegistrationViewModel : ViewModel() {
     }
 
     fun registration() {
-        _state.update { it.validate() }
+        val last = _state.updateAndGet { it.validate() }
 
-        if (state.value.error == null) {
+        if (last.error == null) {
             authApi
                 .registration(
-                    email = state.value.email,
-                    password = state.value.password,
-                    name = state.value.name,
-                    weight = state.value.weight,
-                    height = state.value.height
+                    email = last.email,
+                    password = last.password,
+                    name = last.name,
+                    weight = last.weight,
+                    height = last.height
                 )
                 .flatMapConcat { userApi.syncUser() }
                 .onStart { _state.update { it.copy(loading = true) } }

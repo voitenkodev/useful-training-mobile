@@ -6,5 +6,6 @@ import androidx.compose.runtime.Immutable
 internal data class SuccessState(
     val name: String = "",
     val height: String = "",
-    val weight: String = ""
+    val weight: String = "",
+    val error: String? = null
 )

@@ -5,6 +5,7 @@ import ViewModel
 import kg
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
@@ -30,6 +31,11 @@ internal class SuccessRegistrationViewModel : ViewModel() {
                         height = r.height.meter()
                     )
                 }
-            }.launchIn(this)
+            }.catch { t -> _state.update { it.copy(error = t.message) } }
+            .launchIn(this)
+    }
+
+    fun clearError() {
+        _state.update { it.copy(error = null) }
     }
 }

@@ -16,6 +16,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.flow.updateAndGet
 import org.koin.core.component.inject
 
 internal class AuthenticationViewModel : ViewModel() {
@@ -27,11 +28,11 @@ internal class AuthenticationViewModel : ViewModel() {
     val state: StateFlow<State> = _state.asStateFlow()
 
     fun login() {
-        _state.update { it.validate() }
+        val last = _state.updateAndGet { it.validate() }
 
-        if (state.value.error == null) {
+        if (last.error == null) {
             authApi
-                .login(state.value.email, state.value.password)
+                .login(last.email, last.password)
                 .flatMapConcat { userApi.syncUser() }
                 .onStart { _state.update { it.copy(loading = true) } }
                 .onEach { _state.update { it.copy(authStatus = AuthStatus.Available, loading = false) } }

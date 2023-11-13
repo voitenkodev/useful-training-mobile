@@ -11,8 +11,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import atom.Design
 import com.arkivanov.essenty.backhandler.BackCallback
+import components.Error
 import components.animation.Levitating
 import components.brand.UserCard
+import components.roots.Root
 import io.github.xxfast.decompose.router.LocalRouterContext
 import molecule.PaddingWeight
 import molecule.PaddingXL
@@ -32,7 +34,9 @@ internal fun SuccessRegistrationContent(
         name = state.name,
         height = state.height,
         weight = state.weight,
-        toTrainings = toTrainings
+        toTrainings = toTrainings,
+        error = state.error,
+        clearError = vm::clearError
     )
 }
 
@@ -41,46 +45,50 @@ private fun Content(
     name: String,
     height: String,
     weight: String,
-    toTrainings: () -> Unit
+    toTrainings: () -> Unit,
+    error: String?,
+    clearError: () -> Unit,
 ) {
 
     val backHandler = LocalRouterContext.current.backHandler
     backHandler.register(BackCallback(onBack = toTrainings))
 
-    Column(
-        modifier = Modifier.fillMaxSize().platformInsets(),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
+    Root(error = { Error(message = { error }, close = clearError) }) {
+        Column(
+            modifier = Modifier.fillMaxSize().platformInsets(),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
 
-        PaddingXL()
+            PaddingXL()
 
-        PaddingXL()
+            PaddingXL()
 
-        TextH2(
-            provideText = { "Success Registration" },
-            color = Design.colors.toxic,
-            textAlign = TextAlign.Center
-        )
-
-        TextBody2(
-            provideText = { "Take your personal card!" },
-            textAlign = TextAlign.Center
-        )
-
-        PaddingWeight()
-
-        Levitating { modifier ->
-            UserCard(
-                modifier = modifier.padding(Design.dp.paddingL),
-                name = name,
-                weight = weight,
-                height = height,
-                btn = "Pick Up" to toTrainings
+            TextH2(
+                provideText = { "Success Registration" },
+                color = Design.colors.toxic,
+                textAlign = TextAlign.Center
             )
+
+            TextBody2(
+                provideText = { "Take your personal card!" },
+                textAlign = TextAlign.Center
+            )
+
+            PaddingWeight()
+
+            Levitating { modifier ->
+                UserCard(
+                    modifier = modifier.padding(Design.dp.paddingL),
+                    name = name,
+                    weight = weight,
+                    height = height,
+                    btn = "Pick Up" to toTrainings
+                )
+            }
+
+            PaddingWeight()
+
+            PaddingXL()
         }
-
-        PaddingWeight()
-
-        PaddingXL()
     }
 }
