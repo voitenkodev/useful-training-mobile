@@ -1,38 +1,46 @@
 package trainingbuilder.popups
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import atom.Design
 import components.chips.Chip
 import components.chips.ChipState
+import icons.Close
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
+import molecule.ButtonIconPrimary
 import molecule.ButtonPrimary
-import molecule.DividerHorizontal
 import molecule.PaddingM
 import molecule.PaddingS
 import molecule.TextBody1
 import molecule.TextH3
+import molecule.primaryBackground
 import platformBottomInset
 import trainingbuilder.state.MuscleType
 
 @Composable
 internal fun MusclePickerPopup(
     muscleTypes: ImmutableList<MuscleType>,
-    apply: (ImmutableList<MuscleType>) -> Unit
+    apply: (ImmutableList<MuscleType>) -> Unit,
+    close: () -> Unit
 ) {
 
     val innerList = remember(muscleTypes) {
@@ -53,63 +61,75 @@ internal fun MusclePickerPopup(
 
     Column(modifier = Modifier.fillMaxHeight(0.8f)) {
 
-        TextH3(
-            modifier = Modifier.padding(horizontal = Design.dp.paddingM),
-            provideText = { "Select Muscles" }
-        )
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            TextH3(
+                modifier = Modifier.padding(horizontal = Design.dp.paddingM),
+                provideText = { "Select Muscles" }
+            )
+
+            ButtonIconPrimary(
+                imageVector = Close,
+                onClick = close,
+                backgroundColor = Color.Transparent
+            )
+        }
 
         PaddingM()
 
-        LazyColumn(
-            modifier = Modifier.weight(1f),
-            contentPadding = PaddingValues(Design.dp.paddingM),
-            verticalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
-        ) {
-            items(innerList.value, key = { it.id }) {
+        Box(modifier = Modifier.weight(1f).primaryBackground()) {
 
-                TextBody1(
-                    provideText = { it.name }
-                )
+            LazyColumn(
+                modifier = Modifier.fillMaxSize(),
+                contentPadding = PaddingValues(Design.dp.paddingM),
+                verticalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
+            ) {
+                items(innerList.value, key = { it.id }) {
 
-                DividerHorizontal()
+                    TextBody1(
+                        provideText = { it.name }
+                    )
 
-                PaddingS()
+                    PaddingS()
 
-                FlowRow(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS),
-                    verticalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
-                ) {
+                    FlowRow(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS),
+                        verticalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
+                    ) {
 
-                    it.muscles.forEach { muscle ->
-                        Chip(
-                            chipState = if (muscle.isSelected) ChipState.Selected() else ChipState.Default(),
-                            onClick = { selectProvider.invoke(listOf(muscle.id)) },
-                            text = muscle.name
-                        )
+                        it.muscles.forEach { muscle ->
+                            Chip(
+                                chipState = if (muscle.isSelected) ChipState.Selected() else ChipState.Default(),
+                                onClick = { selectProvider.invoke(listOf(muscle.id)) },
+                                text = muscle.name
+                            )
+                        }
                     }
                 }
-            }
-        }
 
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(Design.colors.secondary)
-                .padding(Design.dp.paddingM)
-                .platformBottomInset(),
-            horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
-        ) {
+                item {
+                    Spacer(
+                        modifier = Modifier
+                            .platformBottomInset()
+                            .size(Design.dp.paddingM + Design.dp.componentM)
+                    )
+                }
+            }
+
             ButtonPrimary(
-                modifier = Modifier.weight(1f),
-                text = "Cancel",
-                enableBackgroundColor = Design.colors.secondary,
-                onClick = { }
-            )
-            ButtonPrimary(
-                modifier = Modifier.weight(1f),
+                modifier = Modifier
+                    .align(Alignment.BottomEnd)
+                    .padding(Design.dp.paddingM)
+                    .platformBottomInset(),
                 text = "Apply",
-                onClick = { apply.invoke(innerList.value) }
+                onClick = {
+                    apply.invoke(innerList.value)
+                    close.invoke()
+                }
             )
         }
     }

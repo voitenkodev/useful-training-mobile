@@ -103,7 +103,7 @@ private fun Content(
 
             PaddingXL()
 
-            PaddingXL()
+            PaddingM()
 
             TextH2(provideText = { "Alien Workout" })
 

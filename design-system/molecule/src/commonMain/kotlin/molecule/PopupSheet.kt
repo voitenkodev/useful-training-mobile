@@ -6,18 +6,32 @@ import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.unit.dp
 import atom.Design
+import kotlinx.coroutines.launch
 
 @Composable
 public fun PopupSheet(
     onDismiss: () -> Unit,
-    content: @Composable ColumnScope.() -> Unit
+    content: @Composable ColumnScope.(hideLambda: () -> Unit) -> Unit
 ) {
 
     val modalBottomSheetState = rememberModalBottomSheetState(
         skipPartiallyExpanded = true
     )
+
+    val scope = rememberCoroutineScope()
+
+    val hideLambda: () -> Unit = remember {
+        {
+            scope.launch {
+                modalBottomSheetState.hide()
+                onDismiss.invoke()
+            }
+        }
+    }
 
     ModalBottomSheet(
         onDismissRequest = { onDismiss() },
@@ -25,6 +39,8 @@ public fun PopupSheet(
         dragHandle = { BottomSheetDefaults.DragHandle() },
         containerColor = Design.colors.secondary,
         windowInsets = WindowInsets(top = 0.dp),
-        content = content
+        content = {
+            content.invoke(this, hideLambda)
+        }
     )
 }

@@ -16,6 +16,7 @@ import components.animation.Levitating
 import components.brand.UserCard
 import components.roots.Root
 import io.github.xxfast.decompose.router.LocalRouterContext
+import molecule.PaddingM
 import molecule.PaddingWeight
 import molecule.PaddingXL
 import molecule.TextBody2
@@ -61,7 +62,7 @@ private fun Content(
 
             PaddingXL()
 
-            PaddingXL()
+            PaddingM()
 
             TextH2(
                 provideText = { "Success Registration" },

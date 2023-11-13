@@ -71,10 +71,11 @@ internal fun TrainingContent(
 
     if (state.musclePickerPopupVisible) PopupSheet(
         onDismiss = vm::closePopups,
-        content = {
+        content = { hideLambda ->
             MusclePickerPopup(
                 muscleTypes = state.muscleTypes,
-                apply = vm::applyMuscles
+                apply = vm::applyMuscles,
+                close = hideLambda
             )
         }
     )

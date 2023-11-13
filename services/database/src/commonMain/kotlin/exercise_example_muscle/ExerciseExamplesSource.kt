@@ -113,6 +113,8 @@ public class ExerciseExamplesSource(nativeContext: NativeContext) {
 
     public fun setMuscleTypesWithMuscles(muscles: List<MuscleTypeDao>) {
         api.transaction {
+            api.deleteTableMuscleType()
+            api.deleteTableMuscle()
             muscles.forEach { setMuscleTypeWithMuscles(it) }
         }
     }
