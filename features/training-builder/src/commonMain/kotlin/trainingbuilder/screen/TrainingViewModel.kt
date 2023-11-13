@@ -45,7 +45,6 @@ internal class TrainingViewModel : ViewModel() {
             .launchIn(this)
     }
 
-
     // ________________ MUSCLES  ________________
 
     fun unselectMuscle(id: String) {}

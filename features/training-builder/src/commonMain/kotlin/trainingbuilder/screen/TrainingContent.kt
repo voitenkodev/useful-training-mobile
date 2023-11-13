@@ -23,7 +23,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import atom.Design
-import buildBoolean
 import com.arkivanov.essenty.backhandler.BackCallback
 import components.Error
 import components.Loading
@@ -70,36 +69,32 @@ internal fun TrainingContent(
         }
     }
 
-    PopupSheet(
-        visibility = buildBoolean {
-            addCondition(state.editExercisePopupIsVisible)
-            addCondition(state.musclePickerPopupVisible)
-        },
-        onClose = vm::closePopups,
-        sheetContent = {
-            if (state.editExercisePopupIsVisible) {
-                EditExercisePopup()
-            } else if (state.musclePickerPopupVisible) {
-                MusclePickerPopup(
-                    muscleTypes = state.muscleTypes,
-                    apply = vm::applyMuscles
-                )
-            }
-        },
+    if (state.musclePickerPopupVisible) PopupSheet(
+        onDismiss = vm::closePopups,
         content = {
-            Content(
-                error = state.error,
-                nextStep = vm::nextStep,
-                previousStep = vm::previousStep,
-                back = back,
-                clearError = vm::clearError,
-                selectedStep = state.selectedStep,
-                steps = state.steps,
-                selectedMuscles = state.muscleTypes,
-                addMuscle = vm::openMusclePicker,
-                unselectMuscle = vm::unselectMuscle
+            MusclePickerPopup(
+                muscleTypes = state.muscleTypes,
+                apply = vm::applyMuscles
             )
         }
+    )
+
+    if (state.editExercisePopupIsVisible) PopupSheet(
+        onDismiss = vm::closePopups,
+        content = { EditExercisePopup() }
+    )
+
+    Content(
+        error = state.error,
+        nextStep = vm::nextStep,
+        previousStep = vm::previousStep,
+        back = back,
+        clearError = vm::clearError,
+        selectedStep = state.selectedStep,
+        steps = state.steps,
+        selectedMuscles = state.muscleTypes,
+        addMuscle = vm::openMusclePicker,
+        unselectMuscle = vm::unselectMuscle
     )
 }
 

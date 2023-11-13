@@ -23,6 +23,7 @@ import components.chips.ChipState
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 import molecule.ButtonPrimary
+import molecule.PaddingM
 import molecule.PaddingS
 import molecule.TextBody1
 import molecule.TextH3
@@ -55,9 +56,9 @@ internal fun MusclePickerPopup(
         provideText = { "Select Muscles" }
     )
 
-    PaddingS()
+    PaddingM()
 
-    Box {
+    Box(modifier = Modifier.background(Design.colors.primary)) {
         LazyColumn(
             contentPadding = PaddingValues(Design.dp.paddingM),
             verticalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
@@ -96,7 +97,7 @@ internal fun MusclePickerPopup(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(Design.colors.black30)
+                .background(Design.colors.secondary)
                 .align(Alignment.BottomCenter)
                 .padding(Design.dp.paddingM)
                 .platformBottomInset(),
