@@ -32,7 +32,6 @@ import molecule.PaddingM
 import molecule.PaddingS
 import molecule.TextBody1
 import molecule.TextH3
-import molecule.primaryBackground
 import platformBottomInset
 import trainingbuilder.state.MuscleType
 
@@ -80,7 +79,7 @@ internal fun MusclePickerPopup(
 
         PaddingM()
 
-        Box(modifier = Modifier.weight(1f).primaryBackground()) {
+        Box(modifier = Modifier.weight(1f)) {
 
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
