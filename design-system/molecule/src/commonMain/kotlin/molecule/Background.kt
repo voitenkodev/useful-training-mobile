@@ -40,6 +40,15 @@ public fun Modifier.secondaryDefaultBackground(): Modifier = this
     ).clip(
         shape = Design.shape.default
     )
+@Composable
+public fun Modifier.secondaryCircleBackground(): Modifier = this
+    .borderCirclePrimary()
+    .background(
+        color = Design.colors.secondary,
+        shape = Design.shape.circleShape
+    ).clip(
+        shape = Design.shape.circleShape
+    )
 
 @Composable
 public fun Modifier.secondarySmallBackground(): Modifier = this

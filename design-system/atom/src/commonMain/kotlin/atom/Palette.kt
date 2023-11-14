@@ -11,6 +11,7 @@ public data class Color(
     val white5: Color = Color(0x0Dffffff),
     val white10: Color = Color(0x1Affffff),
     val black30: Color = Color(0x80000000),
+    val black80: Color = Color(0xCC000000),
 
     // Text
     val content: Color = Color(0xffffffff),
@@ -21,8 +22,9 @@ public data class Color(
     val toxic: Color = Color(0xffa3ec3f),
 
     // Accent Secondary
-    val red: Color = Color(0xffff2525),
+    val red: Color = Color(0xfff54949),
     val green: Color = Color(0xff37c554),
+    val yellow: Color = Color(0xff91c537),
     val purple: Color = Color(0xffa652d0),
     val blue: Color = Color(0xff0079fe)
 )

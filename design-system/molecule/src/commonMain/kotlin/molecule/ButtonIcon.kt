@@ -29,6 +29,7 @@ public fun ButtonIconPrimary(
         modifier = modifier
             .size(Design.dp.componentL)
             .alpha(if (enabled) 1f else 0.5f)
+            .borderDefaultPrimary()
             .background(
                 color = backgroundColor,
                 shape = Design.shape.circleShape
@@ -49,7 +50,7 @@ public fun ButtonIconPrimary(
 }
 
 @Composable
-public fun ButtonIconToolbar(
+public fun ButtonIconTransparent(
     modifier: Modifier = Modifier,
     imageVector: ImageVector,
     enabled: Boolean = true,

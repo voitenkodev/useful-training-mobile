@@ -10,9 +10,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import atom.Design
-import molecule.ButtonIconPrimary
+import molecule.ButtonIconTransparent
 import molecule.PaddingS
 import molecule.PaddingWeight
 import molecule.TextH2
@@ -47,10 +46,9 @@ internal fun Header(
 
             PaddingWeight()
 
-            ButtonIconPrimary(
+            ButtonIconTransparent(
                 imageVector = Icons.filters,
-                onClick = filterClick,
-                backgroundColor = Color.Transparent
+                onClick = filterClick
             )
         }
 

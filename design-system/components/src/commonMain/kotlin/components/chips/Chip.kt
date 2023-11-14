@@ -16,8 +16,9 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import atom.Design
 import molecule.IconSecondary
+import molecule.PaddingS
 import molecule.PaddingXS
-import molecule.TextBody3
+import molecule.TextBody2
 import molecule.coloredCircleBackgroundNoBorder
 import molecule.transparentCircleBackground
 import molecule.white5CircleBackground
@@ -42,7 +43,6 @@ public fun Chip(
     val interactionSource = remember { MutableInteractionSource() }
 
     val modifier = when (chipState) {
-
         is ChipState.Default -> Modifier
             .white5CircleBackground()
 
@@ -73,29 +73,31 @@ public fun Chip(
         verticalAlignment = Alignment.CenterVertically
     ) {
         if (iconEnd != null) {
-            PaddingXS()
+            PaddingS()
         }
 
         if (iconStart != null) {
+            PaddingXS()
             IconSecondary(
-                modifier = Modifier.size(18.dp),
+                modifier = Modifier.size(20.dp),
                 imageVector = iconStart
             )
         }
 
-        TextBody3(
+        TextBody2(
             provideText = { text }
         )
 
         if (iconEnd != null) {
             IconSecondary(
-                modifier = Modifier.size(18.dp),
+                modifier = Modifier.size(20.dp),
                 imageVector = iconEnd
             )
+            PaddingXS()
         }
 
         if (iconStart != null) {
-            PaddingXS()
+            PaddingS()
         }
     }
 }

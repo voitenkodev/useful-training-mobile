@@ -12,7 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import atom.Design
 import conditional
-import molecule.IconPrimary
+import molecule.ButtonIconTransparent
 import molecule.PaddingS
 import molecule.PaddingWeight
 import molecule.TextH2
@@ -52,9 +52,10 @@ internal fun Header(
 
             PaddingWeight()
 
-            IconPrimary(
+            ButtonIconTransparent(
                 imageVector = Icons.notifications,
-                contentColor = Design.colors.content
+                contentColor = Design.colors.content,
+                onClick = {}
             )
 
         }

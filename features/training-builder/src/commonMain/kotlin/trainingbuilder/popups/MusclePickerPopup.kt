@@ -1,19 +1,14 @@
 package trainingbuilder.popups
 
 import Icons
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
@@ -21,14 +16,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
 import atom.Design
 import components.chips.Chip
 import components.chips.ChipState
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
-import molecule.ButtonIconPrimary
+import molecule.ButtonIconTransparent
 import molecule.ButtonPrimary
 import molecule.ButtonTextLink
 import molecule.PaddingM
@@ -36,6 +29,7 @@ import molecule.PaddingS
 import molecule.Shadow
 import molecule.TextBody1
 import molecule.TextH3
+import molecule.primaryBackground
 import platformBottomInset
 import trainingbuilder.state.MuscleType
 
@@ -74,7 +68,10 @@ internal fun MusclePickerPopup(
         }
     }
 
-    Column(modifier = Modifier.fillMaxHeight(0.8f)) {
+    Column(
+        modifier = Modifier.fillMaxHeight(0.9f),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
 
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -86,91 +83,86 @@ internal fun MusclePickerPopup(
                 provideText = { "Select Muscles" }
             )
 
-            ButtonIconPrimary(
+            ButtonIconTransparent(
                 imageVector = Icons.close,
-                onClick = close,
-                backgroundColor = Color.Transparent
+                onClick = close
             )
         }
-
         PaddingS()
 
         Shadow()
 
-        Box(modifier = Modifier.weight(1f)) {
+        LazyColumn(
+            modifier = Modifier.weight(1f),
+            contentPadding = PaddingValues(Design.dp.paddingM),
+            verticalArrangement = Arrangement.spacedBy(Design.dp.paddingL)
+        ) {
 
-            LazyColumn(
-                modifier = Modifier.fillMaxSize(),
-                contentPadding = PaddingValues(Design.dp.paddingM),
-                verticalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
-            ) {
-                items(innerList.value, key = { it.id }) {
+//            item(key = "full_body") {
+//                Chip(
+//                    chipState = if (muscle.isSelected) ChipState.Selected() else ChipState.Default(),
+//                    onClick = { selectProvider.invoke(muscle.id) },
+//                    text = muscle.name
+//                )
+//            }
 
-                    val borderColor = when {
-                        it.muscles.count { c -> c.isSelected } == it.muscles.size -> Design.colors.toxic
-                        it.muscles.count { c -> c.isSelected } > 0 -> Design.colors.toxic.copy(alpha = 0.5f)
-                        else -> Design.colors.caption
-                    }
+            items(innerList.value, key = { it.id }) {
 
-                    Column(
-                        modifier = Modifier
-                            .border(
-                                color = borderColor,
-                                width = 1.dp,
-                                shape = Design.shape.default
-                            ).padding(Design.dp.paddingM)
+                Column {
+
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween
                     ) {
 
+                        TextBody1(provideText = { it.name })
 
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.SpaceBetween
-                        ) {
-
-                            TextBody1(provideText = { it.name })
-
-                            ButtonTextLink(
-                                text = if (it.muscles.any { it.isSelected.not() }) "ALL" else "CLEAR",
-                                onClick = { selectAllProvider.invoke(it.id) },
-                                color = Design.colors.caption
-                            )
-
+                        val textColor = when {
+                            it.muscles.count { c -> c.isSelected } == it.muscles.size -> Design.colors.red
+                            it.muscles.count { c -> c.isSelected } > 0 -> Design.colors.yellow
+                            else -> Design.colors.green
                         }
 
-                        PaddingM()
+                        ButtonTextLink(
+                            text = if (it.muscles.any { it.isSelected.not() }) "ADD ALL" else "CLEAR",
+                            onClick = { selectAllProvider.invoke(it.id) },
+                            color = textColor
+                        )
+                    }
 
-                        FlowRow(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS),
-                            verticalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
-                        ) {
+                    PaddingM()
 
-                            it.muscles.forEach { muscle ->
-                                Chip(
-                                    chipState = if (muscle.isSelected) ChipState.Selected() else ChipState.Default(),
-                                    onClick = { selectProvider.invoke(muscle.id) },
-                                    text = muscle.name
-                                )
-                            }
+                    FlowRow(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS),
+                        verticalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
+                    ) {
+
+                        it.muscles.forEach { muscle ->
+                            Chip(
+                                chipState = if (muscle.isSelected) ChipState.Selected() else ChipState.Default(),
+                                onClick = { selectProvider.invoke(muscle.id) },
+                                text = muscle.name
+                            )
                         }
                     }
                 }
-
-                item {
-                    Spacer(
-                        modifier = Modifier
-                            .platformBottomInset()
-                            .size(Design.dp.paddingM + Design.dp.componentM)
-                    )
-                }
             }
+        }
+
+        Shadow()
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .primaryBackground()
+                .padding(Design.dp.paddingM)
+                .platformBottomInset(),
+            horizontalArrangement = Arrangement.Center
+        ) {
 
             ButtonPrimary(
-                modifier = Modifier
-                    .align(Alignment.BottomEnd)
-                    .padding(Design.dp.paddingM)
-                    .platformBottomInset(),
                 text = "Apply",
                 onClick = {
                     apply.invoke(innerList.value)
