@@ -89,9 +89,7 @@ internal fun MusclePickerPopup(
             ) {
                 items(innerList.value, key = { it.id }) {
 
-                    TextBody1(
-                        provideText = { it.name }
-                    )
+                    TextBody1(provideText = { it.name })
 
                     PaddingS()
 

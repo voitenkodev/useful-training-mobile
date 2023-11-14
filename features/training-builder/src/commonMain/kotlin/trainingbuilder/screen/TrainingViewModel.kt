@@ -5,6 +5,7 @@ import ExerciseExamplesRepository
 import TrainingsRepository
 import ViewModel
 import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -48,7 +49,16 @@ internal class TrainingViewModel : ViewModel() {
     // ________________ MUSCLES  ________________
 
     fun unselectMuscle(id: String) {
-
+        _state.update {
+            val muscleTypes = it.muscleTypes.map { muscleType ->
+                val muscles = muscleType.muscles.map { muscle ->
+                    if (id == muscle.id) muscle.copy(isSelected = false)
+                    else muscle
+                }
+                muscleType.copy(muscles = muscles)
+            }.toPersistentList()
+            it.copy(muscleTypes = muscleTypes)
+        }
     }
 
     fun openMusclePicker() {

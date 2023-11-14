@@ -1,6 +1,7 @@
 package trainingbuilder.components
 
 import Icons
+import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.FlowRow
@@ -43,7 +44,7 @@ internal fun ConfigurationPage(
         PaddingM()
 
         FlowRow(
-            modifier = Modifier.fillMaxWidth().padding(horizontal = Design.dp.paddingM),
+            modifier = Modifier.fillMaxWidth().padding(horizontal = Design.dp.paddingM).animateContentSize(),
             horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS, Alignment.CenterHorizontally),
             verticalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
         ) {
