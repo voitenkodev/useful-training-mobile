@@ -1,5 +1,6 @@
 package profile.screen
 
+import Icons
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -19,11 +20,6 @@ import components.Error
 import components.animation.Levitating
 import components.brand.UserCard
 import components.roots.Root
-import icons.Card
-import icons.Dumbbell
-import icons.Logout
-import icons.Support
-import icons.Weigher
 import molecule.PaddingL
 import molecule.PaddingS
 import molecule.PaddingXL
@@ -125,13 +121,13 @@ private fun Content(
                     PaddingS()
 
                     MenuItem(
-                        icon = Weigher,
+                        icon = Icons.weigher,
                         text = "Weight History",
                         onClick = toWeightHistory
                     )
 
                     MenuItem(
-                        icon = Dumbbell,
+                        icon = Icons.dumbbell,
                         text = "Exercise Examples",
                         onClick = toExerciseExamples
                     )
@@ -160,19 +156,19 @@ private fun Content(
                     PaddingS()
 
                     MenuItem(
-                        icon = Card,
+                        icon = Icons.card,
                         text = "Subscriptions",
                         onClick = logout
                     )
 
                     MenuItem(
-                        icon = Support,
+                        icon = Icons.support,
                         text = "Support",
                         onClick = toSupport
                     )
 
                     MenuItem(
-                        icon = Logout,
+                        icon = Icons.logout,
                         text = "Logout",
                         contentColor = Design.colors.red,
                         onClick = logout

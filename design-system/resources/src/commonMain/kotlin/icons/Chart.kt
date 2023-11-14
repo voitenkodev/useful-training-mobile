@@ -12,7 +12,7 @@ import androidx.compose.ui.unit.dp
 
 private var _vector: ImageVector? = null
 
-public val Chart: ImageVector
+internal val Chart: ImageVector
     get() {
         if (_vector != null) {
             return _vector!!

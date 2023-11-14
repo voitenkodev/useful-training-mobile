@@ -1,5 +1,6 @@
 package trainingbuilder.screen
 
+import Icons
 import PlatformBackHandler
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -30,8 +31,6 @@ import components.Popup
 import components.indication.SlideIndicator
 import components.roots.Root
 import components.roots.ScrollableRoot
-import icons.ArrowLeft
-import icons.Done
 import io.github.xxfast.decompose.router.LocalRouterContext
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.coroutines.delay
@@ -228,7 +227,7 @@ private fun Content2(
             Row {
                 ButtonIconSecondary(
                     modifier = Modifier.size(Design.dp.componentL),
-                    imageVector = ArrowLeft,
+                    imageVector = Icons.arrowLeft,
                     onClick = openExitScreenPopupProvider
                 )
 
@@ -236,7 +235,7 @@ private fun Content2(
 
                 ButtonIconSecondary(
                     modifier = Modifier.size(Design.dp.componentL),
-                    imageVector = Done,
+                    imageVector = Icons.done,
                     onClick = saveTrainingProvider
                 )
             }

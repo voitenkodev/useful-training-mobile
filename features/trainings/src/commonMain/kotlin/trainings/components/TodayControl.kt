@@ -1,5 +1,6 @@
 package trainings.components
 
+import Icons
 import androidx.compose.animation.core.EaseOut
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
@@ -13,7 +14,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import atom.Design
-import icons.ArrowRight
 import molecule.ButtonIconPrimary
 
 @Composable
@@ -41,7 +41,7 @@ internal fun BoxScope.TodayControl(
             .width(width)
             .align(Alignment.CenterEnd)
             .offset(x = animatedDp),
-        imageVector = ArrowRight,
+        imageVector = Icons.arrowRight,
         onClick = click
     )
 }

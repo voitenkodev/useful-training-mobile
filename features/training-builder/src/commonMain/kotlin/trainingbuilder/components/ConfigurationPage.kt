@@ -1,5 +1,6 @@
 package trainingbuilder.components
 
+import Icons
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.FlowRow
@@ -50,7 +51,8 @@ internal fun ConfigurationPage(
             Chip(
                 chipState = ChipState.Colored(Design.colors.orange),
                 text = "Add Muscle",
-                onClick = addMuscle
+                onClick = addMuscle,
+                iconStart = Icons.add
             )
 
             val muscles = remember(selectedMuscles) {
@@ -68,7 +70,8 @@ internal fun ConfigurationPage(
                 Chip(
                     chipState = ChipState.Selected(),
                     onClick = { unselectMuscle.invoke(muscle.id) },
-                    text = muscle.name
+                    text = muscle.name,
+                    iconEnd = Icons.close
                 )
             }
         }

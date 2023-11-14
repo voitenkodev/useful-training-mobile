@@ -11,7 +11,7 @@ import androidx.compose.ui.unit.dp
 
 private var innerEyeOff: ImageVector? = null
 
-public val EyeOff: ImageVector
+internal val EyeOff: ImageVector
     get() {
         if (innerEyeOff != null) {
             return innerEyeOff!!

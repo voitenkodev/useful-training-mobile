@@ -12,7 +12,7 @@ import androidx.compose.ui.unit.dp
 
 private var _time: ImageVector? = null
 
-public val Time: ImageVector
+internal val Time: ImageVector
     get() {
         if (_time != null) {
             return _time!!

@@ -1,5 +1,6 @@
 package profile.components
 
+import Icons
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -11,7 +12,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import atom.Design
-import icons.ArrowRight
 import molecule.IconPrimary
 import molecule.PaddingWeight
 import molecule.TextH4
@@ -49,7 +49,7 @@ public fun MenuItem(
         PaddingWeight()
 
         if (allowRightArrow) IconPrimary(
-            imageVector = ArrowRight,
+            imageVector = Icons.arrowRight,
             contentColor = contentColor
         )
     }

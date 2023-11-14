@@ -1,5 +1,6 @@
 package trainingbuilder.popups
 
+import Icons
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -23,7 +24,6 @@ import androidx.compose.ui.graphics.Color
 import atom.Design
 import components.chips.Chip
 import components.chips.ChipState
-import icons.Close
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 import molecule.ButtonIconPrimary
@@ -72,7 +72,7 @@ internal fun MusclePickerPopup(
             )
 
             ButtonIconPrimary(
-                imageVector = Close,
+                imageVector = Icons.close,
                 onClick = close,
                 backgroundColor = Color.Transparent
             )

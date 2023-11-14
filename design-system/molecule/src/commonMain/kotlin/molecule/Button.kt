@@ -1,6 +1,6 @@
 package molecule
 
-import Loading
+import Icons
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.LinearEasing
@@ -101,7 +101,7 @@ public fun ButtonPrimary(
                     .size(Design.dp.componentM)
                     .padding(Design.dp.paddingXS)
                     .graphicsLayer(rotationZ = rotation),
-                imageVector = Loading,
+                imageVector = Icons.loading,
                 color = Design.colors.primary
             )
         }

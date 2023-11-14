@@ -12,7 +12,7 @@ import androidx.compose.ui.unit.dp
 
 private var _vector: ImageVector? = null
 
-public val Weight: ImageVector
+internal val Weight: ImageVector
     get() {
         if (_vector != null) {
             return _vector!!

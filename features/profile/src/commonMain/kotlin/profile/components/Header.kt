@@ -1,5 +1,6 @@
 package profile.components
 
+import Icons
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -11,7 +12,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import atom.Design
 import conditional
-import icons.Notifications
 import molecule.IconPrimary
 import molecule.PaddingS
 import molecule.PaddingWeight
@@ -53,7 +53,7 @@ internal fun Header(
             PaddingWeight()
 
             IconPrimary(
-                imageVector = Notifications,
+                imageVector = Icons.notifications,
                 contentColor = Design.colors.content
             )
 

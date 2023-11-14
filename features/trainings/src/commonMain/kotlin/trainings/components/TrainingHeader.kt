@@ -1,5 +1,6 @@
 package trainings.components
 
+import Icons
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
@@ -15,9 +16,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import atom.Design
 import basic.BasicLineChart
-import icons.HandWeight
-import icons.Time
-import icons.Weight
 import kotlinx.collections.immutable.ImmutableList
 import molecule.IconSecondary
 import molecule.TextBody3
@@ -47,7 +45,7 @@ internal fun TrainingHeader(
                 .secondaryDefaultBackground(),
             title = "VOLUME",
             value = training.volume,
-            icon = Weight,
+            icon = Icons.weight,
             values = training.volumeExerciseList
         )
 
@@ -62,7 +60,7 @@ internal fun TrainingHeader(
                     .padding(Design.dp.paddingS),
                 title = "Duration",
                 subTitle = "${training.duration} min",
-                icon = Time
+                icon = Icons.time
             )
 
             DefaultItem(
@@ -71,7 +69,7 @@ internal fun TrainingHeader(
                     .padding(Design.dp.paddingS),
                 title = "Intensity",
                 subTitle = training.intensity,
-                icon = HandWeight
+                icon = Icons.handWeight
             )
         }
     }

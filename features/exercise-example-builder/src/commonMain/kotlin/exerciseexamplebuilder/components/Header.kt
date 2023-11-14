@@ -1,5 +1,6 @@
 package exerciseexamplebuilder.components
 
+import Icons
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -21,7 +22,6 @@ import components.chips.ChipState
 import components.inputs.InputExerciseExampleName
 import exerciseexamplebuilder.state.ExerciseExample
 import exerciseexamplebuilder.state.MuscleExerciseBundle
-import icons.Delete
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toPersistentList
@@ -102,7 +102,7 @@ internal fun Header(
 
                 ButtonIconSecondary(
                     modifier = Modifier.size(24.dp),
-                    imageVector = Delete,
+                    imageVector = Icons.delete,
                     color = Design.colors.orange,
                     onClick = deleteExercise
                 )

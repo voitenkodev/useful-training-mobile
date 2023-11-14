@@ -34,7 +34,8 @@ public sealed class ChipState(public open val enabled: Boolean) {
 public fun Chip(
     chipState: ChipState = ChipState.Default(true),
     text: String,
-    icon: ImageVector? = null,
+    iconStart: ImageVector? = null,
+    iconEnd: ImageVector? = null,
     onClick: () -> Unit = {},
 ) {
 
@@ -65,26 +66,36 @@ public fun Chip(
                 onClick = onClick
             ).then(modifier)
             .padding(
-                horizontal = Design.dp.paddingS,
+                horizontal = if (iconEnd == null && iconStart == null) Design.dp.paddingM else Design.dp.paddingS,
                 vertical = Design.dp.paddingS
             ),
-        horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS),
+        horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingXS),
         verticalAlignment = Alignment.CenterVertically
     ) {
+        if (iconEnd != null) {
+            PaddingXS()
+        }
 
-        if (icon != null) {
+        if (iconStart != null) {
             IconSecondary(
                 modifier = Modifier.size(18.dp),
-                imageVector = icon
+                imageVector = iconStart
             )
-        } else {
-            PaddingXS()
         }
 
         TextBody3(
             provideText = { text }
         )
 
-        PaddingXS()
+        if (iconEnd != null) {
+            IconSecondary(
+                modifier = Modifier.size(18.dp),
+                imageVector = iconEnd
+            )
+        }
+
+        if (iconStart != null) {
+            PaddingXS()
+        }
     }
 }

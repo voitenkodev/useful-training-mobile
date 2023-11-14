@@ -1,5 +1,6 @@
 package statistics.components
 
+import Icons
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -11,9 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import atom.Design
-import icons.Filters
 import molecule.ButtonIconPrimary
-import molecule.IconPrimary
 import molecule.PaddingS
 import molecule.PaddingWeight
 import molecule.TextH2
@@ -22,7 +21,7 @@ import platformTopInset
 @Composable
 internal fun Header(
     modifier: Modifier = Modifier,
-    filterClick: ()-> Unit
+    filterClick: () -> Unit
 ) {
     Column(
         modifier = modifier
@@ -49,7 +48,7 @@ internal fun Header(
             PaddingWeight()
 
             ButtonIconPrimary(
-                imageVector = Filters,
+                imageVector = Icons.filters,
                 onClick = filterClick,
                 backgroundColor = Color.Transparent
             )
