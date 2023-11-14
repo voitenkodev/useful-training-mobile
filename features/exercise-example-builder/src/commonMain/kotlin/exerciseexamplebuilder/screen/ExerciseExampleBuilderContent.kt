@@ -119,7 +119,10 @@ private fun Content(
                 } else if (exerciseExample != null) {
                     items(exerciseExample.muscleExerciseBundles, key = { it.muscle.id }) { muscleExerciseBundle ->
                         Chip(
-                            chipState = ChipState.Colored(muscleExerciseBundle.color),
+                            chipState = ChipState.Colored(
+                                backgroundColor = muscleExerciseBundle.color,
+                                contentColor = Design.colors.content
+                            ),
                             text = buildString {
                                 append(muscleExerciseBundle.muscle.name)
                                 append(" ")

@@ -44,7 +44,7 @@ internal fun MusclePickerPopup(
         mutableStateOf(muscleTypes)
     }
 
-    val selectAllProvider = remember {
+    val selectAllMuscleTypeProvider = remember {
         { muscleTypeId: String ->
             innerList.value = innerList.value.map { muscleType ->
                 if (muscleTypeId != muscleType.id) return@map muscleType
@@ -62,6 +62,19 @@ internal fun MusclePickerPopup(
                 val muscles = muscleType.muscles.map { muscle ->
                     if (muscleId == muscle.id) muscle.copy(isSelected = muscle.isSelected.not())
                     else muscle
+                }
+                muscleType.copy(muscles = muscles)
+            }.toImmutableList()
+        }
+    }
+
+    val selectAllProvider = remember {
+        {
+            val newValue = innerList.value.all { it.muscles.all { it.isSelected } }.not()
+
+            innerList.value = innerList.value.map { muscleType ->
+                val muscles = muscleType.muscles.map {
+                    it.copy(isSelected = newValue)
                 }
                 muscleType.copy(muscles = muscles)
             }.toImmutableList()
@@ -98,13 +111,30 @@ internal fun MusclePickerPopup(
             verticalArrangement = Arrangement.spacedBy(Design.dp.paddingL)
         ) {
 
-//            item(key = "full_body") {
-//                Chip(
-//                    chipState = if (muscle.isSelected) ChipState.Selected() else ChipState.Default(),
-//                    onClick = { selectProvider.invoke(muscle.id) },
-//                    text = muscle.name
-//                )
-//            }
+            item(key = "full_body") {
+
+                val chipState = when {
+                    innerList.value.all { it.muscles.all { it.isSelected } } -> ChipState.Selected()
+
+                    innerList.value.all { it.muscles.all { it.isSelected.not() } } -> ChipState.Colored(
+                        backgroundColor = Design.colors.green,
+                        contentColor = Design.colors.primary
+                    )
+
+                    else -> ChipState.Colored(
+                        backgroundColor = Design.colors.yellow,
+                        contentColor = Design.colors.primary
+                    )
+                }
+
+                Chip(
+                    chipState = chipState,
+                    onClick = selectAllProvider,
+                    text = "Full Body"
+                )
+            }
+
+
 
             items(innerList.value, key = { it.id }) {
 
@@ -126,7 +156,7 @@ internal fun MusclePickerPopup(
 
                         ButtonTextLink(
                             text = if (it.muscles.any { it.isSelected.not() }) "ADD ALL" else "CLEAR",
-                            onClick = { selectAllProvider.invoke(it.id) },
+                            onClick = { selectAllMuscleTypeProvider.invoke(it.id) },
                             color = textColor
                         )
                     }

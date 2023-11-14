@@ -96,7 +96,11 @@ internal fun Header(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Chip(
-                    chipState = ChipState.Colored(color = Design.colors.orange, enabled = false),
+                    chipState = ChipState.Colored(
+                        backgroundColor = Design.colors.orange,
+                        contentColor = Design.colors.content,
+                        enabled = false
+                    ),
                     text = exerciseExample.name
                 )
 

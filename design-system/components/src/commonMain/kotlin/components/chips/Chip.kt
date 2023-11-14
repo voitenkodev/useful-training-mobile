@@ -28,7 +28,8 @@ public sealed class ChipState(public open val enabled: Boolean) {
     public data class HalfTransparent(override val enabled: Boolean = true) : ChipState(enabled)
     public data class Default(override val enabled: Boolean = true) : ChipState(enabled)
     public data class Selected(override val enabled: Boolean = true) : ChipState(enabled)
-    public data class Colored(val color: Color, override val enabled: Boolean = true) : ChipState(enabled)
+    public data class Colored(val contentColor: Color, val backgroundColor: Color, override val enabled: Boolean = true) :
+        ChipState(enabled)
 }
 
 @Composable
@@ -39,6 +40,10 @@ public fun Chip(
     iconEnd: ImageVector? = null,
     onClick: () -> Unit = {},
 ) {
+
+    val contentColor =
+        if (chipState is ChipState.Colored) chipState.contentColor
+        else Design.colors.content
 
     val interactionSource = remember { MutableInteractionSource() }
 
@@ -54,7 +59,7 @@ public fun Chip(
             .alpha(0.5f)
 
         is ChipState.Colored -> Modifier
-            .coloredCircleBackgroundNoBorder(color = chipState.color)
+            .coloredCircleBackgroundNoBorder(color = chipState.backgroundColor)
     }
 
     Row(
@@ -80,18 +85,21 @@ public fun Chip(
             PaddingXS()
             IconSecondary(
                 modifier = Modifier.size(20.dp),
-                imageVector = iconStart
+                imageVector = iconStart,
+                color = contentColor
             )
         }
 
         TextBody2(
-            provideText = { text }
+            provideText = { text },
+            color = contentColor
         )
 
         if (iconEnd != null) {
             IconSecondary(
                 modifier = Modifier.size(20.dp),
-                imageVector = iconEnd
+                imageVector = iconEnd,
+                color = contentColor
             )
             PaddingXS()
         }
