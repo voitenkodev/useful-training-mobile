@@ -1,6 +1,7 @@
 package trainingbuilder.popups
 
 import Icons
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -21,6 +22,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import atom.Design
 import components.chips.Chip
 import components.chips.ChipState
@@ -28,8 +30,10 @@ import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 import molecule.ButtonIconPrimary
 import molecule.ButtonPrimary
+import molecule.ButtonTextLink
 import molecule.PaddingM
 import molecule.PaddingS
+import molecule.Shadow
 import molecule.TextBody1
 import molecule.TextH3
 import platformBottomInset
@@ -46,11 +50,23 @@ internal fun MusclePickerPopup(
         mutableStateOf(muscleTypes)
     }
 
+    val selectAllProvider = remember {
+        { muscleTypeId: String ->
+            innerList.value = innerList.value.map { muscleType ->
+                if (muscleTypeId != muscleType.id) return@map muscleType
+                val muscles = muscleType.muscles.map {
+                    it.copy(isSelected = muscleType.muscles.any { it.isSelected.not() })
+                }
+                muscleType.copy(muscles = muscles)
+            }.toImmutableList()
+        }
+    }
+
     val selectProvider = remember {
-        { muscleIds: List<String> ->
+        { muscleId: String ->
             innerList.value = innerList.value.map { muscleType ->
                 val muscles = muscleType.muscles.map { muscle ->
-                    if (muscleIds.contains(muscle.id)) muscle.copy(isSelected = muscle.isSelected.not())
+                    if (muscleId == muscle.id) muscle.copy(isSelected = muscle.isSelected.not())
                     else muscle
                 }
                 muscleType.copy(muscles = muscles)
@@ -77,7 +93,9 @@ internal fun MusclePickerPopup(
             )
         }
 
-        PaddingM()
+        PaddingS()
+
+        Shadow()
 
         Box(modifier = Modifier.weight(1f)) {
 
@@ -88,22 +106,53 @@ internal fun MusclePickerPopup(
             ) {
                 items(innerList.value, key = { it.id }) {
 
-                    TextBody1(provideText = { it.name })
+                    val borderColor = when {
+                        it.muscles.count { c -> c.isSelected } == it.muscles.size -> Design.colors.toxic
+                        it.muscles.count { c -> c.isSelected } > 0 -> Design.colors.toxic.copy(alpha = 0.5f)
+                        else -> Design.colors.caption
+                    }
 
-                    PaddingS()
-
-                    FlowRow(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS),
-                        verticalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
+                    Column(
+                        modifier = Modifier
+                            .border(
+                                color = borderColor,
+                                width = 1.dp,
+                                shape = Design.shape.default
+                            ).padding(Design.dp.paddingM)
                     ) {
 
-                        it.muscles.forEach { muscle ->
-                            Chip(
-                                chipState = if (muscle.isSelected) ChipState.Selected() else ChipState.Default(),
-                                onClick = { selectProvider.invoke(listOf(muscle.id)) },
-                                text = muscle.name
+
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
+
+                            TextBody1(provideText = { it.name })
+
+                            ButtonTextLink(
+                                text = if (it.muscles.any { it.isSelected.not() }) "ALL" else "CLEAR",
+                                onClick = { selectAllProvider.invoke(it.id) },
+                                color = Design.colors.caption
                             )
+
+                        }
+
+                        PaddingM()
+
+                        FlowRow(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS),
+                            verticalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
+                        ) {
+
+                            it.muscles.forEach { muscle ->
+                                Chip(
+                                    chipState = if (muscle.isSelected) ChipState.Selected() else ChipState.Default(),
+                                    onClick = { selectProvider.invoke(muscle.id) },
+                                    text = muscle.name
+                                )
+                            }
                         }
                     }
                 }

@@ -12,6 +12,7 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -25,6 +26,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -33,7 +35,6 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import atom.Design
 
@@ -140,24 +141,23 @@ public fun ButtonTextLink(
     text: String,
     onClick: () -> Unit,
     enabled: Boolean = true,
-    color: Color? = null,
+    color: Color = Design.colors.content,
     leadIcon: ImageVector? = null,
 ) {
 
-    val innerTextColor = color ?: Design.colors.content
     val innerBackgroundColor = Color.Companion.Transparent
 
-    Button(
-        modifier = modifier,
-        text = text,
-        contentPadding = PaddingValues(vertical = 0.dp),
-        textStyle = Design.typography.TertiaryButton.copy(color = innerTextColor, fontWeight = FontWeight.Bold),
-        enabled = enabled,
-        onClick = onClick,
-        colors = ButtonDefaults.buttonColors(backgroundColor = innerBackgroundColor),
-        shape = Design.shape.default,
-        borderStroke = null,
-        leadIcon = leadIcon
+    Design.typography.TertiaryButton
+
+    TextField(
+        modifier = Modifier
+            .clickable(
+                interactionSource = remember { MutableInteractionSource() },
+                indication = null,
+                onClick = onClick
+            ),
+        provideText = { text },
+        textStyle = Design.typography.TertiaryButton.copy(color = color)
     )
 }
 

@@ -25,8 +25,8 @@ import components.roots.Root
 import components.states.animateAlignmentAsState
 import components.states.keyboardAsBoolean
 import molecule.ButtonPrimary
+import molecule.PaddingL
 import molecule.PaddingM
-import molecule.PaddingS
 import molecule.PaddingXL
 import molecule.TextBody2
 import molecule.TextH2
@@ -138,7 +138,7 @@ private fun Content(
                 )
             }
 
-            PaddingS()
+            PaddingL()
 
             ButtonQuestion(
                 modifier = Modifier.fillMaxWidth(),
@@ -147,7 +147,7 @@ private fun Content(
                 onClick = registrationProvider
             )
 
-            PaddingM()
+            PaddingL()
         }
 
         AlphaOverlay(
