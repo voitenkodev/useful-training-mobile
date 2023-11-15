@@ -12,6 +12,7 @@ import icons.Eye
 import icons.EyeOff
 import icons.Filters
 import icons.HandWeight
+import icons.Legs
 import icons.Logout
 import icons.Notifications
 import icons.Person
@@ -42,4 +43,7 @@ public object Icons {
     public val time: ImageVector = Time
     public val weight: ImageVector = Weight
     public val weigher: ImageVector = Weigher
+
+    // muscle parts
+    public val legs: ImageVector = Legs
 }

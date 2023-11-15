@@ -1,6 +1,7 @@
 package trainingbuilder.popups
 
 import Icons
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.FlowRow
@@ -134,8 +135,6 @@ internal fun MusclePickerPopup(
                 )
             }
 
-
-
             items(innerList.value, key = { it.id }) {
 
                 Column {
@@ -163,42 +162,49 @@ internal fun MusclePickerPopup(
 
                     PaddingM()
 
-                    FlowRow(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS),
-                        verticalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
-                    ) {
+                    Row {
+                        FlowRow(
+                            modifier = Modifier.weight(0.6f),
+                            horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS),
+                            verticalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
+                        ) {
 
-                        it.muscles.forEach { muscle ->
-                            Chip(
-                                chipState = if (muscle.isSelected) ChipState.Selected() else ChipState.Default(),
-                                onClick = { selectProvider.invoke(muscle.id) },
-                                text = muscle.name
-                            )
+                            it.muscles.forEach { muscle ->
+                                Chip(
+                                    chipState = if (muscle.isSelected) ChipState.Selected() else ChipState.Default(),
+                                    onClick = { selectProvider.invoke(muscle.id) },
+                                    text = muscle.name
+                                )
+                            }
                         }
+                        Image(
+                            modifier = Modifier.weight(0.4f),
+                            imageVector = Icons.legs,
+                            contentDescription = null
+                        )
                     }
                 }
             }
         }
+    }
 
-        Shadow()
+    Shadow()
 
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .primaryBackground()
-                .padding(Design.dp.paddingM)
-                .platformBottomInset(),
-            horizontalArrangement = Arrangement.Center
-        ) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .primaryBackground()
+            .padding(Design.dp.paddingM)
+            .platformBottomInset(),
+        horizontalArrangement = Arrangement.Center
+    ) {
 
-            ButtonPrimary(
-                text = "Apply",
-                onClick = {
-                    apply.invoke(innerList.value)
-                    close.invoke()
-                }
-            )
-        }
+        ButtonPrimary(
+            text = "Apply",
+            onClick = {
+                apply.invoke(innerList.value)
+                close.invoke()
+            }
+        )
     }
 }
