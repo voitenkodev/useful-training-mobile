@@ -34,6 +34,7 @@ import molecule.primaryBackground
 import musclepickerpicker.bodyBack
 import musclepickerpicker.bodyFront
 import musclepickerpicker.bodySplit
+import musclepickerpicker.legsSplit
 import platformBottomInset
 import trainingbuilder.state.MuscleType
 
@@ -182,17 +183,13 @@ internal fun MusclePickerPopup(
                         }
                         Image(
                             modifier = Modifier.weight(0.4f),
-                            imageVector = bodyFront(
+                            imageVector = legsSplit(
                                 outlineColor = Design.colors.caption,
-                                forearm = Design.colors.caption,
-                                rectusAbdominis = Design.colors.caption,
-                                obliquesAbdominis = Design.colors.caption,
-                                pectoralisMajor = Design.colors.caption,
-                                pectoralisMinor = Design.colors.caption,
-                                lateralDeltoid = Design.colors.caption,
-                                anteriorDeltoid = Design.colors.caption,
-                                biceps = Design.colors.caption,
                                 other = Design.colors.caption,
+                                quadriceps = Design.colors.caption,
+                                calf = Design.colors.caption,
+                                gluteal = Design.colors.caption,
+                                hamstrings = Design.colors.caption
                             ),
                             contentDescription = null
                         )
