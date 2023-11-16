@@ -31,10 +31,6 @@ import molecule.Shadow
 import molecule.TextBody1
 import molecule.TextH3
 import molecule.primaryBackground
-import musclepickerpicker.bodyBack
-import musclepickerpicker.bodyFront
-import musclepickerpicker.bodySplit
-import musclepickerpicker.legsSplit
 import platformBottomInset
 import trainingbuilder.state.MuscleType
 
@@ -87,7 +83,7 @@ internal fun MusclePickerPopup(
     }
 
     Column(
-        modifier = Modifier.fillMaxHeight(0.9f),
+        modifier = Modifier.fillMaxHeight(0.85f),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
@@ -142,7 +138,6 @@ internal fun MusclePickerPopup(
             items(innerList.value, key = { it.id }) {
 
                 Column {
-
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         verticalAlignment = Alignment.CenterVertically,
@@ -183,14 +178,7 @@ internal fun MusclePickerPopup(
                         }
                         Image(
                             modifier = Modifier.weight(0.4f),
-                            imageVector = legsSplit(
-                                outlineColor = Design.colors.caption,
-                                other = Design.colors.caption,
-                                quadriceps = Design.colors.caption,
-                                calf = Design.colors.caption,
-                                gluteal = Design.colors.caption,
-                                hamstrings = Design.colors.caption
-                            ),
+                            imageVector = it.imageVector,
                             contentDescription = null
                         )
                     }

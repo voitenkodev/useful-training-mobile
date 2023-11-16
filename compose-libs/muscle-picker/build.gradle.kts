@@ -15,6 +15,8 @@ kotlin {
             dependencies {
                 implementation(compose.ui)
                 implementation(compose.foundation)
+
+                implementation(projects.designSystem.atom)
             }
         }
     }

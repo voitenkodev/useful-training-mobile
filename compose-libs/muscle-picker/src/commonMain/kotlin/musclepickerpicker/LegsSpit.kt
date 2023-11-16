@@ -1,5 +1,6 @@
 package musclepickerpicker
 
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.PathFillType
 import androidx.compose.ui.graphics.SolidColor
@@ -8,14 +9,15 @@ import androidx.compose.ui.graphics.StrokeJoin
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.path
 import androidx.compose.ui.unit.dp
+import atom.Design
 
 public fun legsSplit(
-    outlineColor: Color,
-    quadriceps: Color,
-    gluteal: Color,
-    hamstrings: Color,
-    calf: Color,
-    other: Color
+    outlineColor: Color = Design.palette.content,
+    quadriceps: Color = Design.palette.caption,
+    gluteal: Color = Design.palette.caption,
+    hamstrings: Color = Design.palette.caption,
+    calf: Color = Design.palette.caption,
+    other: Color = Design.palette.caption
 ): ImageVector {
     return ImageVector.Builder(
         name = "vector",

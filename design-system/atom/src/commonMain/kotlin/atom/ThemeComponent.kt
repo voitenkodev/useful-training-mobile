@@ -12,6 +12,9 @@ public object Design {
         @Composable get() = LocalDp.current
     public val shape: Shape
         @Composable get() = LocalShape.current
+
+    // Hack (probably find another way to use colors from ViewModel)
+    public val palette: Color = Color()
 }
 
 internal val LocalColor = staticCompositionLocalOf<Color> { error("No colors provided") }
