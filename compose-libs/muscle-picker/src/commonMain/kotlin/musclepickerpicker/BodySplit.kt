@@ -30,7 +30,6 @@ public fun bodySplit(
     pectoralisMinor: Color,
 
     other: Color
-
 ): ImageVector {
     return ImageVector.Builder(
         name = "vector",
@@ -173,7 +172,7 @@ public fun bodySplit(
             close()
         }
         path(
-            fill = SolidColor(posteriorDeltoid),
+            fill = SolidColor(lateralDeltoid),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,

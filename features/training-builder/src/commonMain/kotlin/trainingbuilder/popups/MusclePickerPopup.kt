@@ -31,6 +31,8 @@ import molecule.Shadow
 import molecule.TextBody1
 import molecule.TextH3
 import molecule.primaryBackground
+import musclepickerpicker.bodyBack
+import musclepickerpicker.bodyFront
 import musclepickerpicker.bodySplit
 import platformBottomInset
 import trainingbuilder.state.MuscleType
@@ -180,13 +182,8 @@ internal fun MusclePickerPopup(
                         }
                         Image(
                             modifier = Modifier.weight(0.4f),
-                            imageVector = bodySplit(
+                            imageVector = bodyFront(
                                 outlineColor = Design.colors.caption,
-                                rhomboids = Design.colors.caption,
-                                latissimus = Design.colors.caption,
-                                trapezius = Design.colors.caption,
-                                posteriorDeltoid = Design.colors.caption,
-                                triceps = Design.colors.caption,
                                 forearm = Design.colors.caption,
                                 rectusAbdominis = Design.colors.caption,
                                 obliquesAbdominis = Design.colors.caption,
