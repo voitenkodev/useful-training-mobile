@@ -19,7 +19,6 @@ import org.koin.core.component.inject
 import round
 import trainingbuilder.mapping.toBody
 import trainingbuilder.mapping.toState
-import trainingbuilder.mapping.toTrainingState
 import trainingbuilder.state.Exercise
 import trainingbuilder.state.Iteration
 import trainingbuilder.state.MuscleType
@@ -105,7 +104,7 @@ internal class TrainingViewModel : ViewModel() {
             .onEach {
                 _state.value = state.value.copy(
                     training = it
-                        .toTrainingState()
+                        .toState()
                         .provideEmptyIterations(),
                     loading = false,
                 )

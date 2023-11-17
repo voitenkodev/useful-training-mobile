@@ -9,6 +9,7 @@ internal fun MuscleType.toDao(muscles: List<MuscleDao>): MuscleTypeDao {
         id = id,
         name = name,
         muscles = muscles,
+        type = type,
         createdAt = createdAt ?: "",
         updatedAt = updatedAt ?: ""
     )

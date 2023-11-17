@@ -131,7 +131,8 @@ public class ExerciseExamplesSource(nativeContext: NativeContext) {
             id = muscleType.id,
             name = muscleType.name,
             createdAt = muscleType.createdAt,
-            updatedAt = muscleType.updatedAt
+            updatedAt = muscleType.updatedAt,
+            type = muscleType.type
         )
         muscleType.muscles.forEach { muscle ->
             api.setMuscle(
@@ -139,7 +140,8 @@ public class ExerciseExamplesSource(nativeContext: NativeContext) {
                 name = muscle.name,
                 createdAt = muscle.createdAt,
                 updatedAt = muscle.updatedAt,
-                muscleTypeId = muscleType.id
+                muscleTypeId = muscleType.id,
+                type = muscle.type
             )
         }
     }

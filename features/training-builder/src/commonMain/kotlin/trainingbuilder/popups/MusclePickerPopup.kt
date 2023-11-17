@@ -3,12 +3,14 @@ package trainingbuilder.popups
 import Icons
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -17,6 +19,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import atom.Design
 import components.chips.Chip
 import components.chips.ChipState
@@ -24,14 +27,14 @@ import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 import molecule.ButtonIconTransparent
 import molecule.ButtonPrimary
-import molecule.ButtonTextLink
 import molecule.PaddingM
 import molecule.PaddingS
 import molecule.Shadow
-import molecule.TextBody1
 import molecule.TextH3
 import molecule.primaryBackground
+import molecule.secondaryDefaultBackground
 import platformBottomInset
+import trainingbuilder.factory.muscleImage
 import trainingbuilder.state.MuscleType
 
 @Composable
@@ -59,12 +62,22 @@ internal fun MusclePickerPopup(
 
     val selectProvider = remember {
         { muscleId: String ->
+
             innerList.value = innerList.value.map { muscleType ->
                 val muscles = muscleType.muscles.map { muscle ->
                     if (muscleId == muscle.id) muscle.copy(isSelected = muscle.isSelected.not())
                     else muscle
                 }
-                muscleType.copy(muscles = muscles)
+                val image = muscleImage(
+                    muscleTypeEnumState = muscleType.type,
+                    muscles = muscles
+                )
+
+                muscleType.copy(
+                    muscles = muscles,
+                    imageVector = image
+                )
+
             }.toImmutableList()
         }
     }
@@ -136,35 +149,68 @@ internal fun MusclePickerPopup(
             }
 
             items(innerList.value, key = { it.id }) {
+//                Box(
+//                    modifier = Modifier
+//                        .fillMaxWidth()
+//                        .secondaryDefaultBackground()
+//                        .padding(Design.dp.paddingM)
+//                        .height(240.dp)
+//                ) {
+//
+//                    Image(
+//                        modifier = Modifier
+//                            .padding(vertical = Design.dp.paddingM)
+//                            .aspectRatio(1f)
+//                            .fillMaxHeight()
+//                            .align(Alignment.CenterEnd),
+//                        imageVector = it.imageVector,
+//                        contentDescription = null
+//                    )
+//
+//                    Column(modifier = Modifier.fillMaxWidth(0.6f)) {
+//                        TextH3(provideText = { it.name })
+//                        PaddingM()
+//                        Column(verticalArrangement = Arrangement.spacedBy(Design.dp.paddingS)) {
+//
+//                            it.muscles.forEach { muscle ->
+//                                Chip(
+//                                    chipState = if (muscle.isSelected) ChipState.Selected() else ChipState.Default(),
+//                                    onClick = { selectProvider.invoke(muscle.id) },
+//                                    text = muscle.name
+//                                )
+//                            }
+//                        }
+//                    }
+//                }
 
-                Column {
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .secondaryDefaultBackground()
+                        .padding(Design.dp.paddingM)
+                        .height(240.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
 
-                        TextBody1(provideText = { it.name })
-
-                        val textColor = when {
-                            it.muscles.count { c -> c.isSelected } == it.muscles.size -> Design.colors.red
-                            it.muscles.count { c -> c.isSelected } > 0 -> Design.colors.yellow
-                            else -> Design.colors.green
-                        }
-
-                        ButtonTextLink(
-                            text = if (it.muscles.any { it.isSelected.not() }) "ADD ALL" else "CLEAR",
-                            onClick = { selectAllMuscleTypeProvider.invoke(it.id) },
-                            color = textColor
-                        )
-                    }
-
+                    TextH3(provideText = { it.name })
                     PaddingM()
 
-                    Row {
-                        FlowRow(
-                            modifier = Modifier.weight(0.6f),
-                            horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS),
+
+                    Box(modifier = Modifier.fillMaxWidth()) {
+
+                        Image(
+                            modifier = Modifier
+                                .padding(vertical = Design.dp.paddingM)
+                                .aspectRatio(1f)
+                                .fillMaxHeight()
+                                .align(Alignment.CenterEnd),
+                            imageVector = it.imageVector,
+                            contentDescription = null
+                        )
+
+
+                        Column(
+                            modifier = Modifier.fillMaxWidth(0.6f),
                             verticalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
                         ) {
 
@@ -176,11 +222,6 @@ internal fun MusclePickerPopup(
                                 )
                             }
                         }
-                        Image(
-                            modifier = Modifier.weight(0.4f),
-                            imageVector = it.imageVector,
-                            contentDescription = null
-                        )
                     }
                 }
             }

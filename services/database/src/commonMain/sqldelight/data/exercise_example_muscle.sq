@@ -18,6 +18,7 @@ CREATE TABLE IF NOT EXISTS Muscle (
     id TEXT NOT NULL PRIMARY KEY,
     muscleTypeId TEXT NOT NULL REFERENCES MuscleType(id) ON DELETE CASCADE,
     name TEXT NOT NULL,
+    type TEXT NOT NULL,
     createdAt TEXT NOT NULL,
     updatedAt TEXT NOT NULL
 );
@@ -25,6 +26,7 @@ CREATE TABLE IF NOT EXISTS Muscle (
 CREATE TABLE IF NOT EXISTS MuscleType (
     id TEXT NOT NULL PRIMARY KEY,
     name TEXT NOT NULL,
+    type TEXT NOT NULL,
     createdAt TEXT,
     updatedAt TEXT
 );
@@ -67,11 +69,11 @@ VALUES (?,?,?,?);
 
 setMuscle:
 INSERT OR IGNORE INTO Muscle
-VALUES (?,?,?,?,?);
+VALUES (?,?,?,?,?,?);
 
 setMuscleType:
 INSERT OR IGNORE INTO MuscleType
-VALUES (?,?,?,?);
+VALUES (?,?,?,?,?);
 
 setMuscleExerciseBundle:
 INSERT OR REPLACE INTO MuscleExerciseBundle

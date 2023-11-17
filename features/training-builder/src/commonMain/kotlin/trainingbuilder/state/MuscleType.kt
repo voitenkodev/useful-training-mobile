@@ -9,5 +9,6 @@ internal data class MuscleType(
     val name: String = "",
     val muscles: List<Muscle>,
     val isSelected: Boolean,
+    val type: MuscleTypeEnumState,
     val imageVector: ImageVector
 )

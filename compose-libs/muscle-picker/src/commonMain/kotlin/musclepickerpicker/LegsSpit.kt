@@ -1,6 +1,5 @@
 package musclepickerpicker
 
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.PathFillType
 import androidx.compose.ui.graphics.SolidColor
@@ -9,15 +8,15 @@ import androidx.compose.ui.graphics.StrokeJoin
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.path
 import androidx.compose.ui.unit.dp
-import atom.Design
 
 public fun legsSplit(
-    outlineColor: Color = Design.palette.content,
-    quadriceps: Color = Design.palette.caption,
-    gluteal: Color = Design.palette.caption,
-    hamstrings: Color = Design.palette.caption,
-    calf: Color = Design.palette.caption,
-    other: Color = Design.palette.caption
+    outlineColor: Color = Colors.outline,
+    quadriceps: Color = Colors.defaultFront,
+    gluteal: Color = Colors.defaultBack,
+    hamstrings: Color = Colors.defaultBack,
+    calf: Color = Colors.defaultBack,
+    otherFront: Color = Colors.defaultFront,
+    otherBack: Color = Colors.defaultBack
 ): ImageVector {
     return ImageVector.Builder(
         name = "vector",
@@ -93,7 +92,7 @@ public fun legsSplit(
             close()
         }
         path(
-            fill = SolidColor(other),
+            fill = SolidColor(otherBack),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,
@@ -113,7 +112,7 @@ public fun legsSplit(
             close()
         }
         path(
-            fill = SolidColor(other),
+            fill = SolidColor(otherBack),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,
@@ -522,7 +521,7 @@ public fun legsSplit(
         path(
             fill = null,
             fillAlpha = 1.0f,
-            stroke = SolidColor(Color(0xFFFFFFFF)),
+            stroke = SolidColor(outlineColor),
             strokeAlpha = 1.0f,
             strokeLineWidth = 1.0f,
             strokeLineCap = StrokeCap.Butt,
@@ -576,7 +575,7 @@ public fun legsSplit(
             close()
         }
         path(
-            fill = SolidColor(other),
+            fill = SolidColor(otherFront),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,
@@ -594,7 +593,7 @@ public fun legsSplit(
             close()
         }
         path(
-            fill = SolidColor(other),
+            fill = SolidColor(otherFront),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,
@@ -613,7 +612,7 @@ public fun legsSplit(
             close()
         }
         path(
-            fill = SolidColor(other),
+            fill = SolidColor(otherFront),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,
@@ -632,7 +631,7 @@ public fun legsSplit(
             close()
         }
         path(
-            fill = SolidColor(other),
+            fill = SolidColor(otherFront),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,
@@ -651,7 +650,7 @@ public fun legsSplit(
             close()
         }
         path(
-            fill = SolidColor(other),
+            fill = SolidColor(otherFront),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,
@@ -670,7 +669,7 @@ public fun legsSplit(
             close()
         }
         path(
-            fill = SolidColor(other),
+            fill = SolidColor(otherFront),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,
@@ -690,7 +689,7 @@ public fun legsSplit(
             close()
         }
         path(
-            fill = SolidColor(other),
+            fill = SolidColor(otherFront),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,
@@ -708,7 +707,7 @@ public fun legsSplit(
             close()
         }
         path(
-            fill = SolidColor(other),
+            fill = SolidColor(otherFront),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,
@@ -726,7 +725,7 @@ public fun legsSplit(
             close()
         }
         path(
-            fill = SolidColor(other),
+            fill = SolidColor(otherFront),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,
@@ -742,7 +741,7 @@ public fun legsSplit(
             close()
         }
         path(
-            fill = SolidColor(other),
+            fill = SolidColor(otherFront),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,
@@ -763,7 +762,7 @@ public fun legsSplit(
             close()
         }
         path(
-            fill = SolidColor(other),
+            fill = SolidColor(otherFront),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,
@@ -785,7 +784,7 @@ public fun legsSplit(
             close()
         }
         path(
-            fill = SolidColor(other),
+            fill = SolidColor(otherFront),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,
@@ -801,7 +800,7 @@ public fun legsSplit(
             close()
         }
         path(
-            fill = SolidColor(other),
+            fill = SolidColor(otherFront),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,
@@ -820,7 +819,7 @@ public fun legsSplit(
             close()
         }
         path(
-            fill = SolidColor(other),
+            fill = SolidColor(otherFront),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,
@@ -841,7 +840,7 @@ public fun legsSplit(
             close()
         }
         path(
-            fill = SolidColor(other),
+            fill = SolidColor(otherFront),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,
@@ -858,7 +857,7 @@ public fun legsSplit(
             close()
         }
         path(
-            fill = SolidColor(other),
+            fill = SolidColor(otherFront),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,
@@ -1098,7 +1097,7 @@ public fun legsSplit(
             close()
         }
         path(
-            fill = SolidColor(other),
+            fill = SolidColor(otherFront),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,
@@ -1116,7 +1115,7 @@ public fun legsSplit(
             close()
         }
         path(
-            fill = SolidColor(other),
+            fill = SolidColor(otherFront),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,
@@ -1134,7 +1133,7 @@ public fun legsSplit(
             close()
         }
         path(
-            fill = SolidColor(other),
+            fill = SolidColor(otherFront),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,
@@ -1152,7 +1151,7 @@ public fun legsSplit(
             close()
         }
         path(
-            fill = SolidColor(other),
+            fill = SolidColor(otherFront),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,
@@ -1170,7 +1169,7 @@ public fun legsSplit(
             close()
         }
         path(
-            fill = SolidColor(other),
+            fill = SolidColor(otherFront),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,
@@ -1188,7 +1187,7 @@ public fun legsSplit(
             close()
         }
         path(
-            fill = SolidColor(other),
+            fill = SolidColor(otherFront),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,

@@ -5,14 +5,15 @@ import kotlinx.collections.immutable.toPersistentList
 import trainingbuilder.state.Muscle
 
 internal fun List<models.Muscle>.toState(): ImmutableList<Muscle> {
-    return map { it.toState() }
+    return mapNotNull { it.toState() }
         .toPersistentList()
 }
 
-internal fun models.Muscle.toState(): Muscle {
+internal fun models.Muscle.toState(): Muscle? {
     return Muscle(
         name = name,
         id = id,
-        isSelected = false
+        isSelected = false,
+        type = type.toState() ?: return null
     )
 }

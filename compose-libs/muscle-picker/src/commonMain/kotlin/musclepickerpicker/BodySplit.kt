@@ -8,28 +8,32 @@ import androidx.compose.ui.graphics.StrokeJoin
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.path
 import androidx.compose.ui.unit.dp
-import atom.Design
 
 public fun bodySplit(
-    outlineColor: Color = Design.palette.content,
-    rhomboids: Color = Design.palette.caption,
-    latissimus: Color = Design.palette.caption,
-    trapezius: Color = Design.palette.caption,
-    triceps: Color = Design.palette.caption,
-    biceps: Color = Design.palette.caption,
-    forearm: Color = Design.palette.caption,
+    outlineColor: Color = Colors.outline,
 
-    posteriorDeltoid: Color = Design.palette.caption,
-    lateralDeltoid: Color = Design.palette.caption,
-    anteriorDeltoid: Color = Design.palette.caption,
+    rhomboids: Color = Colors.defaultBack,
+    latissimus: Color = Colors.defaultBack,
+    trapezius: Color = Colors.defaultBack,
 
-    rectusAbdominis: Color = Design.palette.caption,
-    obliquesAbdominis: Color = Design.palette.caption,
+    triceps: Color = Colors.defaultBack,
+    biceps: Color = Colors.defaultFront,
+    forearmFront: Color = Colors.defaultFront,
+    forearmBack: Color = Colors.defaultBack,
 
-    pectoralisMajor: Color = Design.palette.caption,
-    pectoralisMinor: Color = Design.palette.caption,
+    posteriorDeltoid: Color = Colors.defaultBack,
+    lateralDeltoidFront: Color = Colors.defaultFront,
+    lateralDeltoidBack: Color = Colors.defaultBack,
+    anteriorDeltoid: Color = Colors.defaultFront,
 
-    other: Color = Design.palette.caption
+    rectusAbdominis: Color = Colors.defaultFront,
+    obliquesAbdominis: Color = Colors.defaultFront,
+
+    pectoralisMajor: Color = Colors.defaultFront,
+    pectoralisMinor: Color = Colors.defaultFront,
+
+    otherFront: Color = Colors.defaultFront,
+    otherBack: Color = Colors.defaultBack
 ): ImageVector {
 
 
@@ -173,7 +177,7 @@ public fun bodySplit(
             close()
         }
         path(
-            fill = SolidColor(lateralDeltoid),
+            fill = SolidColor(lateralDeltoidBack),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,
@@ -245,7 +249,7 @@ public fun bodySplit(
         }
 
         path(
-            fill = SolidColor(forearm),
+            fill = SolidColor(forearmBack),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,
@@ -263,7 +267,7 @@ public fun bodySplit(
             close()
         }
         path(
-            fill = SolidColor(forearm),
+            fill = SolidColor(forearmBack),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,
@@ -279,7 +283,7 @@ public fun bodySplit(
             close()
         }
         path(
-            fill = SolidColor(forearm),
+            fill = SolidColor(forearmBack),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,
@@ -297,7 +301,7 @@ public fun bodySplit(
         }
 
         path(
-            fill = SolidColor(other),
+            fill = SolidColor(otherBack),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,
@@ -313,7 +317,7 @@ public fun bodySplit(
             close()
         }
         path(
-            fill = SolidColor(other),
+            fill = SolidColor(otherBack),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,
@@ -330,7 +334,7 @@ public fun bodySplit(
             close()
         }
         path(
-            fill = SolidColor(other),
+            fill = SolidColor(otherBack),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,
@@ -348,7 +352,7 @@ public fun bodySplit(
             close()
         }
         path(
-            fill = SolidColor(other),
+            fill = SolidColor(otherBack),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,
@@ -367,7 +371,7 @@ public fun bodySplit(
             close()
         }
         path(
-            fill = SolidColor(other),
+            fill = SolidColor(otherBack),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,
@@ -386,7 +390,7 @@ public fun bodySplit(
             close()
         }
         path(
-            fill = SolidColor(other),
+            fill = SolidColor(otherBack),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,
@@ -404,7 +408,7 @@ public fun bodySplit(
             close()
         }
         path(
-            fill = SolidColor(other),
+            fill = SolidColor(otherBack),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,
@@ -422,7 +426,7 @@ public fun bodySplit(
             close()
         }
         path(
-            fill = SolidColor(other),
+            fill = SolidColor(otherBack),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,
@@ -440,7 +444,7 @@ public fun bodySplit(
             close()
         }
         path(
-            fill = SolidColor(other),
+            fill = SolidColor(otherBack),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,
@@ -723,7 +727,7 @@ public fun bodySplit(
             close()
         }
         path(
-            fill = SolidColor(lateralDeltoid),
+            fill = SolidColor(lateralDeltoidFront),
             fillAlpha = 1.0f,
             strokeAlpha = 1.0f,
             strokeLineWidth = 1.0f,
@@ -771,7 +775,7 @@ public fun bodySplit(
             close()
         }
         path(
-            fill = SolidColor(forearm),
+            fill = SolidColor(forearmFront),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,
@@ -791,7 +795,7 @@ public fun bodySplit(
             close()
         }
         path(
-            fill = SolidColor(forearm),
+            fill = SolidColor(forearmFront),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,
@@ -811,7 +815,7 @@ public fun bodySplit(
             close()
         }
         path(
-            fill = SolidColor(forearm),
+            fill = SolidColor(forearmFront),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,
@@ -829,7 +833,7 @@ public fun bodySplit(
             close()
         }
         path(
-            fill = SolidColor(forearm),
+            fill = SolidColor(forearmFront),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,
@@ -847,7 +851,7 @@ public fun bodySplit(
             close()
         }
         path(
-            fill = SolidColor(other),
+            fill = SolidColor(otherFront),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,
@@ -867,7 +871,7 @@ public fun bodySplit(
             close()
         }
         path(
-            fill = SolidColor(other),
+            fill = SolidColor(otherFront),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,
@@ -885,7 +889,7 @@ public fun bodySplit(
             close()
         }
         path(
-            fill = SolidColor(other),
+            fill = SolidColor(otherFront),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,
@@ -903,7 +907,7 @@ public fun bodySplit(
             close()
         }
         path(
-            fill = SolidColor(other),
+            fill = SolidColor(otherFront),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,
@@ -921,7 +925,7 @@ public fun bodySplit(
             close()
         }
         path(
-            fill = SolidColor(other),
+            fill = SolidColor(otherFront),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,
@@ -940,7 +944,7 @@ public fun bodySplit(
             close()
         }
         path(
-            fill = SolidColor(other),
+            fill = SolidColor(otherFront),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,
@@ -958,7 +962,7 @@ public fun bodySplit(
             close()
         }
         path(
-            fill = SolidColor(other),
+            fill = SolidColor(otherFront),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,
@@ -976,7 +980,7 @@ public fun bodySplit(
             close()
         }
         path(
-            fill = SolidColor(other),
+            fill = SolidColor(otherFront),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,
@@ -995,7 +999,7 @@ public fun bodySplit(
             close()
         }
         path(
-            fill = SolidColor(other),
+            fill = SolidColor(otherFront),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,
@@ -1013,7 +1017,7 @@ public fun bodySplit(
             close()
         }
         path(
-            fill = SolidColor(other),
+            fill = SolidColor(otherFront),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,
@@ -1030,7 +1034,7 @@ public fun bodySplit(
             close()
         }
         path(
-            fill = SolidColor(other),
+            fill = SolidColor(otherFront),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,
@@ -1049,7 +1053,7 @@ public fun bodySplit(
             close()
         }
         path(
-            fill = SolidColor(other),
+            fill = SolidColor(otherFront),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,

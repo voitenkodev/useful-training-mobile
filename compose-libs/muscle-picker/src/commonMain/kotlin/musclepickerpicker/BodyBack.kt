@@ -1,6 +1,5 @@
 package musclepickerpicker
 
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.PathFillType
 import androidx.compose.ui.graphics.SolidColor
@@ -9,21 +8,20 @@ import androidx.compose.ui.graphics.StrokeJoin
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.path
 import androidx.compose.ui.unit.dp
-import atom.Design
 
 public fun bodyBack(
-    outlineColor: Color = Design.palette.content,
+    outlineColor: Color = Colors.outline,
 
-    rhomboids: Color = Design.palette.caption,
-    latissimus: Color = Design.palette.caption,
-    trapezius: Color = Design.palette.caption,
-    triceps: Color = Design.palette.caption,
-    forearm: Color = Design.palette.caption,
+    rhomboids: Color = Colors.defaultBack,
+    latissimus: Color = Colors.defaultBack,
+    trapezius: Color = Colors.defaultBack,
+    triceps: Color = Colors.defaultBack,
+    forearm: Color = Colors.defaultBack,
 
-    posteriorDeltoid: Color = Design.palette.caption,
-    lateralDeltoid: Color = Design.palette.caption,
+    posteriorDeltoid: Color = Colors.defaultBack,
+    lateralDeltoid: Color = Colors.defaultBack,
 
-    other: Color = Design.palette.caption
+    other: Color = Colors.defaultBack
 ): ImageVector {
     return ImageVector.Builder(
         name = "vector",

@@ -7,6 +7,7 @@ internal fun Muscle.toDao(): MuscleDao {
     return MuscleDao(
         id = id,
         name = name,
+        type = type,
         muscleTypeId = muscleTypeId,
         createdAt = createdAt,
         updatedAt = updatedAt

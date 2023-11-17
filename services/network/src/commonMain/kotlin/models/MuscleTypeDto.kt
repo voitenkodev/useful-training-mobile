@@ -15,6 +15,8 @@ public data class MuscleTypeDto(
     val nameUa: String? = null,
     @SerialName("nameRu")
     val nameRu: String? = null,
+    @SerialName("type")
+    val type: String? = null,
     @SerialName("updatedAt")
     val updatedAt: String? = null,
     @SerialName("muscles")

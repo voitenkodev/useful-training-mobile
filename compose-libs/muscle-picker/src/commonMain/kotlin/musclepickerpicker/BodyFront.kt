@@ -8,23 +8,22 @@ import androidx.compose.ui.graphics.StrokeJoin
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.path
 import androidx.compose.ui.unit.dp
-import atom.Design
 
 public fun bodyFront(
-    outlineColor: Color = Design.palette.content,
-    biceps: Color = Design.palette.caption,
-    forearm: Color = Design.palette.caption,
+    outlineColor: Color = Colors.outline,
+    biceps: Color = Colors.defaultFront,
+    forearm: Color = Colors.defaultFront,
 
-    lateralDeltoid: Color = Design.palette.caption,
-    anteriorDeltoid: Color = Design.palette.caption,
+    lateralDeltoid: Color = Colors.defaultFront,
+    anteriorDeltoid: Color = Colors.defaultFront,
 
-    rectusAbdominis: Color = Design.palette.caption,
-    obliquesAbdominis: Color = Design.palette.caption,
+    rectusAbdominis: Color = Colors.defaultFront,
+    obliquesAbdominis: Color = Colors.defaultFront,
 
-    pectoralisMajor: Color = Design.palette.caption,
-    pectoralisMinor: Color = Design.palette.caption,
+    pectoralisMajor: Color = Colors.defaultFront,
+    pectoralisMinor: Color = Colors.defaultFront,
 
-    other: Color = Design.palette.caption
+    other: Color = Colors.defaultFront
 
 ): ImageVector {
     return ImageVector.Builder(
