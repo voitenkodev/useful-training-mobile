@@ -8,8 +8,8 @@ import musclepickerpicker.bodyFront
 import musclepickerpicker.bodySplit
 import musclepickerpicker.legsSplit
 import trainingbuilder.state.Muscle
-import trainingbuilder.state.MuscleEnumState
-import trainingbuilder.state.MuscleTypeEnumState
+import trainingbuilder.state.MuscleEnum
+import trainingbuilder.state.MuscleTypeEnum
 
 private fun colorBySelection(condition: Boolean?): Color {
     val default = Design.palette.orange
@@ -18,14 +18,14 @@ private fun colorBySelection(condition: Boolean?): Color {
 }
 
 internal fun muscleImage(
-    muscleTypeEnumState: MuscleTypeEnumState,
+    muscleTypeEnumState: MuscleTypeEnum,
     muscles: List<Muscle>
 ): ImageVector {
 
     return when (muscleTypeEnumState) {
-        MuscleTypeEnumState.CHEST_MUSCLES -> {
-            val pectoralisMinor = muscles.find { it.type == MuscleEnumState.PECTORALIS_MINOR }?.isSelected
-            val pectoralisMajor = muscles.find { it.type == MuscleEnumState.PECTORALIS_MAJOR }?.isSelected
+        MuscleTypeEnum.CHEST_MUSCLES -> {
+            val pectoralisMinor = muscles.find { it.type == MuscleEnum.PECTORALIS_MINOR }?.isSelected
+            val pectoralisMajor = muscles.find { it.type == MuscleEnum.PECTORALIS_MAJOR }?.isSelected
 
             bodyFront(
                 pectoralisMinor = colorBySelection(pectoralisMinor),
@@ -33,10 +33,10 @@ internal fun muscleImage(
             )
         }
 
-        MuscleTypeEnumState.BACK_MUSCLES -> {
-            val trapezius = muscles.find { it.type == MuscleEnumState.TRAPEZIUS }?.isSelected
-            val latissimus = muscles.find { it.type == MuscleEnumState.LATISSIMUS_DORSI }?.isSelected
-            val rhomboids = muscles.find { it.type == MuscleEnumState.RHOMBOIDS }?.isSelected
+        MuscleTypeEnum.BACK_MUSCLES -> {
+            val trapezius = muscles.find { it.type == MuscleEnum.TRAPEZIUS }?.isSelected
+            val latissimus = muscles.find { it.type == MuscleEnum.LATISSIMUS_DORSI }?.isSelected
+            val rhomboids = muscles.find { it.type == MuscleEnum.RHOMBOIDS }?.isSelected
 
             bodyBack(
                 trapezius = colorBySelection(trapezius),
@@ -45,9 +45,9 @@ internal fun muscleImage(
             )
         }
 
-        MuscleTypeEnumState.ABDOMINAL_MUSCLES -> {
-            val rectusAbdominis = muscles.find { it.type == MuscleEnumState.RECTUS_ABDOMINIS }?.isSelected
-            val obliquesAbdominis = muscles.find { it.type == MuscleEnumState.OBLIQUES }?.isSelected
+        MuscleTypeEnum.ABDOMINAL_MUSCLES -> {
+            val rectusAbdominis = muscles.find { it.type == MuscleEnum.RECTUS_ABDOMINIS }?.isSelected
+            val obliquesAbdominis = muscles.find { it.type == MuscleEnum.OBLIQUES }?.isSelected
 
             bodyFront(
                 rectusAbdominis = colorBySelection(rectusAbdominis),
@@ -55,11 +55,11 @@ internal fun muscleImage(
             )
         }
 
-        MuscleTypeEnumState.LEGS -> {
-            val quadriceps = muscles.find { it.type == MuscleEnumState.QUADRICEPS }?.isSelected
-            val hamstrings = muscles.find { it.type == MuscleEnumState.HAMSTRINGS }?.isSelected
-            val calf = muscles.find { it.type == MuscleEnumState.CALF }?.isSelected
-            val gluteal = muscles.find { it.type == MuscleEnumState.GLUTEAL }?.isSelected
+        MuscleTypeEnum.LEGS -> {
+            val quadriceps = muscles.find { it.type == MuscleEnum.QUADRICEPS }?.isSelected
+            val hamstrings = muscles.find { it.type == MuscleEnum.HAMSTRINGS }?.isSelected
+            val calf = muscles.find { it.type == MuscleEnum.CALF }?.isSelected
+            val gluteal = muscles.find { it.type == MuscleEnum.GLUTEAL }?.isSelected
 
             legsSplit(
                 quadriceps = colorBySelection(quadriceps),
@@ -69,10 +69,10 @@ internal fun muscleImage(
             )
         }
 
-        MuscleTypeEnumState.ARMS_AND_FOREARMS -> {
-            val biceps = muscles.find { it.type == MuscleEnumState.BICEPS }?.isSelected
-            val triceps = muscles.find { it.type == MuscleEnumState.TRICEPS }?.isSelected
-            val forearm = muscles.find { it.type == MuscleEnumState.FOREARM }?.isSelected
+        MuscleTypeEnum.ARMS_AND_FOREARMS -> {
+            val biceps = muscles.find { it.type == MuscleEnum.BICEPS }?.isSelected
+            val triceps = muscles.find { it.type == MuscleEnum.TRICEPS }?.isSelected
+            val forearm = muscles.find { it.type == MuscleEnum.FOREARM }?.isSelected
 
             bodySplit(
                 biceps = colorBySelection(biceps),
@@ -82,10 +82,10 @@ internal fun muscleImage(
             )
         }
 
-        MuscleTypeEnumState.SHOULDER_MUSCLES -> {
-            val posteriorDeltoid = muscles.find { it.type == MuscleEnumState.POSTERIOR_DELTOID }?.isSelected
-            val anteriorDeltoid = muscles.find { it.type == MuscleEnumState.ANTERIOR_DELTOID }?.isSelected
-            val lateralDeltoid = muscles.find { it.type == MuscleEnumState.LATERAL_DELTOID }?.isSelected
+        MuscleTypeEnum.SHOULDER_MUSCLES -> {
+            val posteriorDeltoid = muscles.find { it.type == MuscleEnum.POSTERIOR_DELTOID }?.isSelected
+            val anteriorDeltoid = muscles.find { it.type == MuscleEnum.ANTERIOR_DELTOID }?.isSelected
+            val lateralDeltoid = muscles.find { it.type == MuscleEnum.LATERAL_DELTOID }?.isSelected
 
             bodySplit(
                 posteriorDeltoid = colorBySelection(posteriorDeltoid),

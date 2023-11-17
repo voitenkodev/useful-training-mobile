@@ -1,5 +1,12 @@
 package models
 
+public data class MuscleType(
+    val id: String,
+    val name: String,
+    val muscles: List<Muscle>,
+    val type: MuscleTypeEnum
+)
+
 public enum class MuscleTypeEnum(private val key: String) {
     CHEST_MUSCLES("chest_muscles"),
     BACK_MUSCLES("back_muscles"),
@@ -7,7 +14,6 @@ public enum class MuscleTypeEnum(private val key: String) {
     LEGS("legs"),
     ARMS_AND_FOREARMS("arms_and_forearms"),
     SHOULDER_MUSCLES("shoulder_muscles"),
-
     UNKNOWN("unknown");
 
     override fun toString(): String {

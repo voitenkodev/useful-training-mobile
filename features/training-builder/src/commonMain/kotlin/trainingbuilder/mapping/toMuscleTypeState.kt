@@ -24,3 +24,15 @@ internal fun models.MuscleType.toState(): MuscleType? {
         imageVector = muscleImage(typeState, muscleState)
     )
 }
+
+internal fun models.MuscleTypeEnum.toState(): trainingbuilder.state.MuscleTypeEnum? {
+    return when (this) {
+        models.MuscleTypeEnum.CHEST_MUSCLES -> trainingbuilder.state.MuscleTypeEnum.CHEST_MUSCLES
+        models.MuscleTypeEnum.BACK_MUSCLES -> trainingbuilder.state.MuscleTypeEnum.BACK_MUSCLES
+        models.MuscleTypeEnum.ABDOMINAL_MUSCLES -> trainingbuilder.state.MuscleTypeEnum.ABDOMINAL_MUSCLES
+        models.MuscleTypeEnum.LEGS -> trainingbuilder.state.MuscleTypeEnum.LEGS
+        models.MuscleTypeEnum.ARMS_AND_FOREARMS -> trainingbuilder.state.MuscleTypeEnum.ARMS_AND_FOREARMS
+        models.MuscleTypeEnum.SHOULDER_MUSCLES -> trainingbuilder.state.MuscleTypeEnum.SHOULDER_MUSCLES
+        models.MuscleTypeEnum.UNKNOWN -> null
+    }
+}

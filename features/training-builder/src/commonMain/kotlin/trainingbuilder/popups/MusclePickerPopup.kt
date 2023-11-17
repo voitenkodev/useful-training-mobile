@@ -149,65 +149,28 @@ internal fun MusclePickerPopup(
             }
 
             items(innerList.value, key = { it.id }) {
-//                Box(
-//                    modifier = Modifier
-//                        .fillMaxWidth()
-//                        .secondaryDefaultBackground()
-//                        .padding(Design.dp.paddingM)
-//                        .height(240.dp)
-//                ) {
-//
-//                    Image(
-//                        modifier = Modifier
-//                            .padding(vertical = Design.dp.paddingM)
-//                            .aspectRatio(1f)
-//                            .fillMaxHeight()
-//                            .align(Alignment.CenterEnd),
-//                        imageVector = it.imageVector,
-//                        contentDescription = null
-//                    )
-//
-//                    Column(modifier = Modifier.fillMaxWidth(0.6f)) {
-//                        TextH3(provideText = { it.name })
-//                        PaddingM()
-//                        Column(verticalArrangement = Arrangement.spacedBy(Design.dp.paddingS)) {
-//
-//                            it.muscles.forEach { muscle ->
-//                                Chip(
-//                                    chipState = if (muscle.isSelected) ChipState.Selected() else ChipState.Default(),
-//                                    onClick = { selectProvider.invoke(muscle.id) },
-//                                    text = muscle.name
-//                                )
-//                            }
-//                        }
-//                    }
-//                }
-
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
                         .secondaryDefaultBackground()
-                        .padding(Design.dp.paddingM)
-                        .height(240.dp),
+                        .padding(Design.dp.paddingM),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
 
                     TextH3(provideText = { it.name })
-                    PaddingM()
 
+                    PaddingM()
 
                     Box(modifier = Modifier.fillMaxWidth()) {
 
                         Image(
                             modifier = Modifier
-                                .padding(vertical = Design.dp.paddingM)
+                                .height(180.dp)
                                 .aspectRatio(1f)
-                                .fillMaxHeight()
                                 .align(Alignment.CenterEnd),
                             imageVector = it.imageVector,
                             contentDescription = null
                         )
-
 
                         Column(
                             modifier = Modifier.fillMaxWidth(0.6f),

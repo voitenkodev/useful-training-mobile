@@ -7,6 +7,7 @@ import models.MuscleEnum
 
 internal fun List<MuscleDao>.daoToDomain(): List<Muscle> {
     return mapNotNull { it.daoToDomain() }
+        .sortedByDescending { it.name.length }
 }
 
 internal fun MuscleDao.daoToDomain(): Muscle {

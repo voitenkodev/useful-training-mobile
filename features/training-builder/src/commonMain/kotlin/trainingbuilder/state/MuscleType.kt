@@ -9,6 +9,16 @@ internal data class MuscleType(
     val name: String = "",
     val muscles: List<Muscle>,
     val isSelected: Boolean,
-    val type: MuscleTypeEnumState,
+    val type: MuscleTypeEnum,
     val imageVector: ImageVector
 )
+
+@Immutable
+internal enum class MuscleTypeEnum {
+    CHEST_MUSCLES,
+    BACK_MUSCLES,
+    ABDOMINAL_MUSCLES,
+    LEGS,
+    ARMS_AND_FOREARMS,
+    SHOULDER_MUSCLES
+}

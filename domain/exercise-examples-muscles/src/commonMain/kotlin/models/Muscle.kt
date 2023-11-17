@@ -1,5 +1,12 @@
 package models
 
+public data class Muscle(
+    val id: String,
+    val muscleTypeId: String,
+    val name: String,
+    val type: MuscleEnum
+)
+
 public enum class MuscleEnum(private val key: String) {
     // Chest
     PECTORALIS_MAJOR("pectoralis_major"),

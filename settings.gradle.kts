@@ -30,7 +30,7 @@ include(
 
     ":domain:trainings",
     ":domain:authentication",
-    ":domain:exercise-examples",
+    ":domain:exercise-examples-muscles",
     ":domain:user",
 
     ":services:network",
