@@ -447,7 +447,7 @@ public fun legsSplit(
             close()
         }
         path(
-            fill = SolidColor(hamstrings),
+            fill = SolidColor(otherBack),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,
@@ -464,7 +464,7 @@ public fun legsSplit(
             close()
         }
         path(
-            fill = SolidColor(hamstrings),
+            fill = SolidColor(otherBack),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,
@@ -949,7 +949,7 @@ public fun legsSplit(
             close()
         }
         path(
-            fill = SolidColor(quadriceps),
+            fill = SolidColor(otherFront),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,
@@ -967,7 +967,7 @@ public fun legsSplit(
             close()
         }
         path(
-            fill = SolidColor(quadriceps),
+            fill = SolidColor(otherFront),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,
@@ -1063,7 +1063,7 @@ public fun legsSplit(
             close()
         }
         path(
-            fill = SolidColor(quadriceps),
+            fill = SolidColor(otherFront),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,
@@ -1081,7 +1081,7 @@ public fun legsSplit(
             close()
         }
         path(
-            fill = SolidColor(quadriceps),
+            fill = SolidColor(otherFront),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,

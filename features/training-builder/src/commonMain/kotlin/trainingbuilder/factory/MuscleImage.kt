@@ -13,7 +13,7 @@ import trainingbuilder.state.MuscleTypeEnumState
 
 private fun colorBySelection(condition: Boolean?): Color {
     val default = Design.palette.orange
-    val selected = Design.palette.toxic
+    val selected = Design.palette.green
     return if (condition == true) selected else default
 }
 
