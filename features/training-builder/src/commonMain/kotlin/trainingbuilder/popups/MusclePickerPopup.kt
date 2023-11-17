@@ -19,6 +19,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import atom.Design
 import components.chips.Chip
@@ -27,10 +28,12 @@ import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 import molecule.ButtonIconTransparent
 import molecule.ButtonPrimary
+import molecule.ButtonTextLink
 import molecule.PaddingM
 import molecule.PaddingS
 import molecule.Shadow
 import molecule.TextH3
+import molecule.TextH4
 import molecule.primaryBackground
 import molecule.secondaryDefaultBackground
 import platformBottomInset
@@ -55,7 +58,16 @@ internal fun MusclePickerPopup(
                 val muscles = muscleType.muscles.map {
                     it.copy(isSelected = muscleType.muscles.any { it.isSelected.not() })
                 }
-                muscleType.copy(muscles = muscles)
+                val image = muscleImage(
+                    muscleTypeEnumState = muscleType.type,
+                    muscles = muscles
+                )
+
+                muscleType.copy(
+                    muscles = muscles,
+                    imageVector = image
+                )
+
             }.toImmutableList()
         }
     }
@@ -90,13 +102,21 @@ internal fun MusclePickerPopup(
                 val muscles = muscleType.muscles.map {
                     it.copy(isSelected = newValue)
                 }
-                muscleType.copy(muscles = muscles)
+                val image = muscleImage(
+                    muscleTypeEnumState = muscleType.type,
+                    muscles = muscles
+                )
+
+                muscleType.copy(
+                    muscles = muscles,
+                    imageVector = image
+                )
             }.toImmutableList()
         }
     }
 
     Column(
-        modifier = Modifier.fillMaxHeight(0.85f),
+        modifier = Modifier.fillMaxWidth().fillMaxHeight(0.85f),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
@@ -115,6 +135,7 @@ internal fun MusclePickerPopup(
                 onClick = close
             )
         }
+
         PaddingS()
 
         Shadow()
@@ -126,7 +147,6 @@ internal fun MusclePickerPopup(
         ) {
 
             item(key = "full_body") {
-
                 val chipState = when {
                     innerList.value.all { it.muscles.all { it.isSelected } } -> ChipState.Selected()
 
@@ -149,6 +169,13 @@ internal fun MusclePickerPopup(
             }
 
             items(innerList.value, key = { it.id }) {
+
+                val textColor = when {
+                    it.muscles.count { c -> c.isSelected } == it.muscles.size -> Design.colors.red
+                    it.muscles.count { c -> c.isSelected } > 0 -> Design.colors.yellow
+                    else -> Design.colors.green
+                }
+
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -157,7 +184,26 @@ internal fun MusclePickerPopup(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
 
-                    TextH3(provideText = { it.name })
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        TextH4(
+                            modifier = Modifier.weight(1f),
+                            provideText = { it.name },
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
+                        )
+
+                        PaddingS()
+
+                        ButtonTextLink(
+                            modifier = Modifier.padding(bottom = 4.dp),
+                            text = if (it.muscles.any { it.isSelected.not() }) "ALL" else "CLEAR",
+                            onClick = { selectAllMuscleTypeProvider.invoke(it.id) },
+                            color = textColor
+                        )
+                    }
 
                     PaddingM()
 
@@ -176,7 +222,6 @@ internal fun MusclePickerPopup(
                             modifier = Modifier.fillMaxWidth(0.6f),
                             verticalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
                         ) {
-
                             it.muscles.forEach { muscle ->
                                 Chip(
                                     chipState = if (muscle.isSelected) ChipState.Selected() else ChipState.Default(),
@@ -189,25 +234,25 @@ internal fun MusclePickerPopup(
                 }
             }
         }
-    }
 
-    Shadow()
+        Shadow()
 
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .primaryBackground()
-            .padding(Design.dp.paddingM)
-            .platformBottomInset(),
-        horizontalArrangement = Arrangement.Center
-    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .primaryBackground()
+                .padding(Design.dp.paddingM)
+                .platformBottomInset(),
+            horizontalArrangement = Arrangement.Center
+        ) {
 
-        ButtonPrimary(
-            text = "Apply",
-            onClick = {
-                apply.invoke(innerList.value)
-                close.invoke()
-            }
-        )
+            ButtonPrimary(
+                text = "Apply",
+                onClick = {
+                    apply.invoke(innerList.value)
+                    close.invoke()
+                }
+            )
+        }
     }
 }

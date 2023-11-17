@@ -140,17 +140,13 @@ public fun ButtonTextLink(
     modifier: Modifier = Modifier,
     text: String,
     onClick: () -> Unit,
-    enabled: Boolean = true,
     color: Color = Design.colors.content,
-    leadIcon: ImageVector? = null,
 ) {
-
-    val innerBackgroundColor = Color.Companion.Transparent
 
     Design.typography.TertiaryButton
 
     TextField(
-        modifier = Modifier
+        modifier = modifier
             .clickable(
                 interactionSource = remember { MutableInteractionSource() },
                 indication = null,

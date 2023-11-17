@@ -41,7 +41,7 @@ public fun PopupSheet(
         containerColor = Design.colors.primary,
         scrimColor = Design.colors.black80,
         windowInsets = WindowInsets(top = 0.dp),
-        shape = RoundedCornerShape(0),
+        shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp),
         content = { content.invoke(this, hideLambda) }
     )
 }
