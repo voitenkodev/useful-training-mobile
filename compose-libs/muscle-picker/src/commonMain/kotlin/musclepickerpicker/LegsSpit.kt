@@ -16,7 +16,9 @@ public fun legsSplit(
     hamstrings: Color = Colors.defaultBack,
     calf: Color = Colors.defaultBack,
     otherFront: Color = Colors.defaultFront,
-    otherBack: Color = Colors.defaultBack
+    otherBack: Color = Colors.defaultBack,
+    backgroundFront: Color = Colors.backgroundFront,
+    backgroundBack: Color = Colors.backgroundBack
 ): ImageVector {
     return ImageVector.Builder(
         name = "vector",
@@ -26,7 +28,7 @@ public fun legsSplit(
         viewportHeight = 457f
     ).apply {
         path(
-            fill = null,
+            fill = SolidColor(backgroundFront),
             fillAlpha = 1.0f,
             stroke = SolidColor(outlineColor),
             strokeAlpha = 1.0f,
@@ -519,7 +521,7 @@ public fun legsSplit(
             close()
         }
         path(
-            fill = null,
+            fill = SolidColor(backgroundBack),
             fillAlpha = 1.0f,
             stroke = SolidColor(outlineColor),
             strokeAlpha = 1.0f,

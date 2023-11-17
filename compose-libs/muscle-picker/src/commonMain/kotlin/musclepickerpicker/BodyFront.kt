@@ -23,8 +23,9 @@ public fun bodyFront(
     pectoralisMajor: Color = Colors.defaultFront,
     pectoralisMinor: Color = Colors.defaultFront,
 
-    other: Color = Colors.defaultFront
+    other: Color = Colors.defaultFront,
 
+    backgroundFront: Color = Colors.backgroundFront,
 ): ImageVector {
     return ImageVector.Builder(
         name = "vector",
@@ -35,7 +36,7 @@ public fun bodyFront(
     ).apply {
 
         path(
-            fill = null,
+            fill = SolidColor(backgroundFront),
             fillAlpha = 1.0f,
             stroke = SolidColor(outlineColor),
             strokeAlpha = 1.0f,

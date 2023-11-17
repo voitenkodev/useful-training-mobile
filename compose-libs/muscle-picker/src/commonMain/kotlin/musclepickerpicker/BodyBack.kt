@@ -21,7 +21,9 @@ public fun bodyBack(
     posteriorDeltoid: Color = Colors.defaultBack,
     lateralDeltoid: Color = Colors.defaultBack,
 
-    other: Color = Colors.defaultBack
+    other: Color = Colors.defaultBack,
+
+    backgroundBack: Color = Colors.backgroundBack
 ): ImageVector {
     return ImageVector.Builder(
         name = "vector",
@@ -31,7 +33,7 @@ public fun bodyBack(
         viewportHeight = 430f
     ).apply {
         path(
-            fill = null,
+            fill = SolidColor(backgroundBack),
             fillAlpha = 1.0f,
             stroke = SolidColor(outlineColor),
             strokeAlpha = 1.0f,

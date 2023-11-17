@@ -33,7 +33,10 @@ public fun bodySplit(
     pectoralisMinor: Color = Colors.defaultFront,
 
     otherFront: Color = Colors.defaultFront,
-    otherBack: Color = Colors.defaultBack
+    otherBack: Color = Colors.defaultBack,
+
+    backgroundFront: Color = Colors.backgroundFront,
+    backgroundBack: Color = Colors.backgroundBack
 ): ImageVector {
 
 
@@ -45,7 +48,7 @@ public fun bodySplit(
         viewportHeight = 431f
     ).apply {
         path(
-            fill = null,
+            fill = SolidColor(backgroundFront),
             fillAlpha = 1.0f,
             stroke = SolidColor(outlineColor),
             strokeAlpha = 1.0f,
@@ -465,7 +468,7 @@ public fun bodySplit(
             close()
         }
         path(
-            fill = null,
+            fill = SolidColor(backgroundBack),
             fillAlpha = 1.0f,
             stroke = SolidColor(outlineColor),
             strokeAlpha = 1.0f,
