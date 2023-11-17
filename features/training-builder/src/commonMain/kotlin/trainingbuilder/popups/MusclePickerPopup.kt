@@ -116,7 +116,7 @@ internal fun MusclePickerPopup(
     }
 
     Column(
-        modifier = Modifier.fillMaxWidth().fillMaxHeight(0.85f),
+        modifier = Modifier.fillMaxWidth().fillMaxHeight(0.90f),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
