@@ -17,6 +17,7 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.update
 import org.koin.core.component.inject
 import round
+import trainingbuilder.factory.muscleImage
 import trainingbuilder.mapping.toBody
 import trainingbuilder.mapping.toState
 import trainingbuilder.state.Exercise
@@ -54,7 +55,16 @@ internal class TrainingViewModel : ViewModel() {
                     if (id == muscle.id) muscle.copy(isSelected = false)
                     else muscle
                 }
-                muscleType.copy(muscles = muscles)
+
+                val image = muscleImage(
+                    muscleTypeEnumState = muscleType.type,
+                    muscles = muscles
+                )
+
+                muscleType.copy(
+                    muscles = muscles,
+                    imageVector = image
+                )
             }.toPersistentList()
             it.copy(muscleTypes = muscleTypes)
         }

@@ -125,6 +125,7 @@ internal fun MusclePickerPopup(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
+
             TextH3(
                 modifier = Modifier.padding(horizontal = Design.dp.paddingM),
                 provideText = { "Select Muscles" }
@@ -150,14 +151,9 @@ internal fun MusclePickerPopup(
                 val chipState = when {
                     innerList.value.all { it.muscles.all { it.isSelected } } -> ChipState.Selected()
 
-                    innerList.value.all { it.muscles.all { it.isSelected.not() } } -> ChipState.Colored(
-                        backgroundColor = Design.colors.green,
-                        contentColor = Design.colors.primary
-                    )
-
                     else -> ChipState.Colored(
-                        backgroundColor = Design.colors.yellow,
-                        contentColor = Design.colors.primary
+                        backgroundColor = Design.colors.green,
+                        contentColor = Design.colors.content
                     )
                 }
 
@@ -188,6 +184,7 @@ internal fun MusclePickerPopup(
                         modifier = Modifier.fillMaxWidth(),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
+
                         TextH4(
                             modifier = Modifier.weight(1f),
                             provideText = { it.name },
@@ -224,7 +221,9 @@ internal fun MusclePickerPopup(
                         ) {
                             it.muscles.forEach { muscle ->
                                 Chip(
-                                    chipState = if (muscle.isSelected) ChipState.Selected() else ChipState.Default(),
+                                    chipState =
+                                    if (muscle.isSelected) ChipState.Selected()
+                                    else ChipState.Default(),
                                     onClick = { selectProvider.invoke(muscle.id) },
                                     text = muscle.name
                                 )

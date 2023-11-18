@@ -1,5 +1,7 @@
 package components.chips
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
@@ -11,18 +13,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import atom.Design
 import molecule.IconSecondary
-import molecule.PaddingS
 import molecule.PaddingXS
 import molecule.TextBody2
-import molecule.coloredCircleBackgroundNoBorder
-import molecule.transparentCircleBackground
-import molecule.white5CircleBackground
-import molecule.white5CircleBackgroundNoBorder
 
 public sealed class ChipState(public open val enabled: Boolean) {
     public data class HalfTransparent(override val enabled: Boolean = true) : ChipState(enabled)
@@ -49,17 +47,47 @@ public fun Chip(
 
     val modifier = when (chipState) {
         is ChipState.Default -> Modifier
-            .white5CircleBackground()
+            .border(
+                color = Design.colors.caption,
+                width = 1.dp,
+                shape = Design.shape.small
+            ).background(
+                color = Design.colors.white5,
+                shape = Design.shape.small
+            ).clip(
+                shape = Design.shape.small
+            )
 
         is ChipState.Selected -> Modifier
-            .transparentCircleBackground()
+            .border(
+                color = Design.colors.caption,
+                width = 1.dp,
+                shape = Design.shape.small
+            ).clip(
+                shape = Design.shape.small
+            )
 
         is ChipState.HalfTransparent -> Modifier
-            .white5CircleBackgroundNoBorder()
-            .alpha(0.5f)
+            .background(
+                color = Design.colors.white5,
+                shape = Design.shape.small
+            ).clip(
+                shape = Design.shape.small
+            ).alpha(
+                alpha = 0.5f
+            )
 
         is ChipState.Colored -> Modifier
-            .coloredCircleBackgroundNoBorder(color = chipState.backgroundColor)
+            .border(
+                color = chipState.backgroundColor,
+                width = 2.dp,
+                shape = Design.shape.small
+            ).background(
+                color = chipState.backgroundColor.copy(alpha = 0.5f),
+                shape = Design.shape.small
+            ).clip(
+                shape = Design.shape.small
+            )
     }
 
     Row(
@@ -78,11 +106,10 @@ public fun Chip(
         verticalAlignment = Alignment.CenterVertically
     ) {
         if (iconEnd != null) {
-            PaddingS()
+            PaddingXS()
         }
 
         if (iconStart != null) {
-            PaddingXS()
             IconSecondary(
                 modifier = Modifier.size(20.dp),
                 imageVector = iconStart,
@@ -101,11 +128,10 @@ public fun Chip(
                 imageVector = iconEnd,
                 color = contentColor
             )
-            PaddingXS()
         }
 
         if (iconStart != null) {
-            PaddingS()
+            PaddingXS()
         }
     }
 }
