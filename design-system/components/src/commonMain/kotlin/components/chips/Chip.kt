@@ -36,6 +36,7 @@ public sealed class ChipState(public open val enabled: Boolean) {
 
 @Composable
 public fun Chip(
+    modifier: Modifier = Modifier,
     chipState: ChipState = ChipState.Default(true),
     text: String,
     iconStart: ImageVector? = null,
@@ -49,8 +50,8 @@ public fun Chip(
 
     val interactionSource = remember { MutableInteractionSource() }
 
-    val modifier = when (chipState) {
-        is ChipState.Default -> Modifier
+    val internalModifier = when (chipState) {
+        is ChipState.Default -> modifier
             .border(
                 color = Design.colors.caption,
                 width = 1.dp,
@@ -62,7 +63,7 @@ public fun Chip(
                 shape = Design.shape.small
             )
 
-        is ChipState.Selected -> Modifier
+        is ChipState.Selected -> modifier
             .border(
                 color = Design.colors.caption,
                 width = 1.dp,
@@ -71,7 +72,7 @@ public fun Chip(
                 shape = Design.shape.small
             )
 
-        is ChipState.HalfTransparent -> Modifier
+        is ChipState.HalfTransparent -> modifier
             .background(
                 color = Design.colors.white5,
                 shape = Design.shape.small
@@ -81,7 +82,7 @@ public fun Chip(
                 alpha = 0.5f
             )
 
-        is ChipState.Colored -> Modifier
+        is ChipState.Colored -> modifier
             .border(
                 color = chipState.borderColor,
                 width = 1.dp,
@@ -101,7 +102,7 @@ public fun Chip(
                 indication = null,
                 enabled = chipState.enabled,
                 onClick = onClick
-            ).then(modifier)
+            ).then(internalModifier)
             .padding(
                 horizontal = if (iconEnd == null && iconStart == null) Design.dp.paddingM else Design.dp.paddingS,
                 vertical = Design.dp.paddingS

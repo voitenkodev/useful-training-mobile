@@ -21,6 +21,7 @@ kotlin {
 
                 implementation(compose.ui)
                 implementation(compose.material)
+                implementation(compose.material3)
             }
         }
     }

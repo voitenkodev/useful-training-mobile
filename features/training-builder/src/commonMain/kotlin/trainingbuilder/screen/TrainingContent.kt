@@ -96,7 +96,9 @@ internal fun TrainingContent(
         steps = state.steps,
         selectedMuscles = state.muscleTypes,
         addMuscle = vm::openMusclePicker,
-        unselectMuscle = vm::unselectMuscle
+        unselectMuscle = vm::unselectMuscle,
+        changePreferredDuration = vm::changePreferredDuration,
+        preferredDuration = state.preferredDuration
     )
 }
 
@@ -104,13 +106,18 @@ internal fun TrainingContent(
 private fun Content(
     error: String?,
 
+    // Steps
     steps: ImmutableList<TrainingBuilderSteps>,
-
     selectedStep: TrainingBuilderSteps,
 
+    // Muscles
     selectedMuscles: ImmutableList<MuscleType>,
     addMuscle: () -> Unit,
     unselectMuscle: (id: String) -> Unit,
+
+    // Preferred Duration
+    preferredDuration: Int,
+    changePreferredDuration: (Int) -> Unit,
 
     nextStep: () -> Unit,
     previousStep: (onEmpty: () -> Unit) -> Unit,
@@ -156,7 +163,9 @@ private fun Content(
                     0 -> ConfigurationPage(
                         selectedMuscles = selectedMuscles,
                         addMuscle = addMuscle,
-                        unselectMuscle = unselectMuscle
+                        unselectMuscle = unselectMuscle,
+                        duration = preferredDuration,
+                        changeDuration = changePreferredDuration
                     )
 
                     1 -> ExercisesPage()

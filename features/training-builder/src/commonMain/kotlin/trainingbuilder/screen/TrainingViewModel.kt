@@ -78,6 +78,11 @@ internal class TrainingViewModel : ViewModel() {
         _state.update { it.copy(muscleTypes = muscleTypes) }
     }
 
+    // ________________ PREFERRED DURATION  ________________
+    fun changePreferredDuration(value: Int) {
+        _state.update { it.copy(preferredDuration = value) }
+    }
+
     // ________________ TRAININGS  ________________
 
     @FlowPreview

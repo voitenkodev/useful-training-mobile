@@ -20,3 +20,7 @@ public fun Int.meter(): String {
 
     return "${value ?: floatString}m"
 }
+
+public fun Int.minutes(): String {
+    return "${this}min"
+}

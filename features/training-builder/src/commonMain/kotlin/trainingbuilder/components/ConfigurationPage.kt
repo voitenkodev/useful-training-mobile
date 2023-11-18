@@ -14,7 +14,9 @@ import androidx.compose.ui.Modifier
 import atom.Design
 import components.chips.Chip
 import components.chips.ChipState
+import components.sliders.DurationPicker
 import kotlinx.collections.immutable.ImmutableList
+import minutes
 import molecule.PaddingM
 import molecule.PaddingS
 import molecule.PaddingXL
@@ -25,10 +27,16 @@ import trainingbuilder.state.MuscleType
 
 @Composable
 internal fun ConfigurationPage(
+    // Muscles
     selectedMuscles: ImmutableList<MuscleType>,
     unselectMuscle: (muscleId: String) -> Unit,
-    addMuscle: () -> Unit
-) {
+    addMuscle: () -> Unit,
+
+    // Duration
+    duration: Int,
+    changeDuration: (Int) -> Unit,
+
+    ) {
     Column(
         modifier = Modifier.fillMaxSize().platformBottomInset(),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -81,8 +89,15 @@ internal fun ConfigurationPage(
 
         PaddingXL()
 
-        TextBody2(provideText = { "Preferred training duration?" })
+        TextBody2(provideText = { "Preferred workout duration?" })
 
         PaddingS()
+
+        DurationPicker(
+            label = duration.minutes(),
+            onValueChange = { changeDuration.invoke(it.toInt()) },
+            range = 15f..240f,
+            steps = 225
+        )
     }
 }
