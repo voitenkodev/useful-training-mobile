@@ -1,6 +1,5 @@
 package trainingbuilder.components
 
-import Icons
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -17,6 +16,7 @@ import components.chips.Chip
 import components.chips.ChipState
 import kotlinx.collections.immutable.ImmutableList
 import molecule.PaddingM
+import molecule.PaddingS
 import molecule.PaddingXL
 import molecule.TextBody2
 import molecule.TextH2
@@ -41,7 +41,7 @@ internal fun ConfigurationPage(
 
         TextBody2(provideText = { "Which muscle do you want to train?" })
 
-        PaddingM()
+        PaddingS()
 
         FlowRow(
             modifier = Modifier.fillMaxWidth().padding(horizontal = Design.dp.paddingM).animateContentSize(),
@@ -56,8 +56,7 @@ internal fun ConfigurationPage(
                     contentColor = Design.colors.content
                 ),
                 text = "Add Muscle",
-                onClick = addMuscle,
-                iconStart = Icons.add
+                onClick = addMuscle
             )
 
             val muscles = remember(selectedMuscles) {
@@ -75,8 +74,7 @@ internal fun ConfigurationPage(
                 Chip(
                     chipState = ChipState.Selected(),
                     onClick = { unselectMuscle.invoke(muscle.id) },
-                    text = muscle.name,
-                    iconEnd = Icons.close
+                    text = muscle.name
                 )
             }
         }
@@ -85,6 +83,6 @@ internal fun ConfigurationPage(
 
         TextBody2(provideText = { "Preferred training duration?" })
 
-        PaddingM()
+        PaddingS()
     }
 }
