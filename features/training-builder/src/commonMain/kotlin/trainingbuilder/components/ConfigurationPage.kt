@@ -52,6 +52,7 @@ internal fun ConfigurationPage(
             Chip(
                 chipState = ChipState.Colored(
                     backgroundColor = Design.colors.orange,
+                    borderColor = Design.colors.orange,
                     contentColor = Design.colors.content
                 ),
                 text = "Add Muscle",

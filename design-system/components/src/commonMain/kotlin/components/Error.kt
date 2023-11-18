@@ -11,13 +11,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import atom.Design
-import kotlinx.coroutines.delay
 import molecule.TextBody2
 import molecule.TextH4
 import platformInsets
@@ -27,19 +23,19 @@ public fun Error(
     message: () -> String?,
     close: () -> Unit
 ) {
-
-    val value = remember { mutableStateOf(message) }
-    LaunchedEffect(message()) { if (message() != null) value.value = message }
-
-    LaunchedEffect(message()) {
-        delay(1800)
-        if (message() != null) close.invoke()
-    }
-
-    InnerError(
-        provideMessage = value.value,
-        visibility = message() != null
-    )
+//
+//    val value = remember { mutableStateOf(message) }
+//    LaunchedEffect(message()) { if (message() != null) value.value = message }
+//
+//    LaunchedEffect(message()) {
+//        delay(1800)
+//        if (message() != null) close.invoke()
+//    }
+//
+//    InnerError(
+//        provideMessage = value.value,
+//        visibility = message() != null
+//    )
 }
 
 @Composable

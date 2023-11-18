@@ -38,7 +38,7 @@ public fun PopupSheet(
         onDismissRequest = { onDismiss() },
         sheetState = modalBottomSheetState,
         dragHandle = { BottomSheetDefaults.DragHandle() },
-        containerColor = Design.colors.primary,
+        containerColor = Design.colors.secondary,
         scrimColor = Design.colors.black80,
         windowInsets = WindowInsets(top = 0.dp),
         shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp),

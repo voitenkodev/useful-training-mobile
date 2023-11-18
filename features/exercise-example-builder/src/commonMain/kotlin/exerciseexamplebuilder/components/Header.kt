@@ -98,6 +98,7 @@ internal fun Header(
                 Chip(
                     chipState = ChipState.Colored(
                         backgroundColor = Design.colors.orange,
+                        borderColor = Design.colors.orange,
                         contentColor = Design.colors.content,
                         enabled = false
                     ),

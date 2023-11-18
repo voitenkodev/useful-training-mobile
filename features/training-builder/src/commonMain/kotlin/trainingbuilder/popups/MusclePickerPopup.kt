@@ -5,7 +5,6 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -34,11 +33,10 @@ import molecule.PaddingS
 import molecule.Shadow
 import molecule.TextH3
 import molecule.TextH4
-import molecule.primaryBackground
-import molecule.secondaryDefaultBackground
 import platformBottomInset
 import trainingbuilder.factory.muscleImage
 import trainingbuilder.state.MuscleType
+import trainingbuilder.state.MuscleTypeEnum
 
 @Composable
 internal fun MusclePickerPopup(
@@ -51,10 +49,19 @@ internal fun MusclePickerPopup(
         mutableStateOf(muscleTypes)
     }
 
+    val selectedChipState = ChipState.Colored(
+        backgroundColor = Design.colors.black30,
+        borderColor = Design.colors.green,
+        contentColor = Design.colors.content
+    )
+
+    val unSelectedChipState = ChipState.Default()
+
     val selectAllMuscleTypeProvider = remember {
         { muscleTypeId: String ->
             innerList.value = innerList.value.map { muscleType ->
                 if (muscleTypeId != muscleType.id) return@map muscleType
+
                 val muscles = muscleType.muscles.map {
                     it.copy(isSelected = muscleType.muscles.any { it.isSelected.not() })
                 }
@@ -115,6 +122,55 @@ internal fun MusclePickerPopup(
         }
     }
 
+    val selectTopProvider = remember {
+        {
+            val newValue = innerList
+                .value
+                .filterNot { it.type == MuscleTypeEnum.LEGS }
+                .all { it.muscles.all { it.isSelected } }.not()
+
+            innerList.value = innerList.value.map { muscleType ->
+                val muscles = muscleType.muscles.map {
+                    it.copy(isSelected = if (muscleType.type == MuscleTypeEnum.LEGS) it.isSelected else newValue)
+                }
+
+                val image = muscleImage(
+                    muscleTypeEnumState = muscleType.type,
+                    muscles = muscles
+                )
+
+                muscleType.copy(
+                    muscles = muscles,
+                    imageVector = image
+                )
+            }.toImmutableList()
+        }
+    }
+
+    val selectBottomProvider = remember {
+        {
+            val newValue = innerList.value
+                .filter { it.type == MuscleTypeEnum.LEGS }
+                .all { it.muscles.all { it.isSelected } }.not()
+
+            innerList.value = innerList.value.map { muscleType ->
+                val muscles = muscleType.muscles.map {
+                    it.copy(isSelected = if (muscleType.type != MuscleTypeEnum.LEGS) it.isSelected else newValue)
+                }
+
+                val image = muscleImage(
+                    muscleTypeEnumState = muscleType.type,
+                    muscles = muscles
+                )
+
+                muscleType.copy(
+                    muscles = muscles,
+                    imageVector = image
+                )
+            }.toImmutableList()
+        }
+    }
+
     Column(
         modifier = Modifier.fillMaxWidth().fillMaxHeight(0.90f),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -143,39 +199,73 @@ internal fun MusclePickerPopup(
 
         LazyColumn(
             modifier = Modifier.weight(1f),
-            contentPadding = PaddingValues(Design.dp.paddingM),
             verticalArrangement = Arrangement.spacedBy(Design.dp.paddingL)
         ) {
 
-            item(key = "full_body") {
-                val chipState = when {
-                    innerList.value.all { it.muscles.all { it.isSelected } } -> ChipState.Selected()
+            item(key = "packs") {
 
-                    else -> ChipState.Colored(
-                        backgroundColor = Design.colors.green,
-                        contentColor = Design.colors.content
+                val fullBodyState = when {
+                    innerList.value.all { it.muscles.all { it.isSelected } } -> selectedChipState
+                    else -> unSelectedChipState
+                }
+
+                val bottomBodyState = when {
+                    innerList.value
+                        .filter { it.type == MuscleTypeEnum.LEGS }
+                        .all { it.muscles.all { it.isSelected } } -> selectedChipState
+
+                    else -> unSelectedChipState
+                }
+
+                val topBodyState = when {
+                    innerList.value
+                        .filterNot { it.type == MuscleTypeEnum.LEGS }
+                        .all { it.muscles.all { it.isSelected } } -> selectedChipState
+
+                    else -> unSelectedChipState
+                }
+
+                PaddingM()
+
+                Row(
+                    modifier = Modifier.padding(horizontal = Design.dp.paddingM),
+                    horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
+                ) {
+
+                    Chip(
+                        chipState = fullBodyState,
+                        onClick = selectAllProvider,
+                        text = "Full Body"
+                    )
+
+                    Chip(
+                        chipState = topBodyState,
+                        onClick = selectTopProvider,
+                        text = "Top Body"
+                    )
+
+                    Chip(
+                        chipState = bottomBodyState,
+                        onClick = selectBottomProvider,
+                        text = "Bottom Body"
                     )
                 }
 
-                Chip(
-                    chipState = chipState,
-                    onClick = selectAllProvider,
-                    text = "Full Body"
-                )
+                PaddingM()
+
+                Shadow()
             }
 
             items(innerList.value, key = { it.id }) {
 
-                val textColor = when {
-                    it.muscles.count { c -> c.isSelected } == it.muscles.size -> Design.colors.red
-                    it.muscles.count { c -> c.isSelected } > 0 -> Design.colors.yellow
+                val textColor = when (it.muscles.size) {
+                    it.muscles.count { c -> c.isSelected } -> Design.colors.caption
                     else -> Design.colors.green
                 }
 
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .secondaryDefaultBackground()
                         .padding(Design.dp.paddingM),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
@@ -222,8 +312,8 @@ internal fun MusclePickerPopup(
                             it.muscles.forEach { muscle ->
                                 Chip(
                                     chipState =
-                                    if (muscle.isSelected) ChipState.Selected()
-                                    else ChipState.Default(),
+                                    if (muscle.isSelected) selectedChipState
+                                    else unSelectedChipState,
                                     onClick = { selectProvider.invoke(muscle.id) },
                                     text = muscle.name
                                 )
@@ -231,6 +321,8 @@ internal fun MusclePickerPopup(
                         }
                     }
                 }
+
+                Shadow()
             }
         }
 
@@ -239,7 +331,6 @@ internal fun MusclePickerPopup(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .primaryBackground()
                 .padding(Design.dp.paddingM)
                 .platformBottomInset(),
             horizontalArrangement = Arrangement.Center

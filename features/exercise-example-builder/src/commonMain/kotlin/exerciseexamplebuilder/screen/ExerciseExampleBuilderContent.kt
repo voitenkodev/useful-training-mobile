@@ -121,6 +121,7 @@ private fun Content(
                         Chip(
                             chipState = ChipState.Colored(
                                 backgroundColor = muscleExerciseBundle.color,
+                                borderColor = muscleExerciseBundle.color,
                                 contentColor = Design.colors.content
                             ),
                             text = buildString {

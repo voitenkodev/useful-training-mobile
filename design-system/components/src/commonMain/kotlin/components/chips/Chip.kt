@@ -26,8 +26,12 @@ public sealed class ChipState(public open val enabled: Boolean) {
     public data class HalfTransparent(override val enabled: Boolean = true) : ChipState(enabled)
     public data class Default(override val enabled: Boolean = true) : ChipState(enabled)
     public data class Selected(override val enabled: Boolean = true) : ChipState(enabled)
-    public data class Colored(val contentColor: Color, val backgroundColor: Color, override val enabled: Boolean = true) :
-        ChipState(enabled)
+    public data class Colored(
+        val contentColor: Color,
+        val backgroundColor: Color,
+        val borderColor: Color,
+        override val enabled: Boolean = true
+    ) : ChipState(enabled)
 }
 
 @Composable
@@ -79,8 +83,8 @@ public fun Chip(
 
         is ChipState.Colored -> Modifier
             .border(
-                color = chipState.backgroundColor,
-                width = 2.dp,
+                color = chipState.borderColor,
+                width = 1.dp,
                 shape = Design.shape.small
             ).background(
                 color = chipState.backgroundColor.copy(alpha = 0.5f),

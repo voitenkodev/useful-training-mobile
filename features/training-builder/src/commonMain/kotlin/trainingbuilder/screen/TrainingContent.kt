@@ -35,10 +35,12 @@ import io.github.xxfast.decompose.router.LocalRouterContext
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.coroutines.delay
 import molecule.ButtonIconSecondary
-import molecule.PaddingL
+import molecule.PaddingM
 import molecule.PaddingXL
 import molecule.PopupSheet
+import molecule.Shadow
 import molecule.TextH4
+import molecule.secondaryRoundBackground
 import platformTopInset
 import recomposeHighlighter
 import trainingbuilder.components.ConfigurationPage
@@ -127,16 +129,23 @@ private fun Content(
     }
 
     Root(error = { Error(message = { error }, close = clearError) }) {
-        Column(
-            modifier = Modifier.platformTopInset(),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
 
-            PaddingXL()
+            Column(
+                modifier = Modifier.secondaryRoundBackground().platformTopInset(),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
 
-            SlideIndicator(pagerState)
+                PaddingXL()
 
-            PaddingL()
+                SlideIndicator(pagerState)
+
+                PaddingM()
+
+                Shadow()
+            }
+
+            PaddingM()
 
             HorizontalPager(
                 modifier = Modifier.weight(1f),
