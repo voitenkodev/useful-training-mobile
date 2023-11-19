@@ -16,6 +16,7 @@ import components.chips.Chip
 import components.chips.ChipState
 import components.edit.MutableValueSection
 import components.sliders.DurationPicker
+import kg
 import kotlinx.collections.immutable.ImmutableList
 import minutes
 import molecule.PaddingL
@@ -54,27 +55,27 @@ internal fun ConfigurationPage(
 
         PaddingM()
 
-        TextBody2(provideText = { "Preferred workout duration?" })
+//        TextBody2(provideText = { "Preferred workout duration?" })
+//
+//        PaddingS()
+//
+//        DurationPicker(
+//            modifier = Modifier.padding(horizontal = Design.dp.paddingM),
+//            label = duration.minutes(),
+//            onValueChange = { changeDuration.invoke(it.toInt()) },
+//            range = 15f..240f,
+//            steps = 225,
+//            initial = duration.toFloat()
+//        )
+//
+//        PaddingL()
 
-        PaddingS()
-
-        DurationPicker(
-            modifier = Modifier.padding(horizontal = Design.dp.paddingM),
-            label = duration.minutes(),
-            onValueChange = { changeDuration.invoke(it.toInt()) },
-            range = 15f..240f,
-            steps = 225,
-            initial = duration.toFloat()
-        )
-
-        PaddingL()
-
-        TextBody2(provideText = { "New personal weight?" })
+        TextBody2(provideText = { "Your current weight?" })
 
         PaddingM()
 
         MutableValueSection(
-            value = "85 m",
+            value = changedWeight.kg(),
             editValue = changeWeight,
             valueColor = if (initialWeight == changedWeight) Design.colors.content else Design.colors.toxic
         )

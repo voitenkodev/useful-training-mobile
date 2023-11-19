@@ -50,6 +50,7 @@ import trainingbuilder.components.ExercisesPage
 import trainingbuilder.components.SummaryPage
 import trainingbuilder.popups.EditExercisePopup
 import trainingbuilder.popups.MusclePickerPopup
+import trainingbuilder.popups.WeightPickerPopup
 import trainingbuilder.state.Exercise
 import trainingbuilder.state.MuscleType
 import trainingbuilder.state.TrainingBuilderSteps
@@ -82,6 +83,17 @@ internal fun TrainingContent(
         }
     )
 
+    if (state.weightPickerPopupVisible) PopupSheet(
+        onDismiss = vm::closePopups,
+        content = { hideLambda ->
+            WeightPickerPopup(
+                initialWeight = state.changedUserWeight,
+                close = hideLambda,
+                apply = vm::applyNewWeight
+            )
+        }
+    )
+
     if (state.editExercisePopupIsVisible) PopupSheet(
         onDismiss = vm::closePopups,
         content = { EditExercisePopup() }
@@ -99,7 +111,10 @@ internal fun TrainingContent(
         addMuscle = vm::openMusclePicker,
         unselectMuscle = vm::unselectMuscle,
         changePreferredDuration = vm::changePreferredDuration,
-        preferredDuration = state.preferredDuration
+        preferredDuration = state.preferredDuration,
+        initialUserWeight = state.profileUserWeight,
+        changedUserWeight = state.changedUserWeight,
+        changeUserWeight = vm::openWeightPicker
     )
 }
 
@@ -119,6 +134,11 @@ private fun Content(
     // Preferred Duration
     preferredDuration: Int,
     changePreferredDuration: (Int) -> Unit,
+
+    // User Weight
+    initialUserWeight: Int,
+    changedUserWeight: Int,
+    changeUserWeight: () -> Unit,
 
     nextStep: () -> Unit,
     previousStep: (onEmpty: () -> Unit) -> Unit,
@@ -170,9 +190,9 @@ private fun Content(
                         unselectMuscle = unselectMuscle,
                         duration = preferredDuration,
                         changeDuration = changePreferredDuration,
-                        initialWeight = 10,
-                        changedWeight = 10,
-                        changeWeight = {}
+                        initialWeight = initialUserWeight,
+                        changedWeight = changedUserWeight,
+                        changeWeight = changeUserWeight
                     )
 
                     1 -> ExercisesPage()

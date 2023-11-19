@@ -17,7 +17,7 @@ public data class Color(
     val white10: Color = Color(0x1Affffff),
     val black10: Color = Color(0x33000000),
     val black30: Color = Color(0x80000000),
-    val black80: Color = Color(0xCC000000),
+    val black70: Color = Color(0xB3000000),
 
     // Text
     val content: Color = Color(0xffffffff),

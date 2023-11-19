@@ -3,6 +3,7 @@ package trainingbuilder.screen
 import DateTimeKtx
 import ExerciseExamplesRepository
 import TrainingsRepository
+import UserRepository
 import ViewModel
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toPersistentList
@@ -33,6 +34,7 @@ internal class TrainingViewModel : ViewModel() {
 
     private val trainingsApi by inject<TrainingsRepository>()
     private val exerciseExampleApi by inject<ExerciseExamplesRepository>()
+    private val userApi by inject<UserRepository>()
 
     init {
         exerciseExampleApi
@@ -42,6 +44,12 @@ internal class TrainingViewModel : ViewModel() {
             .launchIn(this)
 
         exerciseExampleApi.syncMuscles()
+            .catch { r -> _state.update { it.copy(error = r.message) } }
+            .launchIn(this)
+
+        userApi
+            .observeUser()
+            .onEach { r -> _state.update { it.copy(profileUserWeight = r.weight, changedUserWeight = r.weight) } }
             .catch { r -> _state.update { it.copy(error = r.message) } }
             .launchIn(this)
     }
@@ -81,6 +89,16 @@ internal class TrainingViewModel : ViewModel() {
     // ________________ PREFERRED DURATION  ________________
     fun changePreferredDuration(value: Int) {
         _state.update { it.copy(preferredDuration = value) }
+    }
+
+    // ________________ USER WEIGHT  ________________
+
+    fun openWeightPicker() {
+        _state.update { it.copy(weightPickerPopupVisible = true) }
+    }
+
+    fun applyNewWeight(value: Int) {
+        _state.update { it.copy(changedUserWeight = value) }
     }
 
     // ________________ TRAININGS  ________________
@@ -178,7 +196,8 @@ internal class TrainingViewModel : ViewModel() {
         _state.update {
             it.copy(
                 editExercisePopupIsVisible = false,
-                musclePickerPopupVisible = false
+                musclePickerPopupVisible = false,
+                weightPickerPopupVisible = false
             )
         }
     }

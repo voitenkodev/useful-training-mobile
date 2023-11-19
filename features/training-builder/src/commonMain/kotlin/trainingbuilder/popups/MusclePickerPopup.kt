@@ -2,6 +2,7 @@ package trainingbuilder.popups
 
 import Icons
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -13,6 +14,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -178,7 +180,12 @@ internal fun MusclePickerPopup(
     }
 
     Column(
-        modifier = Modifier.fillMaxWidth().fillMaxHeight(0.90f),
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(
+                color = Design.colors.secondary,
+                shape = RoundedCornerShape(26.dp)
+            ).fillMaxHeight(0.90f),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
