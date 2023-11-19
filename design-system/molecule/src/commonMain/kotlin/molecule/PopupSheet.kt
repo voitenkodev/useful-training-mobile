@@ -3,7 +3,6 @@ package molecule
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
@@ -33,15 +32,13 @@ public fun PopupSheet(
             }
         }
     }
-
     ModalBottomSheet(
         onDismissRequest = { onDismiss() },
         sheetState = modalBottomSheetState,
-        dragHandle = { BottomSheetDefaults.DragHandle() },
+        dragHandle = null,
         containerColor = Design.colors.secondary,
-        scrimColor = Design.colors.black80,
         windowInsets = WindowInsets(top = 0.dp),
-        shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp),
+        shape = RoundedCornerShape(topStart = 26.dp, topEnd = 26.dp),
         content = { content.invoke(this, hideLambda) }
     )
 }

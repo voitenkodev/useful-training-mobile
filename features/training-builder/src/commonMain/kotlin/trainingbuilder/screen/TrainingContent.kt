@@ -6,8 +6,10 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
@@ -29,6 +31,7 @@ import components.Error
 import components.Loading
 import components.Popup
 import components.indication.SlideIndicator
+import components.overlay.TopShadow
 import components.roots.Root
 import components.roots.ScrollableRoot
 import io.github.xxfast.decompose.router.LocalRouterContext
@@ -38,9 +41,7 @@ import molecule.ButtonIconSecondary
 import molecule.PaddingM
 import molecule.PaddingXL
 import molecule.PopupSheet
-import molecule.Shadow
 import molecule.TextH4
-import molecule.secondaryRoundBackground
 import platformTopInset
 import recomposeHighlighter
 import trainingbuilder.components.ConfigurationPage
@@ -136,20 +137,23 @@ private fun Content(
     }
 
     Root(error = { Error(message = { error }, close = clearError) }) {
+
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
 
-            Column(
-                modifier = Modifier.secondaryRoundBackground().platformTopInset(),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
+            Box(modifier = Modifier.height(IntrinsicSize.Min)) {
+                TopShadow(
+                    modifier = Modifier.fillMaxSize()
+                )
 
-                PaddingXL()
-
-                SlideIndicator(pagerState)
-
-                PaddingM()
-
-                Shadow()
+                Column(
+                    modifier = Modifier.fillMaxWidth().platformTopInset(),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    content = {
+                        PaddingXL()
+                        SlideIndicator(pagerState)
+                        PaddingM()
+                    }
+                )
             }
 
             PaddingM()
@@ -165,7 +169,10 @@ private fun Content(
                         addMuscle = addMuscle,
                         unselectMuscle = unselectMuscle,
                         duration = preferredDuration,
-                        changeDuration = changePreferredDuration
+                        changeDuration = changePreferredDuration,
+                        initialWeight = 10,
+                        changedWeight = 10,
+                        changeWeight = {}
                     )
 
                     1 -> ExercisesPage()

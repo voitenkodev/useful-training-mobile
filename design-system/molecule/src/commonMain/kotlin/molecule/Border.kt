@@ -29,6 +29,6 @@ public fun Modifier.borderSmallPrimary(): Modifier {
     return border(
         color = Design.colors.white5,
         width = 1.dp,
-        shape = Design.shape.default
+        shape = Design.shape.small
     )
 }

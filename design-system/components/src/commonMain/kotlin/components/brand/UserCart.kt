@@ -2,18 +2,15 @@ package components.brand
 
 import Images
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -109,48 +106,8 @@ public fun UserCard(
 
             ButtonSmall(
                 text = btn.first,
-                onClick = btn.second,
-                backgroundColor = Design.colors.toxic,
-                textColor = Design.colors.primary
+                onClick = btn.second
             )
         }
-    }
-}
-
-@Composable
-private fun UserCardBackground(modifier: Modifier = Modifier) {
-    Box(modifier = modifier) {
-        Spacer(
-            modifier = Modifier
-                .align(Alignment.BottomEnd)
-                .size(120.dp)
-                .offset(x = 60.dp, y = 60.dp)
-                .background(
-                    color = Design.colors.black30.copy(alpha = 0.15f),
-                    shape = Design.shape.circleShape
-                )
-        )
-
-        Spacer(
-            modifier = Modifier
-                .align(Alignment.TopCenter)
-                .size(120.dp)
-                .offset(x = 45.dp, y = (-36).dp)
-                .background(
-                    color = Design.colors.black30.copy(alpha = 0.15f),
-                    shape = Design.shape.circleShape
-                )
-        )
-
-        Spacer(
-            modifier = Modifier
-                .align(Alignment.BottomStart)
-                .size(140.dp)
-                .offset(x = (-45).dp, y = (30).dp)
-                .background(
-                    color = Design.colors.black30.copy(alpha = 0.15f),
-                    shape = Design.shape.circleShape
-                )
-        )
     }
 }

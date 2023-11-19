@@ -22,5 +22,5 @@ public fun Int.meter(): String {
 }
 
 public fun Int.minutes(): String {
-    return "${this}min"
+    return "$this min"
 }

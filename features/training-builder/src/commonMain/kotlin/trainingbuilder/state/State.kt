@@ -15,7 +15,7 @@ internal data class State(
     val muscleTypes: ImmutableList<MuscleType> = persistentListOf(),
     val musclePickerPopupVisible: Boolean = false,
 
-    val preferredDuration: Int = 15,
+    val preferredDuration: Int = 60,
 
     val editExercisePopupIsVisible: Boolean = false,
 

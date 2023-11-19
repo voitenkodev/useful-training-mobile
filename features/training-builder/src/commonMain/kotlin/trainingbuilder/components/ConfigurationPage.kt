@@ -14,9 +14,11 @@ import androidx.compose.ui.Modifier
 import atom.Design
 import components.chips.Chip
 import components.chips.ChipState
+import components.edit.MutableValueSection
 import components.sliders.DurationPicker
 import kotlinx.collections.immutable.ImmutableList
 import minutes
+import molecule.PaddingL
 import molecule.PaddingM
 import molecule.PaddingS
 import molecule.PaddingXL
@@ -36,7 +38,12 @@ internal fun ConfigurationPage(
     duration: Int,
     changeDuration: (Int) -> Unit,
 
+    initialWeight: Int,
+    changedWeight: Int,
+    changeWeight: () -> Unit,
+
     ) {
+
     Column(
         modifier = Modifier.fillMaxSize().platformBottomInset(),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -47,9 +54,36 @@ internal fun ConfigurationPage(
 
         PaddingM()
 
-        TextBody2(provideText = { "Which muscle do you want to train?" })
+        TextBody2(provideText = { "Preferred workout duration?" })
 
         PaddingS()
+
+        DurationPicker(
+            modifier = Modifier.padding(horizontal = Design.dp.paddingM),
+            label = duration.minutes(),
+            onValueChange = { changeDuration.invoke(it.toInt()) },
+            range = 15f..240f,
+            steps = 225,
+            initial = duration.toFloat()
+        )
+
+        PaddingL()
+
+        TextBody2(provideText = { "New personal weight?" })
+
+        PaddingM()
+
+        MutableValueSection(
+            value = "85 m",
+            editValue = changeWeight,
+            valueColor = if (initialWeight == changedWeight) Design.colors.content else Design.colors.toxic
+        )
+
+        PaddingXL()
+
+        TextBody2(provideText = { "Preferred muscles to train?" })
+
+        PaddingM()
 
         FlowRow(
             modifier = Modifier.fillMaxWidth().padding(horizontal = Design.dp.paddingM).animateContentSize(),
@@ -86,18 +120,5 @@ internal fun ConfigurationPage(
                 )
             }
         }
-
-        PaddingXL()
-
-        TextBody2(provideText = { "Preferred workout duration?" })
-
-        PaddingS()
-
-        DurationPicker(
-            label = duration.minutes(),
-            onValueChange = { changeDuration.invoke(it.toInt()) },
-            range = 15f..240f,
-            steps = 225
-        )
     }
 }

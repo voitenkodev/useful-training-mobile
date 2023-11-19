@@ -16,6 +16,7 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import atom.Design
 import molecule.IconSecondary
@@ -88,7 +89,7 @@ public fun Chip(
                 width = 1.dp,
                 shape = Design.shape.small
             ).background(
-                color = chipState.backgroundColor.copy(alpha = 0.5f),
+                color = chipState.backgroundColor,
                 shape = Design.shape.small
             ).clip(
                 shape = Design.shape.small
@@ -107,7 +108,7 @@ public fun Chip(
                 horizontal = if (iconEnd == null && iconStart == null) Design.dp.paddingM else Design.dp.paddingS,
                 vertical = Design.dp.paddingS
             ),
-        horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingXS),
+        horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingXS, Alignment.CenterHorizontally),
         verticalAlignment = Alignment.CenterVertically
     ) {
         if (iconEnd != null) {
@@ -123,6 +124,9 @@ public fun Chip(
         }
 
         TextBody2(
+            modifier = Modifier.align(Alignment.CenterVertically),
+            textAlign = TextAlign.Center,
+            maxLines = 1,
             provideText = { text },
             color = contentColor
         )

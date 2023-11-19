@@ -18,6 +18,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import atom.Design
@@ -28,10 +29,11 @@ import kotlinx.collections.immutable.toImmutableList
 import molecule.ButtonIconTransparent
 import molecule.ButtonPrimary
 import molecule.ButtonTextLink
+import molecule.PaddingL
 import molecule.PaddingM
 import molecule.PaddingS
 import molecule.Shadow
-import molecule.TextH3
+import molecule.TextBody1
 import molecule.TextH4
 import platformBottomInset
 import trainingbuilder.factory.muscleImage
@@ -55,7 +57,11 @@ internal fun MusclePickerPopup(
         contentColor = Design.colors.content
     )
 
-    val unSelectedChipState = ChipState.Default()
+    val unSelectedChipState = ChipState.Colored(
+        backgroundColor = Color.Transparent,
+        borderColor = Design.colors.caption,
+        contentColor = Design.colors.content
+    )
 
     val selectAllMuscleTypeProvider = remember {
         { muscleTypeId: String ->
@@ -177,14 +183,13 @@ internal fun MusclePickerPopup(
     ) {
 
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.padding(Design.dp.paddingM).fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
 
-            TextH3(
-                modifier = Modifier.padding(horizontal = Design.dp.paddingM),
-                provideText = { "Select Muscles" }
+            TextBody1(
+                provideText = { "Target Muscles" }
             )
 
             ButtonIconTransparent(
@@ -193,13 +198,11 @@ internal fun MusclePickerPopup(
             )
         }
 
-        PaddingS()
-
         Shadow()
 
         LazyColumn(
             modifier = Modifier.weight(1f),
-            verticalArrangement = Arrangement.spacedBy(Design.dp.paddingL)
+//            verticalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
         ) {
 
             item(key = "packs") {
@@ -225,6 +228,15 @@ internal fun MusclePickerPopup(
                     else -> unSelectedChipState
                 }
 
+                PaddingL()
+
+                TextH4(
+                    modifier = Modifier.padding(horizontal = Design.dp.paddingM),
+                    provideText = { "Packs" },
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                )
+
                 PaddingM()
 
                 Row(
@@ -241,13 +253,13 @@ internal fun MusclePickerPopup(
                     Chip(
                         chipState = topBodyState,
                         onClick = selectTopProvider,
-                        text = "Top Body"
+                        text = "Upper Body"
                     )
 
                     Chip(
                         chipState = bottomBodyState,
                         onClick = selectBottomProvider,
-                        text = "Bottom Body"
+                        text = "Lower Body"
                     )
                 }
 
@@ -262,6 +274,8 @@ internal fun MusclePickerPopup(
                     it.muscles.count { c -> c.isSelected } -> Design.colors.caption
                     else -> Design.colors.green
                 }
+
+                PaddingS()
 
                 Column(
                     modifier = Modifier
@@ -321,7 +335,6 @@ internal fun MusclePickerPopup(
                         }
                     }
                 }
-
                 Shadow()
             }
         }

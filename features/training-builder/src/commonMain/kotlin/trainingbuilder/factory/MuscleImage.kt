@@ -12,7 +12,7 @@ import trainingbuilder.state.MuscleEnum
 import trainingbuilder.state.MuscleTypeEnum
 
 private fun colorBySelection(condition: Boolean?): Color {
-    val default = Design.palette.orange
+    val default = Design.palette.orange.copy(alpha = 0.7f)
     val selected = Design.palette.green
     return if (condition == true) selected else default
 }
