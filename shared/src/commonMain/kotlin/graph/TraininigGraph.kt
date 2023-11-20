@@ -6,10 +6,12 @@ import com.arkivanov.essenty.parcelable.Parcelize
 import io.github.xxfast.decompose.router.Router
 import io.github.xxfast.decompose.router.content.RoutedContent
 import io.github.xxfast.decompose.router.rememberRouter
+import musclepicker.MusclePickerFeature
 import trainingbuilder.TrainingFeature
 
 @Parcelize
 internal sealed class TrainingRouter : Parcelable {
+    data object MusclePicker : TrainingRouter()
     data class TrainingBuilder(val id: String? = null) : TrainingRouter()
 }
 
@@ -21,7 +23,7 @@ internal fun TrainingGraph(
 ) {
 
     val router: Router<TrainingRouter> = rememberRouter(TrainingRouter::class) {
-        listOf(TrainingRouter.TrainingBuilder(id))
+        listOf(TrainingRouter.MusclePicker)
     }
 
     RoutedContent(router = router) { child ->
@@ -29,8 +31,10 @@ internal fun TrainingGraph(
             is TrainingRouter.TrainingBuilder -> TrainingFeature(
                 trainingId = child.id,
                 toTrainingDetails = { id -> toTrainingDetails.invoke(id) },
-                back = closeFlow,
+                back = closeFlow
             )
+
+            TrainingRouter.MusclePicker -> MusclePickerFeature(closeFlow)
         }
     }
 }
