@@ -62,7 +62,7 @@ public fun ButtonPrimary(
     Row(
         modifier = modifier
             .requiredHeight(Design.dp.componentM)
-            .borderCirclePrimary()
+//            .borderCirclePrimary()
             .background(
                 shape = Design.shape.circleShape,
                 color = bgColor.value

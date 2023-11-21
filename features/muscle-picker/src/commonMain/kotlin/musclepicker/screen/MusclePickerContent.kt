@@ -13,7 +13,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -157,10 +157,10 @@ private fun Content(
                 Shadow()
             }
 
-            items(list, key = { it.id }) {
+            itemsIndexed(list, key = { index, item -> item.id }) { index, item ->
 
-                val textColor = when (it.muscles.size) {
-                    it.muscles.count { c -> c.isSelected } -> Design.colors.caption
+                val textColor = when (item.muscles.size) {
+                    item.muscles.count { c -> c.isSelected } -> Design.colors.caption
                     else -> Design.colors.green
                 }
 
@@ -180,7 +180,7 @@ private fun Content(
 
                         TextH4(
                             modifier = Modifier.weight(1f),
-                            provideText = { it.name },
+                            provideText = { item.name },
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis,
                         )
@@ -189,8 +189,8 @@ private fun Content(
 
                         ButtonTextLink(
                             modifier = Modifier.padding(bottom = 4.dp),
-                            text = if (it.muscles.any { m -> m.isSelected.not() }) "ALL" else "CLEAR",
-                            onClick = { selectMuscleType.invoke(it.id) },
+                            text = if (item.muscles.any { m -> m.isSelected.not() }) "ALL" else "CLEAR",
+                            onClick = { selectMuscleType.invoke(item.id) },
                             color = textColor
                         )
                     }
@@ -204,7 +204,7 @@ private fun Content(
                                 .height(180.dp)
                                 .aspectRatio(1f)
                                 .align(Alignment.CenterEnd),
-                            imageVector = it.imageVector,
+                            imageVector = item.imageVector,
                             contentDescription = null
                         )
 
@@ -212,7 +212,7 @@ private fun Content(
                             modifier = Modifier.fillMaxWidth(0.6f),
                             verticalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
                         ) {
-                            it.muscles.forEach { muscle ->
+                            item.muscles.forEach { muscle ->
                                 Chip(
                                     chipState =
                                     if (muscle.isSelected) selectedChipState
@@ -225,14 +225,14 @@ private fun Content(
                     }
                 }
 
-                Shadow()
+                if (index < list.lastIndex) Shadow()
             }
 
             item(key = "bottom_space") {
                 Spacer(
                     modifier = Modifier
                         .platformTopInset()
-                        .height(Design.dp.componentL + Design.dp.paddingM + Design.dp.paddingM)
+                        .height(Design.dp.componentL + Design.dp.paddingM)
                 )
             }
         }
@@ -267,7 +267,7 @@ private fun Content(
                 .fillMaxWidth()
                 .align(Alignment.BottomCenter)
                 .platformBottomInset()
-                .size(Design.dp.componentL + Design.dp.paddingM),
+                .size(Design.dp.componentL + Design.dp.paddingXL),
         )
 
         val selectedSum = remember(list) {
@@ -296,7 +296,7 @@ private fun Content(
                     append("Apply")
                     selectedSum.takeIf { it > 0 }?.let { append("($it)") }
                 },
-                enabled =selectedSum > 0,
+                enabled = selectedSum > 0,
                 onClick = {}
             )
         }
