@@ -12,7 +12,6 @@ public data class Color(
 //    val secondary: Color = Color(0xff172937), // Sea
     val secondary: Color = Color(0xff222238), // Sea dark
 
-
     val white5: Color = Color(0x0Dffffff),
     val white10: Color = Color(0x1Affffff),
     val black10: Color = Color(0x33000000),

@@ -17,6 +17,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -26,18 +27,18 @@ import atom.Design
 import components.Error
 import components.chips.Chip
 import components.chips.ChipState
+import components.overlay.BottomShadow
 import components.overlay.TopShadow
 import components.roots.Root
 import kotlinx.collections.immutable.ImmutableList
 import molecule.ButtonPrimary
 import molecule.ButtonTextLink
-import molecule.PaddingL
 import molecule.PaddingM
 import molecule.PaddingS
+import molecule.PaddingXL
 import molecule.Shadow
 import molecule.TextH2
 import molecule.TextH4
-import molecule.secondaryRoundBackground
 import musclepicker.state.MuscleType
 import musclepicker.state.MuscleTypeEnum
 import platformBottomInset
@@ -95,7 +96,7 @@ private fun Content(
 
         LazyColumn(modifier = Modifier.fillMaxSize()) {
 
-            item(key = "bottom_spacer") {
+            item(key = "top_spacer") {
                 Spacer(
                     modifier = Modifier.platformTopInset()
                         .height(Design.dp.componentM)
@@ -125,17 +126,7 @@ private fun Content(
                     else -> unSelectedChipState
                 }
 
-
-                PaddingL()
-
-                TextH4(
-                    modifier = Modifier.padding(horizontal = Design.dp.paddingM),
-                    provideText = { "Packs" },
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                )
-
-                PaddingM()
+                PaddingXL()
 
                 Row(
                     modifier = Modifier.padding(horizontal = Design.dp.paddingM),
@@ -237,11 +228,11 @@ private fun Content(
                 Shadow()
             }
 
-            item(key = "top_space") {
+            item(key = "bottom_space") {
                 Spacer(
                     modifier = Modifier
                         .platformTopInset()
-                        .height(Design.dp.componentL)
+                        .height(Design.dp.componentL + Design.dp.paddingM + Design.dp.paddingM)
                 )
             }
         }
@@ -251,7 +242,7 @@ private fun Content(
                 .fillMaxWidth()
                 .align(Alignment.TopCenter)
                 .platformTopInset()
-                .size(Design.dp.componentL + Design.dp.paddingM)
+                .size(Design.dp.componentL + Design.dp.paddingXL)
         )
 
         Row(
@@ -271,19 +262,41 @@ private fun Content(
             )
         }
 
-        Row(
+        BottomShadow(
             modifier = Modifier
                 .fillMaxWidth()
                 .align(Alignment.BottomCenter)
-                .secondaryRoundBackground()
                 .platformBottomInset()
-                .padding(Design.dp.paddingM),
+                .size(Design.dp.componentL + Design.dp.paddingM),
+        )
+
+        val selectedSum = remember(list) {
+            list.sumOf { it.muscles.count { c -> c.isSelected } }
+        }
+
+        Row(
+            modifier = Modifier.fillMaxWidth()
+                .align(Alignment.BottomCenter)
+                .padding(Design.dp.paddingM)
+                .platformBottomInset(),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center
+            horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
         ) {
 
             ButtonPrimary(
-                text = "Apply",
+                modifier = Modifier.weight(1f),
+                text = "Skip",
+                onClick = { },
+                enableBackgroundColor = Design.colors.secondary
+            )
+
+            ButtonPrimary(
+                modifier = Modifier.weight(1f),
+                text = buildString {
+                    append("Apply")
+                    selectedSum.takeIf { it > 0 }?.let { append("($it)") }
+                },
+                enabled =selectedSum > 0,
                 onClick = {}
             )
         }

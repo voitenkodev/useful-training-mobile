@@ -56,29 +56,29 @@ public fun Chip(
             .border(
                 color = Design.colors.caption,
                 width = 1.dp,
-                shape = Design.shape.small
+                shape = Design.shape.circleShape
             ).background(
                 color = Design.colors.white5,
-                shape = Design.shape.small
+                shape = Design.shape.circleShape
             ).clip(
-                shape = Design.shape.small
+                shape = Design.shape.circleShape
             )
 
         is ChipState.Selected -> modifier
             .border(
                 color = Design.colors.caption,
                 width = 1.dp,
-                shape = Design.shape.small
+                shape = Design.shape.circleShape
             ).clip(
-                shape = Design.shape.small
+                shape = Design.shape.circleShape
             )
 
         is ChipState.HalfTransparent -> modifier
             .background(
                 color = Design.colors.white5,
-                shape = Design.shape.small
+                shape = Design.shape.circleShape
             ).clip(
-                shape = Design.shape.small
+                shape = Design.shape.circleShape
             ).alpha(
                 alpha = 0.5f
             )
@@ -87,12 +87,12 @@ public fun Chip(
             .border(
                 color = chipState.borderColor,
                 width = 1.dp,
-                shape = Design.shape.small
+                shape = Design.shape.circleShape
             ).background(
                 color = chipState.backgroundColor,
-                shape = Design.shape.small
+                shape = Design.shape.circleShape
             ).clip(
-                shape = Design.shape.small
+                shape = Design.shape.circleShape
             )
     }
 

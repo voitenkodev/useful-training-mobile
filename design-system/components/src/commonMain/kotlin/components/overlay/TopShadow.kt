@@ -20,12 +20,8 @@ public fun TopShadow(
                 brush = Brush.verticalGradient(
                     0.126f to color.copy(alpha = 1f),
                     0.307f to color.copy(alpha = 0.8f),
-//                    0.458f to color.copy(alpha = 0.7f),
                     0.573f to color.copy(alpha = 0.52f),
                     0.715f to color.copy(alpha = 0.2f),
-//                    0.767f to color.copy(alpha = 0.18f),
-//                    0.824f to color.copy(alpha = 0.16f),
-//                    0.879f to color.copy(alpha = 0.09f),
                     0.966f to color.copy(alpha = 0f)
                 )
             ).then(modifier)

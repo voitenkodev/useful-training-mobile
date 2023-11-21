@@ -12,7 +12,9 @@ import musclepickerpicker.bodySplit
 import musclepickerpicker.legsSplit
 
 private fun colorBySelection(condition: Boolean?): Color {
-    val default = Design.palette.orange.copy(alpha = 0.7f)
+    val muscle = Color(0xffb12a1a)
+
+    val default = muscle.copy(alpha = 0.8f)
     val selected = Design.palette.green
     return if (condition == true) selected else default
 }

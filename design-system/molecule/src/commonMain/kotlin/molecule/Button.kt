@@ -77,8 +77,7 @@ public fun ButtonPrimary(
     ) {
         AnimatedVisibility(loading.not()) {
             TextField(
-                modifier = Modifier
-                    .padding(horizontal = Design.dp.paddingXL + Design.dp.paddingXL),
+                modifier = Modifier.padding(horizontal = Design.dp.paddingXL),
                 provideText = { text },
                 textStyle = Design.typography.PrimaryButton.copy(color = textColor)
             )

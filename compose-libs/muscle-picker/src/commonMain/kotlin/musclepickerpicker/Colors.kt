@@ -4,11 +4,16 @@ import androidx.compose.ui.graphics.Color
 import atom.Design
 
 internal object Colors {
-    val defaultFront = Design.palette.white10
-    val defaultBack = Design.palette.white5
+    val muscle = Color.White
+    val bg = Design.palette.secondary
+//    (0xffd4b296)
 
-    val backgroundFront = Design.palette.white10
-    val backgroundBack = Design.palette.white10
 
-    val outline = Color.Transparent
+    val defaultFront = muscle.copy(alpha = 0.3f)
+    val defaultBack = muscle.copy(alpha = 0.4f)
+
+    val backgroundFront = bg
+    val backgroundBack = bg
+
+    val outline = Color.White.copy(alpha = 0.3f)
 }
