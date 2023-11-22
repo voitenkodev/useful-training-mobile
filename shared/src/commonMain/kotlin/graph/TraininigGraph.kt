@@ -34,7 +34,7 @@ internal fun TrainingGraph(
     RoutedContent(router = router) { child ->
         when (child) {
             TrainingRouter.MusclePicker -> MusclePickerFeature(
-                toTraining = { router.push(TrainingRouter.TrainingBuilder(trainingId = null, muscleIds = it)) }
+                apply = { router.push(TrainingRouter.TrainingBuilder(trainingId = null, muscleIds = it)) }
             )
 
             is TrainingRouter.TrainingBuilder -> TrainingFeature(

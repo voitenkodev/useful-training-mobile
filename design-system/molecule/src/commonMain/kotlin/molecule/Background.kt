@@ -2,6 +2,7 @@ package molecule
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -29,6 +30,16 @@ public fun Modifier.accentPrimaryDefaultBackground(): Modifier = this
 public fun Modifier.secondaryRoundBackground(): Modifier = this
     .background(
         color = Design.colors.secondary
+    )
+
+
+@Composable
+public fun Modifier.bottomSheetBackground(): Modifier = this
+    .background(
+        color = Design.colors.secondary,
+        shape = RoundedCornerShape(topEnd = 26.dp, topStart = 26.dp)
+    ).clip(
+        shape = RoundedCornerShape(topEnd = 26.dp, topStart = 26.dp)
     )
 
 @Composable

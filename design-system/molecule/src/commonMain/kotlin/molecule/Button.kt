@@ -184,7 +184,7 @@ public fun ButtonSecondary(
 }
 
 @Composable
-public fun ButtonSmall(
+public fun ButtonPrimarySmall(
     modifier: Modifier = Modifier,
     text: String,
     enabled: Boolean = true,
@@ -206,6 +206,39 @@ public fun ButtonSmall(
         ),
         shape = Design.shape.circleShape,
         borderStroke = null,
+        leadIcon = null
+    )
+}
+
+@Composable
+public fun ButtonSecondarySmall(
+    modifier: Modifier = Modifier,
+    text: String,
+    enabled: Boolean = true,
+    onClick: () -> Unit
+) {
+
+    val textColor: Color = Design.colors.content
+    val enableBackgroundColor: Color = Color.Transparent
+    val disableBackgroundColor: Color = Design.colors.caption.copy(alpha = 0.1f)
+
+
+    Button(
+        modifier = modifier,
+        text = text,
+        contentPadding = PaddingValues(horizontal = Design.dp.paddingL, vertical = Design.dp.paddingS),
+        textStyle = Design.typography.PrimaryButton.copy(color = textColor),
+        enabled = enabled,
+        onClick = onClick,
+        borderStroke = BorderStroke(
+            width = 1.dp,
+            color = if (enabled) Design.colors.content else Color.Transparent,
+        ),
+        colors = ButtonDefaults.buttonColors(
+            backgroundColor = enableBackgroundColor,
+            disabledBackgroundColor = disableBackgroundColor,
+        ),
+        shape = Design.shape.circleShape,
         leadIcon = null
     )
 }

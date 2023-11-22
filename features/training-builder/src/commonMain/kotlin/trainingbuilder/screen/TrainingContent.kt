@@ -28,11 +28,13 @@ import components.Popup
 import components.roots.Root
 import components.roots.ScrollableRoot
 import molecule.ButtonIconSecondary
+import molecule.PopupSheet
 import molecule.TextH4
 import recomposeHighlighter
 import trainingbuilder.components.EditExercise
 import trainingbuilder.components.Footer
 import trainingbuilder.components.Header
+import trainingbuilder.popups.SetExercisePopup
 import trainingbuilder.state.Exercise
 
 @Composable
@@ -44,10 +46,34 @@ internal fun TrainingContent(
 
     val state by vm.state.collectAsState()
 
+    if (state.setExercisePopupIsVisibleIndex != null) PopupSheet(
+        onDismiss = vm::closePopups,
+        content = { hideLambda ->
+
+            val index = state.setExercisePopupIsVisibleIndex ?: return@PopupSheet
+            val exercise = state.training.exercises.getOrNull(index) ?: return@PopupSheet
+            val name by rememberUpdatedState(exercise.name)
+            val number by rememberUpdatedState(index + 1)
+            val iterations by rememberUpdatedState(exercise.iterations)
+
+            SetExercisePopup(
+                close = hideLambda,
+                number = { number },
+                name = { name },
+                updateName = { vm.updateName(index, it) },
+                updateWeight = { num, value -> vm.updateWeight(index, num, value) },
+                updateRepeat = { num, value -> vm.updateRepeat(index, num, value) },
+                iterations = { iterations },
+                remove = { vm.removeExercise(index) }
+            )
+        }
+    )
+
     Content(
         error = state.error,
         back = back,
-        clearError = vm::clearError
+        clearError = vm::clearError,
+        addExercise = vm::addExercise
     )
 }
 
@@ -55,7 +81,9 @@ internal fun TrainingContent(
 private fun Content(
     error: String?,
     back: () -> Unit,
-    clearError: () -> Unit
+    clearError: () -> Unit,
+
+    addExercise: () -> Unit
 ) {
 
     Root(error = { Error(message = { error }, close = clearError) }) {
@@ -68,7 +96,7 @@ private fun Content(
 
             }
 
-            Footer(addExercise = {})
+            Footer(addExercise = addExercise)
         }
     }
 }
@@ -166,14 +194,12 @@ private fun Content2(
                 EditExercise(
                     modifier = Modifier.recomposeHighlighter(),
                     number = { number },
-                    nameOptions = exerciseNamesProvider,
                     name = { name },
                     updateName = { updateName(indexProvider, it) },
                     updateWeight = { num, value -> updateWeight(indexProvider, num, value) },
                     updateRepeat = { num, value -> updateRepeat(indexProvider, num, value) },
                     iterations = { iterations },
-                    remove = { openRemoveExercisePopup(indexProvider) },
-                    removeNameOption = removeExerciseNameOptionProvider
+                    remove = { openRemoveExercisePopup(indexProvider) }
                 )
             }
 

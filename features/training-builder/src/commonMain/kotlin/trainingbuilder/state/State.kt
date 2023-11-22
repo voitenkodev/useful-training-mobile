@@ -10,7 +10,7 @@ internal data class State(
 
     val muscleTypes: ImmutableList<MuscleType> = persistentListOf(),
 
-    val setExercisePopupIsVisible: Boolean = false,
+    val setExercisePopupIsVisibleIndex: Int? = null,
 
     val error: String? = null,
     val loading: Boolean = false

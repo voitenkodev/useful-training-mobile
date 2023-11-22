@@ -7,7 +7,7 @@ import musclepicker.screen.MusclePickerViewModel
 
 @Composable
 public fun MusclePickerFeature(
-    toTraining: (List<String>) -> Unit
+    apply: (List<String>) -> Unit
 ) {
     val vm = rememberOnRoute(MusclePickerViewModel::class) {
         MusclePickerViewModel()
@@ -15,6 +15,6 @@ public fun MusclePickerFeature(
 
     MusclePickerContent(
         vm = vm,
-        toTraining = toTraining
+        apply = apply
     )
 }

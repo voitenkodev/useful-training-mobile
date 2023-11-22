@@ -46,11 +46,9 @@ internal class TrainingViewModel : ViewModel() {
             .launchIn(this)
     }
 
-
     fun applyMuscles(muscleTypes: ImmutableList<MuscleType>) {
         _state.update { it.copy(muscleTypes = muscleTypes) }
     }
-
 
     @FlowPreview
     fun saveTraining(onSuccess: (trainingId: String) -> Unit) {
@@ -138,13 +136,19 @@ internal class TrainingViewModel : ViewModel() {
     }
 
     fun addExercise() {
-        _state.update { it.copy(training = it.training.addExercise()) }
+        _state.update {
+            val training = it.training.addExercise()
+            it.copy(
+                training = training,
+                setExercisePopupIsVisibleIndex = training.exercises.lastIndex
+            )
+        }
     }
 
     fun closePopups() {
         _state.update {
             it.copy(
-                setExercisePopupIsVisible = false
+                setExercisePopupIsVisibleIndex = null
             )
         }
     }

@@ -32,8 +32,7 @@ public fun InputExerciseName(
     val focusManager = LocalFocusManager.current
 
     InputPrimary(
-        modifier = modifier
-            .fillMaxHeight(),
+        modifier = modifier,
         provideValue = provideName,
         placeholder = "Name of exercise",
         maxLines = 1,

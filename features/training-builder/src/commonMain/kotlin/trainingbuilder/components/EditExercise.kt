@@ -3,16 +3,9 @@ package trainingbuilder.components
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.onFocusChanged
-import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
 import components.inputs.InputExerciseName
-import components.items.HelpExerciseNameItem
-import molecule.secondaryDefaultBackground
-import recomposeHighlighter
 import trainingbuilder.state.Iteration
 
 @Composable
@@ -20,40 +13,20 @@ internal fun EditExercise(
     modifier: Modifier = Modifier,
     number: () -> Int,
     iterations: () -> List<Iteration>,
-    nameOptions: () -> List<String>,
     name: () -> String,
-    removeNameOption: (String) -> Unit,
     updateName: (String) -> Unit,
     updateWeight: (Int, String) -> Unit,
     updateRepeat: (Int, String) -> Unit,
     remove: () -> Unit,
 ) {
-    Column(modifier = modifier.secondaryDefaultBackground()) {
-
-        val focusManager = LocalFocusManager.current
-
-        val helpVisible = remember { mutableStateOf(false) }
+    Column(modifier = modifier) {
 
         InputExerciseName(
-            modifier = Modifier
-                .padding(start = 8.dp)
-                .onFocusChanged { helpVisible.value = it.hasFocus }
-                .recomposeHighlighter(),
+            modifier = Modifier.padding(start = 8.dp),
             provideNumber = number,
             provideName = name,
             update = updateName,
             remove = remove
-        )
-
-        HelpExerciseNameItem(
-            querySort = name,
-            visibility = { helpVisible.value },
-            select = {
-                updateName.invoke(it)
-                focusManager.clearFocus()
-            },
-            remove = removeNameOption,
-            options = nameOptions
         )
 
         WeightRepeatSection(

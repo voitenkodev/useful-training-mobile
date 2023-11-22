@@ -20,7 +20,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import atom.Design
-import molecule.ButtonSmall
+import molecule.ButtonPrimarySmall
 import molecule.PaddingS
 import molecule.PaddingWeight
 import molecule.PaddingXS
@@ -104,7 +104,7 @@ public fun UserCard(
 
             PaddingWeight()
 
-            ButtonSmall(
+            ButtonPrimarySmall(
                 text = btn.first,
                 onClick = btn.second
             )

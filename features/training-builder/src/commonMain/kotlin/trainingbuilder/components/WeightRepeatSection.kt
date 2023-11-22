@@ -10,7 +10,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import components.items.IterationCaptionItem
 import components.items.IterationInputItem
-import recomposeHighlighter
 import trainingbuilder.state.Iteration
 
 @Composable
@@ -20,9 +19,7 @@ internal fun WeightRepeatSection(
     updateRepeat: (Int, String) -> Unit
 ) {
     FlowRow(
-        modifier = Modifier
-            .padding(top = 4.dp, bottom = 8.dp, start = 12.dp, end = 12.dp)
-            .recomposeHighlighter(),
+        modifier = Modifier.padding(top = 4.dp, bottom = 8.dp, start = 12.dp, end = 12.dp),
         horizontalArrangement = Arrangement.spacedBy(6.dp),
     ) {
 
@@ -35,7 +32,6 @@ internal fun WeightRepeatSection(
             val repetitionsProvider by rememberUpdatedState(iteration.repetitions)
 
             IterationInputItem(
-                modifier = Modifier.recomposeHighlighter(),
                 provideWeight = { weightProvider },
                 provideRepeat = { repetitionsProvider },
                 updateWeight = { updateWeight.invoke(indexProvider, it) },
