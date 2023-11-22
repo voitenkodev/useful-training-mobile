@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import atom.Design
 import conditional
 import molecule.ButtonIconTransparent
+import molecule.PaddingM
 import molecule.PaddingS
 import molecule.PaddingWeight
 import molecule.TextH2
@@ -60,6 +61,6 @@ internal fun Header(
 
         }
 
-        PaddingS()
+        PaddingM()
     }
 }

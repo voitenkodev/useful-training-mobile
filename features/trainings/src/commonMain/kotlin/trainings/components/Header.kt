@@ -36,6 +36,7 @@ import androidx.compose.ui.unit.dp
 import atom.Design
 import conditional
 import kotlinx.collections.immutable.ImmutableList
+import molecule.PaddingM
 import molecule.PaddingS
 import molecule.Shadow
 import molecule.TextBody3
@@ -108,7 +109,8 @@ internal fun Header(
             selectCalendarDay = selectCalendarDay,
             onAddMore = onAddMore
         )
-        PaddingS()
+
+        PaddingM()
 
         Shadow()
     }

@@ -1,6 +1,6 @@
-package statistics.components
+package musclepicker.components
 
-import Icons
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -11,48 +11,45 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import atom.Design
-import molecule.ButtonIconTransparent
 import molecule.PaddingM
 import molecule.PaddingS
-import molecule.PaddingWeight
+import molecule.Shadow
+import molecule.TextBody2
 import molecule.TextH2
 import platformTopInset
 
 @Composable
-internal fun Header(
-    modifier: Modifier = Modifier,
-    filterClick: () -> Unit
-) {
+internal fun Header() {
     Column(
-        modifier = modifier
-            .padding(horizontal = Design.dp.paddingM)
-            .platformTopInset()
+        modifier = Modifier
+            .background(Design.colors.secondary)
+            .platformTopInset(),
     ) {
 
         PaddingS()
 
         Row(
             modifier = Modifier
-                .height(Design.dp.componentM)
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .height(Design.dp.componentL),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
 
             TextH2(
-                modifier = Modifier,
-                provideText = { "Statistics" },
+                modifier = Modifier.padding(horizontal = Design.dp.paddingM),
+                provideText = { "Muscles" },
                 softWrap = false
-            )
-
-            PaddingWeight()
-
-            ButtonIconTransparent(
-                imageVector = Icons.filters,
-                onClick = filterClick
             )
         }
 
+        TextBody2(
+            modifier = Modifier.padding(horizontal = Design.dp.paddingM),
+            provideText = { "Choose muscles and start your workout journey!" }
+        )
+
         PaddingM()
+
+        Shadow()
     }
 }

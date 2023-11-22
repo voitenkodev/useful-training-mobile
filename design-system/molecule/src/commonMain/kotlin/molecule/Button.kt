@@ -11,6 +11,7 @@ import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
@@ -43,12 +44,13 @@ public fun ButtonPrimary(
     modifier: Modifier = Modifier,
     text: String,
     enabled: Boolean = true,
-    textColor: Color = Design.colors.content,
-    enableBackgroundColor: Color = Design.colors.orange,
-    disableBackgroundColor: Color = Design.colors.caption.copy(alpha = 0.1f),
     onClick: () -> Unit,
     loading: Boolean = false
 ) {
+
+    val enableBackgroundColor: Color = Design.colors.orange
+    val textColor: Color = Design.colors.content
+    val disableBackgroundColor: Color = Design.colors.caption.copy(alpha = 0.1f)
 
     val bgColor = animateColorAsState(
         targetValue = when {
@@ -62,8 +64,81 @@ public fun ButtonPrimary(
     Row(
         modifier = modifier
             .requiredHeight(Design.dp.componentM)
-//            .borderCirclePrimary()
             .background(
+                shape = Design.shape.circleShape,
+                color = bgColor.value
+            ).clip(
+                shape = Design.shape.circleShape
+            ).clickable(
+                onClick = onClick,
+                enabled = enabled && loading.not()
+            ),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Center
+    ) {
+        AnimatedVisibility(loading.not()) {
+            TextField(
+                modifier = Modifier.padding(horizontal = Design.dp.paddingXL),
+                provideText = { text },
+                textStyle = Design.typography.PrimaryButton.copy(color = textColor)
+            )
+        }
+
+        AnimatedVisibility(loading) {
+
+            val infiniteTransition = rememberInfiniteTransition()
+
+            val rotation by infiniteTransition.animateFloat(
+                initialValue = 0f,
+                targetValue = 360f,
+                animationSpec = infiniteRepeatable(
+                    animation = tween(2000),
+                    repeatMode = RepeatMode.Restart
+                )
+            )
+
+            IconSecondary(
+                modifier = Modifier
+                    .size(Design.dp.componentM)
+                    .padding(Design.dp.paddingXS)
+                    .graphicsLayer(rotationZ = rotation),
+                imageVector = Icons.loading,
+                color = Design.colors.primary
+            )
+        }
+    }
+}
+
+@Composable
+public fun ButtonSecondary(
+    modifier: Modifier = Modifier,
+    text: String,
+    enabled: Boolean = true,
+    onClick: () -> Unit,
+    loading: Boolean = false
+) {
+
+    val textColor: Color = Design.colors.content
+    val enableBackgroundColor: Color = Color.Transparent
+    val disableBackgroundColor: Color = Design.colors.caption.copy(alpha = 0.1f)
+
+    val bgColor = animateColorAsState(
+        targetValue = when {
+            loading -> Color.Transparent
+            enabled -> enableBackgroundColor
+            else -> disableBackgroundColor
+        },
+        animationSpec = tween(durationMillis = 300, easing = LinearEasing)
+    )
+
+    Row(
+        modifier = modifier
+            .requiredHeight(Design.dp.componentM)
+            .border(
+                color = if (enabled) Design.colors.content else Color.Transparent,
+                width = 1.dp,
+                shape = Design.shape.circleShape
+            ).background(
                 shape = Design.shape.circleShape,
                 color = bgColor.value
             ).clip(
@@ -115,8 +190,9 @@ public fun ButtonSmall(
     enabled: Boolean = true,
     textColor: Color = Design.colors.content,
     backgroundColor: Color = Design.colors.orange,
-    onClick: () -> Unit,
+    onClick: () -> Unit
 ) {
+
     Button(
         modifier = modifier,
         text = text,
@@ -139,7 +215,7 @@ public fun ButtonTextLink(
     modifier: Modifier = Modifier,
     text: String,
     onClick: () -> Unit,
-    color: Color = Design.colors.content,
+    color: Color = Design.colors.content
 ) {
 
     Design.typography.TertiaryButton
@@ -167,8 +243,9 @@ private fun Button(
     colors: ButtonColors,
     shape: Shape? = null,
     borderStroke: BorderStroke? = null,
-    leadIcon: ImageVector? = null,
+    leadIcon: ImageVector? = null
 ) {
+
     TextButton(
         modifier = modifier,
         onClick = onClick,
