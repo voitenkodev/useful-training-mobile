@@ -25,6 +25,7 @@ import components.chips.Chip
 import components.chips.ChipState
 import components.roots.Root
 import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 import molecule.ButtonTextLink
 import molecule.PaddingM
 import molecule.PaddingS
@@ -39,28 +40,27 @@ import musclepicker.state.MuscleTypeEnum
 @Composable
 internal fun MusclePickerContent(
     vm: MusclePickerViewModel,
-    back: () -> Unit
+    toTraining: (List<String>) -> Unit
 ) {
 
     val state by vm.state.collectAsState()
 
     Content(
         error = state.error,
-        back = back,
         list = state.muscleTypes,
         clearError = vm::clearError,
         selectMuscleType = vm::selectMuscleType,
         selectMuscle = vm::selectMuscle,
         selectFullBody = vm::selectFullBody,
         selectUpperBody = vm::selectUpperBody,
-        selectLowerBody = vm::selectLowerBody
+        selectLowerBody = vm::selectLowerBody,
+        toTraining = toTraining
     )
 }
 
 @Composable
 private fun Content(
     error: String?,
-    back: () -> Unit,
     clearError: () -> Unit,
 
     list: ImmutableList<MuscleType>,
@@ -69,7 +69,8 @@ private fun Content(
     selectMuscle: (id: String) -> Unit,
     selectFullBody: () -> Unit,
     selectUpperBody: () -> Unit,
-    selectLowerBody: () -> Unit
+    selectLowerBody: () -> Unit,
+    toTraining: (List<String>) -> Unit
 ) {
 
     val selectedChipState = ChipState.Colored(
@@ -87,6 +88,7 @@ private fun Content(
     Root(error = { Error(message = { error }, close = clearError) }) {
 
         Column(modifier = Modifier.fillMaxWidth()) {
+
             Header()
 
             LazyColumn(modifier = Modifier.fillMaxWidth().weight(1f)) {
@@ -219,8 +221,14 @@ private fun Content(
 
             Footer(
                 list = list,
-                skip = {},
-                apply = {}
+                skip = { toTraining.invoke(persistentListOf()) },
+                apply = {
+                    val selectedMuscles = list
+                        .flatMap { it.muscles }
+                        .filter { it.isSelected }
+                        .map { it.id }
+                    toTraining.invoke(selectedMuscles)
+                }
             )
         }
     }

@@ -6,18 +6,14 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.foundation.pager.HorizontalPager
-import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -26,179 +22,53 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import atom.Design
-import com.arkivanov.essenty.backhandler.BackCallback
 import components.Error
 import components.Loading
 import components.Popup
-import components.indication.SlideIndicator
-import components.overlay.TopShadow
 import components.roots.Root
 import components.roots.ScrollableRoot
-import io.github.xxfast.decompose.router.LocalRouterContext
-import kotlinx.collections.immutable.ImmutableList
-import kotlinx.coroutines.delay
 import molecule.ButtonIconSecondary
-import molecule.PaddingM
-import molecule.PaddingXL
-import molecule.PopupSheet
 import molecule.TextH4
-import platformTopInset
 import recomposeHighlighter
-import trainingbuilder.components.ConfigurationPage
 import trainingbuilder.components.EditExercise
-import trainingbuilder.components.ExercisesPage
-import trainingbuilder.components.SummaryPage
-import trainingbuilder.popups.EditExercisePopup
-import trainingbuilder.popups.MusclePickerPopup
-import trainingbuilder.popups.WeightPickerPopup
+import trainingbuilder.components.Footer
+import trainingbuilder.components.Header
 import trainingbuilder.state.Exercise
-import trainingbuilder.state.MuscleType
-import trainingbuilder.state.TrainingBuilderSteps
 
 @Composable
 internal fun TrainingContent(
     vm: TrainingViewModel,
-    trainingId: String?,
-    toReview: (trainingId: String) -> Unit,
+    toSummary: (trainingId: String) -> Unit,
     back: () -> Unit
 ) {
 
     val state by vm.state.collectAsState()
 
-    LaunchedEffect(trainingId) {
-        if (trainingId != null) {
-            delay(500)
-            vm.getTraining(trainingId)
-        }
-    }
-
-    if (state.musclePickerPopupVisible) PopupSheet(
-        onDismiss = vm::closePopups,
-        content = { hideLambda ->
-            MusclePickerPopup(
-                muscleTypes = state.muscleTypes,
-                apply = vm::applyMuscles,
-                close = hideLambda
-            )
-        }
-    )
-
-    if (state.weightPickerPopupVisible) PopupSheet(
-        onDismiss = vm::closePopups,
-        content = { hideLambda ->
-            WeightPickerPopup(
-                initialWeight = state.changedUserWeight,
-                close = hideLambda,
-                apply = vm::applyNewWeight
-            )
-        }
-    )
-
-    if (state.editExercisePopupIsVisible) PopupSheet(
-        onDismiss = vm::closePopups,
-        content = { EditExercisePopup() }
-    )
-
     Content(
         error = state.error,
-        nextStep = vm::nextStep,
-        previousStep = vm::previousStep,
         back = back,
-        clearError = vm::clearError,
-        selectedStep = state.selectedStep,
-        steps = state.steps,
-        selectedMuscles = state.muscleTypes,
-        addMuscle = vm::openMusclePicker,
-        unselectMuscle = vm::unselectMuscle,
-        changePreferredDuration = vm::changePreferredDuration,
-        preferredDuration = state.preferredDuration,
-        initialUserWeight = state.profileUserWeight,
-        changedUserWeight = state.changedUserWeight,
-        changeUserWeight = vm::openWeightPicker
+        clearError = vm::clearError
     )
 }
 
 @Composable
 private fun Content(
     error: String?,
-
-    // Steps
-    steps: ImmutableList<TrainingBuilderSteps>,
-    selectedStep: TrainingBuilderSteps,
-
-    // Muscles
-    selectedMuscles: ImmutableList<MuscleType>,
-    addMuscle: () -> Unit,
-    unselectMuscle: (id: String) -> Unit,
-
-    // Preferred Duration
-    preferredDuration: Int,
-    changePreferredDuration: (Int) -> Unit,
-
-    // User Weight
-    initialUserWeight: Int,
-    changedUserWeight: Int,
-    changeUserWeight: () -> Unit,
-
-    nextStep: () -> Unit,
-    previousStep: (onEmpty: () -> Unit) -> Unit,
-
     back: () -> Unit,
-    clearError: () -> Unit,
+    clearError: () -> Unit
 ) {
-
-    val backProvider by rememberUpdatedState(back)
-    val backHandler = LocalRouterContext.current.backHandler
-    backHandler.register(BackCallback { previousStep.invoke(backProvider) })
-    val pagerState = rememberPagerState(pageCount = { steps.size })
-
-    LaunchedEffect(selectedStep) {
-        pagerState.animateScrollToPage(steps.indexOf(selectedStep))
-    }
 
     Root(error = { Error(message = { error }, close = clearError) }) {
 
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        Column(modifier = Modifier.fillMaxWidth()) {
 
-            Box(modifier = Modifier.height(IntrinsicSize.Min)) {
-                TopShadow(
-                    modifier = Modifier.fillMaxSize()
-                )
+            Header()
 
-                Column(
-                    modifier = Modifier.fillMaxWidth().platformTopInset(),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    content = {
-                        PaddingXL()
-                        SlideIndicator(pagerState)
-                        PaddingM()
-                    }
-                )
+            LazyColumn(modifier = Modifier.fillMaxWidth().weight(1f)) {
+
             }
 
-            PaddingM()
-
-            HorizontalPager(
-                modifier = Modifier.weight(1f),
-                state = pagerState,
-                userScrollEnabled = false
-            ) {
-                when (it) {
-                    0 -> ConfigurationPage(
-                        selectedMuscles = selectedMuscles,
-                        addMuscle = addMuscle,
-                        unselectMuscle = unselectMuscle,
-                        duration = preferredDuration,
-                        changeDuration = changePreferredDuration,
-                        initialWeight = initialUserWeight,
-                        changedWeight = changedUserWeight,
-                        changeWeight = changeUserWeight
-                    )
-
-                    1 -> ExercisesPage()
-                    2 -> SummaryPage()
-                }
-            }
+            Footer(addExercise = {})
         }
     }
 }

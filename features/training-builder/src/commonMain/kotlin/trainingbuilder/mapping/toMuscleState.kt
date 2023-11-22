@@ -13,7 +13,6 @@ internal fun models.Muscle.toState(): Muscle? {
     return Muscle(
         name = name,
         id = id,
-        isSelected = false,
         type = type.toState() ?: return null
     )
 }

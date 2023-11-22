@@ -6,7 +6,6 @@ import TrainingsRepository
 import UserRepository
 import ViewModel
 import kotlinx.collections.immutable.ImmutableList
-import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -18,7 +17,6 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.update
 import org.koin.core.component.inject
 import round
-import trainingbuilder.factory.muscleImage
 import trainingbuilder.mapping.toBody
 import trainingbuilder.mapping.toState
 import trainingbuilder.state.Exercise
@@ -46,62 +44,13 @@ internal class TrainingViewModel : ViewModel() {
         exerciseExampleApi.syncMuscles()
             .catch { r -> _state.update { it.copy(error = r.message) } }
             .launchIn(this)
-
-        userApi
-            .observeUser()
-            .onEach { r -> _state.update { it.copy(profileUserWeight = r.weight, changedUserWeight = r.weight) } }
-            .catch { r -> _state.update { it.copy(error = r.message) } }
-            .launchIn(this)
     }
 
-    // ________________ MUSCLES  ________________
-
-    fun unselectMuscle(id: String) {
-        _state.update {
-            val muscleTypes = it.muscleTypes.map { muscleType ->
-                val muscles = muscleType.muscles.map { muscle ->
-                    if (id == muscle.id) muscle.copy(isSelected = false)
-                    else muscle
-                }
-
-                val image = muscleImage(
-                    muscleTypeEnumState = muscleType.type,
-                    muscles = muscles
-                )
-
-                muscleType.copy(
-                    muscles = muscles,
-                    imageVector = image
-                )
-            }.toPersistentList()
-            it.copy(muscleTypes = muscleTypes)
-        }
-    }
-
-    fun openMusclePicker() {
-        _state.update { it.copy(musclePickerPopupVisible = true) }
-    }
 
     fun applyMuscles(muscleTypes: ImmutableList<MuscleType>) {
         _state.update { it.copy(muscleTypes = muscleTypes) }
     }
 
-    // ________________ PREFERRED DURATION  ________________
-    fun changePreferredDuration(value: Int) {
-        _state.update { it.copy(preferredDuration = value) }
-    }
-
-    // ________________ USER WEIGHT  ________________
-
-    fun openWeightPicker() {
-        _state.update { it.copy(weightPickerPopupVisible = true) }
-    }
-
-    fun applyNewWeight(value: Int) {
-        _state.update { it.copy(changedUserWeight = value) }
-    }
-
-    // ________________ TRAININGS  ________________
 
     @FlowPreview
     fun saveTraining(onSuccess: (trainingId: String) -> Unit) {
@@ -195,28 +144,8 @@ internal class TrainingViewModel : ViewModel() {
     fun closePopups() {
         _state.update {
             it.copy(
-                editExercisePopupIsVisible = false,
-                musclePickerPopupVisible = false,
-                weightPickerPopupVisible = false
+                setExercisePopupIsVisible = false
             )
-        }
-    }
-
-    fun previousStep(onNextEmpty: () -> Unit) {
-        _state.update {
-            val newStepIndex = it.steps.indexOf(it.selectedStep).minus(1)
-            if (newStepIndex < 0) {
-                onNextEmpty.invoke()
-                it
-            } else it.copy(selectedStep = it.steps[newStepIndex])
-        }
-    }
-
-    fun nextStep() {
-        _state.update {
-            val newStepIndex = it.steps.indexOf(it.selectedStep).plus(1)
-            if (newStepIndex > it.steps.lastIndex) it
-            else it.copy(selectedStep = it.steps[newStepIndex])
         }
     }
 

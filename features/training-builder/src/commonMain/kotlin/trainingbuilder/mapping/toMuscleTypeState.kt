@@ -2,7 +2,6 @@ package trainingbuilder.mapping
 
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toPersistentList
-import trainingbuilder.factory.muscleImage
 import trainingbuilder.state.MuscleType
 
 internal fun List<models.MuscleType>.toState(): ImmutableList<MuscleType> {
@@ -20,8 +19,7 @@ internal fun models.MuscleType.toState(): MuscleType? {
         id = id,
         muscles = muscleState,
         isSelected = false,
-        type = typeState,
-        imageVector = muscleImage(typeState, muscleState)
+        type = typeState
     )
 }
 

@@ -1,7 +1,6 @@
 package trainingbuilder.state
 
 import androidx.compose.runtime.Immutable
-import androidx.compose.ui.graphics.vector.ImageVector
 
 @Immutable
 internal data class MuscleType(
@@ -9,8 +8,7 @@ internal data class MuscleType(
     val name: String = "",
     val muscles: List<Muscle>,
     val isSelected: Boolean,
-    val type: MuscleTypeEnum,
-    val imageVector: ImageVector
+    val type: MuscleTypeEnum
 )
 
 @Immutable
