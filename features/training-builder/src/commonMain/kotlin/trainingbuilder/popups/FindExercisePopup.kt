@@ -47,6 +47,8 @@ internal fun FindExercisePopup(
             list = exerciseExamples
         )
 
+        PaddingM()
+
         Shadow()
 
         Row(
