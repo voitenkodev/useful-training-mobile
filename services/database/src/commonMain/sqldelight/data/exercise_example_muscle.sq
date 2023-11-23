@@ -47,11 +47,16 @@ SELECT *
 FROM Muscle
 WHERE muscleTypeId = ?;
 
+getMusclesById:
+SELECT *
+FROM Muscle
+WHERE id IN ?;
+
 getMuscleTypes:
 SELECT *
 FROM MuscleType;
 
-getMusclesById:
+getMuscleById:
 SELECT *
 FROM Muscle
 WHERE id = ?;

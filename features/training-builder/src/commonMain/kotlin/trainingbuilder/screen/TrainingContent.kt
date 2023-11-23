@@ -34,6 +34,7 @@ import recomposeHighlighter
 import trainingbuilder.components.EditExercise
 import trainingbuilder.components.Footer
 import trainingbuilder.components.Header
+import trainingbuilder.popups.FindExercisePopup
 import trainingbuilder.popups.SetExercisePopup
 import trainingbuilder.state.Exercise
 
@@ -46,11 +47,11 @@ internal fun TrainingContent(
 
     val state by vm.state.collectAsState()
 
-    if (state.setExercisePopupIsVisibleIndex != null) PopupSheet(
-        onDismiss = vm::closePopups,
+    if (state.setExercisePopupVisibleIndex != null) PopupSheet(
+        onDismiss = vm::closeSetExercisePopup,
         content = { hideLambda ->
 
-            val index = state.setExercisePopupIsVisibleIndex ?: return@PopupSheet
+            val index = state.setExercisePopupVisibleIndex ?: return@PopupSheet
             val exercise = state.training.exercises.getOrNull(index) ?: return@PopupSheet
             val name by rememberUpdatedState(exercise.name)
             val number by rememberUpdatedState(index + 1)
@@ -63,26 +64,37 @@ internal fun TrainingContent(
                 updateName = { vm.updateName(index, it) },
                 updateWeight = { num, value -> vm.updateWeight(index, num, value) },
                 updateRepeat = { num, value -> vm.updateRepeat(index, num, value) },
-                iterations = { iterations },
-                remove = { vm.removeExercise(index) },
+                iterations = { iterations }
+            )
+        }
+    )
+
+    if (state.findExercisePopupIsVisibleIndex) PopupSheet(
+        onDismiss = vm::closeFindExercisePopup,
+        content = { hideLambda ->
+
+            FindExercisePopup(
+                close = hideLambda,
                 exerciseExamples = state.exerciseExamples,
-                muscles = state.muscles
+                muscles = state.muscles,
+                setMuscleTarget = vm::setMuscleTarget,
+                selectedMuscle = state.selectedMuscle,
+                selectExercise = vm::openAddExercisePopup,
+                createExercise = vm::openAddExercisePopup
             )
         }
     )
 
     Content(
         error = state.error,
-        back = back,
         clearError = vm::clearError,
-        addExercise = vm::addExercise
+        addExercise = vm::openFindExercisePopup
     )
 }
 
 @Composable
 private fun Content(
     error: String?,
-    back: () -> Unit,
     clearError: () -> Unit,
 
     addExercise: () -> Unit
@@ -137,8 +149,6 @@ private fun Content2(
     val saveTrainingProvider by rememberUpdatedState(saveTraining)
     val openExitScreenPopupProvider by rememberUpdatedState(openExitScreenPopup)
     val addExerciseProvider by rememberUpdatedState(addExercise)
-    val exerciseNamesProvider by rememberUpdatedState(exerciseNames)
-    val removeExerciseNameOptionProvider by rememberUpdatedState(removeExerciseNameOption)
 
     ScrollableRoot(
         modifier = Modifier
@@ -200,8 +210,7 @@ private fun Content2(
                     updateName = { updateName(indexProvider, it) },
                     updateWeight = { num, value -> updateWeight(indexProvider, num, value) },
                     updateRepeat = { num, value -> updateRepeat(indexProvider, num, value) },
-                    iterations = { iterations },
-                    remove = { openRemoveExercisePopup(indexProvider) }
+                    iterations = { iterations }
                 )
             }
 

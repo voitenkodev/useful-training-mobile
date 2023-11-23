@@ -8,6 +8,7 @@ import app.cash.sqldelight.coroutines.mapToOne
 import database
 import exercise_example_muscle.mapping.toDao
 import exercise_example_muscle.models.ExerciseExampleDao
+import exercise_example_muscle.models.MuscleDao
 import exercise_example_muscle.models.MuscleExerciseBundleDao
 import exercise_example_muscle.models.MuscleTypeDao
 import kotlinx.coroutines.Dispatchers
@@ -31,7 +32,7 @@ public class ExerciseExamplesSource(nativeContext: NativeContext) {
                         .executeAsList()
                         .map { muscleExerciseBundle ->
                             val muscle = api
-                                .getMusclesById(muscleExerciseBundle.muscleId)
+                                .getMuscleById(muscleExerciseBundle.muscleId)
                                 .executeAsOne()
                             muscleExerciseBundle.toDao(muscle.toDao())
                         }
@@ -51,7 +52,7 @@ public class ExerciseExamplesSource(nativeContext: NativeContext) {
                     .executeAsList()
                     .map { muscleExerciseBundle ->
                         val muscle = api
-                            .getMusclesById(muscleExerciseBundle.muscleId)
+                            .getMuscleById(muscleExerciseBundle.muscleId)
                             .executeAsOne()
                         muscleExerciseBundle.toDao(muscle.toDao())
                     }
@@ -83,7 +84,7 @@ public class ExerciseExamplesSource(nativeContext: NativeContext) {
         return exerciseExample.id
     }
 
-    public fun getMuscles(): Flow<List<MuscleTypeDao>> {
+    public fun getMuscleTypes(): Flow<List<MuscleTypeDao>> {
         return api
             .getMuscleTypes()
             .asFlow()
@@ -97,6 +98,14 @@ public class ExerciseExamplesSource(nativeContext: NativeContext) {
                     muscleType.toDao(muscles)
                 }
             }
+    }
+
+    public fun getMusclesByIds(ids: List<String>): Flow<List<MuscleDao>> {
+        return api
+            .getMusclesById(ids)
+            .asFlow()
+            .mapToList(Dispatchers.Default)
+            .map { it.map { it.toDao() } }
     }
 
     public fun deleteExerciseExample(exerciseExampleId: String) {

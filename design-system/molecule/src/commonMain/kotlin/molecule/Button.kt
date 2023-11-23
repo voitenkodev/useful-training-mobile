@@ -45,17 +45,16 @@ public fun ButtonPrimary(
     text: String,
     enabled: Boolean = true,
     onClick: () -> Unit,
-    loading: Boolean = false
+    loading: Boolean = false,
+    textColor: Color = Design.colors.content,
+    backgroundColor: Color = Design.colors.orange
 ) {
-
-    val enableBackgroundColor: Color = Design.colors.orange
-    val textColor: Color = Design.colors.content
     val disableBackgroundColor: Color = Design.colors.caption.copy(alpha = 0.1f)
 
     val bgColor = animateColorAsState(
         targetValue = when {
             loading -> Design.colors.content
-            enabled -> enableBackgroundColor
+            enabled -> backgroundColor
             else -> disableBackgroundColor
         },
         animationSpec = tween(durationMillis = 300, easing = LinearEasing)

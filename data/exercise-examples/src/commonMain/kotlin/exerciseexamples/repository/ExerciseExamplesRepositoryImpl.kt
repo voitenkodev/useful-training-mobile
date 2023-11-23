@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import models.ExerciseExample
+import models.Muscle
 import models.MuscleType
 
 internal class ExerciseExamplesRepositoryImpl(
@@ -37,13 +38,19 @@ internal class ExerciseExamplesRepositoryImpl(
             .map { it.daoToDomain() }
     }
 
-    override fun observeMuscles(): Flow<List<MuscleType>> {
+    override fun observeMuscleTypes(): Flow<List<MuscleType>> {
         return local
-            .getMuscles()
+            .getMuscleTypes()
             .map { it.daoToDomain() }
     }
 
-    override fun syncMuscles(): Flow<Unit> {
+    override fun observeMusclesById(ids: List<String>): Flow<List<Muscle>> {
+        return local
+            .getMusclesByIds(ids)
+            .map { it.daoToDomain() }
+    }
+
+    override fun syncMuscleTypes(): Flow<Unit> {
         return flow {
             val result = remote.getMuscles()
             local.setMuscleTypesWithMuscles(result.dtoToDao())

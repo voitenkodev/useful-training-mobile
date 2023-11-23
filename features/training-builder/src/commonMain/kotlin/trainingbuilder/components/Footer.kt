@@ -10,7 +10,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import atom.Design
 import molecule.ButtonPrimary
-import molecule.PaddingWeight
 import molecule.Shadow
 import molecule.secondaryRoundBackground
 import platformBottomInset
@@ -29,8 +28,6 @@ internal fun Footer(addExercise: () -> Unit) {
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
         ) {
-
-            PaddingWeight()
 
             ButtonPrimary(
                 modifier = Modifier.weight(1f),

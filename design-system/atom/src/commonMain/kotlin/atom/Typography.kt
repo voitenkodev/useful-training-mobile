@@ -38,6 +38,11 @@ internal fun typography() = Typography(
         fontFamily = Fonts.GunterzFamily(),
         lineHeight = 16.sp
     ),
+    H5 = TextStyle(
+        fontSize = 18.sp,
+        fontWeight = FontWeight.Bold,
+        fontStyle = FontStyle.Normal
+    ),
     Label = TextStyle(
         fontSize = 14.sp,
         fontWeight = FontWeight.Medium,
@@ -89,10 +94,12 @@ internal fun typography() = Typography(
 )
 
 public data class Typography(
-    val H1: TextStyle,
-    val H2: TextStyle,
-    val H3: TextStyle,
-    val H4: TextStyle,
+    val H1: TextStyle, // Welcome titles
+    val H2: TextStyle, // Main Toolbar
+    val H3: TextStyle, // Sub Main Title
+    val H4: TextStyle, // Sub Title ( + Popup Title)
+    val H5: TextStyle, // Menu Labels (without custom font)
+
 
     val Input: TextStyle, // Main inputs + fields
 

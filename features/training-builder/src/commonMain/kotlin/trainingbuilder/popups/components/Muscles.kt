@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -19,17 +20,19 @@ import components.chips.Chip
 import components.chips.ChipState
 import kotlinx.collections.immutable.ImmutableList
 import molecule.PaddingM
-import molecule.TextH4
+import molecule.TextH5
 import trainingbuilder.state.Muscle
 
 @Composable
 internal fun Muscles(
-    list: ImmutableList<Muscle>
+    selectedMuscle: Muscle?,
+    list: ImmutableList<Muscle>,
+    setMuscleTarget: (id: String) -> Unit
 ) {
 
     val lazyListState = rememberLazyListState()
 
-    val selectedIndex = remember(list) { list.indexOfFirst { it.isSelected } }
+    val selectedIndex = remember(list) { list.indexOfFirst { it.id == selectedMuscle?.id } }
 
     LaunchedEffect(key1 = selectedIndex) {
         if (selectedIndex != -1) lazyListState.animateScrollAndCentralizeItem(selectedIndex)
@@ -40,7 +43,7 @@ internal fun Muscles(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        TextH4(provideText = { "Muscles" })
+        TextH5(provideText = { "Target Muscle" })
     }
 
     PaddingM()
@@ -51,15 +54,15 @@ internal fun Muscles(
         horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS),
         contentPadding = PaddingValues(horizontal = Design.dp.paddingM)
     ) {
-        item {
+        items(list, key = { it.id }) {
             Chip(
-                chipState = ChipState.Default(true),
-                text = "Biceps"
+                chipState = if (it.id == selectedMuscle?.id) ChipState.Selected() else ChipState.Default(),
+                text = it.name,
+                onClick = { setMuscleTarget.invoke(it.id) }
             )
         }
     }
 }
-
 
 private suspend fun LazyListState.animateScrollAndCentralizeItem(index: Int) {
     val itemInfo = this.layoutInfo.visibleItemsInfo.firstOrNull { it.index == index }

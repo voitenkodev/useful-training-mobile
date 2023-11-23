@@ -42,7 +42,7 @@ internal class ExerciseExampleBuilderViewModel(exerciseExampleId: String?) : Vie
                 val exerciseExample = r?.toState() ?: ExerciseExample()
                 _state.update { it.copy(exerciseExample = exerciseExample) }
             }.flatMapLatest {
-                api.observeMuscles()
+                api.observeMuscleTypes()
             }.onEach { r ->
 //                _state.update {
 //                    it.copy(

@@ -1,6 +1,5 @@
 package trainingbuilder.screen
 
-import DateTimeKtx
 import ExerciseExamplesRepository
 import TrainingsRepository
 import ViewModel
@@ -23,7 +22,7 @@ import trainingbuilder.state.Iteration
 import trainingbuilder.state.State
 import trainingbuilder.state.Training
 
-internal class TrainingViewModel : ViewModel() {
+internal class TrainingViewModel(muscleIds: List<String>) : ViewModel() {
 
     private val _state = MutableStateFlow(State())
     internal val state: StateFlow<State> = _state
@@ -33,12 +32,14 @@ internal class TrainingViewModel : ViewModel() {
 
     init {
         exerciseExampleApi
-            .observeMuscles()
-            .onEach { r -> _state.update { it.copy(muscles = r.flatMap { it.muscles }.toState()) } }
-            .catch { r -> _state.update { it.copy(error = r.message) } }
+            .observeMusclesById(muscleIds)
+            .onEach { r ->
+                val list = r.toState()
+                _state.update { it.copy(muscles = list, selectedMuscle = list.firstOrNull()) }
+            }.catch { r -> _state.update { it.copy(error = r.message) } }
             .launchIn(this)
 
-        exerciseExampleApi.syncMuscles()
+        exerciseExampleApi.syncMuscleTypes()
             .catch { r -> _state.update { it.copy(error = r.message) } }
             .launchIn(this)
     }
@@ -47,7 +48,6 @@ internal class TrainingViewModel : ViewModel() {
     fun saveTraining(onSuccess: (trainingId: String) -> Unit) {
         val training = state.value.training
             .validate()
-            .calculateDuration()
             .calculateValues()
 
         if (training.exercises.isEmpty()) {
@@ -57,32 +57,27 @@ internal class TrainingViewModel : ViewModel() {
 
         trainingsApi.setTraining(training = training.toBody())
             .onStart {
-                _state.value = state.value.copy(loading = true)
-            }.onEach {
-                _state.value = state.value.copy(loading = false, error = null)
-                it ?: return@onEach
-                onSuccess.invoke(it)
-            }.catch {
-                _state.value = state.value.copy(loading = false, error = it.message)
-            }
-            .launchIn(this)
+                _state.update { it.copy(loading = true) }
+            }.onEach { r ->
+                _state.update { it.copy(loading = false, error = null) }
+                onSuccess.invoke(r ?: return@onEach)
+            }.catch { t ->
+                _state.update { it.copy(loading = false, error = t.message) }
+            }.launchIn(this)
     }
 
     fun getTraining(trainingId: String) {
         trainingsApi
             .observeTraining(trainingId = trainingId)
             .onStart {
-                _state.value = state.value.copy(loading = true)
+                _state.update { it.copy(loading = true) }
             }.filterNotNull()
-            .onEach {
-                _state.value = state.value.copy(
-                    training = it
-                        .toState()
-                        .provideEmptyIterations(),
-                    loading = false,
-                )
-            }.catch {
-                _state.value = state.value.copy(loading = false, error = it.message)
+            .onEach { r ->
+                _state.update {
+                    it.copy(training = r.toState().provideEmptyIterations(), loading = false)
+                }
+            }.catch { t ->
+                _state.update { it.copy(loading = false, error = t.message) }
             }.launchIn(this)
     }
 
@@ -128,21 +123,33 @@ internal class TrainingViewModel : ViewModel() {
         }
     }
 
-    fun addExercise() {
+    fun openAddExercisePopup() {
         _state.update {
-            val training = it.training.addExercise()
+            val newExercises = (it.training.exercises + Exercise()).toPersistentList()
+            val training = it.training.copy(exercises = newExercises)
+
             it.copy(
                 training = training,
-                setExercisePopupIsVisibleIndex = training.exercises.lastIndex
+                setExercisePopupVisibleIndex = training.exercises.lastIndex
             )
         }
     }
 
-    fun closePopups() {
+    fun closeSetExercisePopup() {
+        _state.update { it.copy(setExercisePopupVisibleIndex = null) }
+    }
+
+    fun openFindExercisePopup() {
+        _state.update { it.copy(findExercisePopupIsVisibleIndex = true) }
+    }
+
+    fun closeFindExercisePopup() {
+        _state.update { it.copy(findExercisePopupIsVisibleIndex = false) }
+    }
+
+    fun setMuscleTarget(id: String) {
         _state.update {
-            it.copy(
-                setExercisePopupIsVisibleIndex = null
-            )
+            it.copy(selectedMuscle = it.muscles.firstOrNull { m -> m.id == id })
         }
     }
 
@@ -195,11 +202,6 @@ internal class TrainingViewModel : ViewModel() {
         return this.copy(exercises = newList)
     }
 
-    private fun Training.addExercise(): Training {
-        val newExercises = (this.exercises + Exercise()).toPersistentList()
-        return this.copy(exercises = newExercises)
-    }
-
     private fun Training.validate(): Training {
         val exercises = exercises.mapNotNull {
             val isNameValid = it.name.isNotBlank()
@@ -242,11 +244,6 @@ internal class TrainingViewModel : ViewModel() {
             repetitions = trainRepetitions,
             intensity = trainIntensity.round(1)
         )
-    }
-
-    private fun Training.calculateDuration(): Training {
-        return if (duration == null) this.copy(duration = DateTimeKtx.minutesFrom(this.startDateTime))
-        else this
     }
 
     private fun Training.provideEmptyIterations(): Training {

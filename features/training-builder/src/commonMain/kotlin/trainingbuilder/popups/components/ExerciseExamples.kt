@@ -10,13 +10,12 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import atom.Design
 import components.brand.ExerciseCard
 import kotlinx.collections.immutable.ImmutableList
 import molecule.ButtonTextLink
 import molecule.PaddingM
-import molecule.TextH4
+import molecule.TextH5
 import trainingbuilder.state.ExerciseExample
 
 @Composable
@@ -34,12 +33,11 @@ internal fun ExerciseExamples(
         verticalAlignment = Alignment.CenterVertically
     ) {
 
-        TextH4(
-            provideText = { "Exercise examples" }
+        TextH5(
+            provideText = { "Recommended for you" }
         )
 
         ButtonTextLink(
-            modifier = Modifier.padding(bottom = 4.dp),
             text = "See all",
             onClick = {}
         )
@@ -53,10 +51,9 @@ internal fun ExerciseExamples(
         pageSpacing = Design.dp.paddingS
     ) {
         ExerciseCard(
-            modifier = Modifier,
             name = "Bench press",
-            btn = "take" to {},
-            btn2 = "details" to {}
+            btn = "Select" to {},
+            btn2 = "Details" to {}
         )
     }
 }

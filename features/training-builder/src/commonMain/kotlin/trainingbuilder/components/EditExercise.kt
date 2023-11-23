@@ -1,11 +1,10 @@
 package trainingbuilder.components
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import components.inputs.InputExerciseName
+import molecule.PaddingM
 import trainingbuilder.state.Iteration
 
 @Composable
@@ -16,17 +15,16 @@ internal fun EditExercise(
     name: () -> String,
     updateName: (String) -> Unit,
     updateWeight: (Int, String) -> Unit,
-    updateRepeat: (Int, String) -> Unit,
-    remove: () -> Unit,
+    updateRepeat: (Int, String) -> Unit
 ) {
     Column(modifier = modifier) {
 
+        PaddingM()
+
         InputExerciseName(
-            modifier = Modifier.padding(start = 8.dp),
             provideNumber = number,
             provideName = name,
             update = updateName,
-            remove = remove
         )
 
         WeightRepeatSection(

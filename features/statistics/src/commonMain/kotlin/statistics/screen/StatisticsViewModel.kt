@@ -40,7 +40,7 @@ internal class StatisticsViewModel : ViewModel() {
             .launchIn(this)
 
         exerciseExamplesApi
-            .syncMuscles()
+            .syncMuscleTypes()
             .catch { t -> _state.update { it.copy(error = t.message) } }
             .launchIn(this)
     }

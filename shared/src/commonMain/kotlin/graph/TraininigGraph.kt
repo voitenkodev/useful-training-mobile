@@ -39,6 +39,7 @@ internal fun TrainingGraph(
 
             is TrainingRouter.TrainingBuilder -> TrainingFeature(
                 trainingId = child.trainingId,
+                muscleIds = child.muscleIds,
                 toTrainingDetails = { id -> toTrainingDetails.invoke(id) },
                 back = router::pop
             )

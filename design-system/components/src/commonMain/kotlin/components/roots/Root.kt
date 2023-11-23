@@ -17,15 +17,12 @@ public fun Root(
     popups: (@Composable () -> Unit)? = null,
     content: (@Composable BoxScope.() -> Unit),
 ) {
-
     val focusManager = LocalFocusManager.current
 
     Box(
         modifier = modifier
             .fillMaxSize()
-            .pointerInput(Unit) {
-                detectTapGestures(onTap = { focusManager.clearFocus() })
-            },
+            .pointerInput(Unit) { detectTapGestures(onTap = { focusManager.clearFocus() }) },
         content = content
     )
 

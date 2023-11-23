@@ -1,83 +1,66 @@
 package trainingbuilder.popups
 
-import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import components.roots.PopupRoot
+import atom.Design
+import components.roots.PopupScreenRoot
 import kotlinx.collections.immutable.ImmutableList
-import molecule.PaddingM
-import molecule.Shadow
+import molecule.ButtonPrimary
+import molecule.ButtonSecondary
 import trainingbuilder.components.EditExercise
-import trainingbuilder.popups.components.ExerciseExamples
-import trainingbuilder.popups.components.Footer
-import trainingbuilder.popups.components.Muscles
-import trainingbuilder.state.ExerciseExample
 import trainingbuilder.state.Iteration
-import trainingbuilder.state.Muscle
 
 @Composable
 internal fun SetExercisePopup(
-    // Common
     close: () -> Unit,
-
-    // Exercise
     number: () -> Int,
     iterations: () -> ImmutableList<Iteration>,
     name: () -> String,
     updateName: (String) -> Unit,
     updateWeight: (Int, String) -> Unit,
-    updateRepeat: (Int, String) -> Unit,
-    remove: () -> Unit,
-
-    // Muscles
-    muscles: ImmutableList<Muscle>,
-
-    // Exercise examples
-    exerciseExamples: ImmutableList<ExerciseExample>
+    updateRepeat: (Int, String) -> Unit
 ) {
 
-    PopupRoot(
-        modifier = Modifier.fillMaxHeight(0.9f),
-        title = "Add Exercise",
-        close = close
-    ) {
+    PopupScreenRoot(title = "Add Exercise") {
 
         EditExercise(
-            modifier = Modifier.weight(1f).verticalScroll(rememberScrollState()),
+            modifier = Modifier
+                .weight(1f)
+                .verticalScroll(rememberScrollState()),
             number = number,
             name = name,
             updateName = updateName,
             updateWeight = updateWeight,
             updateRepeat = updateRepeat,
-            iterations = iterations,
-            remove = remove
+            iterations = iterations
         )
 
-        Shadow()
 
-        PaddingM()
+        Row(
+            modifier = Modifier.padding(Design.dp.paddingM),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
+        ) {
 
-        Muscles(
-            list = muscles
-        )
+            ButtonSecondary(
+                modifier = Modifier.weight(1f),
+                text = "cancel",
+                onClick = close
+            )
 
-        PaddingM()
-
-        Shadow()
-
-        PaddingM()
-
-        ExerciseExamples(
-            list = exerciseExamples
-        )
-
-        PaddingM()
-
-        Footer(
-            cancel = {},
-            set = {}
-        )
+            ButtonPrimary(
+                modifier = Modifier.weight(1f),
+                text = "Set",
+                onClick = {
+                    close.invoke()
+                }
+            )
+        }
     }
 }

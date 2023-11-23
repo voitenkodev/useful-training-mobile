@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -22,14 +23,14 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
 import atom.Design
 import molecule.ButtonIconTransparent
-import molecule.PaddingM
+import molecule.PaddingS
 import molecule.Shadow
 import molecule.TextH4
-import molecule.bottomSheetBackground
-import platformBottomInset
+import molecule.secondaryRoundBackground
+import platformInsets
 
 @Composable
-public fun PopupRoot(
+public fun PopupScreenRoot(
     modifier: Modifier = Modifier,
     title: String,
     icon: Pair<ImageVector, () -> Unit>? = null,
@@ -39,14 +40,14 @@ public fun PopupRoot(
 
     Column(
         modifier = modifier
-            .fillMaxWidth()
+            .fillMaxSize()
             .animateContentSize()
-            .bottomSheetBackground()
-            .platformBottomInset()
+            .secondaryRoundBackground()
+            .platformInsets()
             .pointerInput(Unit) { detectTapGestures(onTap = { focusManager.clearFocus() }) }
     ) {
 
-        PaddingM()
+        PaddingS()
 
         Row(
             modifier = Modifier

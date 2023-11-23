@@ -1,3 +1,5 @@
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.ui.graphics.vector.ImageVector
 import icons.Add
 import icons.ArrowLeft
@@ -23,6 +25,7 @@ import icons.Weight
 public object Icons {
     public val add: ImageVector = Add
     public val close: ImageVector = Close
+    public val remove: ImageVector = Icons.Default.Delete
     public val arrowLeft: ImageVector = ArrowLeft
     public val arrowRight: ImageVector = ArrowRight
     public val card: ImageVector = Card

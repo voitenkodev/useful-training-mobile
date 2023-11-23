@@ -17,7 +17,7 @@ import atom.Design
 public fun AlphaOverlay(
     modifier: Modifier = Modifier,
     condition: Boolean = true,
-    finishedListener: () -> Unit,
+    finishedListener: () -> Unit = {},
     initialAlpha: Float = 1f,
     targetAlpha: Float = 0f,
     animationDuration: Int = 1200,

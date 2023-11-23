@@ -9,9 +9,11 @@ internal data class State(
     val training: Training = Training(),
 
     val muscles: ImmutableList<Muscle> = persistentListOf(),
+    val selectedMuscle: Muscle? = null,
     val exerciseExamples: ImmutableList<ExerciseExample> = persistentListOf(),
 
-    val setExercisePopupIsVisibleIndex: Int? = null,
+    val setExercisePopupVisibleIndex: Int? = null,
+    val findExercisePopupIsVisibleIndex: Boolean = false,
 
     val error: String? = null,
     val loading: Boolean = false

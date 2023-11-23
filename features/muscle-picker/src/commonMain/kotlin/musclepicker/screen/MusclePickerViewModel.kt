@@ -24,12 +24,12 @@ internal class MusclePickerViewModel : ViewModel() {
 
     init {
         exerciseExampleApi
-            .observeMuscles()
+            .observeMuscleTypes()
             .onEach { r -> _state.update { it.copy(muscleTypes = r.toState()) } }
             .catch { r -> _state.update { it.copy(error = r.message) } }
             .launchIn(this)
 
-        exerciseExampleApi.syncMuscles()
+        exerciseExampleApi.syncMuscleTypes()
             .catch { r -> _state.update { it.copy(error = r.message) } }
             .launchIn(this)
     }

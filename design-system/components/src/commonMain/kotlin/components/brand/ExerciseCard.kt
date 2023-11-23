@@ -14,7 +14,7 @@ import atom.Design
 import molecule.ButtonPrimarySmall
 import molecule.ButtonSecondarySmall
 import molecule.PaddingWeight
-import molecule.TextH3
+import molecule.TextH4
 import molecule.black10DefaultBackground
 
 @Composable
@@ -22,7 +22,7 @@ public fun ExerciseCard(
     modifier: Modifier = Modifier,
     name: String,
     btn: Pair<String, () -> Unit>,
-    btn2: Pair<String, () -> Unit>,
+    btn2: Pair<String, () -> Unit>
 ) {
     Column(
         modifier = modifier
@@ -33,8 +33,9 @@ public fun ExerciseCard(
             .padding(vertical = Design.dp.paddingL, horizontal = Design.dp.paddingXL)
     ) {
 
-        TextH3(
+        TextH4(
             provideText = { name },
+            maxLines = 2,
             color = Design.colors.content
         )
 
