@@ -5,11 +5,8 @@ import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.persistentListOf
 
 @Immutable
-internal data class Exercise(
+internal data class ExerciseExample(
     val id: String? = null,
     val name: String = "",
-    val iterations: PersistentList<Iteration> = persistentListOf(Iteration()),
-    val volume: Double = 0.0,
-    val repetitions: Int = 0,
-    val intensity: Double = 0.0
+    val muscleExerciseBundles: PersistentList<MuscleExerciseBundle> = persistentListOf()
 )

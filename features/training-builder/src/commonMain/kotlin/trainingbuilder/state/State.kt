@@ -8,7 +8,8 @@ import kotlinx.collections.immutable.persistentListOf
 internal data class State(
     val training: Training = Training(),
 
-    val muscleTypes: ImmutableList<MuscleType> = persistentListOf(),
+    val muscles: ImmutableList<Muscle> = persistentListOf(),
+    val exerciseExamples: ImmutableList<ExerciseExample> = persistentListOf(),
 
     val setExercisePopupIsVisibleIndex: Int? = null,
 

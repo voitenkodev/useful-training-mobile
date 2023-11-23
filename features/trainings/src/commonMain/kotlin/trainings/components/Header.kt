@@ -104,7 +104,7 @@ internal fun Header(
         PaddingS()
 
         CalendarRow(
-            lazyColumnListState = lazyColumnListState,
+            lazyListState = lazyColumnListState,
             calendar = calendar,
             selectCalendarDay = selectCalendarDay,
             onAddMore = onAddMore
@@ -118,7 +118,7 @@ internal fun Header(
 
 @Composable
 private fun CalendarRow(
-    lazyColumnListState: LazyListState,
+    lazyListState: LazyListState,
     calendar: List<SelectableCalendar>,
     selectCalendarDay: (dateTimeIso: String) -> Unit,
     onAddMore: () -> Unit
@@ -126,8 +126,8 @@ private fun CalendarRow(
 
     val shouldStartPaginate = remember {
         derivedStateOf {
-            (lazyColumnListState.layoutInfo.visibleItemsInfo.lastOrNull()?.index
-                ?: -9) >= (lazyColumnListState.layoutInfo.totalItemsCount - 6)
+            (lazyListState.layoutInfo.visibleItemsInfo.lastOrNull()?.index
+                ?: -9) >= (lazyListState.layoutInfo.totalItemsCount - 6)
         }
     }
 
@@ -138,12 +138,12 @@ private fun CalendarRow(
     val selectedIndex = remember(calendar) { calendar.indexOfFirst { it.isSelected } }
 
     LaunchedEffect(key1 = selectedIndex) {
-        if (selectedIndex != -1) lazyColumnListState.animateScrollAndCentralizeItem(selectedIndex)
+        if (selectedIndex != -1) lazyListState.animateScrollAndCentralizeItem(selectedIndex)
     }
 
 
     LazyRow(
-        state = lazyColumnListState,
+        state = lazyListState,
         modifier = Modifier.fillMaxWidth().padding(vertical = Design.dp.paddingXS),
         reverseLayout = true,
         horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM),

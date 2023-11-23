@@ -1,11 +1,11 @@
 package trainingbuilder.mapping
 
-import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.toPersistentList
 import toDoubleOrIntString
 import trainingbuilder.state.Iteration
 
-internal fun List<models.Iteration>.toState(): ImmutableList<Iteration> {
+internal fun List<models.Iteration>.toState(): PersistentList<Iteration> {
     return map {
         it.toState()
     }.toPersistentList()

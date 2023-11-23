@@ -64,7 +64,9 @@ internal fun TrainingContent(
                 updateWeight = { num, value -> vm.updateWeight(index, num, value) },
                 updateRepeat = { num, value -> vm.updateRepeat(index, num, value) },
                 iterations = { iterations },
-                remove = { vm.removeExercise(index) }
+                remove = { vm.removeExercise(index) },
+                exerciseExamples = state.exerciseExamples,
+                muscles = state.muscles
             )
         }
     )

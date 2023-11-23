@@ -1,10 +1,10 @@
 package trainingbuilder.mapping
 
-import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.toPersistentList
 import trainingbuilder.state.Exercise
 
-internal fun List<models.Exercise>.toState(): ImmutableList<Exercise> {
+internal fun List<models.Exercise>.toState(): PersistentList<Exercise> {
     return map {
         it.toState()
     }.toPersistentList()

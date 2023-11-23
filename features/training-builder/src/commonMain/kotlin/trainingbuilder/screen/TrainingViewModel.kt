@@ -3,9 +3,8 @@ package trainingbuilder.screen
 import DateTimeKtx
 import ExerciseExamplesRepository
 import TrainingsRepository
-import UserRepository
 import ViewModel
-import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -21,7 +20,6 @@ import trainingbuilder.mapping.toBody
 import trainingbuilder.mapping.toState
 import trainingbuilder.state.Exercise
 import trainingbuilder.state.Iteration
-import trainingbuilder.state.MuscleType
 import trainingbuilder.state.State
 import trainingbuilder.state.Training
 
@@ -32,22 +30,17 @@ internal class TrainingViewModel : ViewModel() {
 
     private val trainingsApi by inject<TrainingsRepository>()
     private val exerciseExampleApi by inject<ExerciseExamplesRepository>()
-    private val userApi by inject<UserRepository>()
 
     init {
         exerciseExampleApi
             .observeMuscles()
-            .onEach { r -> _state.update { it.copy(muscleTypes = r.toState()) } }
+            .onEach { r -> _state.update { it.copy(muscles = r.flatMap { it.muscles }.toState()) } }
             .catch { r -> _state.update { it.copy(error = r.message) } }
             .launchIn(this)
 
         exerciseExampleApi.syncMuscles()
             .catch { r -> _state.update { it.copy(error = r.message) } }
             .launchIn(this)
-    }
-
-    fun applyMuscles(muscleTypes: ImmutableList<MuscleType>) {
-        _state.update { it.copy(muscleTypes = muscleTypes) }
     }
 
     @FlowPreview
@@ -159,7 +152,7 @@ internal class TrainingViewModel : ViewModel() {
                 if (exerciseIndex == index) {
                     item.copy(name = name)
                 } else item
-            }
+            }.toPersistentList()
         )
     }
 
@@ -172,10 +165,10 @@ internal class TrainingViewModel : ViewModel() {
                     val newRepeat = if (numberOfIteration == iterationIndex) repeat else iteration.repetitions
                     if (newRepeat == "" && iteration.weight == "") null
                     else Iteration(weight = iteration.weight, repetitions = newRepeat)
-                }
+                }.toPersistentList()
                 item.copy(iterations = iterations)
             }
-        }
+        }.toPersistentList()
         return copy(exercises = exercises)
     }
 
@@ -188,20 +181,22 @@ internal class TrainingViewModel : ViewModel() {
                     val newWeight = if (numberOfIteration == iterationIndex) weight else iteration.weight
                     if (newWeight == "" && iteration.repetitions == "") null
                     else Iteration(weight = newWeight, repetitions = iteration.repetitions)
-                }
+                }.toPersistentList()
                 item.copy(iterations = iterations)
             }
-        }
+        }.toPersistentList()
         return copy(exercises = exercises)
     }
 
     private fun Training.removeExercise(exerciseIndex: Int): Training {
-        val newList = this.exercises.mapIndexedNotNull { index, old -> if (exerciseIndex == index) null else old }
+        val newList = this.exercises
+            .mapIndexedNotNull { index, old -> if (exerciseIndex == index) null else old }
+            .toPersistentList()
         return this.copy(exercises = newList)
     }
 
     private fun Training.addExercise(): Training {
-        val newExercises = this.exercises + Exercise()
+        val newExercises = (this.exercises + Exercise()).toPersistentList()
         return this.copy(exercises = newExercises)
     }
 
@@ -214,10 +209,10 @@ internal class TrainingViewModel : ViewModel() {
                 val isRepeatValid = repetitions != null && repetitions > 0.0
                 val isWeightValid = weight != null && weight > 0
                 isRepeatValid && isWeightValid
-            }
+            }.toPersistentList()
             if (isNameValid && iterations.isNotEmpty()) it.copy(iterations = iterations)
             else null
-        }
+        }.toPersistentList()
         return this.copy(exercises = exercises)
     }
 
@@ -235,7 +230,7 @@ internal class TrainingViewModel : ViewModel() {
                 repetitions = exRepetitions,
                 intensity = exIntensity.round(1)
             )
-        }
+        }.toPersistentList()
 
         val trainVolume = calculatedExercises.sumOf { it.volume }
         val trainRepetitions = calculatedExercises.sumOf { it.repetitions }
@@ -258,9 +253,9 @@ internal class TrainingViewModel : ViewModel() {
         return this.copy(
             exercises = exercises.map {
                 val lastIsNotEmpty = it.iterations.lastOrNull()?.weight != "" || it.iterations.lastOrNull()?.repetitions != ""
-                if (lastIsNotEmpty) it.copy(iterations = it.iterations + Iteration())
+                if (lastIsNotEmpty) it.copy(iterations = (it.iterations + Iteration()).toPersistentList())
                 else it
-            }
+            }.toPersistentList()
         )
     }
 
@@ -268,8 +263,10 @@ internal class TrainingViewModel : ViewModel() {
         val exercise = this.exercises.getOrNull(exerciseIndex) ?: return this
         val lastIsNotEmpty = exercise.iterations.lastOrNull()?.weight != "" || exercise.iterations.lastOrNull()?.repetitions != ""
         if (lastIsNotEmpty.not()) return this
-        val newExercise = exercise.copy(iterations = exercise.iterations + Iteration())
-        val newExercises = this.exercises.mapIndexed { index, item -> if (index == exerciseIndex) newExercise else item }
+        val newExercise = exercise.copy(iterations = (exercise.iterations + Iteration()).toPersistentList())
+        val newExercises = this.exercises
+            .mapIndexed { index, item -> if (index == exerciseIndex) newExercise else item }
+            .toPersistentList()
         return this.copy(exercises = newExercises)
     }
 }
