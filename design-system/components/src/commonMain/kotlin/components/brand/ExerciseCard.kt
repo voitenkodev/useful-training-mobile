@@ -15,7 +15,7 @@ import molecule.ButtonPrimarySmall
 import molecule.ButtonSecondarySmall
 import molecule.PaddingWeight
 import molecule.TextH4
-import molecule.black10DefaultBackground
+import molecule.secondaryDefaultBackground
 
 @Composable
 public fun ExerciseCard(
@@ -26,7 +26,7 @@ public fun ExerciseCard(
 ) {
     Column(
         modifier = modifier
-            .black10DefaultBackground()
+            .secondaryDefaultBackground()
             .fillMaxWidth()
             .aspectRatio(2.2f)
             .clipToBounds()

@@ -23,7 +23,6 @@ public fun MenuItem(
     text: String,
     allowRightArrow: Boolean = true,
     contentColor: Color = Design.colors.content,
-    iconBackgroundColor: Color = Design.colors.white5,
     onClick: () -> Unit
 ) {
     Row(
@@ -36,7 +35,7 @@ public fun MenuItem(
     ) {
 
         IconPrimary(
-            modifier = Modifier.coloredDefaultBackgroundNoBorder(iconBackgroundColor),
+            modifier = Modifier.coloredDefaultBackgroundNoBorder(Design.colors.white5),
             imageVector = icon,
             contentColor = contentColor
         )

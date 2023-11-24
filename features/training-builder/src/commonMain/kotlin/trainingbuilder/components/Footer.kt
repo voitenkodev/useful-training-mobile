@@ -11,13 +11,13 @@ import androidx.compose.ui.Modifier
 import atom.Design
 import molecule.ButtonPrimary
 import molecule.Shadow
-import molecule.secondaryRoundBackground
+import molecule.secondaryBackground
 import platformBottomInset
 
 @Composable
 internal fun Footer(addExercise: () -> Unit) {
 
-    Column(modifier = Modifier.fillMaxWidth().secondaryRoundBackground()) {
+    Column(modifier = Modifier.fillMaxWidth().secondaryBackground()) {
 
         Shadow()
 

@@ -18,7 +18,7 @@ import molecule.PaddingXL
 import molecule.TextBody2
 import molecule.TextH1
 import molecule.TextH2
-import molecule.secondaryRoundBackground
+import molecule.secondaryBackground
 import platformBottomInset
 import weightpicker.WeightPicker
 import weightpicker.WeightPickerStyle
@@ -67,7 +67,7 @@ internal fun WeightPage(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .secondaryRoundBackground()
+                .secondaryBackground()
                 .platformBottomInset(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {

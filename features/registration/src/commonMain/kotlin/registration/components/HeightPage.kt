@@ -20,7 +20,7 @@ import molecule.PaddingXL
 import molecule.TextBody2
 import molecule.TextH1
 import molecule.TextH2
-import molecule.secondaryRoundBackground
+import molecule.secondaryBackground
 import platformBottomInset
 
 @Composable
@@ -66,7 +66,7 @@ internal fun HeightPage(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .secondaryRoundBackground()
+                .secondaryBackground()
                 .platformBottomInset(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {

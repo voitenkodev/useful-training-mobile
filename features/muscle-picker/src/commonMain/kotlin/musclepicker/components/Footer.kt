@@ -14,7 +14,7 @@ import kotlinx.collections.immutable.ImmutableList
 import molecule.ButtonPrimary
 import molecule.ButtonSecondary
 import molecule.Shadow
-import molecule.secondaryRoundBackground
+import molecule.secondaryBackground
 import musclepicker.state.MuscleType
 import platformBottomInset
 
@@ -24,7 +24,7 @@ internal fun Footer(
     apply: () -> Unit,
     list: ImmutableList<MuscleType>
 ) {
-    Column(modifier = Modifier.fillMaxWidth().secondaryRoundBackground()) {
+    Column(modifier = Modifier.fillMaxWidth().secondaryBackground()) {
 
         val selectedSum = remember(list) {
             list.sumOf { it.muscles.count { c -> c.isSelected } }

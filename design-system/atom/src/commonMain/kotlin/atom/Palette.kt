@@ -5,18 +5,13 @@ import androidx.compose.ui.graphics.Color
 internal fun darkPalette() = Color()
 
 public data class Color(
-//    val primary: Color = Color(0xff121219),
     val primary: Color = Color(0xff151522),
-//    val secondary: Color = Color(0xff1f2129),// default
-//    val secondary: Color = Color(0xff1f2424),// green
-//    val secondary: Color = Color(0xff172937), // Sea
     val secondary: Color = Color(0xff222238), // Sea dark
 
     val white5: Color = Color(0x0Dffffff),
     val white10: Color = Color(0x1Affffff),
     val black10: Color = Color(0x33000000),
-    val black30: Color = Color(0x80000000),
-    val black70: Color = Color(0xB3000000),
+    val black70: Color = Color(0xB3000000), // Background shadow (popups)
 
     // Text
     val content: Color = Color(0xffffffff),
@@ -33,6 +28,12 @@ public data class Color(
     val purple: Color = Color(0xffa652d0),
     val blue: Color = Color(0xff0079fe)
 )
+
+//    val primary: Color = Color(0xff121219), primary old
+//    val secondary: Color = Color(0xff1f2129),// default
+//    val secondary: Color = Color(0xff1f2424),// green
+//    val secondary: Color = Color(0xff172937), // Sea
+
 
 /*
 100% — FF

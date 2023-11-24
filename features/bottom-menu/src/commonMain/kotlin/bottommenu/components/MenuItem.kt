@@ -12,12 +12,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import atom.Design
 import molecule.ButtonIconSecondary
-import molecule.coloredDefaultBackgroundNoBorder
 
 @Composable
 internal fun MenuItem(
@@ -27,8 +25,6 @@ internal fun MenuItem(
     onClick: () -> Unit
 ) {
 
-    val background = Color.Transparent
-
     val iconColor =
         if (isSelected) Design.colors.toxic
         else Design.colors.caption
@@ -36,7 +32,6 @@ internal fun MenuItem(
     Box(
         modifier = modifier
             .fillMaxHeight()
-            .coloredDefaultBackgroundNoBorder(color = background)
             .clickable(
                 interactionSource = remember { MutableInteractionSource() },
                 indication = null,

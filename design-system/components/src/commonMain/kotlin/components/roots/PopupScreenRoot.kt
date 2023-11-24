@@ -26,7 +26,7 @@ import molecule.ButtonIconTransparent
 import molecule.PaddingS
 import molecule.Shadow
 import molecule.TextH4
-import molecule.secondaryRoundBackground
+import molecule.secondaryBackground
 import platformInsets
 
 @Composable
@@ -42,7 +42,7 @@ public fun PopupScreenRoot(
         modifier = modifier
             .fillMaxSize()
             .animateContentSize()
-            .secondaryRoundBackground()
+            .secondaryBackground()
             .platformInsets()
             .pointerInput(Unit) { detectTapGestures(onTap = { focusManager.clearFocus() }) }
     ) {

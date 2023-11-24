@@ -74,7 +74,7 @@ private fun Content(
 ) {
 
     val selectedChipState = ChipState.Colored(
-        backgroundColor = Design.colors.black30,
+        backgroundColor = Design.colors.black10,
         borderColor = Design.colors.green,
         contentColor = Design.colors.content
     )

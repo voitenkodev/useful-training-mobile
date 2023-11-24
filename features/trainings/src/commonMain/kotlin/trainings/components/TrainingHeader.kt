@@ -20,7 +20,7 @@ import kotlinx.collections.immutable.ImmutableList
 import molecule.IconSecondary
 import molecule.TextBody3
 import molecule.TextH4
-import molecule.accentPrimaryDefaultBackground
+import molecule.coloredDefaultBackgroundNoBorder
 import molecule.secondaryDefaultBackground
 import recomposeHighlighter
 import trainings.state.Training
@@ -91,7 +91,7 @@ private fun DefaultItem(
         IconSecondary(
             modifier = Modifier
                 .size(Design.dp.componentS)
-                .accentPrimaryDefaultBackground()
+                .coloredDefaultBackgroundNoBorder(Design.colors.orange)
                 .padding(Design.dp.paddingS),
             color = Design.colors.content,
             imageVector = icon

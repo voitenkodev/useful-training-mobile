@@ -3,7 +3,6 @@ package atom
 import Fonts
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.BaselineShift
@@ -52,27 +51,23 @@ internal fun typography() = Typography(
         fontSize = 14.sp,
         fontWeight = FontWeight.Medium,
         fontStyle = FontStyle.Normal,
-        fontFamily = FontFamily.Default
     ),
     Body1 = TextStyle(
         fontSize = 18.sp,
         fontWeight = FontWeight.Medium,
         fontStyle = FontStyle.Normal,
-        fontFamily = FontFamily.Default,
         lineHeight = 20.sp
     ),
     Body2 = TextStyle(
         fontSize = 16.sp,
         fontWeight = FontWeight.Normal,
         fontStyle = FontStyle.Normal,
-        fontFamily = FontFamily.Default,
         lineHeight = 20.sp
     ),
     Body3 = TextStyle(
         fontSize = 14.sp,
         fontWeight = FontWeight.Normal,
         fontStyle = FontStyle.Normal,
-        fontFamily = FontFamily.Default
     ),
     PrimaryButton = TextStyle(
         fontSize = 16.sp,
@@ -89,7 +84,6 @@ internal fun typography() = Typography(
         fontWeight = FontWeight.Bold,
         fontStyle = FontStyle.Normal,
         textDecoration = TextDecoration.Underline,
-        fontFamily = FontFamily.Default
     )
 )
 

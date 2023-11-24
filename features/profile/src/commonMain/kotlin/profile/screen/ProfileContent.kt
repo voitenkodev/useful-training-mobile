@@ -3,19 +3,18 @@ package profile.screen
 import Icons
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import atom.Design
-import buildBoolean
 import components.Error
 import components.animation.Levitating
 import components.brand.UserCard
@@ -25,7 +24,8 @@ import molecule.PaddingS
 import molecule.PaddingXL
 import molecule.Shadow
 import molecule.TextH3
-import molecule.secondaryRoundBackground
+import molecule.secondaryBackground
+import platformTopInset
 import profile.components.Header
 import profile.components.MenuItem
 import profile.state.User
@@ -66,27 +66,21 @@ private fun Content(
 
     val listState = rememberLazyListState()
 
-    val isHeaderInTop = remember {
-        derivedStateOf {
-            buildBoolean {
-                val item = listState.layoutInfo.visibleItemsInfo.firstOrNull()
-                addCondition(item?.key == HEADER_KEY)
-            }
-        }
-    }
 
     Root(error = { Error(message = error, close = clearError) }) {
 
         LazyColumn(
             state = listState,
-            modifier = Modifier.animateContentSize().fillMaxSize()
+            modifier = Modifier.fillMaxWidth().animateContentSize().fillMaxSize()
         ) {
 
-            stickyHeader {
-                Header(showBackground = isHeaderInTop.value)
+            item {
+                Spacer(
+                    modifier = Modifier
+                        .platformTopInset()
+                        .size(Design.dp.paddingXL + Design.dp.componentL)
+                )
             }
-
-            item { PaddingXL() }
 
             item {
                 Levitating { modifier ->
@@ -114,7 +108,7 @@ private fun Content(
             item { PaddingS() }
 
             item {
-                Column(modifier = Modifier.secondaryRoundBackground().fillMaxWidth()) {
+                Column(modifier = Modifier.secondaryBackground().fillMaxWidth()) {
 
                     Shadow()
 
@@ -149,7 +143,7 @@ private fun Content(
             item { PaddingS() }
 
             item {
-                Column(modifier = Modifier.secondaryRoundBackground().fillMaxWidth()) {
+                Column(modifier = Modifier.secondaryBackground().fillMaxWidth()) {
 
                     Shadow()
 
@@ -180,5 +174,7 @@ private fun Content(
                 }
             }
         }
+
+        Header()
     }
 }

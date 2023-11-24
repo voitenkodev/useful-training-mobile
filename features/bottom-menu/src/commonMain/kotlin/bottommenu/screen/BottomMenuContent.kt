@@ -13,15 +13,13 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import atom.Design
 import bottommenu.components.MenuItem
 import bottommenu.state.Menu
 import bottommenu.state.TokenStatus
 import kotlinx.collections.immutable.ImmutableList
 import molecule.Shadow
-import molecule.secondaryDefaultBackground
-import molecule.secondaryRoundBackground
+import molecule.secondaryBackground
 import platformBottomInset
 
 @Composable
@@ -29,7 +27,7 @@ internal fun BottomMenuContent(
     vm: BottomMenuViewModel,
     selectedIndex: Int,
     menuItemClick: (index: Int) -> Unit,
-    toAuthentication: ()-> Unit,
+    toAuthentication: () -> Unit,
     screen: @Composable () -> Unit
 ) {
 
@@ -63,7 +61,7 @@ private fun Content(
 
         Column(
             modifier = Modifier
-                .secondaryRoundBackground()
+                .secondaryBackground()
                 .platformBottomInset()
                 .fillMaxWidth()
         ) {

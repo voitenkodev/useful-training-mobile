@@ -17,7 +17,7 @@ import molecule.ButtonPrimary
 import molecule.PaddingWeight
 import molecule.PaddingXL
 import molecule.TextH1
-import molecule.secondaryRoundBackground
+import molecule.secondaryBackground
 import platformBottomInset
 import weightpicker.WeightPicker
 import weightpicker.WeightPickerStyle
@@ -61,7 +61,7 @@ internal fun WeightPickerPopup(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .secondaryRoundBackground()
+                .secondaryBackground()
                 .platformBottomInset(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
