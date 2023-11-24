@@ -5,13 +5,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
 import components.Error
-import components.Loading
-import components.placeholders.EmptyTraining
-import components.roots.Root
+import components.roots.ScreenRoot
 import kotlinx.collections.immutable.ImmutableList
+import trainings.components.EmptyTraining
 import trainings.components.Header
 import trainings.components.Trainings
 import trainings.state.SelectableCalendar
@@ -63,10 +61,7 @@ private fun Content(
     val selectedDate = calendar.findLast { it.isSelected } ?: return
     val selectedDateIsToday = selectedDate.isToday
 
-    Root(
-        loading = { Loading(loading) },
-        error = { Error(message = error, close = clearError) },
-    ) {
+    ScreenRoot(error = { Error(message = error, close = clearError) }) {
 
         Column {
             Header(

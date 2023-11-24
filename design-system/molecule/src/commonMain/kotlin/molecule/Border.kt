@@ -7,16 +7,7 @@ import androidx.compose.ui.unit.dp
 import atom.Design
 
 @Composable
-public fun Modifier.borderCirclePrimary(): Modifier {
-    return border(
-        color = Design.colors.white5,
-        width = 1.dp,
-        shape = Design.shape.circleShape
-    )
-}
-
-@Composable
-public fun Modifier.borderDefaultPrimary(): Modifier {
+public fun Modifier.borderDefault(): Modifier {
     return border(
         color = Design.colors.white5,
         width = 1.dp,
@@ -25,7 +16,7 @@ public fun Modifier.borderDefaultPrimary(): Modifier {
 }
 
 @Composable
-public fun Modifier.borderSmallPrimary(): Modifier {
+public fun Modifier.borderSmall(): Modifier {
     return border(
         color = Design.colors.white5,
         width = 1.dp,

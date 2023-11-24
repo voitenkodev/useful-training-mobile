@@ -18,7 +18,7 @@ import atom.Design
 import components.Error
 import components.animation.Levitating
 import components.brand.UserCard
-import components.roots.Root
+import components.roots.ScreenRoot
 import molecule.PaddingL
 import molecule.PaddingS
 import molecule.PaddingXL
@@ -67,7 +67,7 @@ private fun Content(
     val listState = rememberLazyListState()
 
 
-    Root(error = { Error(message = error, close = clearError) }) {
+    ScreenRoot(error = { Error(message = error, close = clearError) }) {
 
         LazyColumn(
             state = listState,

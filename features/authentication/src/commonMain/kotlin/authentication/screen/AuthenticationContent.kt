@@ -21,7 +21,7 @@ import components.buttons.ButtonQuestion
 import components.inputs.InputEmail
 import components.inputs.InputPassword
 import components.overlay.AlphaOverlay
-import components.roots.Root
+import components.roots.ScreenRoot
 import components.states.animateAlignmentAsState
 import components.states.keyboardAsBoolean
 import molecule.ButtonPrimary
@@ -94,7 +94,7 @@ private fun Content(
         animationSpec = tween(durationMillis = 400, easing = LinearOutSlowInEasing)
     )
 
-    Root(error = { Error(message = error, close = clearError) }) {
+    ScreenRoot(error = { Error(message = error, close = clearError) }) {
 
         Column(
             modifier = Modifier.fillMaxSize().platformInsets(),

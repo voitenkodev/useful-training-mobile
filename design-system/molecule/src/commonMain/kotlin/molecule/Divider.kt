@@ -10,18 +10,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
-@Composable
-public fun DividerHorizontal(
-    modifier: Modifier = Modifier,
-    thickness: Dp = 1.dp,
-    color: Color = Design.colors.caption.copy(alpha = 0.3f),
-) {
-    androidx.compose.material.Divider(
-        modifier = modifier.fillMaxWidth(),
-        color = color,
-        thickness = thickness
-    )
-}
 
 @Composable
 public fun DividerVertical(

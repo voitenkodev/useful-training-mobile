@@ -23,7 +23,7 @@ public fun Modifier.secondaryBackground(): Modifier = this
 
 @Composable
 public fun Modifier.secondaryDefaultBackground(): Modifier = this
-    .borderDefaultPrimary()
+    .borderDefault()
     .background(
         color = Design.colors.secondary,
         shape = Design.shape.default
@@ -42,7 +42,7 @@ public fun Modifier.bottomSheetBackground(): Modifier = this
 
 @Composable
 public fun Modifier.secondarySmallBackground(): Modifier = this
-    .borderSmallPrimary()
+    .borderSmall()
     .background(
         color = Design.colors.secondary,
         shape = Design.shape.small

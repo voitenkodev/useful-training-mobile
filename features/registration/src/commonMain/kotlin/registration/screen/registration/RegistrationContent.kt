@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import com.arkivanov.essenty.backhandler.BackCallback
 import components.Error
 import components.indication.SlideIndicator
-import components.roots.Root
+import components.roots.ScreenRoot
 import io.github.xxfast.decompose.router.LocalRouterContext
 import molecule.PaddingL
 import molecule.PaddingXL
@@ -104,7 +104,7 @@ private fun Content(
         pagerState.animateScrollToPage(steps.indexOf(selectedStep))
     }
 
-    Root(error = { Error(message = { error }, close = clearError) }) {
+    ScreenRoot(error = { Error(message = { error }, close = clearError) }) {
         Column(
             modifier = Modifier.platformTopInset(),
             horizontalAlignment = Alignment.CenterHorizontally

@@ -10,7 +10,7 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
 
 @Composable
-public fun Root(
+public fun ScreenRoot(
     modifier: Modifier = Modifier,
     loading: (@Composable () -> Unit)? = null,
     error: (@Composable () -> Unit)? = null,

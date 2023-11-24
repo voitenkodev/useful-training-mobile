@@ -14,7 +14,7 @@ import com.arkivanov.essenty.backhandler.BackCallback
 import components.Error
 import components.animation.Levitating
 import components.brand.UserCard
-import components.roots.Root
+import components.roots.ScreenRoot
 import io.github.xxfast.decompose.router.LocalRouterContext
 import molecule.PaddingM
 import molecule.PaddingWeight
@@ -54,7 +54,7 @@ private fun Content(
     val backHandler = LocalRouterContext.current.backHandler
     backHandler.register(BackCallback(onBack = toTrainings))
 
-    Root(error = { Error(message = { error }, close = clearError) }) {
+    ScreenRoot(error = { Error(message = { error }, close = clearError) }) {
         Column(
             modifier = Modifier.fillMaxSize().platformInsets(),
             horizontalAlignment = Alignment.CenterHorizontally

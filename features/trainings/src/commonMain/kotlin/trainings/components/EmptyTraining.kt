@@ -1,4 +1,4 @@
-package components.placeholders
+package trainings.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -10,7 +10,7 @@ import atom.Design
 import molecule.TextH3
 
 @Composable
-public fun EmptyTraining(modifier: Modifier = Modifier) {
+internal fun EmptyTraining(modifier: Modifier = Modifier) {
 
     Column(
         modifier = modifier,

@@ -14,10 +14,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import atom.Design
 import components.Error
-import components.Loading
 import components.chips.Chip
 import components.chips.ChipState
-import components.roots.Root
+import components.roots.ScreenRoot
 import exerciseexamplebuilder.components.Footer
 import exerciseexamplebuilder.components.Header
 import exerciseexamplebuilder.state.ExerciseExample
@@ -75,10 +74,7 @@ private fun Content(
     confirm: () -> Unit
 ) {
 
-    Root(
-        loading = { Loading(loading) },
-        error = { Error(message = error, close = clearError) },
-    ) {
+    ScreenRoot(error = { Error(message = error, close = clearError) }) {
 
         Column(
             modifier = Modifier

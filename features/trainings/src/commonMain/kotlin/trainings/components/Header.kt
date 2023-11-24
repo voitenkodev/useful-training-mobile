@@ -34,6 +34,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.unit.dp
 import atom.Design
+import components.states.animateScrollAndCentralizeItem
 import conditional
 import kotlinx.collections.immutable.ImmutableList
 import molecule.PaddingM
@@ -238,16 +239,5 @@ private fun MonthSwiper(
             provideText = { target },
             softWrap = false
         )
-    }
-}
-
-private suspend fun LazyListState.animateScrollAndCentralizeItem(index: Int) {
-    val itemInfo = this.layoutInfo.visibleItemsInfo.firstOrNull { it.index == index }
-    if (itemInfo != null) {
-        val center = layoutInfo.viewportEndOffset / 2
-        val childCenter = itemInfo.offset + itemInfo.size / 2
-        animateScrollBy((childCenter - center).toFloat())
-    } else {
-        animateScrollToItem(index)
     }
 }

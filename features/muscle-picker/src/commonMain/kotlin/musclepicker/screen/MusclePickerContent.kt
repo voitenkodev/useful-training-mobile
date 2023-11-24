@@ -23,7 +23,7 @@ import atom.Design
 import components.Error
 import components.chips.Chip
 import components.chips.ChipState
-import components.roots.Root
+import components.roots.ScreenRoot
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import molecule.ButtonTextLink
@@ -85,7 +85,7 @@ private fun Content(
         contentColor = Design.colors.content
     )
 
-    Root(error = { Error(message = { error }, close = clearError) }) {
+    ScreenRoot(error = { Error(message = { error }, close = clearError) }) {
 
         Column(modifier = Modifier.fillMaxWidth()) {
 

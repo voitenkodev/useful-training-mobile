@@ -66,7 +66,7 @@ public fun Levitating(content: @Composable (Modifier) -> Unit) {
         }
     }
 
-     LaunchedEffect(animController.value) {
+    LaunchedEffect(animController.value) {
         while (true) {
             val randomZ = Random.nextInt(-3, 3)
             levitationZ.animateTo(

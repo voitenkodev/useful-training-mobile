@@ -18,6 +18,7 @@ import androidx.compose.ui.Modifier
 import atom.Design
 import components.chips.Chip
 import components.chips.ChipState
+import components.states.animateScrollAndCentralizeItem
 import kotlinx.collections.immutable.ImmutableList
 import molecule.PaddingM
 import molecule.TextH5
@@ -61,16 +62,5 @@ internal fun Muscles(
                 onClick = { setMuscleTarget.invoke(it.id) }
             )
         }
-    }
-}
-
-private suspend fun LazyListState.animateScrollAndCentralizeItem(index: Int) {
-    val itemInfo = this.layoutInfo.visibleItemsInfo.firstOrNull { it.index == index }
-    if (itemInfo != null) {
-        val center = layoutInfo.viewportEndOffset / 2
-        val childCenter = itemInfo.offset + itemInfo.size / 2
-        animateScrollBy((childCenter - center).toFloat())
-    } else {
-        animateScrollToItem(index)
     }
 }

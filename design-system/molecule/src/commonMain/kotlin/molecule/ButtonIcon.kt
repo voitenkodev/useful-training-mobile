@@ -29,7 +29,7 @@ public fun ButtonIconPrimary(
         modifier = modifier
             .size(Design.dp.componentL)
             .alpha(if (enabled) 1f else 0.5f)
-            .borderDefaultPrimary()
+            .borderDefault()
             .background(
                 color = backgroundColor,
                 shape = Design.shape.circleShape

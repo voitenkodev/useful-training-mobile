@@ -1,18 +1,12 @@
 package statistics.screen
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Modifier
-import buildBoolean
 import components.Error
-import components.Loading
-import components.roots.Root
-import molecule.PopupSheet
+import components.roots.ScreenRoot
 import statistics.components.Header
-import statistics.popups.FilterPopup
 
 @Composable
 internal fun StatisticsContent(vm: StatisticsViewModel) {
@@ -50,10 +44,7 @@ private fun Content(
     clearError: () -> Unit
 ) {
 
-    Root(
-        loading = { Loading(loading) },
-        error = { Error(message = error, close = clearError) },
-    ) {
+    ScreenRoot(error = { Error(message = error, close = clearError) }) {
 
         Column {
 
