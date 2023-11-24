@@ -7,7 +7,7 @@ plugins {
 apply(from = "../../gradle/configs/android.gradle")
 apply(from = "../../gradle/configs/kotlin.gradle")
 
-android { namespace = "com.voitenko.alienworkout.composelibs.composeplayer" }
+android { namespace = "com.voitenko.alienworkout.composelibs.composevideo" }
 
 kotlin {
     sourceSets {

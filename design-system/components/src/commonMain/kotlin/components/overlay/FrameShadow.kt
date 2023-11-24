@@ -9,9 +9,7 @@ import androidx.compose.ui.graphics.Color
 import atom.Design
 
 @Composable
-public fun TopShadow(
-    modifier: Modifier = Modifier
-) {
+public fun TopShadow(modifier: Modifier = Modifier) {
     val color = Design.colors.primary
 
     Box(
@@ -29,9 +27,7 @@ public fun TopShadow(
 }
 
 @Composable
-public fun BottomShadow(
-    modifier: Modifier = Modifier
-) {
+public fun BottomShadow(modifier: Modifier = Modifier) {
     val color = Color(14, 14, 27)
     Box(
         modifier = Modifier

@@ -47,7 +47,7 @@ include(
     "design-system:resources",
 
     "compose-libs:charts",
-    "compose-libs:compose-player",
+    "compose-libs:compose-video",
     "compose-libs:weight-picker",
     "compose-libs:height-picker",
     "compose-libs:percentage-picker",
