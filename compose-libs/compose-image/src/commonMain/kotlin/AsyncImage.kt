@@ -61,7 +61,7 @@ private fun Modifier.shimmerLoadingAnimation(
     if (visible.not()) return this
 
     return composed {
-        val c = Color(0xff151522)
+        val c = Color(0xffa6a6a6)
 
         val shimmerColors = listOf(
             c.copy(alpha = 0.3f),
@@ -91,7 +91,7 @@ private fun Modifier.shimmerLoadingAnimation(
                 colors = shimmerColors,
                 start = Offset(x = translateAnimation.value - widthOfShadowBrush, y = 0.0f),
                 end = Offset(x = translateAnimation.value, y = angleOfAxisY),
-            ),
+            )
         )
     }
 }

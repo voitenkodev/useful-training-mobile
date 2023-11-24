@@ -41,8 +41,11 @@ kotlin {
 
                 // Other
                 implementation(projects.common.platformApi)
-                implementation(projects.designSystem.atom)
                 implementation(projects.common.architectureComponent)
+                implementation(projects.common.imageLoader)
+
+                // Design
+                implementation(projects.designSystem.atom)
 
                 // Compose
                 implementation(compose.ui)

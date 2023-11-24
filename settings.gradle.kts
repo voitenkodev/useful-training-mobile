@@ -40,6 +40,7 @@ include(
     "common:architecture-component",
     "common:utils",
     "common:platform-api",
+    "common:image-loader",
 
     "design-system:atom",
     "design-system:molecule",
