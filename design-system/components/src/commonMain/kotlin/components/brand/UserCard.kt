@@ -1,11 +1,14 @@
 package components.brand
 
+import AsyncImage
 import Images
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -45,11 +48,16 @@ public fun UserCard(
             .clipToBounds()
     ) {
 
-        Image(
-            modifier = Modifier.alpha(0.5f).fillMaxSize(),
-            painter = Images.addTraining(),
-            contentScale = ContentScale.Crop,
-            contentDescription = null
+        AsyncImage(
+            modifier = Modifier.fillMaxSize(),
+            url = "https://static.vecteezy.com/system/resources/previews/017/067/906/original/ufo-seamless-background-free-vector.jpg",
+            contentScale = ContentScale.Crop
+        )
+
+        Spacer(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Design.colors.black10)
         )
 
         TextH2(

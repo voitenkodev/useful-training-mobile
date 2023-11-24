@@ -15,8 +15,6 @@ kotlin {
             dependencies {
                 implementation(projects.common.platformApi)
 
-                implementation(projects.designSystem.resources)
-
                 implementation(compose.ui)
             }
         }

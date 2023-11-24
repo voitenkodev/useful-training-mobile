@@ -19,6 +19,8 @@ kotlin {
 
                 implementation(projects.common.platformApi)
 
+                implementation(projects.composeLibs.composeImage)
+
                 implementation(compose.ui)
                 implementation(compose.material)
                 implementation(compose.material3)
