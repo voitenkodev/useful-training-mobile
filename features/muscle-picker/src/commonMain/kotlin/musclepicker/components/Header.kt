@@ -23,7 +23,7 @@ internal fun Header() {
     Column(
         modifier = Modifier
             .background(Design.colors.secondary)
-            .platformTopInset(),
+            .platformTopInset()
     ) {
 
         PaddingS()

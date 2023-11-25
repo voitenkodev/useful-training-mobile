@@ -7,7 +7,7 @@ import kotlinx.collections.immutable.persistentListOf
 @Immutable
 internal data class State(
     val exerciseExample: ExerciseExample? = null,
-    val availableMuscles: ImmutableList<Muscle> = persistentListOf(),
+    val muscleTypes: ImmutableList<MuscleType> = persistentListOf(),
     val error: String? = null,
     val loading: Boolean = false,
 

@@ -16,6 +16,7 @@ import platformBottomInset
 internal fun Footer(
     modifier: Modifier = Modifier,
     confirmEnabled: Boolean,
+    loading: Boolean,
     confirmClick: () -> Unit
 ) {
     Column(
@@ -34,7 +35,8 @@ internal fun Footer(
                 .padding(horizontal = Design.dp.paddingM),
             text = "Confirm",
             onClick = confirmClick,
-            enabled = confirmEnabled
+            enabled = confirmEnabled,
+            loading = loading
         )
 
         PaddingM()

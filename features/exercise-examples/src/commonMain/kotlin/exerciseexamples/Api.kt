@@ -7,7 +7,7 @@ import io.github.xxfast.decompose.router.rememberOnRoute
 
 @Composable
 public fun ExerciseExamplesFeature(
-    toAddExercise: () -> Unit
+    toExerciseExampleBuilder: (id: String?) -> Unit
 ) {
 
     val vm = rememberOnRoute(ExerciseExamplesViewModel::class) {
@@ -16,6 +16,6 @@ public fun ExerciseExamplesFeature(
 
     ExerciseExamplesContent(
         vm = vm,
-        toAddExercise = toAddExercise
+        toExerciseExampleBuilder = toExerciseExampleBuilder
     )
 }

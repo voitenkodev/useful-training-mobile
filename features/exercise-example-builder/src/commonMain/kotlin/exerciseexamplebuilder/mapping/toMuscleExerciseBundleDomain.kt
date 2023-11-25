@@ -10,6 +10,7 @@ internal fun MuscleExerciseBundle.toDomain(): models.MuscleExerciseBundle {
     return models.MuscleExerciseBundle(
         id = id,
         percentage = percentage,
-        muscle = muscle.toDomain()
+        muscleId = muscle.id,
+        muscle = null // do not need to send to BE, just ID
     )
 }

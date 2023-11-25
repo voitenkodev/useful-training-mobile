@@ -1,8 +1,9 @@
 package exerciseexamples.screen
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
@@ -22,7 +23,7 @@ import molecule.primaryBackground
 @Composable
 internal fun ExerciseExamplesContent(
     vm: ExerciseExamplesViewModel,
-    toAddExercise: () -> Unit
+    toExerciseExampleBuilder: (id: String?) -> Unit
 ) {
 
     val state by vm.state.collectAsState()
@@ -32,7 +33,8 @@ internal fun ExerciseExamplesContent(
         error = { state.error },
         clearError = vm::clearError,
         exerciseExamples = state.exerciseExamples,
-        addNewClick = toAddExercise
+        addNewClick = { toExerciseExampleBuilder.invoke(null) },
+        selectExerciseExample = toExerciseExampleBuilder
     )
 }
 
@@ -42,7 +44,8 @@ private fun Content(
     error: () -> String?,
     clearError: () -> Unit,
     exerciseExamples: ImmutableList<ExerciseExample>,
-    addNewClick: () -> Unit
+    addNewClick: () -> Unit,
+    selectExerciseExample: (id: String) -> Unit
 ) {
 
     ScreenRoot(error = { Error(message = error, close = clearError) }) {
@@ -51,14 +54,19 @@ private fun Content(
 
             Header()
 
-            LazyColumn(modifier = Modifier.fillMaxWidth().weight(1f)) {
+            LazyColumn(
+                modifier = Modifier.fillMaxWidth().weight(1f),
+                contentPadding = PaddingValues(Design.dp.paddingM),
+                verticalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
+            ) {
 
                 items(exerciseExamples, key = { it.id }) {
                     ExerciseCard(
-                        modifier = Modifier.padding(horizontal = Design.dp.paddingM),
                         name = it.name,
-                        btn = "1?" to {},
-                        btn2 = "2?" to {}
+                        btn = "Update" to { selectExerciseExample.invoke(it.id) },
+                        musclesWithPercent = it.muscleExerciseBundles.map { b ->
+                            b.muscle.name to b.percentage.toFloat()
+                        }
                     )
                 }
             }

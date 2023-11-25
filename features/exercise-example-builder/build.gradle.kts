@@ -25,6 +25,7 @@ kotlin {
                 implementation(projects.designSystem.resources)
 
                 implementation(projects.composeLibs.percentagePicker)
+                implementation(projects.composeLibs.musclePicker)
 
                 implementation(compose.ui)
                 implementation(compose.foundation)

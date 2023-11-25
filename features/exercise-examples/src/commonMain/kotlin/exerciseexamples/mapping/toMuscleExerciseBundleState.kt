@@ -13,6 +13,6 @@ internal fun models.MuscleExerciseBundle.toState(): MuscleExerciseBundle? {
     return MuscleExerciseBundle(
         id = id ?: return null,
         percentage = percentage,
-        muscle = muscle.toState()
+        muscle = muscle?.toState() ?: return null
     )
 }

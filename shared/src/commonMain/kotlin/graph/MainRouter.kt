@@ -56,8 +56,8 @@ internal fun MainGraph(toAuthentication: () -> Unit) {
             )
 
             is MainRouter.ExerciseExamples -> ExerciseExamplesFeature(
-                toAddExercise = {
-                    router.push(MainRouter.ExerciseExampleBuilder(null))
+                toExerciseExampleBuilder = {
+                    router.push(MainRouter.ExerciseExampleBuilder(it))
                 }
             )
         }

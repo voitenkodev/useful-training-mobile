@@ -5,14 +5,14 @@ import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 
 internal fun List<models.MuscleExerciseBundle>.toState(): ImmutableList<MuscleExerciseBundle> {
-    return map { it.toState() }
+    return mapNotNull { it.toState() }
         .toImmutableList()
 }
 
-internal fun models.MuscleExerciseBundle.toState(): MuscleExerciseBundle {
+internal fun models.MuscleExerciseBundle.toState(): MuscleExerciseBundle? {
     return MuscleExerciseBundle(
         id = id,
         percentage = percentage,
-        muscle = muscle.toState()
+        muscle = muscle?.toState() ?: return null
     )
 }

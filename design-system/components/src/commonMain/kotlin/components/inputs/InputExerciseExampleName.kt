@@ -22,7 +22,7 @@ import androidx.compose.ui.text.input.KeyboardCapitalization
 import atom.Design
 import molecule.ButtonIconSecondary
 import molecule.InputPrimary
-import molecule.secondaryDefaultBackground
+import molecule.reverseDefaultBackground
 
 @Composable
 public fun InputExerciseExampleName(
@@ -34,7 +34,7 @@ public fun InputExerciseExampleName(
 
     InputPrimary(
         modifier = modifier
-            .secondaryDefaultBackground()
+            .reverseDefaultBackground()
             .padding(horizontal = Design.dp.paddingM),
         provideValue = value,
         placeholder = "Name of exercise",

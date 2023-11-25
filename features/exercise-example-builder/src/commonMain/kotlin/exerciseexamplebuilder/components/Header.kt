@@ -17,8 +17,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import atom.Design
-import components.chips.Chip
-import components.chips.ChipState
 import components.inputs.InputExerciseExampleName
 import exerciseexamplebuilder.state.ExerciseExample
 import exerciseexamplebuilder.state.MuscleExerciseBundle
@@ -26,9 +24,10 @@ import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toPersistentList
 import molecule.ButtonIconSecondary
-import molecule.PaddingM
+import molecule.PaddingS
 import molecule.Shadow
-import molecule.TextH3
+import molecule.TextH2
+import molecule.TextH4
 import percentagepicker.RangeSlider
 import percentagepicker.ThumbRangeState
 import platformTopInset
@@ -58,10 +57,10 @@ internal fun Header(
         modifier = modifier
             .background(Design.colors.secondary)
             .animateContentSize()
-            .platformTopInset(),
+            .platformTopInset()
     ) {
 
-        PaddingM()
+        PaddingS()
 
         Box(
             modifier = Modifier
@@ -69,18 +68,15 @@ internal fun Header(
                 .fillMaxWidth(),
             contentAlignment = Alignment.CenterStart
         ) {
-            TextH3(
-                modifier = Modifier
-                    .padding(horizontal = Design.dp.paddingM)
-                    .fillMaxWidth(),
-                provideText = { "Exercises" },
+            TextH2(
+                modifier = Modifier.padding(horizontal = Design.dp.paddingM),
+                provideText = { "Build Exercises" },
                 softWrap = false
             )
         }
 
-        PaddingM()
-
         if (exerciseExample != null && exerciseExample.id == null) {
+
             InputExerciseExampleName(
                 modifier = Modifier
                     .padding(horizontal = Design.dp.paddingM),
@@ -95,18 +91,13 @@ internal fun Header(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Chip(
-                    chipState = ChipState.Colored(
-                        backgroundColor = Design.colors.orange,
-                        borderColor = Design.colors.orange,
-                        contentColor = Design.colors.content,
-                        enabled = false
-                    ),
-                    text = exerciseExample.name
+                TextH4(
+                    provideText = { exerciseExample.name },
+                    color = Design.colors.toxic
                 )
 
                 ButtonIconSecondary(
-                    modifier = Modifier.size(24.dp),
+                    modifier = Modifier.size(24.dp).padding(bottom = 4.dp),
                     imageVector = Icons.delete,
                     color = Design.colors.orange,
                     onClick = deleteExercise
@@ -114,7 +105,7 @@ internal fun Header(
             }
         }
 
-        PaddingM()
+        PaddingS()
 
         if (exerciseExample != null && thumbs.isNotEmpty()) {
             RangeSlider(
@@ -139,7 +130,7 @@ internal fun Header(
             )
         }
 
-        PaddingM()
+        PaddingS()
 
         Shadow()
     }

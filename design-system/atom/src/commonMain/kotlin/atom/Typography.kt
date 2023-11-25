@@ -19,7 +19,7 @@ internal fun typography() = Typography(
     ),
     H2 = TextStyle(
         baselineShift = BaselineShift.None,
-        fontSize = 30.sp,
+        fontSize = 26.sp,
         fontWeight = FontWeight.Bold,
         fontStyle = FontStyle.Normal,
         fontFamily = Fonts.GunterzFamily(),

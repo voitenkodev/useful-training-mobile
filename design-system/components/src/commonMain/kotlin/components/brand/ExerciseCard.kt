@@ -35,7 +35,7 @@ public fun ExerciseCard(
     modifier: Modifier = Modifier,
     name: String,
     btn: Pair<String, () -> Unit>,
-    btn2: Pair<String, () -> Unit>,
+    btn2: Pair<String, () -> Unit>? = null,
     musclesWithPercent: List<Pair<String, Float>> = emptyList()
 ) {
 
@@ -73,28 +73,13 @@ public fun ExerciseCard(
                     modifier = Modifier
                         .fillMaxHeight()
                         .aspectRatio(1f),
-                    data = listOf(
+                    data = musclesWithPercent.map {
                         PieChartData(
                             value = 30f,
                             title = "Triceps",
                             color = Design.colors.purple
-                        ),
-                        PieChartData(
-                            value = 55f,
-                            title = "Pectoralis Minor",
-                            color = Design.colors.yellow
-                        ),
-                        PieChartData(
-                            value = 10f,
-                            title = "Biceps",
-                            color = Design.colors.blue
-                        ),
-                        PieChartData(
-                            value = 5f,
-                            title = "Legs",
-                            color = Design.colors.red
                         )
-                    ),
+                    },
                     selectionView = {
                         if (it == null) return@PieChart
 
@@ -129,10 +114,12 @@ public fun ExerciseCard(
                     onClick = btn.second
                 )
 
-                ButtonSecondarySmall(
-                    text = btn2.first,
-                    onClick = btn2.second
-                )
+                if (btn2 != null) {
+                    ButtonSecondarySmall(
+                        text = btn2.first,
+                        onClick = btn2.second
+                    )
+                }
             }
         }
     }
