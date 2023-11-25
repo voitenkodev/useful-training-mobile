@@ -32,6 +32,7 @@ import molecule.PaddingS
 import molecule.PaddingXL
 import molecule.Shadow
 import molecule.TextH4
+import molecule.primaryBackground
 import musclepicker.components.Footer
 import musclepicker.components.Header
 import musclepicker.state.MuscleType
@@ -87,7 +88,7 @@ private fun Content(
 
     ScreenRoot(error = { Error(message = { error }, close = clearError) }) {
 
-        Column(modifier = Modifier.fillMaxWidth()) {
+        Column(modifier = Modifier.fillMaxWidth().primaryBackground()) {
 
             Header()
 

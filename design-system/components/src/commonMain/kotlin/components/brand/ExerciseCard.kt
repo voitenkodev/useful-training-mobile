@@ -47,7 +47,7 @@ public fun ExerciseCard(
         Spacer(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Design.colors.black10)
+                .background(Design.colors.black30)
         )
 
         Column(

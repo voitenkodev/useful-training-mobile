@@ -15,7 +15,8 @@ import components.brand.ExerciseCard
 import kotlinx.collections.immutable.ImmutableList
 import molecule.ButtonTextLink
 import molecule.PaddingM
-import molecule.TextH5
+import molecule.TextBody1
+import molecule.TextBody2
 import trainingbuilder.state.ExerciseExample
 
 @Composable
@@ -33,7 +34,7 @@ internal fun ExerciseExamples(
         verticalAlignment = Alignment.CenterVertically
     ) {
 
-        TextH5(
+        TextBody1(
             provideText = { "Recommended for you" }
         )
 

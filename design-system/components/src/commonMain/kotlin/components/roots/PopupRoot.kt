@@ -8,8 +8,6 @@ import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -23,6 +21,7 @@ import androidx.compose.ui.platform.LocalFocusManager
 import atom.Design
 import molecule.ButtonIconTransparent
 import molecule.PaddingM
+import molecule.PaddingS
 import molecule.Shadow
 import molecule.TextH4
 import molecule.bottomSheetBackground
@@ -60,15 +59,14 @@ public fun PopupRoot(
             TextH4(provideText = { title })
 
             if (icon != null) ButtonIconTransparent(
-                modifier = Modifier
-                    .fillMaxHeight()
-                    .aspectRatio(1f)
-                    .padding(Design.dp.paddingS),
+                modifier = Modifier.padding(horizontal = Design.dp.paddingS),
                 imageVector = icon.first,
                 onClick = icon.second
             )
             else Spacer(Modifier.size(Design.dp.componentS))
         }
+
+        PaddingS()
 
         Shadow()
 

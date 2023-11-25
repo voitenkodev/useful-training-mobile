@@ -59,7 +59,7 @@ public fun ButtonIconTransparent(
 ) {
     IconButton(
         modifier = modifier
-            .requiredSize(Design.dp.componentS)
+            .size(Design.dp.componentS)
             .alpha(if (enabled) 1f else 0.5f)
             .clip(Design.shape.circleShape),
         onClick = onClick,

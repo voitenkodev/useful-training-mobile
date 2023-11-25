@@ -28,7 +28,7 @@ internal fun FindExercisePopup(
     createExercise: () -> Unit,
     selectExercise: () -> Unit
 ) {
-    PopupRoot(title = "Add Exercise") {
+    PopupRoot(title = "Add Exercise", icon = Icons.close to close) {
 
         PaddingM()
 

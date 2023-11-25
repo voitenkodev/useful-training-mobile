@@ -1,12 +1,10 @@
 package trainingbuilder.popups.components
 
-import androidx.compose.foundation.gestures.animateScrollBy
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -15,13 +13,14 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import atom.Design
 import components.chips.Chip
 import components.chips.ChipState
 import components.states.animateScrollAndCentralizeItem
 import kotlinx.collections.immutable.ImmutableList
 import molecule.PaddingM
-import molecule.TextH5
+import molecule.TextBody1
 import trainingbuilder.state.Muscle
 
 @Composable
@@ -30,6 +29,18 @@ internal fun Muscles(
     list: ImmutableList<Muscle>,
     setMuscleTarget: (id: String) -> Unit
 ) {
+
+    val selectedChipState = ChipState.Colored(
+        backgroundColor = Design.colors.black10,
+        borderColor = Design.colors.green,
+        contentColor = Design.colors.content
+    )
+
+    val unSelectedChipState = ChipState.Colored(
+        backgroundColor = Color.Transparent,
+        borderColor = Design.colors.caption,
+        contentColor = Design.colors.content
+    )
 
     val lazyListState = rememberLazyListState()
 
@@ -44,7 +55,9 @@ internal fun Muscles(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        TextH5(provideText = { "Target Muscle" })
+        TextBody1(
+            provideText = { "Target Muscle" }
+        )
     }
 
     PaddingM()
@@ -57,7 +70,7 @@ internal fun Muscles(
     ) {
         items(list, key = { it.id }) {
             Chip(
-                chipState = if (it.id == selectedMuscle?.id) ChipState.Selected() else ChipState.Default(),
+                chipState = if (it.id == selectedMuscle?.id) selectedChipState else unSelectedChipState,
                 text = it.name,
                 onClick = { setMuscleTarget.invoke(it.id) }
             )
