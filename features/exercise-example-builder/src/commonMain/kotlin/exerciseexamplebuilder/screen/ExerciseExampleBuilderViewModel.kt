@@ -16,7 +16,7 @@ import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -39,10 +39,10 @@ internal class ExerciseExampleBuilderViewModel(exerciseExampleId: String?) : Vie
         api
             .observeMuscleTypes()
             .onEach { r -> _state.update { it.copy(muscleTypes = r.toState()) } }
-            .flatMapLatest { flow }
+            .flatMapConcat { flow }
             .onEach { ex ->
                 _state.update { it.copy(loading = false, exerciseExample = ex?.toState() ?: ExerciseExample()) }
-                ex?.muscleExerciseBundles?.forEach { bundle -> selectMuscle(id = bundle.muscleId) }
+                ex?.muscleExerciseBundles?.forEach { bundle -> selectMuscleById(id = bundle.muscleId) }
             }.catch { r -> _state.update { it.copy(error = r.message) } }
             .launchIn(this)
 
@@ -139,7 +139,9 @@ internal class ExerciseExampleBuilderViewModel(exerciseExampleId: String?) : Vie
         }.toPersistentList()
     }
 
-    fun selectMuscle(id: String) {
+    fun selectMuscleBundle(id: String) {
+        selectMuscleById(id)
+
         _state.update {
             it.exerciseExample ?: return@update it
 
@@ -160,12 +162,17 @@ internal class ExerciseExampleBuilderViewModel(exerciseExampleId: String?) : Vie
                 )
             }
 
+            it.copy(
+                exerciseExample = it.exerciseExample.copy(muscleExerciseBundles = muscleExerciseBundles)
+            )
+        }
+    }
+
+    private fun selectMuscleById(id: String) {
+        _state.update {
             val muscleTypes = it.muscleTypes.map { muscleType ->
                 val muscles = muscleType.muscles.map { muscle ->
-                    if (id == muscle.id) muscle.copy(
-                        isSelected = muscle.isSelected.not(),
-                        color = muscleExerciseBundles.find { it.muscle.id == muscle.id }?.color
-                    )
+                    if (id == muscle.id) muscle.copy(isSelected = muscle.isSelected.not())
                     else muscle
                 }
                 val image = muscleImage(
@@ -178,10 +185,7 @@ internal class ExerciseExampleBuilderViewModel(exerciseExampleId: String?) : Vie
                 )
             }.toImmutableList()
 
-            it.copy(
-                muscleTypes = muscleTypes,
-                exerciseExample = it.exerciseExample.copy(muscleExerciseBundles = muscleExerciseBundles)
-            )
+            it.copy(muscleTypes = muscleTypes)
         }
     }
 

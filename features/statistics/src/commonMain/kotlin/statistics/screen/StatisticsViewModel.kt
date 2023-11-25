@@ -29,6 +29,7 @@ internal class StatisticsViewModel : ViewModel() {
 //            .observeMuscles()
 //            .onEach { r -> _state.update { it.copy(muscles = r.toState()) } }
 //            .launchIn(this)
+
         exerciseExamplesApi
             .observeExerciseExamples()
             .onEach { r -> _state.update { it.copy(exerciseExamples = r.toState()) } }

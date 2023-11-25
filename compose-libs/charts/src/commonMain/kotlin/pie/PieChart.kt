@@ -1,34 +1,46 @@
 package pie
 
-import androidx.compose.animation.core.TweenSpec
-import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.AnimationVector1D
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.gestures.detectTapGestures
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.graphics.drawscope.withTransform
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.text.TextLayoutResult
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.drawText
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.center
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import kotlin.math.PI
-import kotlin.math.pow
+import kotlin.math.atan2
+import kotlin.math.cos
+import kotlin.math.sin
 import kotlin.math.sqrt
 
 
-// Resource: https://github.com/eozsahin1993/Fancy-Donut-Chart-Compose/blob/master/app/src/main/java/com/example/donutchart/ui/theme/components/DonutChart.kt
-
-private const val TOTAL_ANGLE = 360.0f
-private val STROKE_SIZE_UNSELECTED = 16.dp
-private val STROKE_SIZE_SELECTED = 18.dp
+// Resource: https://stackoverflow.com/questions/75932353/how-to-check-which-arc-or-pie-chart-segment-clicked-in-jetpack-compose
 
 public data class PieChartData(
     val value: Float,
@@ -36,254 +48,330 @@ public data class PieChartData(
     val title: String
 )
 
-private data class DrawingAngles(val start: Float, val end: Float)
+@Composable
+public fun PieChart(
+    modifier: Modifier,
+    data: List<ChartData>,
+    startAngle: Float = 0f,
+    outerRingPercent: Int = 35,
+    innerRingPercent: Int = 10,
+    dividerStrokeWidth: Dp = 0.dp,
+    drawText: Boolean = true,
+    onClick: ((data: ChartData, index: Int) -> Unit)? = null
+) {
 
-private fun DrawingAngles.isInsideAngle(angle: Float) = angle > this.start && angle < this.start + this.end
+    BoxWithConstraints(
+        modifier = modifier,
+        contentAlignment = Alignment.Center
+    ) {
 
-private class PieChartState(val state: State = State.Unselected) {
-    val stroke: Dp
-        get() = when (state) {
-            State.Selected -> STROKE_SIZE_SELECTED
-            State.Unselected -> STROKE_SIZE_UNSELECTED
+        val density = LocalDensity.current
+
+        val width = constraints.maxWidth.toFloat()
+
+        // Outer radius of chart. This is edge of stroke width as
+        val radius = (width / 2f) * .9f
+        val outerStrokeWidthPx =
+            (radius * outerRingPercent / 100f).coerceIn(0f, radius)
+
+        // Inner radius of chart. Semi transparent inner ring
+        val innerRadius = (radius - outerStrokeWidthPx).coerceIn(0f, radius)
+        val innerStrokeWidthPx =
+            (radius * innerRingPercent / 100f).coerceIn(0f, radius)
+
+        val lineStrokeWidth = with(density) { dividerStrokeWidth.toPx() }
+
+        // Start angle of chart. Top center is -90, right center 0,
+        // bottom center 90, left center 180
+        val chartStartAngle = startAngle
+        val animatableInitialSweepAngle = remember {
+            Animatable(chartStartAngle)
         }
 
-    enum class State { Selected, Unselected }
+        val chartEndAngle = 360f + chartStartAngle
+
+        val sum = data.sumOf {
+            it.data.toDouble()
+        }.toFloat()
+
+        val coEfficient = 360f / sum
+        var currentAngle = 0f
+        val currentSweepAngle = animatableInitialSweepAngle.value
+
+        val chartDataList = remember(data) {
+            data.map {
+
+                val chartData = it.data
+                val range = currentAngle..currentAngle + chartData * coEfficient
+                currentAngle += chartData * coEfficient
+
+                AnimatedChartData(
+                    color = it.color,
+                    data = it.data,
+                    selected = false,
+                    range = range
+                )
+            }
+        }
+
+        chartDataList.forEach {
+            LaunchedEffect(key1 = it.isSelected) {
+                // This is for scaling radius
+                val targetValue = (if (it.isSelected) width / 2 else radius) / radius
+
+                // This is for increasing outer ring
+//                val targetValue = if (it.isSelected) outerStrokeWidthPx + width / 2 - radius
+//                else outerStrokeWidthPx
+                it.animatable.animateTo(targetValue, animationSpec = tween(500))
+            }
+        }
+
+        LaunchedEffect(key1 = animatableInitialSweepAngle) {
+            animatableInitialSweepAngle.animateTo(
+                targetValue = chartEndAngle,
+                animationSpec = tween(
+                    delayMillis = 1000,
+                    durationMillis = 1500
+                )
+            )
+        }
+
+        val textMeasurer = rememberTextMeasurer()
+        val textMeasureResults: List<TextLayoutResult> = remember(chartDataList) {
+            chartDataList.map {
+                textMeasurer.measure(
+                    text = "%${it.data.toInt()}",
+                    style = TextStyle(
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                )
+            }
+        }
+
+        val chartModifier = Modifier
+            .fillMaxWidth()
+            .aspectRatio(1f)
+            .pointerInput(Unit) {
+                detectTapGestures(
+                    onTap = { position: Offset ->
+                        val xPos = size.center.x - position.x
+                        val yPos = size.center.y - position.y
+                        val length = sqrt(xPos * xPos + yPos * yPos)
+                        val isTouched = length in innerRadius - innerStrokeWidthPx..radius
+
+                        if (isTouched) {
+                            var touchAngle =
+                                (-chartStartAngle + 180f + atan2(
+                                    yPos,
+                                    xPos
+                                ) * 180 / PI) % 360f
+
+                            if (touchAngle < 0) {
+                                touchAngle += 360f
+                            }
+
+
+                            chartDataList.forEachIndexed { index, chartData ->
+                                val range = chartData.range
+
+                                val isTouchInArcSegment = touchAngle in range
+                                if (chartData.isSelected) {
+                                    chartData.isSelected = false
+                                } else {
+                                    chartData.isSelected = isTouchInArcSegment
+                                    if (isTouchInArcSegment) {
+                                        onClick?.invoke(
+                                            ChartData(
+                                                color = chartData.color,
+                                                data = chartData.data
+                                            ), index
+                                        )
+                                    }
+                                }
+                            }
+                        }
+                    }
+                )
+            }
+
+        PieChartImpl(
+            modifier = chartModifier,
+            chartDataList = chartDataList,
+            textMeasureResults = textMeasureResults,
+            currentSweepAngle = currentSweepAngle,
+            chartStartAngle = chartStartAngle,
+            chartEndAngle = chartEndAngle,
+            outerRadius = radius,
+            outerStrokeWidth = outerStrokeWidthPx,
+            innerRadius = innerRadius,
+            innerStrokeWidth = innerStrokeWidthPx,
+            lineStrokeWidth = lineStrokeWidth,
+            drawText = drawText
+        )
+
+    }
 }
 
 @Composable
-public fun PieChart(
+private fun PieChartImpl(
     modifier: Modifier = Modifier,
-    data: List<PieChartData>,
-    gapPercentage: Float = 0.05f,
-    selectionView: @Composable (selectedItem: PieChartData?) -> Unit = {},
+    chartDataList: List<AnimatedChartData>,
+    textMeasureResults: List<TextLayoutResult>,
+    currentSweepAngle: Float,
+    chartStartAngle: Float,
+    chartEndAngle: Float,
+    outerRadius: Float,
+    outerStrokeWidth: Float,
+    innerRadius: Float,
+    innerStrokeWidth: Float,
+    lineStrokeWidth: Float,
+    drawText: Boolean
 ) {
+    Canvas(modifier = modifier) {
 
-    var selectedIndex by remember { mutableStateOf(-1) }
-    val animationTargetState = (0..data.size).map {
-        remember { mutableStateOf(PieChartState()) }
-    }
+        val width = size.width
+        var startAngle = chartStartAngle
 
-    val animValues = (0..data.size).map {
-        animateDpAsState(
-            targetValue = animationTargetState[it].value.stroke,
-            animationSpec = TweenSpec(400)
-        )
-    }
-    val anglesList: MutableList<DrawingAngles> = remember { mutableListOf() }
-    val gapAngle = data.calculateGapAngle(gapPercentage)
-    var center = Offset(0f, 0f)
+        for (index in 0..chartDataList.lastIndex) {
 
-    LaunchedEffect(data) {
-        if (data.isNotEmpty()) {
-            val index = data.map { it.value }.indexOfMaxValue()
-            selectedIndex = index
-            animationTargetState.getOrNull(index)?.value = PieChartState(PieChartState.State.Selected)
-        }
-    }
+            val chartData = chartDataList[index]
+            val range = chartData.range
+            val sweepAngle = range.endInclusive - range.start
+            val angleInRadians = (startAngle + sweepAngle / 2).degreeToRadian()
+            val textMeasureResult = textMeasureResults[index]
+            val textSize = textMeasureResult.size
 
-    Box(
-        modifier = modifier,
-        contentAlignment = Alignment.Center,
-    ) {
-        Canvas(
-            modifier = Modifier
-                .aspectRatio(1f)
-                .pointerInput(Unit) {
-                    detectTapGestures(
-                        onTap = { tapOffset ->
-                            handleCanvasTap(
-                                center = center,
-                                tapOffset = tapOffset,
-                                anglesList = anglesList,
-                                currentSelectedIndex = selectedIndex,
-                                currentStrokeValues = animationTargetState.map { it.value.stroke.toPx() },
-                                onItemSelected = { index ->
-                                    selectedIndex = index
-                                    animationTargetState[index].value = PieChartState(
-                                        PieChartState.State.Selected
-                                    )
-                                },
-                                onItemDeselected = { index ->
-                                    animationTargetState[index].value = PieChartState(
-                                        PieChartState.State.Unselected
-                                    )
-                                },
-                                onNoItemSelected = {
-//                                    selectedIndex = -1
-                                }
-                            )
-                        }
+            val currentStrokeWidth = outerStrokeWidth
+            // This is for increasing stroke width without scaling
+//            val currentStrokeWidth = chartData.animatable.value
+
+            withTransform(
+                {
+                    val scale = chartData.animatable.value
+                    scale(
+                        scaleX = scale,
+                        scaleY = scale
                     )
-                },
-            onDraw = {
-                val defaultStrokeWidth = STROKE_SIZE_UNSELECTED.toPx()
-                center = this.center
-                anglesList.clear()
-                var lastAngle = 0f
-                data.forEachIndexed { ind, item ->
-                    val sweepAngle = data.findSweepAngle(ind, gapPercentage)
-                    anglesList.add(DrawingAngles(lastAngle, sweepAngle))
-                    val strokeWidth = animValues[ind].value.toPx()
+                }
+            ) {
+
+                if (startAngle <= currentSweepAngle) {
+
+                    val color = chartData.color
+                    val diff = (width / 2 - outerRadius) / outerRadius
+                    val fraction = (chartData.animatable.value - 1f) / diff
+
+                    val animatedColor = androidx.compose.ui.graphics.lerp(
+                        color,
+                        color.copy(alpha = .8f),
+                        fraction
+                    )
+
+                    val colorInner = Color.Black.copy(alpha = 0.1f)
+
+
+                    // Outer Arc Segment
                     drawArc(
-                        color = item.color,
-                        startAngle = lastAngle,
-                        sweepAngle = sweepAngle,
-                        alpha = if (selectedIndex == ind) 1f else 0.7f,
+                        color = animatedColor,
+                        startAngle = startAngle,
+                        sweepAngle = sweepAngle.coerceAtMost(
+                            currentSweepAngle - startAngle
+                        ),
                         useCenter = false,
-                        topLeft = Offset(defaultStrokeWidth / 2, defaultStrokeWidth / 2),
-                        style = Stroke(strokeWidth, cap = StrokeCap.Butt),
+                        topLeft = Offset(
+                            (width - 2 * innerRadius - currentStrokeWidth) / 2,
+                            (width - 2 * innerRadius - currentStrokeWidth) / 2
+                        ),
                         size = Size(
-                            size.width - defaultStrokeWidth,
-                            size.height - defaultStrokeWidth
+                            innerRadius * 2 + currentStrokeWidth,
+                            innerRadius * 2 + currentStrokeWidth
+                        ),
+                        style = Stroke(currentStrokeWidth)
+                    )
+
+
+                    // Inner Arc Segment
+                    drawArc(
+                        color = colorInner,
+                        startAngle = startAngle,
+                        sweepAngle = sweepAngle.coerceAtMost(
+                            currentSweepAngle - startAngle
+                        ),
+                        useCenter = false,
+                        topLeft = Offset(
+                            (width - 2 * innerRadius) / 2 + innerStrokeWidth / 2,
+                            (width - 2 * innerRadius) / 2 + innerStrokeWidth / 2
+                        ),
+                        size = Size(
+                            2 * innerRadius - innerStrokeWidth,
+                            2 * innerRadius - innerStrokeWidth
+                        ),
+                        style = Stroke(innerStrokeWidth)
+                    )
+                }
+
+                val textCenter = textSize.center
+
+                if (drawText && currentSweepAngle == chartEndAngle) {
+                    drawText(
+                        textLayoutResult = textMeasureResult,
+                        color = Color.Black,
+                        topLeft = Offset(
+                            -textCenter.x + center.x
+                                    + (innerRadius + currentStrokeWidth / 2) * cos(angleInRadians),
+                            -textCenter.y + center.y
+                                    + (innerRadius + currentStrokeWidth / 2) * sin(angleInRadians)
                         )
                     )
-                    lastAngle += sweepAngle + gapAngle
                 }
             }
-        )
-        selectionView(if (selectedIndex >= 0) data[selectedIndex] else null)
-    }
-}
 
-private fun List<Float>.indexOfMaxValue(): Int {
-    if (isEmpty()) {
-        return -1
-    }
-
-    var maxIndex = 0
-    var maxValue = this[0]
-
-    for (i in 1 until size) {
-        if (this[i] > maxValue) {
-            maxValue = this[i]
-            maxIndex = i
+            startAngle += sweepAngle
         }
-    }
 
-    return maxIndex
+        for (index in 0..chartDataList.lastIndex) {
+
+            val chartData = chartDataList[index]
+            val range = chartData.range
+            val sweepAngle = range.endInclusive - range.start
+
+            // Divider
+//            rotate(
+//                90f + startAngle
+//            ) {
+//                drawLine(
+//                    color = Color.White,
+//                    start = Offset(
+//                        center.x,
+//                        (width / 2 - innerRadius + innerStrokeWidth)
+//                            .coerceAtMost(width / 2)
+//                    ),
+//                    end = Offset(center.x, 0f),
+//                    strokeWidth = lineStrokeWidth
+//                )
+//            }
+
+            startAngle += sweepAngle
+        }
+
+    }
 }
 
-private fun handleCanvasTap(
-    center: Offset,
-    tapOffset: Offset,
-    anglesList: List<DrawingAngles>,
-    currentSelectedIndex: Int,
-    currentStrokeValues: List<Float>,
-    onItemSelected: (Int) -> Unit = {},
-    onItemDeselected: (Int) -> Unit = {},
-    onNoItemSelected: () -> Unit = {},
+private fun Float.degreeToRadian(): Float {
+    return (this * PI / 180.0).toFloat()
+}
+
+@Immutable
+public data class ChartData(val color: Color, val data: Float)
+
+@Immutable
+internal class AnimatedChartData(
+    val color: Color,
+    val data: Float,
+    selected: Boolean = false,
+    val range: ClosedFloatingPointRange<Float>,
+    val animatable: Animatable<Float, AnimationVector1D> = Animatable(1f)
 ) {
-    val normalized = tapOffset.findNormalizedPointFromTouch(center)
-    val touchAngle =
-        calculateTouchAngleAccordingToCanvas(center, normalized)
-    val distance = findTouchDistanceFromCenter(center, normalized)
-
-    var selectedIndex = -1
-    var newDataTapped = false
-
-    anglesList.forEachIndexed { ind, angle ->
-        val stroke = currentStrokeValues[ind]
-        if (angle.isInsideAngle(touchAngle)) {
-            if (distance > (center.x - stroke) &&
-                distance < (center.x)
-            ) { // since it's a square center.x or center.y will be the same
-                selectedIndex = ind
-                newDataTapped = true
-            }
-        }
-    }
-
-    if (selectedIndex >= 0 && newDataTapped) {
-        onItemSelected(selectedIndex)
-    }
-    if (currentSelectedIndex >= 0) {
-        onItemDeselected(currentSelectedIndex)
-        if (currentSelectedIndex == selectedIndex || !newDataTapped) {
-            onNoItemSelected()
-        }
-    }
-}
-
-/**
- * Find the distance based on two points in a graph. Calculated using the pythagorean theorem.
- */
-private fun findTouchDistanceFromCenter(center: Offset, touch: Offset) =
-    sqrt((touch.x - center.x).pow(2) + (touch.y - center.y).pow(2))
-
-/**
- * The touch point start from Canvas top left which ranges from (0,0) -> (canvas.width, canvas.height).
- * We need to normalize this point so that it's based on the canvas center instead.
- */
-private fun Offset.findNormalizedPointFromTouch(canvasCenter: Offset) =
-    Offset(this.x, canvasCenter.y + (canvasCenter.y - this.y))
-
-/**
- * Calculate the touch angle based on the canvas center. Then adjust the angle so that
- * drawing starts from the 4th quadrant instead of the first.
- */
-private fun calculateTouchAngleAccordingToCanvas(canvasCenter: Offset, normalizedPoint: Offset): Float {
-    val angle = calculateTouchAngleInDegrees(canvasCenter, normalizedPoint)
-    return adjustAngleToCanvas(angle).toFloat()
-}
-
-/**
- * Calculate touch angle in radian using atan2(). Afterwards, convert the radian to degrees to be
- * compared to other data points.
- */
-private fun calculateTouchAngleInDegrees(canvasCenter: Offset, normalizedPoint: Offset): Double {
-    val touchInRadian = kotlin.math.atan2(
-        normalizedPoint.y - canvasCenter.y,
-        normalizedPoint.x - canvasCenter.x
-    )
-    return touchInRadian * -180 / PI // Convert radians to angle in degrees
-}
-
-/**
- * Start from 4th quadrant going to 1st quadrant, degrees ranging from 0 to 360
- */
-private fun adjustAngleToCanvas(angle: Double) = (angle + TOTAL_ANGLE) % TOTAL_ANGLE
-
-/**
- * Calculate the gap width between the arcs based on [gapPercentage]. The percentage is applied
- * to the average count to determine the width in pixels.
- */
-private fun List<PieChartData>.calculateGap(gapPercentage: Float): Float {
-    if (this.isEmpty()) return 0f
-
-    return sumOf { it.value.toDouble() }.toFloat() / this.size * gapPercentage
-}
-
-/**
- * Returns the total data points including the individual gap widths indicated by the
- * [gapPercentage].
- */
-private fun List<PieChartData>.getTotalAmountWithGapIncluded(gapPercentage: Float): Float {
-    val gap = this.calculateGap(gapPercentage)
-    return sumOf { it.value.toDouble() }.toFloat() + (this.size * gap)
-}
-
-/**
- * Calculate the sweep angle of an arc including the gap as well. The gap is derived based
- * on [gapPercentage].
- */
-private fun List<PieChartData>.calculateGapAngle(gapPercentage: Float): Float {
-    val gap = this.calculateGap(gapPercentage)
-    val totalAmountWithGap = this.getTotalAmountWithGapIncluded(gapPercentage)
-
-    return (gap / totalAmountWithGap) * TOTAL_ANGLE
-}
-
-/**
- * Returns the sweep angle of a given point in the [PieChartDataCollection]. This calculations
- * takes the gap between arcs into the account.
- */
-private fun List<PieChartData>.findSweepAngle(
-    index: Int,
-    gapPercentage: Float
-): Float {
-    val amount = this[index].value
-    val gap = this.calculateGap(gapPercentage)
-    val totalWithGap = getTotalAmountWithGapIncluded(gapPercentage)
-    val gapAngle = this.calculateGapAngle(gapPercentage)
-    return ((((amount + gap) / totalWithGap) * TOTAL_ANGLE)) - gapAngle
+    var isSelected by mutableStateOf(selected)
 }

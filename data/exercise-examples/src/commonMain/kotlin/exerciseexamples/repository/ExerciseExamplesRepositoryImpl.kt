@@ -18,6 +18,12 @@ internal class ExerciseExamplesRepositoryImpl(
     private val local: ExerciseExamplesSource
 ) : ExerciseExamplesRepository {
 
+    override fun observeExerciseExample(exerciseExampleId: String): Flow<ExerciseExample> {
+        return local
+            .getExerciseExampleById(exerciseExampleId)
+            .map { it.daoToDomain() }
+    }
+
     override fun observeExerciseExamples(): Flow<List<ExerciseExample>> {
         return local
             .getExerciseExamples()
@@ -30,12 +36,6 @@ internal class ExerciseExamplesRepositoryImpl(
             local.setExerciseExamples(result.dtoToDao())
             emit(Unit)
         }
-    }
-
-    override fun observeExerciseExample(exerciseExampleId: String): Flow<ExerciseExample> {
-        return local
-            .getExerciseExampleById(exerciseExampleId)
-            .map { it.daoToDomain() }
     }
 
     override fun observeMuscleTypes(): Flow<List<MuscleType>> {

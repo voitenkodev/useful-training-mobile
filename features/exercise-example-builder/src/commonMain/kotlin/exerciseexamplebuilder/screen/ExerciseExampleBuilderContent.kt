@@ -59,7 +59,7 @@ internal fun ExerciseExampleBuilderContent(
         deleteExercise = {},
         onMuscleBundleChange = vm::onMuscleBundleChange,
         confirm = { vm.setExerciseExample(success = back) },
-        selectMuscle = vm::selectMuscle,
+        selectMuscle = vm::selectMuscleBundle,
         list = state.muscleTypes
     )
 }

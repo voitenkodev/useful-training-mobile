@@ -17,18 +17,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.text.style.TextAlign
 import atom.Design
 import molecule.ButtonPrimarySmall
 import molecule.ButtonSecondarySmall
 import molecule.PaddingM
-import molecule.TextBody1
-import molecule.TextBody3
 import molecule.TextH4
 import molecule.secondaryDefaultBackground
-import percents
+import pie.ChartData
 import pie.PieChart
-import pie.PieChartData
 
 @Composable
 public fun ExerciseCard(
@@ -67,40 +63,55 @@ public fun ExerciseCard(
                     maxLines = 2,
                     color = Design.colors.content
                 )
-
-
-                PieChart(
-                    modifier = Modifier
-                        .fillMaxHeight()
-                        .aspectRatio(1f),
-                    data = musclesWithPercent.map {
-                        PieChartData(
-                            value = 30f,
-                            title = "Triceps",
-                            color = Design.colors.purple
-                        )
-                    },
-                    selectionView = {
-                        if (it == null) return@PieChart
-
-                        Column(
-                            modifier = Modifier.padding(Design.dp.paddingM),
-                            horizontalAlignment = Alignment.CenterHorizontally,
-                            verticalArrangement = Arrangement.Center
-                        ) {
-
-                            TextBody1(
-                                provideText = { it.value.toInt().percents() },
-                                textAlign = TextAlign.Center
-                            )
-
-                            TextBody3(
-                                provideText = { it.title },
-                                textAlign = TextAlign.Center
-                            )
-                        }
-                    }
+                val data = listOf(
+                    ChartData(Design.colors.black30, 20f),
+                    ChartData(Design.colors.black10, 15f),
+                    ChartData(Design.colors.black70, 5f),
+                    ChartData(Design.colors.black30, 35f),
+                    ChartData(Design.colors.black10, 15f)
                 )
+
+                //  it.value.toInt().percents()
+                PieChart(
+                    modifier = Modifier.fillMaxHeight().aspectRatio(1f),
+                    data = data,
+                    outerRingPercent = 100,
+                    innerRingPercent = 10,
+                    drawText = false
+                )
+
+//                PieChart(
+//                    modifier = Modifier
+//                        .fillMaxHeight()
+//                        .aspectRatio(1f),
+//                    data = musclesWithPercent.map {
+//                        PieChartData(
+//                            value = 30f,
+//                            title = "Triceps",
+//                            color = Design.colors.purple
+//                        )
+//                    },
+//                    selectionView = {
+//                        if (it == null) return@PieChart
+//
+//                        Column(
+//                            modifier = Modifier.padding(Design.dp.paddingM),
+//                            horizontalAlignment = Alignment.CenterHorizontally,
+//                            verticalArrangement = Arrangement.Center
+//                        ) {
+//
+//                            TextBody1(
+//                                provideText = { it.value.toInt().percents() },
+//                                textAlign = TextAlign.Center
+//                            )
+//
+//                            TextBody3(
+//                                provideText = { it.title },
+//                                textAlign = TextAlign.Center
+//                            )
+//                        }
+//                    }
+//                )
             }
 
             PaddingM()

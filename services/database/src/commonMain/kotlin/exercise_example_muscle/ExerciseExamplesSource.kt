@@ -61,6 +61,7 @@ public class ExerciseExamplesSource(nativeContext: NativeContext) {
     }
 
     public fun setExerciseExamples(exerciseExamples: List<ExerciseExampleDao>) {
+        deleteExerciseExamples()
         exerciseExamples.onEach { exerciseExample ->
             setExerciseExample(exerciseExample)
         }
@@ -114,6 +115,11 @@ public class ExerciseExamplesSource(nativeContext: NativeContext) {
         )
     }
 
+    private fun deleteExerciseExamples() {
+        api.deleteTableExerciseExample()
+        api.deleteTableMuscleExerciseBundle()
+    }
+
     public fun deleteMuscle(muscleId: String) {
         api.deleteMuscleById(
             id = muscleId
@@ -131,8 +137,8 @@ public class ExerciseExamplesSource(nativeContext: NativeContext) {
     public fun clearTables() {
         api.deleteTableExerciseExample()
         api.deleteTableMuscle()
-        api.deleteTableMuscleExerciseBundle()
         api.deleteTableMuscleType()
+        api.deleteTableMuscleExerciseBundle()
     }
 
     private fun setMuscleTypeWithMuscles(muscleType: MuscleTypeDao) {

@@ -28,6 +28,10 @@ internal class ExerciseExamplesViewModel : ViewModel() {
             .catch { t -> _state.update { it.copy(loading = false, error = t.message) } }
             .launchIn(this)
 
+        api
+            .syncExerciseExamples()
+            .catch { r -> _state.update { it.copy(error = r.message) } }
+            .launchIn(this)
     }
 
     fun clearError() {

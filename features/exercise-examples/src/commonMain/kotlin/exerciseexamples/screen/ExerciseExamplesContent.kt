@@ -29,7 +29,6 @@ internal fun ExerciseExamplesContent(
     val state by vm.state.collectAsState()
 
     Content(
-        loading = { state.loading },
         error = { state.error },
         clearError = vm::clearError,
         exerciseExamples = state.exerciseExamples,
@@ -40,7 +39,6 @@ internal fun ExerciseExamplesContent(
 
 @Composable
 private fun Content(
-    loading: () -> Boolean,
     error: () -> String?,
     clearError: () -> Unit,
     exerciseExamples: ImmutableList<ExerciseExample>,
