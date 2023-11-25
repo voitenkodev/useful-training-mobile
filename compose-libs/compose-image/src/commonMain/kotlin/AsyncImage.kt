@@ -32,7 +32,7 @@ public fun AsyncImage(
     colorFilter: ColorFilter? = null
 ) {
     val action =
-        rememberImageAction("https://static.vecteezy.com/system/resources/previews/017/067/906/original/ufo-seamless-background-free-vector.jpg")
+        rememberImageAction("https://assets.sweat.com/shopify_articles/images/010/005/285/original/BackToGymSWEATf1f07a7f6f79e7b8807d2436a6ae8e8b.jpg?1625801362")
 
     val painter = rememberImageActionPainter(action.value)
 

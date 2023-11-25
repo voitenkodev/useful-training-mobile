@@ -21,6 +21,10 @@ public fun Int.meter(): String {
     return "${value ?: floatString}m"
 }
 
+public fun Int.percents(): String {
+    return "$this%"
+}
+
 public fun Int.minutes(): String {
     return "$this min"
 }

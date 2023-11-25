@@ -18,8 +18,10 @@ kotlin {
                 implementation(projects.designSystem.resources)
 
                 implementation(projects.common.platformApi)
+                implementation(projects.common.utils)
 
                 implementation(projects.composeLibs.composeImage)
+                implementation(projects.composeLibs.charts)
 
                 implementation(compose.ui)
                 implementation(compose.material)
