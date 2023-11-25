@@ -18,10 +18,10 @@ import components.chips.Chip
 import components.chips.ChipState
 import components.roots.ScreenRoot
 import exerciseexamplebuilder.components.Footer
-import exerciseexamplebuilder.components.Header
 import exerciseexamplebuilder.state.ExerciseExample
 import exerciseexamplebuilder.state.Muscle
 import exerciseexamplebuilder.state.MuscleExerciseBundle
+import exerciseexamplebuilder.components.Header
 import kotlinx.collections.immutable.ImmutableList
 import molecule.TextH4
 

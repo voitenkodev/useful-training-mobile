@@ -73,7 +73,7 @@ internal fun Header(
                 modifier = Modifier
                     .padding(horizontal = Design.dp.paddingM)
                     .fillMaxWidth(),
-                provideText = { "Exercise Example" },
+                provideText = { "Exercises" },
                 softWrap = false
             )
         }

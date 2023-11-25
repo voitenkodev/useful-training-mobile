@@ -33,7 +33,7 @@ import profile.state.User
 @Composable
 internal fun ProfileContent(
     vm: ProfileViewModel,
-    toExerciseExampleBuilder: (id: String?) -> Unit
+    toExerciseExamples: () -> Unit
 ) {
 
     val state by vm.state.collectAsState()
@@ -43,7 +43,7 @@ internal fun ProfileContent(
         clearError = vm::clearError,
         user = state.user,
         updateUser = {},
-        toExerciseExamples = {},
+        toExerciseExamples = toExerciseExamples,
         toWeightHistory = {},
         toSupport = {},
         logout = vm::logout
@@ -122,7 +122,7 @@ private fun Content(
 
                     MenuItem(
                         icon = Icons.dumbbell,
-                        text = "Exercise Examples",
+                        text = "Exercise",
                         onClick = toExerciseExamples
                     )
 

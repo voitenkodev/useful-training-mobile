@@ -25,7 +25,7 @@ internal sealed class BottomMenuRouter : Parcelable {
 internal fun BottomMenuGraph(
     toTrainingBuilder: (id: String?) -> Unit,
     toTrainingDetails: (id: String) -> Unit,
-    toExerciseExampleBuilder: (id: String?) -> Unit,
+    toExerciseExamples: () -> Unit,
     toAuthentication: () -> Unit
 ) {
 
@@ -63,7 +63,7 @@ internal fun BottomMenuGraph(
                     )
 
                     BottomMenuRouter.Profile -> ProfileFeature(
-                        toExerciseExampleBuilder = toExerciseExampleBuilder
+                        toExerciseExamples = toExerciseExamples
                     )
 
                     BottomMenuRouter.Statistics -> StatisticFeature()

@@ -26,6 +26,7 @@ kotlin {
                 implementation(projects.features.profile)
                 implementation(projects.features.trainingBuilder)
                 implementation(projects.features.exerciseExampleBuilder)
+                implementation(projects.features.exerciseExamples)
                 implementation(projects.features.musclePicker)
 
                 // Services

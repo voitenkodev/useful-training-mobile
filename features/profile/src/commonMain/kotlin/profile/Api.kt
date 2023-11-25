@@ -7,7 +7,7 @@ import profile.screen.ProfileViewModel
 
 @Composable
 public fun ProfileFeature(
-    toExerciseExampleBuilder: (id: String?) -> Unit
+    toExerciseExamples: () -> Unit
 ) {
 
     val vm = rememberOnRoute(ProfileViewModel::class) {
@@ -16,6 +16,6 @@ public fun ProfileFeature(
 
     ProfileContent(
         vm = vm,
-        toExerciseExampleBuilder = toExerciseExampleBuilder
+        toExerciseExamples = toExerciseExamples
     )
 }
