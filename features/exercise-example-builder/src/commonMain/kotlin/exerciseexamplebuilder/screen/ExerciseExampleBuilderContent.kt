@@ -103,16 +103,14 @@ private fun Content(
                 muscleTypes = muscleTypes
             )
 
-            LazyColumn(modifier = Modifier.animateContentSize().weight(1f)) {
+            LazyColumn(modifier = Modifier.fillMaxWidth().weight(1f)) {
 
                 itemsIndexed(muscleTypes, key = { _, item -> item.id }) { index, item ->
 
                     PaddingS()
 
                     Column(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(Design.dp.paddingM),
+                        modifier = Modifier.fillMaxWidth().padding(Design.dp.paddingM),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
 

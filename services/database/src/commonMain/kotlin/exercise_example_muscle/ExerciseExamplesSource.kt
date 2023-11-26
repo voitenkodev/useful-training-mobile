@@ -117,8 +117,8 @@ public class ExerciseExamplesSource(nativeContext: NativeContext) {
     }
 
     private fun deleteExerciseExamples() {
-        api.deleteTableExerciseExample()
         api.deleteTableMuscleExerciseBundle()
+        api.deleteTableExerciseExample()
     }
 
     public fun deleteMuscle(muscleId: String) {

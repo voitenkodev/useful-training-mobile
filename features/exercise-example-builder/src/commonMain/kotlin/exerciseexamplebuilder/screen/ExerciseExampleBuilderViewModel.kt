@@ -58,15 +58,11 @@ internal class ExerciseExampleBuilderViewModel(exerciseExampleId: String?) : Vie
         val exerciseExample = state.value.exerciseExample ?: return
         val muscleTypes = state.value.muscleTypes
 
-        api.setExerciseExample(
-            exerciseExample = exerciseExample.toDomain(muscleTypes),
-        ).onStart {
-            _state.update { it.copy(loading = true) }
-        }.onEach {
-            success.invoke()
-        }.catch { t ->
-            _state.update { it.copy(loading = false, error = t.message) }
-        }.launchIn(this)
+        api.setExerciseExample(exerciseExample = exerciseExample.toDomain(muscleTypes))
+            .onStart { _state.update { it.copy(loading = true) } }
+            .onEach { success.invoke() }
+            .catch { t -> _state.update { it.copy(loading = false, error = t.message) } }
+            .launchIn(this)
     }
 
     fun onMuscleBundleChange(values: ImmutableList<MuscleType>) {

@@ -7,6 +7,7 @@ import exerciseexamples.state.State
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
@@ -29,7 +30,8 @@ internal class ExerciseExamplesViewModel : ViewModel() {
             .launchIn(this)
 
         api
-            .syncExerciseExamples()
+            .syncMuscleTypes()
+            .flatMapConcat { api.syncExerciseExamples() }
             .catch { r -> _state.update { it.copy(error = r.message) } }
             .launchIn(this)
     }

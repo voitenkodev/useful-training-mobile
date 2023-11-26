@@ -27,8 +27,8 @@ public fun RangeSlider(
     lineColor: Color,
     requiredFilledRange: Boolean = true
 ) {
-    require((requiredFilledRange && thumbs.sumOf { it.positionInRange } != range.endInclusive).not()) {
-        "Using 'requiredFilledRange = true', sum of items should be ${range.endInclusive}, but == ${thumbs.sumOf { it.positionInRange }}"
+    if ((requiredFilledRange && thumbs.sumOf { it.positionInRange } != range.endInclusive)) {
+        return
     }
 
     val canvasSize = remember { mutableStateOf(Size(0f, 0f)) }

@@ -40,7 +40,7 @@ internal fun Header(
     sliderRange: ClosedRange<Int>,
     setExerciseExampleName: (String) -> Unit,
     onPercentageChange: (ImmutableList<MuscleType>) -> Unit,
-    deleteExercise: () -> Unit,
+    deleteExercise: () -> Unit
 ) {
 
     val thumbs = remember(muscleTypes) {

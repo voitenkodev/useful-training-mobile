@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS ExerciseExample (
-    id TEXT NOT NULL  PRIMARY KEY,
+    id TEXT NOT NULL PRIMARY KEY,
     name TEXT,
     createdAt TEXT,
     updatedAt TEXT,
@@ -7,9 +7,9 @@ CREATE TABLE IF NOT EXISTS ExerciseExample (
 );
 
 CREATE TABLE IF NOT EXISTS MuscleExerciseBundle (
-    id TEXT PRIMARY KEY,
+    id TEXT NOT NULL PRIMARY KEY,
     exerciseExampleId TEXT NOT NULL REFERENCES ExerciseExample(id) ON DELETE CASCADE,
-    muscleId TEXT NOT NULL REFERENCES Muscle(id) ON DELETE CASCADE,
+    muscleId TEXT NOT NULL REFERENCES Muscle(id),
     percentage INTEGER,
     createdAt TEXT,
     updatedAt TEXT
