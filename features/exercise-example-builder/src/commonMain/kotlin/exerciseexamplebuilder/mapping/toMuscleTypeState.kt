@@ -20,7 +20,6 @@ internal fun models.MuscleType.toState(): MuscleType? {
         name = name,
         id = id,
         muscles = muscleState,
-        isSelected = false,
         type = typeState,
         imageVector = muscleImage(typeState, muscleState)
     )

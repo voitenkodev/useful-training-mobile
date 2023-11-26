@@ -5,7 +5,6 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -29,13 +28,13 @@ import components.roots.ScreenRoot
 import exerciseexamplebuilder.components.Footer
 import exerciseexamplebuilder.components.Header
 import exerciseexamplebuilder.state.ExerciseExample
-import exerciseexamplebuilder.state.MuscleExerciseBundle
 import exerciseexamplebuilder.state.MuscleType
 import kotlinx.collections.immutable.ImmutableList
 import molecule.PaddingM
 import molecule.PaddingS
 import molecule.Shadow
 import molecule.TextH4
+import percents
 
 @Composable
 internal fun ExerciseExampleBuilderContent(
@@ -59,8 +58,8 @@ internal fun ExerciseExampleBuilderContent(
         deleteExercise = {},
         onMuscleBundleChange = vm::onMuscleBundleChange,
         confirm = { vm.setExerciseExample(success = back) },
-        selectMuscle = vm::selectMuscleBundle,
-        list = state.muscleTypes
+        selectMuscle = vm::selectMuscle,
+        muscleTypes = state.muscleTypes
     )
 }
 
@@ -76,11 +75,11 @@ private fun Content(
     sliderRange: ClosedRange<Int>,
 
     setExerciseExampleName: (String) -> Unit,
-    onMuscleBundleChange: (ImmutableList<MuscleExerciseBundle>) -> Unit,
+    onMuscleBundleChange: (ImmutableList<MuscleType>) -> Unit,
     deleteExercise: () -> Unit,
     confirm: () -> Unit,
 
-    list: ImmutableList<MuscleType>,
+    muscleTypes: ImmutableList<MuscleType>,
     selectMuscle: (id: String) -> Unit
 ) {
 
@@ -99,19 +98,14 @@ private fun Content(
                 minimalRange = minimalRange,
                 sliderRange = sliderRange,
                 setExerciseExampleName = setExerciseExampleName,
-                onMuscleBundleChange = onMuscleBundleChange,
-                deleteExercise = deleteExercise
+                onPercentageChange = onMuscleBundleChange,
+                deleteExercise = deleteExercise,
+                muscleTypes = muscleTypes
             )
 
-            LazyColumn(
-                modifier = Modifier
-                    .animateContentSize()
-                    .weight(1f),
-                contentPadding = PaddingValues(Design.dp.paddingM),
-                verticalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
-            ) {
+            LazyColumn(modifier = Modifier.animateContentSize().weight(1f)) {
 
-                itemsIndexed(list, key = { _, item -> item.id }) { index, item ->
+                itemsIndexed(muscleTypes, key = { _, item -> item.id }) { index, item ->
 
                     PaddingS()
 
@@ -149,8 +143,8 @@ private fun Content(
                                 item.muscles.forEach { muscle ->
 
                                     val selectedChipState = ChipState.Colored(
-                                        backgroundColor = muscle.color?.copy(alpha = 0.1f) ?: Design.colors.black10,
-                                        borderColor = muscle.color ?: Design.colors.green,
+                                        backgroundColor = muscle.color.copy(alpha = 0.1f),
+                                        borderColor = muscle.color,
                                         contentColor = Design.colors.content
                                     )
 
@@ -158,14 +152,17 @@ private fun Content(
                                         chipState = if (muscle.isSelected) selectedChipState
                                         else unSelectedChipState,
                                         onClick = { selectMuscle.invoke(muscle.id) },
-                                        text = muscle.name
+                                        text = buildString {
+                                            append(muscle.name)
+                                            if (muscle.percentage > 0) append(" ${muscle.percentage.percents()}")
+                                        }
                                     )
                                 }
                             }
                         }
                     }
 
-                    if (index < list.lastIndex) Shadow()
+                    if (index < muscleTypes.lastIndex) Shadow()
                 }
             }
 

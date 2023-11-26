@@ -2,10 +2,10 @@ package exerciseexamplebuilder.mapping
 
 import exerciseexamplebuilder.state.Muscle
 import exerciseexamplebuilder.state.MuscleEnum
-import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.toPersistentList
 
-internal fun List<models.Muscle>.toState(): ImmutableList<Muscle> {
+internal fun List<models.Muscle>.toState(): PersistentList<Muscle> {
     return mapNotNull { it.toState() }
         .toPersistentList()
 }
@@ -15,7 +15,8 @@ internal fun models.Muscle.toState(): Muscle? {
         name = name,
         id = id,
         isSelected = false,
-        type = type.toState() ?: return null
+        type = type.toState() ?: return null,
+        percentage = 0
     )
 }
 

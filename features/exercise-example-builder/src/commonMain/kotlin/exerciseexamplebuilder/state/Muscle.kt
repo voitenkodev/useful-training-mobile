@@ -1,5 +1,6 @@
 package exerciseexamplebuilder.state
 
+import ColorUtils
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
 
@@ -9,7 +10,8 @@ internal data class Muscle(
     val name: String,
     val isSelected: Boolean,
     val type: MuscleEnum,
-    val color: Color? = null
+    val color: Color = ColorUtils.randomColor(),
+    val percentage: Int
 )
 
 @Immutable

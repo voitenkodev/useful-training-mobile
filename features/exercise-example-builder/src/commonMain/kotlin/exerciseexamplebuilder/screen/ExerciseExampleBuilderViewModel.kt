@@ -6,12 +6,9 @@ import exerciseexamplebuilder.factory.muscleImage
 import exerciseexamplebuilder.mapping.toDomain
 import exerciseexamplebuilder.mapping.toState
 import exerciseexamplebuilder.state.ExerciseExample
-import exerciseexamplebuilder.state.Muscle
-import exerciseexamplebuilder.state.MuscleExerciseBundle
+import exerciseexamplebuilder.state.MuscleType
 import exerciseexamplebuilder.state.State
 import kotlinx.collections.immutable.ImmutableList
-import kotlinx.collections.immutable.persistentListOf
-import kotlinx.collections.immutable.toImmutableList
 import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -22,6 +19,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.update
+import models.MuscleExerciseBundle
 import org.koin.core.component.inject
 
 internal class ExerciseExampleBuilderViewModel(exerciseExampleId: String?) : ViewModel() {
@@ -41,8 +39,13 @@ internal class ExerciseExampleBuilderViewModel(exerciseExampleId: String?) : Vie
             .onEach { r -> _state.update { it.copy(muscleTypes = r.toState()) } }
             .flatMapConcat { flow }
             .onEach { ex ->
-                _state.update { it.copy(loading = false, exerciseExample = ex?.toState() ?: ExerciseExample()) }
-                ex?.muscleExerciseBundles?.forEach { bundle -> selectMuscleById(id = bundle.muscleId) }
+                _state.update {
+                    it.copy(
+                        loading = false,
+                        exerciseExample = ex?.toState() ?: ExerciseExample(),
+                        muscleTypes = it.muscleTypes.prefillMusclesWith(ex?.muscleExerciseBundles ?: emptyList())
+                    )
+                }
             }.catch { r -> _state.update { it.copy(error = r.message) } }
             .launchIn(this)
 
@@ -53,9 +56,10 @@ internal class ExerciseExampleBuilderViewModel(exerciseExampleId: String?) : Vie
 
     fun setExerciseExample(success: () -> Unit) {
         val exerciseExample = state.value.exerciseExample ?: return
+        val muscleTypes = state.value.muscleTypes
 
         api.setExerciseExample(
-            exerciseExample = exerciseExample.toDomain(),
+            exerciseExample = exerciseExample.toDomain(muscleTypes),
         ).onStart {
             _state.update { it.copy(loading = true) }
         }.onEach {
@@ -65,116 +69,81 @@ internal class ExerciseExampleBuilderViewModel(exerciseExampleId: String?) : Vie
         }.launchIn(this)
     }
 
-    fun onMuscleBundleChange(values: ImmutableList<MuscleExerciseBundle>) {
+    fun onMuscleBundleChange(values: ImmutableList<MuscleType>) {
         _state.update {
             it.exerciseExample ?: return@update it
-
-            it.copy(
-                exerciseExample = it.exerciseExample.copy(
-                    muscleExerciseBundles = values
-                )
-            )
+            it.copy(muscleTypes = values)
         }
     }
 
     fun setExerciseExampleName(value: String) {
         _state.update {
             it.exerciseExample ?: return@update it
-
-            it.copy(
-                exerciseExample = it.exerciseExample.copy(name = value)
-            )
+            it.copy(exerciseExample = it.exerciseExample.copy(name = value))
         }
     }
 
-    private fun ImmutableList<MuscleExerciseBundle>.addMuscle(
-        muscle: Muscle,
-        minimalRange: Int,
-        maximalRange: Int,
-    ): ImmutableList<MuscleExerciseBundle> {
+    private fun ImmutableList<MuscleType>.prefillMusclesWith(list: List<MuscleExerciseBundle>): ImmutableList<MuscleType> {
+        return map { muscleType ->
+            val muscles = muscleType.muscles.map { muscle ->
+                val findItem = list.find { it.muscleId == muscle.id }
+                muscle.copy(
+                    isSelected = findItem != null,
+                    percentage = findItem?.percentage ?: 0
+                )
+            }.toPersistentList()
 
-        val newOne = MuscleExerciseBundle(
-            muscle = muscle,
-            percentage = if (this.isEmpty()) maximalRange else minimalRange
-        )
-
-        if (this.isEmpty()) return listOf(newOne).toPersistentList()
-
-        val theMostBigItem = maxBy { it.percentage }
-
-        return buildList {
-            val list = this@addMuscle.map { item ->
-                if (item == theMostBigItem) item.copy(percentage = item.percentage - minimalRange)
-                else item
-            }
-
-            addAll(list)
-            add(newOne)
+            val image = muscleImage(
+                muscleTypeEnumState = muscleType.type,
+                muscles = muscles
+            )
+            muscleType.copy(
+                muscles = muscles,
+                imageVector = image
+            )
         }.toPersistentList()
     }
 
-    private fun ImmutableList<MuscleExerciseBundle>.removeMuscleBundle(
-        muscle: Muscle,
-        maximalRange: Int
-    ): ImmutableList<MuscleExerciseBundle> {
-        val muscleExerciseBundle = this.find { it.muscle.id == muscle.id } ?: return this
-
-        val newList = this.minus(muscleExerciseBundle)
-
-        if (newList.isEmpty()) return persistentListOf()
-
-        if (newList.size == 1) return newList
-            .map { it.copy(percentage = maximalRange) }
-            .toImmutableList()
-
-        val theMostMinItem = newList.minBy { it.percentage }
-
-        return buildList {
-            val list = newList.map { item ->
-                if (item == theMostMinItem) item.copy(percentage = item.percentage + muscleExerciseBundle.percentage)
-                else item
-            }
-
-            addAll(list)
-        }.toPersistentList()
-    }
-
-    fun selectMuscleBundle(id: String) {
-        selectMuscleById(id)
-
+    fun selectMuscle(id: String) {
         _state.update {
             it.exerciseExample ?: return@update it
 
-            val selectedMuscle = it.muscleTypes.flatMap { it.muscles }.find { it.id == id } ?: return@update it
+            val selectedMuscle = it
+                .muscleTypes
+                .flatMap { m -> m.muscles }
+                .find { f -> f.id == id } ?: return@update it
 
-            val muscleExerciseBundles = if (selectedMuscle.isSelected) {
-                // become unselected
-                it.exerciseExample.muscleExerciseBundles.removeMuscleBundle(
-                    muscle = selectedMuscle,
-                    maximalRange = it.sliderRange.endInclusive
-                )
-            } else {
-                // become selected
-                it.exerciseExample.muscleExerciseBundles.addMuscle(
-                    muscle = selectedMuscle,
-                    maximalRange = it.sliderRange.endInclusive,
-                    minimalRange = it.minimalRange
-                )
-            }
+            val biggestMuscle = it.muscleTypes
+                .flatMap { m -> m.muscles }
+                .filterNot { f -> f.id == selectedMuscle.id }
+                .maxBy { max -> max.percentage }
+                .takeIf { t -> t.percentage > it.minimalRange }
 
-            it.copy(
-                exerciseExample = it.exerciseExample.copy(muscleExerciseBundles = muscleExerciseBundles)
-            )
-        }
-    }
-
-    private fun selectMuscleById(id: String) {
-        _state.update {
             val muscleTypes = it.muscleTypes.map { muscleType ->
                 val muscles = muscleType.muscles.map { muscle ->
-                    if (id == muscle.id) muscle.copy(isSelected = muscle.isSelected.not())
-                    else muscle
-                }
+
+                    val newValue = selectedMuscle.isSelected.not()
+
+                    val newPercentage =
+                        if (selectedMuscle.isSelected) 0 // become unselected
+                        else if (selectedMuscle.isSelected.not() && biggestMuscle == null) it.sliderRange.endInclusive
+                        else it.minimalRange
+
+                    return@map when (muscle.id) {
+                        selectedMuscle.id -> selectedMuscle.copy(
+                            isSelected = newValue,
+                            percentage = newPercentage
+                        )
+
+                        biggestMuscle?.id -> biggestMuscle.copy(
+                            percentage = if (newValue) biggestMuscle.percentage - newPercentage
+                            else biggestMuscle.percentage + selectedMuscle.percentage
+                        )
+
+                        else -> muscle
+                    }
+                }.toPersistentList()
+
                 val image = muscleImage(
                     muscleTypeEnumState = muscleType.type,
                     muscles = muscles
@@ -183,7 +152,8 @@ internal class ExerciseExampleBuilderViewModel(exerciseExampleId: String?) : Vie
                     muscles = muscles,
                     imageVector = image
                 )
-            }.toImmutableList()
+
+            }.toPersistentList()
 
             it.copy(muscleTypes = muscleTypes)
         }

@@ -19,9 +19,8 @@ import androidx.compose.ui.unit.dp
 import atom.Design
 import components.inputs.InputExerciseExampleName
 import exerciseexamplebuilder.state.ExerciseExample
-import exerciseexamplebuilder.state.MuscleExerciseBundle
+import exerciseexamplebuilder.state.MuscleType
 import kotlinx.collections.immutable.ImmutableList
-import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toPersistentList
 import molecule.ButtonIconSecondary
 import molecule.PaddingS
@@ -36,21 +35,25 @@ import platformTopInset
 internal fun Header(
     modifier: Modifier = Modifier,
     exerciseExample: ExerciseExample?,
+    muscleTypes: ImmutableList<MuscleType>,
     minimalRange: Int,
     sliderRange: ClosedRange<Int>,
     setExerciseExampleName: (String) -> Unit,
-    onMuscleBundleChange: (ImmutableList<MuscleExerciseBundle>) -> Unit,
+    onPercentageChange: (ImmutableList<MuscleType>) -> Unit,
     deleteExercise: () -> Unit,
 ) {
 
-    val thumbs = remember(exerciseExample?.muscleExerciseBundles) {
-        exerciseExample?.muscleExerciseBundles?.map {
-            ThumbRangeState(
-                id = it.muscle.id,
-                positionInRange = it.percentage,
-                color = it.color
-            )
-        } ?: persistentListOf()
+    val thumbs = remember(muscleTypes) {
+        muscleTypes
+            .flatMap { it.muscles }
+            .filter { it.isSelected }
+            .map {
+                ThumbRangeState(
+                    id = it.id,
+                    positionInRange = it.percentage,
+                    color = it.color
+                )
+            }.toPersistentList()
     }
 
     Column(
@@ -118,14 +121,14 @@ internal fun Header(
                 thumbs = thumbs,
                 lineColor = Design.colors.caption,
                 onValueChange = { updatedThumbs ->
-                    val newList = exerciseExample.muscleExerciseBundles.map {
-                        val newValue = updatedThumbs
-                            .find { th -> it.muscle.id == th.id }
-                            ?.positionInRange ?: it.percentage
-                        it.copy(percentage = newValue)
+                    val newList = muscleTypes.map {
+                        val muscles = it.muscles.map { m ->
+                            val newPercentage = updatedThumbs.find { it.id == m.id }?.positionInRange ?: m.percentage
+                            m.copy(percentage = newPercentage)
+                        }.toPersistentList()
+                        it.copy(muscles = muscles)
                     }.toPersistentList()
-
-                    onMuscleBundleChange(newList)
+                    onPercentageChange(newList)
                 }
             )
         }

@@ -2,13 +2,13 @@ package exerciseexamplebuilder.state
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.vector.ImageVector
+import kotlinx.collections.immutable.PersistentList
 
 @Immutable
 internal data class MuscleType(
     val id: String,
     val name: String = "",
-    val muscles: List<Muscle>,
-    val isSelected: Boolean,
+    val muscles: PersistentList<Muscle>,
     val type: MuscleTypeEnum,
     val imageVector: ImageVector
 )
