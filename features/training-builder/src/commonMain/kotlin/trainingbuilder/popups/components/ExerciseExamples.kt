@@ -54,7 +54,8 @@ internal fun ExerciseExamples(
         ExerciseCard(
             name = "Bench press",
             btn = "Select" to {},
-            btn2 = "Details" to {}
+            btn2 = "Details" to {},
+            imageUrl = ""
         )
     }
 }

@@ -24,15 +24,14 @@ import com.seiko.imageloader.rememberImageActionPainter
 
 @Composable
 public fun AsyncImage(
-    url: String,
+    url: String?,
     modifier: Modifier = Modifier,
     alignment: Alignment = Alignment.Center,
     contentScale: ContentScale = ContentScale.Fit,
     alpha: Float = DefaultAlpha,
     colorFilter: ColorFilter? = null
 ) {
-    val action =
-        rememberImageAction("https://assets.sweat.com/shopify_articles/images/010/005/285/original/BackToGymSWEATf1f07a7f6f79e7b8807d2436a6ae8e8b.jpg?1625801362")
+    val action = rememberImageAction(url?:"")
 
     val painter = rememberImageActionPainter(action.value)
 

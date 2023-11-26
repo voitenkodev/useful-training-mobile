@@ -1,6 +1,7 @@
 package components.brand
 
 import AsyncImage
+import ColorUtils
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -13,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
@@ -30,10 +32,20 @@ import pie.PieChart
 public fun ExerciseCard(
     modifier: Modifier = Modifier,
     name: String,
+    imageUrl: String?,
     btn: Pair<String, () -> Unit>,
     btn2: Pair<String, () -> Unit>? = null,
     musclesWithPercent: List<Pair<String, Float>> = emptyList()
 ) {
+
+    val list = remember(musclesWithPercent) {
+        musclesWithPercent.map {
+            ChartData(
+                color = ColorUtils.randomColor(),
+                data = it.second
+            )
+        }
+    }
 
     Box(
         modifier
@@ -45,7 +57,7 @@ public fun ExerciseCard(
 
         AsyncImage(
             modifier = Modifier.fillMaxSize(),
-            url = "https://barbend.com/wp-content/uploads/2023/01/Barbend-Featured-Image-1200x675-A-person-doing-bench-press-exercises.jpg",
+            url = imageUrl,
             contentScale = ContentScale.Crop
         )
 
@@ -63,18 +75,10 @@ public fun ExerciseCard(
                     maxLines = 2,
                     color = Design.colors.content
                 )
-                val data = listOf(
-                    ChartData(Design.colors.black30, 20f),
-                    ChartData(Design.colors.black10, 15f),
-                    ChartData(Design.colors.black70, 5f),
-                    ChartData(Design.colors.black30, 35f),
-                    ChartData(Design.colors.black10, 15f)
-                )
 
-                //  it.value.toInt().percents()
                 PieChart(
                     modifier = Modifier.fillMaxHeight().aspectRatio(1f),
-                    data = data,
+                    data = list,
                     outerRingPercent = 100,
                     innerRingPercent = 10,
                     drawText = false

@@ -7,5 +7,6 @@ import kotlinx.collections.immutable.ImmutableList
 public data class ExerciseExample(
     val id: String,
     val muscleExerciseBundles: ImmutableList<MuscleExerciseBundle>,
-    val name: String
+    val name: String,
+    val imageUrl: String?
 )
