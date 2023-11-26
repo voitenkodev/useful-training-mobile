@@ -1,6 +1,9 @@
 package graph
 
+import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.runtime.Composable
+import com.arkivanov.decompose.extensions.compose.jetbrains.stack.animation.slide
+import com.arkivanov.decompose.extensions.compose.jetbrains.stack.animation.stackAnimation
 import com.arkivanov.decompose.router.stack.pop
 import com.arkivanov.decompose.router.stack.push
 import com.arkivanov.essenty.parcelable.Parcelable
@@ -31,7 +34,7 @@ internal fun TrainingGraph(
         listOf(TrainingRouter.MusclePicker)
     }
 
-    RoutedContent(router = router) { child ->
+    RoutedContent(router = router, animation = stackAnimation(slide(orientation = Orientation.Vertical))) { child ->
         when (child) {
             TrainingRouter.MusclePicker -> MusclePickerFeature(
                 apply = { router.push(TrainingRouter.TrainingBuilder(trainingId = null, muscleIds = it)) }

@@ -8,8 +8,6 @@ import com.arkivanov.decompose.router.stack.pop
 import com.arkivanov.decompose.router.stack.push
 import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.parcelable.Parcelize
-import exerciseexamplebuilder.ExerciseExampleBuilderFeature
-import exerciseexamples.ExerciseExamplesFeature
 import io.github.xxfast.decompose.router.Router
 import io.github.xxfast.decompose.router.content.RoutedContent
 import io.github.xxfast.decompose.router.rememberRouter
@@ -17,8 +15,7 @@ import io.github.xxfast.decompose.router.rememberRouter
 @Parcelize
 internal sealed class MainRouter : Parcelable {
     data class Training(val id: String? = null) : MainRouter()
-    data class ExerciseExampleBuilder(val id: String? = null) : MainRouter()
-    data object ExerciseExamples : MainRouter()
+    data object Profile : MainRouter()
     data object BottomMenu : MainRouter()
 }
 
@@ -40,7 +37,7 @@ internal fun MainGraph(toAuthentication: () -> Unit) {
                 },
                 toAuthentication = toAuthentication,
                 toExerciseExamples = {
-                    router.push(MainRouter.ExerciseExamples)
+                    router.push(MainRouter.Profile)
                 }
             )
 
@@ -50,16 +47,7 @@ internal fun MainGraph(toAuthentication: () -> Unit) {
                 toTrainingDetails = {},
             )
 
-            is MainRouter.ExerciseExampleBuilder -> ExerciseExampleBuilderFeature(
-                exerciseExampleId = child.id,
-                back = router::pop
-            )
-
-            is MainRouter.ExerciseExamples -> ExerciseExamplesFeature(
-                toExerciseExampleBuilder = {
-                    router.push(MainRouter.ExerciseExampleBuilder(it))
-                }
-            )
+            is MainRouter.Profile -> ProfileGraph()
         }
     }
 }
