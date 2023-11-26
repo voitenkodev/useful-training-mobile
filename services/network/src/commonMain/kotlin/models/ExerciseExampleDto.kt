@@ -16,5 +16,7 @@ public data class ExerciseExampleDto(
     @SerialName("updatedAt")
     val updatedAt: String? = null,
     @SerialName("userId")
-    val userId: String? = null
+    val userId: String? = null,
+    @SerialName("imageUrl")
+    val imageUrl: String? = null
 )

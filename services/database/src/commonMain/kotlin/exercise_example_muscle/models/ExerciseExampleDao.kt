@@ -6,4 +6,5 @@ public data class ExerciseExampleDao(
     val name: String,
     val createdAt: String,
     val updatedAt: String,
+    val imageUrl: String?
 )

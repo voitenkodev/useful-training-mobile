@@ -10,6 +10,7 @@ internal fun ExerciseExample.toDao(muscleExerciseBundles: List<MuscleExerciseBun
         name = name ?: "",
         createdAt = createdAt ?: "",
         updatedAt = updatedAt ?: "",
-        muscleExerciseBundles = muscleExerciseBundles
+        muscleExerciseBundles = muscleExerciseBundles,
+        imageUrl = imageUrl
     )
 }

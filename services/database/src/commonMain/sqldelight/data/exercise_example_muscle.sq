@@ -2,7 +2,8 @@ CREATE TABLE IF NOT EXISTS ExerciseExample (
     id TEXT NOT NULL  PRIMARY KEY,
     name TEXT,
     createdAt TEXT,
-    updatedAt TEXT
+    updatedAt TEXT,
+    imageUrl TEXT
 );
 
 CREATE TABLE IF NOT EXISTS MuscleExerciseBundle (
@@ -70,7 +71,7 @@ WHERE exerciseExampleId = ?;
 
 setExerciseExample:
 INSERT OR REPLACE INTO ExerciseExample
-VALUES (?,?,?,?);
+VALUES (?,?,?,?,?);
 
 setMuscle:
 INSERT OR IGNORE INTO Muscle

@@ -73,7 +73,8 @@ public class ExerciseExamplesSource(nativeContext: NativeContext) {
                 id = exerciseExample.id,
                 name = exerciseExample.name,
                 createdAt = exerciseExample.createdAt,
-                updatedAt = exerciseExample.updatedAt
+                updatedAt = exerciseExample.updatedAt,
+                imageUrl = exerciseExample.imageUrl
             )
 
             exerciseExample.muscleExerciseBundles.forEach { muscleExerciseBundle ->
