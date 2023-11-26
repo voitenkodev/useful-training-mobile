@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
@@ -39,7 +40,16 @@ internal class TrainingViewModel(muscleIds: List<String>) : ViewModel() {
             }.catch { r -> _state.update { it.copy(error = r.message) } }
             .launchIn(this)
 
-        exerciseExampleApi.syncMuscleTypes()
+        exerciseExampleApi
+            .observeExerciseExamples()
+            .onStart { _state.update { it.copy(loading = true) } }
+            .onEach { r -> _state.update { it.copy(loading = false, exerciseExamples = r.toState()) } }
+            .catch { t -> _state.update { it.copy(loading = false, error = t.message) } }
+            .launchIn(this)
+
+        exerciseExampleApi
+            .syncMuscleTypes()
+            .flatMapConcat { exerciseExampleApi.syncExerciseExamples() }
             .catch { r -> _state.update { it.copy(error = r.message) } }
             .launchIn(this)
     }

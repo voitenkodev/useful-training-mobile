@@ -83,39 +83,6 @@ public fun ExerciseCard(
                     innerRingPercent = 10,
                     drawText = false
                 )
-
-//                PieChart(
-//                    modifier = Modifier
-//                        .fillMaxHeight()
-//                        .aspectRatio(1f),
-//                    data = musclesWithPercent.map {
-//                        PieChartData(
-//                            value = 30f,
-//                            title = "Triceps",
-//                            color = Design.colors.purple
-//                        )
-//                    },
-//                    selectionView = {
-//                        if (it == null) return@PieChart
-//
-//                        Column(
-//                            modifier = Modifier.padding(Design.dp.paddingM),
-//                            horizontalAlignment = Alignment.CenterHorizontally,
-//                            verticalArrangement = Arrangement.Center
-//                        ) {
-//
-//                            TextBody1(
-//                                provideText = { it.value.toInt().percents() },
-//                                textAlign = TextAlign.Center
-//                            )
-//
-//                            TextBody3(
-//                                provideText = { it.title },
-//                                textAlign = TextAlign.Center
-//                            )
-//                        }
-//                    }
-//                )
             }
 
             PaddingM()

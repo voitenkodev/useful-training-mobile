@@ -16,17 +16,12 @@ import kotlinx.collections.immutable.ImmutableList
 import molecule.ButtonTextLink
 import molecule.PaddingM
 import molecule.TextBody1
-import molecule.TextBody2
 import trainingbuilder.state.ExerciseExample
 
 @Composable
-internal fun ExerciseExamples(
-    list: ImmutableList<ExerciseExample>
-) {
+internal fun ExerciseExamples(list: ImmutableList<ExerciseExample>) {
 
-    val pager = rememberPagerState(
-        pageCount = { 5 }
-    )
+    val pager = rememberPagerState(pageCount = { list.size })
 
     Row(
         modifier = Modifier.fillMaxWidth().padding(horizontal = Design.dp.paddingM),
@@ -51,11 +46,13 @@ internal fun ExerciseExamples(
         contentPadding = PaddingValues(horizontal = Design.dp.paddingM),
         pageSpacing = Design.dp.paddingS
     ) {
+        val item = list.getOrNull(it) ?: return@HorizontalPager
+
         ExerciseCard(
-            name = "Bench press",
+            name = item.name,
             btn = "Select" to {},
             btn2 = "Details" to {},
-            imageUrl = ""
+            imageUrl = item.imageUrl
         )
     }
 }
