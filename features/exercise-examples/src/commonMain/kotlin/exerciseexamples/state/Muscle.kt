@@ -5,6 +5,5 @@ import androidx.compose.runtime.Immutable
 @Immutable
 public data class Muscle(
     val id: String,
-    val muscleTypeId: String,
     val name: String
 )

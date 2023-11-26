@@ -19,7 +19,7 @@ internal fun models.Muscle.toState(): Muscle? {
     )
 }
 
-internal fun models.MuscleEnum.toState(): MuscleEnum? {
+private fun models.MuscleEnum.toState(): MuscleEnum? {
     return when (this) {
         models.MuscleEnum.PECTORALIS_MAJOR -> MuscleEnum.PECTORALIS_MAJOR
         models.MuscleEnum.PECTORALIS_MINOR -> MuscleEnum.PECTORALIS_MINOR

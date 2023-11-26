@@ -25,7 +25,7 @@ internal fun models.MuscleType.toState(): MuscleType? {
     )
 }
 
-internal fun models.MuscleTypeEnum.toState(): MuscleTypeEnum? {
+private fun models.MuscleTypeEnum.toState(): MuscleTypeEnum? {
     return when (this) {
         models.MuscleTypeEnum.CHEST_MUSCLES -> MuscleTypeEnum.CHEST_MUSCLES
         models.MuscleTypeEnum.BACK_MUSCLES -> MuscleTypeEnum.BACK_MUSCLES

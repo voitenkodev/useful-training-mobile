@@ -14,10 +14,9 @@ internal fun ExerciseExample.toDomain(muscleTypes: List<MuscleType>): models.Exe
             .filter { it.isSelected && it.percentage > 0 }
             .map {
                 MuscleExerciseBundle(
-                    muscleId = it.id,
                     percentage = it.percentage,
                     id = null,
-                    muscle = null
+                    muscle = it.toDomain()
                 )
             }
     )

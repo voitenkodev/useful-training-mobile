@@ -86,7 +86,7 @@ internal class ExerciseExampleBuilderViewModel(exerciseExampleId: String?) : Vie
     private fun ImmutableList<MuscleType>.prefillMusclesWith(list: List<MuscleExerciseBundle>): ImmutableList<MuscleType> {
         return map { muscleType ->
             val muscles = muscleType.muscles.map { muscle ->
-                val findItem = list.find { it.muscleId == muscle.id }
+                val findItem = list.find { it.muscle?.id == muscle.id }
                 muscle.copy(
                     isSelected = findItem != null,
                     percentage = findItem?.percentage ?: 0

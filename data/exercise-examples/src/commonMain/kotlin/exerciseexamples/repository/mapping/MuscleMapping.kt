@@ -14,7 +14,6 @@ internal fun MuscleDao.daoToDomain(): Muscle {
     return Muscle(
         id = id,
         name = name,
-        muscleTypeId = muscleTypeId,
         type = MuscleEnum.of(type)
     )
 }
