@@ -119,6 +119,7 @@ internal fun Header(
                 range = sliderRange,
                 minimalRange = minimalRange,
                 thumbs = thumbs,
+                requiredFilledRange = false,
                 lineColor = Design.colors.caption,
                 onValueChange = { updatedThumbs ->
                     val newList = muscleTypes.map {
