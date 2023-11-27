@@ -55,15 +55,12 @@ include(
     "compose-libs:percentage-picker",
     "compose-libs:muscle-picker",
 
-    "features:splash",
     "features:authentication",
-    "features:registration",
     "features:bottom-menu",
     "features:trainings",
     "features:statistics",
     "features:profile",
     "features:training-builder",
-    "features:exercise-example-builder",
     "features:exercise-examples",
     "features:muscle-picker"
 )

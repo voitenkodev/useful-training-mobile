@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.android.library)
     alias(libs.plugins.compose)
+    alias(libs.plugins.kotlin.parcelize)
 }
 
 apply(from = "../../gradle/configs/kotlin.gradle")
@@ -25,6 +26,7 @@ kotlin {
                 implementation(projects.designSystem.resources)
 
                 implementation(projects.composeLibs.percentagePicker)
+                implementation(projects.composeLibs.musclePicker)
 
                 implementation(compose.ui)
                 implementation(compose.foundation)

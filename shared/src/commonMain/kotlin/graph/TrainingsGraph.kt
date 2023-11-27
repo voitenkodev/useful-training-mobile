@@ -7,7 +7,7 @@ import com.arkivanov.essenty.parcelable.Parcelize
 import io.github.xxfast.decompose.router.Router
 import io.github.xxfast.decompose.router.content.RoutedContent
 import io.github.xxfast.decompose.router.rememberRouter
-import trainings.TrainingsFeature
+import trainings.list.TrainingsFeature
 
 @Parcelize
 internal sealed class TrainingsRouter : Parcelable {

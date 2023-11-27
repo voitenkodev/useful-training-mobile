@@ -8,6 +8,8 @@ import com.arkivanov.decompose.router.stack.pop
 import com.arkivanov.decompose.router.stack.push
 import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.parcelable.Parcelize
+import exerciseexamples.ExerciseExamplesFeature
+import exerciseexamples.ExerciseExamplesGraph
 import io.github.xxfast.decompose.router.Router
 import io.github.xxfast.decompose.router.content.RoutedContent
 import io.github.xxfast.decompose.router.rememberRouter
@@ -15,7 +17,7 @@ import io.github.xxfast.decompose.router.rememberRouter
 @Parcelize
 internal sealed class MainRouter : Parcelable {
     data class Training(val id: String? = null) : MainRouter()
-    data object Profile : MainRouter()
+    data class ExerciseExamples(val startDirection: ExerciseExamplesFeature) : MainRouter()
     data object BottomMenu : MainRouter()
 }
 
@@ -28,7 +30,6 @@ internal fun MainGraph(toAuthentication: () -> Unit) {
 
     RoutedContent(router = router, animation = stackAnimation(slide(orientation = Orientation.Vertical))) { child ->
         when (child) {
-
             is MainRouter.BottomMenu -> BottomMenuGraph(
                 toTrainingBuilder = { trainingId: String? ->
                     router.push(MainRouter.Training(trainingId))
@@ -37,7 +38,7 @@ internal fun MainGraph(toAuthentication: () -> Unit) {
                 },
                 toAuthentication = toAuthentication,
                 toExerciseExamples = {
-                    router.push(MainRouter.Profile)
+                    router.push(MainRouter.ExerciseExamples(ExerciseExamplesFeature.List))
                 }
             )
 
@@ -47,7 +48,7 @@ internal fun MainGraph(toAuthentication: () -> Unit) {
                 toTrainingDetails = {},
             )
 
-            is MainRouter.Profile -> ProfileGraph()
+            is MainRouter.ExerciseExamples -> ExerciseExamplesGraph(child.startDirection)
         }
     }
 }
