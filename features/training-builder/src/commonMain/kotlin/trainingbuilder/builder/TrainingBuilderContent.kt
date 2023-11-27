@@ -3,18 +3,21 @@ package trainingbuilder.builder
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
 import components.Error
 import components.roots.ScreenRoot
+import kotlinx.collections.immutable.ImmutableList
 import molecule.PopupSheet
+import trainingbuilder.builder.components.Exercise
 import trainingbuilder.builder.components.Footer
 import trainingbuilder.builder.components.Header
 import trainingbuilder.builder.popups.FindExercisePopup
 import trainingbuilder.builder.popups.SetExercisePopup
+import trainingbuilder.builder.state.Exercise
 
 @Composable
 internal fun TrainingBuilderContent(
@@ -28,21 +31,12 @@ internal fun TrainingBuilderContent(
     if (state.setExercisePopupVisibleIndex != null) PopupSheet(
         onDismiss = vm::closeSetExercisePopup,
         content = { hideLambda ->
-
-            val index = state.setExercisePopupVisibleIndex ?: return@PopupSheet
-            val exercise = state.training.exercises.getOrNull(index) ?: return@PopupSheet
-            val name by rememberUpdatedState(exercise.name)
-            val number by rememberUpdatedState(index + 1)
-            val iterations by rememberUpdatedState(exercise.iterations)
-
             SetExercisePopup(
                 close = hideLambda,
-                number = { number },
-                name = { name },
-                updateName = { vm.updateName(index, it) },
-                updateWeight = { num, value -> vm.updateWeight(index, num, value) },
-                updateRepeat = { num, value -> vm.updateRepeat(index, num, value) },
-                iterations = { iterations }
+                exerciseExample = null,
+                save = {
+
+                }
             )
         }
     )
@@ -66,7 +60,8 @@ internal fun TrainingBuilderContent(
     Content(
         error = state.error,
         clearError = vm::clearError,
-        addExercise = vm::openFindExercisePopup
+        addExercise = vm::openFindExercisePopup,
+        exercises = state.training.exercises
     )
 }
 
@@ -74,7 +69,7 @@ internal fun TrainingBuilderContent(
 private fun Content(
     error: String?,
     clearError: () -> Unit,
-
+    exercises: ImmutableList<Exercise>,
     addExercise: () -> Unit
 ) {
 
@@ -85,7 +80,12 @@ private fun Content(
             Header()
 
             LazyColumn(modifier = Modifier.fillMaxWidth().weight(1f)) {
-
+                itemsIndexed(exercises) { index, item ->
+                    Exercise(
+                        number = index + 1,
+                        exercise = item
+                    )
+                }
             }
 
             Footer(addExercise = addExercise)

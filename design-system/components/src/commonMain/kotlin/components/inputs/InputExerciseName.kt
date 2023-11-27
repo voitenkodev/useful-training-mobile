@@ -30,7 +30,6 @@ import molecule.secondaryDefaultBackground
 @Composable
 public fun InputExerciseName(
     modifier: Modifier = Modifier,
-    provideNumber: () -> Int,
     provideName: () -> String,
     update: (String) -> Unit
 ) {
@@ -50,9 +49,6 @@ public fun InputExerciseName(
         onValueChange = update,
         keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Sentences, imeAction = ImeAction.Next),
         fontWeight = FontWeight.Bold,
-        leading = {
-            InputLabel(provideText = { "${provideNumber()}" })
-        },
         trailing = {
             AnimatedVisibility(
                 visible = provideName().isNotEmpty(),

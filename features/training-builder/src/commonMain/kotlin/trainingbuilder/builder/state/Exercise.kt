@@ -8,7 +8,7 @@ import kotlinx.collections.immutable.persistentListOf
 internal data class Exercise(
     val id: String? = null,
     val name: String = "",
-    val iterations: PersistentList<Iteration> = persistentListOf(Iteration()),
+    val iterations: PersistentList<Iteration> = persistentListOf(),
     val volume: Double = 0.0,
     val repetitions: Int = 0,
     val intensity: Double = 0.0

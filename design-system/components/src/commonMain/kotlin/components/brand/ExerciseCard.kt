@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -26,7 +25,6 @@ import molecule.PaddingM
 import molecule.TextH4
 import molecule.secondaryDefaultBackground
 import pie.ChartData
-import pie.PieChart
 
 @Composable
 public fun ExerciseCard(
@@ -74,14 +72,6 @@ public fun ExerciseCard(
                     provideText = { name },
                     maxLines = 2,
                     color = Design.colors.content
-                )
-
-                PieChart(
-                    modifier = Modifier.fillMaxHeight().aspectRatio(1f),
-                    data = list,
-                    outerRingPercent = 100,
-                    innerRingPercent = 10,
-                    drawText = false
                 )
             }
 
