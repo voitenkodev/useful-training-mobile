@@ -4,7 +4,6 @@ import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.runtime.Composable
 import com.arkivanov.decompose.extensions.compose.jetbrains.stack.animation.slide
 import com.arkivanov.decompose.extensions.compose.jetbrains.stack.animation.stackAnimation
-import com.arkivanov.decompose.router.stack.pop
 import com.arkivanov.decompose.router.stack.push
 import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.parcelable.Parcelize
@@ -13,6 +12,8 @@ import exerciseexamples.ExerciseExamplesGraph
 import io.github.xxfast.decompose.router.Router
 import io.github.xxfast.decompose.router.content.RoutedContent
 import io.github.xxfast.decompose.router.rememberRouter
+import trainingbuilder.TrainingGraph
+import trainingbuilder.TrainingRouter
 
 @Parcelize
 internal sealed class MainRouter : Parcelable {
@@ -43,12 +44,13 @@ internal fun MainGraph(toAuthentication: () -> Unit) {
             )
 
             is MainRouter.Training -> TrainingGraph(
-                id = child.id,
-                closeFlow = router::pop,
-                toTrainingDetails = {},
+                startDirection = TrainingRouter.MusclePicker,
+                toTrainingDetails = {}
             )
 
-            is MainRouter.ExerciseExamples -> ExerciseExamplesGraph(child.startDirection)
+            is MainRouter.ExerciseExamples -> ExerciseExamplesGraph(
+                startDirection = child.startDirection
+            )
         }
     }
 }

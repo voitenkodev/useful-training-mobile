@@ -1,0 +1,10 @@
+package trainingbuilder.builder.state
+
+import androidx.compose.runtime.Immutable
+
+@Immutable
+internal data class Iteration(
+    val id: String? = null,
+    val weight: String = "",
+    val repetitions: String = ""
+)

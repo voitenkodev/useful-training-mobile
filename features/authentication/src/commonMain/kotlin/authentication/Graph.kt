@@ -24,7 +24,7 @@ import io.github.xxfast.decompose.router.rememberRouter
 @Parcelize
 public sealed class AuthenticationRouter : Parcelable {
     public data object Splash : AuthenticationRouter()
-    public data object Authentication : AuthenticationRouter()
+    public data object Login : AuthenticationRouter()
     public data object Registration : AuthenticationRouter()
     public data object SuccessRegistration : AuthenticationRouter()
 }
@@ -46,11 +46,11 @@ public fun AuthenticationGraph(toTrainings: () -> Unit) {
                 SplashContent(
                     vm = vm,
                     toTrainings = toTrainings,
-                    toAuthentication = { router.replaceAll(AuthenticationRouter.Authentication) }
+                    toAuthentication = { router.replaceAll(AuthenticationRouter.Login) }
                 )
             }
 
-            AuthenticationRouter.Authentication -> {
+            AuthenticationRouter.Login -> {
                 val vm = rememberOnRoute(AuthenticationViewModel::class) {
                     AuthenticationViewModel()
                 }
