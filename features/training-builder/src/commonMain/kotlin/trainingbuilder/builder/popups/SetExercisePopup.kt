@@ -2,6 +2,7 @@ package trainingbuilder.builder.popups
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -13,6 +14,7 @@ import components.roots.PopupScreenRoot
 import kotlinx.collections.immutable.ImmutableList
 import molecule.ButtonPrimary
 import molecule.ButtonSecondary
+import molecule.primaryBackground
 import trainingbuilder.builder.components.EditExercise
 import trainingbuilder.builder.state.Iteration
 
@@ -31,7 +33,9 @@ internal fun SetExercisePopup(
 
         EditExercise(
             modifier = Modifier
+                .fillMaxWidth()
                 .weight(1f)
+                .primaryBackground()
                 .verticalScroll(rememberScrollState()),
             number = number,
             name = name,
