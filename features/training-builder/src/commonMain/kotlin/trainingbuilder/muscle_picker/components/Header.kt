@@ -11,10 +11,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import atom.Design
-import molecule.PaddingM
 import molecule.PaddingS
 import molecule.Shadow
-import molecule.TextBody2
 import molecule.TextH2
 import platformTopInset
 
@@ -38,17 +36,10 @@ internal fun Header() {
 
             TextH2(
                 modifier = Modifier.padding(horizontal = Design.dp.paddingM),
-                provideText = { "Muscles" },
+                provideText = { "Target Muscles" },
                 softWrap = false
             )
         }
-
-        TextBody2(
-            modifier = Modifier.padding(horizontal = Design.dp.paddingM),
-            provideText = { "Choose muscles and start your workout journey!" }
-        )
-
-        PaddingM()
 
         Shadow()
     }

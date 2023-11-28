@@ -1,6 +1,7 @@
 package trainingbuilder.builder.popups
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -13,19 +14,22 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import atom.Design
 import components.roots.PopupScreenRoot
+import kotlinx.collections.immutable.toPersistentList
 import molecule.ButtonPrimary
 import molecule.ButtonSecondary
+import molecule.Shadow
 import molecule.primaryBackground
 import trainingbuilder.builder.components.EditExercise
 import trainingbuilder.builder.state.Exercise
 import trainingbuilder.builder.state.ExerciseExample
+import trainingbuilder.builder.state.Iteration
 
 @Composable
 internal fun SetExercisePopup(
     exerciseExample: ExerciseExample?,
     selectedExercise: Exercise? = null,
     close: () -> Unit,
-    save: (exercise: Exercise)-> Unit
+    save: (exercise: Exercise) -> Unit
 ) {
 
     val exercise = remember(selectedExercise) {
@@ -48,6 +52,15 @@ internal fun SetExercisePopup(
 
         }
     }
+    val addIteration = remember {
+        {
+            val list = buildList {
+                addAll(exercise.value.iterations)
+                add(Iteration())
+            }.toPersistentList()
+            exercise.value = exercise.value.copy(iterations = list)
+        }
+    }
 
     PopupScreenRoot(title = "Exercise") {
 
@@ -60,31 +73,36 @@ internal fun SetExercisePopup(
             name = { exercise.value.name },
             updateName = updateName,
             iterations = exercise.value.iterations,
-            addIteration = {},
-            updateIteration = {index, iteration ->  }
+            addIteration = addIteration,
+            updateIteration = { index, iteration -> }
         )
 
-        Row(
-            modifier = Modifier.padding(Design.dp.paddingM),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
-        ) {
+        Column {
 
-            ButtonSecondary(
-                modifier = Modifier.weight(1f),
-                text = "cancel",
-                onClick = close
-            )
+            Shadow()
 
-            ButtonPrimary(
-                modifier = Modifier.weight(1f),
-                enabled = exercise.value.name.isNotBlank() && exercise.value.iterations.isNotEmpty(),
-                text = "Save",
-                onClick = {
-                    save.invoke(exercise.value)
-                    close.invoke()
-                }
-            )
+            Row(
+                modifier = Modifier.padding(Design.dp.paddingM),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
+            ) {
+
+                ButtonSecondary(
+                    modifier = Modifier.weight(1f),
+                    text = "cancel",
+                    onClick = close
+                )
+
+                ButtonPrimary(
+                    modifier = Modifier.weight(1f),
+                    enabled = exercise.value.name.isNotBlank() && exercise.value.iterations.isNotEmpty(),
+                    text = "Save",
+                    onClick = {
+                        save.invoke(exercise.value)
+                        close.invoke()
+                    }
+                )
+            }
         }
     }
 }

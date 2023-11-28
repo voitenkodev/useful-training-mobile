@@ -35,7 +35,6 @@ internal fun TrainingBuilderContent(
                 close = hideLambda,
                 exerciseExample = null,
                 save = {
-
                 }
             )
         }
@@ -44,7 +43,6 @@ internal fun TrainingBuilderContent(
     if (state.findExercisePopupIsVisibleIndex) PopupSheet(
         onDismiss = vm::closeFindExercisePopup,
         content = { hideLambda ->
-
             FindExercisePopup(
                 close = hideLambda,
                 exerciseExamples = state.exerciseExamples,

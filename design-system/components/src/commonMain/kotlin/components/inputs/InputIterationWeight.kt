@@ -9,7 +9,8 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
-import molecule.InputSecondary
+import molecule.InputPrimary
+import molecule.secondaryDefaultBackground
 
 @Composable
 public fun InputWeight(
@@ -19,8 +20,8 @@ public fun InputWeight(
 ) {
     val focusManager = LocalFocusManager.current
 
-    InputSecondary(
-        modifier = modifier,
+    InputPrimary(
+        modifier = modifier.secondaryDefaultBackground(),
         provideValue = provideValue,
         onValueChange = onValueChange,
         textAlign = TextAlign.Center,

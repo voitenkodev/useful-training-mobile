@@ -49,7 +49,7 @@ internal fun Footer(
             ButtonPrimary(
                 modifier = Modifier.weight(1f),
                 text = buildString {
-                    append("Apply")
+                    append("Select")
                     selectedSum.takeIf { it > 0 }?.let { append(" $it") }
                 },
                 enabled = selectedSum > 0,

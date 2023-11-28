@@ -27,6 +27,7 @@ import components.roots.ScreenRoot
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import molecule.ButtonTextLink
+import molecule.PaddingL
 import molecule.PaddingM
 import molecule.PaddingS
 import molecule.PaddingXL
@@ -143,7 +144,7 @@ private fun Content(
                         )
                     }
 
-                    PaddingM()
+                    PaddingL()
 
                     Shadow()
                 }
