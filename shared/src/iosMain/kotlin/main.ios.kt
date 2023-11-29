@@ -4,7 +4,6 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.uikit.OnFocusBehavior
 import androidx.compose.ui.window.ComposeUIViewController
 import com.arkivanov.decompose.ExperimentalDecomposeApi
 import com.arkivanov.decompose.extensions.compose.jetbrains.PredictiveBackGestureIcon
@@ -20,9 +19,7 @@ import platform.UIKit.UIViewController
 * How to implement router in Swift / Objective C
 * */
 @OptIn(ExperimentalDecomposeApi::class)
-public fun MainUIController(routerContext: RouterContext): UIViewController = ComposeUIViewController(
-    configure = { onFocusBehavior = OnFocusBehavior.FocusableAboveKeyboard } // on keyboard up screen
-) {
+public fun MainUIController(routerContext: RouterContext): UIViewController = ComposeUIViewController() {
     CompositionLocalProvider(
         // Navigation
         LocalRouterContext provides routerContext,

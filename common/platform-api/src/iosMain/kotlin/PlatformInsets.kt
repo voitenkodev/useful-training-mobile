@@ -1,4 +1,6 @@
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
@@ -7,7 +9,7 @@ public actual fun Modifier.platformInsets(): Modifier = this
     .platformBottomInset()
 
 public actual fun Modifier.platformTopInset(): Modifier = this
-    .padding(top = 50.dp)
+    .statusBarsPadding()
 
 public actual fun Modifier.platformBottomInset(): Modifier = this
-    .padding(bottom = 30.dp)
+    .navigationBarsPadding()

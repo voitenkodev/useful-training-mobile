@@ -1,10 +1,14 @@
 package trainingbuilder.builder.popups
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeContentPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
@@ -12,6 +16,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import atom.Design
 import components.roots.PopupScreenRoot
 import kotlinx.collections.immutable.toPersistentList
@@ -52,6 +57,7 @@ internal fun SetExercisePopup(
 
         }
     }
+
     val addIteration = remember {
         {
             val list = buildList {
@@ -69,7 +75,8 @@ internal fun SetExercisePopup(
                 .fillMaxWidth()
                 .weight(1f)
                 .primaryBackground()
-                .verticalScroll(rememberScrollState()),
+                .verticalScroll(rememberScrollState())
+                .imePadding(),
             name = { exercise.value.name },
             updateName = updateName,
             iterations = exercise.value.iterations,
