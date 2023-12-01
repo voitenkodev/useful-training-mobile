@@ -6,10 +6,11 @@ import androidx.compose.ui.unit.dp
 
 public data class WeightPickerStyle(
     val scaleWidth: Dp = 100.dp,
-    val radius: Dp = 400.dp,
+    val radius: Dp = 520.dp,
     val normalLineColor: Color,
     val fiveStepLineColor: Color,
     val tenStepLineColor: Color,
+    val arrowColor: Color,
     val backgroundColor: Color,
     val normalLineLength: Dp = 15.dp,
     val fiveStepLineLength: Dp = 25.dp,

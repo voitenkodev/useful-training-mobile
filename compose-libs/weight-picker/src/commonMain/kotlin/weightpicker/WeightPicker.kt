@@ -50,7 +50,6 @@ public fun WeightPicker(
     val outerRadius = with(density) { radius.toPx() + scaleWidth.toPx() / 2f }
     val innerRadius = with(density) { radius.toPx() - scaleWidth.toPx() / 2f }
 
-
     Canvas(
         modifier = modifier.pointerInput(key1 = true) {
             detectDragGestures(
@@ -120,10 +119,27 @@ public fun WeightPicker(
                     x = outerRadius * cos(angleInRad) + circleCenter.x,
                     y = outerRadius * sin(angleInRad) + circleCenter.y
                 )
+
+                val designLineStart = Offset(
+                    x = (innerRadius - outerRadius) * cos(angleInRad) + circleCenter.x,
+                    y = (innerRadius - outerRadius) * sin(angleInRad) + circleCenter.y
+                )
+                val designLineEnd = Offset(
+                    x = (innerRadius + 175) * cos(angleInRad) + circleCenter.x,
+                    y = (innerRadius + 175) * sin(angleInRad) + circleCenter.y
+                )
+
                 if (lineType is LineType.TenStep) {
                     val textRadius = outerRadius - lineLength - style.fontSize.toPx()
                     val x = textRadius * cos(angleInRad) + circleCenter.x
                     val y = textRadius * sin(angleInRad) + circleCenter.y
+
+                    drawLine(
+                        color = pickerStyle.arrowColor,
+                        start = designLineStart,
+                        end = designLineEnd,
+                        strokeWidth = pickerStyle.strokeWidth.toPx()
+                    )
 
                     rotate(degrees = angleInRad * (180f / PI.toFloat()) + 90f, pivot = Offset(x, y)) {
 

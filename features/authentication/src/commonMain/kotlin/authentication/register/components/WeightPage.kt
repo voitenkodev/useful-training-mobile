@@ -1,5 +1,6 @@
 package authentication.register.components
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -18,7 +19,6 @@ import molecule.PaddingXL
 import molecule.TextBody2
 import molecule.TextH1
 import molecule.TextH2
-import molecule.secondaryBackground
 import platformBottomInset
 import weightpicker.WeightPicker
 import weightpicker.WeightPickerStyle
@@ -47,39 +47,43 @@ internal fun WeightPage(
 
         PaddingWeight()
 
-        WeightPicker(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(170.dp)
-                .clipToBounds(),
-            initial = weight,
-            onValueChange = updateWeight,
-            pickerStyle = WeightPickerStyle(
-                scaleWidth = 140.dp,
-                tenStepLineColor = Design.colors.content,
-                fiveStepLineColor = Design.colors.orange,
-                normalLineColor = Design.colors.caption,
-                indicatorColor = Design.colors.toxic,
-                backgroundColor = Design.colors.secondary
-            )
-        )
-
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .secondaryBackground()
-                .platformBottomInset(),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-
-            ButtonPrimary(
-                modifier = Modifier,
-                text = "Confirm",
-                onClick = confirm,
-                enabled = true
+        Box {
+            WeightPicker(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clipToBounds()
+                    .platformBottomInset()
+                    .height(256.dp),
+                initial = weight,
+                onValueChange = updateWeight,
+                pickerStyle = WeightPickerStyle(
+                    scaleWidth = 140.dp,
+                    tenStepLineColor = Design.colors.content,
+                    fiveStepLineColor = Design.colors.orange,
+                    normalLineColor = Design.colors.caption,
+                    indicatorColor = Design.colors.toxic,
+                    backgroundColor = Design.colors.secondary,
+                    arrowColor = Design.colors.white5
+                )
             )
 
-            PaddingXL()
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .align(Alignment.BottomCenter)
+                    .platformBottomInset(),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+
+                ButtonPrimary(
+                    modifier = Modifier,
+                    text = "Confirm",
+                    onClick = confirm,
+                    enabled = true
+                )
+
+                PaddingXL()
+            }
         }
     }
 }

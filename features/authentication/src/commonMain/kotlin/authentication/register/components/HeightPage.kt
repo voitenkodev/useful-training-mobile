@@ -50,7 +50,7 @@ internal fun HeightPage(
         HeightPicker(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(164.dp)
+                .height(150.dp)
                 .clipToBounds(),
             pickerStyle = HeightPickerStyle(
                 backgroundColor = Design.colors.secondary,
