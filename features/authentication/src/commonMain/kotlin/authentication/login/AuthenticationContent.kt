@@ -1,11 +1,9 @@
 package authentication.login
 
-import androidx.compose.animation.core.LinearOutSlowInEasing
-import androidx.compose.animation.core.tween
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -22,11 +20,10 @@ import components.inputs.InputEmail
 import components.inputs.InputPassword
 import components.overlay.AlphaOverlay
 import components.roots.ScreenRoot
-import components.states.animateAlignmentAsState
-import components.states.keyboardAsBoolean
 import molecule.ButtonPrimary
 import molecule.PaddingL
 import molecule.PaddingM
+import molecule.PaddingWeight
 import molecule.PaddingXL
 import molecule.TextBody2
 import molecule.TextH2
@@ -89,12 +86,10 @@ private fun Content(
         registration.invoke()
     }
 
-    val align = animateAlignmentAsState(
-        targetAlignment = if (keyboardAsBoolean()) Alignment.TopCenter else Alignment.BottomCenter,
-        animationSpec = tween(durationMillis = 400, easing = LinearOutSlowInEasing)
-    )
-
-    ScreenRoot(error = { Error(message = error, close = clearError) }) {
+    ScreenRoot(
+        modifier = Modifier.imePadding(),
+        error = { Error(message = error, close = clearError) }
+    ) {
 
         Column(
             modifier = Modifier.fillMaxSize().platformInsets(),
@@ -125,18 +120,14 @@ private fun Content(
 
             PaddingM()
 
-            Box(
-                modifier = Modifier.weight(1f),
-                contentAlignment = align.value
-            ) {
+            PaddingWeight()
 
-                ButtonPrimary(
-                    text = "Sign In",
-                    onClick = loginProvider,
-                    enabled = email.isNotBlank() && password.isNotBlank(),
-                    loading = loading()
-                )
-            }
+            ButtonPrimary(
+                text = "Sign In",
+                onClick = loginProvider,
+                enabled = email.isNotBlank() && password.isNotBlank(),
+                loading = loading()
+            )
 
             PaddingL()
 

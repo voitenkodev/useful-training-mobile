@@ -1,10 +1,8 @@
 package authentication.register.components
 
-import androidx.compose.animation.core.LinearOutSlowInEasing
-import androidx.compose.animation.core.tween
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberUpdatedState
@@ -14,10 +12,9 @@ import androidx.compose.ui.platform.LocalFocusManager
 import components.inputs.InputEmail
 import components.inputs.InputPassword
 import components.inputs.InputPasswordRepeat
-import components.states.animateAlignmentAsState
-import components.states.keyboardAsBoolean
 import molecule.ButtonPrimary
 import molecule.PaddingM
+import molecule.PaddingWeight
 import molecule.PaddingXL
 import molecule.TextBody2
 import molecule.TextH2
@@ -41,13 +38,8 @@ internal fun CredentialsPage(
         confirm.invoke()
     }
 
-    val align = animateAlignmentAsState(
-        targetAlignment = if (keyboardAsBoolean()) Alignment.TopCenter else Alignment.BottomCenter,
-        animationSpec = tween(durationMillis = 400, easing = LinearOutSlowInEasing)
-    )
-
     Column(
-        modifier = Modifier.fillMaxSize().platformBottomInset(),
+        modifier = Modifier.fillMaxSize().imePadding().platformBottomInset(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
@@ -80,18 +72,14 @@ internal fun CredentialsPage(
 
         PaddingM()
 
-        Box(
-            modifier = Modifier.weight(1f),
-            contentAlignment = align.value
-        ) {
+        PaddingWeight()
 
-            ButtonPrimary(
-                text = "Register",
-                onClick = confirmProvider,
-                enabled = email.isNotBlank() && password.isNotBlank() && passwordRepeat.isNotBlank(),
-                loading = loading
-            )
-        }
+        ButtonPrimary(
+            text = "Register",
+            onClick = confirmProvider,
+            enabled = email.isNotBlank() && password.isNotBlank() && passwordRepeat.isNotBlank(),
+            loading = loading
+        )
 
         PaddingXL()
     }
