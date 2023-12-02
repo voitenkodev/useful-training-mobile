@@ -18,8 +18,7 @@ import androidx.compose.ui.unit.dp
 import atom.Design
 import components.labels.InputLabel
 import molecule.ButtonIconSecondary
-import molecule.InputPrimary
-import molecule.secondaryDefaultBackground
+import molecule.InputField
 
 @Composable
 public fun InputPassword(
@@ -29,23 +28,21 @@ public fun InputPassword(
 ) {
     val passwordVisibility = rememberSaveable { mutableStateOf(false) }
 
-    InputPrimary(
+    InputField(
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = Design.dp.paddingM)
-            .secondaryDefaultBackground()
             .padding(horizontal = Design.dp.paddingM),
-        provideValue = provideValue,
+        value = provideValue.invoke(),
         onValueChange = onValueChange,
-        color = Design.colors.content,
         visualTransformation = if (passwordVisibility.value) VisualTransformation.None else PasswordVisualTransformation(),
         leading = {
             InputLabel(
                 modifier = Modifier
-                    .width(72.dp),
+                    .width(82.dp),
                 provideText = { "Password" }
             )
         },
+        placeholder = "********",
         trailing = {
             ButtonIconSecondary(
                 imageVector = if (passwordVisibility.value) Icons.eyeOff else Icons.eye,

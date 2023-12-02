@@ -21,8 +21,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import atom.Design
 import molecule.ButtonIconSecondary
-import molecule.InputPrimary
-import molecule.secondaryDefaultBackground
+import molecule.InputField
 
 @Composable
 public fun InputMuscleName(
@@ -32,17 +31,14 @@ public fun InputMuscleName(
 ) {
     val focusManager = LocalFocusManager.current
 
-    InputPrimary(
-        modifier = modifier
-            .secondaryDefaultBackground()
-            .padding(horizontal = Design.dp.paddingM),
-        provideValue = value,
+    InputField(
+        modifier = modifier.padding(horizontal = Design.dp.paddingM),
+        value = value.invoke(),
         placeholder = "Name of muscle",
         maxLines = 1,
         keyboardActions = KeyboardActions { focusManager.moveFocus(FocusDirection.Next) },
         onValueChange = onValueChange,
         keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Sentences, imeAction = ImeAction.Next),
-        color = Design.colors.primary,
         trailing = {
             AnimatedVisibility(
                 visible = value().isNotEmpty(),

@@ -1,6 +1,5 @@
 package molecule
 
-import atom.Design
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -15,6 +14,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
+import atom.Design
 
 @Composable
 public fun ButtonIconPrimary(
@@ -59,7 +59,7 @@ public fun ButtonIconTransparent(
 ) {
     IconButton(
         modifier = modifier
-            .size(Design.dp.componentS)
+            .requiredSize(Design.dp.componentS)
             .alpha(if (enabled) 1f else 0.5f)
             .clip(Design.shape.circleShape),
         onClick = onClick,

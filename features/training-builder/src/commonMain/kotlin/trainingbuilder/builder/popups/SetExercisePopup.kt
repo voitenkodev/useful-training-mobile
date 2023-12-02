@@ -62,44 +62,24 @@ internal fun SetExercisePopup(
     }
 
     val updateName = remember {
-        { value: String ->
-            exercise.value = exercise.value.copy(name = value)
-        }
+        { value: String -> exercise.value = exercise.value.copy(name = value) }
     }
 
-    val updateWeight = remember {
-        { index: Int, value: String ->
-            val newIteration = exercise.value.iterations.mapIndexed { i, iteration ->
-                if (index == i) iteration.copy(weight = value)
-                else iteration
-            }.toPersistentList()
-            exercise.value = exercise.value.copy(iterations = newIteration)
-        }
-    }
-
-    val updateRepeat = remember {
-        { index: Int, value: String ->
-            val newIteration = exercise.value.iterations.mapIndexed { i, iteration ->
-                if (index == i) iteration.copy(repetitions = value)
-                else iteration
-            }.toPersistentList()
-            exercise.value = exercise.value.copy(iterations = newIteration)
-        }
-    }
-
-    val addIteration = remember {
-        {
-            val list = buildList {
+    val saveIteration = remember {
+        { index: Int, iteration: Iteration ->
+            val iterations = if (index in 0..exercise.value.iterations.lastIndex)
+                exercise.value.iterations.set(index, iteration)
+            else buildList {
                 addAll(exercise.value.iterations)
-                add(Iteration())
+                add(iteration)
             }.toPersistentList()
-            exercise.value = exercise.value.copy(iterations = list)
-            selectedIterationIndex.value = list.lastIndex
+            exercise.value = exercise.value.copy(iterations = iterations.toPersistentList())
+            selectedIterationIndex.value = -1
         }
     }
+
     val removeSelectedIteration = remember {
         {
-
             val list = exercise.value.iterations
                 .mapIndexedNotNull { index, iteration ->
                     if (index == selectedIterationIndex.value) return@mapIndexedNotNull null
@@ -122,8 +102,7 @@ internal fun SetExercisePopup(
 
         Box(modifier = Modifier.weight(1f).imePadding()) {
 
-            Column {
-
+            Column(Modifier.fillMaxSize()) {
                 EditExercise(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -133,7 +112,7 @@ internal fun SetExercisePopup(
                     name = { exercise.value.name },
                     updateName = updateName,
                     iterations = exercise.value.iterations,
-                    addIteration = addIteration,
+                    addIteration = { selectedIterationIndex.value = exercise.value.iterations.lastIndex + 1 },
                     selectIteration = selectIteration
                 )
 
@@ -147,26 +126,21 @@ internal fun SetExercisePopup(
             val selectedIteration = remember(
                 selectedIterationIndex.value,
                 exercise.value.iterations
-            ) {
-                exercise.value.iterations.getOrNull(selectedIterationIndex.value)
-            }
+            ) { exercise.value.iterations.getOrNull(selectedIterationIndex.value) }
 
             ShadowBackground(
                 modifier = Modifier.fillMaxSize(),
-                condition = selectedIteration != null,
+                condition = selectedIterationIndex.value != -1,
                 onClick = clearSelectedIteration
             )
 
-            if (selectedIteration != null) {
-
+            if (selectedIterationIndex.value != -1) {
                 SetIteration(
                     modifier = Modifier.align(Alignment.BottomCenter),
-                    number = selectedIterationIndex.value,
-                    repetitions = selectedIteration.repetitions,
-                    weight = selectedIteration.weight,
-                    setRepeat = { updateRepeat.invoke(selectedIterationIndex.value, it) },
-                    setWeight = { updateWeight.invoke(selectedIterationIndex.value, it) },
-                    remove = removeSelectedIteration
+                    index = selectedIterationIndex.value,
+                    iteration = selectedIteration,
+                    remove = removeSelectedIteration,
+                    save = saveIteration
                 )
             }
         }
@@ -205,7 +179,6 @@ private fun Footer(
     }
 }
 
-
 @Composable
 private fun EditExercise(
     modifier: Modifier = Modifier,
@@ -234,13 +207,12 @@ private fun EditExercise(
 
         PaddingS()
 
-        Column(
-            modifier = Modifier.padding(horizontal = Design.dp.paddingM).animateContentSize(),
-            verticalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
-        ) {
+        Column(modifier = Modifier.animateContentSize()) {
 
             Row(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .padding(horizontal = Design.dp.paddingM, vertical = Design.dp.paddingS)
+                    .fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM),
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -248,7 +220,7 @@ private fun EditExercise(
                 TextBody1(
                     modifier = Modifier
                         .background(
-                            color = Design.colors.white5,
+                            color = Design.colors.black10,
                             shape = Design.shape.default
                         ).clip(shape = Design.shape.default)
                         .alpha(alpha = 0.5f)
@@ -262,7 +234,7 @@ private fun EditExercise(
                 TextBody1(
                     modifier = Modifier
                         .background(
-                            color = Design.colors.white5,
+                            color = Design.colors.black10,
                             shape = Design.shape.default
                         ).clip(shape = Design.shape.default)
                         .alpha(alpha = 0.5f)
@@ -276,7 +248,7 @@ private fun EditExercise(
                 TextBody1(
                     modifier = Modifier
                         .background(
-                            color = Design.colors.white5,
+                            color = Design.colors.black10,
                             shape = Design.shape.default
                         ).clip(shape = Design.shape.default)
                         .alpha(alpha = 0.5f)
@@ -292,8 +264,9 @@ private fun EditExercise(
 
                 Row(
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .clickable { selectIteration.invoke(index) },
+                        .clickable { selectIteration.invoke(index) }
+                        .padding(horizontal = Design.dp.paddingM, vertical = Design.dp.paddingS)
+                        .fillMaxWidth(),
                     horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
@@ -332,7 +305,9 @@ private fun EditExercise(
             }
 
             Row(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .padding(horizontal = Design.dp.paddingM, vertical = Design.dp.paddingS)
+                    .fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM),
                 verticalAlignment = Alignment.CenterVertically
             ) {

@@ -15,7 +15,12 @@ public fun InputLabel(
     textAlign: TextAlign? = null
 ) {
     TextBody3(
-        modifier = modifier.padding(Design.dp.paddingXS),
+        modifier = modifier.padding(
+            start = Design.dp.paddingXS,
+            bottom = Design.dp.paddingXS,
+            top = Design.dp.paddingXS,
+            end = Design.dp.paddingS
+        ),
         provideText = provideText,
         color = Design.colors.caption,
         maxLines = 1,

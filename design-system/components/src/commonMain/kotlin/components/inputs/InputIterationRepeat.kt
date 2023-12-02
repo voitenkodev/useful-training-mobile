@@ -6,8 +6,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
-import molecule.InputPrimary
-import molecule.secondaryDefaultBackground
+import molecule.InputField
 
 @Composable
 public fun InputRepeat(
@@ -15,9 +14,9 @@ public fun InputRepeat(
     provideValue: () -> String,
     onValueChange: (String) -> Unit
 ) {
-    InputPrimary(
-        modifier = modifier.secondaryDefaultBackground(),
-        provideValue = provideValue,
+    InputField(
+        modifier = modifier,
+        value = provideValue.invoke(),
         onValueChange = onValueChange,
         textAlign = TextAlign.Center,
         maxLines = 1,

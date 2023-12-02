@@ -6,6 +6,7 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
@@ -21,8 +22,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import atom.Design
 import molecule.ButtonIconSecondary
-import molecule.InputPrimary
-import molecule.reverseDefaultBackground
+import molecule.InputField
 
 @Composable
 public fun InputExerciseExampleName(
@@ -32,17 +32,14 @@ public fun InputExerciseExampleName(
 ) {
     val focusManager = LocalFocusManager.current
 
-    InputPrimary(
-        modifier = modifier
-            .reverseDefaultBackground()
-            .padding(horizontal = Design.dp.paddingM),
-        provideValue = value,
+    InputField(
+        modifier = modifier.fillMaxWidth().padding(horizontal = Design.dp.paddingM),
+        value = value.invoke(),
         placeholder = "Name of exercise",
         maxLines = 1,
         keyboardActions = KeyboardActions { focusManager.moveFocus(FocusDirection.Next) },
         onValueChange = onValueChange,
         keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Sentences, imeAction = ImeAction.Next),
-        color = Design.colors.primary,
         trailing = {
             AnimatedVisibility(
                 visible = value().isNotEmpty(),

@@ -26,8 +26,7 @@ import androidx.compose.ui.unit.dp
 import atom.Design
 import components.labels.InputLabel
 import molecule.ButtonIconSecondary
-import molecule.InputPrimary
-import molecule.secondaryDefaultBackground
+import molecule.InputField
 
 @Composable
 public fun InputEmail(
@@ -38,15 +37,12 @@ public fun InputEmail(
 
     val focusManager = LocalFocusManager.current
 
-    InputPrimary(
+    InputField(
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = Design.dp.paddingM)
-            .secondaryDefaultBackground()
             .padding(horizontal = Design.dp.paddingM),
-        provideValue = provideValue,
+        value = provideValue(),
         onValueChange = onValueChange,
-        color = Design.colors.content,
         trailing = {
 
             AnimatedVisibility(
@@ -64,9 +60,10 @@ public fun InputEmail(
                 )
             }
         },
+        placeholder = "example@mail.com",
         leading = {
             InputLabel(
-                modifier = Modifier.width(72.dp),
+                modifier = Modifier.width(82.dp),
                 provideText = { "Email" }
             )
         },

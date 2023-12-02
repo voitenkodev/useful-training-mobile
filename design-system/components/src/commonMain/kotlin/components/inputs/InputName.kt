@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -21,11 +22,11 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.unit.dp
 import atom.Design
 import components.labels.InputLabel
 import molecule.ButtonIconSecondary
-import molecule.InputPrimary
-import molecule.secondaryDefaultBackground
+import molecule.InputField
 
 @Composable
 public fun InputName(
@@ -36,15 +37,13 @@ public fun InputName(
 
     val focusManager = LocalFocusManager.current
 
-    InputPrimary(
+    InputField(
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = Design.dp.paddingM)
-            .secondaryDefaultBackground()
             .padding(horizontal = Design.dp.paddingM),
-        provideValue = provideValue,
+        value = provideValue.invoke(),
         onValueChange = onValueChange,
-        color = Design.colors.content,
+        placeholder = "Arnold Schwarzenegger",
         trailing = {
 
             AnimatedVisibility(
@@ -64,6 +63,7 @@ public fun InputName(
         },
         leading = {
             InputLabel(
+                modifier = Modifier.width(62.dp),
                 provideText = { "Name" }
             )
         },

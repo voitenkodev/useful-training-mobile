@@ -22,10 +22,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import atom.Design
-import components.labels.InputLabel
 import molecule.ButtonIconSecondary
-import molecule.InputPrimary
-import molecule.secondaryDefaultBackground
+import molecule.InputField
 
 @Composable
 public fun InputExerciseName(
@@ -35,16 +33,13 @@ public fun InputExerciseName(
 ) {
     val focusManager = LocalFocusManager.current
 
-    InputPrimary(
+    InputField(
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = Design.dp.paddingM)
-            .secondaryDefaultBackground()
             .padding(horizontal = Design.dp.paddingM),
-        provideValue = provideName,
+        value = provideName.invoke(),
         placeholder = "Exercise name",
         maxLines = 1,
-        color = Design.colors.content,
         keyboardActions = KeyboardActions { focusManager.moveFocus(FocusDirection.Next) },
         onValueChange = update,
         keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Sentences, imeAction = ImeAction.Next),

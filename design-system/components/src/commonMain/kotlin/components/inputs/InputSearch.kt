@@ -5,6 +5,7 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -20,8 +21,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import atom.Design
 import components.labels.InputLabel
 import molecule.ButtonIconSecondary
-import molecule.InputPrimary
-import molecule.secondaryDefaultBackground
+import molecule.InputField
 
 @Composable
 public fun InputSearch(
@@ -31,13 +31,12 @@ public fun InputSearch(
 ) {
     val focusManager = LocalFocusManager.current
 
-    InputPrimary(
+    InputField(
         modifier = modifier
-            .secondaryDefaultBackground()
+            .fillMaxWidth()
             .padding(horizontal = Design.dp.paddingM),
-        provideValue = value,
+        value = value.invoke(),
         onValueChange = onValueChange,
-        color = Design.colors.primary,
         trailing = {
             AnimatedVisibility(
                 visible = value().isNotEmpty(),
