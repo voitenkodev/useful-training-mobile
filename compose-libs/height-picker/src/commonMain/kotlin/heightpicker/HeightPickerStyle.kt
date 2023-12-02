@@ -15,5 +15,5 @@ public data class HeightPickerStyle(
     val tenStepLineLength: Dp = 17.dp,
     var strokeWidth: Dp = 1.dp,
     var spaceInterval: Int = 26,
-    var visibilityRange: Int = 25
+    var visibilityRange: Int = 30
 )

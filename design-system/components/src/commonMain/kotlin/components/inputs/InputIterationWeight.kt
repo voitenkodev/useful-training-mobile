@@ -27,7 +27,7 @@ public fun InputWeight(
         textAlign = TextAlign.Center,
         maxLines = 1,
         maxLength = 6,
-        placeholder = "0.0",
+        placeholder = "Weight",
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Next),
         keyboardActions = KeyboardActions { focusManager.moveFocus(FocusDirection.Next) },
         digits = arrayOf('1', '2', '3', '4', '5', '6', '7', '8', '9', '0', ',', '.'),

@@ -22,7 +22,7 @@ public fun InputRepeat(
         textAlign = TextAlign.Center,
         maxLines = 1,
         maxLength = 2,
-        placeholder = "0",
+        placeholder = "Repeat",
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Next),
         digits = arrayOf('1', '2', '3', '4', '5', '6', '7', '8', '9', '0'),
     )

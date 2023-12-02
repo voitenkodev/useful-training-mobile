@@ -3,6 +3,7 @@ package components.overlay
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -17,8 +18,11 @@ import atom.Design
 public fun ShadowBackground(
     modifier: Modifier = Modifier,
     condition: Boolean = true,
-    shadow: Color = Design.colors.black70
+    shadow: Color = Design.colors.black70,
+    onClick: () -> Unit = {}
 ) {
+
+    val interactionSource = remember { MutableInteractionSource() }
 
     val enabled = remember {
         mutableStateOf(condition)
@@ -41,7 +45,16 @@ public fun ShadowBackground(
 
     Spacer(
         modifier = modifier
-            .background(color = color)
             .clickable(enabled = enabled.value, onClick = {})
+    )
+
+    Spacer(
+        modifier = modifier
+            .background(color = color)
+            .clickable(
+                interactionSource = interactionSource,
+                indication = null,
+                onClick = onClick
+            )
     )
 }
