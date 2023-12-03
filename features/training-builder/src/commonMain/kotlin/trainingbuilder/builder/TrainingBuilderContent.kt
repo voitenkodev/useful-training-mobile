@@ -1,28 +1,34 @@
 package trainingbuilder.builder
 
-import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import atom.Design
 import components.Error
 import components.roots.ScreenRoot
 import kotlinx.collections.immutable.ImmutableList
+import molecule.PaddingM
 import molecule.PopupSheet
-import musclepickerpicker.fullBack
+import molecule.TextBody1
+import molecule.TextH3
 import trainingbuilder.builder.components.Exercise
-import trainingbuilder.builder.components.Footer
 import trainingbuilder.builder.components.Header
+import trainingbuilder.builder.components.TrainingOverview
 import trainingbuilder.builder.popups.FindExercisePopup
 import trainingbuilder.builder.popups.SetExercisePopup
 import trainingbuilder.builder.state.Exercise
@@ -94,21 +100,28 @@ private fun Content(
 
             Header()
 
-            Image(
-                modifier =Modifier.size(500.dp),
-                contentDescription = null,
-                imageVector = fullBack(
-                    trapezius = Color.Yellow,
-                    hamstrings = Color.Red,
-                    calf = Color.Green,
-                    gluteal = Color.Cyan,
-                )
-            )
-
             LazyColumn(
                 modifier = Modifier.fillMaxWidth().weight(1f),
-                contentPadding = PaddingValues(vertical = Design.dp.paddingM)
+                contentPadding = PaddingValues(Design.dp.paddingM),
+                verticalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
             ) {
+
+                item(key = "overview") {
+
+                    TextBody1(provideText = { "Overview" })
+
+                    PaddingM()
+
+                    TrainingOverview()
+
+                    PaddingM()
+                }
+
+                item("exercise_title") {
+
+                    TextBody1(provideText = { "Exercises" })
+                }
+
                 itemsIndexed(exercises) { index, item ->
                     Exercise(
                         number = index + 1,
@@ -116,9 +129,31 @@ private fun Content(
                         onClick = { selectExercise.invoke(index) }
                     )
                 }
-            }
 
-            Footer(addExercise = addExercise)
+                item("add_exercise") {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(Design.dp.componentL)
+                            .border(
+                                width = 1.dp,
+                                shape = Design.shape.default,
+                                color = Design.colors.caption
+                            ).clickable(onClick = addExercise)
+                            .clip(shape = Design.shape.default),
+                        content = {
+
+                            TextH3(
+                                modifier = Modifier
+                                    .align(Alignment.Center),
+                                provideText = { "Add Exercise" },
+                                color = Design.colors.content
+                            )
+                        }
+                    )
+                }
+            }
+//            Footer(addExercise = addExercise)
         }
     }
 }

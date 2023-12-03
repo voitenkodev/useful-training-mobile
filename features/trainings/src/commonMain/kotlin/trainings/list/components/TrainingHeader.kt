@@ -43,7 +43,7 @@ internal fun TrainingHeader(
                 .weight(0.8f)
                 .fillMaxHeight()
                 .secondaryDefaultBackground(),
-            title = "VOLUME",
+            title = "Volume",
             value = training.volume,
             icon = Icons.weight,
             values = training.volumeExerciseList
@@ -137,8 +137,7 @@ private fun ChartBlock(
         )
 
         DefaultItem(
-            modifier = Modifier
-                .padding(Design.dp.paddingS),
+            modifier = Modifier.padding(Design.dp.paddingS),
             title = title,
             subTitle = value,
             icon = icon

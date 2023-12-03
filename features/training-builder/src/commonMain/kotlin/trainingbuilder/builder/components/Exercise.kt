@@ -27,11 +27,7 @@ internal fun Exercise(
     onClick: () -> Unit
 ) {
 
-    Column(
-        modifier = modifier
-            .padding(horizontal = Design.dp.paddingM)
-            .clickable(onClick = onClick),
-    ) {
+    Column(modifier = modifier.clickable(onClick = onClick)) {
 
         PaddingS()
 
