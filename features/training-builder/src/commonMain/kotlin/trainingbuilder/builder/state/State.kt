@@ -12,7 +12,7 @@ internal data class State(
     val selectedMuscle: Muscle? = null,
     val exerciseExamples: ImmutableList<ExerciseExample> = persistentListOf(),
 
-    val setExercisePopupVisibleIndex: Int? = null,
+    val setExercisePopupVisibleIndex: Int = -1,
     val findExercisePopupIsVisibleIndex: Boolean = false,
 
     val error: String? = null,

@@ -1,13 +1,16 @@
 package trainingbuilder.builder
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import atom.Design
 import components.Error
 import components.roots.ScreenRoot
 import kotlinx.collections.immutable.ImmutableList
@@ -28,14 +31,21 @@ internal fun TrainingBuilderContent(
 
     val state by vm.state.collectAsState()
 
-    if (state.setExercisePopupVisibleIndex != null) PopupSheet(
+    if (state.setExercisePopupVisibleIndex != -1) PopupSheet(
         onDismiss = vm::closeSetExercisePopup,
         content = { hideLambda ->
+
+            val selectedExercise = remember(
+                state.setExercisePopupVisibleIndex,
+                state.training.exercises
+            ) { state.training.exercises.getOrNull(state.setExercisePopupVisibleIndex) }
+
             SetExercisePopup(
                 close = hideLambda,
+                index = state.setExercisePopupVisibleIndex,
+                selectedExercise = selectedExercise,
                 exerciseExample = null,
-                save = {
-                }
+                save = vm::saveExercise
             )
         }
     )
@@ -59,7 +69,8 @@ internal fun TrainingBuilderContent(
         error = state.error,
         clearError = vm::clearError,
         addExercise = vm::openFindExercisePopup,
-        exercises = state.training.exercises
+        exercises = state.training.exercises,
+        selectExercise = vm::openSetExercisePopup
     )
 }
 
@@ -68,7 +79,8 @@ private fun Content(
     error: String?,
     clearError: () -> Unit,
     exercises: ImmutableList<Exercise>,
-    addExercise: () -> Unit
+    addExercise: () -> Unit,
+    selectExercise: (index: Int) -> Unit
 ) {
 
     ScreenRoot(error = { Error(message = { error }, close = clearError) }) {
@@ -77,11 +89,15 @@ private fun Content(
 
             Header()
 
-            LazyColumn(modifier = Modifier.fillMaxWidth().weight(1f)) {
+            LazyColumn(
+                modifier = Modifier.fillMaxWidth().weight(1f),
+                contentPadding = PaddingValues(vertical = Design.dp.paddingM)
+            ) {
                 itemsIndexed(exercises) { index, item ->
                     Exercise(
                         number = index + 1,
-                        exercise = item
+                        exercise = item,
+                        onClick = { selectExercise.invoke(index) }
                     )
                 }
             }
@@ -90,141 +106,3 @@ private fun Content(
         }
     }
 }
-
-//@Deprecated("use Content")
-//@Composable
-//private fun Content2(
-//    loading: () -> Boolean,
-//    error: () -> String?,
-//    clearError: () -> Unit,
-//    tryBack: () -> Unit,
-//    back: () -> Unit,
-//
-//    exitWarningVisibility: Boolean,
-//    closeExitScreenPopup: () -> Unit,
-//
-//    removeExerciseIndex: () -> Int?,
-//    removeExercise: (index: Int?) -> Unit,
-//    closeRemoveExercisePopup: () -> Unit,
-//
-//    openExitScreenPopup: () -> Unit,
-//    saveTraining: () -> Unit,
-//
-//    exerciseNames: () -> List<String>,
-//    removeExerciseNameOption: (String) -> Unit,
-//
-//    exercises: State<List<Exercise>>,
-//    updateName: (exerciseNumber: Int, value: String) -> Unit,
-//    updateWeight: (exerciseNumber: Int, iterationNumber: Int, value: String) -> Unit,
-//    updateRepeat: (exerciseNumber: Int, iterationNumber: Int, value: String) -> Unit,
-//    openRemoveExercisePopup: (index: Int) -> Unit,
-//    addExercise: () -> Unit,
-//) {
-//
-//    val tryBackProvider by rememberUpdatedState(tryBack)
-//    val saveTrainingProvider by rememberUpdatedState(saveTraining)
-//    val openExitScreenPopupProvider by rememberUpdatedState(openExitScreenPopup)
-//    val addExerciseProvider by rememberUpdatedState(addExercise)
-//
-//    ScrollableRoot(
-//        modifier = Modifier
-//            .fillMaxWidth()
-//            .recomposeHighlighter(),
-//        loading = { Loading(loading) },
-//        error = { Error(message = error, close = clearError) },
-//        back = { PlatformBackHandler(tryBackProvider) },
-//        popups = {
-//            Popup(
-//                visibility = exitWarningVisibility,
-//                title = "Warning",
-//                message = "Are you sure to exit from training?",
-//                button = "Back",
-//                click = back,
-//                back = closeExitScreenPopup
-//            )
-//            Popup(
-//                visibility = removeExerciseIndex() != null,
-//                title = "Warning",
-//                message = "Are you sure to remove exercise?",
-//                button = "Yes",
-//                click = {
-//                    removeExercise(removeExerciseIndex())
-//                    closeRemoveExercisePopup()
-//                },
-//                back = closeRemoveExercisePopup
-//            )
-//        },
-//        header = {
-//            Row {
-//                ButtonIconSecondary(
-//                    modifier = Modifier.size(Design.dp.componentL),
-//                    imageVector = Icons.arrowLeft,
-//                    onClick = openExitScreenPopupProvider
-//                )
-//
-//                Spacer(Modifier.weight(1f))
-//
-//                ButtonIconSecondary(
-//                    modifier = Modifier.size(Design.dp.componentL),
-//                    imageVector = Icons.done,
-//                    onClick = saveTrainingProvider
-//                )
-//            }
-//        },
-//        content = {
-//
-//            itemsIndexed(exercises.value) { index, exercise ->
-//                val indexProvider by rememberUpdatedState(index)
-//                val name by rememberUpdatedState(exercise.name)
-//                val number by rememberUpdatedState(index + 1)
-//                val iterations by rememberUpdatedState(exercise.iterations)
-//
-//                EditExercise(
-//                    modifier = Modifier.recomposeHighlighter(),
-//                    number = { number },
-//                    name = { name },
-//                    updateName = { updateName(indexProvider, it) },
-//                    updateWeight = { num, value -> updateWeight(indexProvider, num, value) },
-//                    updateRepeat = { num, value -> updateRepeat(indexProvider, num, value) },
-//                    iterations = { iterations }
-//                )
-//            }
-//
-//            item(key = "new_exercise_btn") {
-//                NewExercise(
-//                    modifier = Modifier
-//                        .animateItemPlacement()
-//                        .recomposeHighlighter(),
-//                    onClick = addExerciseProvider
-//                )
-//            }
-//        }
-//    )
-//}
-//
-//@Composable
-//private fun NewExercise(
-//    modifier: Modifier = Modifier,
-//    onClick: () -> Unit
-//) {
-//    Box(
-//        modifier = modifier
-//            .fillMaxWidth()
-//            .height(128.dp)
-//            .border(
-//                width = 1.dp,
-//                shape = Design.shape.default, color = Design.colors.orange
-//            )
-//            .clickable(onClick = onClick)
-//            .recomposeHighlighter(),
-//        content = {
-//            TextH4(
-//                modifier = Modifier
-//                    .align(Alignment.Center)
-//                    .recomposeHighlighter(),
-//                provideText = { "Add Exercise" },
-//                color = Design.colors.orange
-//            )
-//        }
-//    )
-//}

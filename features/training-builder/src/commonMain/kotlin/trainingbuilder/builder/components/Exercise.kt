@@ -1,5 +1,6 @@
 package trainingbuilder.builder.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.FlowRow
@@ -16,19 +17,20 @@ import molecule.PaddingS
 import molecule.TextBody2
 import molecule.TextH4
 import molecule.secondarySmallBackground
-import recomposeHighlighter
 import trainingbuilder.builder.state.Exercise
 
 @Composable
 internal fun Exercise(
     modifier: Modifier = Modifier,
     number: Int,
-    exercise: Exercise
+    exercise: Exercise,
+    onClick: () -> Unit
 ) {
 
     Column(
         modifier = modifier
-            .padding(horizontal = Design.dp.paddingM),
+            .padding(horizontal = Design.dp.paddingM)
+            .clickable(onClick = onClick),
     ) {
 
         PaddingS()
@@ -46,7 +48,6 @@ internal fun Exercise(
             )
 
             TextH4(
-                modifier = Modifier.recomposeHighlighter(),
                 provideText = { exercise.name },
                 fontWeight = FontWeight.Bold
             )
@@ -55,7 +56,6 @@ internal fun Exercise(
         PaddingS()
 
         FlowRow(
-            modifier = Modifier.recomposeHighlighter(),
             horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS),
             verticalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
         ) {
@@ -67,7 +67,7 @@ internal fun Exercise(
                         .padding(
                             horizontal = Design.dp.paddingM,
                             vertical = Design.dp.paddingXS
-                        ).recomposeHighlighter(),
+                        ),
                     provideText = { "${it.weight}x${it.repetitions}" }
                 )
             }
