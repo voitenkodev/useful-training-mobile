@@ -1,8 +1,10 @@
 package trainingbuilder.builder
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
@@ -10,11 +12,14 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import atom.Design
 import components.Error
 import components.roots.ScreenRoot
 import kotlinx.collections.immutable.ImmutableList
 import molecule.PopupSheet
+import musclepickerpicker.fullBack
 import trainingbuilder.builder.components.Exercise
 import trainingbuilder.builder.components.Footer
 import trainingbuilder.builder.components.Header
@@ -88,6 +93,17 @@ private fun Content(
         Column(modifier = Modifier.fillMaxWidth()) {
 
             Header()
+
+            Image(
+                modifier =Modifier.size(500.dp),
+                contentDescription = null,
+                imageVector = fullBack(
+                    trapezius = Color.Yellow,
+                    hamstrings = Color.Red,
+                    calf = Color.Green,
+                    gluteal = Color.Cyan,
+                )
+            )
 
             LazyColumn(
                 modifier = Modifier.fillMaxWidth().weight(1f),
