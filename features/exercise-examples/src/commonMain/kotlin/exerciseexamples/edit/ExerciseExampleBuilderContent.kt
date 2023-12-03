@@ -141,7 +141,7 @@ private fun Content(
                                 item.muscles.forEach { muscle ->
 
                                     val selectedChipState = ChipState.Colored(
-                                        backgroundColor = muscle.color.copy(alpha = 0.1f),
+                                        backgroundColor = muscle.color.copy(alpha = 0.2f),
                                         borderColor = muscle.color,
                                         contentColor = Design.colors.content
                                     )

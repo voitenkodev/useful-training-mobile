@@ -31,7 +31,7 @@ internal fun Muscles(
 ) {
 
     val selectedChipState = ChipState.Colored(
-        backgroundColor = Design.colors.black10,
+        backgroundColor = Design.colors.green.copy(alpha = 0.2f),
         borderColor = Design.colors.green,
         contentColor = Design.colors.content
     )

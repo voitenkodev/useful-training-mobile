@@ -1,5 +1,6 @@
 package trainingbuilder.builder.popups
 
+import Icons
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -98,7 +99,7 @@ internal fun SetExercisePopup(
         { selectedIterationIndex.value = -1 }
     }
 
-    PopupScreenRoot(title = "Exercise") {
+    PopupScreenRoot(title = "Exercise", icon = Icons.close to close) {
 
         Box(modifier = Modifier.weight(1f).imePadding()) {
 
