@@ -15,7 +15,7 @@ import icons.HandWeight
 import icons.Logout
 import icons.Notifications
 import icons.Person
-import icons.Play
+import icons.Success
 import icons.Support
 import icons.Time
 import icons.Weigher
@@ -24,7 +24,7 @@ import icons.Weight
 public object Icons {
     public val add: ImageVector = Add
     public val close: ImageVector = Close
-    public val save: ImageVector = Play
+    public val save: ImageVector = Success
     public val arrowLeft: ImageVector = ArrowLeft
     public val arrowRight: ImageVector = ArrowRight
     public val card: ImageVector = Card

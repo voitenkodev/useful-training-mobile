@@ -9,6 +9,7 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
+import components.labels.InputLabel
 import molecule.InputField
 
 @Composable
@@ -24,9 +25,10 @@ public fun InputWeight(
         value = provideValue.invoke(),
         onValueChange = onValueChange,
         textAlign = TextAlign.Center,
+        leading = { InputLabel(provideText = { "Wt:" }) },
         maxLines = 1,
         maxLength = 6,
-        placeholder = "Weight",
+        placeholder = "0.0",
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Next),
         keyboardActions = KeyboardActions { focusManager.moveFocus(FocusDirection.Next) },
         digits = arrayOf('1', '2', '3', '4', '5', '6', '7', '8', '9', '0', ',', '.'),

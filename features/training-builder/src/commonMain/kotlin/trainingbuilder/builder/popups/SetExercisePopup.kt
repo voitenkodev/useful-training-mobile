@@ -1,6 +1,9 @@
 package trainingbuilder.builder.popups
 
 import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -134,13 +137,19 @@ internal fun SetExercisePopup(
                 onClick = clearSelectedIteration
             )
 
-            if (selectedIterationIndex.value != -1) {
+            androidx.compose.animation.AnimatedVisibility(
+                modifier = Modifier.align(Alignment.BottomCenter),
+                visible = selectedIterationIndex.value != -1,
+                enter = expandVertically(animationSpec = tween(300)),
+                exit = shrinkVertically(animationSpec = tween(300))
+            ) {
                 SetIteration(
-                    modifier = Modifier.align(Alignment.BottomCenter),
+                    modifier = Modifier,
                     index = selectedIterationIndex.value,
                     iteration = selectedIteration,
                     remove = removeSelectedIteration,
-                    save = saveIteration
+                    save = saveIteration,
+                    close = clearSelectedIteration
                 )
             }
         }

@@ -12,6 +12,7 @@ import androidx.compose.ui.unit.dp
 
 
 private var _handweight: ImageVector? = null
+
 internal val HandWeight: ImageVector
     get() {
         if (_handweight != null) {

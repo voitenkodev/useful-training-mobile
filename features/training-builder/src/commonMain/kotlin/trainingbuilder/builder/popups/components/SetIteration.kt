@@ -3,8 +3,12 @@ package trainingbuilder.builder.popups.components
 import Icons
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
@@ -33,7 +37,8 @@ internal fun SetIteration(
     index: Int,
     iteration: Iteration?,
     save: (index: Int, iteration: Iteration) -> Unit,
-    remove: () -> Unit
+    remove: () -> Unit,
+    close: () -> Unit
 ) {
 
     val innerIteration = remember(iteration) { mutableStateOf(iteration ?: Iteration()) }
@@ -67,21 +72,35 @@ internal fun SetIteration(
 
         Shadow()
 
-        PaddingM()
+        Row(
+            modifier = Modifier
+                .height(IntrinsicSize.Min)
+                .padding(start = Design.dp.paddingM)
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
 
-        TextH4(
-            modifier = Modifier.padding(horizontal = Design.dp.paddingM),
-            provideText = { "Iteration #${index + 1}" }
-        )
+            TextH4(provideText = { "Iteration #${index + 1}" })
+
+            ButtonIconTransparent(
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .aspectRatio(1f)
+                    .padding(Design.dp.paddingS),
+                imageVector = Icons.close,
+                onClick = close
+            )
+        }
 
         Row(
-            modifier = Modifier.padding(Design.dp.paddingM),
+            modifier = Modifier.padding(horizontal = Design.dp.paddingS),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
         ) {
 
             ButtonIconTransparent(
-                modifier = Modifier.width(46.dp),
+                modifier = Modifier.width(Design.dp.componentS),
                 imageVector = Icons.delete,
                 onClick = remove,
                 contentColor = Design.colors.red
@@ -91,7 +110,7 @@ internal fun SetIteration(
                 modifier = Modifier
                     .focusRequester(weightRequester)
                     .secondaryDefaultBackground()
-                    .weight(0.60f),
+                    .weight(0.56f),
                 provideValue = { innerIteration.value.weight },
                 onValueChange = updateWeight
             )
@@ -100,18 +119,20 @@ internal fun SetIteration(
                 modifier = Modifier
                     .focusRequester(repeatRequester)
                     .secondaryDefaultBackground()
-                    .weight(0.4f),
+                    .weight(0.44f),
                 provideValue = { innerIteration.value.repetitions },
                 onValueChange = updateRepeat
             )
 
             ButtonIconTransparent(
-                modifier = Modifier.width(46.dp),
+                modifier = Modifier.width(Design.dp.componentS),
                 imageVector = Icons.save,
                 enabled = enabledSave,
                 onClick = { save.invoke(index, innerIteration.value) },
                 contentColor = if (enabledSave) Design.colors.toxic else Design.colors.white10
             )
         }
+
+        PaddingM()
     }
 }

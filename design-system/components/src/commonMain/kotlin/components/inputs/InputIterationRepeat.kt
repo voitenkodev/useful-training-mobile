@@ -6,6 +6,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
+import components.labels.InputLabel
 import molecule.InputField
 
 @Composable
@@ -19,9 +20,10 @@ public fun InputRepeat(
         value = provideValue.invoke(),
         onValueChange = onValueChange,
         textAlign = TextAlign.Center,
+        leading = { InputLabel(provideText = { "Rps:" }) },
         maxLines = 1,
         maxLength = 2,
-        placeholder = "Repeat",
+        placeholder = "0",
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Next),
         digits = arrayOf('1', '2', '3', '4', '5', '6', '7', '8', '9', '0'),
     )
