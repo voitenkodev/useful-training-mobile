@@ -26,6 +26,7 @@ import molecule.PaddingM
 import molecule.PopupSheet
 import molecule.TextBody1
 import molecule.TextH3
+import molecule.primaryBackground
 import trainingbuilder.builder.components.Exercise
 import trainingbuilder.builder.components.Header
 import trainingbuilder.builder.components.TrainingOverview
@@ -101,7 +102,7 @@ private fun Content(
             Header()
 
             LazyColumn(
-                modifier = Modifier.fillMaxWidth().weight(1f),
+                modifier = Modifier.fillMaxWidth().weight(1f).primaryBackground(),
                 contentPadding = PaddingValues(Design.dp.paddingM),
                 verticalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
             ) {
@@ -139,13 +140,13 @@ private fun Content(
                                 width = 1.dp,
                                 shape = Design.shape.default,
                                 color = Design.colors.caption
-                            ).clickable(onClick = addExercise)
+                            )
+                            .clickable(onClick = addExercise)
                             .clip(shape = Design.shape.default),
                         content = {
 
                             TextH3(
-                                modifier = Modifier
-                                    .align(Alignment.Center),
+                                modifier = Modifier.align(Alignment.Center),
                                 provideText = { "Add Exercise" },
                                 color = Design.colors.content
                             )
@@ -153,7 +154,6 @@ private fun Content(
                     )
                 }
             }
-//            Footer(addExercise = addExercise)
         }
     }
 }

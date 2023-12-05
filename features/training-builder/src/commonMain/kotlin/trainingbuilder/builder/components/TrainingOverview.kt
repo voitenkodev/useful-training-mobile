@@ -15,7 +15,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import atom.Design
+import components.indication.HeapIndicator
 import molecule.IconSecondary
 import molecule.PaddingS
 import molecule.TextBody3
@@ -110,21 +112,28 @@ internal fun TrainingOverview() {
                 .padding(Design.dp.paddingM),
             verticalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
         ) {
-            TextH4(
-                provideText = { "HEAP MAP" }
-            )
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                TextH4(provideText = { "HEAP MAP" })
+
+                HeapIndicator(modifier = Modifier.weight(1f).padding(bottom = 4.dp))
+            }
 
             Row(horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS)) {
                 Image(
                     modifier = Modifier.weight(1f).fillMaxHeight(),
                     contentDescription = null,
                     imageVector = fullFront(
-                        pectoralisMajor = Design.colors.toxic,
-                        pectoralisMinor = Design.colors.toxic.copy(alpha = 0.7f),
-                        biceps = Design.colors.toxic.copy(alpha = 0.3f),
-                        forearm = Design.colors.toxic.copy(alpha = 0.3f),
-                        anteriorDeltoid = Design.colors.toxic,
-                        lateralDeltoid = Design.colors.toxic.copy(alpha = 0.7f)
+                        backgroundFront = Design.colors.white10,
+                        pectoralisMajor = Design.colors.red,
+                        pectoralisMinor = Design.colors.red.copy(alpha = 0.7f),
+                        biceps = Design.colors.red.copy(alpha = 0.3f),
+                        forearm = Design.colors.red.copy(alpha = 0.3f),
+                        anteriorDeltoid = Design.colors.red,
+                        lateralDeltoid = Design.colors.red.copy(alpha = 0.7f)
                     )
                 )
 
@@ -132,10 +141,11 @@ internal fun TrainingOverview() {
                     modifier = Modifier.weight(1f).fillMaxHeight(),
                     contentDescription = null,
                     imageVector = fullBack(
-                        trapezius = Design.colors.toxic.copy(alpha = 0.5f),
-                        latissimus = Design.colors.toxic.copy(alpha = 0.6f),
-                        hamstrings = Design.colors.toxic.copy(alpha = 0.3f),
-                        gluteal = Design.colors.toxic.copy(alpha = 0.2f)
+                        backgroundBack = Design.colors.white10,
+                        trapezius = Design.colors.red.copy(alpha = 0.5f),
+                        latissimus = Design.colors.red.copy(alpha = 0.6f),
+                        hamstrings = Design.colors.red.copy(alpha = 0.3f),
+                        gluteal = Design.colors.red.copy(alpha = 0.2f)
                     )
                 )
             }

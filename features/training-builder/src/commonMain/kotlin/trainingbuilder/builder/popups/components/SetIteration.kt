@@ -1,6 +1,8 @@
 package trainingbuilder.builder.popups.components
 
 import Icons
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
@@ -19,7 +21,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.unit.dp
 import atom.Design
 import components.inputs.InputRepeat
 import components.inputs.InputWeight
@@ -67,8 +68,18 @@ internal fun SetIteration(
         innerIteration.value.weight.isNotBlank() && innerIteration.value.repetitions.isNotBlank()
     }
 
+    val interactionSource = remember { MutableInteractionSource() }
 
-    Column(modifier = modifier.fillMaxWidth().secondaryBackground()) {
+    Column(
+        modifier = modifier
+            .fillMaxWidth()
+            .secondaryBackground()
+            .clickable(
+                interactionSource = interactionSource,
+                indication = null,
+                onClick = {}
+            )
+    ) {
 
         Shadow()
 

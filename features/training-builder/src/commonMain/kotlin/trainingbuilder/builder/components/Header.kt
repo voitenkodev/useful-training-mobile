@@ -36,7 +36,7 @@ internal fun Header() {
 
             TextH2(
                 modifier = Modifier.padding(horizontal = Design.dp.paddingM),
-                provideText = { "Exercises" },
+                provideText = { "Training" },
                 softWrap = false
             )
         }

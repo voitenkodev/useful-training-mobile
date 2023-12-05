@@ -266,7 +266,6 @@ private fun EditExercise(
 
                 Row(
                     modifier = Modifier
-                        .clickable { selectIteration.invoke(index) }
                         .padding(horizontal = Design.dp.paddingM, vertical = Design.dp.paddingS)
                         .fillMaxWidth(),
                     horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM),
@@ -282,6 +281,7 @@ private fun EditExercise(
 
                     TextBody1(
                         modifier = Modifier
+                            .clickable { selectIteration.invoke(index) }
                             .secondaryDefaultBackground()
                             .clip(shape = Design.shape.default)
                             .alpha(alpha = 0.5f)
@@ -294,6 +294,7 @@ private fun EditExercise(
 
                     TextBody1(
                         modifier = Modifier
+                            .clickable { selectIteration.invoke(index) }
                             .secondaryDefaultBackground()
                             .clip(shape = Design.shape.default)
                             .alpha(alpha = 0.5f)
