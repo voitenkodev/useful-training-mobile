@@ -33,6 +33,7 @@ import trainingbuilder.builder.components.TrainingOverview
 import trainingbuilder.builder.popups.FindExercisePopup
 import trainingbuilder.builder.popups.SetExercisePopup
 import trainingbuilder.builder.state.Exercise
+import trainingbuilder.builder.state.SetExercisePopupState
 
 @Composable
 internal fun TrainingBuilderContent(
@@ -43,24 +44,26 @@ internal fun TrainingBuilderContent(
 
     val state by vm.state.collectAsState()
 
-    if (state.setExercisePopupVisibleIndex != -1) PopupSheet(
-        onDismiss = vm::closeSetExercisePopup,
-        content = { hideLambda ->
+    (state.setExercisePopupState as? SetExercisePopupState.Opened)?.let { popupState ->
+        PopupSheet(
+            onDismiss = vm::closeSetExercisePopup,
+            content = { hideLambda ->
 
-            val selectedExercise = remember(
-                state.setExercisePopupVisibleIndex,
-                state.training.exercises
-            ) { state.training.exercises.getOrNull(state.setExercisePopupVisibleIndex) }
+                val selectedExercise = remember(
+                    popupState.index,
+                    state.training.exercises
+                ) { state.training.exercises.getOrNull(popupState.index) }
 
-            SetExercisePopup(
-                close = hideLambda,
-                index = state.setExercisePopupVisibleIndex,
-                selectedExercise = selectedExercise,
-                exerciseExample = null,
-                save = vm::saveExercise
-            )
-        }
-    )
+                SetExercisePopup(
+                    close = hideLambda,
+                    index = popupState.index,
+                    selectedExercise = selectedExercise,
+                    exerciseExample = popupState.exerciseExample,
+                    save = vm::saveExercise
+                )
+            }
+        )
+    }
 
     if (state.findExercisePopupIsVisibleIndex) PopupSheet(
         onDismiss = vm::closeFindExercisePopup,
@@ -82,7 +85,7 @@ internal fun TrainingBuilderContent(
         clearError = vm::clearError,
         addExercise = vm::openFindExercisePopup,
         exercises = state.training.exercises,
-        selectExercise = vm::openSetExercisePopup
+        selectExercise = vm::openAddExercisePopup
     )
 }
 

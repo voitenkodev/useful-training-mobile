@@ -27,7 +27,7 @@ internal fun FindExercisePopup(
     exerciseExamples: ImmutableList<ExerciseExample>,
     setMuscleTarget: (id: String) -> Unit,
     createExercise: () -> Unit,
-    selectExercise: () -> Unit
+    selectExercise: (ExerciseExample) -> Unit
 ) {
     PopupRoot(title = "Add Exercise", icon = Icons.close to close) {
 
@@ -45,7 +45,8 @@ internal fun FindExercisePopup(
         }
 
         ExerciseExamples(
-            list = exerciseExamples
+            list = exerciseExamples,
+            select = selectExercise
         )
 
         PaddingM()

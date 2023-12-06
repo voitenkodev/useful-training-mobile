@@ -19,7 +19,10 @@ import molecule.TextBody1
 import trainingbuilder.builder.state.ExerciseExample
 
 @Composable
-internal fun ExerciseExamples(list: ImmutableList<ExerciseExample>) {
+internal fun ExerciseExamples(
+    list: ImmutableList<ExerciseExample>,
+    select: (ExerciseExample) -> Unit
+) {
 
     val pager = rememberPagerState(pageCount = { list.size })
 
@@ -50,7 +53,7 @@ internal fun ExerciseExamples(list: ImmutableList<ExerciseExample>) {
 
         ExerciseCard(
             name = item.name,
-            btn = "Select" to {},
+            btn = "Select" to { select.invoke(item) },
             btn2 = "Details" to {},
             imageUrl = item.imageUrl
         )

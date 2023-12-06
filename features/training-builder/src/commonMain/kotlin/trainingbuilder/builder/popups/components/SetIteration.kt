@@ -30,6 +30,7 @@ import molecule.Shadow
 import molecule.TextH4
 import molecule.secondaryBackground
 import molecule.secondaryDefaultBackground
+import platformBottomInset
 import trainingbuilder.builder.popups.state.IterationTargetFocus
 import trainingbuilder.builder.state.Iteration
 
@@ -81,6 +82,7 @@ internal fun SetIteration(
         modifier = modifier
             .fillMaxWidth()
             .secondaryBackground()
+            .platformBottomInset()
             .clickable(
                 interactionSource = interactionSource,
                 indication = null,

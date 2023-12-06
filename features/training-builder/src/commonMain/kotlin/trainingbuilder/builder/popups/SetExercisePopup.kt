@@ -104,56 +104,54 @@ internal fun SetExercisePopup(
         { selectedIterationIndex.value = -1 to IterationTargetFocus.Weight }
     }
 
-    PopupScreenRoot(title = "Exercise", icon = Icons.close to close) {
+    Box(modifier = Modifier.fillMaxSize().imePadding()) {
 
-        Box(modifier = Modifier.weight(1f).imePadding()) {
+        PopupScreenRoot(title = "Exercise", icon = Icons.close to close) {
 
-            Column(Modifier.fillMaxSize()) {
-                EditExercise(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .weight(1f)
-                        .primaryBackground()
-                        .verticalScroll(rememberScrollState()),
-                    name = { exercise.value.name },
-                    updateName = updateName,
-                    iterations = exercise.value.iterations,
-                    addIteration = {
-                        selectedIterationIndex.value = exercise.value.iterations.lastIndex + 1 to IterationTargetFocus.Weight
-                    },
-                    selectIterationWeight = selectIterationTargetWeight,
-                    selectIterationRepetition = selectIterationTargetRepetition
-                )
-
-                Footer(
-                    cancel = close,
-                    saveEnabled = exercise.value.name.isNotBlank() && exercise.value.iterations.isNotEmpty(),
-                    save = { save.invoke(index, exercise.value); close.invoke() }
-                )
-            }
-
-            val selectedIteration = remember(
-                selectedIterationIndex.value,
-                exercise.value.iterations
-            ) { exercise.value.iterations.getOrNull(selectedIterationIndex.value.first) }
-
-            ShadowBackground(
-                modifier = Modifier.fillMaxSize(),
-                condition = selectedIterationIndex.value.first != -1,
-                onClick = clearSelectedIteration
+            EditExercise(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f)
+                    .primaryBackground()
+                    .verticalScroll(rememberScrollState()),
+                name = { exercise.value.name },
+                updateName = updateName,
+                iterations = exercise.value.iterations,
+                addIteration = {
+                    selectedIterationIndex.value = exercise.value.iterations.lastIndex + 1 to IterationTargetFocus.Weight
+                },
+                selectIterationWeight = selectIterationTargetWeight,
+                selectIterationRepetition = selectIterationTargetRepetition
             )
 
-            if (selectedIterationIndex.value.first != -1) {
-                SetIteration(
-                    modifier = Modifier.align(Alignment.BottomCenter),
-                    index = selectedIterationIndex.value.first,
-                    selectedIterationIndex.value.second,
-                    iteration = selectedIteration,
-                    remove = removeSelectedIteration,
-                    save = saveIteration,
-                    close = clearSelectedIteration
-                )
-            }
+            Footer(
+                cancel = close,
+                saveEnabled = exercise.value.name.isNotBlank() && exercise.value.iterations.isNotEmpty(),
+                save = { save.invoke(index, exercise.value); close.invoke() }
+            )
+        }
+
+        val selectedIteration = remember(
+            selectedIterationIndex.value,
+            exercise.value.iterations
+        ) { exercise.value.iterations.getOrNull(selectedIterationIndex.value.first) }
+
+        ShadowBackground(
+            modifier = Modifier.fillMaxSize(),
+            condition = selectedIterationIndex.value.first != -1,
+            onClick = clearSelectedIteration
+        )
+
+        if (selectedIterationIndex.value.first != -1) {
+            SetIteration(
+                modifier = Modifier.align(Alignment.BottomCenter),
+                index = selectedIterationIndex.value.first,
+                selectedIterationIndex.value.second,
+                iteration = selectedIteration,
+                remove = removeSelectedIteration,
+                save = saveIteration,
+                close = clearSelectedIteration
+            )
         }
     }
 }

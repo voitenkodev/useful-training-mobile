@@ -19,6 +19,8 @@ import round
 import trainingbuilder.builder.mapping.toBody
 import trainingbuilder.builder.mapping.toState
 import trainingbuilder.builder.state.Exercise
+import trainingbuilder.builder.state.ExerciseExample
+import trainingbuilder.builder.state.SetExercisePopupState
 import trainingbuilder.builder.state.State
 import trainingbuilder.builder.state.Training
 
@@ -122,16 +124,28 @@ internal class TrainingBuilderViewModel(muscleIds: List<String>) : ViewModel() {
         }
     }
 
-    fun openAddExercisePopup() {
-        openSetExercisePopup(state.value.training.exercises.lastIndex + 1)
+    fun openAddExercisePopup(
+        index: Int,
+        exerciseExample: ExerciseExample? = null
+    ) {
+        _state.update {
+            it.copy(setExercisePopupState = SetExercisePopupState.Opened(index = index, exerciseExample = exerciseExample))
+        }
     }
 
-    fun openSetExercisePopup(index: Int) {
-        _state.update { it.copy(setExercisePopupVisibleIndex = index) }
+    fun openAddExercisePopup(
+        exerciseExample: ExerciseExample? = null
+    ) {
+        val newIndex = state.value.training.exercises.lastIndex + 1
+        _state.update {
+            it.copy(setExercisePopupState = SetExercisePopupState.Opened(index = newIndex, exerciseExample = exerciseExample))
+        }
     }
 
     fun closeSetExercisePopup() {
-        _state.update { it.copy(setExercisePopupVisibleIndex = -1) }
+        _state.update {
+            it.copy(setExercisePopupState = SetExercisePopupState.Closed)
+        }
     }
 
     fun openFindExercisePopup() {
