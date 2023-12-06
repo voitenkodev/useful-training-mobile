@@ -56,6 +56,7 @@ public fun TrainingGraph(
 
                 MusclePickerContent(
                     vm = vm,
+                    close = router::pop,
                     apply = {
                         router.push(TrainingRouter.TrainingBuilder(trainingId = null, muscleIds = it))
                     }

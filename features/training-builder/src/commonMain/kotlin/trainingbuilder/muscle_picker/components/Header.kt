@@ -1,5 +1,6 @@
 package trainingbuilder.muscle_picker.components
 
+import Icons
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -11,13 +12,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import atom.Design
+import molecule.ButtonIconTransparent
 import molecule.PaddingS
+import molecule.PaddingWeight
 import molecule.Shadow
 import molecule.TextH2
 import platformTopInset
 
 @Composable
-internal fun Header() {
+internal fun Header(
+    close: () -> Unit
+) {
     Column(
         modifier = Modifier
             .background(Design.colors.secondary)
@@ -38,6 +43,15 @@ internal fun Header() {
                 modifier = Modifier.padding(horizontal = Design.dp.paddingM),
                 provideText = { "Target Muscles" },
                 softWrap = false
+            )
+
+
+            PaddingWeight()
+
+            ButtonIconTransparent(
+                imageVector = Icons.close,
+                contentColor = Design.colors.content,
+                onClick = close
             )
         }
 

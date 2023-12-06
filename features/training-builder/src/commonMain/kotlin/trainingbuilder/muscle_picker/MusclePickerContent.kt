@@ -42,7 +42,8 @@ import trainingbuilder.muscle_picker.state.MuscleTypeEnum
 @Composable
 internal fun MusclePickerContent(
     vm: MusclePickerViewModel,
-    apply: (List<String>) -> Unit
+    apply: (List<String>) -> Unit,
+    close: ()-> Unit
 ) {
 
     val state by vm.state.collectAsState()
@@ -56,7 +57,8 @@ internal fun MusclePickerContent(
         selectFullBody = vm::selectFullBody,
         selectUpperBody = vm::selectUpperBody,
         selectLowerBody = vm::selectLowerBody,
-        apply = apply
+        apply = apply,
+        close = close
     )
 }
 
@@ -72,7 +74,8 @@ private fun Content(
     selectFullBody: () -> Unit,
     selectUpperBody: () -> Unit,
     selectLowerBody: () -> Unit,
-    apply: (List<String>) -> Unit
+    apply: (List<String>) -> Unit,
+    close: () -> Unit,
 ) {
 
     val selectedChipState = ChipState.Colored(
@@ -91,7 +94,9 @@ private fun Content(
 
         Column(modifier = Modifier.fillMaxWidth().primaryBackground()) {
 
-            Header()
+            Header(
+                close = close
+            )
 
             LazyColumn(modifier = Modifier.fillMaxWidth().weight(1f)) {
 
