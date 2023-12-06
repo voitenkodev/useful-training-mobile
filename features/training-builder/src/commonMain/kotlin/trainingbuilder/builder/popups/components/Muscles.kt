@@ -20,7 +20,7 @@ import components.chips.ChipState
 import components.states.animateScrollAndCentralizeItem
 import kotlinx.collections.immutable.ImmutableList
 import molecule.PaddingM
-import molecule.TextBody1
+import molecule.TextLabel
 import trainingbuilder.builder.state.Muscle
 
 @Composable
@@ -55,7 +55,7 @@ internal fun Muscles(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        TextBody1(
+        TextLabel(
             provideText = { "Target Muscle" }
         )
     }

@@ -24,8 +24,8 @@ import components.roots.ScreenRoot
 import kotlinx.collections.immutable.ImmutableList
 import molecule.PaddingM
 import molecule.PopupSheet
-import molecule.TextBody1
 import molecule.TextH3
+import molecule.TextLabel
 import molecule.primaryBackground
 import trainingbuilder.builder.components.Exercise
 import trainingbuilder.builder.components.Header
@@ -109,18 +109,17 @@ private fun Content(
 
                 item(key = "overview") {
 
-                    TextBody1(provideText = { "Overview" })
+                    TextLabel(provideText = { "Overview" })
 
                     PaddingM()
 
                     TrainingOverview()
 
-                    PaddingM()
                 }
 
                 item("exercise_title") {
 
-                    TextBody1(provideText = { "Exercises" })
+                    TextLabel(provideText = { "Exercises" })
                 }
 
                 itemsIndexed(exercises) { index, item ->

@@ -16,6 +16,7 @@ import molecule.PaddingL
 import molecule.PaddingS
 import molecule.TextBody1
 import molecule.TextH3
+import molecule.TextLabel
 import statistics.state.ExerciseExample
 import statistics.state.Interval
 import statistics.state.IntervalType
@@ -68,7 +69,7 @@ internal fun ColumnScope.FilterPopup(
 
         PaddingL()
 
-        TextBody1(
+        TextLabel(
             modifier = Modifier.padding(horizontal = Design.dp.paddingM),
             provideText = { "Exercises" }
         )
@@ -94,7 +95,7 @@ internal fun ColumnScope.FilterPopup(
 
         PaddingL()
 
-        TextBody1(
+        TextLabel(
             modifier = Modifier.padding(horizontal = Design.dp.paddingM),
             provideText = { "Interval" }
         )

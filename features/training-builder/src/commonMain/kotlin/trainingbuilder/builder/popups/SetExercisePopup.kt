@@ -37,10 +37,11 @@ import molecule.PaddingS
 import molecule.Shadow
 import molecule.TextBody1
 import molecule.TextBody2
-import molecule.TextH4
+import molecule.TextLabel
 import molecule.primaryBackground
 import molecule.secondaryDefaultBackground
 import trainingbuilder.builder.popups.components.SetIteration
+import trainingbuilder.builder.popups.state.IterationTargetFocus
 import trainingbuilder.builder.state.Exercise
 import trainingbuilder.builder.state.ExerciseExample
 import trainingbuilder.builder.state.Iteration
@@ -58,8 +59,8 @@ internal fun SetExercisePopup(
         mutableStateOf(selectedExercise ?: Exercise())
     }
 
-    val selectedIterationIndex: MutableState<Int> = remember {
-        mutableStateOf(-1)
+    val selectedIterationIndex: MutableState<Pair<Int, IterationTargetFocus>> = remember {
+        mutableStateOf(-1 to IterationTargetFocus.Weight)
     }
 
     val updateName = remember {
@@ -75,7 +76,7 @@ internal fun SetExercisePopup(
                 add(iteration)
             }.toPersistentList()
             exercise.value = exercise.value.copy(iterations = iterations.toPersistentList())
-            selectedIterationIndex.value = -1
+            selectedIterationIndex.value = -1 to IterationTargetFocus.Weight
         }
     }
 
@@ -83,20 +84,24 @@ internal fun SetExercisePopup(
         {
             val list = exercise.value.iterations
                 .mapIndexedNotNull { index, iteration ->
-                    if (index == selectedIterationIndex.value) return@mapIndexedNotNull null
+                    if (index == selectedIterationIndex.value.first) return@mapIndexedNotNull null
                     iteration
                 }.toPersistentList()
             exercise.value = exercise.value.copy(iterations = list)
-            selectedIterationIndex.value = -1
+            selectedIterationIndex.value = -1 to IterationTargetFocus.Weight
         }
     }
 
-    val selectIteration = remember {
-        { index: Int -> selectedIterationIndex.value = index }
+    val selectIterationTargetWeight = remember {
+        { index: Int -> selectedIterationIndex.value = index to IterationTargetFocus.Weight }
+    }
+
+    val selectIterationTargetRepetition = remember {
+        { index: Int -> selectedIterationIndex.value = index to IterationTargetFocus.Repetition }
     }
 
     val clearSelectedIteration = remember {
-        { selectedIterationIndex.value = -1 }
+        { selectedIterationIndex.value = -1 to IterationTargetFocus.Weight }
     }
 
     PopupScreenRoot(title = "Exercise", icon = Icons.close to close) {
@@ -113,8 +118,11 @@ internal fun SetExercisePopup(
                     name = { exercise.value.name },
                     updateName = updateName,
                     iterations = exercise.value.iterations,
-                    addIteration = { selectedIterationIndex.value = exercise.value.iterations.lastIndex + 1 },
-                    selectIteration = selectIteration
+                    addIteration = {
+                        selectedIterationIndex.value = exercise.value.iterations.lastIndex + 1 to IterationTargetFocus.Weight
+                    },
+                    selectIterationWeight = selectIterationTargetWeight,
+                    selectIterationRepetition = selectIterationTargetRepetition
                 )
 
                 Footer(
@@ -127,18 +135,19 @@ internal fun SetExercisePopup(
             val selectedIteration = remember(
                 selectedIterationIndex.value,
                 exercise.value.iterations
-            ) { exercise.value.iterations.getOrNull(selectedIterationIndex.value) }
+            ) { exercise.value.iterations.getOrNull(selectedIterationIndex.value.first) }
 
             ShadowBackground(
                 modifier = Modifier.fillMaxSize(),
-                condition = selectedIterationIndex.value != -1,
+                condition = selectedIterationIndex.value.first != -1,
                 onClick = clearSelectedIteration
             )
 
-            if (selectedIterationIndex.value != -1) {
+            if (selectedIterationIndex.value.first != -1) {
                 SetIteration(
                     modifier = Modifier.align(Alignment.BottomCenter),
-                    index = selectedIterationIndex.value,
+                    index = selectedIterationIndex.value.first,
+                    selectedIterationIndex.value.second,
                     iteration = selectedIteration,
                     remove = removeSelectedIteration,
                     save = saveIteration,
@@ -188,7 +197,8 @@ private fun EditExercise(
     name: () -> String,
     updateName: (String) -> Unit,
     addIteration: () -> Unit,
-    selectIteration: (index: Int) -> Unit
+    selectIterationWeight: (index: Int) -> Unit,
+    selectIterationRepetition: (index: Int) -> Unit
 ) {
 
     Column(modifier = modifier) {
@@ -202,7 +212,7 @@ private fun EditExercise(
 
         PaddingM()
 
-        TextH4(
+        TextLabel(
             modifier = Modifier.padding(horizontal = Design.dp.paddingM),
             provideText = { "Iterations" }
         )
@@ -281,10 +291,9 @@ private fun EditExercise(
 
                     TextBody1(
                         modifier = Modifier
-                            .clickable { selectIteration.invoke(index) }
                             .secondaryDefaultBackground()
                             .clip(shape = Design.shape.default)
-                            .alpha(alpha = 0.5f)
+                            .clickable { selectIterationWeight.invoke(index) }
                             .padding(Design.dp.paddingM)
                             .weight(0.65f),
                         textAlign = TextAlign.Center,
@@ -294,10 +303,9 @@ private fun EditExercise(
 
                     TextBody1(
                         modifier = Modifier
-                            .clickable { selectIteration.invoke(index) }
                             .secondaryDefaultBackground()
                             .clip(shape = Design.shape.default)
-                            .alpha(alpha = 0.5f)
+                            .clickable { selectIterationRepetition.invoke(index) }
                             .padding(Design.dp.paddingM)
                             .weight(0.35f),
                         textAlign = TextAlign.Center,

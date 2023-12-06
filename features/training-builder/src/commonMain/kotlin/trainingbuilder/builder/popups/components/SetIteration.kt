@@ -30,12 +30,14 @@ import molecule.Shadow
 import molecule.TextH4
 import molecule.secondaryBackground
 import molecule.secondaryDefaultBackground
+import trainingbuilder.builder.popups.state.IterationTargetFocus
 import trainingbuilder.builder.state.Iteration
 
 @Composable
 internal fun SetIteration(
     modifier: Modifier = Modifier,
     index: Int,
+    targetFocus: IterationTargetFocus,
     iteration: Iteration?,
     save: (index: Int, iteration: Iteration) -> Unit,
     remove: () -> Unit,
@@ -59,7 +61,12 @@ internal fun SetIteration(
     val weightRequester = remember { FocusRequester() }
     val repeatRequester = remember { FocusRequester() }
 
-    LaunchedEffect(Unit) { weightRequester.requestFocus() }
+    LaunchedEffect(Unit) {
+        when (targetFocus) {
+            IterationTargetFocus.Weight -> weightRequester.requestFocus()
+            IterationTargetFocus.Repetition -> repeatRequester.requestFocus()
+        }
+    }
 
     val enabledSave = remember(
         innerIteration.value.weight,

@@ -183,6 +183,30 @@ public fun TextBody3(
 }
 
 @Composable
+public fun TextLabel(
+    provideText: () -> String?,
+    modifier: Modifier = Modifier,
+    placeholder: String? = null,
+    color: Color? = null,
+    textAlign: TextAlign? = null,
+    maxLines: Int = Int.MAX_VALUE,
+    fontWeight: FontWeight? = null,
+    overflow: TextOverflow = TextOverflow.Clip
+) {
+    TextField(
+        modifier = modifier,
+        provideText = provideText,
+        placeholder = placeholder,
+        textStyle = Design.typography.Label,
+        maxLines = maxLines,
+        color = color ?: Design.colors.content,
+        textAlign = textAlign,
+        fontWeight = fontWeight,
+        overflow = overflow
+    )
+}
+
+@Composable
 internal fun TextField(
     provideText: () -> String?,
     modifier: Modifier = Modifier,

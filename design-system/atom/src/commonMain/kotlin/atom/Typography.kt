@@ -38,9 +38,10 @@ internal fun typography() = Typography(
         lineHeight = 16.sp
     ),
     Label = TextStyle(
-        fontSize = 14.sp,
+        fontSize = 16.sp,
         fontWeight = FontWeight.Medium,
         fontStyle = FontStyle.Normal,
+        lineHeight = 20.sp
     ),
     Input = TextStyle(
         fontSize = 14.sp,
@@ -94,7 +95,7 @@ public data class Typography(
     val Body2: TextStyle, // Fields
     val Body3: TextStyle, // Additional little input
 
-    val Label: TextStyle, // Additional little input
+    val Label: TextStyle, // Sub titles for sections)
 
     val PrimaryButton: TextStyle,
     val SecondaryButton: TextStyle,
