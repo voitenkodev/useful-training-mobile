@@ -26,7 +26,8 @@ public sealed class TrainingRouter : Parcelable {
 @Composable
 public fun TrainingGraph(
     startDirection: TrainingRouter,
-    toTrainingDetails: (id: String) -> Unit
+    toTrainingDetails: (id: String) -> Unit,
+    close: () -> Unit
 ) {
 
     val router: Router<TrainingRouter> = rememberRouter(TrainingRouter::class) {
@@ -56,7 +57,7 @@ public fun TrainingGraph(
 
                 MusclePickerContent(
                     vm = vm,
-                    close = router::pop,
+                    close = close,
                     apply = {
                         router.push(TrainingRouter.TrainingBuilder(trainingId = null, muscleIds = it))
                     }

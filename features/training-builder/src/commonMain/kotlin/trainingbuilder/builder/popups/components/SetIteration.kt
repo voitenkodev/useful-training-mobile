@@ -86,7 +86,7 @@ internal fun SetIteration(
             .clickable(
                 interactionSource = interactionSource,
                 indication = null,
-                onClick = {}
+                onClick = {} // solution for avoid click under background (to hide this section)
             )
     ) {
 

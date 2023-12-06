@@ -1,14 +1,18 @@
 package trainingbuilder.builder.popups
 
+import AsyncImage
 import Icons
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -22,6 +26,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import atom.Design
@@ -35,8 +40,10 @@ import molecule.ButtonSecondary
 import molecule.PaddingM
 import molecule.PaddingS
 import molecule.Shadow
+import molecule.SmallToolbar
 import molecule.TextBody1
 import molecule.TextBody2
+import molecule.TextH4
 import molecule.TextLabel
 import molecule.primaryBackground
 import molecule.secondaryDefaultBackground
@@ -52,11 +59,12 @@ internal fun SetExercisePopup(
     index: Int,
     selectedExercise: Exercise? = null,
     close: () -> Unit,
-    save: (index: Int, exercise: Exercise) -> Unit
+    save: (index: Int, exercise: Exercise) -> Unit,
+    openExerciseExampleDetails: () -> Unit
 ) {
 
     val exercise = remember(selectedExercise) {
-        mutableStateOf(selectedExercise ?: Exercise())
+        mutableStateOf(selectedExercise ?: Exercise(name = exerciseExample?.name ?: ""))
     }
 
     val selectedIterationIndex: MutableState<Pair<Int, IterationTargetFocus>> = remember {
@@ -106,7 +114,56 @@ internal fun SetExercisePopup(
 
     Box(modifier = Modifier.fillMaxSize().imePadding()) {
 
-        PopupScreenRoot(title = "Exercise", icon = Icons.close to close) {
+        PopupScreenRoot {
+
+            PaddingS()
+
+            SmallToolbar(
+                title = "Exercise",
+                icon = Icons.close to close
+            )
+
+            PaddingS()
+
+            if (exerciseExample == null) {
+                InputExerciseName(
+                    provideName = { exercise.value.name },
+                    update = updateName,
+                )
+            } else {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(100.dp)
+                        .padding(horizontal = Design.dp.paddingM)
+                        .background(
+                            Design.colors.black10,
+                            shape = Design.shape.default
+                        ).border(
+                            width = 1.dp,
+                            color = Design.colors.toxic,
+                            shape = Design.shape.default
+                        ).clip(shape = Design.shape.default)
+                ) {
+
+                    AsyncImage(
+                        modifier = Modifier.fillMaxSize(),
+                        url = exerciseExample.imageUrl,
+                        contentScale = ContentScale.Crop
+                    )
+
+                    Spacer(modifier = Modifier.fillMaxSize().background(Design.colors.black30))
+
+                    TextH4(
+                        modifier = Modifier.padding(Design.dp.paddingM),
+                        provideText = { exerciseExample.name }
+                    )
+                }
+            }
+
+            PaddingM()
+
+            Shadow()
 
             EditExercise(
                 modifier = Modifier
@@ -114,8 +171,6 @@ internal fun SetExercisePopup(
                     .weight(1f)
                     .primaryBackground()
                     .verticalScroll(rememberScrollState()),
-                name = { exercise.value.name },
-                updateName = updateName,
                 iterations = exercise.value.iterations,
                 addIteration = {
                     selectedIterationIndex.value = exercise.value.iterations.lastIndex + 1 to IterationTargetFocus.Weight
@@ -192,21 +247,12 @@ private fun Footer(
 private fun EditExercise(
     modifier: Modifier = Modifier,
     iterations: ImmutableList<Iteration>,
-    name: () -> String,
-    updateName: (String) -> Unit,
     addIteration: () -> Unit,
     selectIterationWeight: (index: Int) -> Unit,
     selectIterationRepetition: (index: Int) -> Unit
 ) {
 
     Column(modifier = modifier) {
-
-        PaddingM()
-
-        InputExerciseName(
-            provideName = name,
-            update = updateName
-        )
 
         PaddingM()
 
@@ -217,101 +263,58 @@ private fun EditExercise(
 
         PaddingS()
 
-        Column {
+        Row(
+            modifier = Modifier
+                .padding(horizontal = Design.dp.paddingM, vertical = Design.dp.paddingS)
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
 
-            Row(
+            TextBody1(
                 modifier = Modifier
-                    .padding(horizontal = Design.dp.paddingM, vertical = Design.dp.paddingS)
-                    .fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
+                    .background(
+                        color = Design.colors.black10,
+                        shape = Design.shape.default
+                    ).clip(shape = Design.shape.default)
+                    .alpha(alpha = 0.5f)
+                    .width(46.dp)
+                    .padding(vertical = Design.dp.paddingM),
+                provideText = { "N" },
+                textAlign = TextAlign.Center,
+                maxLines = 1
+            )
 
-                TextBody1(
-                    modifier = Modifier
-                        .background(
-                            color = Design.colors.black10,
-                            shape = Design.shape.default
-                        ).clip(shape = Design.shape.default)
-                        .alpha(alpha = 0.5f)
-                        .width(46.dp)
-                        .padding(vertical = Design.dp.paddingM),
-                    provideText = { "N" },
-                    textAlign = TextAlign.Center,
-                    maxLines = 1
-                )
+            TextBody1(
+                modifier = Modifier
+                    .background(
+                        color = Design.colors.black10,
+                        shape = Design.shape.default
+                    ).clip(shape = Design.shape.default)
+                    .alpha(alpha = 0.5f)
+                    .padding(Design.dp.paddingM)
+                    .weight(0.65f),
+                textAlign = TextAlign.Center,
+                provideText = { "Weight" },
+                maxLines = 1
+            )
 
-                TextBody1(
-                    modifier = Modifier
-                        .background(
-                            color = Design.colors.black10,
-                            shape = Design.shape.default
-                        ).clip(shape = Design.shape.default)
-                        .alpha(alpha = 0.5f)
-                        .padding(Design.dp.paddingM)
-                        .weight(0.65f),
-                    textAlign = TextAlign.Center,
-                    provideText = { "Weight" },
-                    maxLines = 1
-                )
+            TextBody1(
+                modifier = Modifier
+                    .background(
+                        color = Design.colors.black10,
+                        shape = Design.shape.default
+                    ).clip(shape = Design.shape.default)
+                    .alpha(alpha = 0.5f)
+                    .padding(Design.dp.paddingM)
+                    .weight(0.35f),
+                textAlign = TextAlign.Center,
+                provideText = { "Reps" },
+                maxLines = 1
+            )
+        }
 
-                TextBody1(
-                    modifier = Modifier
-                        .background(
-                            color = Design.colors.black10,
-                            shape = Design.shape.default
-                        ).clip(shape = Design.shape.default)
-                        .alpha(alpha = 0.5f)
-                        .padding(Design.dp.paddingM)
-                        .weight(0.35f),
-                    textAlign = TextAlign.Center,
-                    provideText = { "Reps" },
-                    maxLines = 1
-                )
-            }
-
-            iterations.forEachIndexed { index, item ->
-
-                Row(
-                    modifier = Modifier
-                        .padding(horizontal = Design.dp.paddingM, vertical = Design.dp.paddingS)
-                        .fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-
-                    TextBody2(
-                        modifier = Modifier.width(46.dp),
-                        provideText = { "${index + 1}" },
-                        textAlign = TextAlign.Center,
-                        maxLines = 1
-                    )
-
-                    TextBody1(
-                        modifier = Modifier
-                            .secondaryDefaultBackground()
-                            .clip(shape = Design.shape.default)
-                            .clickable { selectIterationWeight.invoke(index) }
-                            .padding(Design.dp.paddingM)
-                            .weight(0.65f),
-                        textAlign = TextAlign.Center,
-                        provideText = { item.weight },
-                        maxLines = 1
-                    )
-
-                    TextBody1(
-                        modifier = Modifier
-                            .secondaryDefaultBackground()
-                            .clip(shape = Design.shape.default)
-                            .clickable { selectIterationRepetition.invoke(index) }
-                            .padding(Design.dp.paddingM)
-                            .weight(0.35f),
-                        textAlign = TextAlign.Center,
-                        provideText = { item.repetitions },
-                        maxLines = 1
-                    )
-                }
-            }
+        iterations.forEachIndexed { index, item ->
 
             Row(
                 modifier = Modifier
@@ -323,25 +326,65 @@ private fun EditExercise(
 
                 TextBody2(
                     modifier = Modifier.width(46.dp),
-                    provideText = { "${iterations.size + 1}" },
+                    provideText = { "${index + 1}" },
                     textAlign = TextAlign.Center,
                     maxLines = 1
                 )
 
                 TextBody1(
                     modifier = Modifier
-                        .background(
-                            color = Design.colors.orange,
-                            shape = Design.shape.default
-                        ).clip(shape = Design.shape.default)
-                        .clickable(onClick = addIteration)
-                        .padding(vertical = Design.dp.paddingM)
-                        .weight(1f),
+                        .secondaryDefaultBackground()
+                        .clip(shape = Design.shape.default)
+                        .clickable { selectIterationWeight.invoke(index) }
+                        .padding(Design.dp.paddingM)
+                        .weight(0.65f),
                     textAlign = TextAlign.Center,
-                    provideText = { "Add new" },
+                    provideText = { item.weight },
+                    maxLines = 1
+                )
+
+                TextBody1(
+                    modifier = Modifier
+                        .secondaryDefaultBackground()
+                        .clip(shape = Design.shape.default)
+                        .clickable { selectIterationRepetition.invoke(index) }
+                        .padding(Design.dp.paddingM)
+                        .weight(0.35f),
+                    textAlign = TextAlign.Center,
+                    provideText = { item.repetitions },
                     maxLines = 1
                 )
             }
+        }
+
+        Row(
+            modifier = Modifier
+                .padding(horizontal = Design.dp.paddingM, vertical = Design.dp.paddingS)
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+
+            TextBody2(
+                modifier = Modifier.width(46.dp),
+                provideText = { "${iterations.size + 1}" },
+                textAlign = TextAlign.Center,
+                maxLines = 1
+            )
+
+            TextBody1(
+                modifier = Modifier
+                    .background(
+                        color = Design.colors.orange,
+                        shape = Design.shape.default
+                    ).clip(shape = Design.shape.default)
+                    .clickable(onClick = addIteration)
+                    .padding(vertical = Design.dp.paddingM)
+                    .weight(1f),
+                textAlign = TextAlign.Center,
+                provideText = { "Add new" },
+                maxLines = 1
+            )
         }
 
         PaddingM()

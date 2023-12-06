@@ -25,6 +25,7 @@ public fun InputField(
     textAlign: TextAlign? = null,
     leading: @Composable (() -> Unit)? = null,
     trailing: @Composable (() -> Unit)? = null,
+    backgroundColor: Color = Design.colors.secondary,
     maxLines: Int = Int.MAX_VALUE,
     enabled: Boolean = true,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
@@ -58,9 +59,9 @@ public fun InputField(
         colors = OutlinedTextFieldDefaults.colors(
             errorContainerColor = Design.colors.red,
 
-            focusedContainerColor = Design.colors.secondary,
+            focusedContainerColor = backgroundColor,
             disabledContainerColor = Design.colors.black30,
-            unfocusedContainerColor = Design.colors.secondary,
+            unfocusedContainerColor = backgroundColor,
 
             disabledBorderColor = Color.Transparent,
             errorBorderColor = Design.colors.red,

@@ -40,6 +40,7 @@ public fun InputExerciseName(
         value = provideName.invoke(),
         placeholder = "Exercise name",
         maxLines = 1,
+        backgroundColor = Design.colors.black10,
         keyboardActions = KeyboardActions { focusManager.moveFocus(FocusDirection.Next) },
         onValueChange = update,
         keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Sentences, imeAction = ImeAction.Next),

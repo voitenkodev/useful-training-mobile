@@ -20,6 +20,7 @@ kotlin {
 
                 implementation(projects.composeLibs.musclePicker)
                 implementation(projects.composeLibs.weightPicker)
+                implementation(projects.composeLibs.composeImage)
 
                 implementation(projects.common.utils)
                 implementation(projects.common.architectureComponent)

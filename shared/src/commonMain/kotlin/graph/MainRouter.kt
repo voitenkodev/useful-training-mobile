@@ -4,6 +4,7 @@ import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.runtime.Composable
 import com.arkivanov.decompose.extensions.compose.jetbrains.stack.animation.slide
 import com.arkivanov.decompose.extensions.compose.jetbrains.stack.animation.stackAnimation
+import com.arkivanov.decompose.router.stack.pop
 import com.arkivanov.decompose.router.stack.push
 import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.parcelable.Parcelize
@@ -45,7 +46,8 @@ internal fun MainGraph(toAuthentication: () -> Unit) {
 
             is MainRouter.Training -> TrainingGraph(
                 startDirection = TrainingRouter.MusclePicker,
-                toTrainingDetails = {}
+                toTrainingDetails = {},
+                close = router::pop
             )
 
             is MainRouter.ExerciseExamples -> ExerciseExamplesGraph(

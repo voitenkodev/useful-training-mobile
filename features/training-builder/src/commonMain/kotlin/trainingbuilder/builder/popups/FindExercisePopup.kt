@@ -13,7 +13,9 @@ import kotlinx.collections.immutable.ImmutableList
 import molecule.ButtonSecondary
 import molecule.PaddingL
 import molecule.PaddingM
+import molecule.PaddingS
 import molecule.Shadow
+import molecule.SmallToolbar
 import trainingbuilder.builder.popups.components.ExerciseExamples
 import trainingbuilder.builder.popups.components.Muscles
 import trainingbuilder.builder.state.ExerciseExample
@@ -29,7 +31,16 @@ internal fun FindExercisePopup(
     createExercise: () -> Unit,
     selectExercise: (ExerciseExample) -> Unit
 ) {
-    PopupRoot(title = "Add Exercise", icon = Icons.close to close) {
+    PopupRoot {
+
+        PaddingS()
+
+        SmallToolbar(
+            title = "Find Exercise",
+            icon = Icons.close to close
+        )
+
+        Shadow()
 
         PaddingM()
 
@@ -61,7 +72,7 @@ internal fun FindExercisePopup(
 
             ButtonSecondary(
                 modifier = Modifier.weight(1f),
-                text = "Create Custom",
+                text = "Create by own",
                 onClick = {
                     createExercise.invoke()
                     close.invoke()

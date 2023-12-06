@@ -44,6 +44,21 @@ internal fun TrainingBuilderContent(
 
     val state by vm.state.collectAsState()
 
+    if (state.findExercisePopupIsVisibleIndex) PopupSheet(
+        onDismiss = vm::closeFindExercisePopup,
+        content = { hideLambda ->
+            FindExercisePopup(
+                close = hideLambda,
+                exerciseExamples = state.exerciseExamples,
+                muscles = state.muscles,
+                setMuscleTarget = vm::setMuscleTarget,
+                selectedMuscle = state.selectedMuscle,
+                selectExercise = vm::openAddExercisePopup,
+                createExercise = vm::openAddExercisePopup
+            )
+        }
+    )
+
     (state.setExercisePopupState as? SetExercisePopupState.Opened)?.let { popupState ->
         PopupSheet(
             onDismiss = vm::closeSetExercisePopup,
@@ -59,26 +74,15 @@ internal fun TrainingBuilderContent(
                     index = popupState.index,
                     selectedExercise = selectedExercise,
                     exerciseExample = popupState.exerciseExample,
-                    save = vm::saveExercise
+                    save = vm::saveExercise,
+                    openExerciseExampleDetails = {
+                        // TODO ADD LOGIC
+                        popupState.exerciseExample
+                    }
                 )
             }
         )
     }
-
-    if (state.findExercisePopupIsVisibleIndex) PopupSheet(
-        onDismiss = vm::closeFindExercisePopup,
-        content = { hideLambda ->
-            FindExercisePopup(
-                close = hideLambda,
-                exerciseExamples = state.exerciseExamples,
-                muscles = state.muscles,
-                setMuscleTarget = vm::setMuscleTarget,
-                selectedMuscle = state.selectedMuscle,
-                selectExercise = vm::openAddExercisePopup,
-                createExercise = vm::openAddExercisePopup
-            )
-        }
-    )
 
     Content(
         error = state.error,
