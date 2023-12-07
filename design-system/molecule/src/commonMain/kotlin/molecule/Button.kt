@@ -201,7 +201,7 @@ public fun ButtonPrimarySmall(
         onClick = onClick,
         colors = ButtonDefaults.buttonColors(
             backgroundColor = backgroundColor,
-            disabledBackgroundColor = Design.colors.caption,
+            disabledBackgroundColor = Design.colors.caption.copy(alpha = 0.1f),
         ),
         shape = Design.shape.circleShape,
         borderStroke = null,

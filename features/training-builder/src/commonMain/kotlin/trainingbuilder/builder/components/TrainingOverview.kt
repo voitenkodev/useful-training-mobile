@@ -127,13 +127,13 @@ internal fun TrainingOverview() {
                     modifier = Modifier.weight(1f).fillMaxHeight(),
                     contentDescription = null,
                     imageVector = fullFront(
-                        backgroundFront = Design.colors.white10,
-                        pectoralisMajor = Design.colors.red,
-                        pectoralisMinor = Design.colors.red.copy(alpha = 0.7f),
-                        biceps = Design.colors.red.copy(alpha = 0.3f),
-                        forearm = Design.colors.red.copy(alpha = 0.3f),
-                        anteriorDeltoid = Design.colors.red,
-                        lateralDeltoid = Design.colors.red.copy(alpha = 0.7f)
+//                        backgroundFront = Design.colors.white10,
+//                        pectoralisMajor = Design.colors.red,
+//                        pectoralisMinor = Design.colors.red.copy(alpha = 0.7f),
+//                        biceps = Design.colors.red.copy(alpha = 0.3f),
+//                        forearm = Design.colors.red.copy(alpha = 0.3f),
+//                        anteriorDeltoid = Design.colors.red,
+//                        lateralDeltoid = Design.colors.red.copy(alpha = 0.7f)
                     )
                 )
 
@@ -141,11 +141,11 @@ internal fun TrainingOverview() {
                     modifier = Modifier.weight(1f).fillMaxHeight(),
                     contentDescription = null,
                     imageVector = fullBack(
-                        backgroundBack = Design.colors.white10,
-                        trapezius = Design.colors.red.copy(alpha = 0.5f),
-                        latissimus = Design.colors.red.copy(alpha = 0.6f),
-                        hamstrings = Design.colors.red.copy(alpha = 0.3f),
-                        gluteal = Design.colors.red.copy(alpha = 0.2f)
+//                        backgroundBack = Design.colors.white10,
+//                        trapezius = Design.colors.red.copy(alpha = 0.5f),
+//                        latissimus = Design.colors.red.copy(alpha = 0.6f),
+//                        hamstrings = Design.colors.red.copy(alpha = 0.3f),
+//                        gluteal = Design.colors.red.copy(alpha = 0.2f)
                     )
                 )
             }

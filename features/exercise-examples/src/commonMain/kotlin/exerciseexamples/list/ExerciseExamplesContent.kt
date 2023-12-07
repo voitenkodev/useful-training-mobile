@@ -12,7 +12,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import atom.Design
 import components.Error
-import components.brand.ExerciseCard
+import components.brand.ExerciseCardDefault
 import components.roots.ScreenRoot
 import exerciseexamples.list.components.Footer
 import exerciseexamples.list.components.Header
@@ -59,7 +59,7 @@ private fun Content(
             ) {
 
                 items(exerciseExamples, key = { it.id }) {
-                    ExerciseCard(
+                    ExerciseCardDefault(
                         name = it.name,
                         imageUrl = it.imageUrl,
                         btn = "Update" to { selectExerciseExample.invoke(it.id) },

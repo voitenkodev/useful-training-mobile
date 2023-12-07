@@ -57,7 +57,7 @@ internal fun FindExercisePopup(
 
         ExerciseExamples(
             list = exerciseExamples,
-            select = selectExercise
+            select = { selectExercise.invoke(it); close.invoke() }
         )
 
         PaddingM()
@@ -73,10 +73,7 @@ internal fun FindExercisePopup(
             ButtonSecondary(
                 modifier = Modifier.weight(1f),
                 text = "Create by own",
-                onClick = {
-                    createExercise.invoke()
-                    close.invoke()
-                }
+                onClick = { createExercise.invoke(); close.invoke() }
             )
         }
     }

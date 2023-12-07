@@ -11,13 +11,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import atom.Design
+import molecule.ButtonPrimarySmall
 import molecule.PaddingS
+import molecule.PaddingWeight
 import molecule.Shadow
 import molecule.TextH2
 import platformTopInset
 
 @Composable
-internal fun Header() {
+internal fun Header(
+    finish: () -> Unit,
+    finishEnabled: Boolean = false
+) {
     Column(
         modifier = Modifier
             .background(Design.colors.secondary)
@@ -38,6 +43,15 @@ internal fun Header() {
                 modifier = Modifier.padding(horizontal = Design.dp.paddingM),
                 provideText = { "Training" },
                 softWrap = false
+            )
+
+            PaddingWeight()
+
+            ButtonPrimarySmall(
+                modifier = Modifier.padding(horizontal = Design.dp.paddingM),
+                text = "Finish",
+                onClick = finish,
+                enabled = finishEnabled
             )
         }
 

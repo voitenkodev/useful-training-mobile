@@ -11,7 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import atom.Design
-import components.brand.ExerciseCard
+import components.brand.ExerciseCardDefault
 import kotlinx.collections.immutable.ImmutableList
 import molecule.ButtonTextLink
 import molecule.PaddingM
@@ -51,7 +51,7 @@ internal fun ExerciseExamples(
     ) {
         val item = list.getOrNull(it) ?: return@HorizontalPager
 
-        ExerciseCard(
+        ExerciseCardDefault(
             name = item.name,
             btn = "Select" to { select.invoke(item) },
             btn2 = "Details" to {},
