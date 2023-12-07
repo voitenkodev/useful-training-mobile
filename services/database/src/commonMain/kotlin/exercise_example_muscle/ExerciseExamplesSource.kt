@@ -4,15 +4,15 @@ import AlienWorkoutDatabase
 import NativeContext
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
-import app.cash.sqldelight.coroutines.mapToOne
 import database
-import exercise_example_muscle.mapping.toDao
+import exercise_example_muscle.mapping.mapToDao
 import exercise_example_muscle.models.ExerciseExampleDao
 import exercise_example_muscle.models.MuscleDao
 import exercise_example_muscle.models.MuscleTypeDao
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.transform
 
 public class ExerciseExamplesSource(nativeContext: NativeContext) {
 
@@ -24,47 +24,37 @@ public class ExerciseExamplesSource(nativeContext: NativeContext) {
             .getExerciseExamples()
             .asFlow()
             .mapToList(Dispatchers.Default)
-            .map { exerciseExamples ->
-                exerciseExamples.map { exerciseExample ->
-                    val muscleBundles = api
-                        .getMuscleExerciseBundlesByExerciseExampleId(exerciseExample.id)
-                        .executeAsList()
-                        .map { muscleExerciseBundle ->
-                            val muscle = api
-                                .getMuscleById(muscleExerciseBundle.muscleId)
-                                .executeAsOne()
-                            muscleExerciseBundle.toDao(muscle.toDao())
-                        }
-                    exerciseExample.toDao(muscleBundles)
-                }
-            }
+            .transform { emit(it.mapToDao()) }
     }
 
-    public fun getExerciseExampleById(id: String): Flow<ExerciseExampleDao> {
+    public fun getExerciseExampleById(id: String): Flow<ExerciseExampleDao?> {
         return api
             .getExerciseExamplesById(id)
             .asFlow()
-            .mapToOne(Dispatchers.Default)
-            .map { exerciseExample ->
-                val muscleBundles = api
-                    .getMuscleExerciseBundlesByExerciseExampleId(exerciseExample.id)
-                    .executeAsList()
-                    .map { muscleExerciseBundle ->
-                        val muscle = api
-                            .getMuscleById(muscleExerciseBundle.muscleId)
-                            .executeAsOne()
-                        muscleExerciseBundle.toDao(muscle.toDao())
-                    }
-                exerciseExample.toDao(muscleBundles)
-            }
+            .mapToList(Dispatchers.Default)
+            .transform { emit(it.mapToDao()) }
     }
 
     public fun setExerciseExamples(exerciseExamples: List<ExerciseExampleDao>) {
-        deleteExerciseExamples()
+        api.deleteTableExerciseExample()
+        api.deleteTableMuscleExerciseBundle()
+        exerciseExamples.onEach { exerciseExample -> setExerciseExample(exerciseExample) }
+    }
 
-        exerciseExamples.onEach { exerciseExample ->
-            setExerciseExample(exerciseExample)
-        }
+    public fun getMuscleTypes(): Flow<List<MuscleTypeDao>> {
+        return api
+            .getMuscleTypes()
+            .asFlow()
+            .mapToList(Dispatchers.Default)
+            .transform { emit(it.mapToDao()) }
+    }
+
+    public fun getMusclesByIds(ids: List<String>): Flow<List<MuscleDao>> {
+        return api
+            .getMusclesById(ids)
+            .asFlow()
+            .mapToList(Dispatchers.Default)
+            .map { it.map { item -> item.mapToDao() } }
     }
 
     public fun setExerciseExample(exerciseExample: ExerciseExampleDao): String {
@@ -90,42 +80,6 @@ public class ExerciseExamplesSource(nativeContext: NativeContext) {
         }
         return exerciseExample.id
     }
-
-    public fun getMuscleTypes(): Flow<List<MuscleTypeDao>> {
-        return api
-            .getMuscleTypes()
-            .asFlow()
-            .mapToList(Dispatchers.Default)
-            .map { list ->
-                list.map { muscleType ->
-                    val muscles = api
-                        .getMusclesByMuscleType(muscleType.id)
-                        .executeAsList()
-                        .map { it.toDao() }
-                    muscleType.toDao(muscles)
-                }
-            }
-    }
-
-    public fun getMusclesByIds(ids: List<String>): Flow<List<MuscleDao>> {
-        return api
-            .getMusclesById(ids)
-            .asFlow()
-            .mapToList(Dispatchers.Default)
-            .map { it.map { item -> item.toDao() } }
-    }
-
-    public fun deleteExerciseExample(exerciseExampleId: String) {
-        api.deleteExerciseExampleById(
-            id = exerciseExampleId
-        )
-    }
-
-    private fun deleteExerciseExamples() {
-        api.deleteTableExerciseExample()
-        api.deleteTableMuscleExerciseBundle()
-    }
-
 
     public fun setMuscleTypesWithMuscles(muscles: List<MuscleTypeDao>) {
         api.transaction {

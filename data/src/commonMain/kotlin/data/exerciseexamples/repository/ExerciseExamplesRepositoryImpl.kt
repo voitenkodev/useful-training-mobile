@@ -9,6 +9,7 @@ import data.exerciseexamples.repository.mapping.dtoToDao
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.mapNotNull
 import models.ExerciseExample
 import models.Muscle
 import models.MuscleType
@@ -21,7 +22,7 @@ internal class ExerciseExamplesRepositoryImpl(
     override fun observeExerciseExample(exerciseExampleId: String): Flow<ExerciseExample> {
         return local
             .getExerciseExampleById(exerciseExampleId)
-            .map { it.daoToDomain() }
+            .mapNotNull { it?.daoToDomain() }
     }
 
     override fun observeExerciseExamples(): Flow<List<ExerciseExample>> {

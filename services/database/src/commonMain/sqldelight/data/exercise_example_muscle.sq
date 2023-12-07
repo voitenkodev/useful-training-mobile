@@ -28,44 +28,98 @@ CREATE TABLE IF NOT EXISTS MuscleType (
     id TEXT NOT NULL PRIMARY KEY,
     name TEXT NOT NULL,
     type TEXT NOT NULL,
-    createdAt TEXT,
-    updatedAt TEXT
+    createdAt TEXT NOT NULL,
+    updatedAt TEXT NOT NULL
 );
-
 -------------- GET --------------
 
-getExerciseExamples:
-SELECT *
-FROM ExerciseExample;
-
 getExerciseExamplesById:
-SELECT *
+SELECT
+  ExerciseExample.id,
+  ExerciseExample.createdAt,
+  ExerciseExample.updatedAt,
+  ExerciseExample.name,
+  ExerciseExample.imageUrl,
+
+  MuscleExerciseBundle.id AS muscleExerciseBundleId,
+  MuscleExerciseBundle.percentage AS muscleExerciseBundlePercentage,
+  MuscleExerciseBundle.createdAt AS muscleExerciseBundleCreatedAt,
+  MuscleExerciseBundle.updatedAt AS muscleExerciseBundleUpdatedAt,
+
+  Muscle.id AS muscleId,
+  Muscle.name AS muscleName,
+  Muscle.type AS muscleType,
+  Muscle.muscleTypeId AS muscleMuscleTypeId,
+  Muscle.updatedAt AS muscleUpdatedAt,
+  Muscle.createdAt AS muscleCreatedAt
+
 FROM ExerciseExample
-WHERE id = ?;
+LEFT JOIN MuscleExerciseBundle ON ExerciseExample.id = MuscleExerciseBundle.exerciseExampleId
+LEFT JOIN Muscle ON MuscleExerciseBundle.muscleId = Muscle.id
+WHERE ExerciseExample.id = ?
+LIMIT 1;
+
+getExerciseExamples:
+SELECT
+  ExerciseExample.id,
+  ExerciseExample.createdAt,
+  ExerciseExample.updatedAt,
+  ExerciseExample.name,
+  ExerciseExample.imageUrl,
+
+  MuscleExerciseBundle.id AS muscleExerciseBundleId,
+  MuscleExerciseBundle.percentage AS muscleExerciseBundlePercentage,
+  MuscleExerciseBundle.createdAt AS muscleExerciseBundleCreatedAt,
+  MuscleExerciseBundle.updatedAt AS muscleExerciseBundleUpdatedAt,
+
+  Muscle.id AS muscleId,
+  Muscle.name AS muscleName,
+  Muscle.muscleTypeId AS muscleMuscleTypeId,
+  Muscle.type AS muscleType,
+  Muscle.updatedAt AS muscleUpdatedAt,
+  Muscle.createdAt AS muscleCreatedAt
+FROM ExerciseExample
+LEFT JOIN MuscleExerciseBundle ON ExerciseExample.id = MuscleExerciseBundle.exerciseExampleId
+LEFT JOIN Muscle ON MuscleExerciseBundle.muscleId = Muscle.id;
 
 getMusclesByMuscleType:
-SELECT *
+SELECT
+  Muscle.id AS id,
+  Muscle.name AS name,
+  Muscle.muscleTypeId AS muscleTypeId,
+  Muscle.type AS type,
+  Muscle.updatedAt AS updatedAt,
+  Muscle.createdAt AS createdAt
 FROM Muscle
 WHERE muscleTypeId = ?;
 
 getMusclesById:
-SELECT *
+SELECT
+  Muscle.id AS id,
+  Muscle.name AS name,
+  Muscle.muscleTypeId AS muscleTypeId,
+  Muscle.type AS type,
+  Muscle.updatedAt AS updatedAt,
+  Muscle.createdAt AS createdAt
 FROM Muscle
 WHERE id IN ?;
 
 getMuscleTypes:
-SELECT *
-FROM MuscleType;
+SELECT
+  MuscleType.id AS id,
+  MuscleType.name AS name,
+  MuscleType.type AS type,
+  MuscleType.updatedAt AS updatedAt,
+  MuscleType.createdAt AS createdAt,
 
-getMuscleById:
-SELECT *
-FROM Muscle
-WHERE id = ?;
-
-getMuscleExerciseBundlesByExerciseExampleId:
-SELECT *
-FROM MuscleExerciseBundle
-WHERE exerciseExampleId = ?;
+  Muscle.id AS muscleId,
+  Muscle.name AS muscleName,
+  Muscle.muscleTypeId AS muscleMuscleTypeId,
+  Muscle.type AS muscleType,
+  Muscle.updatedAt AS muscleUpdatedAt,
+  Muscle.createdAt AS muscleCreatedAt
+FROM MuscleType
+LEFT JOIN Muscle ON MuscleType.id = Muscle.muscleTypeId;
 
 -------------- SET --------------
 
@@ -85,15 +139,10 @@ setMuscleExerciseBundle:
 INSERT OR REPLACE INTO MuscleExerciseBundle
 VALUES (?,?,?,?,?,?);
 
-
 -------------- DELETE --------------
 
 deleteExerciseExampleById:
 DELETE FROM ExerciseExample
-WHERE id = ?;
-
-deleteMuscleById:
-DELETE FROM Muscle
 WHERE id = ?;
 
 deleteTableExerciseExample:

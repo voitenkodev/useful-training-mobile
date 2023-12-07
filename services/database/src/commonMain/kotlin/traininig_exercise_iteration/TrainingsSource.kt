@@ -31,7 +31,6 @@ public class TrainingsSource(nativeContext: NativeContext) {
             .asFlow()
             .mapToList(Dispatchers.Default)
             .transformLatest { emit(it.mapToDao()) }
-
     }
 
     public fun setTrainings(trainings: List<TrainingDao>) {
