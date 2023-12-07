@@ -57,7 +57,7 @@ internal fun List<GetTrainingById>.mapToDao(): TrainingDao? {
             updatedAt = training.exerciseUpdateAt ?: return@mapExercise null,
             trainingId = training.id,
             exerciseExample = exerciseExampleDao,
-            exerciseExampleId = training.exerciseExampleId,
+            exerciseExampleId = training.exerciseExampleId
         )
     }
 

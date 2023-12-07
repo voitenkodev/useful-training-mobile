@@ -17,8 +17,7 @@ internal class AuthenticationRepositoryImpl(
     private val preferences: PreferencesSource,
     private val localTrainings: TrainingsSource,
     private val localExerciseExamoles: ExerciseExamplesSource,
-    private val localUser: UserSource,
-
+    private val localUser: UserSource
 ) : AuthenticationRepository {
 
     override fun registration(email: String, password: String, weight: Int, height: Int, name: String): Flow<Unit> {
@@ -46,8 +45,7 @@ internal class AuthenticationRepositoryImpl(
             if (token != null) preferences.setToken(token)
         }
 
-    override fun getToken(): Flow<String?> =
-        preferences.getToken()
+    override fun getToken(): Flow<String?> = preferences.getToken()
 
     override suspend fun logout() {
         preferences.removeToken()
