@@ -14,6 +14,8 @@ internal fun Exercise.toDao(iterations: List<IterationDao>): ExerciseDao {
         intensity = intensity ?: 0.0,
         iterations = iterations,
         createdAt = createdAt ?: "",
-        updatedAt = updatedAt ?: ""
+        updatedAt = updatedAt ?: "",
+        exerciseExampleId = exerciseExampleId,
+        exerciseExample = null // to save in db needs exerciseExampleId
     )
 }

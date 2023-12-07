@@ -23,15 +23,13 @@ include(
     ":androidApp",
     ":shared",
 
-    ":data:trainings",
-    ":data:exercise-examples",
-    ":data:authentication",
-    ":data:user",
+    ":data",
 
     ":domain:trainings",
     ":domain:authentication",
     ":domain:exercise-examples-muscles",
     ":domain:user",
+    ":domain:common-models",
 
     ":services:network",
     ":services:database",

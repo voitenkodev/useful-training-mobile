@@ -1,7 +1,7 @@
 package traininig_exercise_iteration
 
-import NativeContext
 import AlienWorkoutDatabase
+import NativeContext
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
 import app.cash.sqldelight.coroutines.mapToOne
@@ -29,6 +29,7 @@ public class TrainingsSource(nativeContext: NativeContext) {
             .map { trainings ->
                 trainings.map { trainingEntity ->
                     val exercises = getExercisesBy {
+                        // todo exerciseexample
                         api.getExercisesByTrainingId(trainingEntity.id).executeAsList()
                     }
                     trainingEntity.toDao(exercises = exercises)
@@ -78,6 +79,7 @@ public class TrainingsSource(nativeContext: NativeContext) {
                     intensity = exercise.intensity,
                     updatedAt = training.updatedAt,
                     createdAt = training.createdAt,
+                    exerciseExampleId = exercise.exerciseExampleId
                 )
 
                 for (iteration in exercise.iterations) {

@@ -11,6 +11,7 @@ CREATE TABLE IF NOT EXISTS Training (
 CREATE TABLE IF NOT EXISTS Exercise (
     id TEXT NOT NULL PRIMARY KEY,
     trainingId TEXT NOT NULL REFERENCES Training(id) ON DELETE CASCADE,
+    exerciseExampleId TEXT REFERENCES ExerciseExample(id),
     name TEXT,
     volume REAL,
     repetitions INTEGER,
@@ -59,8 +60,8 @@ INSERT OR REPLACE INTO Training
 VALUES (?,?,?,?,?,?,?);
 
 setExercise:
-INSERT OR REPLACE INTO Exercise (id,trainingId,name,volume,repetitions,intensity, createdAt, updatedAt)
-VALUES (?,?,?,?,?,?,?,?);
+INSERT OR REPLACE INTO Exercise (id,trainingId,exerciseExampleId,name,volume,repetitions,intensity, createdAt, updatedAt)
+VALUES (?,?,?,?,?,?,?,?,?);
 
 setIteration:
 INSERT OR REPLACE INTO Iteration (id,exerciseId,weight,repetitions,createdAt, updatedAt)

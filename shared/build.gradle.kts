@@ -31,10 +31,7 @@ kotlin {
                 implementation(projects.services.preferences)
 
                 // Data
-                implementation(projects.data.trainings)
-                implementation(projects.data.authentication)
-                implementation(projects.data.exerciseExamples)
-                implementation(projects.data.user)
+                implementation(projects.data)
 
                 // Other
                 implementation(projects.common.platformApi)

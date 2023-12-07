@@ -1,5 +1,6 @@
 package trainingbuilder.builder.mapping
 
+import models.ExerciseExample
 import trainingbuilder.builder.state.Training
 
 internal fun Training.toBody(): models.Training {
@@ -18,7 +19,14 @@ internal fun Training.toBody(): models.Training {
                 },
                 volume = it.volume,
                 repetitions = it.repetitions,
-                intensity = it.intensity
+                intensity = it.intensity,
+                exerciseExample = it.exerciseExample?.let { ex ->
+                    ExerciseExample(
+                        id = ex.id,
+                        name = ex.name,
+                        imageUrl = ex.imageUrl
+                    )
+                }
             )
         },
         duration = duration,

@@ -21,6 +21,10 @@ public data class ExerciseDto(
     val volume: Double? = null,
     @SerialName("trainingId")
     val trainingId: String? = null,
+    @SerialName("exerciseExampleId")
+    val exerciseExampleId: String? = null,
+    @SerialName("exerciseExample")
+    val exerciseExample: ExerciseExampleDto? = null,
     @SerialName("updatedAt")
     val updatedAt: String? = null
 )

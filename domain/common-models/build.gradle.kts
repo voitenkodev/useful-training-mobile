@@ -6,14 +6,12 @@ plugins {
 apply(from = "../../gradle/configs/kotlin.gradle")
 apply(from = "../../gradle/configs/android.gradle")
 
-android { namespace = "com.voitenko.alienworkout.domain.exerciseexamples" }
+android { namespace = "com.voitenko.alienworkout.domain.commonmodels" }
 
 kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                api(projects.domain.commonModels)
-
                 implementation(libs.coroutines)
             }
         }

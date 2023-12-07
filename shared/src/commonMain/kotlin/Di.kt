@@ -1,15 +1,15 @@
-import authentication.authenticationDataModule
+import data.authentication.authenticationDataModule
 import exercise_example_muscle.ExerciseExamplesSource
-import exerciseexamples.exerciseExamplesDataModule
+import data.exerciseexamples.exerciseExamplesDataModule
 import kotlinx.coroutines.flow.firstOrNull
 import org.koin.core.KoinApplication
 import org.koin.dsl.KoinAppDeclaration
 import org.koin.dsl.module
 import org.koin.mp.KoinPlatformTools
 import traininig_exercise_iteration.TrainingsSource
-import traininigs.trainingsDataModule
+import data.traininigs.trainingsDataModule
 import user.UserSource
-import user.userDataModule
+import data.user.userDataModule
 
 public fun initCommonKoin(
     appDeclaration: KoinAppDeclaration = {},
