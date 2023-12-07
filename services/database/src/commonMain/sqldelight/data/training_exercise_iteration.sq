@@ -115,18 +115,6 @@ WHERE Training.id = ?
 ORDER BY Training.createdAt DESC
 LIMIT 1;
 
-getExercisesByTrainingId:
-SELECT *
-FROM Exercise
-WHERE trainingId = :trainingId
-ORDER BY id;
-
-getIterationsByExercisesId:
-SELECT *
-FROM Iteration
-WHERE exerciseId = :exerciseId
-ORDER BY id;
-
 -------------- SET --------------
 
 setTraining:
