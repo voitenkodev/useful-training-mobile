@@ -12,7 +12,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import atom.Design
-import molecule.PaddingM
 import molecule.PaddingS
 import molecule.TextBody2
 import molecule.TextH4
@@ -27,9 +26,8 @@ internal fun Exercise(
     onClick: () -> Unit
 ) {
 
+    // todo add remove + update button
     Column(modifier = modifier.clickable(onClick = onClick)) {
-
-        PaddingS()
 
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -69,6 +67,6 @@ internal fun Exercise(
             }
         }
 
-        PaddingM()
+        PaddingS()
     }
 }

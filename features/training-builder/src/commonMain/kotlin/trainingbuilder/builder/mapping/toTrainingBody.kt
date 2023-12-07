@@ -10,11 +10,11 @@ internal fun Training.toBody(): models.Training {
             models.Exercise(
                 id = null,
                 name = it.name,
-                iterations = it.iterations.mapNotNull {
+                iterations = it.iterations.mapNotNull { iteration ->
                     models.Iteration(
                         id = null,
-                        weight = it.weight.toDoubleOrNull() ?: return@mapNotNull null,
-                        repetitions = it.repetitions.toIntOrNull() ?: return@mapNotNull null
+                        weight = iteration.weight.toDoubleOrNull() ?: return@mapNotNull null,
+                        repetitions = iteration.repetitions.toIntOrNull() ?: return@mapNotNull null
                     )
                 },
                 volume = it.volume,

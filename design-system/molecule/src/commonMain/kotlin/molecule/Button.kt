@@ -187,26 +187,70 @@ public fun ButtonPrimarySmall(
     modifier: Modifier = Modifier,
     text: String,
     enabled: Boolean = true,
+    loading: Boolean = false,
     textColor: Color = Design.colors.content,
     backgroundColor: Color = Design.colors.orange,
     onClick: () -> Unit
 ) {
 
-    Button(
-        modifier = modifier,
-        text = text,
-        contentPadding = PaddingValues(horizontal = Design.dp.paddingL, vertical = Design.dp.paddingS),
-        textStyle = Design.typography.PrimaryButton.copy(color = textColor),
-        enabled = enabled,
-        onClick = onClick,
-        colors = ButtonDefaults.buttonColors(
-            backgroundColor = backgroundColor,
-            disabledBackgroundColor = Design.colors.caption.copy(alpha = 0.1f),
-        ),
-        shape = Design.shape.circleShape,
-        borderStroke = null,
-        leadIcon = null
+    val enableBackgroundColor: Color = backgroundColor
+    val disableBackgroundColor: Color = Design.colors.caption.copy(alpha = 0.1f)
+
+    val bgColor = animateColorAsState(
+        targetValue = when {
+            loading -> Design.colors.content
+            enabled -> enableBackgroundColor
+            else -> disableBackgroundColor
+        },
+        animationSpec = tween(durationMillis = 300, easing = LinearEasing)
     )
+
+    Row(
+        modifier = modifier
+            .requiredHeight(Design.dp.componentS)
+            .background(
+                shape = Design.shape.circleShape,
+                color = bgColor.value
+            ).clip(
+                shape = Design.shape.circleShape
+            ).clickable(
+                onClick = onClick,
+                enabled = enabled && loading.not()
+            ),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Center
+    ) {
+        AnimatedVisibility(loading.not()) {
+            TextField(
+                modifier = Modifier.padding(PaddingValues(horizontal = Design.dp.paddingL, vertical = Design.dp.paddingS)),
+                provideText = { text },
+                textStyle = Design.typography.PrimaryButton.copy(color = textColor)
+            )
+        }
+
+        AnimatedVisibility(loading) {
+
+            val infiniteTransition = rememberInfiniteTransition()
+
+            val rotation by infiniteTransition.animateFloat(
+                initialValue = 0f,
+                targetValue = 360f,
+                animationSpec = infiniteRepeatable(
+                    animation = tween(2000),
+                    repeatMode = RepeatMode.Restart
+                )
+            )
+
+            IconSecondary(
+                modifier = Modifier
+                    .size(Design.dp.componentS)
+                    .padding(Design.dp.paddingXS)
+                    .graphicsLayer(rotationZ = rotation),
+                imageVector = Icons.loading,
+                color = Design.colors.primary
+            )
+        }
+    }
 }
 
 @Composable

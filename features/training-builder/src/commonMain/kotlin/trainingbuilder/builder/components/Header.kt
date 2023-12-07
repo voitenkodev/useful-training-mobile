@@ -21,12 +21,13 @@ import platformTopInset
 @Composable
 internal fun Header(
     finish: () -> Unit,
-    finishEnabled: Boolean = false
+    loading: Boolean,
+    finishEnabled: Boolean
 ) {
     Column(
         modifier = Modifier
             .background(Design.colors.secondary)
-            .platformTopInset(),
+            .platformTopInset()
     ) {
 
         PaddingS()
@@ -51,6 +52,7 @@ internal fun Header(
                 modifier = Modifier.padding(horizontal = Design.dp.paddingM),
                 text = "Finish",
                 onClick = finish,
+                loading = loading,
                 enabled = finishEnabled
             )
         }

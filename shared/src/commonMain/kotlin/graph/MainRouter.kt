@@ -33,15 +33,10 @@ internal fun MainGraph(toAuthentication: () -> Unit) {
     RoutedContent(router = router, animation = stackAnimation(slide(orientation = Orientation.Vertical))) { child ->
         when (child) {
             is MainRouter.BottomMenu -> BottomMenuGraph(
-                toTrainingBuilder = { trainingId: String? ->
-                    router.push(MainRouter.Training(trainingId))
-                },
-                toTrainingDetails = {
-                },
+                toTrainingBuilder = { trainingId: String? -> router.push(MainRouter.Training(trainingId)) },
+                toTrainingDetails = {},
                 toAuthentication = toAuthentication,
-                toExerciseExamples = {
-                    router.push(MainRouter.ExerciseExamples(ExerciseExamplesFeature.List))
-                }
+                toExerciseExamples = { router.push(MainRouter.ExerciseExamples(ExerciseExamplesFeature.List)) }
             )
 
             is MainRouter.Training -> TrainingGraph(

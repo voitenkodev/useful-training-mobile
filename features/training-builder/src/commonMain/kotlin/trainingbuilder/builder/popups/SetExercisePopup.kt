@@ -62,7 +62,7 @@ internal fun SetExercisePopup(
         mutableStateOf(
             selectedExercise ?: Exercise(
                 name = exerciseExample?.name ?: "",
-                exerciseExample = exerciseExample
+                exerciseExample = exerciseExample ?: selectedExercise?.exerciseExample
             )
         )
     }
@@ -125,18 +125,16 @@ internal fun SetExercisePopup(
 
             PaddingS()
 
-            if (exerciseExample == null) {
-                InputExerciseName(
-                    provideName = { exercise.value.name },
-                    update = updateName,
-                )
-            } else {
+            exercise.value.exerciseExample?.let { ex ->
                 ExerciseCardSmall(
-                    name = exerciseExample.name,
-                    imageUrl = exerciseExample.imageUrl,
+                    name = ex.name,
+                    imageUrl = ex.imageUrl,
                     btn = "Details" to openExerciseExampleDetails
                 )
-            }
+            } ?: InputExerciseName(
+                provideName = { exercise.value.name },
+                update = updateName,
+            )
 
             PaddingM()
 

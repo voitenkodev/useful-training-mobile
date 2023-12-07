@@ -43,7 +43,7 @@ public fun TrainingGraph(
 
                 TrainingBuilderContent(
                     vm = vm,
-                    close = close
+                    close = { close.invoke() }
                 )
 
             }
@@ -56,9 +56,7 @@ public fun TrainingGraph(
                 MusclePickerContent(
                     vm = vm,
                     close = close,
-                    apply = {
-                        router.push(TrainingRouter.TrainingBuilder(trainingId = null, muscleIds = it))
-                    }
+                    apply = { router.push(TrainingRouter.TrainingBuilder(trainingId = null, muscleIds = it)) }
                 )
             }
         }

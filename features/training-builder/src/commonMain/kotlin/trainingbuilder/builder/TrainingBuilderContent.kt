@@ -31,7 +31,7 @@ import trainingbuilder.builder.state.SetExercisePopupState
 @Composable
 internal fun TrainingBuilderContent(
     vm: TrainingBuilderViewModel,
-    close: () -> Unit
+    close: (trainingId: String) -> Unit
 ) {
 
     val state by vm.state.collectAsState()
@@ -75,17 +75,19 @@ internal fun TrainingBuilderContent(
 
     Content(
         error = state.error,
+        loading = state.loading,
         clearError = vm::clearError,
         addExercise = vm::openFindExercisePopup,
         exercises = state.training.exercises,
         selectExercise = vm::openAddExercisePopup,
-        finish = { vm.saveTraining { close.invoke() } }
+        finish = { vm.saveTraining(close) }
     )
 }
 
 @Composable
 private fun Content(
     error: String?,
+    loading: Boolean,
     clearError: () -> Unit,
     exercises: ImmutableList<Exercise>,
     addExercise: () -> Unit,
@@ -99,6 +101,7 @@ private fun Content(
 
             Header(
                 finish = finish,
+                loading = loading,
                 finishEnabled = exercises.isNotEmpty()
             )
 
