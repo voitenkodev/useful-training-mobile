@@ -2,14 +2,14 @@ package data.traininigs.repository
 
 import NetworkSource
 import TrainingsRepository
+import data.traininigs.mapping.daoToDomain
+import data.traininigs.mapping.domainToDto
+import data.traininigs.mapping.dtoToDao
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import models.Training
 import traininig_exercise_iteration.TrainingsSource
-import data.traininigs.mapping.daoToDomain
-import data.traininigs.mapping.domainToDto
-import data.traininigs.mapping.dtoToDao
 
 internal class TrainingsRepositoryImpl(
     private val remote: NetworkSource,
@@ -33,7 +33,7 @@ internal class TrainingsRepositoryImpl(
     override fun observeTraining(trainingId: String): Flow<Training?> {
         return local
             .getTraining(trainingId)
-            .map { it.daoToDomain() }
+            .map { it?.daoToDomain() }
     }
 
     override fun setTraining(training: Training): Flow<String?> {
@@ -46,7 +46,7 @@ internal class TrainingsRepositoryImpl(
         }
     }
 
-    override fun clearCache(){
+    override fun clearCache() {
         local.clearTables()
     }
 

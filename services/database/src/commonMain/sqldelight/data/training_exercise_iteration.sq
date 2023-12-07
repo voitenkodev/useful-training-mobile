@@ -32,14 +32,88 @@ CREATE TABLE IF NOT EXISTS  Iteration (
 -------------- GET --------------
 
 getTrainings:
-SELECT *
+SELECT
+  Training.id,
+  Training.createdAt,
+  Training.updatedAt,
+  Training.volume,
+  Training.repetitions,
+  Training.duration,
+  Training.intensity,
+
+  Exercise.id AS exerciseId,
+  Exercise.name AS exerciseName,
+  Exercise.volume AS exerciseVolume,
+  Exercise.repetitions AS exerciseRepetitions,
+  Exercise.intensity AS exerciseIntensity,
+  Exercise.updatedAt AS exerciseUpdateAt,
+  Exercise.createdAt AS exerciseCreatedAt,
+
+  ExerciseExample.id AS exerciseExampleId,
+  ExerciseExample.name AS exerciseExampleName,
+  ExerciseExample.imageUrl AS exerciseExampleImageUrl,
+  ExerciseExample.createdAt AS exerciseExampleCreatedAt,
+  ExerciseExample.updatedAt AS exerciseExampleUpdatedAt,
+
+  Muscle.id AS muscleId,
+  Muscle.name AS muscleName,
+
+  Iteration.id AS iterationId,
+  Iteration.weight AS iterationWeight,
+  Iteration.repetitions AS iterationRepetitions,
+  Iteration.updatedAt AS iterationUpdateAt,
+  Iteration.createdAt AS iterationCreatedAt
+
 FROM Training
-ORDER BY id DESC;
+LEFT JOIN Exercise ON Training.id = Exercise.trainingId
+LEFT JOIN ExerciseExample ON Exercise.exerciseExampleId = ExerciseExample.id
+LEFT JOIN MuscleExerciseBundle ON ExerciseExample.id = MuscleExerciseBundle.exerciseExampleId
+LEFT JOIN Muscle ON MuscleExerciseBundle.muscleId = Muscle.id
+LEFT JOIN Iteration ON Exercise.id = Iteration.exerciseId
+ORDER BY Training.id DESC;
 
 getTrainingById:
-SELECT *
+SELECT
+  Training.id,
+  Training.createdAt,
+  Training.updatedAt,
+  Training.volume,
+  Training.repetitions,
+  Training.duration,
+  Training.intensity,
+
+  Exercise.id AS exerciseId,
+  Exercise.name AS exerciseName,
+  Exercise.volume AS exerciseVolume,
+  Exercise.repetitions AS exerciseRepetitions,
+  Exercise.intensity AS exerciseIntensity,
+  Exercise.updatedAt AS exerciseUpdateAt,
+  Exercise.createdAt AS exerciseCreatedAt,
+
+  ExerciseExample.id AS exerciseExampleId,
+  ExerciseExample.name AS exerciseExampleName,
+  ExerciseExample.imageUrl AS exerciseExampleImageUrl,
+  ExerciseExample.createdAt AS exerciseExampleCreatedAt,
+  ExerciseExample.updatedAt AS exerciseExampleUpdatedAt,
+
+  Muscle.id AS muscleId,
+  Muscle.name AS muscleName,
+
+  Iteration.id AS iterationId,
+  Iteration.weight AS iterationWeight,
+  Iteration.repetitions AS iterationRepetitions,
+  Iteration.updatedAt AS iterationUpdateAt,
+  Iteration.createdAt AS iterationCreatedAt
+
 FROM Training
-WHERE id = ?;
+LEFT JOIN Exercise ON Training.id = Exercise.trainingId
+LEFT JOIN ExerciseExample ON Exercise.exerciseExampleId = ExerciseExample.id
+LEFT JOIN MuscleExerciseBundle ON ExerciseExample.id = MuscleExerciseBundle.exerciseExampleId
+LEFT JOIN Muscle ON MuscleExerciseBundle.muscleId = Muscle.id
+LEFT JOIN Iteration ON Exercise.id = Iteration.exerciseId
+WHERE Training.id = ?
+ORDER BY Training.createdAt DESC
+LIMIT 1;
 
 getExercisesByTrainingId:
 SELECT *

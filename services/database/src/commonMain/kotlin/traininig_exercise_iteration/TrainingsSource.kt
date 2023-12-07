@@ -4,16 +4,12 @@ import AlienWorkoutDatabase
 import NativeContext
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
-import app.cash.sqldelight.coroutines.mapToOne
-import data.Exercise
-import data.Iteration
 import database
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
-import traininig_exercise_iteration.mapping.toDao
-import traininig_exercise_iteration.models.ExerciseDao
-import traininig_exercise_iteration.models.IterationDao
+import kotlinx.coroutines.flow.transform
+import kotlinx.coroutines.flow.transformLatest
+import traininig_exercise_iteration.mapping.mapToDao
 import traininig_exercise_iteration.models.TrainingDao
 
 public class TrainingsSource(nativeContext: NativeContext) {
@@ -26,28 +22,16 @@ public class TrainingsSource(nativeContext: NativeContext) {
             .getTrainings()
             .asFlow()
             .mapToList(Dispatchers.Default)
-            .map { trainings ->
-                trainings.map { trainingEntity ->
-                    val exercises = getExercisesBy {
-                        // todo exerciseexample
-                        api.getExercisesByTrainingId(trainingEntity.id).executeAsList()
-                    }
-                    trainingEntity.toDao(exercises = exercises)
-                }
-            }
+            .transform { emit(it.mapToDao()) }
     }
 
-    public fun getTraining(trainingId: String): Flow<TrainingDao> {
+    public fun getTraining(trainingId: String): Flow<TrainingDao?> {
         return api
             .getTrainingById(trainingId)
             .asFlow()
-            .mapToOne(Dispatchers.Default)
-            .map { result ->
-                val exercises = getExercisesBy {
-                    api.getExercisesByTrainingId(result.id).executeAsList()
-                }
-                result.toDao(exercises)
-            }
+            .mapToList(Dispatchers.Default)
+            .transformLatest { emit(it.mapToDao()) }
+
     }
 
     public fun setTrainings(trainings: List<TrainingDao>) {
@@ -104,20 +88,5 @@ public class TrainingsSource(nativeContext: NativeContext) {
 
     public fun deleteTraining(trainingId: String) {
         api.deleteTrainingById(id = trainingId)
-    }
-
-    private fun getExercisesBy(query: () -> List<Exercise>): List<ExerciseDao> {
-        return query().map { exerciseEntity ->
-            val iterations = getIterationsBy {
-                api.getIterationsByExercisesId(exerciseEntity.id).executeAsList()
-            }
-            exerciseEntity.toDao(iterations = iterations)
-        }
-    }
-
-    private fun getIterationsBy(query: () -> List<Iteration>): List<IterationDao> {
-        return query().map { iterationEntity ->
-            iterationEntity.toDao()
-        }
     }
 }
