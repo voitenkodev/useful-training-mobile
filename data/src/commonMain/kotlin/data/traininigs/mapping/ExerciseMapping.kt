@@ -1,6 +1,7 @@
 package data.traininigs.mapping
 
 import data.exerciseexamples.repository.mapping.daoToDomain
+import data.exerciseexamples.repository.mapping.domainToDto
 import data.exerciseexamples.repository.mapping.dtoToDao
 import models.Exercise
 import models.ExerciseDto
@@ -29,7 +30,8 @@ internal fun Exercise.dtoToDto(iterations: List<IterationDto>): ExerciseDto {
         repetitions = repetitions,
         intensity = intensity,
         iterations = iterations,
-        exerciseExampleId = exerciseExample?.id
+        exerciseExampleId = exerciseExample?.id,
+        exerciseExample = exerciseExample?.domainToDto()
     )
 }
 

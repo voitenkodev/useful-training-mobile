@@ -7,5 +7,5 @@ import org.koin.dsl.module
 import data.traininigs.repository.TrainingsRepositoryImpl
 
 public val trainingsDataModule: Module = module {
-    single { TrainingsRepositoryImpl(get(), get()) } bind TrainingsRepository::class
+    single { TrainingsRepositoryImpl(get(), get(), get()) } bind TrainingsRepository::class
 }

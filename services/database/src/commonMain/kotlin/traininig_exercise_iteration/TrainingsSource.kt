@@ -74,7 +74,7 @@ public class TrainingsSource(nativeContext: NativeContext) {
                         weight = iteration.weight,
                         repetitions = iteration.repetitions.toLong(),
                         updatedAt = training.updatedAt,
-                        createdAt = training.createdAt,
+                        createdAt = training.createdAt
                     )
                 }
             }

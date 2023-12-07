@@ -5,6 +5,7 @@ import TrainingsRepository
 import data.traininigs.mapping.daoToDomain
 import data.traininigs.mapping.domainToDto
 import data.traininigs.mapping.dtoToDao
+import exercise_example_muscle.ExerciseExamplesSource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
@@ -13,11 +14,12 @@ import traininig_exercise_iteration.TrainingsSource
 
 internal class TrainingsRepositoryImpl(
     private val remote: NetworkSource,
-    private val local: TrainingsSource
+    private val localTrainings: TrainingsSource,
+    private val localExerciseExamples: ExerciseExamplesSource
 ) : TrainingsRepository {
 
     override fun observeTrainings(startDate: String, endDate: String): Flow<List<Training>> {
-        return local
+        return localTrainings
             .getTrainings()
             .map { it.daoToDomain() }
     }
@@ -25,13 +27,13 @@ internal class TrainingsRepositoryImpl(
     override fun syncTrainings(startDate: String, endDate: String): Flow<Unit> {
         return flow {
             val result = remote.getTrainings(startDate, endDate)
-            local.setTrainings(result.dtoToDao())
+            localTrainings.setTrainings(result.dtoToDao())
             emit(Unit)
         }
     }
 
     override fun observeTraining(trainingId: String): Flow<Training?> {
-        return local
+        return localTrainings
             .getTraining(trainingId)
             .map { it?.daoToDomain() }
     }
@@ -41,13 +43,18 @@ internal class TrainingsRepositoryImpl(
             val id = remote
                 .setTraining(body = training.domainToDto())
                 .dtoToDao()
-                ?.let { dao -> local.setTraining(dao) }
+                ?.let { dao ->
+                    val id = localTrainings.setTraining(dao)
+                    val examples = dao.exercises.mapNotNull { it.exerciseExample }
+                    localExerciseExamples.setExerciseExamples(examples)
+                    id
+                }
             emit(id)
         }
     }
 
     override fun clearCache() {
-        local.clearTables()
+        localTrainings.clearTables()
     }
 
     override fun deleteTraining(trainingId: String): Flow<Unit> =
