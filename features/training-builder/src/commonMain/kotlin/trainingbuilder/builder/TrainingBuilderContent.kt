@@ -67,10 +67,7 @@ internal fun TrainingBuilderContent(
                     selectedExercise = selectedExercise,
                     exerciseExample = popupState.exerciseExample,
                     save = vm::saveExercise,
-                    openExerciseExampleDetails = {
-                        // TODO ADD LOGIC
-                        popupState.exerciseExample
-                    }
+                    openExerciseExampleDetails = {}
                 )
             }
         )

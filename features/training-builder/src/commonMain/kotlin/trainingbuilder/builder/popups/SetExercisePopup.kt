@@ -59,7 +59,12 @@ internal fun SetExercisePopup(
 ) {
 
     val exercise = remember(selectedExercise) {
-        mutableStateOf(selectedExercise ?: Exercise(name = exerciseExample?.name ?: ""))
+        mutableStateOf(
+            selectedExercise ?: Exercise(
+                name = exerciseExample?.name ?: "",
+                exerciseExample = exerciseExample
+            )
+        )
     }
 
     val selectedIterationIndex: MutableState<Pair<Int, IterationTargetFocus>> = remember {
