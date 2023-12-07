@@ -9,7 +9,6 @@ import database
 import exercise_example_muscle.mapping.toDao
 import exercise_example_muscle.models.ExerciseExampleDao
 import exercise_example_muscle.models.MuscleDao
-import exercise_example_muscle.models.MuscleExerciseBundleDao
 import exercise_example_muscle.models.MuscleTypeDao
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -79,8 +78,13 @@ public class ExerciseExamplesSource(nativeContext: NativeContext) {
             )
 
             exerciseExample.muscleExerciseBundles.forEach { muscleExerciseBundle ->
-                setMuscleExerciseBundle(
-                    muscleExerciseBundle = muscleExerciseBundle
+                api.setMuscleExerciseBundle(
+                    id = muscleExerciseBundle.id,
+                    percentage = muscleExerciseBundle.percentage.toLong(),
+                    createdAt = muscleExerciseBundle.createdAt,
+                    updatedAt = muscleExerciseBundle.updatedAt,
+                    muscleId = muscleExerciseBundle.muscleId,
+                    exerciseExampleId = muscleExerciseBundle.exerciseExampleId
                 )
             }
         }
@@ -108,7 +112,7 @@ public class ExerciseExamplesSource(nativeContext: NativeContext) {
             .getMusclesById(ids)
             .asFlow()
             .mapToList(Dispatchers.Default)
-            .map { it.map { it.toDao() } }
+            .map { it.map { item -> item.toDao() } }
     }
 
     public fun deleteExerciseExample(exerciseExampleId: String) {
@@ -122,17 +126,30 @@ public class ExerciseExamplesSource(nativeContext: NativeContext) {
         api.deleteTableMuscleExerciseBundle()
     }
 
-    public fun deleteMuscle(muscleId: String) {
-        api.deleteMuscleById(
-            id = muscleId
-        )
-    }
 
     public fun setMuscleTypesWithMuscles(muscles: List<MuscleTypeDao>) {
         api.transaction {
             api.deleteTableMuscleType()
             api.deleteTableMuscle()
-            muscles.forEach { setMuscleTypeWithMuscles(it) }
+            muscles.forEach { muscleType ->
+                api.setMuscleType(
+                    id = muscleType.id,
+                    name = muscleType.name,
+                    createdAt = muscleType.createdAt,
+                    updatedAt = muscleType.updatedAt,
+                    type = muscleType.type
+                )
+                muscleType.muscles.forEach { muscle ->
+                    api.setMuscle(
+                        id = muscle.id,
+                        name = muscle.name,
+                        createdAt = muscle.createdAt,
+                        updatedAt = muscle.updatedAt,
+                        muscleTypeId = muscleType.id,
+                        type = muscle.type
+                    )
+                }
+            }
         }
     }
 
@@ -141,36 +158,5 @@ public class ExerciseExamplesSource(nativeContext: NativeContext) {
         api.deleteTableMuscle()
         api.deleteTableMuscleType()
         api.deleteTableMuscleExerciseBundle()
-    }
-
-    private fun setMuscleTypeWithMuscles(muscleType: MuscleTypeDao) {
-        api.setMuscleType(
-            id = muscleType.id,
-            name = muscleType.name,
-            createdAt = muscleType.createdAt,
-            updatedAt = muscleType.updatedAt,
-            type = muscleType.type
-        )
-        muscleType.muscles.forEach { muscle ->
-            api.setMuscle(
-                id = muscle.id,
-                name = muscle.name,
-                createdAt = muscle.createdAt,
-                updatedAt = muscle.updatedAt,
-                muscleTypeId = muscleType.id,
-                type = muscle.type
-            )
-        }
-    }
-
-    private fun setMuscleExerciseBundle(muscleExerciseBundle: MuscleExerciseBundleDao) {
-        api.setMuscleExerciseBundle(
-            id = muscleExerciseBundle.id,
-            percentage = muscleExerciseBundle.percentage.toLong(),
-            createdAt = muscleExerciseBundle.createdAt,
-            updatedAt = muscleExerciseBundle.updatedAt,
-            muscleId = muscleExerciseBundle.muscleId,
-            exerciseExampleId = muscleExerciseBundle.exerciseExampleId
-        )
     }
 }
