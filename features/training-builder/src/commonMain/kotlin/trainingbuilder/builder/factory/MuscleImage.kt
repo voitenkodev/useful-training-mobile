@@ -10,7 +10,7 @@ import trainingbuilder.builder.state.Muscle
 import trainingbuilder.builder.state.MuscleEnum
 
 internal fun List<Exercise>.createFrontBackImages(): Pair<ImageVector, ImageVector> {
-    val muscleWithAlpha = calculate()
+    val muscleWithAlpha = calculateMuscleRatios()
         .toList()
         .sortedByDescending { it.second }
         .mapValueToAlpha()
@@ -50,33 +50,48 @@ private fun colorSelectionWithAlpha(alpha: Float?): Color {
 }
 
 private fun List<Pair<Muscle, Double>>.mapValueToAlpha(): Map<MuscleEnum, Float> {
+
     val alphaValues = mutableMapOf<MuscleEnum, Float>()
 
     if (isEmpty()) return alphaValues
 
-    val step = 0.9 / (size - 1)
-    var currentAlpha = 1.0
+    val distinctValues = groupBy { it.second }
 
-    forEach { (muscle, _) ->
-        alphaValues[muscle.type] = currentAlpha.toFloat()
+    val step = if (distinctValues.size > 1) 0.9f / (distinctValues.size - 1) else 0.0f
+    var currentAlpha = 1.0f
+
+    distinctValues.forEach { (_, values) ->
+        values.forEach { (muscle, _) ->
+            alphaValues[muscle.type] = currentAlpha
+        }
         currentAlpha -= step
     }
 
     return alphaValues
 }
 
-private fun List<Exercise>.calculate(): Map<Muscle, Double> {
-    val allMuscleRatios = map { it.calculateMuscleWorkRatio() }
+private fun List<Exercise>.calculateMuscleRatios(): Map<Muscle, Double> {
+    val totalMuscleRatios = mutableMapOf<Muscle, Double>()
 
-    return allMuscleRatios
-        .flatMap { it.entries }
-        .groupBy({ it.key }) { it.value }
-        .mapValues { (_, values) -> values.sumOf { it } }
-        .mapValues { (_, total) -> total / allMuscleRatios.size * 100 }
-}
+    forEach { exercise ->
+        val muscleWorkRatios = mutableMapOf<Muscle, Double>()
 
-private fun Exercise.calculateMuscleWorkRatio(): Map<Muscle, Double> {
-    return exerciseExample?.muscleExerciseBundles
-        ?.associate { bundle -> bundle.muscle to volume * bundle.percentage / 100.0 }
-        ?: emptyMap()
+        exercise.exerciseExample?.muscleExerciseBundles?.forEach { bundle ->
+            val musclePercentage = bundle.percentage / 100.0
+            val muscleWork = exercise.volume * musclePercentage * exercise.repetitions
+
+            muscleWorkRatios[bundle.muscle] = (muscleWorkRatios[bundle.muscle] ?: 0.0) + muscleWork
+        }
+        muscleWorkRatios.forEach { (muscle, ratio) ->
+            totalMuscleRatios[muscle] = (totalMuscleRatios[muscle] ?: 0.0) + ratio
+        }
+    }
+
+    val totalWork = totalMuscleRatios.values.sum()
+
+    return if (totalWork != 0.0) {
+        totalMuscleRatios.mapValues { it.value / totalWork * 100 }
+    } else {
+        totalMuscleRatios.mapValues { 0.0 }
+    }
 }

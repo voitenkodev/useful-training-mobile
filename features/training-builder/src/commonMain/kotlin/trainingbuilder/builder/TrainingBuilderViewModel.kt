@@ -110,8 +110,11 @@ internal class TrainingBuilderViewModel(muscleIds: List<String>) : ViewModel() {
             }.toPersistentList()
 
             val training = it.training.copy(exercises = exercises)
+                .validate()
+                .calculateValues()
 
-            val images = exercises.createFrontBackImages()
+            val images = training.exercises
+                .createFrontBackImages()
 
             it.copy(
                 training = training,
