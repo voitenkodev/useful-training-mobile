@@ -151,12 +151,10 @@ public fun ExerciseCardDefault(
                 width = 1.dp,
                 color = Design.colors.toxic.copy(alpha = 0.5f),
                 shape = Design.shape.default
-            )
-            .fillMaxWidth()
+            ).fillMaxWidth()
             .aspectRatio(1.72f)
             .clipToBounds()
     ) {
-
 
         AsyncImage(
             modifier = Modifier.fillMaxSize(),
@@ -167,11 +165,12 @@ public fun ExerciseCardDefault(
         Spacer(modifier = Modifier.fillMaxSize().background(Design.colors.black30))
 
         Row(modifier = Modifier.fillMaxSize()) {
+
             Column(
                 modifier = Modifier
                     .weight(1f)
                     .fillMaxHeight()
-                    .padding(vertical = Design.dp.paddingL, horizontal = Design.dp.paddingL),
+                    .padding(vertical = Design.dp.paddingM, horizontal = Design.dp.paddingM),
             ) {
 
                 TextH4(
@@ -198,8 +197,8 @@ public fun ExerciseCardDefault(
                     .fillMaxHeight()
                     .width(IntrinsicSize.Min)
                     .background(Design.colors.black30)
-                    .padding(vertical = Design.dp.paddingL, horizontal = Design.dp.paddingL),
-                horizontalAlignment = Alignment.End,
+                    .padding(vertical = Design.dp.paddingM, horizontal = Design.dp.paddingM),
+                horizontalAlignment = Alignment.End
             ) {
 
                 ButtonSecondarySmall(

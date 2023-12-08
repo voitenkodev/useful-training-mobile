@@ -26,9 +26,7 @@ internal fun Footer(
 ) {
     Column(modifier = Modifier.fillMaxWidth().secondaryBackground()) {
 
-        val selectedSum = remember(list) {
-            list.sumOf { it.muscles.count { c -> c.isSelected } }
-        }
+        val selectedSum = remember(list) { list.sumOf { it.muscles.count { c -> c.isSelected } } }
 
         Shadow()
 

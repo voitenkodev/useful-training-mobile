@@ -54,7 +54,7 @@ internal fun ExerciseExamples(
             override fun Density.calculateMainAxisPageSize(availableSpace: Int, pageSpacing: Int): Int {
                 return ((availableSpace - 2 * pageSpacing) * 0.96f).toInt()
             }
-        },
+        }
     ) {
         val item = list.getOrNull(it) ?: return@HorizontalPager
 

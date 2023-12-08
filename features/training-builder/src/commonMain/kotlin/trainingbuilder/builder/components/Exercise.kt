@@ -26,7 +26,6 @@ internal fun Exercise(
     onClick: () -> Unit
 ) {
 
-    // todo add remove + update button
     Column(modifier = modifier.clickable(onClick = onClick)) {
 
         Row(
