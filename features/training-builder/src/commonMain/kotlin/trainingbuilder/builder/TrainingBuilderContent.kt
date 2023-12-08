@@ -121,7 +121,6 @@ private fun Content(
                 }
 
                 item("exercise_title") {
-
                     TextLabel(provideText = { "Exercises" })
                 }
 
