@@ -23,6 +23,8 @@ kotlin {
                 implementation(projects.composeLibs.composeImage)
                 implementation(projects.composeLibs.charts)
 
+                implementation(libs.immutable.collections)
+
                 implementation(compose.ui)
                 implementation(compose.material)
                 implementation(compose.material3)

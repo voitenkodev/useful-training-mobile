@@ -64,7 +64,7 @@ private fun Content(
                         imageUrl = it.imageUrl,
                         btn = "Update" to { selectExerciseExample.invoke(it.id) },
                         musclesWithPercent = it.muscleExerciseBundles.map { b ->
-                            b.muscle.name to b.percentage.toFloat()
+                            b.muscle.name to b.percentage
                         }
                     )
                 }

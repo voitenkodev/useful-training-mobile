@@ -54,8 +54,8 @@ internal fun ExerciseExamples(
         ExerciseCardDefault(
             name = item.name,
             btn = "Select" to { select.invoke(item) },
-            btn2 = "Details" to {},
-            imageUrl = item.imageUrl
+            imageUrl = item.imageUrl,
+            musclesWithPercent = item.muscleExerciseBundles.map { it.muscle.name to it.percentage }
         )
     }
 }
