@@ -4,7 +4,7 @@ import androidx.compose.ui.graphics.Color
 import atom.Design
 
 internal object Colors {
-    val muscle = Color.White
+    val muscle = Design.palette.content
     val bg = Design.palette.secondary
 //    (0xffd4b296)
 

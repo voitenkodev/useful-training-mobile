@@ -134,7 +134,7 @@ internal fun SetExercisePopup(
                 )
             } ?: InputExerciseName(
                 provideName = { exercise.value.name },
-                update = updateName,
+                update = updateName
             )
 
             PaddingM()
@@ -148,11 +148,11 @@ internal fun SetExercisePopup(
                     .primaryBackground()
                     .verticalScroll(rememberScrollState()),
                 iterations = exercise.value.iterations,
+                selectIterationWeight = selectIterationTargetWeight,
+                selectIterationRepetition = selectIterationTargetRepetition,
                 addIteration = {
                     selectedIterationIndex.value = exercise.value.iterations.lastIndex + 1 to IterationTargetFocus.Weight
-                },
-                selectIterationWeight = selectIterationTargetWeight,
-                selectIterationRepetition = selectIterationTargetRepetition
+                }
             )
 
             Footer(

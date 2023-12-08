@@ -43,7 +43,7 @@ import trainingbuilder.muscle_picker.state.MuscleTypeEnum
 internal fun MusclePickerContent(
     vm: MusclePickerViewModel,
     apply: (List<String>) -> Unit,
-    close: ()-> Unit
+    close: () -> Unit
 ) {
 
     val state by vm.state.collectAsState()
@@ -201,7 +201,7 @@ private fun Content(
                                     .height(180.dp)
                                     .aspectRatio(1f)
                                     .align(Alignment.CenterEnd),
-                                imageVector = item.imageVector,
+                                imageVector = item.bodyImageVector,
                                 contentDescription = null
                             )
 

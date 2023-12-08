@@ -16,6 +16,7 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.update
 import org.koin.core.component.inject
 import round
+import trainingbuilder.builder.factory.createFrontBackImages
 import trainingbuilder.builder.mapping.toBody
 import trainingbuilder.builder.mapping.toState
 import trainingbuilder.builder.state.Exercise
@@ -110,7 +111,13 @@ internal class TrainingBuilderViewModel(muscleIds: List<String>) : ViewModel() {
 
             val training = it.training.copy(exercises = exercises)
 
-            it.copy(training = training)
+            val images = exercises.createFrontBackImages()
+
+            it.copy(
+                training = training,
+                fullFrontImageVector = images.first,
+                fullBackImageVector = images.second
+            )
         }
     }
 

@@ -10,7 +10,7 @@ internal data class MuscleType(
     val muscles: List<Muscle>,
     val isSelected: Boolean,
     val type: MuscleTypeEnum,
-    val imageVector: ImageVector
+    val bodyImageVector: ImageVector
 )
 
 @Immutable

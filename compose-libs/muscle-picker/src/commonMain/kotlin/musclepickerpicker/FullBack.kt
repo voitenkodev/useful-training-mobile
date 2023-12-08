@@ -18,8 +18,8 @@ public fun fullBack(
     trapezius: Color = Colors.defaultBack,
     forearm: Color = Colors.defaultBack,
 
-    posteriorDeltoid: Color = Colors.defaultBack, // todo ??
-    lateralDeltoid: Color = Colors.defaultBack, // todo ??
+    posteriorDeltoid: Color = Colors.defaultBack,
+    lateralDeltoid: Color = Colors.defaultBack,
 
     gluteal: Color = Colors.defaultBack,
     hamstrings: Color = Colors.defaultBack,

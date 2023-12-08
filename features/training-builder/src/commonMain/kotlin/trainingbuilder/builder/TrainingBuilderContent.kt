@@ -11,6 +11,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import atom.Design
 import components.Error
 import components.roots.ScreenRoot
@@ -76,6 +77,8 @@ internal fun TrainingBuilderContent(
     Content(
         error = state.error,
         loading = state.loading,
+        fullFront = state.fullFrontImageVector,
+        fullBack = state.fullBackImageVector,
         clearError = vm::clearError,
         addExercise = vm::openFindExercisePopup,
         exercises = state.training.exercises,
@@ -92,7 +95,10 @@ private fun Content(
     exercises: ImmutableList<Exercise>,
     addExercise: () -> Unit,
     selectExercise: (index: Int) -> Unit,
-    finish: () -> Unit
+    finish: () -> Unit,
+
+    fullFront: ImageVector,
+    fullBack: ImageVector
 ) {
 
     ScreenRoot(error = { Error(message = { error }, close = clearError) }) {
@@ -117,7 +123,10 @@ private fun Content(
 
                     PaddingM()
 
-                    TrainingOverview()
+                    TrainingOverview(
+                        fullFrontImage = fullFront,
+                        fullBackImage = fullBack
+                    )
                 }
 
                 item("exercise_title") {

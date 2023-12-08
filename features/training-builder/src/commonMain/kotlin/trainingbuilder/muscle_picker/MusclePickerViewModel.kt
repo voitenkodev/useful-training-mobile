@@ -47,7 +47,7 @@ internal class MusclePickerViewModel : ViewModel() {
                 )
                 muscleType.copy(
                     muscles = muscles,
-                    imageVector = image
+                    bodyImageVector = image
                 )
             }.toImmutableList()
 
@@ -69,7 +69,7 @@ internal class MusclePickerViewModel : ViewModel() {
                 )
                 muscleType.copy(
                     muscles = muscles,
-                    imageVector = image
+                    bodyImageVector = image
                 )
 
             }.toImmutableList()
@@ -92,7 +92,7 @@ internal class MusclePickerViewModel : ViewModel() {
                 )
                 muscleType.copy(
                     muscles = muscles,
-                    imageVector = image
+                    bodyImageVector = image
                 )
             }.toImmutableList()
 
@@ -116,7 +116,7 @@ internal class MusclePickerViewModel : ViewModel() {
                 )
                 muscleType.copy(
                     muscles = muscles,
-                    imageVector = image
+                    bodyImageVector = image
                 )
             }.toImmutableList()
 
@@ -140,7 +140,7 @@ internal class MusclePickerViewModel : ViewModel() {
                 )
                 muscleType.copy(
                     muscles = muscles,
-                    imageVector = image
+                    bodyImageVector = image
                 )
             }.toImmutableList()
 
