@@ -28,7 +28,6 @@ import androidx.compose.ui.unit.dp
 import atom.Design
 import molecule.ButtonPrimarySmall
 import molecule.ButtonSecondarySmall
-import molecule.ButtonTextLink
 import molecule.PaddingM
 import molecule.PaddingWeight
 import molecule.TextBody3
@@ -110,12 +109,12 @@ public fun ExerciseCardSmall(
             }
         }
 
-        ButtonTextLink(
-            modifier = Modifier.padding(Design.dp.paddingM).align(Alignment.BottomEnd),
-            text = btn.first,
-            onClick = btn.second,
-            color = Design.colors.toxic
-        )
+//        ButtonTextLink(
+//            modifier = Modifier.padding(Design.dp.paddingM).align(Alignment.BottomEnd),
+//            text = btn.first,
+//            onClick = btn.second,
+//            color = Design.colors.toxic
+//        )
     }
 }
 
