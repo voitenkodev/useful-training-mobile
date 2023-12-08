@@ -129,7 +129,8 @@ internal fun SetExercisePopup(
                 ExerciseCardSmall(
                     name = ex.name,
                     imageUrl = ex.imageUrl,
-                    btn = "Details" to openExerciseExampleDetails
+                    btn = "Details" to openExerciseExampleDetails,
+                    musclesWithPercent = ex.muscleExerciseBundles.map { it.muscle.name to it.percentage }
                 )
             } ?: InputExerciseName(
                 provideName = { exercise.value.name },

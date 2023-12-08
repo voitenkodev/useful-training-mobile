@@ -6,10 +6,12 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.PageSize
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.Density
 import atom.Design
 import components.brand.ExerciseCardDefault
 import kotlinx.collections.immutable.ImmutableList
@@ -47,11 +49,17 @@ internal fun ExerciseExamples(
     HorizontalPager(
         state = pager,
         contentPadding = PaddingValues(horizontal = Design.dp.paddingM),
-        pageSpacing = Design.dp.paddingS
+        pageSpacing = Design.dp.paddingM,
+        pageSize = object : PageSize {
+            override fun Density.calculateMainAxisPageSize(availableSpace: Int, pageSpacing: Int): Int {
+                return ((availableSpace - 2 * pageSpacing) * 0.96f).toInt()
+            }
+        },
     ) {
         val item = list.getOrNull(it) ?: return@HorizontalPager
 
         ExerciseCardDefault(
+            modifier = Modifier,
             name = item.name,
             btn = "Select" to { select.invoke(item) },
             imageUrl = item.imageUrl,

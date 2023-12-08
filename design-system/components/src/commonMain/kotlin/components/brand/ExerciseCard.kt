@@ -31,7 +31,7 @@ import molecule.ButtonSecondarySmall
 import molecule.ButtonTextLink
 import molecule.PaddingM
 import molecule.PaddingWeight
-import molecule.TextBody2
+import molecule.TextBody3
 import molecule.TextH4
 import molecule.secondaryDefaultBackground
 import percents
@@ -54,7 +54,7 @@ public fun ExerciseCardSmall(
     val muscles = remember(musclesWithPercent) {
         musclesWithPercent
             .sortedByDescending { it.second }
-            .take(3)
+            .take(2)
             .mapIndexed { index, item ->
                 MuscleUi(
                     text = "${item.first}: ${item.second.percents()}",
@@ -70,7 +70,7 @@ public fun ExerciseCardSmall(
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .height(100.dp)
+            .height(116.dp)
             .padding(horizontal = Design.dp.paddingM)
             .background(
                 Design.colors.black10,
@@ -90,17 +90,19 @@ public fun ExerciseCardSmall(
 
         Spacer(modifier = Modifier.fillMaxSize().background(Design.colors.black30))
 
-        Column(modifier = Modifier.fillMaxSize()) {
+        Column(
+            modifier = Modifier.padding(Design.dp.paddingM).fillMaxSize()
+        ) {
             TextH4(
-                modifier = Modifier.padding(Design.dp.paddingM),
-                provideText = { name }
+                provideText = { name },
+                maxLines = 2
             )
             PaddingM()
 
             PaddingWeight()
 
             muscles.forEach { muscle ->
-                TextBody2(
+                TextBody3(
                     provideText = { muscle.text },
                     color = muscle.color,
                     maxLines = 4
@@ -145,6 +147,11 @@ public fun ExerciseCardDefault(
     Box(
         modifier
             .secondaryDefaultBackground()
+            .border(
+                width = 1.dp,
+                color = Design.colors.toxic.copy(alpha = 0.5f),
+                shape = Design.shape.default
+            )
             .fillMaxWidth()
             .aspectRatio(1.72f)
             .clipToBounds()
@@ -178,7 +185,7 @@ public fun ExerciseCardDefault(
                 PaddingWeight()
 
                 muscles.forEach { muscle ->
-                    TextBody2(
+                    TextBody3(
                         provideText = { muscle.text },
                         color = muscle.color,
                         maxLines = 4
