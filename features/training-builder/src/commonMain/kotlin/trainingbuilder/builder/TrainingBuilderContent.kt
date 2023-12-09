@@ -1,5 +1,7 @@
 package trainingbuilder.builder
 
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -16,15 +18,21 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.unit.dp
 import atom.Design
 import components.Error
 import components.overlay.BottomShadow
 import components.roots.ScreenRoot
 import kotlinx.collections.immutable.ImmutableList
 import molecule.ButtonPrimary
+import molecule.PaddingL
 import molecule.PaddingM
+import molecule.PaddingXS
 import molecule.PopupSheet
+import molecule.TextBody1
+import molecule.TextH3
 import molecule.TextLabel
 import molecule.primaryBackground
 import platformBottomInset
@@ -143,6 +151,45 @@ private fun Content(
                     TextLabel(provideText = { "Exercises" })
                 }
 
+                if (exercises.isEmpty()) {
+                    item {
+                        Column(
+                            modifier = Modifier.fillMaxWidth()
+                                .border(
+                                    width = 1.dp,
+                                    shape = Design.shape.default,
+                                    color = Design.colors.caption
+                                )
+                                .padding(Design.dp.paddingL)
+                                .clip(shape = Design.shape.default)
+                                .clickable(onClick = addExercise),
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                        ) {
+                            TextH3(
+                                provideText = { "Let's start workout" },
+                                color = Design.colors.content
+                            )
+
+                            PaddingXS()
+
+                            TextBody1(
+                                provideText = { "Add your first exercise" },
+                                color = Design.colors.content
+                            )
+
+                            PaddingL()
+
+                            ButtonPrimary(
+                                modifier = Modifier.padding(horizontal = Design.dp.paddingXL),
+                                text = "Add exercise",
+                                textColor = Design.colors.primary,
+                                backgroundColor = Design.colors.toxic,
+                                onClick = addExercise
+                            )
+                        }
+                    }
+                }
+
                 itemsIndexed(exercises) { index, item ->
                     Exercise(
                         number = index + 1,
@@ -161,23 +208,25 @@ private fun Content(
             }
         }
 
-        BottomShadow(
-            modifier = Modifier
-                .fillMaxWidth()
-                .align(Alignment.BottomEnd)
-                .platformBottomInset()
-                .size(Design.dp.componentM + Design.dp.paddingM)
-        )
+        if (exercises.isNotEmpty()) {
+            BottomShadow(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .align(Alignment.BottomEnd)
+                    .platformBottomInset()
+                    .size(Design.dp.componentM + Design.dp.paddingM)
+            )
 
-        ButtonPrimary(
-            modifier = Modifier
-                .align(Alignment.BottomEnd)
-                .platformBottomInset()
-                .padding(Design.dp.paddingM),
-            text = "Add exercise",
-            textColor = Design.colors.primary,
-            backgroundColor = Design.colors.toxic,
-            onClick = addExercise
-        )
+            ButtonPrimary(
+                modifier = Modifier
+                    .align(Alignment.BottomEnd)
+                    .platformBottomInset()
+                    .padding(Design.dp.paddingM),
+                text = "Add exercise",
+                textColor = Design.colors.primary,
+                backgroundColor = Design.colors.toxic,
+                onClick = addExercise
+            )
+        }
     }
 }
