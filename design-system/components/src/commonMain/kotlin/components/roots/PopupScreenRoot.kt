@@ -1,6 +1,5 @@
 package components.roots
 
-import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
@@ -22,7 +21,6 @@ public fun PopupScreenRoot(
     Column(
         modifier = modifier
             .fillMaxSize()
-            .animateContentSize()
             .secondaryBackground()
             .platformInsets()
             .pointerInput(Unit) { detectTapGestures(onTap = { focusManager.clearFocus() }) }

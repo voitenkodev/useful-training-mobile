@@ -1,6 +1,5 @@
 package components.roots
 
-import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
@@ -22,7 +21,6 @@ public fun PopupRoot(
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .animateContentSize()
             .bottomSheetBackground()
             .platformBottomInset()
             .pointerInput(Unit) { detectTapGestures(onTap = { focusManager.clearFocus() }) }
