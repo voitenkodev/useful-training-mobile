@@ -11,10 +11,10 @@ import io.github.xxfast.decompose.router.Router
 import io.github.xxfast.decompose.router.content.RoutedContent
 import io.github.xxfast.decompose.router.rememberOnRoute
 import io.github.xxfast.decompose.router.rememberRouter
-import trainingbuilder.builder.TrainingBuilderContent
-import trainingbuilder.builder.TrainingBuilderViewModel
 import trainingbuilder.muscle_picker.MusclePickerContent
 import trainingbuilder.muscle_picker.MusclePickerViewModel
+import trainingbuilder.training_builder.TrainingBuilderContent
+import trainingbuilder.training_builder.TrainingBuilderViewModel
 
 @Parcelize
 public sealed class TrainingRouter : Parcelable {
