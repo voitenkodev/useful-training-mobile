@@ -33,7 +33,6 @@ public fun Modifier.reverseDefaultBackground(): Modifier = this
 
 @Composable
 public fun Modifier.secondaryDefaultBackground(): Modifier = this
-    .borderDefault()
     .background(
         color = Design.colors.secondary,
         shape = Design.shape.default

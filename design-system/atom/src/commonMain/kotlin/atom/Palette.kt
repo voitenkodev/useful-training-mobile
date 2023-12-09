@@ -19,15 +19,11 @@ public data class Color(
     val caption: Color = Color(0xffa6a6a6),
 
     // Accent Primary
-    val orange: Color = Color(0xfff74d19),
-    val toxic: Color = Color(0xffa3ec3f),
+    val orange: Color = Color(0xfffc5e0f),
+    val toxic: Color = Color(0xff2afa2d),
 
     // Accent Secondary
-    val red: Color = Color(0xfff54949),
-    val green: Color = Color(0xff37c554),
-    val yellow: Color = Color(0xff91c537),
-    val purple: Color = Color(0xffa652d0),
-    val blue: Color = Color(0xff0079fe)
+    val red: Color = Color(0xfff54949)
 )
 
 //    val primary: Color = Color(0xff121219), primary old

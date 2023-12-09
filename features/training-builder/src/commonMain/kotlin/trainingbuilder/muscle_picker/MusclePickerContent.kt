@@ -79,8 +79,8 @@ private fun Content(
 ) {
 
     val selectedChipState = ChipState.Colored(
-        backgroundColor = Design.colors.green.copy(alpha = 0.2f),
-        borderColor = Design.colors.green,
+        backgroundColor = Design.colors.toxic.copy(alpha = 0.2f),
+        borderColor = Design.colors.toxic,
         contentColor = Design.colors.content
     )
 
@@ -158,7 +158,7 @@ private fun Content(
 
                     val textColor = when (item.muscles.size) {
                         item.muscles.count { c -> c.isSelected } -> Design.colors.caption
-                        else -> Design.colors.green
+                        else -> Design.colors.toxic
                     }
 
                     PaddingS()

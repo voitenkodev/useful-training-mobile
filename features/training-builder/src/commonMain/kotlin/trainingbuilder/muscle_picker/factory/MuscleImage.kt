@@ -15,7 +15,7 @@ private fun colorBySelection(condition: Boolean?): Color {
     val muscle = Color(0xffb12a1a)
 
     val default = muscle.copy(alpha = 0.8f)
-    val selected = Design.palette.green
+    val selected = Design.palette.toxic
     return if (condition == true) selected else default
 }
 
