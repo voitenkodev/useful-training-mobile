@@ -22,16 +22,6 @@ public fun Modifier.secondaryBackground(): Modifier = this
     )
 
 @Composable
-public fun Modifier.reverseDefaultBackground(): Modifier = this
-    .borderDefault()
-    .background(
-        color = Design.colors.content,
-        shape = Design.shape.default
-    ).clip(
-        shape = Design.shape.default
-    )
-
-@Composable
 public fun Modifier.secondaryDefaultBackground(): Modifier = this
     .background(
         color = Design.colors.secondary,
