@@ -14,7 +14,7 @@ import atom.Design
 @Composable
 public fun HeapIndicator(modifier: Modifier = Modifier) {
     val baseAlpha = 0.1f
-    val color = Design.colors.red
+    val color = Design.colors.orange
 
     Row(
         modifier = modifier,

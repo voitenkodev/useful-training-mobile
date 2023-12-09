@@ -23,7 +23,9 @@ internal fun List<Exercise>.createFrontBackImages(): Pair<ImageVector, ImageVect
         rectusAbdominis = colorSelectionWithAlpha(muscleWithAlpha[MuscleEnum.RECTUS_ABDOMINIS]),
         pectoralisMajor = colorSelectionWithAlpha(muscleWithAlpha[MuscleEnum.PECTORALIS_MAJOR]),
         pectoralisMinor = colorSelectionWithAlpha(muscleWithAlpha[MuscleEnum.PECTORALIS_MINOR]),
-        quadriceps = colorSelectionWithAlpha(muscleWithAlpha[MuscleEnum.QUADRICEPS])
+        quadriceps = colorSelectionWithAlpha(muscleWithAlpha[MuscleEnum.QUADRICEPS]),
+
+        outlineColor = Design.palette.content
     )
 
     val back = fullBack(
@@ -36,7 +38,9 @@ internal fun List<Exercise>.createFrontBackImages(): Pair<ImageVector, ImageVect
         lateralDeltoid = colorSelectionWithAlpha(muscleWithAlpha[MuscleEnum.LATERAL_DELTOID]),
         gluteal = colorSelectionWithAlpha(muscleWithAlpha[MuscleEnum.GLUTEAL]),
         hamstrings = colorSelectionWithAlpha(muscleWithAlpha[MuscleEnum.HAMSTRINGS]),
-        calf = colorSelectionWithAlpha(muscleWithAlpha[MuscleEnum.CALF])
+        calf = colorSelectionWithAlpha(muscleWithAlpha[MuscleEnum.CALF]),
+
+        outlineColor = Design.palette.content
     )
 
     return front to back
@@ -45,7 +49,7 @@ internal fun List<Exercise>.createFrontBackImages(): Pair<ImageVector, ImageVect
 private fun colorSelectionWithAlpha(alpha: Float?): Color {
     val default = Design.palette.content.copy(alpha = 0.4f)
     if (alpha == null) return default
-    val selected = Design.palette.red
+    val selected = Design.palette.orange
     return selected.copy(alpha = alpha)
 }
 

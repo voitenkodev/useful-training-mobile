@@ -4,8 +4,7 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.vector.ImageVector
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
-import musclepickerpicker.fullBack
-import musclepickerpicker.fullFront
+import trainingbuilder.training_builder.factory.createFrontBackImages
 
 @Immutable
 internal data class State(
@@ -18,8 +17,8 @@ internal data class State(
     val setExercisePopupState: SetExercisePopupState = SetExercisePopupState.Closed,
     val findExercisePopupIsVisibleIndex: Boolean = false,
 
-    val fullFrontImageVector: ImageVector = fullFront(),
-    val fullBackImageVector: ImageVector = fullBack(),
+    val fullFrontImageVector: ImageVector = training.exercises.createFrontBackImages().first,
+    val fullBackImageVector: ImageVector = training.exercises.createFrontBackImages().second,
 
     val error: String? = null,
     val loading: Boolean = false
