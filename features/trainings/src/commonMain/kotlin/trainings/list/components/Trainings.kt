@@ -31,7 +31,7 @@ internal fun Trainings(
         if (selectedDateIsToday) {
             item {
                 NewTraining(
-                    newTraining = newTraining
+                    addTraining = newTraining
                 )
             }
         }

@@ -12,7 +12,9 @@ dependencyResolutionManagement.repositories {
     google()
     mavenCentral()
     mavenLocal()
+    // Compose KMM
     maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
+
     // Navigation Decompose
     maven("https://s01.oss.sonatype.org/content/repositories/snapshots/")
 }

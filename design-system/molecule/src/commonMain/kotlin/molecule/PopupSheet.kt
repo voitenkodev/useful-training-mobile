@@ -16,11 +16,13 @@ import kotlinx.coroutines.launch
 @Composable
 public fun PopupSheet(
     onDismiss: () -> Unit,
+    cancelable: Boolean = true,
     content: @Composable ColumnScope.(hideLambda: () -> Unit) -> Unit
 ) {
 
     val modalBottomSheetState = rememberModalBottomSheetState(
-        skipPartiallyExpanded = true
+        skipPartiallyExpanded = true,
+        confirmValueChange = { cancelable }
     )
 
     val scope = rememberCoroutineScope()

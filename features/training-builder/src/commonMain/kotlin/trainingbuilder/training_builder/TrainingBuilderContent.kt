@@ -68,6 +68,7 @@ internal fun TrainingBuilderContent(
     (state.setExercisePopupState as? SetExercisePopupState.Opened)?.let { popupState ->
         PopupSheet(
             onDismiss = vm::closeSetExercisePopup,
+            cancelable = false,
             content = { hideLambda ->
 
                 val selectedExercise = remember(
