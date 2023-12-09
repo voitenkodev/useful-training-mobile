@@ -38,7 +38,6 @@ public class ExerciseExamplesSource(nativeContext: NativeContext) {
     public fun setExerciseExamples(exerciseExamples: List<ExerciseExampleDao>) {
         api.deleteTableExerciseExample()
         api.deleteTableMuscleExerciseBundle()
-
         exerciseExamples.onEach { exerciseExample -> setExerciseExample(exerciseExample) }
     }
 

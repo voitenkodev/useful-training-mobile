@@ -24,9 +24,11 @@ import molecule.PaddingS
 import molecule.TextBody3
 import molecule.TextH4
 import molecule.secondaryDefaultBackground
+import toShortString
 
 @Composable
 internal fun TrainingOverview(
+    volume: Double,
     fullFrontImage: ImageVector,
     fullBackImage: ImageVector
 ) {
@@ -95,7 +97,7 @@ internal fun TrainingOverview(
 
                 TextH4(
                     textAlign = TextAlign.Center,
-                    provideText = { "14K" }
+                    provideText = { volume.toShortString() }
                 )
 
                 TextBody3(

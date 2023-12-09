@@ -79,6 +79,7 @@ internal fun TrainingBuilderContent(
         loading = state.loading,
         fullFront = state.fullFrontImageVector,
         fullBack = state.fullBackImageVector,
+        volume = state.training.volume,
         clearError = vm::clearError,
         addExercise = vm::openFindExercisePopup,
         exercises = state.training.exercises,
@@ -91,6 +92,7 @@ internal fun TrainingBuilderContent(
 private fun Content(
     error: String?,
     loading: Boolean,
+    volume: Double,
     clearError: () -> Unit,
     exercises: ImmutableList<Exercise>,
     addExercise: () -> Unit,
@@ -125,7 +127,8 @@ private fun Content(
 
                     TrainingOverview(
                         fullFrontImage = fullFront,
-                        fullBackImage = fullBack
+                        fullBackImage = fullBack,
+                        volume = volume
                     )
                 }
 
