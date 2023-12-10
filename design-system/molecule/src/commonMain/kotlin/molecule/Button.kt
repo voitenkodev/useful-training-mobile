@@ -1,6 +1,5 @@
 package molecule
 
-import Icons
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.LinearEasing
@@ -38,6 +37,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import atom.Design
+import resources.Icons
 
 @Composable
 public fun ButtonPrimary(

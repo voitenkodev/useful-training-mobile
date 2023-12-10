@@ -1,4 +1,4 @@
-package icons
+package resources.icons
 
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.PathFillType.Companion.NonZero

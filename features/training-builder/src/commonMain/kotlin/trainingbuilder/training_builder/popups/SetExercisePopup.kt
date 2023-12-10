@@ -1,6 +1,5 @@
 package trainingbuilder.training_builder.popups
 
-import Icons
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -42,6 +41,7 @@ import molecule.TextBody2
 import molecule.TextLabel
 import molecule.primaryBackground
 import molecule.secondaryDefaultBackground
+import resources.Icons
 import trainingbuilder.training_builder.popups.components.SetIteration
 import trainingbuilder.training_builder.popups.state.IterationTargetFocus
 import trainingbuilder.training_builder.state.Exercise

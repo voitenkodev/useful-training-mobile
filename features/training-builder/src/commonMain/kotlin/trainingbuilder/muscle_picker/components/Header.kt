@@ -1,6 +1,5 @@
 package trainingbuilder.muscle_picker.components
 
-import Icons
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -18,6 +17,7 @@ import molecule.PaddingWeight
 import molecule.Shadow
 import molecule.TextH2
 import platformTopInset
+import resources.Icons
 
 @Composable
 internal fun Header(

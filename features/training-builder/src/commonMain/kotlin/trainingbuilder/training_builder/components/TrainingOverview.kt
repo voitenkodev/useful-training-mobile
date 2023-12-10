@@ -1,6 +1,5 @@
 package trainingbuilder.training_builder.components
 
-import Icons
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -24,6 +23,7 @@ import molecule.PaddingS
 import molecule.TextBody3
 import molecule.TextH4
 import molecule.secondaryDefaultBackground
+import resources.Icons
 import toShortString
 
 @Composable

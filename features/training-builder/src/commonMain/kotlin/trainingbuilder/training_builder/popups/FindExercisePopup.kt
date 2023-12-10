@@ -1,6 +1,5 @@
 package trainingbuilder.training_builder.popups
 
-import Icons
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
@@ -8,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import atom.Design
+import components.inputs.InputSearch
 import components.roots.PopupRoot
 import kotlinx.collections.immutable.ImmutableList
 import molecule.ButtonSecondary
@@ -16,6 +16,7 @@ import molecule.PaddingM
 import molecule.PaddingS
 import molecule.Shadow
 import molecule.SmallToolbar
+import resources.Icons
 import trainingbuilder.training_builder.popups.components.ExerciseExamples
 import trainingbuilder.training_builder.popups.components.Muscles
 import trainingbuilder.training_builder.state.ExerciseExample
@@ -41,6 +42,13 @@ internal fun FindExercisePopup(
         )
 
         Shadow()
+
+        PaddingM()
+
+        InputSearch(
+            provideName = { "" },
+            update = {}
+        )
 
         PaddingM()
 

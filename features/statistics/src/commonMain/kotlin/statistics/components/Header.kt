@@ -1,6 +1,5 @@
 package statistics.components
 
-import Icons
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -17,6 +16,7 @@ import molecule.PaddingS
 import molecule.PaddingWeight
 import molecule.TextH2
 import platformTopInset
+import resources.Icons
 
 @Composable
 internal fun Header(

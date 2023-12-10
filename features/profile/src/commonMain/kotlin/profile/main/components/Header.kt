@@ -1,6 +1,5 @@
 package profile.main.components
 
-import Icons
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -21,6 +20,7 @@ import molecule.PaddingS
 import molecule.PaddingWeight
 import molecule.TextH2
 import platformTopInset
+import resources.Icons
 
 @Composable
 internal fun Header(modifier: Modifier = Modifier) {

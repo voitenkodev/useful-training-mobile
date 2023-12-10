@@ -1,6 +1,5 @@
 package trainingbuilder.training_builder.popups.components
 
-import Icons
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
@@ -31,6 +30,7 @@ import molecule.TextH4
 import molecule.secondaryBackground
 import molecule.secondaryDefaultBackground
 import platformBottomInset
+import resources.Icons
 import trainingbuilder.training_builder.popups.state.IterationTargetFocus
 import trainingbuilder.training_builder.state.Iteration
 

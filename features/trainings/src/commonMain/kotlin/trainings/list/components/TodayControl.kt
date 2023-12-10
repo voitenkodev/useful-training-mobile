@@ -1,6 +1,5 @@
 package trainings.list.components
 
-import Icons
 import androidx.compose.animation.core.EaseOut
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
@@ -15,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import atom.Design
 import molecule.ButtonIconPrimary
+import resources.Icons
 
 @Composable
 internal fun BoxScope.TodayControl(

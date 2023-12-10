@@ -1,6 +1,5 @@
 package profile.main
 
-import Icons
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -29,6 +28,7 @@ import platformTopInset
 import profile.main.components.Header
 import profile.main.components.MenuItem
 import profile.main.state.User
+import resources.Icons
 
 @Composable
 internal fun ProfileContent(

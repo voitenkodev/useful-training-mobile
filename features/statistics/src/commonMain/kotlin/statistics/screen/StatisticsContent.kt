@@ -28,6 +28,7 @@ internal fun StatisticsContent(vm: StatisticsViewModel) {
 //            )
 //        }
 //    )
+
     Content(
         loading = { state.loading },
         error = { state.error },

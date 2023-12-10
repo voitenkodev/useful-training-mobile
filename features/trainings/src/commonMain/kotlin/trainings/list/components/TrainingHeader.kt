@@ -1,6 +1,5 @@
 package trainings.list.components
 
-import Icons
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
@@ -23,6 +22,7 @@ import molecule.TextH4
 import molecule.coloredDefaultBackgroundNoBorder
 import molecule.secondaryDefaultBackground
 import recomposeHighlighter
+import resources.Icons
 import trainings.list.state.Training
 
 @Composable

@@ -13,8 +13,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Clear
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
@@ -55,7 +53,7 @@ public fun InputName(
                     modifier = Modifier
                         .wrapContentSize()
                         .height(IntrinsicSize.Min),
-                    imageVector = Icons.Default.Clear,
+                    imageVector = resources.Icons.clear,
                     color = Design.colors.caption,
                     onClick = { onValueChange.invoke("") }
                 )

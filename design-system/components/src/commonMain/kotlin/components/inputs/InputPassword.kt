@@ -1,6 +1,5 @@
 package components.inputs
 
-import Icons
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -19,6 +18,7 @@ import atom.Design
 import components.labels.InputLabel
 import molecule.ButtonIconSecondary
 import molecule.InputField
+import resources.Icons
 
 @Composable
 public fun InputPassword(

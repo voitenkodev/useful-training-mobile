@@ -1,6 +1,5 @@
 package profile.main.components
 
-import Icons
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -16,6 +15,7 @@ import molecule.IconPrimary
 import molecule.PaddingWeight
 import molecule.TextH4
 import molecule.coloredDefaultBackgroundNoBorder
+import resources.Icons
 
 @Composable
 public fun MenuItem(

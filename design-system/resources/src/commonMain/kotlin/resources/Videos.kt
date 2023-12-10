@@ -1,4 +1,8 @@
+package resources
+
+import NativeLocalResource
 import com.voitenko.alienworkout.SharedRes
+import toNativeLocalResource
 
 public object Videos {
     public val motivation: NativeLocalResource = SharedRes.files.motivation.toNativeLocalResource()

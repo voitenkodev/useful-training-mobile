@@ -1,6 +1,5 @@
 package trainings.list.components
 
-import Icons
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -13,6 +12,7 @@ import atom.Design
 import molecule.ButtonIconPrimary
 import molecule.TextH3
 import recomposeHighlighter
+import resources.Icons
 
 @Composable
 internal fun TrainingTitle(

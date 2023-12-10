@@ -1,6 +1,5 @@
 package exerciseexamples.edit.components
 
-import Icons
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -30,6 +29,7 @@ import molecule.TextH4
 import percentagepicker.RangeSlider
 import percentagepicker.ThumbRangeState
 import platformTopInset
+import resources.Icons
 
 @Composable
 internal fun Header(
