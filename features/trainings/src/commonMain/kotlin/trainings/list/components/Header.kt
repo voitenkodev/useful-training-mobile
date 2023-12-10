@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -42,7 +43,6 @@ import molecule.Shadow
 import molecule.TextBody3
 import molecule.TextH2
 import molecule.TextH3
-import platformTopInset
 import trainings.list.state.SelectableCalendar
 
 @Composable
@@ -77,7 +77,7 @@ internal fun Header(
     Column(
         modifier = Modifier
             .background(Design.colors.secondary)
-            .platformTopInset(),
+            .statusBarsPadding(),
     ) {
 
         PaddingS()

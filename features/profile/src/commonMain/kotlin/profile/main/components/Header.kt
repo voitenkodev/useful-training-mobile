@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -19,7 +20,6 @@ import molecule.PaddingM
 import molecule.PaddingS
 import molecule.PaddingWeight
 import molecule.TextH2
-import platformTopInset
 import resources.Icons
 
 @Composable
@@ -32,7 +32,7 @@ internal fun Header(modifier: Modifier = Modifier) {
         Column(
             modifier = modifier
                 .padding(horizontal = Design.dp.paddingM)
-                .platformTopInset()
+                .statusBarsPadding()
         ) {
 
             PaddingS()

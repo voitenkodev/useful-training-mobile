@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -15,7 +16,6 @@ import molecule.ButtonPrimary
 import molecule.ButtonSecondary
 import molecule.Shadow
 import molecule.secondaryBackground
-import platformBottomInset
 import trainingbuilder.muscle_picker.state.MuscleType
 
 @Composable
@@ -33,7 +33,7 @@ internal fun Footer(
         Row(
             modifier = Modifier
                 .padding(Design.dp.paddingM)
-                .platformBottomInset(),
+                .navigationBarsPadding(),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
         ) {

@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -21,7 +22,6 @@ import molecule.TextBody2
 import molecule.TextH1
 import molecule.TextH2
 import molecule.secondaryBackground
-import platformBottomInset
 
 @Composable
 internal fun HeightPage(
@@ -67,7 +67,7 @@ internal fun HeightPage(
             modifier = Modifier
                 .fillMaxWidth()
                 .secondaryBackground()
-                .platformBottomInset(),
+                .navigationBarsPadding(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 

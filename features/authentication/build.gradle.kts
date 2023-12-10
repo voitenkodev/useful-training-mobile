@@ -18,7 +18,6 @@ kotlin {
                 implementation(projects.domain.user)
 
                 implementation(projects.common.utils)
-                implementation(projects.common.platformApi)
                 implementation(projects.common.architectureComponent)
 
                 implementation(projects.designSystem.atom)

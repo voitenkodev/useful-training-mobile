@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
@@ -33,7 +34,6 @@ import molecule.TextBody1
 import molecule.TextH3
 import molecule.TextLabel
 import molecule.primaryBackground
-import platformBottomInset
 import trainingbuilder.training_builder.components.Exercise
 import trainingbuilder.training_builder.components.Header
 import trainingbuilder.training_builder.components.TrainingOverview
@@ -198,7 +198,7 @@ private fun Content(
                 item("add_exercise") {
                     Spacer(
                         modifier = Modifier
-                            .platformBottomInset()
+                            .navigationBarsPadding()
                             .size(Design.dp.componentM + Design.dp.paddingS)
                     )
                 }
@@ -210,14 +210,14 @@ private fun Content(
                 modifier = Modifier
                     .fillMaxWidth()
                     .align(Alignment.BottomEnd)
-                    .platformBottomInset()
+                    .navigationBarsPadding()
                     .size(Design.dp.componentM + Design.dp.paddingM)
             )
 
             ButtonPrimary(
                 modifier = Modifier
                     .align(Alignment.BottomEnd)
-                    .platformBottomInset()
+                    .navigationBarsPadding()
                     .padding(Design.dp.paddingM),
                 text = "New exercise",
                 textColor = Design.colors.primary,

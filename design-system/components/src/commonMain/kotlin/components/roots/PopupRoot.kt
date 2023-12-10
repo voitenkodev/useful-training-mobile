@@ -4,12 +4,12 @@ import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
 import molecule.bottomSheetBackground
-import platformBottomInset
 
 @Composable
 public fun PopupRoot(
@@ -22,7 +22,7 @@ public fun PopupRoot(
         modifier = modifier
             .fillMaxWidth()
             .bottomSheetBackground()
-            .platformBottomInset()
+            .navigationBarsPadding()
             .pointerInput(Unit) { detectTapGestures(onTap = { focusManager.clearFocus() }) }
     ) {
 

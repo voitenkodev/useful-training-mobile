@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
@@ -24,7 +25,6 @@ import molecule.PaddingXL
 import molecule.Shadow
 import molecule.TextH3
 import molecule.secondaryBackground
-import platformTopInset
 import profile.main.components.Header
 import profile.main.components.MenuItem
 import profile.main.state.User
@@ -77,7 +77,7 @@ private fun Content(
             item {
                 Spacer(
                     modifier = Modifier
-                        .platformTopInset()
+                        .statusBarsPadding()
                         .size(Design.dp.paddingXL + Design.dp.componentL)
                 )
             }

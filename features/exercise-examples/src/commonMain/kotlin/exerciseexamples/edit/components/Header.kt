@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -28,7 +29,6 @@ import molecule.TextH2
 import molecule.TextH4
 import percentagepicker.RangeSlider
 import percentagepicker.ThumbRangeState
-import platformTopInset
 import resources.Icons
 
 @Composable
@@ -60,7 +60,7 @@ internal fun Header(
         modifier = modifier
             .background(Design.colors.secondary)
             .animateContentSize()
-            .platformTopInset()
+            .statusBarsPadding()
     ) {
 
         PaddingS()

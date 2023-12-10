@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -19,7 +20,6 @@ import molecule.PaddingXL
 import molecule.TextBody2
 import molecule.TextH1
 import molecule.TextH2
-import platformBottomInset
 import weightpicker.WeightPicker
 import weightpicker.WeightPickerStyle
 
@@ -52,7 +52,7 @@ internal fun WeightPage(
                 modifier = Modifier
                     .fillMaxWidth()
                     .clipToBounds()
-                    .platformBottomInset()
+                    .navigationBarsPadding()
                     .height(256.dp),
                 initial = weight,
                 onValueChange = updateWeight,
@@ -71,7 +71,7 @@ internal fun WeightPage(
                 modifier = Modifier
                     .fillMaxWidth()
                     .align(Alignment.BottomCenter)
-                    .platformBottomInset(),
+                    .navigationBarsPadding(),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
 

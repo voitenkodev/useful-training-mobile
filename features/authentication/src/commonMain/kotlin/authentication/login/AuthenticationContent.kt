@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -27,7 +28,6 @@ import molecule.PaddingWeight
 import molecule.PaddingXL
 import molecule.TextBody2
 import molecule.TextH2
-import platformInsets
 
 @Composable
 internal fun AuthenticationContent(
@@ -92,7 +92,7 @@ private fun Content(
     ) {
 
         Column(
-            modifier = Modifier.fillMaxSize().platformInsets(),
+            modifier = Modifier.fillMaxSize().systemBarsPadding(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 

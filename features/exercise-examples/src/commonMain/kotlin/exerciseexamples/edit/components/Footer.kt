@@ -3,6 +3,7 @@ package exerciseexamples.edit.components
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -10,7 +11,6 @@ import atom.Design
 import molecule.ButtonPrimary
 import molecule.PaddingM
 import molecule.Shadow
-import platformBottomInset
 
 @Composable
 internal fun Footer(
@@ -22,7 +22,7 @@ internal fun Footer(
     Column(
         modifier = modifier
             .background(Design.colors.secondary)
-            .platformBottomInset(),
+            .navigationBarsPadding(),
     ) {
 
         Shadow()

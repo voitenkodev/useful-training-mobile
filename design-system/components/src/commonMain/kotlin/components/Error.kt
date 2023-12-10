@@ -10,13 +10,13 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import atom.Design
 import molecule.TextBody2
 import molecule.TextH4
-import platformInsets
 
 @Composable
 public fun Error(
@@ -74,7 +74,7 @@ private fun ErrorContent(
 ) {
     Column(
         modifier = Modifier
-            .platformInsets()
+            .systemBarsPadding()
             .padding(Design.dp.paddingM)
             .background(
                 color = Design.colors.orange,

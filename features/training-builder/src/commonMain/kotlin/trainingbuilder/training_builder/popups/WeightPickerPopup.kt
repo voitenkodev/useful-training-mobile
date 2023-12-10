@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -18,7 +19,6 @@ import molecule.PaddingWeight
 import molecule.PaddingXL
 import molecule.TextH1
 import molecule.secondaryBackground
-import platformBottomInset
 import weightpicker.WeightPicker
 import weightpicker.WeightPickerStyle
 
@@ -63,7 +63,7 @@ internal fun WeightPickerPopup(
             modifier = Modifier
                 .fillMaxWidth()
                 .secondaryBackground()
-                .platformBottomInset(),
+                .navigationBarsPadding(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 

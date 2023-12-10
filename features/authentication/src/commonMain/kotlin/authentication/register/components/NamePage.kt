@@ -3,6 +3,7 @@ package authentication.register.components
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberUpdatedState
@@ -16,7 +17,6 @@ import molecule.PaddingWeight
 import molecule.PaddingXL
 import molecule.TextBody2
 import molecule.TextH2
-import platformBottomInset
 
 @Composable
 internal fun NamePage(
@@ -32,7 +32,7 @@ internal fun NamePage(
     }
 
     Column(
-        modifier = Modifier.fillMaxSize().imePadding().platformBottomInset(),
+        modifier = Modifier.fillMaxSize().imePadding().navigationBarsPadding(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 

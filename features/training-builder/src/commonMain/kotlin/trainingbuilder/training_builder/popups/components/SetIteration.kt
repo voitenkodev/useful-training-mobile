@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
@@ -29,7 +30,6 @@ import molecule.Shadow
 import molecule.TextH4
 import molecule.secondaryBackground
 import molecule.secondaryDefaultBackground
-import platformBottomInset
 import resources.Icons
 import trainingbuilder.training_builder.popups.state.IterationTargetFocus
 import trainingbuilder.training_builder.state.Iteration
@@ -82,7 +82,7 @@ internal fun SetIteration(
         modifier = modifier
             .fillMaxWidth()
             .secondaryBackground()
-            .platformBottomInset()
+            .navigationBarsPadding()
             .clickable(
                 interactionSource = interactionSource,
                 indication = null,

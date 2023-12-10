@@ -1,6 +1,7 @@
 package authentication.register
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
@@ -23,7 +24,6 @@ import components.roots.ScreenRoot
 import io.github.xxfast.decompose.router.LocalRouterContext
 import molecule.PaddingL
 import molecule.PaddingXL
-import platformTopInset
 
 @Composable
 internal fun RegistrationContent(
@@ -106,7 +106,7 @@ private fun Content(
 
     ScreenRoot(error = { Error(message = { error }, close = clearError) }) {
         Column(
-            modifier = Modifier.platformTopInset(),
+            modifier = Modifier.statusBarsPadding(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
