@@ -13,13 +13,16 @@ import exerciseexamples.ExerciseExamplesGraph
 import io.github.xxfast.decompose.router.Router
 import io.github.xxfast.decompose.router.content.RoutedContent
 import io.github.xxfast.decompose.router.rememberRouter
+import searchexercise.SearchExerciseComponent
+import searchexercise.SearchExerciseController
+import searchexercise.SearchExerciseGraph
 import trainingbuilder.TrainingGraph
-import trainingbuilder.TrainingRouter
 
 @Parcelize
 internal sealed class MainRouter : Parcelable {
     data class Training(val id: String? = null) : MainRouter()
     data class ExerciseExamples(val startDirection: ExerciseExamplesFeature) : MainRouter()
+    data object SearchExercise : MainRouter()
     data object BottomMenu : MainRouter()
 }
 
@@ -30,24 +33,35 @@ internal fun MainGraph(toAuthentication: () -> Unit) {
         listOf(MainRouter.BottomMenu)
     }
 
-    RoutedContent(router = router, animation = stackAnimation(slide(orientation = Orientation.Vertical))) { child ->
-        when (child) {
-            is MainRouter.BottomMenu -> BottomMenuGraph(
-                toTrainingBuilder = { trainingId: String? -> router.push(MainRouter.Training(trainingId)) },
-                toTrainingDetails = {},
-                toAuthentication = toAuthentication,
-                toExerciseExamples = { router.push(MainRouter.ExerciseExamples(ExerciseExamplesFeature.List)) }
-            )
+    SearchExerciseComponent {
 
-            is MainRouter.Training -> TrainingGraph(
-                startDirection = TrainingRouter.MusclePicker,
-                close = router::pop,
-                toTrainingDetails = {}
-            )
+        RoutedContent(router = router, animation = stackAnimation(slide(orientation = Orientation.Vertical))) { child ->
+            when (child) {
+                is MainRouter.BottomMenu -> BottomMenuGraph(
+                    toTrainingBuilder = { trainingId: String? -> router.push(MainRouter.Training(trainingId)) },
+                    toTrainingDetails = {},
+                    toAuthentication = toAuthentication,
+                    toExerciseExamples = { router.push(MainRouter.ExerciseExamples(ExerciseExamplesFeature.List)) }
+                )
 
-            is MainRouter.ExerciseExamples -> ExerciseExamplesGraph(
-                startDirection = child.startDirection
-            )
+                is MainRouter.Training -> {
+                    val api = SearchExerciseController.api
+
+                    TrainingGraph(
+                        close = router::pop,
+                        searchExerciseExampleId = api.exerciseExampleId,
+                        toSearchExerciseExample = { router.push(MainRouter.SearchExercise) }
+                    )
+                }
+
+                is MainRouter.ExerciseExamples -> ExerciseExamplesGraph(
+                    startDirection = child.startDirection
+                )
+
+                is MainRouter.SearchExercise -> SearchExerciseGraph(
+                    close = router::pop
+                )
+            }
         }
     }
 }

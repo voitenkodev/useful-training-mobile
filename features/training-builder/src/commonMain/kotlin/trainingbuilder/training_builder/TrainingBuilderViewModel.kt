@@ -9,11 +9,13 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import org.koin.core.component.inject
 import round
 import trainingbuilder.training_builder.factory.createFrontBackImages
@@ -134,18 +136,26 @@ internal class TrainingBuilderViewModel(muscleIds: List<String>) : ViewModel() {
         }
     }
 
-    fun openAddExercisePopup(
-        index: Int,
-        exerciseExample: ExerciseExample? = null
-    ) {
+    fun getExerciseById(id: String) {
+        launch {
+            exerciseExampleApi
+                .observeExerciseExample(id)
+                .onStart { _state.update { it.copy(loading = true) } }
+                .catch { t -> _state.update { it.copy(loading = false, error = t.message) } }
+                .firstOrNull()
+                ?.toState()
+                ?.let { openAddExercisePopup(it) }
+
+        }
+    }
+
+    fun openAddExercisePopup(index: Int, exerciseExample: ExerciseExample? = null) {
         _state.update {
             it.copy(setExercisePopupState = SetExercisePopupState.Opened(index = index, exerciseExample = exerciseExample))
         }
     }
 
-    fun openAddExercisePopup(
-        exerciseExample: ExerciseExample? = null
-    ) {
+    fun openAddExercisePopup(exerciseExample: ExerciseExample? = null) {
         val newIndex = state.value.training.exercises.lastIndex + 1
         _state.update {
             it.copy(setExercisePopupState = SetExercisePopupState.Opened(index = newIndex, exerciseExample = exerciseExample))

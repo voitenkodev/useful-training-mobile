@@ -15,9 +15,6 @@ internal class SearchExerciseViewModel : ViewModel() {
 
     private val api by inject<ExerciseExamplesRepository>()
 
-    init {
-    }
-
     fun clearError() {
         _state.update { it.copy(error = null) }
     }

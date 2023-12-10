@@ -6,7 +6,8 @@ import androidx.compose.runtime.getValue
 
 @Composable
 internal fun SearchExerciseContent(
-    vm: SearchExerciseViewModel
+    vm: SearchExerciseViewModel,
+    select: (id: String) -> Unit
 ) {
 
     val state by vm.state.collectAsState()

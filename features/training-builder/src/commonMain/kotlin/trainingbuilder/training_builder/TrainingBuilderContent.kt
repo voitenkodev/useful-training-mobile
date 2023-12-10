@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -25,6 +26,9 @@ import components.Error
 import components.overlay.BottomShadow
 import components.roots.ScreenRoot
 import kotlinx.collections.immutable.ImmutableList
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.distinctUntilChanged
 import molecule.ButtonPrimary
 import molecule.PaddingL
 import molecule.PaddingM
@@ -45,10 +49,18 @@ import trainingbuilder.training_builder.state.SetExercisePopupState
 @Composable
 internal fun TrainingBuilderContent(
     vm: TrainingBuilderViewModel,
-    close: (trainingId: String) -> Unit
+    close: (trainingId: String) -> Unit,
+    toSearchExerciseExample: () -> Unit,
+    searchExerciseExampleId: Flow<String>
 ) {
 
     val state by vm.state.collectAsState()
+
+    LaunchedEffect(Unit) {
+        searchExerciseExampleId
+            .distinctUntilChanged()
+            .collectLatest(vm::getExerciseById)
+    }
 
     if (state.findExercisePopupIsVisibleIndex) PopupSheet(
         onDismiss = vm::closeFindExercisePopup,
@@ -57,10 +69,11 @@ internal fun TrainingBuilderContent(
                 close = hideLambda,
                 exerciseExamples = state.exerciseExamples,
                 muscles = state.muscles,
-                setMuscleTarget = vm::setMuscleTarget,
                 selectedMuscle = state.selectedMuscle,
+                setMuscleTarget = vm::setMuscleTarget,
                 selectExercise = vm::openAddExercisePopup,
-                createExercise = vm::openAddExercisePopup
+                createExercise = vm::openAddExercisePopup,
+                search = toSearchExerciseExample
             )
         }
     )

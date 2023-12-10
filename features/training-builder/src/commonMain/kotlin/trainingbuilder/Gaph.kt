@@ -11,6 +11,7 @@ import io.github.xxfast.decompose.router.Router
 import io.github.xxfast.decompose.router.content.RoutedContent
 import io.github.xxfast.decompose.router.rememberOnRoute
 import io.github.xxfast.decompose.router.rememberRouter
+import kotlinx.coroutines.flow.Flow
 import trainingbuilder.muscle_picker.MusclePickerContent
 import trainingbuilder.muscle_picker.MusclePickerViewModel
 import trainingbuilder.training_builder.TrainingBuilderContent
@@ -18,19 +19,19 @@ import trainingbuilder.training_builder.TrainingBuilderViewModel
 
 @Parcelize
 public sealed class TrainingRouter : Parcelable {
-    public data class TrainingBuilder(val trainingId: String? = null, val muscleIds: List<String>) : TrainingRouter()
+    public data class TrainingBuilder(val trainingId: String?, val muscleIds: List<String>) : TrainingRouter()
     public data object MusclePicker : TrainingRouter()
 }
 
 @Composable
 public fun TrainingGraph(
-    startDirection: TrainingRouter,
-    toTrainingDetails: (id: String) -> Unit,
-    close: () -> Unit
+    close: () -> Unit,
+    toSearchExerciseExample: () -> Unit,
+    searchExerciseExampleId: Flow<String>
 ) {
 
     val router: Router<TrainingRouter> = rememberRouter(TrainingRouter::class) {
-        listOf(startDirection)
+        listOf(TrainingRouter.MusclePicker)
     }
 
     RoutedContent(router = router, animation = stackAnimation(slide(orientation = Orientation.Horizontal))) { child ->
@@ -43,7 +44,9 @@ public fun TrainingGraph(
 
                 TrainingBuilderContent(
                     vm = vm,
-                    close = { close.invoke() }
+                    close = { close.invoke() },
+                    toSearchExerciseExample = toSearchExerciseExample,
+                    searchExerciseExampleId = searchExerciseExampleId
                 )
             }
 

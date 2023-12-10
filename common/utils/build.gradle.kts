@@ -18,16 +18,5 @@ kotlin {
                 implementation(libs.datetime)
             }
         }
-        val androidMain by getting {
-            dependencies {
-                implementation(libs.activity.compose)
-            }
-        }
-        val iosMain by getting {
-            dependencies {}
-        }
-        val iosSimulatorArm64Main by getting {
-            dependsOn(iosMain)
-        }
     }
 }

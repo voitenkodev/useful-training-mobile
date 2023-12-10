@@ -24,6 +24,7 @@ kotlin {
                 implementation(projects.features.profile)
                 implementation(projects.features.trainingBuilder)
                 implementation(projects.features.exerciseExamples)
+                implementation(projects.features.searchExercise)
 
                 // Services
                 implementation(projects.services.network)

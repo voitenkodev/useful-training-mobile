@@ -30,7 +30,8 @@ internal fun FindExercisePopup(
     exerciseExamples: ImmutableList<ExerciseExample>,
     setMuscleTarget: (id: String) -> Unit,
     createExercise: () -> Unit,
-    selectExercise: (ExerciseExample) -> Unit
+    selectExercise: (ExerciseExample) -> Unit,
+    search: () -> Unit
 ) {
     PopupRoot {
 
