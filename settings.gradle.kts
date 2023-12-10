@@ -61,5 +61,6 @@ include(
     "features:statistics",
     "features:profile",
     "features:training-builder",
-    "features:exercise-examples"
+    "features:exercise-examples",
+    "features:search-exercise"
 )
