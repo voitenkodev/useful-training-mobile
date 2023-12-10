@@ -41,8 +41,8 @@ internal fun MainGraph(toAuthentication: () -> Unit) {
 
             is MainRouter.Training -> TrainingGraph(
                 startDirection = TrainingRouter.MusclePicker,
-                toTrainingDetails = {},
-                close = router::pop
+                close = router::pop,
+                toTrainingDetails = {}
             )
 
             is MainRouter.ExerciseExamples -> ExerciseExamplesGraph(

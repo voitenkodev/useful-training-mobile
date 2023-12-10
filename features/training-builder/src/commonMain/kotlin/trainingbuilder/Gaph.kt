@@ -45,7 +45,6 @@ public fun TrainingGraph(
                     vm = vm,
                     close = { close.invoke() }
                 )
-
             }
 
             TrainingRouter.MusclePicker -> {
