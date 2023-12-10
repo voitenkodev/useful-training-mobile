@@ -4,13 +4,17 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import atom.Design
 import components.inputs.InputSearch
 import components.roots.PopupRoot
 import kotlinx.collections.immutable.ImmutableList
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import molecule.ButtonSecondary
+import molecule.POPUP_ANIM_DURATION_MS
 import molecule.PaddingL
 import molecule.PaddingM
 import molecule.PaddingS
@@ -33,6 +37,9 @@ internal fun FindExercisePopup(
     selectExercise: (ExerciseExample) -> Unit,
     search: () -> Unit
 ) {
+
+    val coroutineScope = rememberCoroutineScope()
+
     PopupRoot {
 
         PaddingS()
@@ -48,7 +55,14 @@ internal fun FindExercisePopup(
 
         InputSearch(
             provideName = { "" },
-            update = {}
+            update = {},
+            onClick = {
+                coroutineScope.launch {
+                    close.invoke()
+                    delay(POPUP_ANIM_DURATION_MS)
+                    search.invoke()
+                }
+            }
         )
 
         PaddingM()
@@ -66,7 +80,13 @@ internal fun FindExercisePopup(
 
         ExerciseExamples(
             list = exerciseExamples,
-            select = { selectExercise.invoke(it); close.invoke() }
+            select = {
+                coroutineScope.launch {
+                    close.invoke()
+                    delay(POPUP_ANIM_DURATION_MS)
+                    selectExercise.invoke(it)
+                }
+            }
         )
 
         PaddingM()
@@ -82,7 +102,13 @@ internal fun FindExercisePopup(
             ButtonSecondary(
                 modifier = Modifier.weight(1f),
                 text = "Create by own",
-                onClick = { createExercise.invoke(); close.invoke() }
+                onClick = {
+                    coroutineScope.launch {
+                        close.invoke()
+                        delay(POPUP_ANIM_DURATION_MS)
+                        createExercise.invoke()
+                    }
+                }
             )
         }
     }

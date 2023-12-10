@@ -13,6 +13,8 @@ import androidx.compose.ui.unit.dp
 import atom.Design
 import kotlinx.coroutines.launch
 
+public const val POPUP_ANIM_DURATION_MS: Long = 300L
+
 @Composable
 public fun PopupSheet(
     onDismiss: () -> Unit,

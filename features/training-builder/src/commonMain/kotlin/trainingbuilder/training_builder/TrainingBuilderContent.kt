@@ -26,10 +26,12 @@ import components.Error
 import components.overlay.BottomShadow
 import components.roots.ScreenRoot
 import kotlinx.collections.immutable.ImmutableList
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.onEach
 import molecule.ButtonPrimary
+import molecule.POPUP_ANIM_DURATION_MS
 import molecule.PaddingL
 import molecule.PaddingM
 import molecule.PaddingXS
@@ -50,6 +52,7 @@ import trainingbuilder.training_builder.state.SetExercisePopupState
 internal fun TrainingBuilderContent(
     vm: TrainingBuilderViewModel,
     close: (trainingId: String) -> Unit,
+
     toSearchExerciseExample: () -> Unit,
     searchExerciseExampleId: Flow<String>
 ) {
@@ -58,7 +61,7 @@ internal fun TrainingBuilderContent(
 
     LaunchedEffect(Unit) {
         searchExerciseExampleId
-            .distinctUntilChanged()
+            .onEach { delay(POPUP_ANIM_DURATION_MS) }
             .collectLatest(vm::getExerciseById)
     }
 
@@ -84,10 +87,9 @@ internal fun TrainingBuilderContent(
             cancelable = false,
             content = { hideLambda ->
 
-                val selectedExercise = remember(
-                    popupState.index,
-                    state.training.exercises
-                ) { state.training.exercises.getOrNull(popupState.index) }
+                val selectedExercise = remember(popupState.index, state.training.exercises) {
+                    state.training.exercises.getOrNull(popupState.index)
+                }
 
                 SetExercisePopup(
                     close = hideLambda,
