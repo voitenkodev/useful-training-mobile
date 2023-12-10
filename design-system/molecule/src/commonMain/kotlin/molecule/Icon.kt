@@ -21,7 +21,8 @@ public fun IconPrimary(
     contentColor: Color = Design.colors.content
 ) {
     Icon(
-        modifier = modifier.requiredSize(Design.dp.componentL)
+        modifier = modifier
+            .requiredSize(Design.dp.componentL)
             .alpha(if (enabled) 1f else 0.5f)
             .padding(Design.dp.paddingM),
         tint = contentColor,

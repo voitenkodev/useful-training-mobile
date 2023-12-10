@@ -129,7 +129,7 @@ internal fun SetExercisePopup(
                 ExerciseCardSmall(
                     name = ex.name,
                     imageUrl = ex.imageUrl,
-                    btn = "Details" to openExerciseExampleDetails,
+                    btn = "View details" to openExerciseExampleDetails,
                     musclesWithPercent = ex.muscleExerciseBundles.map { it.muscle.name to it.percentage }
                 )
             } ?: InputExerciseName(
@@ -234,7 +234,7 @@ private fun EditExercise(
 
         TextLabel(
             modifier = Modifier.padding(horizontal = Design.dp.paddingM),
-            provideText = { "Iterations" }
+            provideText = { "Sets" }
         )
 
         PaddingS()
@@ -358,7 +358,7 @@ private fun EditExercise(
                     .padding(vertical = Design.dp.paddingM)
                     .weight(1f),
                 textAlign = TextAlign.Center,
-                provideText = { "Add new" },
+                provideText = { "New Set" },
                 maxLines = 1
             )
         }

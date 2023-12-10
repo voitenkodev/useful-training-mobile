@@ -101,7 +101,7 @@ internal fun SetIteration(
             verticalAlignment = Alignment.CenterVertically
         ) {
 
-            TextH4(provideText = { "Iteration #${index + 1}" })
+            TextH4(provideText = { "Set #${index + 1}" })
 
             ButtonIconTransparent(
                 modifier = Modifier

@@ -38,7 +38,7 @@ public fun InputSearch(
             .fillMaxWidth()
             .padding(horizontal = Design.dp.paddingM),
         value = provideName.invoke(),
-        placeholder = "Search",
+        placeholder = "Search exercise",
         maxLines = 1,
         backgroundColor = Design.colors.black10,
         keyboardActions = KeyboardActions { focusManager.moveFocus(FocusDirection.Next) },
