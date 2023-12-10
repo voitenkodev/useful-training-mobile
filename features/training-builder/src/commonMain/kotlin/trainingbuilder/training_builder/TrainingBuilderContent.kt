@@ -178,7 +178,7 @@ private fun Content(
 
                             ButtonPrimary(
                                 modifier = Modifier.padding(horizontal = Design.dp.paddingXL),
-                                text = "Add exercise",
+                                text = "New exercise",
                                 textColor = Design.colors.primary,
                                 backgroundColor = Design.colors.toxic,
                                 onClick = addExercise
@@ -219,7 +219,7 @@ private fun Content(
                     .align(Alignment.BottomEnd)
                     .platformBottomInset()
                     .padding(Design.dp.paddingM),
-                text = "Add exercise",
+                text = "New exercise",
                 textColor = Design.colors.primary,
                 backgroundColor = Design.colors.toxic,
                 onClick = addExercise

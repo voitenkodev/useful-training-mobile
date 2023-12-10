@@ -358,7 +358,7 @@ private fun EditExercise(
                     .padding(vertical = Design.dp.paddingM)
                     .weight(1f),
                 textAlign = TextAlign.Center,
-                provideText = { "New Set" },
+                provideText = { "New set" },
                 maxLines = 1
             )
         }
