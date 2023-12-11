@@ -24,6 +24,7 @@ import searchexercise.main.state.ExerciseExample
 internal fun SearchExerciseContent(
     vm: SearchExerciseViewModel,
     select: (id: String) -> Unit,
+    toExerciseExampleDetails: (id: String) -> Unit,
     close: () -> Unit
 ) {
 
@@ -37,6 +38,7 @@ internal fun SearchExerciseContent(
         setQuery = vm::setQuery,
         exerciseExamples = state.exerciseExamples,
         selectExerciseExample = select,
+        toExerciseExampleDetails = toExerciseExampleDetails,
         close = close
     )
 }
@@ -50,6 +52,7 @@ private fun Content(
     setQuery: (String) -> Unit,
     exerciseExamples: ImmutableList<ExerciseExample>,
     selectExerciseExample: (id: String) -> Unit,
+    toExerciseExampleDetails: (id: String) -> Unit,
     close: () -> Unit
 ) {
 
@@ -78,6 +81,7 @@ private fun Content(
                         name = it.name,
                         imageUrl = it.imageUrl,
                         btn = "Select" to { selectExerciseExample.invoke(it.id) },
+                        viewDetails = { toExerciseExampleDetails.invoke(it.id) },
                         musclesWithPercent = it.muscleExerciseBundles.map { b ->
                             b.muscle.name to b.percentage
                         }

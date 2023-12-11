@@ -43,10 +43,10 @@ import molecule.primaryBackground
 import molecule.secondaryDefaultBackground
 import resources.Icons
 import trainingbuilder.training_builder.popups.components.SetIteration
-import trainingbuilder.training_builder.state.IterationTargetFocus
 import trainingbuilder.training_builder.state.Exercise
 import trainingbuilder.training_builder.state.ExerciseExample
 import trainingbuilder.training_builder.state.Iteration
+import trainingbuilder.training_builder.state.IterationTargetFocus
 
 @Composable
 internal fun SetExercisePopup(
@@ -55,7 +55,7 @@ internal fun SetExercisePopup(
     selectedExercise: Exercise? = null,
     close: () -> Unit,
     save: (index: Int, exercise: Exercise) -> Unit,
-    openExerciseExampleDetails: () -> Unit
+    toExerciseExampleDetails: (id: String) -> Unit
 ) {
 
     val exercise = remember(selectedExercise) {
@@ -129,7 +129,7 @@ internal fun SetExercisePopup(
                 ExerciseCardSmall(
                     name = ex.name,
                     imageUrl = ex.imageUrl,
-                    btn = "View details" to openExerciseExampleDetails,
+                    viewDetails = { toExerciseExampleDetails.invoke(ex.id) },
                     musclesWithPercent = ex.muscleExerciseBundles.map { it.muscle.name to it.percentage }
                 )
             } ?: InputExerciseName(

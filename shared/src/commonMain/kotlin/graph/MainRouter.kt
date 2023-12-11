@@ -8,7 +8,7 @@ import com.arkivanov.decompose.router.stack.pop
 import com.arkivanov.decompose.router.stack.push
 import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.parcelable.Parcelize
-import exerciseexamples.ExerciseExamplesFeature
+import exerciseexample.ExerciseExampleGraph
 import exerciseexamples.ExerciseExamplesGraph
 import io.github.xxfast.decompose.router.Router
 import io.github.xxfast.decompose.router.content.RoutedContent
@@ -21,7 +21,8 @@ import trainingbuilder.TrainingGraph
 @Parcelize
 internal sealed class MainRouter : Parcelable {
     data class Training(val id: String? = null) : MainRouter()
-    data class ExerciseExamples(val startDirection: ExerciseExamplesFeature) : MainRouter()
+    data object ExerciseExamples : MainRouter()
+    data class ExerciseExample(val id: String) : MainRouter()
     data object SearchExercise : MainRouter()
     data object BottomMenu : MainRouter()
 }
@@ -41,7 +42,7 @@ internal fun MainGraph(toAuthentication: () -> Unit) {
                     toTrainingBuilder = { trainingId: String? -> router.push(MainRouter.Training(trainingId)) },
                     toTrainingDetails = {},
                     toAuthentication = toAuthentication,
-                    toExerciseExamples = { router.push(MainRouter.ExerciseExamples(ExerciseExamplesFeature.List)) }
+                    toExerciseExamples = { router.push(MainRouter.ExerciseExamples) }
                 )
 
                 is MainRouter.Training -> {
@@ -50,17 +51,25 @@ internal fun MainGraph(toAuthentication: () -> Unit) {
                     TrainingGraph(
                         close = router::pop,
                         searchExerciseExampleId = api.exerciseExampleId,
-                        toSearchExerciseExample = { router.push(MainRouter.SearchExercise) }
+                        toSearchExerciseExample = { router.push(MainRouter.SearchExercise) },
+                        toExerciseExampleDetails = { router.push(MainRouter.ExerciseExample("todo")) }
                     )
                 }
 
                 is MainRouter.ExerciseExamples -> ExerciseExamplesGraph(
-                    startDirection = child.startDirection
+                    toExerciseExampleDetails = { router.push(MainRouter.ExerciseExample("todo")) }
                 )
 
                 is MainRouter.SearchExercise -> SearchExerciseGraph(
+                    close = router::pop,
+                    toExerciseExampleDetails = { router.push(MainRouter.ExerciseExample("todo")) }
+                )
+
+                is MainRouter.ExerciseExample -> ExerciseExampleGraph(
+                    id = child.id,
                     close = router::pop
                 )
+
             }
         }
     }

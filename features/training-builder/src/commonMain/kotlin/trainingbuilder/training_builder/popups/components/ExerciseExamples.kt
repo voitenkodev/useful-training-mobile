@@ -25,7 +25,8 @@ import trainingbuilder.training_builder.state.ExerciseExample
 internal fun ExerciseExamples(
     loading: Boolean,
     list: ImmutableList<ExerciseExample>,
-    select: (ExerciseExample) -> Unit
+    select: (exerciseExample: ExerciseExample) -> Unit,
+    details: (id: String) -> Unit
 ) {
 
 
@@ -72,6 +73,7 @@ internal fun ExerciseExamples(
                 name = item.name,
                 btn = "Select" to { select.invoke(item) },
                 imageUrl = item.imageUrl,
+                viewDetails = { details.invoke(item.id) },
                 musclesWithPercent = item.muscleExerciseBundles.map { it.muscle.name to it.percentage }
             )
         }

@@ -54,7 +54,7 @@ private data class MuscleUi(
 public fun ExerciseCardSmall(
     name: String,
     imageUrl: String?,
-    btn: Pair<String, () -> Unit>,
+    viewDetails: () -> Unit,
     musclesWithPercent: List<Pair<String, Int>> = emptyList()
 ) {
 
@@ -119,8 +119,8 @@ public fun ExerciseCardSmall(
 
         ButtonTextLink(
             modifier = Modifier.padding(Design.dp.paddingM).align(Alignment.BottomEnd),
-            text = btn.first,
-            onClick = btn.second,
+            text = "View Details",
+            onClick = viewDetails,
             color = Design.colors.content
         )
     }
@@ -132,6 +132,7 @@ public fun ExerciseCardDefault(
     name: String,
     imageUrl: String?,
     btn: Pair<String, () -> Unit>,
+    viewDetails: () -> Unit,
     musclesWithPercent: List<Pair<String, Int>> = emptyList()
 ) {
 
@@ -184,7 +185,7 @@ public fun ExerciseCardDefault(
 
                 ButtonTextLink(
                     text = "View details",
-                    onClick = {},
+                    onClick = viewDetails,
                 )
 
                 PaddingM()

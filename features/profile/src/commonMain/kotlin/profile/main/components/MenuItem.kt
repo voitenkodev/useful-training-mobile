@@ -18,7 +18,7 @@ import molecule.coloredDefaultBackgroundNoBorder
 import resources.Icons
 
 @Composable
-public fun MenuItem(
+internal fun MenuItem(
     icon: ImageVector,
     text: String,
     allowRightArrow: Boolean = true,

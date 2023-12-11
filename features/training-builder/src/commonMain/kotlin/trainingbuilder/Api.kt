@@ -27,7 +27,8 @@ public sealed class TrainingRouter : Parcelable {
 public fun TrainingGraph(
     close: () -> Unit,
     toSearchExerciseExample: () -> Unit,
-    searchExerciseExampleId: Flow<String>
+    searchExerciseExampleId: Flow<String>,
+    toExerciseExampleDetails: (id: String) -> Unit
 ) {
 
     val router: Router<TrainingRouter> = rememberRouter(TrainingRouter::class) {
@@ -46,7 +47,8 @@ public fun TrainingGraph(
                     vm = vm,
                     close = { close.invoke() },
                     toSearchExerciseExample = toSearchExerciseExample,
-                    searchExerciseExampleId = searchExerciseExampleId
+                    searchExerciseExampleId = searchExerciseExampleId,
+                    toExerciseExampleDetails = toExerciseExampleDetails
                 )
             }
 

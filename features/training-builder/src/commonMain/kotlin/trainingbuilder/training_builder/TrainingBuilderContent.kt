@@ -52,6 +52,7 @@ import trainingbuilder.training_builder.state.SetExercisePopupState
 internal fun TrainingBuilderContent(
     vm: TrainingBuilderViewModel,
     close: (trainingId: String) -> Unit,
+    toExerciseExampleDetails: (id: String) -> Unit,
 
     toSearchExerciseExample: () -> Unit,
     searchExerciseExampleId: Flow<String>
@@ -77,7 +78,8 @@ internal fun TrainingBuilderContent(
                 setMuscleTarget = vm::setMuscleTarget,
                 selectExercise = vm::openAddExercisePopup,
                 createExercise = vm::openAddExercisePopup,
-                search = toSearchExerciseExample
+                search = toSearchExerciseExample,
+                toExerciseExampleDetails = toExerciseExampleDetails
             )
         }
     )
@@ -98,7 +100,7 @@ internal fun TrainingBuilderContent(
                     selectedExercise = selectedExercise,
                     exerciseExample = popupState.exerciseExample,
                     save = vm::saveExercise,
-                    openExerciseExampleDetails = {}
+                    toExerciseExampleDetails = toExerciseExampleDetails
                 )
             }
         )

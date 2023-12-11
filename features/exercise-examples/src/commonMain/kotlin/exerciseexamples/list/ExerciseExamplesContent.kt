@@ -23,7 +23,8 @@ import molecule.primaryBackground
 @Composable
 internal fun ExerciseExamplesContent(
     vm: ExerciseExamplesViewModel,
-    toExerciseExampleBuilder: (id: String?) -> Unit
+    toExerciseExampleBuilder: (id: String?) -> Unit,
+    toExerciseExampleDetails: (id: String) -> Unit
 ) {
 
     val state by vm.state.collectAsState()
@@ -33,7 +34,8 @@ internal fun ExerciseExamplesContent(
         clearError = vm::clearError,
         exerciseExamples = state.exerciseExamples,
         addNewClick = { toExerciseExampleBuilder.invoke(null) },
-        selectExerciseExample = toExerciseExampleBuilder
+        selectExerciseExample = toExerciseExampleBuilder,
+        toExerciseExampleDetails = toExerciseExampleDetails
     )
 }
 
@@ -43,7 +45,8 @@ private fun Content(
     clearError: () -> Unit,
     exerciseExamples: ImmutableList<ExerciseExample>,
     addNewClick: () -> Unit,
-    selectExerciseExample: (id: String) -> Unit
+    selectExerciseExample: (id: String) -> Unit,
+    toExerciseExampleDetails: (id: String) -> Unit
 ) {
 
     ScreenRoot(error = { Error(message = error, close = clearError) }) {
@@ -62,10 +65,9 @@ private fun Content(
                     ExerciseCardDefault(
                         name = it.name,
                         imageUrl = it.imageUrl,
+                        viewDetails = { toExerciseExampleDetails.invoke(it.id) },
                         btn = "Update" to { selectExerciseExample.invoke(it.id) },
-                        musclesWithPercent = it.muscleExerciseBundles.map { b ->
-                            b.muscle.name to b.percentage
-                        }
+                        musclesWithPercent = it.muscleExerciseBundles.map { b -> b.muscle.name to b.percentage }
                     )
                 }
             }

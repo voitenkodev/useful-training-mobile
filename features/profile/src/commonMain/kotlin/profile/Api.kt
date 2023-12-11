@@ -19,7 +19,7 @@ public sealed class ProfileFeature : Parcelable {
 }
 
 @Composable
-public fun ProfileFeatureGraph(
+public fun ProfileGraph(
     startDirection: ProfileFeature,
     toExerciseExamples: () -> Unit
 ) {

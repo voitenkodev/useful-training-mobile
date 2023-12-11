@@ -24,10 +24,10 @@ public sealed class ExerciseExamplesFeature : Parcelable {
 }
 
 @Composable
-public fun ExerciseExamplesGraph(startDirection: ExerciseExamplesFeature) {
+public fun ExerciseExamplesGraph(toExerciseExampleDetails: (id: String) -> Unit) {
 
     val router: Router<ExerciseExamplesFeature> = rememberRouter(ExerciseExamplesFeature::class) {
-        listOf(startDirection)
+        listOf(ExerciseExamplesFeature.List)
     }
 
     RoutedContent(router = router, animation = stackAnimation(slide(orientation = Orientation.Horizontal))) { child ->
@@ -50,7 +50,8 @@ public fun ExerciseExamplesGraph(startDirection: ExerciseExamplesFeature) {
 
                 ExerciseExamplesContent(
                     vm = vm,
-                    toExerciseExampleBuilder = { router.push(ExerciseExamplesFeature.Edit(it)) }
+                    toExerciseExampleBuilder = { router.push(ExerciseExamplesFeature.Edit(it)) },
+                    toExerciseExampleDetails = toExerciseExampleDetails
                 )
             }
         }

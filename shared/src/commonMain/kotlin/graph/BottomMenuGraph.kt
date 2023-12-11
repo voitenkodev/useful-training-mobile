@@ -12,8 +12,9 @@ import io.github.xxfast.decompose.router.Router
 import io.github.xxfast.decompose.router.content.RoutedContent
 import io.github.xxfast.decompose.router.rememberRouter
 import profile.ProfileFeature
-import profile.ProfileFeatureGraph
-import statistics.StatisticFeature
+import profile.ProfileGraph
+import statistics.StatisticGraph
+import trainings.TrainingsGraph
 
 @Parcelize
 internal sealed class BottomMenuRouter : Parcelable {
@@ -63,12 +64,12 @@ internal fun BottomMenuGraph(
                         toTrainingDetails = toTrainingDetails
                     )
 
-                    BottomMenuRouter.Profile -> ProfileFeatureGraph(
+                    BottomMenuRouter.Profile -> ProfileGraph(
                         startDirection = ProfileFeature.Main,
                         toExerciseExamples = toExerciseExamples
                     )
 
-                    BottomMenuRouter.Statistics -> StatisticFeature()
+                    BottomMenuRouter.Statistics -> StatisticGraph()
                 }
             }
         }

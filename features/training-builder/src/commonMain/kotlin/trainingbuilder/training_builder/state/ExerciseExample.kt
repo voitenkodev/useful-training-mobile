@@ -6,7 +6,7 @@ import kotlinx.collections.immutable.persistentListOf
 
 @Immutable
 internal data class ExerciseExample(
-    val id: String? = null,
+    val id: String,
     val name: String = "",
     val imageUrl: String?,
     val muscleExerciseBundles: ImmutableList<MuscleExerciseBundle> = persistentListOf()

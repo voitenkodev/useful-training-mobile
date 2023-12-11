@@ -36,6 +36,7 @@ internal fun FindExercisePopup(
     setMuscleTarget: (id: String) -> Unit,
     createExercise: () -> Unit,
     selectExercise: (ExerciseExample) -> Unit,
+    toExerciseExampleDetails: (id: String) -> Unit,
     search: () -> Unit
 ) {
 
@@ -88,6 +89,9 @@ internal fun FindExercisePopup(
                     delay(POPUP_ANIM_DURATION_MS)
                     selectExercise.invoke(it)
                 }
+            },
+            details = {
+                toExerciseExampleDetails
             }
         )
 

@@ -8,15 +8,14 @@ plugins {
 apply(from = "../../gradle/configs/kotlin.gradle")
 apply(from = "../../gradle/configs/android.gradle")
 
-android { namespace = "com.voitenko.alienworkout.features.trainings" }
+android { namespace = "com.voitenko.alienworkout.features.exerciseexample" }
 
 kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(projects.domain.trainings)
+                implementation(projects.domain.exerciseExamplesMuscles)
 
-                implementation(projects.common.utils)
                 implementation(projects.common.architectureComponent)
 
                 implementation(projects.designSystem.atom)
@@ -24,7 +23,8 @@ kotlin {
                 implementation(projects.designSystem.components)
                 implementation(projects.designSystem.resources)
 
-                implementation(projects.composeLibs.charts)
+                implementation(projects.composeLibs.percentagePicker)
+                implementation(projects.composeLibs.musclePicker)
 
                 implementation(compose.ui)
                 implementation(compose.foundation)
