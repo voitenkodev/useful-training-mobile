@@ -14,19 +14,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Density
 import atom.Design
 import components.brand.ExerciseCardDefault
+import components.brand.ExerciseCardDefaultEmpty
+import components.brand.ExerciseCardDefaultLoading
 import kotlinx.collections.immutable.ImmutableList
-import molecule.ButtonTextLink
 import molecule.PaddingM
 import molecule.TextBody1
 import trainingbuilder.training_builder.state.ExerciseExample
 
 @Composable
 internal fun ExerciseExamples(
+    loading: Boolean,
     list: ImmutableList<ExerciseExample>,
-    select: (ExerciseExample) -> Unit
+    select: (ExerciseExample) -> Unit,
+    reload: () -> Unit
 ) {
 
-    val pager = rememberPagerState(pageCount = { list.size })
 
     Row(
         modifier = Modifier.fillMaxWidth().padding(horizontal = Design.dp.paddingM),
@@ -37,14 +39,19 @@ internal fun ExerciseExamples(
         TextBody1(
             provideText = { "Recommended for you" }
         )
-
-        ButtonTextLink(
-            text = "See all",
-            onClick = {}
-        )
     }
 
     PaddingM()
+
+    val pager = rememberPagerState(
+        pageCount = {
+            when {
+                loading -> 3
+                list.isEmpty() -> 1
+                else -> list.size
+            }
+        }
+    )
 
     HorizontalPager(
         state = pager,
@@ -56,14 +63,20 @@ internal fun ExerciseExamples(
             }
         }
     ) {
-        val item = list.getOrNull(it) ?: return@HorizontalPager
 
-        ExerciseCardDefault(
-            modifier = Modifier,
-            name = item.name,
-            btn = "Select" to { select.invoke(item) },
-            imageUrl = item.imageUrl,
-            musclesWithPercent = item.muscleExerciseBundles.map { it.muscle.name to it.percentage }
-        )
+        val item = list.getOrNull(it)
+
+        when {
+            loading -> ExerciseCardDefaultLoading()
+            list.isEmpty() -> ExerciseCardDefaultEmpty(reload = reload)
+            item != null -> ExerciseCardDefault(
+                name = item.name,
+                btn = "Select" to { select.invoke(item) },
+                imageUrl = item.imageUrl,
+                musclesWithPercent = item.muscleExerciseBundles.map { it.muscle.name to it.percentage }
+            )
+        }
     }
+
+
 }

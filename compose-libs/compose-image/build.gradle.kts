@@ -14,6 +14,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(projects.common.imageLoader)
+                implementation(projects.common.utils)
 
                 implementation(compose.ui)
                 implementation(compose.foundation)

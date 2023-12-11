@@ -3,6 +3,7 @@ package components.brand
 import AsyncImage
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
@@ -26,15 +27,22 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import atom.Design
+import molecule.ButtonPrimary
 import molecule.ButtonPrimarySmall
 import molecule.ButtonSecondarySmall
 import molecule.ButtonTextLink
+import molecule.PaddingL
 import molecule.PaddingM
 import molecule.PaddingWeight
+import molecule.PaddingXS
+import molecule.TextBody1
 import molecule.TextBody3
+import molecule.TextH3
 import molecule.TextH4
+import molecule.coloredDefaultBackgroundNoBorder
 import molecule.secondaryDefaultBackground
 import percents
+import shimmerLoadingAnimation
 
 
 @Immutable
@@ -223,5 +231,51 @@ public fun ExerciseCardDefault(
                 )
             }
         }
+    }
+}
+
+@Composable
+public fun ExerciseCardDefaultLoading(modifier: Modifier = Modifier) {
+    Box(
+        modifier
+            .secondaryDefaultBackground()
+            .shimmerLoadingAnimation(true)
+            .aspectRatio(1.72f)
+            .clipToBounds()
+    )
+}
+
+@Composable
+public fun ExerciseCardDefaultEmpty(modifier: Modifier = Modifier, reload: () -> Unit) {
+    Column(
+        modifier = modifier
+            .coloredDefaultBackgroundNoBorder(Design.colors.black10)
+            .aspectRatio(1.72f)
+            .clipToBounds(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+
+        TextH3(
+            provideText = { "Empty Exercises" },
+            color = Design.colors.caption.copy(alpha = 0.5f),
+        )
+
+        PaddingXS()
+
+        TextBody1(
+            provideText = { "Tap to reload" },
+            color = Design.colors.caption.copy(alpha = 0.5f),
+        )
+
+        PaddingL()
+
+        ButtonPrimary(
+            modifier = Modifier.padding(horizontal = Design.dp.paddingXL),
+            text = "Reload",
+            textColor = Design.colors.primary,
+            backgroundColor = Design.colors.toxic,
+            onClick = reload
+        )
     }
 }

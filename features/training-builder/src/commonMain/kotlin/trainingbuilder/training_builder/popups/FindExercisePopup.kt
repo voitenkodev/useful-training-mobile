@@ -29,11 +29,13 @@ import trainingbuilder.training_builder.state.Muscle
 @Composable
 internal fun FindExercisePopup(
     close: () -> Unit,
+    loading: Boolean,
     selectedMuscle: Muscle?,
     muscles: ImmutableList<Muscle>,
     exerciseExamples: ImmutableList<ExerciseExample>,
     setMuscleTarget: (id: String) -> Unit,
     createExercise: () -> Unit,
+    reloadRecommendations: () -> Unit,
     selectExercise: (ExerciseExample) -> Unit,
     search: () -> Unit
 ) {
@@ -80,6 +82,8 @@ internal fun FindExercisePopup(
 
         ExerciseExamples(
             list = exerciseExamples,
+            loading = loading,
+            reload = reloadRecommendations,
             select = {
                 coroutineScope.launch {
                     close.invoke()

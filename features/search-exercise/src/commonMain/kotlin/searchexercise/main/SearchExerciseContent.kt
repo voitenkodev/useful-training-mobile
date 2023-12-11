@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import atom.Design
 import components.Error
 import components.brand.ExerciseCardDefault
+import components.brand.ExerciseCardDefaultLoading
 import components.roots.ScreenRoot
 import kotlinx.collections.immutable.ImmutableList
 import molecule.primaryBackground
@@ -30,6 +31,7 @@ internal fun SearchExerciseContent(
 
     Content(
         error = { state.error },
+        loading = state.loading,
         clearError = vm::clearError,
         query = state.query,
         setQuery = vm::setQuery,
@@ -42,6 +44,7 @@ internal fun SearchExerciseContent(
 @Composable
 private fun Content(
     error: () -> String?,
+    loading: Boolean,
     clearError: () -> Unit,
     query: String,
     setQuery: (String) -> Unit,
@@ -65,6 +68,10 @@ private fun Content(
                 contentPadding = PaddingValues(Design.dp.paddingM),
                 verticalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
             ) {
+
+                if (loading) repeat(3) {
+                    item { ExerciseCardDefaultLoading() }
+                }
 
                 items(exerciseExamples, key = { it.id }) {
                     ExerciseCardDefault(

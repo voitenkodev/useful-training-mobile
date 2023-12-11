@@ -72,11 +72,13 @@ internal fun TrainingBuilderContent(
                 close = hideLambda,
                 exerciseExamples = state.exerciseExamples,
                 muscles = state.muscles,
+                loading = state.findExerciseLoading,
                 selectedMuscle = state.selectedMuscle,
                 setMuscleTarget = vm::setMuscleTarget,
                 selectExercise = vm::openAddExercisePopup,
                 createExercise = vm::openAddExercisePopup,
-                search = toSearchExerciseExample
+                search = toSearchExerciseExample,
+                reloadRecommendations = vm::reloadRecommendations
             )
         }
     )

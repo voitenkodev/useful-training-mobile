@@ -3,6 +3,7 @@ package trainingbuilder.training_builder
 import ExerciseExamplesRepository
 import TrainingsRepository
 import ViewModel
+import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -170,7 +171,18 @@ internal class TrainingBuilderViewModel(muscleIds: List<String>) : ViewModel() {
     }
 
     fun openFindExercisePopup() {
-        _state.update { it.copy(findExercisePopupIsVisibleIndex = true) }
+        launch {
+            _state.update { it.copy(exerciseExamples = persistentListOf()) }
+            _state.update { it.copy(findExerciseLoading = true) }
+            _state.update { it.copy(findExerciseLoading = false) }
+            _state.update { it.copy(findExercisePopupIsVisibleIndex = true) }
+
+        }
+    }
+
+    fun reloadRecommendations() {
+        _state.update { it.copy(findExerciseLoading = true) }
+
     }
 
     fun closeFindExercisePopup() {
