@@ -56,8 +56,7 @@ SELECT
 FROM ExerciseExample
 LEFT JOIN MuscleExerciseBundle ON ExerciseExample.id = MuscleExerciseBundle.exerciseExampleId
 LEFT JOIN Muscle ON MuscleExerciseBundle.muscleId = Muscle.id
-WHERE ExerciseExample.id = ?
-LIMIT 1;
+WHERE ExerciseExample.id = ?;
 
 getExerciseExamples:
 SELECT
