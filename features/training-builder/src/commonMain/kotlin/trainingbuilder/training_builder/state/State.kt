@@ -16,7 +16,7 @@ internal data class State(
 
     val setExercisePopupState: SetExercisePopupState = SetExercisePopupState.Closed,
     val findExercisePopupIsVisibleIndex: Boolean = false,
-    val findExerciseLoading: Boolean = false,
+    val recommendationsLoading: Boolean = false,
 
     val fullFrontImageVector: ImageVector = training.exercises.createFrontBackImages().first,
     val fullBackImageVector: ImageVector = training.exercises.createFrontBackImages().second,

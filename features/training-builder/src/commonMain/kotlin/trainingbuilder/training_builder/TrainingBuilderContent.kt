@@ -62,7 +62,7 @@ internal fun TrainingBuilderContent(
     LaunchedEffect(Unit) {
         searchExerciseExampleId
             .onEach { delay(POPUP_ANIM_DURATION_MS) }
-            .collectLatest(vm::getExerciseById)
+            .collectLatest(vm::getExerciseExampleById)
     }
 
     if (state.findExercisePopupIsVisibleIndex) PopupSheet(
@@ -72,13 +72,12 @@ internal fun TrainingBuilderContent(
                 close = hideLambda,
                 exerciseExamples = state.exerciseExamples,
                 muscles = state.muscles,
-                loading = state.findExerciseLoading,
+                loading = state.recommendationsLoading,
                 selectedMuscle = state.selectedMuscle,
                 setMuscleTarget = vm::setMuscleTarget,
                 selectExercise = vm::openAddExercisePopup,
                 createExercise = vm::openAddExercisePopup,
-                search = toSearchExerciseExample,
-                reloadRecommendations = vm::reloadRecommendations
+                search = toSearchExerciseExample
             )
         }
     )

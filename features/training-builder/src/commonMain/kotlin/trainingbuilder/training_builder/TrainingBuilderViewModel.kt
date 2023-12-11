@@ -3,16 +3,17 @@ package trainingbuilder.training_builder
 import ExerciseExamplesRepository
 import TrainingsRepository
 import ViewModel
-import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.firstOrNull
-import kotlinx.coroutines.flow.flatMapConcat
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.update
@@ -39,24 +40,22 @@ internal class TrainingBuilderViewModel(muscleIds: List<String>) : ViewModel() {
     init {
         exerciseExampleApi
             .observeMusclesById(muscleIds)
-            .onEach { r ->
-                val list = r.toState()
-                _state.update { it.copy(muscles = list, selectedMuscle = list.firstOrNull()) }
-            }.catch { r -> _state.update { it.copy(error = r.message) } }
-            .launchIn(this)
-
-        exerciseExampleApi
-            .observeExerciseExamples()
-            .onStart { _state.update { it.copy(loading = true) } }
-            .onEach { r -> _state.update { it.copy(loading = false, exerciseExamples = r.toState()) } }
-            .catch { t -> _state.update { it.copy(loading = false, error = t.message) } }
-            .launchIn(this)
-
-        exerciseExampleApi
-            .syncMuscleTypes()
-            .flatMapConcat { exerciseExampleApi.syncExerciseExamples() }
+            .map { it.toState() }
+            .onEach { r -> _state.update { it.copy(muscles = r, selectedMuscle = r.firstOrNull()) } }
             .catch { r -> _state.update { it.copy(error = r.message) } }
             .launchIn(this)
+
+        _state
+            .map { it.selectedMuscle }
+            .flatMapLatest { muscle -> _state.map { it.training.exercises }.map { muscle to it } }
+            .distinctUntilChanged()
+            .flatMapLatest {
+                exerciseExampleApi.recommendedExerciseExample()
+                    .onStart { _state.update { it.copy(recommendationsLoading = true) } }
+                    .onEach { delay(5000) }
+                    .catch { t -> _state.update { it.copy(recommendationsLoading = false, error = t.message) } }
+                    .onEach { r -> _state.update { it.copy(recommendationsLoading = false, exerciseExamples = r.toState()) } }
+            }.launchIn(this)
     }
 
     @FlowPreview
@@ -79,28 +78,6 @@ internal class TrainingBuilderViewModel(muscleIds: List<String>) : ViewModel() {
             }.catch { t ->
                 _state.update { it.copy(loading = false, error = t.message) }
             }.launchIn(this)
-    }
-
-    fun getTraining(trainingId: String) {
-        trainingsApi
-            .observeTraining(trainingId = trainingId)
-            .onStart {
-                _state.update { it.copy(loading = true) }
-            }.filterNotNull()
-            .onEach { r ->
-                _state.update {
-                    it.copy(
-                        training = r.toState(),
-                        loading = false
-                    )
-                }
-            }.catch { t ->
-                _state.update { it.copy(loading = false, error = t.message) }
-            }.launchIn(this)
-    }
-
-    fun clearError() {
-        _state.update { it.copy(error = null) }
     }
 
     fun saveExercise(index: Int, exercise: Exercise) {
@@ -129,24 +106,21 @@ internal class TrainingBuilderViewModel(muscleIds: List<String>) : ViewModel() {
 
     fun removeExercise(exerciseIndex: Int?) {
         exerciseIndex?.let {
-            _state.update {
-                it.copy(
-                    training = it.training.removeExercise(exerciseIndex)
-                )
-            }
+            _state.update { it.copy(training = it.training.removeExercise(exerciseIndex)) }
         }
     }
 
-    fun getExerciseById(id: String) {
+    fun getExerciseExampleById(id: String) {
         launch {
-            exerciseExampleApi
+            val result = exerciseExampleApi
                 .observeExerciseExample(id)
                 .onStart { _state.update { it.copy(loading = true) } }
                 .catch { t -> _state.update { it.copy(loading = false, error = t.message) } }
                 .onEach { _state.update { it.copy(loading = false) } }
                 .firstOrNull()
-                ?.toState()
-                ?.let { openAddExercisePopup(it) }
+                ?.toState() ?: return@launch
+
+            openAddExercisePopup(result)
         }
     }
 
@@ -171,18 +145,7 @@ internal class TrainingBuilderViewModel(muscleIds: List<String>) : ViewModel() {
     }
 
     fun openFindExercisePopup() {
-        launch {
-            _state.update { it.copy(exerciseExamples = persistentListOf()) }
-            _state.update { it.copy(findExerciseLoading = true) }
-            _state.update { it.copy(findExerciseLoading = false) }
-            _state.update { it.copy(findExercisePopupIsVisibleIndex = true) }
-
-        }
-    }
-
-    fun reloadRecommendations() {
-        _state.update { it.copy(findExerciseLoading = true) }
-
+        _state.update { it.copy(findExercisePopupIsVisibleIndex = true) }
     }
 
     fun closeFindExercisePopup() {
@@ -244,5 +207,9 @@ internal class TrainingBuilderViewModel(muscleIds: List<String>) : ViewModel() {
             repetitions = trainRepetitions,
             intensity = trainIntensity.round(1)
         )
+    }
+
+    fun clearError() {
+        _state.update { it.copy(error = null) }
     }
 }

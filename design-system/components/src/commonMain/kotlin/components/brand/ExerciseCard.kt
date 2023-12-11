@@ -25,13 +25,12 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import atom.Design
-import molecule.ButtonPrimary
 import molecule.ButtonPrimarySmall
 import molecule.ButtonSecondarySmall
 import molecule.ButtonTextLink
-import molecule.PaddingL
 import molecule.PaddingM
 import molecule.PaddingWeight
 import molecule.PaddingXS
@@ -246,9 +245,10 @@ public fun ExerciseCardDefaultLoading(modifier: Modifier = Modifier) {
 }
 
 @Composable
-public fun ExerciseCardDefaultEmpty(modifier: Modifier = Modifier, reload: () -> Unit) {
+public fun ExerciseCardDefaultEmpty(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
+            .padding(horizontal = Design.dp.paddingM)
             .coloredDefaultBackgroundNoBorder(Design.colors.black10)
             .aspectRatio(1.72f)
             .clipToBounds(),
@@ -259,23 +259,15 @@ public fun ExerciseCardDefaultEmpty(modifier: Modifier = Modifier, reload: () ->
         TextH3(
             provideText = { "Empty Exercises" },
             color = Design.colors.caption.copy(alpha = 0.5f),
+            textAlign = TextAlign.Center
         )
 
         PaddingXS()
 
         TextBody1(
-            provideText = { "Tap to reload" },
+            provideText = { "We don't have recommended exercises for you" },
             color = Design.colors.caption.copy(alpha = 0.5f),
-        )
-
-        PaddingL()
-
-        ButtonPrimary(
-            modifier = Modifier.padding(horizontal = Design.dp.paddingXL),
-            text = "Reload",
-            textColor = Design.colors.primary,
-            backgroundColor = Design.colors.toxic,
-            onClick = reload
+            textAlign = TextAlign.Center
         )
     }
 }

@@ -9,6 +9,7 @@ public interface ExerciseExamplesRepository {
     public fun observeExerciseExamples(): Flow<List<ExerciseExample>>
     public fun syncExerciseExamples(): Flow<Unit>
     public fun observeExerciseExample(exerciseExampleId: String): Flow<ExerciseExample>
+    public fun recommendedExerciseExample(): Flow<List<ExerciseExample>>
     public fun setExerciseExample(exerciseExample: ExerciseExample): Flow<Unit>
 
     // Muscles

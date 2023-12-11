@@ -25,8 +25,7 @@ import trainingbuilder.training_builder.state.ExerciseExample
 internal fun ExerciseExamples(
     loading: Boolean,
     list: ImmutableList<ExerciseExample>,
-    select: (ExerciseExample) -> Unit,
-    reload: () -> Unit
+    select: (ExerciseExample) -> Unit
 ) {
 
 
@@ -68,7 +67,7 @@ internal fun ExerciseExamples(
 
         when {
             loading -> ExerciseCardDefaultLoading()
-            list.isEmpty() -> ExerciseCardDefaultEmpty(reload = reload)
+            list.isEmpty() -> ExerciseCardDefaultEmpty()
             item != null -> ExerciseCardDefault(
                 name = item.name,
                 btn = "Select" to { select.invoke(item) },
