@@ -154,11 +154,7 @@ public fun ExerciseCardDefault(
     Box(
         modifier
             .secondaryDefaultBackground()
-            .border(
-                width = 1.dp,
-                color = Design.colors.toxic.copy(alpha = 0.5f),
-                shape = Design.shape.default
-            ).fillMaxWidth()
+            .fillMaxWidth()
             .aspectRatio(1.72f)
             .clipToBounds()
     ) {
@@ -248,9 +244,9 @@ public fun ExerciseCardDefaultLoading(modifier: Modifier = Modifier) {
 public fun ExerciseCardDefaultEmpty(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
-            .padding(horizontal = Design.dp.paddingM)
             .coloredDefaultBackgroundNoBorder(Design.colors.black10)
             .aspectRatio(1.72f)
+            .padding(horizontal = Design.dp.paddingM)
             .clipToBounds(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
@@ -265,7 +261,7 @@ public fun ExerciseCardDefaultEmpty(modifier: Modifier = Modifier) {
         PaddingXS()
 
         TextBody1(
-            provideText = { "We don't have recommended exercises for you" },
+            provideText = { "No one recommended exercises for you" },
             color = Design.colors.caption.copy(alpha = 0.5f),
             textAlign = TextAlign.Center
         )
