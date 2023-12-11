@@ -37,7 +37,7 @@ public fun MenuItem(
         IconPrimary(
             modifier = Modifier.coloredDefaultBackgroundNoBorder(Design.colors.white5),
             imageVector = icon,
-            contentColor = contentColor
+            color = contentColor
         )
 
         TextH4(
@@ -49,7 +49,7 @@ public fun MenuItem(
 
         if (allowRightArrow) IconPrimary(
             imageVector = Icons.arrowRight,
-            contentColor = contentColor
+            color = contentColor
         )
     }
 }

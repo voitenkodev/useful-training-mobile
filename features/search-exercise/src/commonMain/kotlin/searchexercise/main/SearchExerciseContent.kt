@@ -22,7 +22,8 @@ import searchexercise.main.state.ExerciseExample
 @Composable
 internal fun SearchExerciseContent(
     vm: SearchExerciseViewModel,
-    select: (id: String) -> Unit
+    select: (id: String) -> Unit,
+    close: () -> Unit
 ) {
 
     val state by vm.state.collectAsState()
@@ -33,7 +34,8 @@ internal fun SearchExerciseContent(
         query = state.query,
         setQuery = vm::setQuery,
         exerciseExamples = state.exerciseExamples,
-        selectExerciseExample = select
+        selectExerciseExample = select,
+        close = close
     )
 }
 
@@ -44,7 +46,8 @@ private fun Content(
     query: String,
     setQuery: (String) -> Unit,
     exerciseExamples: ImmutableList<ExerciseExample>,
-    selectExerciseExample: (id: String) -> Unit
+    selectExerciseExample: (id: String) -> Unit,
+    close: () -> Unit
 ) {
 
     ScreenRoot(error = { Error(message = error, close = clearError) }) {
@@ -53,7 +56,8 @@ private fun Content(
 
             Header(
                 query = query,
-                setQuery = setQuery
+                setQuery = setQuery,
+                close = close
             )
 
             LazyColumn(

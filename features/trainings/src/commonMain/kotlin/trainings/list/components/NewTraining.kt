@@ -44,7 +44,7 @@ internal fun NewTraining(addTraining: () -> Unit) {
 
         ButtonPrimary(
             modifier = Modifier.padding(horizontal = Design.dp.paddingXL),
-            text = "Start",
+            text = "Start workout",
             textColor = Design.colors.primary,
             backgroundColor = Design.colors.toxic,
             onClick = addTraining

@@ -13,16 +13,20 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import atom.Design
 import components.inputs.InputSearch
+import molecule.ButtonIconTransparent
 import molecule.PaddingM
 import molecule.PaddingS
+import molecule.PaddingWeight
 import molecule.Shadow
 import molecule.TextH2
+import resources.Icons
 
 @Composable
 internal fun Header(
     modifier: Modifier = Modifier,
     query: String,
-    setQuery: (String) -> Unit
+    setQuery: (String) -> Unit,
+    close: () -> Unit
 ) {
     Column(
         modifier = modifier
@@ -45,7 +49,16 @@ internal fun Header(
                 provideText = { "Exercises" },
                 softWrap = false
             )
+
+            PaddingWeight()
+
+            ButtonIconTransparent(
+                imageVector = Icons.close,
+                contentColor = Design.colors.content,
+                onClick = close
+            )
         }
+
 
         PaddingS()
 

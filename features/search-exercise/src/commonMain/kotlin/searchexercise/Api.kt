@@ -30,7 +30,7 @@ public fun SearchExerciseGraph(close: () -> Unit) {
             is SearchExerciseFeature.Main -> {
                 val api = SearchExerciseController.api
                 val vm = rememberOnRoute(SearchExerciseViewModel::class) { SearchExerciseViewModel() }
-                SearchExerciseContent(vm = vm, select = { api.select(it); close.invoke() })
+                SearchExerciseContent(vm = vm, select = { api.select(it); close.invoke() }, close = close)
             }
         }
     }

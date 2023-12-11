@@ -18,14 +18,14 @@ public fun IconPrimary(
     modifier: Modifier = Modifier,
     imageVector: ImageVector,
     enabled: Boolean = true,
-    contentColor: Color = Design.colors.content
+    color: Color = Design.colors.content
 ) {
     Icon(
         modifier = modifier
             .requiredSize(Design.dp.componentL)
             .alpha(if (enabled) 1f else 0.5f)
             .padding(Design.dp.paddingM),
-        tint = contentColor,
+        tint = color,
         imageVector = imageVector,
         contentDescription = null
     )
@@ -41,7 +41,7 @@ public fun IconSecondary(
         imageVector = imageVector,
         tint = color,
         modifier = modifier
-            .size(18.dp)
+            .size(24.dp)
             .clip(shape = Design.shape.default),
         contentDescription = null
     )
