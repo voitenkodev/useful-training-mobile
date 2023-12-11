@@ -142,6 +142,7 @@ internal class TrainingBuilderViewModel(muscleIds: List<String>) : ViewModel() {
                 .observeExerciseExample(id)
                 .onStart { _state.update { it.copy(loading = true) } }
                 .catch { t -> _state.update { it.copy(loading = false, error = t.message) } }
+                .onEach { _state.update { it.copy(loading = false) } }
                 .firstOrNull()
                 ?.toState()
                 ?.let { openAddExercisePopup(it) }

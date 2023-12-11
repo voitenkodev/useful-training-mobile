@@ -43,7 +43,7 @@ import molecule.primaryBackground
 import molecule.secondaryDefaultBackground
 import resources.Icons
 import trainingbuilder.training_builder.popups.components.SetIteration
-import trainingbuilder.training_builder.popups.state.IterationTargetFocus
+import trainingbuilder.training_builder.state.IterationTargetFocus
 import trainingbuilder.training_builder.state.Exercise
 import trainingbuilder.training_builder.state.ExerciseExample
 import trainingbuilder.training_builder.state.Iteration

@@ -31,7 +31,7 @@ import molecule.TextH4
 import molecule.secondaryBackground
 import molecule.secondaryDefaultBackground
 import resources.Icons
-import trainingbuilder.training_builder.popups.state.IterationTargetFocus
+import trainingbuilder.training_builder.state.IterationTargetFocus
 import trainingbuilder.training_builder.state.Iteration
 
 @Composable
