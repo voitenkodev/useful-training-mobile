@@ -43,3 +43,32 @@ public fun SmallToolbar(
         else Spacer(Modifier.size(Design.dp.componentS))
     }
 }
+
+@Composable
+public fun Toolbar(
+    title: String,
+    icon: Pair<ImageVector, () -> Unit>? = null
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(Design.dp.componentL),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+
+        TextH2(
+            modifier = Modifier.padding(horizontal = Design.dp.paddingM),
+            provideText = { title },
+            softWrap = false
+        )
+
+        PaddingWeight()
+
+        if (icon != null) ButtonIconTransparent(
+            imageVector = icon.first,
+            contentColor = Design.colors.content,
+            onClick = icon.second
+        ) else Spacer(Modifier.size(Design.dp.componentL))
+    }
+}

@@ -9,7 +9,9 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -27,7 +29,7 @@ import atom.Design
 import components.brand.ExerciseCardSmall
 import components.inputs.InputExerciseName
 import components.overlay.ShadowBackground
-import components.roots.PopupScreenRoot
+import components.roots.ScreenRoot
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toPersistentList
 import molecule.ButtonPrimary
@@ -35,11 +37,12 @@ import molecule.ButtonSecondary
 import molecule.PaddingM
 import molecule.PaddingS
 import molecule.Shadow
-import molecule.SmallToolbar
 import molecule.TextBody1
 import molecule.TextBody2
 import molecule.TextLabel
+import molecule.Toolbar
 import molecule.primaryBackground
+import molecule.secondaryBackground
 import molecule.secondaryDefaultBackground
 import resources.Icons
 import trainingbuilder.training_builder.popups.components.SetIteration
@@ -111,77 +114,80 @@ internal fun SetExercisePage(
         { selectedIterationIndex.value = -1 to IterationTargetFocus.Weight }
     }
 
-    Box(modifier = Modifier.fillMaxSize().imePadding()) {
+    Box(modifier = Modifier.fillMaxSize().secondaryBackground().imePadding()) {
 
-        PopupScreenRoot {
+        ScreenRoot {
 
-            PaddingS()
+            Column(modifier = Modifier.fillMaxSize().statusBarsPadding()) {
 
-            SmallToolbar(
-                title = "Exercise",
-                icon = Icons.close to close
-            )
+                PaddingS()
 
-            PaddingS()
-
-            exercise.value.exerciseExample?.let { ex ->
-                ExerciseCardSmall(
-                    name = ex.name,
-                    imageUrl = ex.imageUrl,
-                    viewDetails = { toExerciseExampleDetails.invoke(ex.id) },
-                    musclesWithPercent = ex.muscleExerciseBundles.map { it.muscle.name to it.percentage }
+                Toolbar(
+                    title = "Exercise",
+                    icon = Icons.close to close
                 )
-            } ?: InputExerciseName(
-                provideName = { exercise.value.name },
-                update = updateName
+
+                PaddingS()
+
+                exercise.value.exerciseExample?.let { ex ->
+                    ExerciseCardSmall(
+                        name = ex.name,
+                        imageUrl = ex.imageUrl,
+                        viewDetails = { toExerciseExampleDetails.invoke(ex.id) },
+                        musclesWithPercent = ex.muscleExerciseBundles.map { it.muscle.name to it.percentage }
+                    )
+                } ?: InputExerciseName(
+                    provideName = { exercise.value.name },
+                    update = updateName
+                )
+
+                PaddingM()
+
+                Shadow()
+
+                EditExercise(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .weight(1f)
+                        .primaryBackground()
+                        .verticalScroll(rememberScrollState()),
+                    iterations = exercise.value.iterations,
+                    selectIterationWeight = selectIterationTargetWeight,
+                    selectIterationRepetition = selectIterationTargetRepetition,
+                    addIteration = {
+                        selectedIterationIndex.value = exercise.value.iterations.lastIndex + 1 to IterationTargetFocus.Weight
+                    }
+                )
+
+                Footer(
+                    cancel = close,
+                    saveEnabled = exercise.value.name.isNotBlank() && exercise.value.iterations.isNotEmpty(),
+                    save = { save.invoke(exercise.value); close.invoke() }
+                )
+            }
+
+            val selectedIteration = remember(
+                selectedIterationIndex.value,
+                exercise.value.iterations
+            ) { exercise.value.iterations.getOrNull(selectedIterationIndex.value.first) }
+
+            ShadowBackground(
+                modifier = Modifier.fillMaxSize(),
+                condition = selectedIterationIndex.value.first != -1,
+                onClick = clearSelectedIteration
             )
 
-            PaddingM()
-
-            Shadow()
-
-            EditExercise(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(1f)
-                    .primaryBackground()
-                    .verticalScroll(rememberScrollState()),
-                iterations = exercise.value.iterations,
-                selectIterationWeight = selectIterationTargetWeight,
-                selectIterationRepetition = selectIterationTargetRepetition,
-                addIteration = {
-                    selectedIterationIndex.value = exercise.value.iterations.lastIndex + 1 to IterationTargetFocus.Weight
-                }
-            )
-
-            Footer(
-                cancel = close,
-                saveEnabled = exercise.value.name.isNotBlank() && exercise.value.iterations.isNotEmpty(),
-                save = { save.invoke(exercise.value); close.invoke() }
-            )
-        }
-
-        val selectedIteration = remember(
-            selectedIterationIndex.value,
-            exercise.value.iterations
-        ) { exercise.value.iterations.getOrNull(selectedIterationIndex.value.first) }
-
-        ShadowBackground(
-            modifier = Modifier.fillMaxSize(),
-            condition = selectedIterationIndex.value.first != -1,
-            onClick = clearSelectedIteration
-        )
-
-        if (selectedIterationIndex.value.first != -1) {
-            SetIteration(
-                modifier = Modifier.align(Alignment.BottomCenter),
-                index = selectedIterationIndex.value.first,
-                selectedIterationIndex.value.second,
-                iteration = selectedIteration,
-                remove = removeSelectedIteration,
-                save = saveIteration,
-                close = clearSelectedIteration
-            )
+            if (selectedIterationIndex.value.first != -1) {
+                SetIteration(
+                    modifier = Modifier.align(Alignment.BottomCenter),
+                    index = selectedIterationIndex.value.first,
+                    selectedIterationIndex.value.second,
+                    iteration = selectedIteration,
+                    remove = removeSelectedIteration,
+                    save = saveIteration,
+                    close = clearSelectedIteration
+                )
+            }
         }
     }
 }
@@ -192,7 +198,7 @@ private fun Footer(
     save: () -> Unit,
     saveEnabled: Boolean
 ) {
-    Column(modifier = Modifier.fillMaxWidth()) {
+    Column(modifier = Modifier.fillMaxWidth().navigationBarsPadding()) {
 
         Shadow()
 
