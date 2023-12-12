@@ -3,12 +3,10 @@ package trainingbuilder.training_builder.components
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
@@ -114,80 +112,74 @@ internal fun SetExercisePage(
         { selectedIterationIndex.value = -1 to IterationTargetFocus.Weight }
     }
 
-    Box(modifier = Modifier.fillMaxSize().secondaryBackground().imePadding()) {
+    ScreenRoot(modifier = Modifier.fillMaxSize().secondaryBackground()) {
 
-        ScreenRoot {
+        Column(modifier = Modifier.statusBarsPadding()) {
 
-            Column(modifier = Modifier.fillMaxSize().statusBarsPadding()) {
+            PaddingS()
 
-                PaddingS()
-
-                Toolbar(
-                    title = "Exercise",
-                    icon = Icons.close to close
-                )
-
-                PaddingS()
-
-                exercise.value.exerciseExample?.let { ex ->
-                    ExerciseCardSmall(
-                        name = ex.name,
-                        imageUrl = ex.imageUrl,
-                        viewDetails = { toExerciseExampleDetails.invoke(ex.id) },
-                        musclesWithPercent = ex.muscleExerciseBundles.map { it.muscle.name to it.percentage }
-                    )
-                } ?: InputExerciseName(
-                    provideName = { exercise.value.name },
-                    update = updateName
-                )
-
-                PaddingM()
-
-                Shadow()
-
-                EditExercise(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .weight(1f)
-                        .primaryBackground()
-                        .verticalScroll(rememberScrollState()),
-                    iterations = exercise.value.iterations,
-                    selectIterationWeight = selectIterationTargetWeight,
-                    selectIterationRepetition = selectIterationTargetRepetition,
-                    addIteration = {
-                        selectedIterationIndex.value = exercise.value.iterations.lastIndex + 1 to IterationTargetFocus.Weight
-                    }
-                )
-
-                Footer(
-                    cancel = close,
-                    saveEnabled = exercise.value.name.isNotBlank() && exercise.value.iterations.isNotEmpty(),
-                    save = { save.invoke(exercise.value); close.invoke() }
-                )
-            }
-
-            val selectedIteration = remember(
-                selectedIterationIndex.value,
-                exercise.value.iterations
-            ) { exercise.value.iterations.getOrNull(selectedIterationIndex.value.first) }
-
-            ShadowBackground(
-                modifier = Modifier.fillMaxSize(),
-                condition = selectedIterationIndex.value.first != -1,
-                onClick = clearSelectedIteration
+            Toolbar(
+                title = "Exercise",
+                icon = Icons.close to close
             )
 
-            if (selectedIterationIndex.value.first != -1) {
-                SetIteration(
-                    modifier = Modifier.align(Alignment.BottomCenter),
-                    index = selectedIterationIndex.value.first,
-                    selectedIterationIndex.value.second,
-                    iteration = selectedIteration,
-                    remove = removeSelectedIteration,
-                    save = saveIteration,
-                    close = clearSelectedIteration
+            PaddingS()
+
+            exercise.value.exerciseExample?.let { ex ->
+                ExerciseCardSmall(
+                    name = ex.name,
+                    imageUrl = ex.imageUrl,
+                    viewDetails = { toExerciseExampleDetails.invoke(ex.id) },
+                    musclesWithPercent = ex.muscleExerciseBundles.map { it.muscle.name to it.percentage }
                 )
-            }
+            } ?: InputExerciseName(
+                provideName = { exercise.value.name },
+                update = updateName
+            )
+
+            PaddingM()
+
+            Shadow()
+
+            EditExercise(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f)
+                    .primaryBackground()
+                    .verticalScroll(rememberScrollState()),
+                iterations = exercise.value.iterations,
+                selectIterationWeight = selectIterationTargetWeight,
+                selectIterationRepetition = selectIterationTargetRepetition,
+                addIteration = { selectedIterationIndex.value = exercise.value.iterations.lastIndex + 1 to IterationTargetFocus.Weight }
+            )
+
+            Footer(
+                cancel = close,
+                saveEnabled = exercise.value.name.isNotBlank() && exercise.value.iterations.isNotEmpty(),
+                save = { save.invoke(exercise.value); close.invoke() }
+            )
+        }
+
+        val selectedIteration = remember(selectedIterationIndex.value, exercise.value.iterations) {
+            exercise.value.iterations.getOrNull(selectedIterationIndex.value.first)
+        }
+
+        ShadowBackground(
+            modifier = Modifier.fillMaxSize(),
+            condition = selectedIterationIndex.value.first != -1,
+            onClick = clearSelectedIteration
+        )
+
+        if (selectedIterationIndex.value.first != -1) {
+            SetIteration(
+                modifier = Modifier.align(Alignment.BottomCenter),
+                index = selectedIterationIndex.value.first,
+                targetFocus = selectedIterationIndex.value.second,
+                iteration = selectedIteration,
+                remove = removeSelectedIteration,
+                save = saveIteration,
+                close = clearSelectedIteration
+            )
         }
     }
 }

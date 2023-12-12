@@ -58,7 +58,6 @@ internal class TrainingBuilderViewModel(muscleIds: List<String>) : ViewModel() {
             }.launchIn(this)
     }
 
-    @FlowPreview
     fun saveTraining(onSuccess: (trainingId: String) -> Unit) {
         val training = state.value.training
             .validate()

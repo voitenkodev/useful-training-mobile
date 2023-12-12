@@ -1,7 +1,7 @@
 package trainingbuilder.training_builder
 
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.VerticalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -39,8 +39,7 @@ internal fun TrainingBuilderContent(
     LaunchedEffect(state.setExerciseState) { pagerState.animateScrollToPage(page = if (state.setExerciseState is SetExerciseState.Opened) 1 else 0) }
 
     LaunchedEffect(Unit) {
-        searchExerciseExampleId
-            .onEach { delay(POPUP_ANIM_DURATION_MS) }
+        searchExerciseExampleId.onEach { delay(POPUP_ANIM_DURATION_MS) }
             .collectLatest(vm::getExerciseExampleById)
     }
 
@@ -62,8 +61,7 @@ internal fun TrainingBuilderContent(
         }
     )
 
-
-    HorizontalPager(modifier = Modifier.fillMaxSize(), state = pagerState, userScrollEnabled = false) {
+    VerticalPager(modifier = Modifier.fillMaxSize(), state = pagerState, userScrollEnabled = false) {
 
         when (it) {
             0 -> ExercisesPage(

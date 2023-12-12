@@ -66,6 +66,7 @@ public fun Toolbar(
         PaddingWeight()
 
         if (icon != null) ButtonIconTransparent(
+            modifier = Modifier.padding(horizontal = Design.dp.paddingM),
             imageVector = icon.first,
             contentColor = Design.colors.content,
             onClick = icon.second
