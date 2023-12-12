@@ -95,7 +95,6 @@ private fun Content(
 ) {
 
     val backProvider by rememberUpdatedState(back)
-
     val backHandler = LocalRouterContext.current.backHandler
     backHandler.register(BackCallback { previousStep.invoke(backProvider) })
     val pagerState = rememberPagerState(pageCount = { steps.size })

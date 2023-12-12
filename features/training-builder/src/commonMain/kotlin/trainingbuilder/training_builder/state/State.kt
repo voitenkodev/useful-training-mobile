@@ -14,7 +14,7 @@ internal data class State(
     val selectedMuscle: Muscle? = null,
     val exerciseExamples: ImmutableList<ExerciseExample> = persistentListOf(),
 
-    val setExercisePopupState: SetExercisePopupState = SetExercisePopupState.Closed,
+    val setExerciseState: SetExerciseState = SetExerciseState.Closed,
     val findExercisePopupIsVisibleIndex: Boolean = false,
     val recommendationsLoading: Boolean = false,
 

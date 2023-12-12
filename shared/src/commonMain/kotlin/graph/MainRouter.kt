@@ -69,7 +69,6 @@ internal fun MainGraph(toAuthentication: () -> Unit) {
                     id = child.id,
                     close = router::pop
                 )
-
             }
         }
     }

@@ -25,7 +25,7 @@ import trainingbuilder.training_builder.mapping.toBody
 import trainingbuilder.training_builder.mapping.toState
 import trainingbuilder.training_builder.state.Exercise
 import trainingbuilder.training_builder.state.ExerciseExample
-import trainingbuilder.training_builder.state.SetExercisePopupState
+import trainingbuilder.training_builder.state.SetExerciseState
 import trainingbuilder.training_builder.state.State
 import trainingbuilder.training_builder.state.Training
 
@@ -80,7 +80,9 @@ internal class TrainingBuilderViewModel(muscleIds: List<String>) : ViewModel() {
             }.launchIn(this)
     }
 
-    fun saveExercise(index: Int, exercise: Exercise) {
+    fun saveExercise(exercise: Exercise) {
+        val index = (state.value.setExerciseState as? SetExerciseState.Opened)?.index ?: -1
+
         _state.update {
             val exercises = if (index in 0..it.training.exercises.lastIndex)
                 it.training.exercises.set(index, exercise)
@@ -126,7 +128,7 @@ internal class TrainingBuilderViewModel(muscleIds: List<String>) : ViewModel() {
 
     fun openAddExercisePopup(index: Int, exerciseExample: ExerciseExample? = null) {
         _state.update {
-            it.copy(setExercisePopupState = SetExercisePopupState.Opened(index = index, exerciseExample = exerciseExample))
+            it.copy(setExerciseState = SetExerciseState.Opened(index = index, exerciseExample = exerciseExample))
         }
     }
 
@@ -134,13 +136,13 @@ internal class TrainingBuilderViewModel(muscleIds: List<String>) : ViewModel() {
         val newIndex = state.value.training.exercises.lastIndex + 1
 
         _state.update {
-            it.copy(setExercisePopupState = SetExercisePopupState.Opened(index = newIndex, exerciseExample = exerciseExample))
+            it.copy(setExerciseState = SetExerciseState.Opened(index = newIndex, exerciseExample = exerciseExample))
         }
     }
 
-    fun closeSetExercisePopup() {
+    fun closeSetExercise() {
         _state.update {
-            it.copy(setExercisePopupState = SetExercisePopupState.Closed)
+            it.copy(setExerciseState = SetExerciseState.Closed)
         }
     }
 

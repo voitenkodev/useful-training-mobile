@@ -1,4 +1,4 @@
-package trainingbuilder.training_builder.popups
+package trainingbuilder.training_builder.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -49,16 +49,15 @@ import trainingbuilder.training_builder.state.Iteration
 import trainingbuilder.training_builder.state.IterationTargetFocus
 
 @Composable
-internal fun SetExercisePopup(
+internal fun SetExercisePage(
     exerciseExample: ExerciseExample?,
-    index: Int,
     selectedExercise: Exercise? = null,
     close: () -> Unit,
-    save: (index: Int, exercise: Exercise) -> Unit,
+    save: (exercise: Exercise) -> Unit,
     toExerciseExampleDetails: (id: String) -> Unit
 ) {
 
-    val exercise = remember(selectedExercise) {
+    val exercise = remember {
         mutableStateOf(
             selectedExercise ?: Exercise(
                 name = exerciseExample?.name ?: "",
@@ -158,7 +157,7 @@ internal fun SetExercisePopup(
             Footer(
                 cancel = close,
                 saveEnabled = exercise.value.name.isNotBlank() && exercise.value.iterations.isNotEmpty(),
-                save = { save.invoke(index, exercise.value); close.invoke() }
+                save = { save.invoke(exercise.value); close.invoke() }
             )
         }
 
