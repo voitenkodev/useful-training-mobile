@@ -1,4 +1,4 @@
-package trainingbuilder.training_builder.popups.components
+package trainingbuilder.training_builder.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
@@ -25,14 +24,16 @@ import atom.Design
 import components.inputs.InputRepeat
 import components.inputs.InputWeight
 import molecule.ButtonIconTransparent
+import molecule.ButtonPrimary
+import molecule.ButtonSecondary
+import molecule.PaddingL
 import molecule.PaddingM
 import molecule.Shadow
 import molecule.TextH4
-import molecule.secondaryBackground
 import molecule.secondaryDefaultBackground
 import resources.Icons
-import trainingbuilder.training_builder.state.IterationTargetFocus
 import trainingbuilder.training_builder.state.Iteration
+import trainingbuilder.training_builder.state.IterationTargetFocus
 
 @Composable
 internal fun SetIteration(
@@ -48,15 +49,11 @@ internal fun SetIteration(
     val innerIteration = remember(iteration) { mutableStateOf(iteration ?: Iteration()) }
 
     val updateWeight = remember {
-        { value: String ->
-            innerIteration.value = innerIteration.value.copy(weight = value)
-        }
+        { value: String -> innerIteration.value = innerIteration.value.copy(weight = value) }
     }
 
     val updateRepeat = remember {
-        { value: String ->
-            innerIteration.value = innerIteration.value.copy(repetitions = value)
-        }
+        { value: String -> innerIteration.value = innerIteration.value.copy(repetitions = value) }
     }
 
     val weightRequester = remember { FocusRequester() }
@@ -69,10 +66,7 @@ internal fun SetIteration(
         }
     }
 
-    val enabledSave = remember(
-        innerIteration.value.weight,
-        innerIteration.value.repetitions
-    ) {
+    val enabledSave = remember(innerIteration.value.weight, innerIteration.value.repetitions) {
         innerIteration.value.weight.isNotBlank() && innerIteration.value.repetitions.isNotBlank()
     }
 
@@ -81,13 +75,14 @@ internal fun SetIteration(
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .secondaryBackground()
+            .padding(horizontal = Design.dp.paddingM)
+            .secondaryDefaultBackground()
             .navigationBarsPadding()
             .clickable(
                 interactionSource = interactionSource,
                 indication = null,
                 onClick = {} // solution for avoid click under background (to hide this section)
-            )
+            ).padding(horizontal = Design.dp.paddingM)
     ) {
 
         Shadow()
@@ -119,13 +114,6 @@ internal fun SetIteration(
             horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
         ) {
 
-            ButtonIconTransparent(
-                modifier = Modifier.width(Design.dp.componentS),
-                imageVector = Icons.delete,
-                onClick = remove,
-                contentColor = Design.colors.red
-            )
-
             InputWeight(
                 modifier = Modifier
                     .focusRequester(weightRequester)
@@ -143,13 +131,26 @@ internal fun SetIteration(
                 provideValue = { innerIteration.value.repetitions },
                 onValueChange = updateRepeat
             )
+        }
 
-            ButtonIconTransparent(
-                modifier = Modifier.width(Design.dp.componentS),
-                imageVector = Icons.save,
+        PaddingL()
+
+        Row(
+            modifier = Modifier.padding(horizontal = Design.dp.paddingS),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
+        ) {
+
+            ButtonSecondary(
+                modifier = Modifier.weight(1f),
+                text = "Delete",
+                onClick = remove
+            )
+            ButtonPrimary(
+                modifier = Modifier.weight(1f),
                 enabled = enabledSave,
-                onClick = { save.invoke(index, innerIteration.value) },
-                contentColor = if (enabledSave) Design.colors.toxic else Design.colors.white10
+                text = "Save",
+                onClick = { save.invoke(index, innerIteration.value) }
             )
         }
 

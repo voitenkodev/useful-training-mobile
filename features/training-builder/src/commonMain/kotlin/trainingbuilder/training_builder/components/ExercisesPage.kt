@@ -2,6 +2,7 @@ package trainingbuilder.training_builder.components
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -18,9 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import atom.Design
-import components.Error
 import components.overlay.BottomShadow
-import components.roots.ScreenRoot
 import kotlinx.collections.immutable.ImmutableList
 import molecule.ButtonPrimary
 import molecule.PaddingL
@@ -34,20 +33,16 @@ import trainingbuilder.training_builder.state.Exercise
 
 @Composable
 internal fun ExercisesPage(
-    error: String?,
     loading: Boolean,
     volume: Double,
-    clearError: () -> Unit,
     exercises: ImmutableList<Exercise>,
     addExercise: () -> Unit,
     selectExercise: (index: Int) -> Unit,
     finish: () -> Unit,
-
     fullFront: ImageVector,
     fullBack: ImageVector
 ) {
-
-    ScreenRoot(error = { Error(message = { error }, close = clearError) }) {
+    Box {
 
         Column(modifier = Modifier.fillMaxSize()) {
 

@@ -19,7 +19,7 @@ import platform.UIKit.UIViewController
 * How to implement router in Swift / Objective C
 * */
 @OptIn(ExperimentalDecomposeApi::class)
-public fun MainUIController(routerContext: RouterContext): UIViewController = ComposeUIViewController() {
+public fun MainUIController(routerContext: RouterContext): UIViewController = ComposeUIViewController {
     CompositionLocalProvider(
         // Navigation
         LocalRouterContext provides routerContext,

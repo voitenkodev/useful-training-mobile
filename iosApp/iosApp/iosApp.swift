@@ -1,32 +1,53 @@
-import UIKit
 import shared
+import SwiftUI
 
-@UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
-    var window: UIWindow?
-
-    var rootRouterContext = Router_contextKt.defaultRouterContext()
-
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        DiKt.doInitCommonKoin { Koin_coreKoinApplication in
-        
-        }
-        window = UIWindow(frame: UIScreen.main.bounds)
-        let mainViewController = Main_iosKt.MainUIController(routerContext: rootRouterContext)
-        window?.rootViewController = mainViewController
-        window?.makeKeyAndVisible()
-        return true
+@main
+struct IosApp: App {
+    @UIApplicationDelegateAdaptor var delegate: AppDelegate
+    @Environment(\.scenePhase)  var scenePhase: ScenePhase
+    
+    init() {
+      DiKt.doInitCommonKoin { Koin_coreKoinApplication in }
     }
+    
+    var defaultRouterContext: RouterContext { delegate.holder.defaultRouterContext }
+    
+    var body: some Scene {
+        WindowGroup {
+            ContentView(routerContext: defaultRouterContext)
+                .ignoresSafeArea(.all)
+        }
+        .onChange(of: scenePhase) { newPhase in
+            switch newPhase {
+            case .background: defaultRouterContext.stop()
+            case .inactive: defaultRouterContext.pause()
+            case .active: defaultRouterContext.resume()
+            @unknown default: break
+            }
+        }
+    }
+}
 
-    func applicationDidBecomeActive(_ application: UIApplication) {
-        Router_contextKt.resume(rootRouterContext.lifecycle)
-      }
+class DefaultRouterHolder : ObservableObject {
+  let defaultRouterContext: RouterContext = DefaultRouterContextKt.defaultRouterContext()
 
-      func applicationWillResignActive(_ application: UIApplication) {
-        Router_contextKt.stop(rootRouterContext.lifecycle)
-      }
+  deinit {
+    // Destroy the root component before it is deallocated
+    defaultRouterContext.destroy()
+  }
+}
 
-      func applicationWillTerminate(_ application: UIApplication) {
-        Router_contextKt.destroy(rootRouterContext.lifecycle)
-      }
+class AppDelegate: NSObject, UIApplicationDelegate {
+    let holder: DefaultRouterHolder = DefaultRouterHolder()
+}
+
+
+struct ContentView: UIViewControllerRepresentable {
+  let routerContext: RouterContext
+
+  func makeUIViewController(context: Context) -> UIViewController {
+    return Main_iosKt.MainUIController(routerContext: routerContext)
+  }
+
+  func updateUIViewController(_ uiViewController: UIViewController, context: Context) {}
 }

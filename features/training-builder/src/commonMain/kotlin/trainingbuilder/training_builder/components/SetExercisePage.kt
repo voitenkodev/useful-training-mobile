@@ -1,12 +1,17 @@
 package trainingbuilder.training_builder.components
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
@@ -27,7 +32,6 @@ import atom.Design
 import components.brand.ExerciseCardSmall
 import components.inputs.InputExerciseName
 import components.overlay.ShadowBackground
-import components.roots.ScreenRoot
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toPersistentList
 import molecule.ButtonPrimary
@@ -43,7 +47,6 @@ import molecule.primaryBackground
 import molecule.secondaryBackground
 import molecule.secondaryDefaultBackground
 import resources.Icons
-import trainingbuilder.training_builder.popups.components.SetIteration
 import trainingbuilder.training_builder.state.Exercise
 import trainingbuilder.training_builder.state.ExerciseExample
 import trainingbuilder.training_builder.state.Iteration
@@ -112,16 +115,13 @@ internal fun SetExercisePage(
         { selectedIterationIndex.value = -1 to IterationTargetFocus.Weight }
     }
 
-    ScreenRoot(modifier = Modifier.fillMaxSize().secondaryBackground()) {
+    Box(modifier = Modifier.fillMaxSize().secondaryBackground().imePadding()) {
 
         Column(modifier = Modifier.statusBarsPadding()) {
 
             PaddingS()
 
-            Toolbar(
-                title = "Exercise",
-                icon = Icons.close to close
-            )
+            Toolbar(title = "Exercise", icon = Icons.close to close)
 
             PaddingS()
 
@@ -170,9 +170,13 @@ internal fun SetExercisePage(
             onClick = clearSelectedIteration
         )
 
-        if (selectedIterationIndex.value.first != -1) {
+        AnimatedVisibility(
+            modifier = Modifier.align(Alignment.BottomCenter),
+            visible = selectedIterationIndex.value.first != -1,
+            enter = fadeIn(),
+            exit = fadeOut()
+        ) {
             SetIteration(
-                modifier = Modifier.align(Alignment.BottomCenter),
                 index = selectedIterationIndex.value.first,
                 targetFocus = selectedIterationIndex.value.second,
                 iteration = selectedIteration,
@@ -224,7 +228,6 @@ private fun EditExercise(
     selectIterationWeight: (index: Int) -> Unit,
     selectIterationRepetition: (index: Int) -> Unit
 ) {
-
     Column(modifier = modifier) {
 
         PaddingM()

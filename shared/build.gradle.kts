@@ -10,7 +10,10 @@ apply(from = "../gradle/configs/android.gradle")
 apply(from = "../gradle/configs/ios.gradle")
 apply(from = "../gradle/configs/kotlin.gradle")
 
-kotlin.cocoapods { podfile = project.file("../iosApp/Podfile") }
+kotlin.cocoapods {
+    podfile = project.file("../iosApp/Podfile")
+    framework { export(libs.decompose.router.get().toString()) }
+}
 
 kotlin {
     sourceSets {
@@ -36,8 +39,8 @@ kotlin {
                 implementation(projects.data)
 
                 // Other
+                api(projects.common.architectureComponent) // 'api' for bridge Decompose in iOS
                 implementation(projects.common.platformApi)
-                implementation(projects.common.architectureComponent)
                 implementation(projects.common.imageLoader)
 
                 // Design

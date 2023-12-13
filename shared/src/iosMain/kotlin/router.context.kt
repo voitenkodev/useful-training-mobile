@@ -6,15 +6,6 @@ import com.arkivanov.essenty.lifecycle.resume
 import com.arkivanov.essenty.lifecycle.stop
 import io.github.xxfast.decompose.router.RouterContext
 
-/**
- * Docs
- *
- * https://github.com/xxfast/Decompose-Router/tree/main
- *
- * Issue for defaultRouterContextBuilder solution
- *
- * https://github.com/xxfast/Decompose-Router/pull/65/files
-**/
 
 public fun defaultRouterContext(): RouterContext = defaultRouterContextBuilder()
 public val Lifecycle.registry: LifecycleRegistry get() = this as LifecycleRegistry

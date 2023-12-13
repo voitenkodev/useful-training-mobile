@@ -10,6 +10,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import com.arkivanov.essenty.backhandler.BackCallback
+import components.Error
+import components.roots.ScreenRoot
 import io.github.xxfast.decompose.router.LocalRouterContext
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
@@ -61,36 +63,37 @@ internal fun TrainingBuilderContent(
         }
     )
 
-    VerticalPager(modifier = Modifier.fillMaxSize(), state = pagerState, userScrollEnabled = false) {
+    ScreenRoot(error = { Error(message = { state.error }, close = vm::clearError) }) {
 
-        when (it) {
-            0 -> ExercisesPage(
-                error = state.error,
-                loading = state.loading,
-                fullFront = state.fullFrontImageVector,
-                fullBack = state.fullBackImageVector,
-                volume = state.training.volume,
-                clearError = vm::clearError,
-                addExercise = vm::openFindExercisePopup,
-                exercises = state.training.exercises,
-                selectExercise = vm::openAddExercisePopup,
-                finish = { vm.saveTraining { close.invoke() } }
-            )
+        VerticalPager(modifier = Modifier.fillMaxSize(), state = pagerState, userScrollEnabled = false) {
 
-            1 -> {
-                val popupState = (state.setExerciseState as? SetExerciseState.Opened)
-
-                val selectedExercise = remember(popupState?.index, state.training.exercises) {
-                    state.training.exercises.getOrNull(popupState?.index ?: -1)
-                }
-
-                SetExercisePage(
-                    close = vm::closeSetExercise,
-                    selectedExercise = selectedExercise,
-                    exerciseExample = popupState?.exerciseExample,
-                    save = vm::saveExercise,
-                    toExerciseExampleDetails = toExerciseExampleDetails
+            when (it) {
+                0 -> ExercisesPage(
+                    loading = state.loading,
+                    fullFront = state.fullFrontImageVector,
+                    fullBack = state.fullBackImageVector,
+                    volume = state.training.volume,
+                    addExercise = vm::openFindExercisePopup,
+                    exercises = state.training.exercises,
+                    selectExercise = vm::openAddExercisePopup,
+                    finish = { vm.saveTraining { close.invoke() } }
                 )
+
+                1 -> {
+                    val popupState = (state.setExerciseState as? SetExerciseState.Opened)
+
+                    val selectedExercise = remember(popupState?.index, state.training.exercises) {
+                        state.training.exercises.getOrNull(popupState?.index ?: -1)
+                    }
+
+                    SetExercisePage(
+                        close = vm::closeSetExercise,
+                        selectedExercise = selectedExercise,
+                        exerciseExample = popupState?.exerciseExample,
+                        save = vm::saveExercise,
+                        toExerciseExampleDetails = toExerciseExampleDetails
+                    )
+                }
             }
         }
     }
