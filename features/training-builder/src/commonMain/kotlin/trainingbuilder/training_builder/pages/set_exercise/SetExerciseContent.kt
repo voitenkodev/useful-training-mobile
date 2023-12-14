@@ -60,11 +60,11 @@ internal fun SetExerciseContent(
 
     val focus = LocalFocusManager.current
 
-    val stateHolder = remember {
+    val setExerciseStateHolder = remember {
         SetExerciseStateHolder(exerciseExample = exerciseExample, selectedExercise = selectedExercise)
     }
 
-    val state by stateHolder.state.collectAsState()
+    val state by setExerciseStateHolder.state.collectAsState()
 
     val innerClose = remember {
         {
@@ -100,7 +100,7 @@ internal fun SetExerciseContent(
                 )
             } ?: InputExerciseName(
                 provideName = { state.exercise.name },
-                update = stateHolder::updateName
+                update = setExerciseStateHolder::updateName
             )
 
             PaddingM()
@@ -114,9 +114,9 @@ internal fun SetExerciseContent(
                     .primaryBackground()
                     .verticalScroll(rememberScrollState()),
                 iterations = state.exercise.iterations,
-                selectIterationWeight = stateHolder::selectIterationTargetWeight,
-                selectIterationRepetition = stateHolder::selectIterationTargetRepetition,
-                addIteration = stateHolder::addIteration
+                selectIterationWeight = setExerciseStateHolder::selectIterationTargetWeight,
+                selectIterationRepetition = setExerciseStateHolder::selectIterationTargetRepetition,
+                addIteration = setExerciseStateHolder::addIteration
             )
 
             Footer(
@@ -136,9 +136,9 @@ internal fun SetExerciseContent(
 
         SetIterationContent(
             setIterationStateHolder = setIterationStateHolder,
-            remove = stateHolder::removeSelectedIteration,
-            save = stateHolder::saveIteration,
-            close = stateHolder::clearSelectedIteration
+            remove = setExerciseStateHolder::removeSelectedIteration,
+            save = setExerciseStateHolder::saveIteration,
+            close = setExerciseStateHolder::clearSelectedIteration
         )
     }
 }
