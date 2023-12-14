@@ -1,8 +1,5 @@
 package trainingbuilder.training_builder.components
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -31,7 +28,6 @@ import androidx.compose.ui.unit.dp
 import atom.Design
 import components.brand.ExerciseCardSmall
 import components.inputs.InputExerciseName
-import components.overlay.ShadowBackground
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toPersistentList
 import molecule.ButtonPrimary
@@ -164,27 +160,15 @@ internal fun SetExercisePage(
             exercise.value.iterations.getOrNull(selectedIterationIndex.value.first)
         }
 
-        ShadowBackground(
-            modifier = Modifier.fillMaxSize(),
-            condition = selectedIterationIndex.value.first != -1,
-            onClick = clearSelectedIteration
-        )
-
-        AnimatedVisibility(
-            modifier = Modifier.align(Alignment.BottomCenter),
+        SetIteration(
             visible = selectedIterationIndex.value.first != -1,
-            enter = fadeIn(),
-            exit = fadeOut()
-        ) {
-            SetIteration(
-                index = selectedIterationIndex.value.first,
-                targetFocus = selectedIterationIndex.value.second,
-                iteration = selectedIteration,
-                remove = removeSelectedIteration,
-                save = saveIteration,
-                close = clearSelectedIteration
-            )
-        }
+            index = selectedIterationIndex.value.first,
+            targetFocus = selectedIterationIndex.value.second,
+            iteration = selectedIteration,
+            remove = removeSelectedIteration,
+            save = saveIteration,
+            close = clearSelectedIteration
+        )
     }
 }
 
