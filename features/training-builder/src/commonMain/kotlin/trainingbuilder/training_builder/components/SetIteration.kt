@@ -23,6 +23,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.platform.LocalFocusManager
 import atom.Design
 import components.inputs.InputRepeat
 import components.inputs.InputWeight
@@ -48,10 +49,19 @@ internal fun BoxScope.SetIteration(
     close: () -> Unit
 ) {
 
+    val focus = LocalFocusManager.current
+
+    val innerClose = remember {
+        {
+            focus.clearFocus()
+            close.invoke()
+        }
+    }
+
     ShadowBackground(
         modifier = Modifier.fillMaxSize(),
         condition = visible,
-        onClick = close
+        onClick = innerClose
     )
 
     if (visible) {
@@ -80,6 +90,20 @@ internal fun BoxScope.SetIteration(
         }
 
         val interactionSource = remember { MutableInteractionSource() }
+
+        val innerSave = remember {
+            {
+                focus.clearFocus()
+                save.invoke(index, innerIteration.value)
+            }
+        }
+
+        val innerRemove = remember {
+            {
+                focus.clearFocus()
+                remove.invoke()
+            }
+        }
 
         Column(
             modifier = Modifier
@@ -112,7 +136,7 @@ internal fun BoxScope.SetIteration(
                         .aspectRatio(1f)
                         .padding(Design.dp.paddingS),
                     imageVector = Icons.close,
-                    onClick = close
+                    onClick = innerClose
                 )
             }
 
@@ -125,7 +149,7 @@ internal fun BoxScope.SetIteration(
                 ButtonIconTransparent(
                     modifier = Modifier.width(Design.dp.componentS),
                     imageVector = Icons.delete,
-                    onClick = remove,
+                    onClick = innerRemove,
                     contentColor = Design.colors.red
                 )
 
@@ -151,7 +175,7 @@ internal fun BoxScope.SetIteration(
                     modifier = Modifier.width(Design.dp.componentS),
                     imageVector = Icons.save,
                     enabled = enabledSave,
-                    onClick = { save.invoke(index, innerIteration.value) },
+                    onClick = innerSave,
                     contentColor = if (enabledSave) Design.colors.toxic else Design.colors.white10
                 )
             }

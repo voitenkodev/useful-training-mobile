@@ -23,6 +23,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import atom.Design
@@ -56,6 +57,8 @@ internal fun SetExercisePage(
     save: (exercise: Exercise) -> Unit,
     toExerciseExampleDetails: (id: String) -> Unit
 ) {
+
+    val focus = LocalFocusManager.current
 
     val exercise = remember {
         mutableStateOf(
@@ -111,13 +114,29 @@ internal fun SetExercisePage(
         { selectedIterationIndex.value = -1 to IterationTargetFocus.Weight }
     }
 
+    val innerClose = remember {
+        {
+            focus.clearFocus()
+            close.invoke()
+        }
+    }
+
+    val innerSave = remember {
+        {
+            focus.clearFocus()
+            save.invoke(exercise.value)
+            close.invoke()
+        }
+    }
+
+
     Box(modifier = Modifier.fillMaxSize().secondaryBackground().imePadding()) {
 
         Column(modifier = Modifier.statusBarsPadding()) {
 
             PaddingS()
 
-            Toolbar(title = "Exercise", icon = Icons.close to close)
+            Toolbar(title = "Exercise", icon = Icons.close to innerClose)
 
             PaddingS()
 
@@ -150,9 +169,9 @@ internal fun SetExercisePage(
             )
 
             Footer(
-                cancel = close,
+                cancel = innerClose,
                 saveEnabled = exercise.value.name.isNotBlank() && exercise.value.iterations.isNotEmpty(),
-                save = { save.invoke(exercise.value); close.invoke() }
+                save = innerSave
             )
         }
 
