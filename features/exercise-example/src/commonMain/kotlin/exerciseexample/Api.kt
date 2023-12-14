@@ -28,7 +28,9 @@ public fun ExerciseExampleGraph(id: String, close: () -> Unit) {
     RoutedContent(router = router, animation = stackAnimation(fade())) { child ->
         when (child) {
             is ExerciseExampleFeature.Main -> {
-                val vm = rememberOnRoute(ExerciseExampleViewModel::class) { ExerciseExampleViewModel() }
+                val vm = rememberOnRoute(ExerciseExampleViewModel::class) {
+                    ExerciseExampleViewModel(id)
+                }
                 ExerciseExampleContent(vm = vm, close = close)
             }
         }

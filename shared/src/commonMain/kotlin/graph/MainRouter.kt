@@ -52,17 +52,17 @@ internal fun MainGraph(toAuthentication: () -> Unit) {
                         close = router::pop,
                         searchExerciseExampleId = api.exerciseExampleId,
                         toSearchExerciseExample = { router.push(MainRouter.SearchExercise) },
-                        toExerciseExampleDetails = { router.push(MainRouter.ExerciseExample("todo")) }
+                        toExerciseExampleDetails = { router.push(MainRouter.ExerciseExample(it)) }
                     )
                 }
 
                 is MainRouter.ExerciseExamples -> ExerciseExamplesGraph(
-                    toExerciseExampleDetails = { router.push(MainRouter.ExerciseExample("todo")) }
+                    toExerciseExampleDetails = { router.push(MainRouter.ExerciseExample(it)) }
                 )
 
                 is MainRouter.SearchExercise -> SearchExerciseGraph(
                     close = router::pop,
-                    toExerciseExampleDetails = { router.push(MainRouter.ExerciseExample("todo")) }
+                    toExerciseExampleDetails = { router.push(MainRouter.ExerciseExample(it)) }
                 )
 
                 is MainRouter.ExerciseExample -> ExerciseExampleGraph(

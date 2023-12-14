@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import atom.Design
 import kg
@@ -37,9 +38,9 @@ internal fun WeightPage(
 
         PaddingM()
 
-        TextH2(provideText = { "Your weight" })
+        TextH2(provideText = { "Your weight" }, textAlign = TextAlign.Center)
 
-        TextBody2(provideText = { "Enter your current weight!" })
+        TextBody2(provideText = { "Enter your current weight!" }, textAlign = TextAlign.Center)
 
         PaddingWeight()
 

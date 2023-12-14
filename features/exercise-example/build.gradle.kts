@@ -23,11 +23,11 @@ kotlin {
                 implementation(projects.designSystem.components)
                 implementation(projects.designSystem.resources)
 
-                implementation(projects.composeLibs.percentagePicker)
                 implementation(projects.composeLibs.musclePicker)
 
                 implementation(compose.ui)
                 implementation(compose.foundation)
+
                 implementation(libs.immutable.collections)
                 implementation(libs.koin.core)
             }

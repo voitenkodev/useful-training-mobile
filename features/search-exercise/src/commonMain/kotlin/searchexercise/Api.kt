@@ -29,7 +29,9 @@ public fun SearchExerciseGraph(close: () -> Unit, toExerciseExampleDetails: (id:
         when (child) {
             is SearchExerciseFeature.Main -> {
                 val api = SearchExerciseController.api
-                val vm = rememberOnRoute(SearchExerciseViewModel::class) { SearchExerciseViewModel() }
+                val vm = rememberOnRoute(SearchExerciseViewModel::class) {
+                    SearchExerciseViewModel()
+                }
 
                 SearchExerciseContent(
                     vm = vm,

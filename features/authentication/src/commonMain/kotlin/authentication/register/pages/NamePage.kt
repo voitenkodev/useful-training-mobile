@@ -10,6 +10,7 @@ import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.text.style.TextAlign
 import components.inputs.InputName
 import molecule.ButtonPrimary
 import molecule.PaddingM
@@ -38,9 +39,9 @@ internal fun NamePage(
 
         PaddingM()
 
-        TextH2(provideText = { "Nice to meet you" })
+        TextH2(provideText = { "Nice to meet you" }, textAlign = TextAlign.Center)
 
-        TextBody2(provideText = { "How can we call you?" })
+        TextBody2(provideText = { "How can we call you?" }, textAlign = TextAlign.Center)
 
         PaddingXL()
 

@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -13,6 +14,7 @@ import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.text.style.TextAlign
 import authentication.login.models.AuthStatus
 import authentication.login.models.ScreenState
 import components.Error
@@ -92,7 +94,7 @@ private fun Content(
     ) {
 
         Column(
-            modifier = Modifier.fillMaxSize().systemBarsPadding(),
+            modifier = Modifier.fillMaxSize().padding().systemBarsPadding(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
@@ -100,9 +102,9 @@ private fun Content(
 
             PaddingM()
 
-            TextH2(provideText = { "Alien Workout" })
+            TextH2(provideText = { "Alien Workout" }, textAlign = TextAlign.Center)
 
-            TextBody2(provideText = { "Take your power-up" })
+            TextBody2(provideText = { "Take your power-up" }, textAlign = TextAlign.Center)
 
             PaddingXL()
 
