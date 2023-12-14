@@ -2,7 +2,6 @@ package authentication.success
 
 import UserRepository
 import ViewModel
-import authentication.success.state.State
 import kg
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

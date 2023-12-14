@@ -12,8 +12,7 @@ import kotlinx.coroutines.flow.update
 import org.koin.core.component.inject
 import trainingbuilder.muscle_picker.factory.muscleImage
 import trainingbuilder.muscle_picker.mapping.toState
-import trainingbuilder.muscle_picker.state.MuscleTypeEnum
-import trainingbuilder.muscle_picker.state.State
+import trainingbuilder.muscle_picker.models.MuscleTypeEnum
 
 internal class MusclePickerViewModel : ViewModel() {
 

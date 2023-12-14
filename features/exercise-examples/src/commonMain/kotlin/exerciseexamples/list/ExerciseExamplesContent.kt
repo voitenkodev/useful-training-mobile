@@ -16,7 +16,7 @@ import components.brand.ExerciseCardDefault
 import components.roots.ScreenRoot
 import exerciseexamples.list.components.Footer
 import exerciseexamples.list.components.Header
-import exerciseexamples.list.state.ExerciseExample
+import exerciseexamples.list.models.ExerciseExample
 import kotlinx.collections.immutable.ImmutableList
 import molecule.primaryBackground
 

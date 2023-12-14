@@ -7,7 +7,6 @@ import exerciseexamples.edit.mapping.toDomain
 import exerciseexamples.edit.mapping.toState
 import exerciseexamples.edit.state.ExerciseExample
 import exerciseexamples.edit.state.MuscleType
-import exerciseexamples.edit.state.State
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.flow.MutableStateFlow

@@ -16,7 +16,7 @@ import molecule.PaddingS
 import molecule.TextBody2
 import molecule.TextH4
 import molecule.secondarySmallBackground
-import trainingbuilder.training_builder.state.Exercise
+import trainingbuilder.training_builder.models.Exercise
 
 @Composable
 internal fun Exercise(

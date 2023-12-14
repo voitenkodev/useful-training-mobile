@@ -1,6 +1,6 @@
 package searchexercise.main.mapping
 
-import searchexercise.main.state.Muscle
+import searchexercise.main.models.Muscle
 
 internal fun models.Muscle.toState(): Muscle {
     return Muscle(

@@ -1,6 +1,6 @@
 package exerciseexamples.list.mapping
 
-import exerciseexamples.list.state.Muscle
+import exerciseexamples.list.models.Muscle
 
 internal fun models.Muscle.toState(): Muscle {
     return Muscle(

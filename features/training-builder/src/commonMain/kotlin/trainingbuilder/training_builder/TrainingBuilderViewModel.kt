@@ -4,7 +4,6 @@ import ExerciseExamplesRepository
 import TrainingsRepository
 import ViewModel
 import kotlinx.collections.immutable.toPersistentList
-import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -23,11 +22,10 @@ import round
 import trainingbuilder.training_builder.factory.createFrontBackImages
 import trainingbuilder.training_builder.mapping.toBody
 import trainingbuilder.training_builder.mapping.toState
-import trainingbuilder.training_builder.state.Exercise
-import trainingbuilder.training_builder.state.ExerciseExample
-import trainingbuilder.training_builder.state.SetExerciseState
-import trainingbuilder.training_builder.state.State
-import trainingbuilder.training_builder.state.Training
+import trainingbuilder.training_builder.models.Exercise
+import trainingbuilder.training_builder.models.ExerciseExample
+import trainingbuilder.training_builder.models.SetExerciseState
+import trainingbuilder.training_builder.models.Training
 
 internal class TrainingBuilderViewModel(muscleIds: List<String>) : ViewModel() {
 

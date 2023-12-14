@@ -5,7 +5,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import components.Error
 import components.roots.ScreenRoot
-import exerciseexample.main.state.ExerciseExample
+import exerciseexample.main.models.ExerciseExample
 import kotlinx.collections.immutable.ImmutableList
 
 @Composable

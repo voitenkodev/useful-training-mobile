@@ -3,7 +3,6 @@ package exerciseexamples.list
 import ExerciseExamplesRepository
 import ViewModel
 import exerciseexamples.list.mapping.toState
-import exerciseexamples.list.state.State
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch

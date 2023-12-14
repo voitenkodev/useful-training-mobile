@@ -2,8 +2,7 @@ package authentication.splash
 
 import AuthenticationRepository
 import ViewModel
-import authentication.splash.state.State
-import authentication.splash.state.TokenStatus
+import authentication.splash.models.TokenStatus
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.firstOrNull

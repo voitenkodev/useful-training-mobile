@@ -27,7 +27,7 @@ import molecule.TextH3
 import molecule.secondaryBackground
 import profile.main.components.Header
 import profile.main.components.MenuItem
-import profile.main.state.User
+import profile.main.models.User
 import resources.Icons
 
 @Composable

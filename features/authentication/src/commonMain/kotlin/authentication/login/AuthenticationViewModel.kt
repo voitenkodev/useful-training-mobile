@@ -3,9 +3,8 @@ package authentication.login
 import AuthenticationRepository
 import UserRepository
 import ViewModel
-import authentication.login.state.AuthStatus
-import authentication.login.state.ScreenState
-import authentication.login.state.State
+import authentication.login.models.AuthStatus
+import authentication.login.models.ScreenState
 import isEmailValid
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

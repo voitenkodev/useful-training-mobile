@@ -36,8 +36,8 @@ import molecule.TextH4
 import molecule.primaryBackground
 import trainingbuilder.muscle_picker.components.Footer
 import trainingbuilder.muscle_picker.components.Header
-import trainingbuilder.muscle_picker.state.MuscleType
-import trainingbuilder.muscle_picker.state.MuscleTypeEnum
+import trainingbuilder.muscle_picker.models.MuscleType
+import trainingbuilder.muscle_picker.models.MuscleTypeEnum
 
 @Composable
 internal fun MusclePickerContent(

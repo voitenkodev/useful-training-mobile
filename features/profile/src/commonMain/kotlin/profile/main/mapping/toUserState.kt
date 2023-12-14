@@ -2,7 +2,7 @@ package profile.main.mapping
 
 import kg
 import meter
-import profile.main.state.User
+import profile.main.models.User
 
 internal fun models.User.toState(): User {
     return User(

@@ -2,7 +2,7 @@ package trainingbuilder.training_builder.mapping
 
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
-import trainingbuilder.training_builder.state.MuscleExerciseBundle
+import trainingbuilder.training_builder.models.MuscleExerciseBundle
 
 internal fun List<models.MuscleExerciseBundle>.toState(): ImmutableList<MuscleExerciseBundle> {
     return mapNotNull { it.toState() }

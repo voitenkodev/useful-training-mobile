@@ -12,7 +12,6 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.update
 import org.koin.core.component.inject
 import searchexercise.main.mapping.toState
-import searchexercise.main.state.State
 
 internal class SearchExerciseViewModel : ViewModel() {
 

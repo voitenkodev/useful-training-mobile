@@ -1,6 +1,6 @@
 package trainingbuilder.training_builder.mapping
 
-import trainingbuilder.training_builder.state.Training
+import trainingbuilder.training_builder.models.Training
 
 internal fun models.Training.toState() = Training(
     id = id.toString(),

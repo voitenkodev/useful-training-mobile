@@ -1,6 +1,6 @@
 package exerciseexamples.list.mapping
 
-import exerciseexamples.list.state.ExerciseExample
+import exerciseexamples.list.models.ExerciseExample
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 

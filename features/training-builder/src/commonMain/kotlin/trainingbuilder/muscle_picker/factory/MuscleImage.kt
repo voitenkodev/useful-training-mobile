@@ -7,9 +7,9 @@ import musclepickerpicker.bodyBack
 import musclepickerpicker.bodyFront
 import musclepickerpicker.bodySplit
 import musclepickerpicker.legsSplit
-import trainingbuilder.muscle_picker.state.Muscle
-import trainingbuilder.muscle_picker.state.MuscleEnum
-import trainingbuilder.muscle_picker.state.MuscleTypeEnum
+import trainingbuilder.muscle_picker.models.Muscle
+import trainingbuilder.muscle_picker.models.MuscleEnum
+import trainingbuilder.muscle_picker.models.MuscleTypeEnum
 
 private fun colorBySelection(condition: Boolean?): Color {
     val muscle = Color(0xffb12a1a)

@@ -13,8 +13,8 @@ import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
-import authentication.login.state.AuthStatus
-import authentication.login.state.ScreenState
+import authentication.login.models.AuthStatus
+import authentication.login.models.ScreenState
 import components.Error
 import components.buttons.ButtonQuestion
 import components.inputs.InputEmail

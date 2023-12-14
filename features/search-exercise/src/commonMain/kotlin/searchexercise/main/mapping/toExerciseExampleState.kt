@@ -2,7 +2,7 @@ package searchexercise.main.mapping
 
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
-import searchexercise.main.state.ExerciseExample
+import searchexercise.main.models.ExerciseExample
 
 internal fun List<models.ExerciseExample>.toState(): ImmutableList<ExerciseExample> {
     return mapNotNull { it.toState() }

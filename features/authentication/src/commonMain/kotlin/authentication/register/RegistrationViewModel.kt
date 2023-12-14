@@ -3,8 +3,7 @@ package authentication.register
 import AuthenticationRepository
 import UserRepository
 import ViewModel
-import authentication.register.state.RegistrationStatus
-import authentication.register.state.State
+import authentication.register.models.RegistrationStatus
 import isEmailValid
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

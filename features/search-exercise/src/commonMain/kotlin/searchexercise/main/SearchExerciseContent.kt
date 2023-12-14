@@ -18,7 +18,7 @@ import components.roots.ScreenRoot
 import kotlinx.collections.immutable.ImmutableList
 import molecule.primaryBackground
 import searchexercise.main.components.Header
-import searchexercise.main.state.ExerciseExample
+import searchexercise.main.models.ExerciseExample
 
 @Composable
 internal fun SearchExerciseContent(

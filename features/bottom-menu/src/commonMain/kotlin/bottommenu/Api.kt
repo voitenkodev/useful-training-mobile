@@ -1,8 +1,8 @@
 package bottommenu
 
 import androidx.compose.runtime.Composable
-import bottommenu.screen.BottomMenuContent
-import bottommenu.screen.BottomMenuViewModel
+import bottommenu.main.BottomMenuContent
+import bottommenu.main.BottomMenuViewModel
 import io.github.xxfast.decompose.router.rememberOnRoute
 
 @Composable

@@ -1,6 +1,6 @@
 package exerciseexample.main.mapping
 
-import exerciseexample.main.state.MuscleExerciseBundle
+import exerciseexample.main.models.MuscleExerciseBundle
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 

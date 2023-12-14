@@ -2,7 +2,7 @@ package trainingbuilder.training_builder.mapping
 
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.toPersistentList
-import trainingbuilder.training_builder.state.Exercise
+import trainingbuilder.training_builder.models.Exercise
 
 internal fun List<models.Exercise>.toState(): PersistentList<Exercise> {
     return map {

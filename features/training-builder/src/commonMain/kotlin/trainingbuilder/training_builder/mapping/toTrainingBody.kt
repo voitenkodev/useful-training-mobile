@@ -1,7 +1,7 @@
 package trainingbuilder.training_builder.mapping
 
 import models.ExerciseExample
-import trainingbuilder.training_builder.state.Training
+import trainingbuilder.training_builder.models.Training
 
 internal fun Training.toBody(): models.Training {
     return models.Training(

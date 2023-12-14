@@ -5,9 +5,9 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import atom.Design
 import musclepickerpicker.fullBack
 import musclepickerpicker.fullFront
-import trainingbuilder.training_builder.state.Exercise
-import trainingbuilder.training_builder.state.Muscle
-import trainingbuilder.training_builder.state.MuscleEnum
+import trainingbuilder.training_builder.models.Exercise
+import trainingbuilder.training_builder.models.Muscle
+import trainingbuilder.training_builder.models.MuscleEnum
 
 internal fun List<Exercise>.createFrontBackImages(): Pair<ImageVector, ImageVector> {
     val muscleWithAlpha = calculateMuscleRatios()

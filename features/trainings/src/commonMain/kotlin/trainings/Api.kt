@@ -8,8 +8,8 @@ import io.github.xxfast.decompose.router.Router
 import io.github.xxfast.decompose.router.content.RoutedContent
 import io.github.xxfast.decompose.router.rememberOnRoute
 import io.github.xxfast.decompose.router.rememberRouter
-import trainings.list.TrainingsContent
-import trainings.list.TrainingsViewModel
+import trainings.main.TrainingsContent
+import trainings.main.TrainingsViewModel
 
 @Parcelize
 public sealed class TrainingsRouter : Parcelable {

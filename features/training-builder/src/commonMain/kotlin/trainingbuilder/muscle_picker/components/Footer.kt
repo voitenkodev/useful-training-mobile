@@ -16,7 +16,7 @@ import molecule.ButtonPrimary
 import molecule.ButtonSecondary
 import molecule.Shadow
 import molecule.secondaryBackground
-import trainingbuilder.muscle_picker.state.MuscleType
+import trainingbuilder.muscle_picker.models.MuscleType
 
 @Composable
 internal fun Footer(

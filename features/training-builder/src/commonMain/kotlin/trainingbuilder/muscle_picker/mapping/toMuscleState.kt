@@ -2,8 +2,8 @@ package trainingbuilder.muscle_picker.mapping
 
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toPersistentList
-import trainingbuilder.muscle_picker.state.Muscle
-import trainingbuilder.muscle_picker.state.MuscleEnum
+import trainingbuilder.muscle_picker.models.Muscle
+import trainingbuilder.muscle_picker.models.MuscleEnum
 
 internal fun List<models.Muscle>.toState(): ImmutableList<Muscle> {
     return mapNotNull { it.toState() }
