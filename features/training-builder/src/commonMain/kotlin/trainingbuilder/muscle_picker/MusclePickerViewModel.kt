@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import org.koin.core.component.inject
-import trainingbuilder.muscle_picker.factory.muscleImage
+import trainingbuilder.muscle_picker.factories.muscleImage
 import trainingbuilder.muscle_picker.mapping.toState
 import trainingbuilder.muscle_picker.models.MuscleTypeEnum
 

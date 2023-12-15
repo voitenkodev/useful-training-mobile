@@ -19,7 +19,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.koin.core.component.inject
 import round
-import trainingbuilder.training_builder.factory.createFrontBackImages
+import trainingbuilder.training_builder.factories.createFrontBackImages
 import trainingbuilder.training_builder.mapping.toBody
 import trainingbuilder.training_builder.mapping.toState
 import trainingbuilder.training_builder.models.Exercise

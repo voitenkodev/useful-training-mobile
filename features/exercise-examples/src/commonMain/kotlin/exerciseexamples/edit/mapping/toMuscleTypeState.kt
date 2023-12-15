@@ -1,6 +1,6 @@
 package exerciseexamples.edit.mapping
 
-import exerciseexamples.edit.factory.muscleImage
+import exerciseexamples.edit.factories.muscleImage
 import exerciseexamples.edit.state.MuscleType
 import exerciseexamples.edit.state.MuscleTypeEnum
 import kotlinx.collections.immutable.ImmutableList

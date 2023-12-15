@@ -2,6 +2,7 @@ package exerciseexample.main
 
 import ExerciseExamplesRepository
 import ViewModel
+import exerciseexample.main.factories.createFrontBackImages
 import exerciseexample.main.mapping.toState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -30,7 +31,10 @@ internal class ExerciseExampleViewModel(id: String) : ViewModel() {
                 .firstOrNull()
                 ?.toState() ?: return@launch
 
-            _state.update { it.copy(exerciseExample = result) }
+            _state.update {
+                val images = result.createFrontBackImages()
+                it.copy(exerciseExample = result, fullFrontImageVector = images.first, fullBackImageVector = images.second)
+            }
         }
     }
 

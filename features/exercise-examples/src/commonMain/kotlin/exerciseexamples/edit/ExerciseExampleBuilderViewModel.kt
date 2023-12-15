@@ -2,7 +2,7 @@ package exerciseexamples.edit
 
 import ExerciseExamplesRepository
 import ViewModel
-import exerciseexamples.edit.factory.muscleImage
+import exerciseexamples.edit.factories.muscleImage
 import exerciseexamples.edit.mapping.toDomain
 import exerciseexamples.edit.mapping.toState
 import exerciseexamples.edit.state.ExerciseExample

@@ -2,7 +2,7 @@ package trainingbuilder.muscle_picker.mapping
 
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toPersistentList
-import trainingbuilder.muscle_picker.factory.muscleImage
+import trainingbuilder.muscle_picker.factories.muscleImage
 import trainingbuilder.muscle_picker.models.MuscleType
 import trainingbuilder.muscle_picker.models.MuscleTypeEnum
 

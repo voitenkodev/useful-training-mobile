@@ -15,6 +15,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.style.TextAlign
 import atom.Design
 import components.Error
@@ -24,8 +25,6 @@ import molecule.PaddingM
 import molecule.PaddingXL
 import molecule.TextBody2
 import molecule.TextH2
-import musclepickerpicker.fullBack
-import musclepickerpicker.fullFront
 
 @Composable
 internal fun ExerciseExampleContent(
@@ -40,6 +39,8 @@ internal fun ExerciseExampleContent(
         loading = state.loading,
         clearError = vm::clearError,
         exerciseExample = state.exerciseExample,
+        fullFrontImage = state.fullFrontImageVector,
+        fullBackImage = state.fullBackImageVector,
         close = close
     )
 }
@@ -50,6 +51,8 @@ private fun Content(
     loading: Boolean,
     clearError: () -> Unit,
     exerciseExample: ExerciseExample?,
+    fullFrontImage: ImageVector,
+    fullBackImage: ImageVector,
     close: () -> Unit
 ) {
 
@@ -92,13 +95,13 @@ private fun Content(
                 Image(
                     modifier = Modifier.weight(1f).fillMaxHeight(),
                     contentDescription = null,
-                    imageVector = fullFront()
+                    imageVector = fullFrontImage
                 )
 
                 Image(
                     modifier = Modifier.weight(1f).fillMaxHeight(),
                     contentDescription = null,
-                    imageVector = fullBack()
+                    imageVector = fullBackImage
                 )
             }
         }

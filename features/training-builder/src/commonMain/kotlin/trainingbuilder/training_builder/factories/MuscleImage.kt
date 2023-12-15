@@ -1,4 +1,4 @@
-package trainingbuilder.training_builder.factory
+package trainingbuilder.training_builder.factories
 
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector

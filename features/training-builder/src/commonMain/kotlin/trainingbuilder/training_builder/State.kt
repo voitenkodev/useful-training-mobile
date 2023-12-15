@@ -4,7 +4,7 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.vector.ImageVector
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
-import trainingbuilder.training_builder.factory.createFrontBackImages
+import trainingbuilder.training_builder.factories.createFrontBackImages
 import trainingbuilder.training_builder.models.Exercise
 import trainingbuilder.training_builder.models.ExerciseExample
 import trainingbuilder.training_builder.models.Muscle
