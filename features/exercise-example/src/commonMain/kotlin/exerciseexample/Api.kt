@@ -12,7 +12,6 @@ import io.github.xxfast.decompose.router.content.RoutedContent
 import io.github.xxfast.decompose.router.rememberOnRoute
 import io.github.xxfast.decompose.router.rememberRouter
 
-
 @Parcelize
 public sealed class ExerciseExampleFeature : Parcelable {
     public data object Main : ExerciseExampleFeature()
