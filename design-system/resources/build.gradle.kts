@@ -23,9 +23,6 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                // NativeLocalResource
-                implementation(projects.common.platformApi)
-
                 // Compose
                 implementation(compose.ui)
                 implementation(compose.material)

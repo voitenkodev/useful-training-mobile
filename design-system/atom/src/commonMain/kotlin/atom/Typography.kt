@@ -38,7 +38,7 @@ internal fun typography() = Typography(
         lineHeight = 16.sp
     ),
     Label = TextStyle(
-        fontSize = 16.sp,
+        fontSize = 18.sp,
         fontWeight = FontWeight.SemiBold,
         fontStyle = FontStyle.Normal,
         lineHeight = 20.sp

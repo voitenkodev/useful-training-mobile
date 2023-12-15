@@ -17,7 +17,6 @@ kotlin {
                 implementation(projects.designSystem.atom)
                 implementation(projects.designSystem.resources)
 
-                implementation(projects.common.platformApi)
                 implementation(projects.common.utils)
 
                 implementation(projects.composeLibs.composeImage)

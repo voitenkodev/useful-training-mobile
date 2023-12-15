@@ -1,11 +1,14 @@
 package exerciseexample.main
 
+import VideoPlayer
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
@@ -22,9 +25,14 @@ import components.Error
 import components.roots.ScreenRoot
 import exerciseexample.main.models.ExerciseExample
 import molecule.PaddingM
+import molecule.PaddingS
 import molecule.PaddingXL
-import molecule.TextBody2
+import molecule.Shadow
+import molecule.TextBody1
 import molecule.TextH2
+import molecule.TextLabel
+import molecule.secondaryBackground
+import molecule.secondaryDefaultBackground
 
 @Composable
 internal fun ExerciseExampleContent(
@@ -62,47 +70,74 @@ private fun Content(
             modifier = Modifier
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
-                .statusBarsPadding(),
-            horizontalAlignment = Alignment.CenterHorizontally
+                .statusBarsPadding()
         ) {
 
             PaddingXL()
 
             TextH2(
-                modifier = Modifier.padding(horizontal = Design.dp.paddingM),
+                modifier = Modifier.padding(horizontal = Design.dp.paddingM).align(Alignment.CenterHorizontally),
                 provideText = { exerciseExample?.name },
-                textAlign = TextAlign.Center
             )
 
             PaddingM()
 
-            TextBody2(
-                modifier = Modifier.padding(horizontal = Design.dp.paddingM),
+            TextBody1(
+                modifier = Modifier.padding(horizontal = Design.dp.paddingM).align(Alignment.CenterHorizontally),
                 provideText = {
                     "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,\n" +
-                            "molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum\n" +
-                            "numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium\n" +
-                            "optio, eaque rerum!"
-                }, textAlign = TextAlign.Center
+                            "molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum"
+                },
+                textAlign = TextAlign.Center
             )
 
             PaddingXL()
 
-            Row(
-                modifier = Modifier.padding(horizontal = Design.dp.paddingM),
-                horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
-            ) {
-                Image(
-                    modifier = Modifier.weight(1f).fillMaxHeight(),
-                    contentDescription = null,
-                    imageVector = fullFrontImage
-                )
+            TextLabel(modifier = Modifier.padding(horizontal = Design.dp.paddingM), provideText = { "Video tutorial" })
 
-                Image(
-                    modifier = Modifier.weight(1f).fillMaxHeight(),
-                    contentDescription = null,
-                    imageVector = fullBackImage
-                )
+            PaddingS()
+
+            VideoPlayer(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .aspectRatio(2f)
+                    .padding(horizontal = Design.dp.paddingM)
+                    .secondaryDefaultBackground(),
+                url = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+            )
+
+            PaddingXL()
+
+            TextLabel(modifier = Modifier.padding(horizontal = Design.dp.paddingM), provideText = { "Heap Map" })
+
+            PaddingS()
+
+            Column(modifier = Modifier.secondaryBackground()) {
+
+                Shadow()
+
+                PaddingM()
+
+                Row(
+                    modifier = Modifier.padding(horizontal = Design.dp.paddingXL),
+                    horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
+                ) {
+                    Image(
+                        modifier = Modifier.weight(1f).fillMaxHeight(),
+                        contentDescription = null,
+                        imageVector = fullFrontImage
+                    )
+
+                    Image(
+                        modifier = Modifier.weight(1f).fillMaxHeight(),
+                        contentDescription = null,
+                        imageVector = fullBackImage
+                    )
+                }
+
+                PaddingM()
+
+                Shadow()
             }
         }
     }

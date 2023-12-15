@@ -13,14 +13,15 @@ import androidx.media3.ui.PlayerView
 @Composable
 public actual fun VideoPlayer(
     modifier: Modifier,
-    nativeLocalResource: NativeLocalResource,
+    url: String
 ) {
 
     val context = LocalContext.current
 
-    val exoPlayer = remember { context.createExoPlayer(nativeLocalResource.url) }
+    val exoPlayer = remember { context.createExoPlayer(url) }
 
     AndroidView(
+        modifier = modifier,
         factory = {
             PlayerView(context).apply {
                 hideController()

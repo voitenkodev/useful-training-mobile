@@ -17,6 +17,7 @@ import platform.AVFoundation.volume
 import platform.AVKit.AVPlayerViewController
 import platform.CoreGraphics.CGRect
 import platform.CoreMedia.CMTimeMake
+import platform.Foundation.NSURL
 import platform.QuartzCore.CATransaction
 import platform.QuartzCore.kCATransactionDisableActions
 import platform.UIKit.UIView
@@ -24,9 +25,9 @@ import platform.UIKit.UIView
 @Composable
 public actual fun VideoPlayer(
     modifier: Modifier,
-    nativeLocalResource: NativeLocalResource,
+    url: String
 ) {
-    val player = remember { AVPlayer(uRL = nativeLocalResource.url) }
+    val player = remember { AVPlayer(uRL = NSURL.URLWithString(url)!!) }
     val avPlayerViewController = remember { AVPlayerViewController() }
 
     // Drop audio

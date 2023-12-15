@@ -24,6 +24,7 @@ kotlin {
                 implementation(projects.designSystem.resources)
 
                 implementation(projects.composeLibs.musclePicker)
+                implementation(projects.composeLibs.composeVideo)
 
                 implementation(compose.ui)
                 implementation(compose.foundation)
