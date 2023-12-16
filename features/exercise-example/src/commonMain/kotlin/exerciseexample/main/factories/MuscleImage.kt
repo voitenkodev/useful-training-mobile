@@ -12,7 +12,8 @@ internal fun ExerciseExample?.createFrontBackImages(): Pair<ImageVector, ImageVe
     if (this == null) return fullFront() to fullBack()
 
     val muscleWithAlpha = muscleExerciseBundles
-        .associate { it.muscle.type to it.percentage.toFloat() / 100 }
+//        .associate { it.muscle.type to it.percentage.toFloat() / 100 }
+        .associate { it.muscle.type to 1.0f }
 
     val front = fullFront(
         biceps = colorSelectionWithAlpha(muscleWithAlpha[MuscleEnum.BICEPS]),

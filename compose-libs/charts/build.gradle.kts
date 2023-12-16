@@ -15,6 +15,7 @@ kotlin {
             dependencies {
                 implementation(compose.ui)
                 implementation(compose.foundation)
+                implementation(libs.immutable.collections)
             }
         }
     }

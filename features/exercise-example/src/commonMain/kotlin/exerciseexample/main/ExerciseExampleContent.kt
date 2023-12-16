@@ -1,14 +1,20 @@
 package exerciseexample.main
 
+import AsyncImage
+import ColorUtils
 import VideoPlayer
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
@@ -16,14 +22,19 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.layout.ContentScale
 import atom.Design
 import components.Error
+import components.chips.Chip
+import components.chips.ChipState
 import components.roots.ScreenRoot
 import exerciseexample.main.models.ExerciseExample
+import kotlinx.collections.immutable.persistentListOf
+import kotlinx.collections.immutable.toPersistentList
 import molecule.PaddingM
 import molecule.PaddingS
 import molecule.PaddingXL
@@ -31,37 +42,34 @@ import molecule.Shadow
 import molecule.TextBody1
 import molecule.TextH2
 import molecule.TextLabel
-import molecule.secondaryBackground
 import molecule.secondaryDefaultBackground
+import percents
+import pie.PieChart
+import pie.PieChartData
 
 @Composable
 internal fun ExerciseExampleContent(
     vm: ExerciseExampleViewModel,
-    close: () -> Unit
 ) {
 
     val state by vm.state.collectAsState()
 
     Content(
         error = { state.error },
-        loading = state.loading,
         clearError = vm::clearError,
         exerciseExample = state.exerciseExample,
         fullFrontImage = state.fullFrontImageVector,
         fullBackImage = state.fullBackImageVector,
-        close = close
     )
 }
 
 @Composable
 private fun Content(
     error: () -> String?,
-    loading: Boolean,
     clearError: () -> Unit,
     exerciseExample: ExerciseExample?,
     fullFrontImage: ImageVector,
-    fullBackImage: ImageVector,
-    close: () -> Unit
+    fullBackImage: ImageVector
 ) {
 
     ScreenRoot(error = { Error(message = error, close = clearError) }) {
@@ -70,30 +78,47 @@ private fun Content(
             modifier = Modifier
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
-                .statusBarsPadding()
         ) {
 
+            Box(modifier = Modifier.height(IntrinsicSize.Min)) {
+
+                AsyncImage(
+                    modifier = Modifier.fillMaxSize(),
+                    url = exerciseExample?.imageUrl,
+                    contentScale = ContentScale.Crop
+                )
+
+                Spacer(modifier = Modifier.fillMaxSize().background(Design.colors.black30))
+
+                Column(modifier = Modifier.statusBarsPadding()) {
+
+                    PaddingXL()
+
+                    TextH2(
+                        modifier = Modifier.padding(horizontal = Design.dp.paddingM),
+                        provideText = { exerciseExample?.name },
+                    )
+
+                    PaddingM()
+
+                    TextBody1(
+                        modifier = Modifier.padding(horizontal = Design.dp.paddingM),
+                        provideText = {
+                            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,\n" +
+                                    "molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum"
+                        }
+                    )
+
+                    PaddingXL()
+                }
+            }
+
             PaddingXL()
 
-            TextH2(
-                modifier = Modifier.padding(horizontal = Design.dp.paddingM).align(Alignment.CenterHorizontally),
-                provideText = { exerciseExample?.name },
+            TextLabel(
+                modifier = Modifier.padding(horizontal = Design.dp.paddingM),
+                provideText = { "Video tutorial" }
             )
-
-            PaddingM()
-
-            TextBody1(
-                modifier = Modifier.padding(horizontal = Design.dp.paddingM).align(Alignment.CenterHorizontally),
-                provideText = {
-                    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,\n" +
-                            "molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum"
-                },
-                textAlign = TextAlign.Center
-            )
-
-            PaddingXL()
-
-            TextLabel(modifier = Modifier.padding(horizontal = Design.dp.paddingM), provideText = { "Video tutorial" })
 
             PaddingS()
 
@@ -108,28 +133,85 @@ private fun Content(
 
             PaddingXL()
 
-            TextLabel(modifier = Modifier.padding(horizontal = Design.dp.paddingM), provideText = { "Heap Map" })
+            TextLabel(
+                modifier = Modifier.padding(horizontal = Design.dp.paddingM),
+                provideText = { "Muscle Pack" }
+            )
 
             PaddingS()
 
-            Column(modifier = Modifier.secondaryBackground()) {
+            val pieData = remember(exerciseExample) {
+                exerciseExample?.muscleExerciseBundles
+                    ?.map {
+                        PieChartData(
+                            value = it.percentage,
+                            color = ColorUtils.randomColor(),
+                            title = it.muscle.name
+                        )
+                    }?.sortedByDescending { it.value }
+                    ?.toPersistentList()
+                    ?: persistentListOf()
+            }
 
-                Shadow()
+            Row(
+                modifier = Modifier.fillMaxWidth().padding(horizontal = Design.dp.paddingM),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
+            ) {
+                Column(
+                    modifier = Modifier.weight(0.6f),
+                    verticalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
+                ) {
+                    repeat(pieData.size) {
+                        val item = pieData.getOrNull(it) ?: return@repeat
+                        Chip(
+                            chipState = ChipState.Colored(
+                                backgroundColor = item.color.copy(alpha = 0.2f),
+                                borderColor = item.color,
+                                contentColor = Design.colors.content
+                            ),
+                            text = buildString {
+                                append(item.title)
+                                append(" ")
+                                append(item.value.percents())
+                            }
+                        )
+                    }
+                }
 
-                PaddingM()
+                PieChart(
+                    modifier = Modifier.padding(Design.dp.paddingM).weight(0.4f).aspectRatio(1f),
+                    data = pieData
+                )
+            }
+
+            PaddingXL()
+
+            TextLabel(
+                modifier = Modifier.padding(horizontal = Design.dp.paddingM),
+                provideText = { "Heap Map" }
+            )
+
+            PaddingS()
+
+            Column {
 
                 Row(
-                    modifier = Modifier.padding(horizontal = Design.dp.paddingXL),
+                    modifier = Modifier
+                        .padding(horizontal = Design.dp.paddingM)
+                        .secondaryDefaultBackground()
+                        .padding(horizontal = Design.dp.paddingXL, vertical = Design.dp.paddingM),
                     horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
                 ) {
+
                     Image(
-                        modifier = Modifier.weight(1f).fillMaxHeight(),
+                        modifier = Modifier.weight(1f).aspectRatio(0.8f),
                         contentDescription = null,
                         imageVector = fullFrontImage
                     )
 
                     Image(
-                        modifier = Modifier.weight(1f).fillMaxHeight(),
+                        modifier = Modifier.weight(1f).aspectRatio(0.8f),
                         contentDescription = null,
                         imageVector = fullBackImage
                     )

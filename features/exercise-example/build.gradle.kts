@@ -17,6 +17,7 @@ kotlin {
                 implementation(projects.domain.exerciseExamplesMuscles)
 
                 implementation(projects.common.architectureComponent)
+                implementation(projects.common.utils)
 
                 implementation(projects.designSystem.atom)
                 implementation(projects.designSystem.molecule)
@@ -25,6 +26,8 @@ kotlin {
 
                 implementation(projects.composeLibs.musclePicker)
                 implementation(projects.composeLibs.composeVideo)
+                implementation(projects.composeLibs.composeImage)
+                implementation(projects.composeLibs.charts)
 
                 implementation(compose.ui)
                 implementation(compose.foundation)
