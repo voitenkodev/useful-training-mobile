@@ -38,7 +38,6 @@ import kotlinx.collections.immutable.toPersistentList
 import molecule.PaddingM
 import molecule.PaddingS
 import molecule.PaddingXL
-import molecule.Shadow
 import molecule.TextBody1
 import molecule.TextH2
 import molecule.TextLabel
@@ -50,6 +49,7 @@ import pie.PieChartData
 @Composable
 internal fun ExerciseExampleContent(
     vm: ExerciseExampleViewModel,
+    close: () -> Unit
 ) {
 
     val state by vm.state.collectAsState()
@@ -59,7 +59,7 @@ internal fun ExerciseExampleContent(
         clearError = vm::clearError,
         exerciseExample = state.exerciseExample,
         fullFrontImage = state.fullFrontImageVector,
-        fullBackImage = state.fullBackImageVector,
+        fullBackImage = state.fullBackImageVector
     )
 }
 
@@ -158,12 +158,15 @@ private fun Content(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
             ) {
+
                 Column(
                     modifier = Modifier.weight(0.6f),
                     verticalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
                 ) {
                     repeat(pieData.size) {
+
                         val item = pieData.getOrNull(it) ?: return@repeat
+
                         Chip(
                             chipState = ChipState.Colored(
                                 backgroundColor = item.color.copy(alpha = 0.2f),
@@ -194,33 +197,39 @@ private fun Content(
 
             PaddingS()
 
-            Column {
+            Row(
+                modifier = Modifier
+                    .padding(horizontal = Design.dp.paddingM)
+                    .secondaryDefaultBackground()
+                    .padding(horizontal = Design.dp.paddingXL, vertical = Design.dp.paddingM),
+                horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
+            ) {
 
-                Row(
-                    modifier = Modifier
-                        .padding(horizontal = Design.dp.paddingM)
-                        .secondaryDefaultBackground()
-                        .padding(horizontal = Design.dp.paddingXL, vertical = Design.dp.paddingM),
-                    horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
-                ) {
+                Image(
+                    modifier = Modifier.weight(1f).aspectRatio(0.8f),
+                    contentDescription = null,
+                    imageVector = fullFrontImage
+                )
 
-                    Image(
-                        modifier = Modifier.weight(1f).aspectRatio(0.8f),
-                        contentDescription = null,
-                        imageVector = fullFrontImage
-                    )
-
-                    Image(
-                        modifier = Modifier.weight(1f).aspectRatio(0.8f),
-                        contentDescription = null,
-                        imageVector = fullBackImage
-                    )
-                }
-
-                PaddingM()
-
-                Shadow()
+                Image(
+                    modifier = Modifier.weight(1f).aspectRatio(0.8f),
+                    contentDescription = null,
+                    imageVector = fullBackImage
+                )
             }
+
+            PaddingXL()
+
+//            TextLabel(
+//                modifier = Modifier.padding(horizontal = Design.dp.paddingM),
+//                provideText = { "User overview" }
+//            )
+//
+//            PaddingS()
+
+
+
+            PaddingXL()
         }
     }
 }
