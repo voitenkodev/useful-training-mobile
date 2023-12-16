@@ -13,8 +13,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.unit.dp
 import atom.Design
-import basic.BasicLineChart
+import basic.LineChart
+import basic.LineChartDotsStyle
+import basic.LineChartStyle
 import kotlinx.collections.immutable.ImmutableList
 import molecule.IconSecondary
 import molecule.TextBody3
@@ -125,16 +128,21 @@ private fun ChartBlock(
 ) {
     Column(modifier = modifier.recomposeHighlighter()) {
 
-        BasicLineChart(
+        LineChart(
             modifier = Modifier
                 .fillMaxWidth()
                 .weight(1f)
                 .padding(start = Design.dp.paddingM, end = Design.dp.paddingM, top = Design.dp.paddingM)
                 .recomposeHighlighter(),
             values = values,
-            color = Design.colors.orange,
-            bottomSpacing = 20f,
-            circleColor = Design.colors.content
+            chartStyle = LineChartStyle(
+                lineColor = Design.colors.orange,
+                dotsStyle = LineChartDotsStyle(
+                    backgroundColor = Design.colors.content,
+                    type = LineChartDotsStyle.DotsType.START_END,
+                    width = 6.dp
+                )
+            )
         )
 
         DefaultItem(

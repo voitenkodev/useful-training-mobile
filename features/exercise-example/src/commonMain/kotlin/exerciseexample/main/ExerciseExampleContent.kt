@@ -26,8 +26,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.unit.dp
 import atom.Design
-import basic.BasicLineChart
+import basic.LineChart
+import basic.LineChartDotsStyle
+import basic.LineChartLabelStyle
+import basic.LineChartStyle
 import components.Error
 import components.chips.Chip
 import components.chips.ChipState
@@ -44,6 +48,7 @@ import molecule.TextBody1
 import molecule.TextH2
 import molecule.TextLabel
 import molecule.secondaryBackground
+import molecule.secondaryDefaultBackground
 import percents
 import pie.PieChart
 import pie.PieChartData
@@ -221,25 +226,41 @@ private fun Content(
 
             TextLabel(
                 modifier = Modifier.padding(horizontal = Design.dp.paddingM),
-                provideText = { "User overview" }
+                provideText = { "Last 5 volumes" }
             )
 
             PaddingS()
 
-            BasicLineChart(
+            LineChart(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .weight(1f)
-                    .padding(start = Design.dp.paddingM, end = Design.dp.paddingM, top = Design.dp.paddingM),
-                values = listOf(213f, 222f, 221f, 543f, 123f),
-                color = Design.colors.toxic,
-                bottomSpacing = 20f,
-                circleColor = Design.colors.content,
-                allowPoints = true
+                    .secondaryDefaultBackground()
+                    .padding(Design.dp.paddingM)
+                    .height(140.dp)
+                    .padding(start = Design.dp.paddingM, end = Design.dp.paddingM),
+                values = listOf(1000f, 6900f, 2000f, 3000f, 5000f),
+                chartStyle = LineChartStyle(
+                    lineColor = Design.colors.content,
+                    labelStyle = LineChartLabelStyle(
+                        backgroundColor = Design.colors.toxic.copy(alpha = 0.2f),
+                        borderColor = Design.colors.toxic,
+                        paddings = Design.dp.paddingXS,
+                        textColor = Design.colors.content,
+                        spaceTillLine = 26.dp,
+                        borderWidth = 1.dp
+                    ),
+                    dotsStyle = LineChartDotsStyle(
+                        backgroundColor = Design.colors.orange,
+                        width = 6.dp,
+                        type = LineChartDotsStyle.DotsType.START_END
+                    )
+                )
             )
 
             PaddingXL()
         }
+
+
 
         Box(modifier = Modifier.fillMaxWidth().height(IntrinsicSize.Min)) {
             TopShadow(modifier = Modifier.fillMaxSize())
