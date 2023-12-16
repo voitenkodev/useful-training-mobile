@@ -2,7 +2,6 @@ package exerciseexample.main
 
 import AsyncImage
 import ColorUtils
-import VideoPlayer
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -28,9 +27,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import atom.Design
+import basic.BasicLineChart
 import components.Error
 import components.chips.Chip
 import components.chips.ChipState
+import components.overlay.TopShadow
 import components.roots.ScreenRoot
 import exerciseexample.main.models.ExerciseExample
 import kotlinx.collections.immutable.persistentListOf
@@ -38,10 +39,11 @@ import kotlinx.collections.immutable.toPersistentList
 import molecule.PaddingM
 import molecule.PaddingS
 import molecule.PaddingXL
+import molecule.Shadow
 import molecule.TextBody1
 import molecule.TextH2
 import molecule.TextLabel
-import molecule.secondaryDefaultBackground
+import molecule.secondaryBackground
 import percents
 import pie.PieChart
 import pie.PieChartData
@@ -72,13 +74,17 @@ private fun Content(
     fullBackImage: ImageVector
 ) {
 
+    val pieData = remember(exerciseExample) {
+        exerciseExample?.muscleExerciseBundles
+            ?.map { PieChartData(value = it.percentage, color = ColorUtils.randomColor(), title = it.muscle.name) }
+            ?.sortedByDescending { it.value }
+            ?.toPersistentList()
+            ?: persistentListOf()
+    }
+
     ScreenRoot(error = { Error(message = error, close = clearError) }) {
 
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .verticalScroll(rememberScrollState())
-        ) {
+        Column(modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState())) {
 
             Box(modifier = Modifier.height(IntrinsicSize.Min)) {
 
@@ -111,25 +117,27 @@ private fun Content(
 
                     PaddingXL()
                 }
+
+                Shadow(modifier = Modifier.align(Alignment.BottomCenter))
             }
 
-            PaddingXL()
-
-            TextLabel(
-                modifier = Modifier.padding(horizontal = Design.dp.paddingM),
-                provideText = { "Video tutorial" }
-            )
-
-            PaddingS()
-
-            VideoPlayer(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .aspectRatio(2f)
-                    .padding(horizontal = Design.dp.paddingM)
-                    .secondaryDefaultBackground(),
-                url = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
-            )
+//            PaddingXL()
+//
+//            TextLabel(
+//                modifier = Modifier.padding(horizontal = Design.dp.paddingM),
+//                provideText = { "Video tutorial" }
+//            )
+//
+//            PaddingS()
+//
+//            VideoPlayer(
+//                modifier = Modifier
+//                    .fillMaxWidth()
+//                    .aspectRatio(2f)
+//                    .padding(horizontal = Design.dp.paddingM)
+//                    .secondaryDefaultBackground(),
+//                url = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+//            )
 
             PaddingXL()
 
@@ -139,19 +147,6 @@ private fun Content(
             )
 
             PaddingS()
-
-            val pieData = remember(exerciseExample) {
-                exerciseExample?.muscleExerciseBundles
-                    ?.map {
-                        PieChartData(
-                            value = it.percentage,
-                            color = ColorUtils.randomColor(),
-                            title = it.muscle.name
-                        )
-                    }?.sortedByDescending { it.value }
-                    ?.toPersistentList()
-                    ?: persistentListOf()
-            }
 
             Row(
                 modifier = Modifier.fillMaxWidth().padding(horizontal = Design.dp.paddingM),
@@ -197,39 +192,58 @@ private fun Content(
 
             PaddingS()
 
-            Row(
-                modifier = Modifier
-                    .padding(horizontal = Design.dp.paddingM)
-                    .secondaryDefaultBackground()
-                    .padding(horizontal = Design.dp.paddingXL, vertical = Design.dp.paddingM),
-                horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
-            ) {
+            Column(modifier = Modifier.secondaryBackground()) {
 
-                Image(
-                    modifier = Modifier.weight(1f).aspectRatio(0.8f),
-                    contentDescription = null,
-                    imageVector = fullFrontImage
-                )
+                Shadow()
 
-                Image(
-                    modifier = Modifier.weight(1f).aspectRatio(0.8f),
-                    contentDescription = null,
-                    imageVector = fullBackImage
-                )
+                Row(
+                    modifier = Modifier.padding(horizontal = Design.dp.paddingXL, vertical = Design.dp.paddingM),
+                    horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
+                ) {
+
+                    Image(
+                        modifier = Modifier.weight(1f).aspectRatio(0.8f),
+                        contentDescription = null,
+                        imageVector = fullFrontImage
+                    )
+
+                    Image(
+                        modifier = Modifier.weight(1f).aspectRatio(0.8f),
+                        contentDescription = null,
+                        imageVector = fullBackImage
+                    )
+                }
+
+                Shadow()
             }
 
             PaddingXL()
 
-//            TextLabel(
-//                modifier = Modifier.padding(horizontal = Design.dp.paddingM),
-//                provideText = { "User overview" }
-//            )
-//
-//            PaddingS()
+            TextLabel(
+                modifier = Modifier.padding(horizontal = Design.dp.paddingM),
+                provideText = { "User overview" }
+            )
 
+            PaddingS()
 
+            BasicLineChart(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f)
+                    .padding(start = Design.dp.paddingM, end = Design.dp.paddingM, top = Design.dp.paddingM),
+                values = listOf(213f, 222f, 221f, 543f, 123f),
+                color = Design.colors.toxic,
+                bottomSpacing = 20f,
+                circleColor = Design.colors.content,
+                allowPoints = true
+            )
 
             PaddingXL()
+        }
+
+        Box(modifier = Modifier.fillMaxWidth().height(IntrinsicSize.Min)) {
+            TopShadow(modifier = Modifier.fillMaxSize())
+            Spacer(modifier = Modifier.statusBarsPadding().height(Design.dp.paddingXL))
         }
     }
 }

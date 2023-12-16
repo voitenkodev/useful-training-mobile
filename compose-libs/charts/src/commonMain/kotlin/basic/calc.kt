@@ -13,9 +13,7 @@ internal data class DrawElement(
 
     val listOfPoints: List<LinePoint>,
 
-    val colors: Colors = Colors(
-        backgroundColor = Color.Cyan
-    )
+    val colors: Colors = Colors(backgroundColor = Color.Cyan)
 ) {
 
     data class LineConfigs(

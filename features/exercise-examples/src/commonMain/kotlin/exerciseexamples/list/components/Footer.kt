@@ -17,7 +17,9 @@ import molecule.secondaryBackground
 @Composable
 internal fun Footer(addNewClick: () -> Unit) {
     Column(modifier = Modifier.fillMaxWidth().secondaryBackground()) {
+
         Shadow()
+
         Row(
             modifier = Modifier
                 .padding(Design.dp.paddingM)

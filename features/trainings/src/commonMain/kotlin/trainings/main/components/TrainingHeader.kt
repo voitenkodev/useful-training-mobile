@@ -30,6 +30,7 @@ internal fun TrainingHeader(
     modifier: Modifier = Modifier,
     training: Training
 ) {
+
     Row(
         modifier = modifier
             .fillMaxWidth()
