@@ -2,6 +2,7 @@ package basic
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
@@ -31,14 +32,28 @@ public fun LineChart(
         fontWeight = FontWeight.Bold
     )
 
+    val spaceDimensions = remember {
+        textMeasurer.measure(
+            text = "Test",
+            style = style,
+            maxLines = 1,
+            softWrap = false,
+            overflow = TextOverflow.Visible
+        )
+    }
+
     Canvas(modifier = modifier) {
+
+        val labelTopSpace = chartStyle.labelStyle?.let {
+            spaceDimensions.size.height + chartStyle.labelStyle.spaceTillLine.toPx()
+        } ?: 0f
 
         val drawElement = generatePath(
             width = size.width,
             height = size.height,
             line = values,
-            bottomSpacing = 60f,
-            topSpacing = 50f
+            bottomSpacing = 40f,
+            topSpacing = labelTopSpace
         )
 
         // Line
@@ -104,6 +119,7 @@ public fun LineChart(
                     else -> point.x - (dimensions.size.width / 2)
                 }
 
+                // Label background
                 drawRoundRect(
                     color = labelsStyle.backgroundColor,
                     topLeft = Offset(
@@ -120,6 +136,7 @@ public fun LineChart(
                     )
                 )
 
+                // Label border
                 drawRoundRect(
                     color = labelsStyle.borderColor,
                     topLeft = Offset(
@@ -134,9 +151,12 @@ public fun LineChart(
                         x = dimensions.size.height.toFloat() + (padding * 2) / 2,
                         y = dimensions.size.height.toFloat() + (padding * 2) / 2
                     ),
-                    style = Stroke(width = labelsStyle.borderWidth.toPx())
+                    style = Stroke(
+                        width = labelsStyle.borderWidth.toPx()
+                    )
                 )
 
+                // Label text
                 drawText(
                     textLayoutResult = dimensions,
                     topLeft = Offset(

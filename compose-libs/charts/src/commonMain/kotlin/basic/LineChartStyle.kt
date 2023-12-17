@@ -8,6 +8,7 @@ import androidx.compose.ui.unit.dp
 public data class LineChartStyle(
     val lineColor: Color,
     val lineWidth: Dp = 4.dp,
+
     val labelStyle: LineChartLabelStyle? = null,
     val dotsStyle: LineChartDotsStyle? = null,
     val backgroundStyle: LineChartBackgroundStyle? = null

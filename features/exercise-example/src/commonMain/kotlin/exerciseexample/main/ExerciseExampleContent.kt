@@ -26,17 +26,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.unit.dp
 import atom.Design
-import basic.LineChart
-import basic.LineChartDotsStyle
-import basic.LineChartLabelStyle
-import basic.LineChartStyle
 import components.Error
 import components.chips.Chip
 import components.chips.ChipState
 import components.overlay.TopShadow
 import components.roots.ScreenRoot
+import exerciseexample.main.components.ResentVolume
 import exerciseexample.main.models.ExerciseExample
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toPersistentList
@@ -48,7 +44,6 @@ import molecule.TextBody1
 import molecule.TextH2
 import molecule.TextLabel
 import molecule.secondaryBackground
-import molecule.secondaryDefaultBackground
 import percents
 import pie.PieChart
 import pie.PieChartData
@@ -224,43 +219,10 @@ private fun Content(
 
             PaddingXL()
 
-            TextLabel(
-                modifier = Modifier.padding(horizontal = Design.dp.paddingM),
-                provideText = { "Last 5 volumes" }
-            )
-
-            PaddingS()
-
-            LineChart(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .secondaryDefaultBackground()
-                    .padding(Design.dp.paddingM)
-                    .height(140.dp)
-                    .padding(start = Design.dp.paddingM, end = Design.dp.paddingM),
-                values = listOf(1000f, 6900f, 2000f, 3000f, 5000f),
-                chartStyle = LineChartStyle(
-                    lineColor = Design.colors.content,
-                    labelStyle = LineChartLabelStyle(
-                        backgroundColor = Design.colors.toxic.copy(alpha = 0.2f),
-                        borderColor = Design.colors.toxic,
-                        paddings = Design.dp.paddingXS,
-                        textColor = Design.colors.content,
-                        spaceTillLine = 26.dp,
-                        borderWidth = 1.dp
-                    ),
-                    dotsStyle = LineChartDotsStyle(
-                        backgroundColor = Design.colors.orange,
-                        width = 6.dp,
-                        type = LineChartDotsStyle.DotsType.START_END
-                    )
-                )
-            )
+            ResentVolume()
 
             PaddingXL()
         }
-
-
 
         Box(modifier = Modifier.fillMaxWidth().height(IntrinsicSize.Min)) {
             TopShadow(modifier = Modifier.fillMaxSize())

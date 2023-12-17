@@ -34,7 +34,7 @@ internal fun generatePath(
     val p = Path().apply {
         for (i in line.indices) {
             val currentX = i * spaceX
-            val currentY = height - bottomSpacing  + topSpacing- ((line[i] - minY) * spaceY)
+            val currentY = height - bottomSpacing - ((line[i] - minY) * spaceY)
 
             if (i == 0) {
                 moveTo(currentX, currentY)

@@ -5,8 +5,10 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.ExitToApp
+import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.filled.KeyboardArrowRight
+import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.ui.graphics.vector.ImageVector
 import resources.icons.Chart
@@ -31,6 +33,8 @@ public object Icons {
     public val close: ImageVector = Close
     public val save: ImageVector = Success
     public val arrowLeft: ImageVector = Icons.Default.KeyboardArrowLeft
+    public val arrowUp: ImageVector = Icons.Default.KeyboardArrowUp
+    public val arrowDown: ImageVector = Icons.Default.KeyboardArrowDown
     public val arrowRight: ImageVector = Icons.Default.KeyboardArrowRight
     public val card: ImageVector = resources.icons.Card
     public val chart: ImageVector = Chart
