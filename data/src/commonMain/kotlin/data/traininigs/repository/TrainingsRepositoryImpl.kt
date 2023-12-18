@@ -20,7 +20,7 @@ internal class TrainingsRepositoryImpl(
 
     override fun observeTrainings(startDate: String, endDate: String): Flow<List<Training>> {
         return localTrainings
-            .getTrainings()
+            .getTrainings(startDate, endDate)
             .map { it.daoToDomain() }
     }
 

@@ -1,9 +1,10 @@
 import androidx.sqlite.db.SupportSQLiteDatabase
 import app.cash.sqldelight.driver.android.AndroidSqliteDriver
+import data.Training
 
 internal actual fun NativeContext.database(): AlienWorkoutDatabase {
     return AlienWorkoutDatabase.invoke(
-        AndroidSqliteDriver(
+        driver = AndroidSqliteDriver(
             schema = AlienWorkoutDatabase.Schema,
             context = this.context,
             name = DB_FILE_NAME,
@@ -13,6 +14,7 @@ internal actual fun NativeContext.database(): AlienWorkoutDatabase {
                     db.setForeignKeyConstraintsEnabled(true)
                 }
             }
-        )
+        ),
+        TrainingAdapter = Training.Adapter(updatedAtAdapter = DateAdapter, createdAtAdapter = DateAdapter)
     )
 }

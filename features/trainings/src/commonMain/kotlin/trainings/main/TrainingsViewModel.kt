@@ -37,9 +37,9 @@ internal class TrainingsViewModel : ViewModel() {
         selectCalendarDay(DateTimeKtx.currentDateTime())
 
         _state.mapNotNull {
-            val first = it.calendar.firstOrNull() ?: return@mapNotNull null
-            val last = it.calendar.lastOrNull() ?: return@mapNotNull null
-            first.dateTimeIso to last.dateTimeIso
+            val first = it.calendar.firstOrNull()?.dateTimeIso ?: return@mapNotNull null
+            val last = it.calendar.lastOrNull()?.dateTimeIso ?: return@mapNotNull null
+            first to last
         }.distinctUntilChanged()
             .flatMapLatest {
                 trainingApi

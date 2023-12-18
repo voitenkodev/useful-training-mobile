@@ -1,11 +1,14 @@
+import app.cash.sqldelight.dialect.api.PrimitiveType.TEXT;
+import kotlin.String;
+
 CREATE TABLE IF NOT EXISTS Training (
     id TEXT NOT NULL PRIMARY KEY,
     duration INTEGER,
-    createdAt TEXT,
+    createdAt INTEGER AS String,
     volume REAL,
     repetitions INTEGER,
     intensity REAL,
-    updatedAt TEXT
+    updatedAt INTEGER AS String
 );
 
 CREATE TABLE IF NOT EXISTS Exercise (
@@ -70,6 +73,7 @@ LEFT JOIN ExerciseExample ON Exercise.exerciseExampleId = ExerciseExample.id
 LEFT JOIN MuscleExerciseBundle ON ExerciseExample.id = MuscleExerciseBundle.exerciseExampleId
 LEFT JOIN Muscle ON MuscleExerciseBundle.muscleId = Muscle.id
 LEFT JOIN Iteration ON Exercise.id = Iteration.exerciseId
+WHERE Training.createdAt BETWEEN ? AND ?
 ORDER BY Training.id DESC;
 
 getTrainingById:

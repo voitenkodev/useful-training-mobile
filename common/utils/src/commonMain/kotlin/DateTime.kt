@@ -17,15 +17,24 @@ import kotlin.time.Duration
 
 public object DateTimeKtx {
 
+    public fun isoToMillis(iso8601Timestamp: String): Long {
+        val timeZone = TimeZone.currentSystemDefault()
+        val localDateTime = iso8601TimestampToLocalDateTime(iso8601Timestamp)
+        return localDateTime?.toInstant(timeZone)?.toEpochMilliseconds() ?: -1
+    }
+
+
+    public fun millisToIso(millis: Long): String {
+        return Instant.fromEpochMilliseconds(millis).toString()
+    }
+
+
     /**
      * Input 2 + listOf(2022-10-21T13:20:18.496Z, 2022-10-22T13:20:18.496Z)
      * Output listOf(2022-10-20T13:20:18.496Z, 2022-10-19T13:20:18.496Z)
      **/
 
-    public fun addEarlyCalendarChunk(
-        previousList: List<String>,
-        count: Int,
-    ): List<String> {
+    public fun addEarlyCalendarChunk(previousList: List<String>, count: Int): List<String> {
         val timeZone = TimeZone.currentSystemDefault()
 
         val lastDate = if (previousList.isEmpty()) Clock
@@ -35,10 +44,7 @@ public object DateTimeKtx {
             .plus(4, DateTimeUnit.DAY, timeZone)
             .toLocalDateTime(timeZone)
         else previousList
-            .minOfOrNull {
-                Instant.parse(it)
-                    .toLocalDateTime(timeZone)
-            }
+            .minOfOrNull { Instant.parse(it).toLocalDateTime(timeZone) }
 
         if (lastDate == null) return emptyList()
 

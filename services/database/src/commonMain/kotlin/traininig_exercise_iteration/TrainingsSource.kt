@@ -17,9 +17,9 @@ public class TrainingsSource(nativeContext: NativeContext) {
     private val database: AlienWorkoutDatabase = nativeContext.database()
     private val api by lazy { database.training_exercise_iterationQueries }
 
-    public fun getTrainings(): Flow<List<TrainingDao>> {
+    public fun getTrainings(startDate: String, endDate: String): Flow<List<TrainingDao>> {
         return api
-            .getTrainings()
+            .getTrainings(endDate, startDate)
             .asFlow()
             .mapToList(Dispatchers.Default)
             .transform { emit(it.mapToDao()) }
