@@ -48,16 +48,14 @@ public actual fun VideoPlayer(
 
     // Repeat video Flow (Check every 1/30th of a second (adjust as needed))
     player.addPeriodicTimeObserverForInterval(CMTimeMake(1, 30), null) { time ->
-        if (player.rate() == 1.0f) {
-            loadingState.value = false
-        }
+        if (player.rate() == 1.0f) { loadingState.value = false }
         if (time == player.currentItem?.duration) {
             player.seekToTime(memScoped { return@memScoped CMTimeMake(0, 1) })
             player.play()
         }
     }
 
-    LaunchedEffect(loadingState) {
+    LaunchedEffect(loadingState.value) {
         if (loadingState.value.not()) onStart.invoke()
     }
 
