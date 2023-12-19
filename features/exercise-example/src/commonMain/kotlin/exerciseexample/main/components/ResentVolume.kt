@@ -1,6 +1,7 @@
 package exerciseexample.main.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -130,7 +131,11 @@ private fun VolumeItem(
         IconSecondary(
             modifier = Modifier
                 .size(Design.dp.componentS)
-                .coloredDefaultBackgroundNoBorder(color)
+                .border(
+                    color = Design.colors.orange,
+                    width = 1.dp,
+                    shape = Design.shape.default
+                ).coloredDefaultBackgroundNoBorder(color)
                 .padding(Design.dp.paddingS),
             color = Design.colors.content,
             imageVector = icon
@@ -153,7 +158,8 @@ private fun VolumeItem(
 
         ButtonIconTransparent(
             imageVector = Icons.arrowRight,
-            onClick = onClick
+            onClick = onClick,
+            contentColor = color
         )
     }
 }

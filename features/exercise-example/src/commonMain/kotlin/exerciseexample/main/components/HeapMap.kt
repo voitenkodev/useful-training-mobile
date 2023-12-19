@@ -11,45 +11,42 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import atom.Design
-import molecule.PaddingS
 import molecule.Shadow
 import molecule.TextLabel
 
 @Composable
 internal fun HeapMap(fullFrontImage: ImageVector, fullBackImage: ImageVector) {
 
-    Column {
+    Column(
+        modifier = Modifier.background(Design.colors.black10),
+        verticalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
+    ) {
+
+        Shadow()
 
         TextLabel(
-            modifier = Modifier.padding(horizontal = Design.dp.paddingM),
+            modifier = Modifier.padding(top = Design.dp.paddingS).padding(horizontal = Design.dp.paddingM),
             provideText = { "Heap Map" }
         )
 
-        PaddingS()
+        Row(
+            modifier = Modifier.padding(horizontal = Design.dp.paddingXL, vertical = Design.dp.paddingM),
+            horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
+        ) {
 
-        Column(modifier = Modifier.background(Design.colors.black10)) {
+            Image(
+                modifier = Modifier.weight(1f).aspectRatio(0.8f),
+                contentDescription = null,
+                imageVector = fullFrontImage
+            )
 
-            Shadow()
-
-            Row(
-                modifier = Modifier.padding(horizontal = Design.dp.paddingXL, vertical = Design.dp.paddingM),
-                horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
-            ) {
-
-                Image(
-                    modifier = Modifier.weight(1f).aspectRatio(0.8f),
-                    contentDescription = null,
-                    imageVector = fullFrontImage
-                )
-
-                Image(
-                    modifier = Modifier.weight(1f).aspectRatio(0.8f),
-                    contentDescription = null,
-                    imageVector = fullBackImage
-                )
-            }
-
-            Shadow()
+            Image(
+                modifier = Modifier.weight(1f).aspectRatio(0.8f),
+                contentDescription = null,
+                imageVector = fullBackImage
+            )
         }
+
+        Shadow()
     }
 }
