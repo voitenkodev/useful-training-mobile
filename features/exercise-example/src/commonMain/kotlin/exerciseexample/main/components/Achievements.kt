@@ -66,7 +66,7 @@ private fun RowScope.Item(
     Column(
         modifier = Modifier
             .weight(1f)
-            .aspectRatio(0.9f)
+            .aspectRatio(0.8f)
             .border(
                 color = Design.colors.orange,
                 width = 1.dp,
@@ -78,7 +78,7 @@ private fun RowScope.Item(
     ) {
 
         IconSecondary(
-            modifier = Modifier.weight(1f).aspectRatio(1f).padding(Design.dp.paddingS),
+            modifier = Modifier.weight(1f).aspectRatio(1f).padding(Design.dp.paddingXS),
             color = Design.colors.content,
             imageVector = icon
         )

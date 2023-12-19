@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import atom.Design
-import molecule.PaddingS
 import molecule.TextLabel
 import molecule.secondaryDefaultBackground
 
@@ -24,8 +23,6 @@ internal fun Tutorial(
     ) {
 
         TextLabel(provideText = { "Video tutorial" })
-
-        PaddingS()
 
         VideoPlayer(
             modifier = Modifier

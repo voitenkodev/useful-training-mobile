@@ -17,7 +17,6 @@ import components.chips.ChipState
 import exerciseexample.main.models.ExerciseExample
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toPersistentList
-import molecule.PaddingS
 import molecule.TextLabel
 import percents
 import pie.PieChart
@@ -40,8 +39,6 @@ internal fun MusclePack(exerciseExample: ExerciseExample?) {
     ) {
 
         TextLabel(provideText = { "Muscle Pack" })
-
-        PaddingS()
 
         Row(
             modifier = Modifier.fillMaxWidth(),
