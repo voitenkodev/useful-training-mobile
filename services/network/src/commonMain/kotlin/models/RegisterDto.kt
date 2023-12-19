@@ -12,7 +12,7 @@ public data class RegisterDto(
     @SerialName("name")
     val name: String? = null,
     @SerialName("weight")
-    val weight: Int? = null,
+    val weight: Double? = null,
     @SerialName("height")
-    val height: Int? = null
+    val height: Double? = null
 )

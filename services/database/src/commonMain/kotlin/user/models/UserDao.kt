@@ -4,8 +4,8 @@ public data class UserDao(
     val id: String,
     val name: String,
     val email: String,
-    val weight: Int,
-    val height: Int,
+    val weight: Double,
+    val height: Double,
     val createdAt: String,
     val updatedAt: String
 )

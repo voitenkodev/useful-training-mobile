@@ -4,6 +4,8 @@ import AuthenticationRepository
 import UserRepository
 import ViewModel
 import authentication.register.models.RegistrationStatus
+import cmToM
+import grToKg
 import isEmailValid
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -46,8 +48,8 @@ internal class RegistrationViewModel : ViewModel() {
                     email = last.email,
                     password = last.password,
                     name = last.name,
-                    weight = last.weight,
-                    height = last.height
+                    weight = last.weight.grToKg(),
+                    height = last.height.cmToM()
                 )
                 .flatMapConcat { userApi.syncUser() }
                 .onStart { _state.update { it.copy(loading = true) } }

@@ -8,8 +8,8 @@ internal fun User.toDao(): UserDao {
         id = id,
         name = name ?: "",
         email = email ?: "",
-        weight = weight?.toInt() ?: 0,
-        height = height?.toInt() ?: 0,
+        weight = weight ?: 0.0,
+        height = height ?: 0.0,
         updatedAt = updatedAt ?: "",
         createdAt = createdAt ?: ""
     )

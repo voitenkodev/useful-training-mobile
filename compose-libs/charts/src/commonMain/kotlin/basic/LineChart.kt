@@ -101,7 +101,7 @@ public fun LineChart(
         if (labelsStyle != null) {
             drawElement.listOfPoints.forEachIndexed { index, point ->
 
-                val text = drawElement.values.getOrNull(index)?.toInt()?.kg() ?: return@forEachIndexed
+                val text = drawElement.values.getOrNull(index)?.toDouble()?.kg(true) ?: return@forEachIndexed
                 val padding = labelsStyle.paddings.toPx()
                 val spaceTillLine = labelsStyle.spaceTillLine.toPx()
 

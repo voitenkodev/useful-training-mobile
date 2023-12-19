@@ -18,13 +18,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import atom.Design
 import components.indication.HeapIndicator
+import kg
 import molecule.IconSecondary
 import molecule.PaddingS
 import molecule.TextBody3
 import molecule.TextH4
 import molecule.secondaryDefaultBackground
 import resources.Icons
-import toShortString
 
 @Composable
 internal fun TrainingOverview(
@@ -97,7 +97,7 @@ internal fun TrainingOverview(
 
                 TextH4(
                     textAlign = TextAlign.Center,
-                    provideText = { volume.toShortString() }
+                    provideText = { volume.kg(false) }
                 )
 
                 TextBody3(

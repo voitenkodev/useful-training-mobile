@@ -1,11 +1,11 @@
 package trainings.main.mapping
 
 import DateTimeKtx
+import kg
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.collections.immutable.toPersistentList
 import toDoubleOrIntString
-import toShortString
 import trainings.main.models.Training
 
 internal fun List<models.Training>.toState(): ImmutableList<Training> {
@@ -20,7 +20,7 @@ internal fun models.Training.toState(): Training? {
         duration = duration,
         dateIso = createdAt ?: "",
         startDate = createdAt?.let { DateTimeKtx.formattedTime(it) } ?: "",
-        volume = volume.toShortString(),
+        volume = volume.kg(false),
         intensity = intensity.toDoubleOrIntString(),
         volumeExerciseList = exercises.map { it.volume.toFloat() }.toPersistentList()
     )

@@ -29,8 +29,8 @@ public class UserSource(nativeContext: NativeContext) {
             .setUser(
                 id = userDao.id,
                 email = userDao.email,
-                weight = userDao.weight.toLong(),
-                height = userDao.height.toLong(),
+                weight = userDao.weight,
+                height = userDao.height,
                 name = userDao.name,
                 updatedAt = userDao.updatedAt,
                 createdAt = userDao.createdAt

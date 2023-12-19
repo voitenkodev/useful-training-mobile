@@ -26,8 +26,8 @@ internal class SuccessRegistrationViewModel : ViewModel() {
                 _state.update {
                     it.copy(
                         name = r.name,
-                        weight = r.weight.kg(),
-                        height = r.height.meter()
+                        weight = r.weight.kg(true),
+                        height = r.height.meter(true)
                     )
                 }
             }.catch { t -> _state.update { it.copy(error = t.message) } }

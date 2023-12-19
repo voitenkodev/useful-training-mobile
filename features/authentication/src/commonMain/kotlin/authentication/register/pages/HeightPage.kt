@@ -12,6 +12,7 @@ import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import atom.Design
+import cmToM
 import heightpicker.HeightPicker
 import heightpicker.HeightPickerStyle
 import meter
@@ -44,7 +45,7 @@ internal fun HeightPage(
 
         PaddingWeight()
 
-        TextH1(provideText = { height.meter() })
+        TextH1(provideText = { height.cmToM().meter(true) })
 
         PaddingWeight()
 

@@ -1,5 +1,6 @@
 package exerciseexample.main.components
 
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -11,12 +12,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import atom.Design
 import kg
 import molecule.IconSecondary
 import molecule.PaddingS
 import molecule.TextBody3
-import molecule.TextH4
+import molecule.TextH3
 import molecule.TextLabel
 import molecule.secondaryDefaultBackground
 import resources.Icons
@@ -36,13 +38,13 @@ internal fun Achievements() {
         ) {
             Item(
                 text = "Volume",
-                value = 3546.kg(),
+                value = 3546.0.kg(false),
                 icon = Icons.weight
             )
 
             Item(
                 text = "P.M",
-                value = 1500.kg(),
+                value = 1500.0.kg(false),
                 icon = Icons.handWeight
             )
 
@@ -65,7 +67,11 @@ private fun RowScope.Item(
         modifier = Modifier
             .weight(1f)
             .aspectRatio(0.9f)
-            .secondaryDefaultBackground()
+            .border(
+                color = Design.colors.orange,
+                width = 1.dp,
+                shape = Design.shape.default
+            ).secondaryDefaultBackground()
             .padding(Design.dp.paddingM),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
@@ -79,17 +85,18 @@ private fun RowScope.Item(
 
         PaddingS()
 
-        TextH4(
+        TextH3(
             textAlign = TextAlign.Center,
             provideText = { value },
-            maxLines = 1
+            maxLines = 1,
+            color = Design.colors.orange
         )
 
         TextBody3(
             textAlign = TextAlign.Center,
             maxLines = 1,
             provideText = { text },
-            color = Design.colors.caption
+            color = Design.colors.content
         )
     }
 }

@@ -20,7 +20,7 @@ internal class AuthenticationRepositoryImpl(
     private val localUser: UserSource
 ) : AuthenticationRepository {
 
-    override fun registration(email: String, password: String, weight: Int, height: Int, name: String): Flow<Unit> {
+    override fun registration(email: String, password: String, weight: Double, height: Double, name: String): Flow<Unit> {
         return flow {
             val dto = RegisterDto(
                 email = email,

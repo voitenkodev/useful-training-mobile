@@ -1,13 +1,42 @@
-import kotlin.math.pow
+import kotlin.math.abs
 
-public fun Int.kg(): String {
-    val factor = 10.0f.pow(1)
-    return "${(this.toFloat() / factor)}kg"
+public fun Double.toShortNumber(): String {
+    val absValue = abs(this)
+
+    return when {
+        absValue >= 1_000_000 -> {
+            val rounded = (absValue / 1_000_000).round(1)
+
+            val value = if (rounded % 1.0 == 0.0) {
+                rounded.toInt().toString()
+            } else {
+                rounded.toString()
+            }
+            value + "M"
+        }
+
+        absValue >= 1_000 -> {
+            val rounded = (absValue / 1_000).round(1)
+
+            val value = if (rounded % 1.0 == 0.0) {
+                rounded.toInt().toString()
+            } else {
+                rounded.toString()
+            }
+            value + "K"
+        }
+
+        else -> this.toString()
+    }
 }
 
-public fun Int.meter(): String {
-    val factor = 10.0.pow(2)
-    val floatString = (this.toFloat() / factor).toString()
+public fun Double.kg(allowUnit: Boolean): String {
+    return if (allowUnit) "${this.toShortNumber()} kg"
+    else this.toShortNumber()
+}
+
+public fun Double.meter(allowUnit: Boolean): String {
+    val floatString = this.toString()
     val parts = floatString.split(".")
     val decimalPart = parts[1]
 
@@ -18,13 +47,9 @@ public fun Int.meter(): String {
         else -> null
     }
 
-    return "${value ?: floatString}m"
+    return if (allowUnit) "${value ?: floatString}m" else value ?: floatString
 }
 
-public fun Int.percents(): String {
-    return "$this%"
-}
-
-public fun Int.minutes(): String {
-    return "$this min"
+public fun Number.percents(): String {
+    return "${this.toInt()}%"
 }

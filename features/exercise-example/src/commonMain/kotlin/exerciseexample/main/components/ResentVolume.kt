@@ -20,9 +20,9 @@ import basic.LineChart
 import basic.LineChartDotsStyle
 import basic.LineChartLabelStyle
 import basic.LineChartStyle
+import kg
 import molecule.ButtonIconTransparent
 import molecule.IconSecondary
-import molecule.PaddingS
 import molecule.Shadow
 import molecule.TextBody3
 import molecule.TextH4
@@ -35,32 +35,36 @@ import resources.Icons
 internal fun ResentVolume() {
 
     val list = listOf(
-        1000f to "14.11.2023",
-        6900f to "18.11.2023",
-        2000f to "20.11.2023",
-        3000f to "22.11.2023",
-        5000f to "24.11.2023"
+        10000.0 to "14.11.2023",
+        6900.0 to "18.11.2023",
+        2000.0 to "20.11.2023",
+        3000.0 to "22.11.2023",
+        5000.0 to "24.11.2023"
     ) // TODO ADD REQUEST
 
     val reversed = remember(list) { list.reversed() }
 
-    Column(verticalArrangement = Arrangement.spacedBy(Design.dp.paddingS)) {
+    Column(verticalArrangement = Arrangement.spacedBy(Design.dp.paddingM)) {
 
-        TextLabel(
-            modifier = Modifier.padding(horizontal = Design.dp.paddingM),
-            provideText = { "Recent volume results" }
-        )
+        Column(
+            modifier = Modifier.background(Design.colors.black10),
+            verticalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
+        ) {
 
-        Column {
             Shadow()
+
+            TextLabel(
+                modifier = Modifier.padding(top = Design.dp.paddingS).padding(horizontal = Design.dp.paddingM),
+                provideText = { "Recent volume results" }
+            )
 
             LineChart(
                 modifier = Modifier
                     .fillMaxWidth()
+                    .padding(horizontal = Design.dp.paddingM)
                     .height(130.dp)
-                    .background(Design.colors.black10)
                     .padding(start = Design.dp.paddingM, end = Design.dp.paddingM, top = Design.dp.paddingS, bottom = Design.dp.paddingS),
-                values = list.map { it.first },
+                values = list.map { it.first.toFloat() },
                 chartStyle = LineChartStyle(
                     lineColor = Design.colors.content,
                     labelStyle = LineChartLabelStyle(
@@ -80,14 +84,12 @@ internal fun ResentVolume() {
             )
 
             Shadow()
-
-            PaddingS()
         }
 
         repeat(reversed.size) {
 
             val item = reversed.getOrNull(it) ?: return
-            val previousItem = reversed.getOrNull(it + 1)?.first ?: 0f
+            val previousItem = reversed.getOrNull(it + 1)?.first ?: 0.0
 
             val color = if (item.first > previousItem) Design.colors.toxic.copy(alpha = 0.5f)
             else Design.colors.orange.copy(alpha = 0.5f)
@@ -100,8 +102,8 @@ internal fun ResentVolume() {
                     .padding(horizontal = Design.dp.paddingM)
                     .secondaryDefaultBackground()
                     .padding(Design.dp.paddingS),
-                title = item.first.toString(),
-                subTitle = item.second,
+                title = item.first.kg(true),
+                subTitle = "At ${item.second}",
                 icon = img,
                 color = color,
                 onClick = {}

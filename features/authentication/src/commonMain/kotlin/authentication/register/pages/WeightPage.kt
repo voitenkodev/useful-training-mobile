@@ -13,6 +13,7 @@ import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import atom.Design
+import grToKg
 import kg
 import molecule.ButtonPrimary
 import molecule.PaddingM
@@ -44,7 +45,7 @@ internal fun WeightPage(
 
         PaddingWeight()
 
-        TextH1(provideText = { weight.kg() })
+        TextH1(provideText = { weight.grToKg().kg(true) })
 
         PaddingWeight()
 

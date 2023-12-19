@@ -2,14 +2,14 @@ package data.user.repository
 
 import NetworkSource
 import UserRepository
+import data.user.mapping.daoToDomain
+import data.user.mapping.dtoToDao
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import models.User
 import user.UserSource
-import data.user.mapping.daoToDomain
-import data.user.mapping.dtoToDao
 
 internal class UserRepositoryImpl(
     private val remote: NetworkSource,

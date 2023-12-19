@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.unit.dp
 import atom.Design
+import grToKg
 import kg
 import molecule.ButtonPrimary
 import molecule.PaddingWeight
@@ -38,7 +39,7 @@ internal fun WeightPickerPopup(
 
         PaddingWeight()
 
-        TextH1(provideText = { weight.value.kg() })
+        TextH1(provideText = { weight.value.grToKg().kg(true) })
 
         PaddingWeight()
 
