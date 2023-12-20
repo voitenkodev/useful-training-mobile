@@ -45,47 +45,43 @@ internal fun ResentVolume() {
 
     val reversed = remember(list) { list.reversed() }
 
-    Column(verticalArrangement = Arrangement.spacedBy(Design.dp.paddingM)) {
+    Column(
+        modifier = Modifier.background(Design.colors.black10),
+        verticalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
+    ) {
 
-        Column(
-            modifier = Modifier.background(Design.colors.black10),
-            verticalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
-        ) {
+        Shadow()
 
-            Shadow()
+        TextLabel(
+            modifier = Modifier.padding(top = Design.dp.paddingS).padding(horizontal = Design.dp.paddingM),
+            provideText = { "Recent volume results" }
+        )
 
-            TextLabel(
-                modifier = Modifier.padding(top = Design.dp.paddingS).padding(horizontal = Design.dp.paddingM),
-                provideText = { "Recent volume results" }
-            )
-
-            LineChart(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = Design.dp.paddingM)
-                    .height(130.dp)
-                    .padding(start = Design.dp.paddingM, end = Design.dp.paddingM, top = Design.dp.paddingS, bottom = Design.dp.paddingS),
-                values = list.map { it.first.toFloat() },
-                chartStyle = LineChartStyle(
-                    lineColor = Design.colors.content,
-                    labelStyle = LineChartLabelStyle(
-                        backgroundColor = Design.colors.toxic.copy(alpha = 0.2f),
-                        borderColor = Design.colors.toxic,
-                        paddings = Design.dp.paddingXS,
-                        textColor = Design.colors.content,
-                        spaceTillLine = 26.dp,
-                        borderWidth = 1.dp
-                    ),
-                    dotsStyle = LineChartDotsStyle(
-                        backgroundColor = Design.colors.orange,
-                        width = 6.dp,
-                        type = LineChartDotsStyle.DotsType.START_END
-                    )
+        LineChart(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = Design.dp.paddingM)
+                .height(130.dp)
+                .padding(start = Design.dp.paddingM, end = Design.dp.paddingM, top = Design.dp.paddingS, bottom = Design.dp.paddingS),
+            values = list.map { it.first.toFloat() },
+            chartStyle = LineChartStyle(
+                lineColor = Design.colors.content,
+                labelStyle = LineChartLabelStyle(
+                    backgroundColor = Design.colors.toxic.copy(alpha = 0.2f),
+                    borderColor = Design.colors.toxic,
+                    paddings = Design.dp.paddingXS,
+                    textColor = Design.colors.content,
+                    spaceTillLine = 26.dp,
+                    borderWidth = 1.dp
+                ),
+                dotsStyle = LineChartDotsStyle(
+                    backgroundColor = Design.colors.orange,
+                    width = 6.dp,
+                    type = LineChartDotsStyle.DotsType.START_END
                 )
             )
+        )
 
-            Shadow()
-        }
 
         repeat(reversed.size) {
 
@@ -98,7 +94,7 @@ internal fun ResentVolume() {
             val img = if (item.first > previousItem) Icons.arrowUp
             else Icons.arrowDown
 
-            VolumeItem(
+            Item(
                 modifier = Modifier
                     .padding(horizontal = Design.dp.paddingM)
                     .secondaryDefaultBackground()
@@ -110,11 +106,13 @@ internal fun ResentVolume() {
                 onClick = {}
             )
         }
+
+        Shadow()
     }
 }
 
 @Composable
-private fun VolumeItem(
+private fun Item(
     modifier: Modifier = Modifier,
     title: String,
     subTitle: String,
@@ -132,7 +130,7 @@ private fun VolumeItem(
             modifier = Modifier
                 .size(Design.dp.componentS)
                 .border(
-                    color = Design.colors.orange,
+                    color = color,
                     width = 1.dp,
                     shape = Design.shape.default
                 ).coloredDefaultBackgroundNoBorder(color)
@@ -159,7 +157,7 @@ private fun VolumeItem(
         ButtonIconTransparent(
             imageVector = Icons.arrowRight,
             onClick = onClick,
-            contentColor = color
+            contentColor = Design.colors.caption
         )
     }
 }

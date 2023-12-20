@@ -2,25 +2,32 @@ package exerciseexample.main.components
 
 import AsyncImage
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.font.FontWeight
 import atom.Design
 import exerciseexample.main.models.ExerciseExample
 import molecule.PaddingM
 import molecule.PaddingXL
 import molecule.Shadow
 import molecule.TextBody1
+import molecule.TextBody3
 import molecule.TextH2
+import resources.Icons
 
 @Composable
 internal fun Header(exerciseExample: ExerciseExample?) {
@@ -53,10 +60,76 @@ internal fun Header(exerciseExample: ExerciseExample?) {
                 }
             )
 
+            PaddingM()
+
+            Row(modifier = Modifier.fillMaxWidth().padding(horizontal = Design.dp.paddingM)) {
+
+                Column(modifier = Modifier.weight(1f)) {
+                    Item(
+                        title = "Type:",
+                        value = "Compound", // Isolation
+                        icon = Icons.weight
+                    )
+
+                    Item(
+                        title = "Equipment:",
+                        value = "Barbell", // Dumbbells
+                        icon = Icons.dumbbell
+                    )
+
+                    Item(
+                        title = "Weight type:",
+                        value = "Free Weights", // Fixed Weights
+                        icon = Icons.time
+                    )
+                }
+
+                Column(modifier = Modifier.weight(1f)) {
+                    Item(
+                        title = ":",
+                        value = "",
+                        icon = Icons.weight
+                    )
+
+                    Item(
+                        title = ":",
+                        value = "",
+                        icon = Icons.dumbbell
+                    )
+
+                    Item(
+                        title = "Level:",
+                        value = "Easy",
+                        icon = Icons.time
+                    )
+                }
+            }
+
             PaddingXL()
         }
 
         Shadow(modifier = Modifier.align(Alignment.BottomCenter))
     }
+}
 
+@Composable
+private fun Item(
+    title: String,
+    value: String,
+    icon: ImageVector
+) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
+    ) {
+        TextBody3(
+            provideText = { title },
+            color = Design.colors.caption
+        )
+        TextBody3(
+            provideText = { value },
+            color = Design.colors.content,
+            fontWeight = FontWeight.Bold
+        )
+    }
 }
