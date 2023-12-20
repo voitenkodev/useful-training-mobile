@@ -56,10 +56,17 @@ public class NetworkSource(private val clientBackend: ClientBackend) {
         )
     }
 
-    public suspend fun getExerciseExamples(): List<ExerciseExampleDto> {
+    public suspend fun getAllExerciseExamples(): List<ExerciseExampleDto> {
         return callRequest(
             method = HttpMethod.Get,
             path = "/exercise-examples"
+        )
+    }
+
+    public suspend fun getRecommendedExerciseExamples(): List<ExerciseExampleDto> {
+        return callRequest(
+            method = HttpMethod.Get,
+            path = "/exercise-examples/recommended"
         )
     }
 

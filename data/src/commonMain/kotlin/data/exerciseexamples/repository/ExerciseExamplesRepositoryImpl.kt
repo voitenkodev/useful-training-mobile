@@ -5,6 +5,7 @@ import NetworkSource
 import data.exerciseexamples.repository.mapping.daoToDomain
 import data.exerciseexamples.repository.mapping.domainToDto
 import data.exerciseexamples.repository.mapping.dtoToDao
+import data.exerciseexamples.repository.mapping.dtoToDomain
 import exercise_example_muscle.ExerciseExamplesSource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -25,12 +26,6 @@ internal class ExerciseExamplesRepositoryImpl(
             .mapNotNull { it?.daoToDomain() }
     }
 
-    override fun recommendedExerciseExample(): Flow<List<ExerciseExample>> {
-        return flow {
-            emit(emptyList())
-        }
-    }
-
     override fun observeExerciseExamples(): Flow<List<ExerciseExample>> {
         return local
             .getExerciseExamples()
@@ -39,9 +34,16 @@ internal class ExerciseExamplesRepositoryImpl(
 
     override fun syncExerciseExamples(): Flow<Unit> {
         return flow {
-            val result = remote.getExerciseExamples()
+            val result = remote.getAllExerciseExamples()
             local.setExerciseExamples(result.dtoToDao())
             emit(Unit)
+        }
+    }
+
+    override fun getRecommendedExerciseExamples(): Flow<List<ExerciseExample>> {
+        return flow {
+            val result = remote.getRecommendedExerciseExamples()
+            emit(result.dtoToDomain())
         }
     }
 

@@ -33,6 +33,18 @@ internal fun MuscleDto.dtoToDao(): MuscleDao? {
     )
 }
 
+internal fun List<MuscleDto>.dtoToDomain(): List<Muscle> {
+    return mapNotNull { it.dtoToDomain() }
+}
+
+internal fun MuscleDto.dtoToDomain(): Muscle? {
+    return Muscle(
+        id = id ?: return null,
+        name = name ?: return null,
+        type = MuscleEnum.of(type ?: return null)
+    )
+}
+
 internal fun Muscle.domainToDto(): MuscleDto {
     return MuscleDto(
         id = id

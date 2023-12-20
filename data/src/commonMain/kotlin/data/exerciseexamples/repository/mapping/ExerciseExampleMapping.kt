@@ -42,3 +42,17 @@ internal fun ExerciseExample.domainToDto(): ExerciseExampleDto {
         muscleExerciseBundles = muscleExerciseBundles.domainToDto()
     )
 }
+
+internal fun List<ExerciseExampleDto>.dtoToDomain(): List<ExerciseExample> {
+    return mapNotNull { it.dtoToDomain() }
+}
+
+internal fun ExerciseExampleDto.dtoToDomain(): ExerciseExample? {
+    return ExerciseExample(
+        id = id ?: return null,
+        name = name ?: return null,
+        description = description ?: return null,
+        muscleExerciseBundles = muscleExerciseBundles.dtoToDomain(),
+        imageUrl = imageUrl
+    )
+}

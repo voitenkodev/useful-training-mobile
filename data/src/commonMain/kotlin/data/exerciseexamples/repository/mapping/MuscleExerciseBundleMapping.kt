@@ -32,6 +32,18 @@ internal fun MuscleExerciseBundleDto.dtoToDao(): MuscleExerciseBundleDao? {
     )
 }
 
+internal fun List<MuscleExerciseBundleDto>.dtoToDomain(): List<MuscleExerciseBundle> {
+    return mapNotNull { it.dtoToDomain() }
+}
+
+internal fun MuscleExerciseBundleDto.dtoToDomain(): MuscleExerciseBundle? {
+    return MuscleExerciseBundle(
+        id = id ?: return null,
+        percentage = percentage ?: return null,
+        muscle = muscle?.dtoToDomain() ?: return null
+    )
+}
+
 internal fun List<MuscleExerciseBundle>.domainToDto(): List<MuscleExerciseBundleDto> {
     return mapNotNull { it.domainToDto() }
 }
