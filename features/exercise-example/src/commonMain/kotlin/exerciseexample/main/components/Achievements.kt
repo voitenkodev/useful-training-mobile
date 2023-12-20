@@ -43,7 +43,7 @@ internal fun Achievements() {
             )
 
             Item(
-                text = "P.M",
+                text = "P/M",
                 value = 1500.0.kg(false),
                 icon = Icons.handWeight
             )

@@ -43,6 +43,7 @@ public fun InputPasswordRepeat(
             )
         },
         placeholder = "********",
+        backgroundColor = Design.colors.secondary,
         trailing = {
             ButtonIconSecondary(
                 imageVector = if (passwordVisibility.value) Icons.eyeOff else Icons.eye,

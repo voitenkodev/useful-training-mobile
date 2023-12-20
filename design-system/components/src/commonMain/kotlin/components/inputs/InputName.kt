@@ -41,6 +41,7 @@ public fun InputName(
             .padding(horizontal = Design.dp.paddingM),
         value = provideValue.invoke(),
         onValueChange = onValueChange,
+        backgroundColor = Design.colors.secondary,
         placeholder = "Arnold Schwarzenegger",
         trailing = {
 

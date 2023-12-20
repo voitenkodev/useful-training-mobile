@@ -2,11 +2,10 @@ package data.exerciseexamples.repository
 
 import ExerciseExamplesRepository
 import NetworkSource
-import exercise_example_muscle.ExerciseExamplesSource
 import data.exerciseexamples.repository.mapping.daoToDomain
 import data.exerciseexamples.repository.mapping.domainToDto
 import data.exerciseexamples.repository.mapping.dtoToDao
-import kotlinx.coroutines.delay
+import exercise_example_muscle.ExerciseExamplesSource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map

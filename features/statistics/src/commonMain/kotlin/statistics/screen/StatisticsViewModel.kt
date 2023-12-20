@@ -4,7 +4,6 @@ import ExerciseExamplesRepository
 import TrainingsRepository
 import ViewModel
 import kotlinx.collections.immutable.toPersistentList
-import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
@@ -89,7 +88,6 @@ internal class StatisticsViewModel : ViewModel() {
         debounceGetExercises(query)
     }
 
-    @OptIn(FlowPreview::class)
     private fun debounceGetExercises(query: String) {
 //        flowOf(query)
 //            .debounce(500)

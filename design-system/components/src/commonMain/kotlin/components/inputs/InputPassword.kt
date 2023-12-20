@@ -34,6 +34,7 @@ public fun InputPassword(
             .padding(horizontal = Design.dp.paddingM),
         value = provideValue.invoke(),
         onValueChange = onValueChange,
+        backgroundColor = Design.colors.secondary,
         visualTransformation = if (passwordVisibility.value) VisualTransformation.None else PasswordVisualTransformation(),
         leading = {
             InputLabel(

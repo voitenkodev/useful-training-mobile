@@ -41,6 +41,7 @@ public fun InputEmail(
             .padding(horizontal = Design.dp.paddingM),
         value = provideValue(),
         onValueChange = onValueChange,
+        backgroundColor = Design.colors.secondary,
         trailing = {
 
             AnimatedVisibility(

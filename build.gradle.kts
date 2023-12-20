@@ -10,4 +10,3 @@ plugins {
     alias(libs.plugins.sqldelight) apply false
     alias(libs.plugins.moko.resources) apply false
 }
-true // Needed to make the Suppress annotation work for the plugins block
