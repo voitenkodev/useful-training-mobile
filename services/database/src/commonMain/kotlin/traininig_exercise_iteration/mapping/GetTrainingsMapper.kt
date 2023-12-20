@@ -34,6 +34,7 @@ internal fun List<GetTrainings>.mapToDao(): List<TrainingDao> {
             val exerciseExampleDao = let {
                 val id = training.exerciseExampleId ?: return@let null
                 val name = training.exerciseExampleName ?: return@let null
+                val description = training.exerciseExampleDescription ?: return@let null
                 val imageUrl = training.exerciseExampleImageUrl ?: return@let null
                 val createdAt = training.exerciseExampleCreatedAt ?: return@let null
                 val updatedAt = training.exerciseExampleUpdatedAt ?: return@let null
@@ -41,6 +42,7 @@ internal fun List<GetTrainings>.mapToDao(): List<TrainingDao> {
                 ExerciseExampleDao(
                     id = id,
                     name = name,
+                    description = description,
                     imageUrl = imageUrl,
                     createdAt = createdAt,
                     updatedAt = updatedAt,

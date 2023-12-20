@@ -59,7 +59,8 @@ internal fun ExerciseExampleBuilderContent(
         onMuscleBundleChange = vm::onMuscleBundleChange,
         confirm = { vm.setExerciseExample(success = back) },
         selectMuscle = vm::selectMuscle,
-        muscleTypes = state.muscleTypes
+        muscleTypes = state.muscleTypes,
+        close = back
     )
 }
 
@@ -78,6 +79,7 @@ private fun Content(
     onMuscleBundleChange: (ImmutableList<MuscleType>) -> Unit,
     deleteExercise: () -> Unit,
     confirm: () -> Unit,
+    close: () -> Unit,
 
     muscleTypes: ImmutableList<MuscleType>,
     selectMuscle: (id: String) -> Unit
@@ -100,7 +102,8 @@ private fun Content(
                 setExerciseExampleName = setExerciseExampleName,
                 onPercentageChange = onMuscleBundleChange,
                 deleteExercise = deleteExercise,
-                muscleTypes = muscleTypes
+                muscleTypes = muscleTypes,
+                close = close
             )
 
             LazyColumn(modifier = Modifier.fillMaxWidth().weight(1f)) {

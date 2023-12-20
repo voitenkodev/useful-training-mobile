@@ -62,6 +62,7 @@ public class ExerciseExamplesSource(nativeContext: NativeContext) {
             api.setExerciseExample(
                 id = exerciseExample.id,
                 name = exerciseExample.name,
+                description = exerciseExample.description,
                 createdAt = exerciseExample.createdAt,
                 updatedAt = exerciseExample.updatedAt,
                 imageUrl = exerciseExample.imageUrl

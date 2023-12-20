@@ -1,4 +1,3 @@
-import app.cash.sqldelight.dialect.api.PrimitiveType.TEXT;
 import kotlin.String;
 
 CREATE TABLE IF NOT EXISTS Training (
@@ -54,6 +53,7 @@ SELECT
 
   ExerciseExample.id AS exerciseExampleId,
   ExerciseExample.name AS exerciseExampleName,
+  ExerciseExample.description AS exerciseExampleDescription,
   ExerciseExample.imageUrl AS exerciseExampleImageUrl,
   ExerciseExample.createdAt AS exerciseExampleCreatedAt,
   ExerciseExample.updatedAt AS exerciseExampleUpdatedAt,
@@ -96,6 +96,7 @@ SELECT
 
   ExerciseExample.id AS exerciseExampleId,
   ExerciseExample.name AS exerciseExampleName,
+  ExerciseExample.description AS exerciseExampleDescription,
   ExerciseExample.imageUrl AS exerciseExampleImageUrl,
   ExerciseExample.createdAt AS exerciseExampleCreatedAt,
   ExerciseExample.updatedAt AS exerciseExampleUpdatedAt,

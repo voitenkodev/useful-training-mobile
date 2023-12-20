@@ -8,6 +8,7 @@ internal fun ExerciseExample.toDomain(muscleTypes: List<MuscleType>): models.Exe
     return models.ExerciseExample(
         id = id,
         name = name,
+        description = description,
         imageUrl = null,
         muscleExerciseBundles = muscleTypes
             .flatMap { it.muscles }

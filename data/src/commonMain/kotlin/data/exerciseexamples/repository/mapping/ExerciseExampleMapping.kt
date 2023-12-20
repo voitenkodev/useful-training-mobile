@@ -12,6 +12,7 @@ internal fun ExerciseExampleDao.daoToDomain(): ExerciseExample {
     return ExerciseExample(
         id = id,
         name = name,
+        description = description,
         muscleExerciseBundles = muscleExerciseBundles.daoToDomain(),
         imageUrl = imageUrl
     )
@@ -25,6 +26,7 @@ internal fun ExerciseExampleDto.dtoToDao(): ExerciseExampleDao? {
     return ExerciseExampleDao(
         id = id ?: return null,
         name = name ?: return null,
+        description = description ?: return null,
         muscleExerciseBundles = muscleExerciseBundles.dtoToDao(),
         createdAt = createdAt ?: return null,
         updatedAt = updatedAt ?: return null,
@@ -36,6 +38,7 @@ internal fun ExerciseExample.domainToDto(): ExerciseExampleDto {
     return ExerciseExampleDto(
         id = id,
         name = name,
+        description = description,
         muscleExerciseBundles = muscleExerciseBundles.domainToDto()
     )
 }

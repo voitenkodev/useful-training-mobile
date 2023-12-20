@@ -8,7 +8,6 @@ import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -31,12 +30,13 @@ public fun InputExerciseExampleName(
     val focusManager = LocalFocusManager.current
 
     InputField(
-        modifier = modifier.fillMaxWidth().padding(horizontal = Design.dp.paddingM),
+        modifier = modifier.fillMaxWidth(),
         value = value.invoke(),
         placeholder = "Name of exercise",
         maxLines = 1,
         keyboardActions = KeyboardActions { focusManager.moveFocus(FocusDirection.Next) },
         onValueChange = onValueChange,
+        backgroundColor = Design.colors.black10,
         keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Sentences, imeAction = ImeAction.Next),
         trailing = {
             AnimatedVisibility(

@@ -3,7 +3,6 @@ package exerciseexamples.edit.components
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -25,8 +24,8 @@ import kotlinx.collections.immutable.toPersistentList
 import molecule.ButtonIconSecondary
 import molecule.PaddingS
 import molecule.Shadow
-import molecule.TextH2
 import molecule.TextH4
+import molecule.Toolbar
 import percentagepicker.RangeSlider
 import percentagepicker.ThumbRangeState
 import resources.Icons
@@ -40,7 +39,8 @@ internal fun Header(
     sliderRange: ClosedRange<Int>,
     setExerciseExampleName: (String) -> Unit,
     onPercentageChange: (ImmutableList<MuscleType>) -> Unit,
-    deleteExercise: () -> Unit
+    deleteExercise: () -> Unit,
+    close: ()-> Unit
 ) {
 
     val thumbs = remember(muscleTypes) {
@@ -65,18 +65,9 @@ internal fun Header(
 
         PaddingS()
 
-        Box(
-            modifier = Modifier
-                .height(Design.dp.componentL)
-                .fillMaxWidth(),
-            contentAlignment = Alignment.CenterStart
-        ) {
-            TextH2(
-                modifier = Modifier.padding(horizontal = Design.dp.paddingM),
-                provideText = { "Build Exercises" },
-                softWrap = false
-            )
-        }
+        Toolbar(title = "Exercises", icon = Icons.close to close)
+
+        PaddingS()
 
         if (exerciseExample != null && exerciseExample.id == null) {
 

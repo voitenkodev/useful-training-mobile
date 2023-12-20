@@ -1,6 +1,7 @@
 CREATE TABLE IF NOT EXISTS ExerciseExample (
     id TEXT NOT NULL PRIMARY KEY,
     name TEXT,
+    description TEXT,
     createdAt TEXT,
     updatedAt TEXT,
     imageUrl TEXT
@@ -39,6 +40,7 @@ SELECT
   ExerciseExample.createdAt,
   ExerciseExample.updatedAt,
   ExerciseExample.name,
+  ExerciseExample.description,
   ExerciseExample.imageUrl,
 
   MuscleExerciseBundle.id AS muscleExerciseBundleId,
@@ -64,6 +66,7 @@ SELECT
   ExerciseExample.createdAt,
   ExerciseExample.updatedAt,
   ExerciseExample.name,
+  ExerciseExample.description,
   ExerciseExample.imageUrl,
 
   MuscleExerciseBundle.id AS muscleExerciseBundleId,
@@ -124,7 +127,7 @@ LEFT JOIN Muscle ON MuscleType.id = Muscle.muscleTypeId;
 
 setExerciseExample:
 INSERT OR REPLACE INTO ExerciseExample
-VALUES (?,?,?,?,?);
+VALUES (?,?,?,?,?,?);
 
 setMuscle:
 INSERT OR IGNORE INTO Muscle

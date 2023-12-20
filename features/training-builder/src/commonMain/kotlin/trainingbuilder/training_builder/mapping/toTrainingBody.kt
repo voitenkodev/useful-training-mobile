@@ -24,6 +24,7 @@ internal fun Training.toBody(): models.Training {
                     ExerciseExample(
                         id = ex.id,
                         name = ex.name,
+                        description = ex.description,
                         imageUrl = ex.imageUrl
                     )
                 }
