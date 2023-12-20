@@ -55,8 +55,7 @@ internal fun Header(exerciseExample: ExerciseExample?) {
             TextBody1(
                 modifier = Modifier.padding(horizontal = Design.dp.paddingM),
                 provideText = {
-                    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,\n" +
-                            "molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum"
+                    "The bench press is a compound strength-training exercise that primarily targets the muscles of the chest, shoulders, and triceps. It is a fundamental upper-body exercise often performed with a barbell."
                 }
             )
 
@@ -66,7 +65,7 @@ internal fun Header(exerciseExample: ExerciseExample?) {
 
                 Column(modifier = Modifier.weight(1f)) {
                     Item(
-                        title = "Type:",
+                        title = "Category:",
                         value = "Compound", // Isolation
                         icon = Icons.weight
                     )
@@ -76,30 +75,18 @@ internal fun Header(exerciseExample: ExerciseExample?) {
                         value = "Barbell", // Dumbbells
                         icon = Icons.dumbbell
                     )
-
-                    Item(
-                        title = "Weight type:",
-                        value = "Free Weights", // Fixed Weights
-                        icon = Icons.time
-                    )
                 }
 
                 Column(modifier = Modifier.weight(1f)) {
                     Item(
-                        title = ":",
-                        value = "",
-                        icon = Icons.weight
-                    )
-
-                    Item(
-                        title = ":",
-                        value = "",
-                        icon = Icons.dumbbell
+                        title = "Weight:",
+                        value = "Fixed", // Free
+                        icon = Icons.time
                     )
 
                     Item(
                         title = "Level:",
-                        value = "Easy",
+                        value = "Beginner", // Advanced
                         icon = Icons.time
                     )
                 }

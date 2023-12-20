@@ -47,7 +47,7 @@ internal fun ResentVolume() {
 
     Column(
         modifier = Modifier.background(Design.colors.black10),
-        verticalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
+        verticalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
     ) {
 
         Shadow()
@@ -60,9 +60,8 @@ internal fun ResentVolume() {
         LineChart(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = Design.dp.paddingM)
-                .height(130.dp)
-                .padding(start = Design.dp.paddingM, end = Design.dp.paddingM, top = Design.dp.paddingS, bottom = Design.dp.paddingS),
+                .padding(horizontal = Design.dp.paddingXL)
+                .height(130.dp),
             values = list.map { it.first.toFloat() },
             chartStyle = LineChartStyle(
                 lineColor = Design.colors.content,
