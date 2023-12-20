@@ -54,9 +54,7 @@ internal fun Header(exerciseExample: ExerciseExample?) {
 
             TextBody1(
                 modifier = Modifier.padding(horizontal = Design.dp.paddingM),
-                provideText = {
-                    "The bench press is a compound strength-training exercise that primarily targets the muscles of the chest, shoulders, and triceps. It is a fundamental upper-body exercise often performed with a barbell."
-                }
+                provideText = { exerciseExample?.description }
             )
 
             PaddingM()

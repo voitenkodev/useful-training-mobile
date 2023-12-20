@@ -8,5 +8,6 @@ internal data class ExerciseExample(
     val id: String,
     val muscleExerciseBundles: ImmutableList<MuscleExerciseBundle>,
     val name: String,
+    val description: String,
     val imageUrl: String?
 )
