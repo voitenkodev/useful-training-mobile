@@ -14,7 +14,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(projects.domain.exerciseExamplesMuscles)
+                implementation(projects.domain.exerciseExamples)
                 implementation(projects.domain.muscles)
 
                 implementation(projects.common.utils)

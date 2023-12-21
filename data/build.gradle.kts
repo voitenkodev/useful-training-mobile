@@ -15,7 +15,7 @@ kotlin {
                 implementation(projects.domain.authentication)
                 implementation(projects.domain.user)
                 implementation(projects.domain.trainings)
-                implementation(projects.domain.exerciseExamplesMuscles)
+                implementation(projects.domain.exerciseExamples)
                 implementation(projects.domain.muscles)
 
                 implementation(projects.services.network)

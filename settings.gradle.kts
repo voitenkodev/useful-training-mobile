@@ -29,7 +29,7 @@ include(
 
     ":domain:trainings",
     ":domain:authentication",
-    ":domain:exercise-examples-muscles",
+    ":domain:exercise-examples",
     ":domain:muscles",
     ":domain:user",
     ":domain:common-models",
