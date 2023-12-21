@@ -12,8 +12,6 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.mapNotNull
 import models.ExerciseExample
-import models.Muscle
-import models.MuscleType
 
 internal class ExerciseExamplesRepositoryImpl(
     private val remote: NetworkSource,
@@ -44,26 +42,6 @@ internal class ExerciseExamplesRepositoryImpl(
         return flow {
             val result = remote.getRecommendedExerciseExamples()
             emit(result.dtoToDomain())
-        }
-    }
-
-    override fun observeMuscleTypes(): Flow<List<MuscleType>> {
-        return local
-            .getMuscleTypes()
-            .map { it.daoToDomain() }
-    }
-
-    override fun observeMusclesById(ids: List<String>): Flow<List<Muscle>> {
-        return local
-            .getMusclesByIds(ids)
-            .map { it.daoToDomain() }
-    }
-
-    override fun syncMuscleTypes(): Flow<Unit> {
-        return flow {
-            val result = remote.getMuscles()
-            local.setMuscleTypesWithMuscles(result.dtoToDao())
-            emit(Unit)
         }
     }
 

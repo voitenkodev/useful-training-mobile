@@ -1,6 +1,7 @@
 package trainingbuilder.training_builder
 
 import ExerciseExamplesRepository
+import MusclesRepository
 import TrainingsRepository
 import ViewModel
 import kotlinx.collections.immutable.toPersistentList
@@ -33,9 +34,10 @@ internal class TrainingBuilderViewModel(muscleIds: List<String>) : ViewModel() {
 
     private val trainingsApi by inject<TrainingsRepository>()
     private val exerciseExampleApi by inject<ExerciseExamplesRepository>()
+    private val musclesApi by inject<MusclesRepository>()
 
     init {
-        exerciseExampleApi
+        musclesApi
             .observeMusclesById(muscleIds)
             .map { it.toState() }
             .onEach { r -> _state.update { it.copy(muscles = r, selectedMuscle = r.firstOrNull()) } }

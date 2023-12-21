@@ -1,6 +1,7 @@
 package exerciseexamples.list
 
 import ExerciseExamplesRepository
+import MusclesRepository
 import ViewModel
 import exerciseexamples.list.mapping.toState
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,6 +20,7 @@ internal class ExerciseExamplesViewModel : ViewModel() {
     internal val state: StateFlow<State> = _state
 
     private val api by inject<ExerciseExamplesRepository>()
+    private val musclesApi by inject<MusclesRepository>()
 
     init {
         api
@@ -28,7 +30,7 @@ internal class ExerciseExamplesViewModel : ViewModel() {
             .catch { t -> _state.update { it.copy(loading = false, error = t.message) } }
             .launchIn(this)
 
-        api
+        musclesApi
             .syncMuscleTypes()
             .flatMapConcat { api.syncExerciseExamples() }
             .catch { r -> _state.update { it.copy(error = r.message) } }

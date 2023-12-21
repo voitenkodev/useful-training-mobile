@@ -1,6 +1,7 @@
 package exerciseexamples.edit
 
 import ExerciseExamplesRepository
+import MusclesRepository
 import ViewModel
 import exerciseexamples.edit.factories.muscleImage
 import exerciseexamples.edit.mapping.toDomain
@@ -27,13 +28,14 @@ internal class ExerciseExampleBuilderViewModel(exerciseExampleId: String?) : Vie
     internal val state: StateFlow<State> = _state
 
     private val api by inject<ExerciseExamplesRepository>()
+    private val musclesApi by inject<MusclesRepository>()
 
     init {
         val flow = exerciseExampleId
             ?.let(api::observeExerciseExample)
             ?: flowOf<models.ExerciseExample?>(null)
 
-        api
+        musclesApi
             .observeMuscleTypes()
             .onEach { r -> _state.update { it.copy(muscleTypes = r.toState()) } }
             .flatMapConcat { flow }
@@ -48,7 +50,7 @@ internal class ExerciseExampleBuilderViewModel(exerciseExampleId: String?) : Vie
             }.catch { r -> _state.update { it.copy(error = r.message) } }
             .launchIn(this)
 
-        api.syncMuscleTypes()
+        musclesApi.syncMuscleTypes()
             .catch { r -> _state.update { it.copy(error = r.message) } }
             .launchIn(this)
     }

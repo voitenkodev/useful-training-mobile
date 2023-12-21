@@ -1,7 +1,5 @@
 import kotlinx.coroutines.flow.Flow
 import models.ExerciseExample
-import models.Muscle
-import models.MuscleType
 
 public interface ExerciseExamplesRepository {
 
@@ -11,10 +9,5 @@ public interface ExerciseExamplesRepository {
     public fun observeExerciseExample(exerciseExampleId: String): Flow<ExerciseExample>
     public fun setExerciseExample(exerciseExample: ExerciseExample): Flow<Unit>
     public fun getRecommendedExerciseExamples(): Flow<List<ExerciseExample>>
-
-    // Muscles
-    public fun observeMuscleTypes(): Flow<List<MuscleType>>
-    public fun observeMusclesById(ids: List<String>): Flow<List<Muscle>>
-    public fun syncMuscleTypes(): Flow<Unit>
     public fun clearCache()
 }

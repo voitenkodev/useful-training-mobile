@@ -16,6 +16,7 @@ kotlin {
             dependencies {
                 implementation(projects.domain.trainings)
                 implementation(projects.domain.exerciseExamplesMuscles)
+                implementation(projects.domain.muscles)
                 implementation(projects.domain.user)
 
                 implementation(projects.composeLibs.musclePicker)

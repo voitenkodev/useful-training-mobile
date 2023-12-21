@@ -1,7 +1,7 @@
 package statistics.screen
 
 import ExerciseExamplesRepository
-import TrainingsRepository
+import MusclesRepository
 import ViewModel
 import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,15 +20,10 @@ internal class StatisticsViewModel : ViewModel() {
     private val _state = MutableStateFlow(State())
     internal val state: StateFlow<State> = _state
 
-    private val trainingsApi by inject<TrainingsRepository>()
     private val exerciseExamplesApi by inject<ExerciseExamplesRepository>()
+    private val musclesApi by inject<MusclesRepository>()
 
     init {
-//        exerciseExamplesApi
-//            .observeMuscles()
-//            .onEach { r -> _state.update { it.copy(muscles = r.toState()) } }
-//            .launchIn(this)
-
         exerciseExamplesApi
             .observeExerciseExamples()
             .onEach { r -> _state.update { it.copy(exerciseExamples = r.toState()) } }
@@ -39,7 +34,7 @@ internal class StatisticsViewModel : ViewModel() {
             .catch { t -> _state.update { it.copy(error = t.message) } }
             .launchIn(this)
 
-        exerciseExamplesApi
+        musclesApi
             .syncMuscleTypes()
             .catch { t -> _state.update { it.copy(error = t.message) } }
             .launchIn(this)
