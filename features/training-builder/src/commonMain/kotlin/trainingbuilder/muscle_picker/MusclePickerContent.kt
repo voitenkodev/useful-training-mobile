@@ -164,9 +164,7 @@ private fun Content(
                     PaddingS()
 
                     Column(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(Design.dp.paddingM),
+                        modifier = Modifier.fillMaxWidth().padding(Design.dp.paddingM),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
 
@@ -211,9 +209,7 @@ private fun Content(
                             ) {
                                 item.muscles.forEach { muscle ->
                                     Chip(
-                                        chipState =
-                                        if (muscle.isSelected) selectedChipState
-                                        else unSelectedChipState,
+                                        chipState = if (muscle.isSelected) selectedChipState else unSelectedChipState,
                                         onClick = { selectMuscle.invoke(muscle.id) },
                                         text = muscle.name
                                     )
