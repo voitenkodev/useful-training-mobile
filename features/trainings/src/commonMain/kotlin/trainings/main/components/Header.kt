@@ -157,8 +157,7 @@ private fun CalendarRow(
                         .size(60.dp)
                         .conditional(
                             condition = it.isSelected,
-                            onYes = { border(width = 1.dp, color = Design.colors.content, shape = Design.shape.default) },
-                            onNot = { this }
+                            onYes = { border(width = 1.dp, color = Design.colors.content, shape = Design.shape.default) }
                         ).clickable { selectCalendarDay.invoke(it.dateTimeIso) }
                 ) {
 

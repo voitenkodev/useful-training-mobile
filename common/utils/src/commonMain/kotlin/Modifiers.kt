@@ -134,7 +134,7 @@ public suspend fun PointerInputScope.detectSwipe(
 public fun Modifier.conditional(
     condition: Boolean,
     onYes: @Composable Modifier.() -> Modifier,
-    onNot: @Composable Modifier.() -> Modifier
+    onNot: @Composable Modifier.() -> Modifier = { this }
 ): Modifier {
     return if (condition) {
         then(onYes(Modifier))

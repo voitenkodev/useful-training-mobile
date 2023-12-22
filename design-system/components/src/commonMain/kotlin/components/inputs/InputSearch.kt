@@ -48,9 +48,8 @@ public fun InputSearch(
     ) {
         InputField(
             modifier = Modifier.fillMaxWidth().conditional(
-                condition = onClick == null,
-                onYes = { this },
-                onNot = { clickable(onClick = {}, enabled = false) }
+                condition = onClick != null,
+                onYes = { clickable(onClick = {}, enabled = false) }
             ),
             value = provideName.invoke(),
             placeholder = "Search exercise",

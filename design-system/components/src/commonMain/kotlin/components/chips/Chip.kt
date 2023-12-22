@@ -18,7 +18,6 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import atom.Design
-import components.animation.rotatedBackgroundAnimation
 import molecule.IconSecondary
 import molecule.PaddingXS
 import molecule.TextBody2
@@ -32,14 +31,6 @@ public sealed class ChipState(public open val enabled: Boolean) {
         val contentColor: Color,
         val backgroundColor: Color,
         val borderColor: Color,
-        override val enabled: Boolean = true
-    ) : ChipState(enabled)
-
-
-    public data class Animated(
-        val contentColor: Color,
-        val backgroundColor: Color,
-        val borderColors: List<Color>,
         override val enabled: Boolean = true
     ) : ChipState(enabled)
 }
@@ -79,18 +70,6 @@ public fun Chip(
                 width = 1.dp,
                 shape = Design.shape.circleShape
             ).background(
-                color = chipState.backgroundColor,
-                shape = Design.shape.circleShape
-            ).clip(
-                shape = Design.shape.circleShape
-            )
-
-        is ChipState.Animated -> modifier
-            .rotatedBackgroundAnimation(
-                colors = chipState.borderColors,
-                shape = Design.shape.circleShape
-            ).padding(1.dp)
-            .background(
                 color = chipState.backgroundColor,
                 shape = Design.shape.circleShape
             ).clip(

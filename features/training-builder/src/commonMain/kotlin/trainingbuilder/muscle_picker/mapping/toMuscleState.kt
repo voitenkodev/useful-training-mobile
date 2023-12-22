@@ -23,9 +23,9 @@ internal fun models.Muscle.toState(): Muscle? {
 
 private fun PriorityEnum.toState(): trainingbuilder.muscle_picker.models.PriorityEnum {
     return when (this) {
-        PriorityEnum.High -> trainingbuilder.muscle_picker.models.PriorityEnum.High()
-        PriorityEnum.Medium -> trainingbuilder.muscle_picker.models.PriorityEnum.Medium()
-        PriorityEnum.Low -> trainingbuilder.muscle_picker.models.PriorityEnum.Low()
+        PriorityEnum.High -> trainingbuilder.muscle_picker.models.PriorityEnum.High
+        PriorityEnum.Medium -> trainingbuilder.muscle_picker.models.PriorityEnum.Medium
+        PriorityEnum.Low -> trainingbuilder.muscle_picker.models.PriorityEnum.Low
     }
 }
 

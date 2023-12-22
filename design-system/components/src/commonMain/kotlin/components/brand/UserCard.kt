@@ -17,14 +17,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import atom.Design
 import molecule.ButtonPrimarySmall
 import molecule.PaddingS
 import molecule.PaddingWeight
 import molecule.PaddingXS
-import molecule.TextBody3
+import molecule.TextBody1
+import molecule.TextBody2
 import molecule.TextH2
 import molecule.TextH3
 import molecule.secondaryDefaultBackground
@@ -78,14 +78,13 @@ public fun UserCard(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
             ) {
-                TextBody3(
+                TextBody2(
                     provideText = { "Weight:" },
                     color = Design.colors.caption
                 )
-                TextBody3(
+                TextBody1(
                     provideText = { weight },
-                    color = Design.colors.content,
-                    fontWeight = FontWeight.Bold
+                    color = Design.colors.content
                 )
             }
 
@@ -95,15 +94,14 @@ public fun UserCard(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
             ) {
-                TextBody3(
+                TextBody2(
                     provideText = { "Height:" },
                     color = Design.colors.caption
                 )
 
-                TextBody3(
+                TextBody1(
                     provideText = { height },
-                    color = Design.colors.content,
-                    fontWeight = FontWeight.Bold
+                    color = Design.colors.content
                 )
             }
 
