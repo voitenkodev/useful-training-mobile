@@ -2,12 +2,14 @@ package exerciseexamples.edit.mapping
 
 import exerciseexamples.edit.state.Muscle
 import exerciseexamples.edit.state.MuscleEnum
+import models.PriorityEnum
 
 internal fun Muscle.toDomain(): models.Muscle {
     return models.Muscle(
         name = name,
         id = id,
-        type = type.toDomain()
+        type = type.toDomain(),
+        priority = PriorityEnum.Medium // doesn't make sense for body
     )
 }
 

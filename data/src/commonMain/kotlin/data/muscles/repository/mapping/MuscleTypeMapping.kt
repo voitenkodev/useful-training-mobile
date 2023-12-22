@@ -4,7 +4,6 @@ import exercise_example_muscle.models.MuscleTypeDao
 import models.MuscleType
 import models.MuscleTypeDto
 import models.MuscleTypeEnum
-import models.PriorityEnum
 
 internal fun List<MuscleTypeDao>.daoToDomain(): List<MuscleType> {
     return mapNotNull { it.daoToDomain() }
@@ -15,8 +14,7 @@ internal fun MuscleTypeDao.daoToDomain(): MuscleType {
         id = id,
         name = name,
         muscles = muscles.daoToDomain(),
-        type = MuscleTypeEnum.of(type),
-        priority = PriorityEnum.entries.toTypedArray().random() // TODO HARDCODE
+        type = MuscleTypeEnum.of(type)
     )
 }
 

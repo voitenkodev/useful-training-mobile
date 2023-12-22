@@ -55,7 +55,11 @@ internal fun ColumnScope.FilterPopup(
             content = {
                 items(muscles, key = { it.id }) {
                     Chip(
-                        chipState = if (it.isSelected) ChipState.Selected() else ChipState.Default(),
+                        chipState = if (it.isSelected) ChipState.Colored(
+                            backgroundColor = Design.colors.orange,
+                            borderColor = Design.colors.orange,
+                            contentColor = Design.colors.content
+                        ) else ChipState.Default(),
                         onClick = { muscleClick.invoke(it.id) },
                         text = it.name
                     )
@@ -82,7 +86,11 @@ internal fun ColumnScope.FilterPopup(
             content = {
                 items(exerciseExamples, key = { it.id }) {
                     Chip(
-                        chipState = if (it.isSelected) ChipState.Selected() else ChipState.Default(),
+                        chipState = if (it.isSelected) ChipState.Colored(
+                            backgroundColor = Design.colors.orange,
+                            borderColor = Design.colors.orange,
+                            contentColor = Design.colors.content
+                        ) else ChipState.Default(),
                         onClick = { exerciseExampleClick.invoke(it.id) },
                         text = it.name
                     )
@@ -108,7 +116,11 @@ internal fun ColumnScope.FilterPopup(
             content = {
                 items(intervals) {
                     Chip(
-                        chipState = if (it.isSelected) ChipState.Selected() else ChipState.Default(),
+                        chipState = if (it.isSelected) ChipState.Colored(
+                            backgroundColor = Design.colors.orange,
+                            borderColor = Design.colors.orange,
+                            contentColor = Design.colors.content
+                        ) else ChipState.Default(),
                         onClick = { intervalClick.invoke(it.type) },
                         text = it.type.title
                     )

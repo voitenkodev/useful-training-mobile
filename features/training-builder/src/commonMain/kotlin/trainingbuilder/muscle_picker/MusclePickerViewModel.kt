@@ -1,6 +1,5 @@
 package trainingbuilder.muscle_picker
 
-import ExerciseExamplesRepository
 import MusclesRepository
 import ViewModel
 import kotlinx.collections.immutable.toImmutableList
@@ -20,7 +19,6 @@ internal class MusclePickerViewModel : ViewModel() {
     private val _state = MutableStateFlow(State())
     internal val state: StateFlow<State> = _state
 
-    private val exerciseExampleApi by inject<ExerciseExamplesRepository>()
     private val musclesApi by inject<MusclesRepository>()
 
     init {

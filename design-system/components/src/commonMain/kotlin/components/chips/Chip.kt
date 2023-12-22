@@ -12,25 +12,34 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import atom.Design
+import components.animation.rotatedBackgroundAnimation
 import molecule.IconSecondary
 import molecule.PaddingXS
 import molecule.TextBody2
 
 public sealed class ChipState(public open val enabled: Boolean) {
-    public data class HalfTransparent(override val enabled: Boolean = true) : ChipState(enabled)
-    public data class Default(override val enabled: Boolean = true) : ChipState(enabled)
-    public data class Selected(override val enabled: Boolean = true) : ChipState(enabled)
+    public data class Default(
+        override val enabled: Boolean = true
+    ) : ChipState(enabled)
+
     public data class Colored(
         val contentColor: Color,
         val backgroundColor: Color,
         val borderColor: Color,
+        override val enabled: Boolean = true
+    ) : ChipState(enabled)
+
+
+    public data class Animated(
+        val contentColor: Color,
+        val backgroundColor: Color,
+        val borderColors: List<Color>,
         override val enabled: Boolean = true
     ) : ChipState(enabled)
 }
@@ -42,7 +51,7 @@ public fun Chip(
     text: String,
     iconStart: ImageVector? = null,
     iconEnd: ImageVector? = null,
-    onClick: () -> Unit = {},
+    onClick: () -> Unit = {}
 ) {
 
     val contentColor =
@@ -64,31 +73,24 @@ public fun Chip(
                 shape = Design.shape.circleShape
             )
 
-        is ChipState.Selected -> modifier
-            .border(
-                color = Design.colors.caption,
-                width = 1.dp,
-                shape = Design.shape.circleShape
-            ).clip(
-                shape = Design.shape.circleShape
-            )
-
-        is ChipState.HalfTransparent -> modifier
-            .background(
-                color = Design.colors.white5,
-                shape = Design.shape.circleShape
-            ).clip(
-                shape = Design.shape.circleShape
-            ).alpha(
-                alpha = 0.5f
-            )
-
         is ChipState.Colored -> modifier
             .border(
                 color = chipState.borderColor,
                 width = 1.dp,
                 shape = Design.shape.circleShape
             ).background(
+                color = chipState.backgroundColor,
+                shape = Design.shape.circleShape
+            ).clip(
+                shape = Design.shape.circleShape
+            )
+
+        is ChipState.Animated -> modifier
+            .rotatedBackgroundAnimation(
+                colors = chipState.borderColors,
+                shape = Design.shape.circleShape
+            ).padding(1.dp)
+            .background(
                 color = chipState.backgroundColor,
                 shape = Design.shape.circleShape
             ).clip(
@@ -111,6 +113,7 @@ public fun Chip(
         horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingXS, Alignment.CenterHorizontally),
         verticalAlignment = Alignment.CenterVertically
     ) {
+
         if (iconEnd != null) {
             PaddingXS()
         }

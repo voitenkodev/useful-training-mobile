@@ -36,6 +36,7 @@ import molecule.TextH4
 import molecule.primaryBackground
 import trainingbuilder.muscle_picker.components.Footer
 import trainingbuilder.muscle_picker.components.Header
+import trainingbuilder.muscle_picker.components.MuscleChip
 import trainingbuilder.muscle_picker.models.MuscleType
 import trainingbuilder.muscle_picker.models.MuscleTypeEnum
 
@@ -78,29 +79,27 @@ private fun Content(
     close: () -> Unit,
 ) {
 
-    val selectedChipState = ChipState.Colored(
-        backgroundColor = Design.colors.toxic.copy(alpha = 0.2f),
-        borderColor = Design.colors.toxic,
-        contentColor = Design.colors.content
-    )
-
-    val unSelectedChipState = ChipState.Colored(
-        backgroundColor = Color.Transparent,
-        borderColor = Design.colors.caption,
-        contentColor = Design.colors.content
-    )
-
     ScreenRoot(error = { Error(message = { error }, close = clearError) }) {
 
         Column(modifier = Modifier.fillMaxWidth().primaryBackground()) {
 
-            Header(
-                close = close
-            )
+            Header(close = close)
 
             LazyColumn(modifier = Modifier.fillMaxWidth().weight(1f)) {
 
                 item(key = "packs") {
+
+                    val selectedChipState = ChipState.Colored(
+                        backgroundColor = Design.colors.toxic.copy(alpha = 0.2f),
+                        borderColor = Design.colors.toxic,
+                        contentColor = Design.colors.content
+                    )
+
+                    val unSelectedChipState = ChipState.Colored(
+                        backgroundColor = Color.Transparent,
+                        borderColor = Design.colors.caption,
+                        contentColor = Design.colors.content
+                    )
 
                     val fullBodyState = when {
                         list.all { it.muscles.all { m -> m.isSelected } } -> selectedChipState
@@ -208,10 +207,9 @@ private fun Content(
                                 verticalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
                             ) {
                                 item.muscles.forEach { muscle ->
-                                    Chip(
-                                        chipState = if (muscle.isSelected) selectedChipState else unSelectedChipState,
-                                        onClick = { selectMuscle.invoke(muscle.id) },
-                                        text = muscle.name
+                                    MuscleChip(
+                                        muscle = muscle,
+                                        selectMuscle = selectMuscle
                                     )
                                 }
                             }

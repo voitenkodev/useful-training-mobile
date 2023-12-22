@@ -4,17 +4,19 @@ import exercise_example_muscle.models.MuscleDao
 import models.Muscle
 import models.MuscleDto
 import models.MuscleEnum
+import models.PriorityEnum
 
 internal fun List<MuscleDao>.daoToDomain(): List<Muscle> {
     return mapNotNull { it.daoToDomain() }
-        .sortedByDescending { it.name.length }
+        .sortedBy { it.priority }
 }
 
 internal fun MuscleDao.daoToDomain(): Muscle {
     return Muscle(
         id = id,
         name = name,
-        type = MuscleEnum.of(type)
+        type = MuscleEnum.of(type),
+        priority = PriorityEnum.entries.toTypedArray().random() // TODO HARDCODE
     )
 }
 
@@ -33,15 +35,12 @@ internal fun MuscleDto.dtoToDao(): MuscleDao? {
     )
 }
 
-internal fun List<MuscleDto>.dtoToDomain(): List<Muscle> {
-    return mapNotNull { it.dtoToDomain() }
-}
-
 internal fun MuscleDto.dtoToDomain(): Muscle? {
     return Muscle(
         id = id ?: return null,
         name = name ?: return null,
-        type = MuscleEnum.of(type ?: return null)
+        type = MuscleEnum.of(type ?: return null),
+        priority = PriorityEnum.Medium
     )
 }
 
