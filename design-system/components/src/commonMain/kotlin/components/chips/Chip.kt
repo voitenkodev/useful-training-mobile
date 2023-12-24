@@ -40,7 +40,7 @@ public fun Chip(
     modifier: Modifier = Modifier,
     chipState: ChipState = ChipState.Default(true),
     text: String,
-    iconStart: ImageVector? = null,
+    iconStart: Pair<ImageVector, Color>? = null,
     iconEnd: ImageVector? = null,
     onClick: () -> Unit = {}
 ) {
@@ -100,8 +100,8 @@ public fun Chip(
         if (iconStart != null) {
             IconSecondary(
                 modifier = Modifier.size(20.dp),
-                imageVector = iconStart,
-                color = contentColor
+                imageVector = iconStart.first,
+                color = iconStart.second
             )
         }
 

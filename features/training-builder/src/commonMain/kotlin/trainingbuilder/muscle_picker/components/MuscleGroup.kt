@@ -22,8 +22,8 @@ import components.chips.ChipState
 import molecule.ButtonTextLink
 import molecule.PaddingM
 import molecule.PaddingS
-import molecule.TextBody3
 import molecule.TextH4
+import resources.Icons
 import trainingbuilder.muscle_picker.models.Muscle
 import trainingbuilder.muscle_picker.models.MuscleType
 import trainingbuilder.muscle_picker.models.PriorityEnum
@@ -35,14 +35,6 @@ internal fun MuscleGroup(
     selectMuscleType: (id: String) -> Unit,
     selectMuscle: (id: String) -> Unit
 ) {
-
-    val recommended = remember(item.muscles) {
-        item.muscles.filter { it.priority != PriorityEnum.Low }
-    }
-
-    val notRecommended = remember(item.muscles) {
-        item.muscles.filter { it.priority == PriorityEnum.Low }
-    }
 
     val textColor = when (item.muscles.size) {
         item.muscles.count { c -> c.isSelected } -> Design.colors.caption
@@ -90,51 +82,14 @@ internal fun MuscleGroup(
                 imageVector = item.bodyImageVector,
                 contentDescription = null
             )
-            Column(
-                modifier = Modifier.fillMaxWidth(0.5f),
-                verticalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
-            ) {
 
-                if (recommended.isNotEmpty()) {
+            Column(verticalArrangement = Arrangement.spacedBy(Design.dp.paddingS)) {
 
-                    Column(verticalArrangement = Arrangement.spacedBy(Design.dp.paddingS)) {
-
-                        val unselectedChipState = ChipState.Colored(
-                            backgroundColor = Color.Transparent,
-                            borderColor = Design.colors.white10,
-                            contentColor = Design.colors.content
-                        )
-
-                        recommended.forEach { muscle ->
-                            MuscleChip(
-                                muscle = muscle,
-                                selectMuscle = selectMuscle,
-                                unselectedChipState = unselectedChipState
-                            )
-                        }
-                    }
-                }
-
-                if (notRecommended.isNotEmpty()) {
-
-                    Column(verticalArrangement = Arrangement.spacedBy(Design.dp.paddingS)) {
-
-                        val unselectedChipState = ChipState.Colored(
-                            backgroundColor = Color.Transparent,
-                            borderColor = Design.colors.white10,
-                            contentColor = Design.colors.caption
-                        )
-
-                        TextBody3(provideText = { "Not Recommended" }, color = Design.colors.red)
-
-                        notRecommended.forEach { muscle ->
-                            MuscleChip(
-                                muscle = muscle,
-                                selectMuscle = selectMuscle,
-                                unselectedChipState = unselectedChipState
-                            )
-                        }
-                    }
+                item.muscles.forEach { muscle ->
+                    MuscleChip(
+                        muscle = muscle,
+                        selectMuscle = selectMuscle
+                    )
                 }
             }
         }
@@ -144,7 +99,6 @@ internal fun MuscleGroup(
 @Composable
 private fun MuscleChip(
     muscle: Muscle,
-    unselectedChipState: ChipState,
     selectMuscle: (id: String) -> Unit
 ) {
 
@@ -154,9 +108,32 @@ private fun MuscleChip(
         contentColor = Design.colors.content
     )
 
+    val contentColor = remember(muscle.priority) {
+        when (muscle.priority) {
+            PriorityEnum.High -> Design.palette.content
+            PriorityEnum.Medium -> Design.palette.content
+            PriorityEnum.Low -> Design.palette.caption
+        }
+    }
+
+    val unselectedChipState = ChipState.Colored(
+        backgroundColor = Color.Transparent,
+        borderColor = Design.palette.white10,
+        contentColor = contentColor
+    )
+
+    val icon = remember(muscle.priority) {
+        when (muscle.priority) {
+            PriorityEnum.High -> Icons.arrowUp to Design.palette.toxic
+            PriorityEnum.Medium -> null
+            PriorityEnum.Low -> Icons.arrowDown to Design.palette.orange
+        }
+    }
+
     Chip(
         chipState = if (muscle.isSelected) selectedChipState else unselectedChipState,
         onClick = { selectMuscle.invoke(muscle.id) },
+        iconStart = icon,
         text = muscle.name
     )
 }
