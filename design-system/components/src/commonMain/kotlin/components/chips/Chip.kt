@@ -18,8 +18,8 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import atom.Design
-import molecule.IconSecondary
-import molecule.PaddingXS
+import molecule.IconImage
+import molecule.PaddingS
 import molecule.TextBody2
 
 public sealed class ChipState(public open val enabled: Boolean) {
@@ -40,7 +40,7 @@ public fun Chip(
     modifier: Modifier = Modifier,
     chipState: ChipState = ChipState.Default(true),
     text: String,
-    iconStart: Pair<ImageVector, Color>? = null,
+    iconStart: ImageVector? = null,
     iconEnd: ImageVector? = null,
     onClick: () -> Unit = {}
 ) {
@@ -86,23 +86,24 @@ public fun Chip(
                 onClick = onClick
             ).then(internalModifier)
             .padding(
-                horizontal = if (iconEnd == null && iconStart == null) Design.dp.paddingM else Design.dp.paddingS,
+                horizontal = Design.dp.paddingM,
                 vertical = Design.dp.paddingS
             ),
-        horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingXS, Alignment.CenterHorizontally),
+        horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
     ) {
 
-        if (iconEnd != null) {
-            PaddingXS()
-        }
+//        if (iconEnd != null) {
+//            PaddingXS()
+//        }
 
         if (iconStart != null) {
-            IconSecondary(
-                modifier = Modifier.size(20.dp),
-                imageVector = iconStart.first,
-                color = iconStart.second
+            IconImage(
+                modifier = Modifier.size(18.dp),
+                imageVector = iconStart
             )
+
+            PaddingS()
         }
 
         TextBody2(
@@ -114,15 +115,16 @@ public fun Chip(
         )
 
         if (iconEnd != null) {
-            IconSecondary(
-                modifier = Modifier.size(20.dp),
-                imageVector = iconEnd,
-                color = contentColor
+            PaddingS()
+
+            IconImage(
+                modifier = Modifier.size(18.dp),
+                imageVector = iconEnd
             )
         }
 
-        if (iconStart != null) {
-            PaddingXS()
-        }
+//        if (iconStart != null) {
+//            PaddingS()
+//        }
     }
 }

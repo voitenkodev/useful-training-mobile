@@ -124,9 +124,9 @@ private fun MuscleChip(
 
     val icon = remember(muscle.priority) {
         when (muscle.priority) {
-            PriorityEnum.High -> Icons.arrowUp to Design.palette.toxic
-            PriorityEnum.Medium -> null
-            PriorityEnum.Low -> Icons.arrowDown to Design.palette.orange
+            PriorityEnum.High -> Icons.highBattery
+            PriorityEnum.Medium -> Icons.mediumBattery
+            PriorityEnum.Low -> Icons.lowBattery
         }
     }
 

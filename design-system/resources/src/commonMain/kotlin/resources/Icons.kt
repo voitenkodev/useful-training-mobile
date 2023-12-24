@@ -20,6 +20,9 @@ import resources.icons.Eye
 import resources.icons.EyeOff
 import resources.icons.Filters
 import resources.icons.HandWeight
+import resources.icons.HighBattery
+import resources.icons.LowBattery
+import resources.icons.MediumBattery
 import resources.icons.Notifications
 import resources.icons.Person
 import resources.icons.Success
@@ -55,4 +58,7 @@ public object Icons {
     public val weigher: ImageVector = Weigher
     public val clear: ImageVector = Icons.Default.Clear
     public val search: ImageVector = Icons.Default.Search
+    public val lowBattery: ImageVector = LowBattery
+    public val mediumBattery: ImageVector = MediumBattery
+    public val highBattery: ImageVector = HighBattery
 }

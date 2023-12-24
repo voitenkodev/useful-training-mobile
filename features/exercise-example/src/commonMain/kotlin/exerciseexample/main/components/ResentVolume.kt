@@ -23,7 +23,7 @@ import basic.LineChartLabelStyle
 import basic.LineChartStyle
 import kg
 import molecule.ButtonIconTransparent
-import molecule.IconSecondary
+import molecule.Icon
 import molecule.Shadow
 import molecule.TextBody3
 import molecule.TextH4
@@ -125,7 +125,7 @@ private fun Item(
         verticalAlignment = Alignment.CenterVertically
     ) {
 
-        IconSecondary(
+        Icon(
             modifier = Modifier
                 .size(Design.dp.componentS)
                 .border(

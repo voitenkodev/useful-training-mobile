@@ -20,6 +20,7 @@ public data class Color(
 
     // Accent Primary
     val orange: Color = Color(0xfffc5e0f),
+    val yellow: Color = Color(0xffffba00),
     val toxic: Color = Color(0xff2afa2d),
 
     // Accent Secondary

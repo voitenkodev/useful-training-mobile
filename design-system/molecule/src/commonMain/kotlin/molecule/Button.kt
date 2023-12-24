@@ -96,7 +96,7 @@ public fun ButtonPrimary(
                 )
             )
 
-            IconSecondary(
+            Icon(
                 modifier = Modifier
                     .size(Design.dp.componentM)
                     .padding(Design.dp.paddingXS)
@@ -170,7 +170,7 @@ public fun ButtonSecondary(
                 )
             )
 
-            IconSecondary(
+            Icon(
                 modifier = Modifier
                     .size(Design.dp.componentM)
                     .padding(Design.dp.paddingXS)
@@ -241,7 +241,7 @@ public fun ButtonPrimarySmall(
                 )
             )
 
-            IconSecondary(
+            Icon(
                 modifier = Modifier
                     .size(Design.dp.componentS)
                     .padding(Design.dp.paddingXS)

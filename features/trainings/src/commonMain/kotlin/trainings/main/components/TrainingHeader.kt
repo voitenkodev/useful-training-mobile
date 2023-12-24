@@ -8,7 +8,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -19,7 +19,7 @@ import basic.LineChart
 import basic.LineChartDotsStyle
 import basic.LineChartStyle
 import kotlinx.collections.immutable.ImmutableList
-import molecule.IconSecondary
+import molecule.Icon
 import molecule.TextBody3
 import molecule.TextH4
 import molecule.coloredDefaultBackgroundNoBorder
@@ -92,9 +92,9 @@ private fun DefaultItem(
         verticalAlignment = Alignment.CenterVertically
     ) {
 
-        IconSecondary(
+        Icon(
             modifier = Modifier
-                .size(Design.dp.componentS)
+                .requiredSize(Design.dp.componentS)
                 .coloredDefaultBackgroundNoBorder(Design.colors.orange)
                 .padding(Design.dp.paddingS),
             color = Design.colors.content,

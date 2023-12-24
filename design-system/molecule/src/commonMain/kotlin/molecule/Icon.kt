@@ -1,38 +1,15 @@
 package molecule
 
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.requiredSize
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.Image
 import androidx.compose.material.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.unit.dp
 import atom.Design
 
 @Composable
-public fun IconPrimary(
-    modifier: Modifier = Modifier,
-    imageVector: ImageVector,
-    enabled: Boolean = true,
-    color: Color = Design.colors.content
-) {
-    Icon(
-        modifier = modifier
-            .requiredSize(Design.dp.componentL)
-            .alpha(if (enabled) 1f else 0.5f)
-            .padding(Design.dp.paddingM),
-        tint = color,
-        imageVector = imageVector,
-        contentDescription = null
-    )
-}
-
-@Composable
-public fun IconSecondary(
+public fun Icon(
     modifier: Modifier = Modifier,
     imageVector: ImageVector,
     color: Color = Design.colors.content,
@@ -40,9 +17,19 @@ public fun IconSecondary(
     Icon(
         imageVector = imageVector,
         tint = color,
-        modifier = modifier
-            .size(24.dp)
-            .clip(shape = Design.shape.default),
+        modifier = modifier,
+        contentDescription = null
+    )
+}
+
+@Composable
+public fun IconImage(
+    modifier: Modifier = Modifier,
+    imageVector: ImageVector
+) {
+    Image(
+        imageVector = imageVector,
+        modifier = modifier,
         contentDescription = null
     )
 }

@@ -5,13 +5,14 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import atom.Design
-import molecule.IconPrimary
+import molecule.Icon
 import molecule.PaddingWeight
 import molecule.TextH4
 import molecule.coloredDefaultBackgroundNoBorder
@@ -34,8 +35,11 @@ internal fun MenuItem(
         verticalAlignment = Alignment.CenterVertically
     ) {
 
-        IconPrimary(
-            modifier = Modifier.coloredDefaultBackgroundNoBorder(Design.colors.white5),
+        Icon(
+            modifier = Modifier
+                .size(Design.dp.componentL)
+                .padding(Design.dp.paddingM)
+                .coloredDefaultBackgroundNoBorder(Design.colors.white5),
             imageVector = icon,
             color = contentColor
         )
@@ -47,7 +51,10 @@ internal fun MenuItem(
 
         PaddingWeight()
 
-        if (allowRightArrow) IconPrimary(
+        if (allowRightArrow) Icon(
+            modifier = Modifier
+                .size(Design.dp.componentL)
+                .padding(Design.dp.paddingM),
             imageVector = Icons.arrowRight,
             color = contentColor
         )

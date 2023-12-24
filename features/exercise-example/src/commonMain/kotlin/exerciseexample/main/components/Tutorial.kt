@@ -22,7 +22,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import atom.Design
-import molecule.IconSecondary
+import molecule.Icon
 import molecule.TextLabel
 import molecule.secondaryDefaultBackground
 import resources.Icons
@@ -64,7 +64,7 @@ internal fun Tutorial(
                     )
                 )
 
-                IconSecondary(
+                Icon(
                     modifier = Modifier
                         .align(Alignment.Center)
                         .size(Design.dp.componentM)

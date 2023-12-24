@@ -15,7 +15,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import atom.Design
 import kg
-import molecule.IconSecondary
+import molecule.Icon
 import molecule.PaddingS
 import molecule.TextBody3
 import molecule.TextH3
@@ -77,7 +77,7 @@ private fun RowScope.Item(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        IconSecondary(
+        Icon(
             modifier = Modifier.weight(1f).aspectRatio(1f).padding(Design.dp.paddingXS),
             color = Design.colors.content,
             imageVector = icon

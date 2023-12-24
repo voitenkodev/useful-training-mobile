@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -19,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import atom.Design
 import components.indication.HeapIndicator
 import kg
-import molecule.IconSecondary
+import molecule.Icon
 import molecule.PaddingS
 import molecule.TextBody3
 import molecule.TextH4
@@ -54,8 +55,9 @@ internal fun TrainingOverview(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
 
-                IconSecondary(
+                Icon(
                     modifier = Modifier
+                        .requiredSize(Design.dp.componentS)
                         .weight(1f)
                         .fillMaxWidth(),
                     color = Design.colors.content,
@@ -86,8 +88,11 @@ internal fun TrainingOverview(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
 
-                IconSecondary(
-                    modifier = Modifier.weight(1f).fillMaxWidth(),
+                Icon(
+                    modifier = Modifier
+                        .requiredSize(Design.dp.componentS)
+                        .weight(1f)
+                        .fillMaxWidth(),
                     color = Design.colors.content,
                     imageVector = Icons.weight
                 )

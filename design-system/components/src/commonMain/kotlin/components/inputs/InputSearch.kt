@@ -27,7 +27,7 @@ import androidx.compose.ui.text.input.KeyboardCapitalization
 import atom.Design
 import conditional
 import molecule.ButtonIconSecondary
-import molecule.IconSecondary
+import molecule.Icon
 import molecule.InputField
 import resources.Icons
 
@@ -60,7 +60,7 @@ public fun InputSearch(
             keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Sentences, imeAction = ImeAction.Next),
             fontWeight = FontWeight.Bold,
             leading = {
-                IconSecondary(
+                Icon(
                     modifier = Modifier.padding(end = Design.dp.paddingS),
                     imageVector = Icons.search,
                     color = Design.colors.caption
