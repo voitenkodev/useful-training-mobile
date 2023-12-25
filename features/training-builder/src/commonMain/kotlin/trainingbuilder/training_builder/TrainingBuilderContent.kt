@@ -1,6 +1,5 @@
 package trainingbuilder.training_builder
 
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -23,10 +22,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.unit.dp
 import atom.Design
 import com.arkivanov.essenty.backhandler.BackCallback
 import components.Error
+import components.cards.ActionCard
 import components.overlay.BottomShadow
 import components.roots.ScreenRoot
 import io.github.xxfast.decompose.router.LocalRouterContext
@@ -37,12 +36,8 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.onEach
 import molecule.ButtonPrimary
 import molecule.POPUP_ANIM_DURATION_MS
-import molecule.PaddingL
 import molecule.PaddingM
-import molecule.PaddingXS
 import molecule.PopupSheet
-import molecule.TextBody1
-import molecule.TextH3
 import molecule.TextLabel
 import molecule.primaryBackground
 import trainingbuilder.training_builder.components.Exercise
@@ -174,38 +169,13 @@ internal fun Content(
 
                 if (exercises.isEmpty()) {
                     item {
-                        Column(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .border(
-                                    width = 1.dp,
-                                    shape = Design.shape.default,
-                                    color = Design.colors.caption
-                                ).padding(Design.dp.paddingL),
-                            horizontalAlignment = Alignment.CenterHorizontally,
-                        ) {
-                            TextH3(
-                                provideText = { "Let's start workout" },
-                                color = Design.colors.content
-                            )
-
-                            PaddingXS()
-
-                            TextBody1(
-                                provideText = { "Add your first exercise" },
-                                color = Design.colors.content
-                            )
-
-                            PaddingL()
-
-                            ButtonPrimary(
-                                modifier = Modifier.padding(horizontal = Design.dp.paddingXL),
-                                text = "New exercise",
-                                textColor = Design.colors.primary,
-                                backgroundColor = Design.colors.toxic,
-                                onClick = addExercise
-                            )
-                        }
+                        ActionCard(
+                            modifier = Modifier.fillMaxWidth(),
+                            title = "Let's start workout",
+                            description = "Add your first exercise",
+                            btnText = "New exercise",
+                            onClick = addExercise
+                        )
                     }
                 }
 

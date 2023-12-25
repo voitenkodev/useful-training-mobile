@@ -12,7 +12,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import atom.Design
 import components.Error
-import components.brand.ExerciseCardDefault
+import components.cards.ExerciseCardDefault
 import components.roots.ScreenRoot
 import exerciseexamples.list.components.Footer
 import exerciseexamples.list.components.Header

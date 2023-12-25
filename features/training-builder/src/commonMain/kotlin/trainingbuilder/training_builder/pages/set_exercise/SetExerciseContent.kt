@@ -27,7 +27,7 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import atom.Design
-import components.brand.ExerciseCardSmall
+import components.cards.ExerciseCardSmall
 import components.inputs.InputExerciseName
 import kotlinx.collections.immutable.ImmutableList
 import molecule.ButtonPrimary

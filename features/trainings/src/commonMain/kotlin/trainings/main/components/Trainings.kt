@@ -10,7 +10,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
 import atom.Design
-import components.buttons.ButtonQuestion
+import components.cards.ActionCard
 import kotlinx.collections.immutable.ImmutableList
 import molecule.PaddingM
 import trainings.main.models.Training
@@ -19,19 +19,19 @@ import trainings.main.models.Training
 internal fun Trainings(
     trainings: ImmutableList<Training>,
     selectedDateIsToday: Boolean,
-
     newTraining: () -> Unit,
-    openTraining: (trainingId: String) -> Unit,
-    trainingWithTemplate: (trainingId: String) -> Unit
+    openTraining: (trainingId: String) -> Unit
 ) {
-    LazyColumn(
-        modifier = Modifier.fillMaxSize(),
-    ) {
+    LazyColumn(modifier = Modifier.fillMaxSize()) {
 
         if (selectedDateIsToday) {
             item {
-                NewTraining(
-                    addTraining = newTraining
+                ActionCard(
+                    modifier = Modifier.fillMaxWidth().padding(Design.dp.paddingM),
+                    btnText = "Start workout",
+                    title = "Time to workout",
+                    description = "Press to start workout",
+                    onClick = newTraining
                 )
             }
         }
@@ -57,10 +57,7 @@ internal fun Trainings(
                 PaddingM()
             }
 
-            itemsIndexed(
-                items = training.exercises,
-                key = { _, item -> "${training.id}:${item.id}" }
-            ) { index, item ->
+            itemsIndexed(items = training.exercises, key = { _, item -> "${training.id}:${item.id}" }) { index, item ->
 
                 val number by rememberUpdatedState(index + 1)
 
@@ -72,15 +69,6 @@ internal fun Trainings(
             }
 
             item("footer:${training.id}") {
-
-
-                ButtonQuestion(
-                    modifier = Modifier.fillMaxWidth(),
-                    question = "Use training as",
-                    answer = "Template",
-                    onClick = { trainingWithTemplate.invoke(training.id) }
-                )
-
                 PaddingM()
             }
         }

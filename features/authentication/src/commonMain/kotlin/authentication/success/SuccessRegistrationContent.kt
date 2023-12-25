@@ -14,7 +14,7 @@ import atom.Design
 import com.arkivanov.essenty.backhandler.BackCallback
 import components.Error
 import components.animation.Levitating
-import components.brand.UserCard
+import components.cards.UserCard
 import components.roots.ScreenRoot
 import io.github.xxfast.decompose.router.LocalRouterContext
 import molecule.PaddingM

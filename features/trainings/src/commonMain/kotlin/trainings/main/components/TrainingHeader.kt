@@ -8,21 +8,17 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import atom.Design
 import basic.LineChart
 import basic.LineChartDotsStyle
 import basic.LineChartStyle
+import components.cards.HorizontalValueCard
 import kotlinx.collections.immutable.ImmutableList
-import molecule.Icon
-import molecule.TextBody3
-import molecule.TextH4
-import molecule.coloredDefaultBackgroundNoBorder
 import molecule.secondaryDefaultBackground
 import recomposeHighlighter
 import resources.Icons
@@ -58,61 +54,16 @@ internal fun TrainingHeader(
             verticalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
         ) {
 
-            DefaultItem(
-                modifier = Modifier
-                    .secondaryDefaultBackground()
-                    .padding(Design.dp.paddingS),
+            HorizontalValueCard(
                 title = "Duration",
-                subTitle = "${training.duration} min",
-                icon = Icons.time
+                description = "${training.duration} min",
+                startIcon = Icons.time to Color.Transparent
             )
 
-            DefaultItem(
-                modifier = Modifier
-                    .secondaryDefaultBackground()
-                    .padding(Design.dp.paddingS),
+            HorizontalValueCard(
                 title = "Intensity",
-                subTitle = training.intensity,
-                icon = Icons.handWeight
-            )
-        }
-    }
-}
-
-@Composable
-private fun DefaultItem(
-    modifier: Modifier = Modifier,
-    title: String,
-    subTitle: String,
-    icon: ImageVector
-) {
-    Row(
-        modifier = modifier,
-        horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-
-        Icon(
-            modifier = Modifier
-                .requiredSize(Design.dp.componentS)
-                .coloredDefaultBackgroundNoBorder(Design.colors.orange)
-                .padding(Design.dp.paddingS),
-            color = Design.colors.content,
-            imageVector = icon
-        )
-
-        Column(
-            modifier = Modifier.weight(1f),
-            verticalArrangement = Arrangement.Center
-        ) {
-
-            TextH4(
-                provideText = { title }
-            )
-
-            TextBody3(
-                provideText = { subTitle },
-                color = Design.colors.caption
+                description = training.intensity,
+                startIcon = Icons.weight to Color.Transparent
             )
         }
     }
@@ -145,11 +96,10 @@ private fun ChartBlock(
             )
         )
 
-        DefaultItem(
-            modifier = Modifier.padding(Design.dp.paddingS),
+        HorizontalValueCard(
             title = title,
-            subTitle = value,
-            icon = icon
+            description = value,
+            startIcon = icon to Color.Transparent
         )
     }
 }

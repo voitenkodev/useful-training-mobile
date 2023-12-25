@@ -83,9 +83,7 @@ internal fun Header(
         PaddingS()
 
         Box(
-            modifier = Modifier
-                .height(Design.dp.componentL)
-                .fillMaxWidth(),
+            modifier = Modifier.height(Design.dp.componentL).fillMaxWidth(),
             contentAlignment = Alignment.CenterStart
         ) {
 
@@ -141,7 +139,6 @@ private fun CalendarRow(
         if (selectedIndex != -1) lazyListState.animateScrollAndCentralizeItem(selectedIndex)
     }
 
-
     LazyRow(
         state = lazyListState,
         modifier = Modifier.fillMaxWidth().padding(vertical = Design.dp.paddingXS),
@@ -170,9 +167,7 @@ private fun CalendarRow(
                     )
 
                     TextH3(
-                        modifier = Modifier
-                            .align(Alignment.BottomCenter)
-                            .padding(bottom = 5.dp),
+                        modifier = Modifier.align(Alignment.BottomCenter).padding(bottom = 5.dp),
                         provideText = { it.day },
                         color = if (it.isToday) Design.colors.orange else Design.colors.content
                     )

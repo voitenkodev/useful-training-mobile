@@ -1,7 +1,6 @@
 package trainings
 
 import androidx.compose.runtime.Composable
-import com.arkivanov.decompose.router.stack.pop
 import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.parcelable.Parcelize
 import io.github.xxfast.decompose.router.Router
@@ -37,9 +36,7 @@ public fun TrainingsGraph(
                 TrainingsContent(
                     vm = vm,
                     toTrainingById = { id -> toTrainingBuilder.invoke(id) },
-                    toNewTraining = { toTrainingBuilder.invoke(null) },
-                    addTrainingWithTemplate = { id -> toTrainingDetails.invoke(id) },
-                    back = router::pop
+                    toNewTraining = { toTrainingBuilder.invoke(null) }
                 )
             }
         }

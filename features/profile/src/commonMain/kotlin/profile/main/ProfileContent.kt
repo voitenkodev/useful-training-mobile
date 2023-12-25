@@ -17,7 +17,7 @@ import androidx.compose.ui.Modifier
 import atom.Design
 import components.Error
 import components.animation.Levitating
-import components.brand.UserCard
+import components.cards.UserCard
 import components.roots.ScreenRoot
 import molecule.PaddingL
 import molecule.PaddingS

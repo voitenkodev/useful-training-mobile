@@ -1,4 +1,4 @@
-package components.brand
+package components.cards
 
 import AsyncImage
 import androidx.compose.foundation.background

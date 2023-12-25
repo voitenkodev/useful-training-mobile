@@ -12,8 +12,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import atom.Design
 import components.Error
-import components.brand.ExerciseCardDefault
-import components.brand.ExerciseCardDefaultLoading
+import components.cards.ExerciseCardDefault
+import components.cards.ExerciseCardDefaultLoading
 import components.roots.ScreenRoot
 import kotlinx.collections.immutable.ImmutableList
 import molecule.primaryBackground

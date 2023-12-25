@@ -26,10 +26,7 @@ internal fun Exercise(
     exercise: Exercise
 ) {
 
-    Column(
-        modifier = modifier
-            .padding(horizontal = Design.dp.paddingM),
-    ) {
+    Column(modifier = modifier.padding(horizontal = Design.dp.paddingM)) {
 
         PaddingS()
 

@@ -19,41 +19,31 @@ import trainings.main.models.Training
 internal fun TrainingsContent(
     vm: TrainingsViewModel,
     toTrainingById: (trainingId: String) -> Unit,
-    toNewTraining: () -> Unit,
-    addTrainingWithTemplate: (trainingId: String) -> Unit,
-    back: () -> Unit
+    toNewTraining: () -> Unit
 ) {
 
     val state by vm.state.collectAsState()
 
     Content(
-        loading = { state.loading },
         error = { state.error },
         clearError = vm::clearError,
-        back = back,
         newTraining = toNewTraining,
         calendar = state.calendar,
         trainings = state.displayedTrainings,
         openTraining = toTrainingById,
         addCalendarChunk = vm::addCalendarChunk,
-        selectCalendarDay = vm::selectCalendarDay,
-        trainingWithTemplate = addTrainingWithTemplate
+        selectCalendarDay = vm::selectCalendarDay
     )
 }
 
 @Composable
 private fun Content(
-    loading: () -> Boolean,
     error: () -> String?,
     clearError: () -> Unit,
-    back: () -> Unit,
-
     calendar: ImmutableList<SelectableCalendar>,
     trainings: ImmutableList<Training>,
-
     newTraining: () -> Unit,
     openTraining: (trainingId: String) -> Unit,
-    trainingWithTemplate: (trainingId: String) -> Unit,
     addCalendarChunk: () -> Unit,
     selectCalendarDay: (dateTimeIso: String) -> Unit
 ) {
@@ -71,18 +61,13 @@ private fun Content(
             )
 
             if (selectedDateIsToday.not() && trainings.isEmpty()) {
-                EmptyTraining(
-                    modifier = Modifier
-                        .weight(1f)
-                        .fillMaxWidth()
-                )
+                EmptyTraining(modifier = Modifier.weight(1f).fillMaxWidth())
             } else {
                 Trainings(
                     trainings = trainings,
                     selectedDateIsToday = selectedDateIsToday,
                     newTraining = newTraining,
-                    openTraining = openTraining,
-                    trainingWithTemplate = trainingWithTemplate
+                    openTraining = openTraining
                 )
             }
         }

@@ -1,35 +1,24 @@
 package exerciseexample.main.components
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import atom.Design
 import basic.LineChart
 import basic.LineChartDotsStyle
 import basic.LineChartLabelStyle
 import basic.LineChartStyle
+import components.cards.HorizontalValueCard
 import kg
-import molecule.ButtonIconTransparent
-import molecule.Icon
 import molecule.Shadow
-import molecule.TextBody3
-import molecule.TextH4
 import molecule.TextLabel
-import molecule.coloredDefaultBackgroundNoBorder
-import molecule.secondaryDefaultBackground
 import resources.Icons
 
 @Composable
@@ -93,70 +82,15 @@ internal fun ResentVolume() {
             val img = if (item.first > previousItem) Icons.arrowUp
             else Icons.arrowDown
 
-            Item(
-                modifier = Modifier
-                    .padding(horizontal = Design.dp.paddingM)
-                    .secondaryDefaultBackground()
-                    .padding(Design.dp.paddingS),
+            HorizontalValueCard(
+                modifier = Modifier.padding(horizontal = Design.dp.paddingM),
                 title = item.first.kg(true),
-                subTitle = "At ${item.second}",
-                icon = img,
-                color = color,
-                onClick = {}
+                description = "At ${item.second}",
+                startIcon = img to color,
+                actionEndIcon = Icons.arrowRight to {}
             )
         }
 
         Shadow()
-    }
-}
-
-@Composable
-private fun Item(
-    modifier: Modifier = Modifier,
-    title: String,
-    subTitle: String,
-    icon: ImageVector,
-    color: Color,
-    onClick: () -> Unit
-) {
-    Row(
-        modifier = modifier,
-        horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-
-        Icon(
-            modifier = Modifier
-                .size(Design.dp.componentS)
-                .border(
-                    color = color,
-                    width = 1.dp,
-                    shape = Design.shape.default
-                ).coloredDefaultBackgroundNoBorder(color)
-                .padding(Design.dp.paddingS),
-            color = Design.colors.content,
-            imageVector = icon
-        )
-
-        Column(
-            modifier = Modifier.weight(1f),
-            verticalArrangement = Arrangement.Center
-        ) {
-
-            TextH4(
-                provideText = { title }
-            )
-
-            TextBody3(
-                provideText = { subTitle },
-                color = Design.colors.caption
-            )
-        }
-
-        ButtonIconTransparent(
-            imageVector = Icons.arrowRight,
-            onClick = onClick,
-            contentColor = Design.colors.caption
-        )
     }
 }

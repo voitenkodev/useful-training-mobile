@@ -1,8 +1,7 @@
-package trainings.main.components
+package components.cards
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -16,11 +15,15 @@ import molecule.TextBody1
 import molecule.TextH3
 
 @Composable
-internal fun NewTraining(addTraining: () -> Unit) {
+public fun ActionCard(
+    modifier: Modifier = Modifier,
+    title: String,
+    description: String,
+    btnText: String,
+    onClick: () -> Unit
+) {
     Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(Design.dp.paddingM)
+        modifier = modifier
             .border(
                 width = 1.dp,
                 shape = Design.shape.default,
@@ -29,14 +32,14 @@ internal fun NewTraining(addTraining: () -> Unit) {
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         TextH3(
-            provideText = { "Time to workout" },
+            provideText = { title },
             color = Design.colors.content
         )
 
         PaddingXS()
 
         TextBody1(
-            provideText = { "Press to start workout" },
+            provideText = { description },
             color = Design.colors.content
         )
 
@@ -44,10 +47,10 @@ internal fun NewTraining(addTraining: () -> Unit) {
 
         ButtonPrimary(
             modifier = Modifier.padding(horizontal = Design.dp.paddingXL),
-            text = "Start workout",
+            text = btnText,
             textColor = Design.colors.primary,
             backgroundColor = Design.colors.toxic,
-            onClick = addTraining
+            onClick = onClick
         )
     }
 }

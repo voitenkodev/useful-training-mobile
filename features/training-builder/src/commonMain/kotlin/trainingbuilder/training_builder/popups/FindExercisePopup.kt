@@ -20,9 +20,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Density
 import atom.Design
-import components.brand.ExerciseCardDefault
-import components.brand.ExerciseCardDefaultEmpty
-import components.brand.ExerciseCardDefaultLoading
+import components.cards.ExerciseCardDefault
+import components.cards.ExerciseCardDefaultEmpty
+import components.cards.ExerciseCardDefaultLoading
 import components.chips.Chip
 import components.chips.ChipState
 import components.inputs.InputSearch
