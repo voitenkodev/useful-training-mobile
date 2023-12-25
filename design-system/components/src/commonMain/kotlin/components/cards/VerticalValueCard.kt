@@ -19,8 +19,8 @@ import molecule.secondaryDefaultBackground
 @Composable
 public fun VerticalValueCard(
     modifier: Modifier = Modifier,
-    text: String,
-    value: String,
+    title: String,
+    description: String,
     icon: ImageVector
 ) {
     Column(
@@ -42,7 +42,7 @@ public fun VerticalValueCard(
 
         TextH3(
             textAlign = TextAlign.Center,
-            provideText = { value },
+            provideText = { description },
             maxLines = 1,
             color = Design.colors.orange
         )
@@ -50,7 +50,7 @@ public fun VerticalValueCard(
         TextBody3(
             textAlign = TextAlign.Center,
             maxLines = 1,
-            provideText = { text },
+            provideText = { title },
             color = Design.colors.content
         )
     }

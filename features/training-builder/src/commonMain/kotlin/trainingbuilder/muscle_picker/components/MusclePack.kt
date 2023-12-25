@@ -1,6 +1,8 @@
 package trainingbuilder.muscle_picker.components
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -57,33 +59,35 @@ internal fun MusclePack(
         else -> unSelectedChipState
     }
 
-    PaddingXL()
+    Column(modifier = Modifier.background(Design.colors.black10)) {
+        PaddingXL()
 
-    Row(
-        modifier = Modifier.padding(horizontal = Design.dp.paddingM),
-        horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
-    ) {
+        Row(
+            modifier = Modifier.padding(horizontal = Design.dp.paddingM),
+            horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
+        ) {
 
-        Chip(
-            chipState = fullBodyState,
-            onClick = selectFullBody,
-            text = "Full Body"
-        )
+            Chip(
+                chipState = fullBodyState,
+                onClick = selectFullBody,
+                text = "Full Body"
+            )
 
-        Chip(
-            chipState = topBodyState,
-            onClick = selectUpperBody,
-            text = "Upper Body"
-        )
+            Chip(
+                chipState = topBodyState,
+                onClick = selectUpperBody,
+                text = "Upper Body"
+            )
 
-        Chip(
-            chipState = lowerBodyState,
-            onClick = selectLowerBody,
-            text = "Lower Body"
-        )
+            Chip(
+                chipState = lowerBodyState,
+                onClick = selectLowerBody,
+                text = "Lower Body"
+            )
+        }
+
+        PaddingL()
+
+        Shadow()
     }
-
-    PaddingL()
-
-    Shadow()
 }

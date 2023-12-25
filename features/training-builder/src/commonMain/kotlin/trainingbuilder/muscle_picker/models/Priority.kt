@@ -4,6 +4,8 @@ import androidx.compose.runtime.Immutable
 
 @Immutable
 internal enum class PriorityEnum {
-    High, Medium, Low
+    High,
+    Medium,
+    Low
 }
 

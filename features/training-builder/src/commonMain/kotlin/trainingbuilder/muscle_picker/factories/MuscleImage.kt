@@ -12,7 +12,7 @@ import trainingbuilder.muscle_picker.models.MuscleEnum
 import trainingbuilder.muscle_picker.models.MuscleTypeEnum
 
 private fun colorBySelection(condition: Boolean?): Color {
-    val muscle = Color(0xffb12a1a)
+    val muscle = Design.palette.red
 
     val default = muscle.copy(alpha = 0.8f)
     val selected = Design.palette.toxic

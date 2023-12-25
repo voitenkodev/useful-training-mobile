@@ -48,6 +48,7 @@ internal class MusclePickerViewModel : ViewModel() {
                     muscles = muscles,
                     bodyImageVector = image
                 )
+
             }.toImmutableList()
 
             it.copy(muscleTypes = muscleTypes)
@@ -93,6 +94,7 @@ internal class MusclePickerViewModel : ViewModel() {
                     muscles = muscles,
                     bodyImageVector = image
                 )
+
             }.toImmutableList()
 
             it.copy(muscleTypes = muscleTypes)

@@ -33,8 +33,8 @@ internal fun Achievements() {
                     width = 1.dp,
                     shape = Design.shape.default
                 ),
-                text = "Volume",
-                value = 3546.0.kg(false),
+                title = "Volume",
+                description = 3546.0.kg(false),
                 icon = Icons.weight
             )
 
@@ -44,8 +44,8 @@ internal fun Achievements() {
                     width = 1.dp,
                     shape = Design.shape.default
                 ),
-                text = "P/M",
-                value = 1500.0.kg(false),
+                title = "P/M",
+                description = 1500.0.kg(false),
                 icon = Icons.handWeight
             )
 
@@ -55,8 +55,8 @@ internal fun Achievements() {
                     width = 1.dp,
                     shape = Design.shape.default
                 ),
-                text = "Count",
-                value = 50.toString(),
+                title = "Count",
+                description = 50.toString(),
                 icon = Icons.time
             )
         }
