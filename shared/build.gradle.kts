@@ -26,7 +26,6 @@ kotlin {
                 implementation(projects.features.statistics)
                 implementation(projects.features.profile)
                 implementation(projects.features.trainingBuilder)
-                implementation(projects.features.exerciseExamples)
                 implementation(projects.features.exerciseExample)
                 implementation(projects.features.searchExercise)
 

@@ -9,6 +9,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import atom.Design
 import components.Error
@@ -23,8 +24,8 @@ import searchexercise.main.models.ExerciseExample
 @Composable
 internal fun SearchExerciseContent(
     vm: SearchExerciseViewModel,
-    select: (id: String) -> Unit,
-    toExerciseExampleDetails: (id: String) -> Unit,
+    action: (Pair<String, (id: String) -> Unit>)?,
+    toDetails: (id: String) -> Unit,
     close: () -> Unit
 ) {
 
@@ -37,9 +38,9 @@ internal fun SearchExerciseContent(
         query = state.query,
         setQuery = vm::setQuery,
         exerciseExamples = state.exerciseExamples,
-        selectExerciseExample = select,
-        toExerciseExampleDetails = toExerciseExampleDetails,
-        close = close
+        toDetails = toDetails,
+        close = close,
+        action = action
     )
 }
 
@@ -51,8 +52,8 @@ private fun Content(
     query: String,
     setQuery: (String) -> Unit,
     exerciseExamples: ImmutableList<ExerciseExample>,
-    selectExerciseExample: (id: String) -> Unit,
-    toExerciseExampleDetails: (id: String) -> Unit,
+    action: (Pair<String, (id: String) -> Unit>)?,
+    toDetails: (id: String) -> Unit,
     close: () -> Unit
 ) {
 
@@ -77,11 +78,17 @@ private fun Content(
                 }
 
                 items(exerciseExamples, key = { it.id }) {
+
+                    val actionProvider = remember(action) {
+                        if (action == null) return@remember null
+                        action.first to { action.second.invoke(it.id) }
+                    }
+
                     ExerciseCardDefault(
                         name = it.name,
                         imageUrl = it.imageUrl,
-                        btn = "Select" to { selectExerciseExample.invoke(it.id) },
-                        viewDetails = { toExerciseExampleDetails.invoke(it.id) },
+                        btn = actionProvider,
+                        viewDetails = { toDetails.invoke(it.id) },
                         musclesWithPercent = it.muscleExerciseBundles.map { b -> b.muscle.name to b.percentage }
                     )
                 }

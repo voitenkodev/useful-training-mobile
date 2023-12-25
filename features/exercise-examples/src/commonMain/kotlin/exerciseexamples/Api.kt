@@ -23,6 +23,7 @@ public sealed class ExerciseExamplesFeature : Parcelable {
     public data class Edit(val id: String? = null) : ExerciseExamplesFeature()
 }
 
+@Deprecated("User module ::search-exercise")
 @Composable
 public fun ExerciseExamplesGraph(toExerciseExampleDetails: (id: String) -> Unit) {
 

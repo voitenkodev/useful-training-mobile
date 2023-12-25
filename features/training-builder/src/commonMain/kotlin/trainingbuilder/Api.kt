@@ -26,7 +26,7 @@ public sealed class TrainingRouter : Parcelable {
 @Composable
 public fun TrainingGraph(
     close: () -> Unit,
-    toSearchExerciseExample: () -> Unit,
+    toExerciseExamples: () -> Unit,
     searchExerciseExampleId: Flow<String>,
     toExerciseExampleDetails: (id: String) -> Unit
 ) {
@@ -46,7 +46,7 @@ public fun TrainingGraph(
                 TrainingBuilderContent(
                     vm = vm,
                     close = { close.invoke() },
-                    toSearchExerciseExample = toSearchExerciseExample,
+                    toSearchExerciseExample = toExerciseExamples,
                     searchExerciseExampleId = searchExerciseExampleId,
                     toExerciseExampleDetails = toExerciseExampleDetails
                 )

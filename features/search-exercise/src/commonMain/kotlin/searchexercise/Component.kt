@@ -21,10 +21,10 @@ public object SearchExerciseController {
 
 public data class SearchExerciseApi(
     private val _exerciseExampleId: Channel<String> = Channel(Channel.BUFFERED),
-    val exerciseExampleId: Flow<String> = _exerciseExampleId.receiveAsFlow()
+    val exerciseExampleId: Flow<String> = _exerciseExampleId.receiveAsFlow(),
 ) {
 
-    internal fun select(id: String) {
+    public fun select(id: String) {
         _exerciseExampleId.trySend(id)
     }
 }

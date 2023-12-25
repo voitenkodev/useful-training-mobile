@@ -19,7 +19,11 @@ public sealed class SearchExerciseFeature : Parcelable {
 }
 
 @Composable
-public fun SearchExerciseGraph(close: () -> Unit, toExerciseExampleDetails: (id: String) -> Unit) {
+public fun SearchExerciseGraph(
+    close: () -> Unit,
+    toDetails: (id: String) -> Unit,
+    action: (Pair<String, (id: String) -> Unit>)?
+) {
 
     val router: Router<SearchExerciseFeature> = rememberRouter(SearchExerciseFeature::class) {
         listOf(SearchExerciseFeature.Main)
@@ -28,15 +32,14 @@ public fun SearchExerciseGraph(close: () -> Unit, toExerciseExampleDetails: (id:
     RoutedContent(router = router, animation = stackAnimation(fade())) { child ->
         when (child) {
             is SearchExerciseFeature.Main -> {
-                val api = SearchExerciseController.api
                 val vm = rememberOnRoute(SearchExerciseViewModel::class) {
                     SearchExerciseViewModel()
                 }
 
                 SearchExerciseContent(
                     vm = vm,
-                    toExerciseExampleDetails = toExerciseExampleDetails,
-                    select = { api.select(it); close.invoke() },
+                    toDetails = toDetails,
+                    action = action,
                     close = close
                 )
             }

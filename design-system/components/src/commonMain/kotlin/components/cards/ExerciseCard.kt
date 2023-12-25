@@ -131,7 +131,7 @@ public fun ExerciseCardDefault(
     modifier: Modifier = Modifier,
     name: String,
     imageUrl: String?,
-    btn: Pair<String, () -> Unit>,
+    btn: Pair<String, () -> Unit>?,
     viewDetails: () -> Unit,
     musclesWithPercent: List<Pair<String, Int>> = emptyList()
 ) {
@@ -220,11 +220,13 @@ public fun ExerciseCardDefault(
 
                 PaddingWeight()
 
-                ButtonPrimarySmall(
-                    modifier = Modifier.align(Alignment.CenterHorizontally),
-                    text = btn.first,
-                    onClick = btn.second
-                )
+                if (btn != null) {
+                    ButtonPrimarySmall(
+                        modifier = Modifier.align(Alignment.CenterHorizontally),
+                        text = btn.first,
+                        onClick = btn.second
+                    )
+                }
             }
         }
     }
