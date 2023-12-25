@@ -93,10 +93,6 @@ public fun Chip(
         verticalAlignment = Alignment.CenterVertically
     ) {
 
-//        if (iconEnd != null) {
-//            PaddingXS()
-//        }
-
         if (iconStart != null) {
             IconImage(
                 modifier = Modifier.size(18.dp),
@@ -122,9 +118,5 @@ public fun Chip(
                 imageVector = iconEnd
             )
         }
-
-//        if (iconStart != null) {
-//            PaddingS()
-//        }
     }
 }

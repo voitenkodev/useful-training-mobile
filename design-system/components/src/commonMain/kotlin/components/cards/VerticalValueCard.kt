@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.style.TextAlign
 import atom.Design
@@ -19,8 +20,8 @@ import molecule.secondaryDefaultBackground
 @Composable
 public fun VerticalValueCard(
     modifier: Modifier = Modifier,
-    title: String,
-    description: String,
+    title: Pair<String, Color>,
+    description: Pair<String, Color>,
     icon: ImageVector
 ) {
     Column(
@@ -42,16 +43,16 @@ public fun VerticalValueCard(
 
         TextH3(
             textAlign = TextAlign.Center,
-            provideText = { description },
+            provideText = { description.first },
             maxLines = 1,
-            color = Design.colors.orange
+            color = description.second
         )
 
         TextBody3(
             textAlign = TextAlign.Center,
             maxLines = 1,
-            provideText = { title },
-            color = Design.colors.content
+            provideText = { title.first },
+            color = title.second
         )
     }
 }

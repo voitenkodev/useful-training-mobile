@@ -1,6 +1,7 @@
 package molecule
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredSize
@@ -29,8 +30,11 @@ public fun ButtonIconPrimary(
         modifier = modifier
             .size(Design.dp.componentL)
             .alpha(if (enabled) 1f else 0.5f)
-            .borderDefault()
-            .background(
+            .border(
+                color = Design.colors.white5,
+                width = 1.dp,
+                shape = Design.shape.circleShape
+            ).background(
                 color = backgroundColor,
                 shape = Design.shape.circleShape
             ).clip(Design.shape.circleShape),

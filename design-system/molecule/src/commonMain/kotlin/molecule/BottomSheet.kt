@@ -29,13 +29,8 @@ public fun BottomSheet(
         sheetBackgroundColor = Design.colors.secondary,
         sheetContent = {
             Column(
-                modifier = Modifier.padding(
-                    vertical = Design.dp.paddingXL,
-                    horizontal = Design.dp.paddingM
-                ),
-                content = {
-                    sheetContent.invoke(this)
-                }
+                modifier = Modifier.padding(vertical = Design.dp.paddingXL, horizontal = Design.dp.paddingM),
+                content = { sheetContent.invoke(this) }
             )
         },
         content = content

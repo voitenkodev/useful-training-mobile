@@ -1,6 +1,8 @@
 package authentication.login
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
@@ -15,15 +17,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
+import atom.Design
 import authentication.login.models.AuthStatus
 import authentication.login.models.ScreenState
 import components.Error
-import components.buttons.ButtonQuestion
 import components.inputs.InputEmail
 import components.inputs.InputPassword
 import components.overlay.AlphaOverlay
 import components.roots.ScreenRoot
 import molecule.ButtonPrimary
+import molecule.ButtonTextLink
 import molecule.PaddingL
 import molecule.PaddingM
 import molecule.PaddingWeight
@@ -133,12 +137,22 @@ private fun Content(
 
             PaddingL()
 
-            ButtonQuestion(
+            Row(
                 modifier = Modifier.fillMaxWidth(),
-                question = "Don't have an account yet?",
-                answer = "Join Us!",
-                onClick = registrationProvider
-            )
+                horizontalArrangement = Arrangement.spacedBy(4.dp, Alignment.CenterHorizontally),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+
+                TextBody2(
+                    provideText = { "Don't have an account yet?" },
+                    color = Design.colors.caption
+                )
+
+                ButtonTextLink(
+                    text = "Join Us!",
+                    onClick = registrationProvider
+                )
+            }
 
             PaddingL()
         }

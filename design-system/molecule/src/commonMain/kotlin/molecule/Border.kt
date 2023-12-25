@@ -7,15 +7,6 @@ import androidx.compose.ui.unit.dp
 import atom.Design
 
 @Composable
-public fun Modifier.borderDefault(): Modifier {
-    return border(
-        color = Design.colors.white5,
-        width = 1.dp,
-        shape = Design.shape.default
-    )
-}
-
-@Composable
 public fun Modifier.borderSmall(): Modifier {
     return border(
         color = Design.colors.white5,

@@ -29,34 +29,34 @@ internal fun Achievements() {
         ) {
             VerticalValueCard(
                 modifier = Modifier.weight(1f).border(
-                    color = Design.colors.orange,
+                    color = Design.colors.toxic,
                     width = 1.dp,
                     shape = Design.shape.default
                 ),
-                title = "Volume",
-                description = 3546.0.kg(false),
+                title = "Volume" to Design.colors.content,
+                description = 3546.0.kg(false) to Design.colors.toxic,
                 icon = Icons.weight
             )
 
             VerticalValueCard(
                 modifier = Modifier.weight(1f).border(
-                    color = Design.colors.orange,
+                    color = Design.colors.toxic,
                     width = 1.dp,
                     shape = Design.shape.default
                 ),
-                title = "P/M",
-                description = 1500.0.kg(false),
+                title = "P/M" to Design.colors.caption,
+                description = 1500.0.kg(false) to Design.colors.toxic,
                 icon = Icons.handWeight
             )
 
             VerticalValueCard(
                 modifier = Modifier.weight(1f).border(
-                    color = Design.colors.orange,
+                    color = Design.colors.toxic,
                     width = 1.dp,
                     shape = Design.shape.default
                 ),
-                title = "Count",
-                description = 50.toString(),
+                title = "Count" to Design.colors.content,
+                description = 50.toString() to Design.colors.toxic,
                 icon = Icons.time
             )
         }

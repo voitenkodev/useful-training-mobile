@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -67,20 +68,20 @@ internal fun TrainingOverview(
         }
 
         Column(
-            modifier = Modifier.weight(1f),
+            modifier = Modifier.width(100.dp),
             verticalArrangement = Arrangement.spacedBy(Design.dp.paddingM),
         ) {
 
             VerticalValueCard(
                 icon = Icons.time,
-                title = "10M",
-                description = "Duration"
+                description = "10M" to Design.colors.content,
+                title = "Duration" to Design.colors.caption
             )
 
             VerticalValueCard(
                 icon = Icons.weight,
-                title = volume.kg(false),
-                description = "Volume"
+                description = volume.kg(false) to Design.colors.content,
+                title = "Volume" to Design.colors.caption
             )
         }
     }
