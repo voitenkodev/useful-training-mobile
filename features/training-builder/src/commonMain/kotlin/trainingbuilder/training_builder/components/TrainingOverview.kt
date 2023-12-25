@@ -68,7 +68,7 @@ internal fun TrainingOverview(
         }
 
         Column(
-            modifier = Modifier.width(100.dp),
+            modifier = Modifier.width(116.dp),
             verticalArrangement = Arrangement.spacedBy(Design.dp.paddingM),
         ) {
 
