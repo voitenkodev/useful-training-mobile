@@ -14,14 +14,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import atom.Design
 import authentication.intro.models.ScreenState
+import components.animation.Levitating
+import components.cards.UserCard
 import components.overlay.AlphaOverlay
 import components.roots.ScreenRoot
 import molecule.ButtonPrimary
-import molecule.ButtonSecondary
 import molecule.PaddingL
 import molecule.PaddingM
 import molecule.PaddingWeight
 import molecule.PaddingXL
+import molecule.TextBody1
 import molecule.TextBody2
 import molecule.TextH2
 
@@ -61,26 +63,38 @@ private fun Content(
 
             PaddingM()
 
-            TextH2(provideText = { "Welcome" }, textAlign = TextAlign.Center)
+            TextH2(provideText = { "Alien workout" }, textAlign = TextAlign.Center, color = Design.colors.toxic)
 
-            TextBody2(provideText = { "Sign in with your email" }, textAlign = TextAlign.Center)
-
-            PaddingM()
+            TextBody1(provideText = { "Get your card and take power up" }, textAlign = TextAlign.Center)
 
             PaddingWeight()
 
-            ButtonPrimary(
-                modifier = Modifier.fillMaxWidth().padding(horizontal = Design.dp.paddingM),
-                text = "Join Us",
-                onClick = registration,
+            Levitating { modifier ->
+                UserCard(
+                    modifier = modifier.padding(horizontal = Design.dp.paddingL),
+                    name = "Not identified",
+                    image = null,
+                    weight = null,
+                    height = null,
+                    buttonSecondary = "Sign In" to login
+                )
+            }
+
+            PaddingWeight()
+
+            PaddingXL()
+
+            TextBody2(
+                provideText = { "Don't have an account yet?" },
+                color = Design.colors.caption
             )
 
-            PaddingL()
+            PaddingM()
 
-            ButtonSecondary(
-                modifier = Modifier.fillMaxWidth().padding(horizontal = Design.dp.paddingM),
-                text = "Sign In",
-                onClick = login
+            ButtonPrimary(
+                modifier = Modifier.fillMaxWidth(0.5f),
+                text = "Join Us",
+                onClick = registration
             )
 
             PaddingL()

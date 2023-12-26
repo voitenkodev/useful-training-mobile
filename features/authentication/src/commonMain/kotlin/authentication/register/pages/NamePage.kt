@@ -2,6 +2,7 @@ package authentication.register.pages
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.runtime.Composable
@@ -55,6 +56,7 @@ internal fun NamePage(
         PaddingWeight()
 
         ButtonPrimary(
+            modifier = Modifier.fillMaxWidth(0.5f),
             text = "Confirm",
             onClick = confirmProvider,
             enabled = name.isNotBlank()

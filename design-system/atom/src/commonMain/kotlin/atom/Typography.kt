@@ -12,7 +12,7 @@ import resources.Fonts
 @Composable
 internal fun typography() = Typography(
     H1 = TextStyle(
-        fontSize = 44.sp,
+        fontSize = 34.sp,
         fontWeight = FontWeight.Bold,
         fontStyle = FontStyle.Normal,
         fontFamily = Fonts.GunterzFamily()

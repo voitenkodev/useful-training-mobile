@@ -121,6 +121,7 @@ private fun Content(
             PaddingWeight()
 
             ButtonPrimary(
+                modifier = Modifier.fillMaxWidth(0.5f),
                 text = "Sign In",
                 onClick = loginProvider,
                 enabled = email.isNotBlank() && password.isNotBlank(),

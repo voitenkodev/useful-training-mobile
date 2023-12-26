@@ -81,9 +81,10 @@ private fun Content(
                 UserCard(
                     modifier = modifier.padding(Design.dp.paddingL),
                     name = name,
+                    image = "https://static.vecteezy.com/system/resources/previews/017/067/906/original/ufo-seamless-background-free-vector.jpg",
                     weight = weight,
                     height = height,
-                    btn = "Pick Up" to toTrainings
+                    buttonPrimary = "Pick Up" to toTrainings
                 )
             }
 
