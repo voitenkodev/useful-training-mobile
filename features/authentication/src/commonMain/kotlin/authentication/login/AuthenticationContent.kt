@@ -106,9 +106,9 @@ private fun Content(
 
             PaddingM()
 
-            TextH2(provideText = { "Alien Workout" }, textAlign = TextAlign.Center)
+            TextH2(provideText = { "Sign In" }, textAlign = TextAlign.Center)
 
-            TextBody2(provideText = { "Take your power-up" }, textAlign = TextAlign.Center)
+            TextBody2(provideText = { "Sign in with your email" }, textAlign = TextAlign.Center)
 
             PaddingXL()
 
