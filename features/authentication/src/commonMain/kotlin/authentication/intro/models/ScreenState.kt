@@ -1,4 +1,4 @@
-package authentication.login.models
+package authentication.intro.models
 
 import androidx.compose.runtime.Immutable
 

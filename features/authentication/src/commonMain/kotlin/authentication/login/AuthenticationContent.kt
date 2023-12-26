@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -20,11 +19,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import atom.Design
 import authentication.login.models.AuthStatus
-import authentication.login.models.ScreenState
 import components.Error
 import components.inputs.InputEmail
 import components.inputs.InputPassword
-import components.overlay.AlphaOverlay
 import components.roots.ScreenRoot
 import molecule.ButtonPrimary
 import molecule.ButtonTextLink
@@ -57,9 +54,7 @@ internal fun AuthenticationContent(
         email = state.email,
         updateEmail = vm::updateEmail,
         password = state.password,
-        updatePassword = vm::updatePassword,
-        screenState = state.screenState,
-        markScreenAsShowedOnce = vm::markScreenAsShowedOnce
+        updatePassword = vm::updatePassword
     )
 }
 
@@ -68,9 +63,6 @@ private fun Content(
     loading: () -> Boolean,
     error: () -> String?,
     clearError: () -> Unit,
-
-    screenState: ScreenState,
-    markScreenAsShowedOnce: () -> Unit,
 
     login: () -> Unit,
     registration: () -> Unit,
@@ -98,7 +90,7 @@ private fun Content(
     ) {
 
         Column(
-            modifier = Modifier.fillMaxSize().padding().systemBarsPadding(),
+            modifier = Modifier.fillMaxSize().systemBarsPadding(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
@@ -156,11 +148,5 @@ private fun Content(
 
             PaddingL()
         }
-
-        AlphaOverlay(
-            modifier = Modifier.fillMaxSize(),
-            condition = screenState == ScreenState.Default,
-            finishedListener = markScreenAsShowedOnce
-        )
     }
 }

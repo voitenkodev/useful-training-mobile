@@ -1,6 +1,8 @@
 package authentication
 
 import androidx.compose.runtime.Composable
+import authentication.intro.IntroContent
+import authentication.intro.IntroViewModel
 import authentication.login.AuthenticationContent
 import authentication.login.AuthenticationViewModel
 import authentication.register.RegistrationContent
@@ -24,6 +26,7 @@ import io.github.xxfast.decompose.router.rememberRouter
 @Parcelize
 public sealed class AuthenticationRouter : Parcelable {
     public data object Splash : AuthenticationRouter()
+    public data object Intro : AuthenticationRouter()
     public data object Login : AuthenticationRouter()
     public data object Registration : AuthenticationRouter()
     public data object SuccessRegistration : AuthenticationRouter()
@@ -46,7 +49,19 @@ public fun AuthenticationGraph(toTrainings: () -> Unit) {
                 SplashContent(
                     vm = vm,
                     toTrainings = toTrainings,
-                    toAuthentication = { router.replaceAll(AuthenticationRouter.Login) }
+                    toAuthentication = { router.replaceAll(AuthenticationRouter.Intro) }
+                )
+            }
+
+            AuthenticationRouter.Intro -> {
+                val vm = rememberOnRoute(IntroViewModel::class) {
+                    IntroViewModel()
+                }
+
+                IntroContent(
+                    vm = vm,
+                    toLogin = { router.push(AuthenticationRouter.Login) },
+                    toRegistration = { router.push(AuthenticationRouter.Registration) }
                 )
             }
 

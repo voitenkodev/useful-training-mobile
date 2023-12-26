@@ -4,7 +4,6 @@ import AuthenticationRepository
 import UserRepository
 import ViewModel
 import authentication.login.models.AuthStatus
-import authentication.login.models.ScreenState
 import isEmailValid
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -42,10 +41,6 @@ internal class AuthenticationViewModel : ViewModel() {
 
     fun clearError() {
         _state.update { it.copy(error = null) }
-    }
-
-    fun markScreenAsShowedOnce() {
-        _state.update { it.copy(screenState = ScreenState.ShowedOnce) }
     }
 
     fun updateEmail(value: String) {
