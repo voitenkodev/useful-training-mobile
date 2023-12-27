@@ -73,12 +73,13 @@ internal fun MainGraph(toAuthentication: () -> Unit) {
                                 }
                                 router.push(MainRouter.SearchExercise(itemAction = action, autoFocus = true))
                             },
-                            toExerciseExampleDetails = {
-                                val action: Pair<String, (String) -> Unit> = "Select" to { id: String ->
+                            toExerciseExampleDetails = { id, isSelectable ->
+                                val action: Pair<String, (String) -> Unit>? = if (isSelectable) "Select" to { id: String ->
                                     exerciseDetailsApi.itemClick(id = id)
                                     router.pop()
-                                }
-                                router.push(MainRouter.ExerciseExample(id = it, primaryAction = action))
+                                } else null
+
+                                router.push(MainRouter.ExerciseExample(id = id, primaryAction = action))
                             }
                         )
                     }

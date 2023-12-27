@@ -119,17 +119,18 @@ internal class TrainingBuilderViewModel(muscleIds: List<String>) : ViewModel() {
                 .firstOrNull()
                 ?.toState() ?: return@launch
 
-            openAddExercisePopup(result)
+            closeFindExercisePopup()
+            openAddExercise(result)
         }
     }
 
-    fun openAddExercisePopup(index: Int, exerciseExample: ExerciseExample? = null) {
+    fun openAddExercise(index: Int, exerciseExample: ExerciseExample? = null) {
         _state.update {
             it.copy(setExerciseState = SetExerciseState.Opened(index = index, exerciseExample = exerciseExample))
         }
     }
 
-    fun openAddExercisePopup(exerciseExample: ExerciseExample? = null) {
+    fun openAddExercise(exerciseExample: ExerciseExample? = null) {
         val newIndex = state.value.training.exercises.lastIndex + 1
 
         _state.update {

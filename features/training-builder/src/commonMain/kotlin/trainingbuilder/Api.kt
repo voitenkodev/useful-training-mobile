@@ -28,7 +28,7 @@ public fun TrainingGraph(
     close: () -> Unit,
     toExerciseExamples: () -> Unit,
     searchExerciseExampleId: Flow<String>,
-    toExerciseExampleDetails: (id: String) -> Unit
+    toExerciseExampleDetails: (id: String, isSelectable: Boolean) -> Unit
 ) {
 
     val router: Router<TrainingRouter> = rememberRouter(TrainingRouter::class) {

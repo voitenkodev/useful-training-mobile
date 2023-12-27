@@ -14,10 +14,12 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import atom.Design
 import components.Error
+import components.overlay.BottomShadow
 import components.overlay.TopShadow
 import components.roots.ScreenRoot
 import exerciseexample.main.components.Achievements
@@ -27,6 +29,7 @@ import exerciseexample.main.components.MusclePack
 import exerciseexample.main.components.ResentVolume
 import exerciseexample.main.models.ExerciseExample
 import molecule.ButtonPrimary
+import molecule.PaddingM
 import molecule.PaddingXL
 
 @Composable
@@ -67,7 +70,7 @@ private fun Content(
             PaddingXL()
 
 //            Tutorial(url = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4", onClick = {})
-//
+
 //            PaddingXL()
 
             MusclePack(exerciseExample = exerciseExample)
@@ -84,20 +87,31 @@ private fun Content(
 
             ResentVolume()
 
+            Spacer(modifier = Modifier.statusBarsPadding().height(Design.dp.paddingXL))
+
             if (primaryAction != null) {
+                PaddingM()
                 Spacer(modifier = Modifier.size(Design.dp.componentM))
             }
-
-            PaddingXL()
         }
 
-        Box(modifier = Modifier.fillMaxWidth().height(IntrinsicSize.Min)) {
-            TopShadow(modifier = Modifier.fillMaxSize())
+        Box {
+            Box(modifier = Modifier.fillMaxWidth().height(IntrinsicSize.Min)) {
+                TopShadow(modifier = Modifier.fillMaxSize())
+                Spacer(modifier = Modifier.statusBarsPadding().height(Design.dp.paddingXL))
+            }
+        }
 
-            Column {
+        Box(modifier = Modifier.fillMaxWidth().align(Alignment.BottomCenter).height(IntrinsicSize.Min)) {
+
+            BottomShadow(modifier = Modifier.fillMaxSize())
+
+            Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+
                 if (primaryAction != null) {
+
                     ButtonPrimary(
-                        modifier = Modifier.statusBarsPadding().fillMaxWidth(0.5f),
+                        modifier = Modifier.fillMaxWidth(0.5f),
                         text = primaryAction.first,
                         onClick = { primaryAction.second.invoke(exerciseExample?.id ?: return@ButtonPrimary) }
                     )

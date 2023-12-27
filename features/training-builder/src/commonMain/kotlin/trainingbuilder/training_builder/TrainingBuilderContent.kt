@@ -52,7 +52,7 @@ import trainingbuilder.training_builder.popups.FindExercisePopup
 internal fun TrainingBuilderContent(
     vm: TrainingBuilderViewModel,
     close: () -> Unit,
-    toExerciseExampleDetails: (id: String) -> Unit,
+    toExerciseExampleDetails: (id: String, isSelectable: Boolean) -> Unit,
     toSearchExerciseExample: () -> Unit,
     searchExerciseExampleId: Flow<String>
 ) {
@@ -79,10 +79,10 @@ internal fun TrainingBuilderContent(
                 loading = state.recommendationsLoading,
                 selectedMuscle = state.selectedMuscle,
                 setMuscleTarget = vm::setMuscleTarget,
-                selectExercise = vm::openAddExercisePopup,
-                createExercise = vm::openAddExercisePopup,
+                selectExercise = vm::openAddExercise,
+                createExercise = vm::openAddExercise,
                 search = toSearchExerciseExample,
-                toExerciseExampleDetails = toExerciseExampleDetails
+                toExerciseExampleDetails = { id -> toExerciseExampleDetails.invoke(id, true) }
             )
         }
     )
@@ -99,7 +99,7 @@ internal fun TrainingBuilderContent(
                     volume = state.training.volume,
                     addExercise = vm::openFindExercisePopup,
                     exercises = state.training.exercises,
-                    selectExercise = vm::openAddExercisePopup,
+                    selectExercise = vm::openAddExercise,
                     finish = { vm.saveTraining { close.invoke() } }
                 )
 
@@ -115,7 +115,7 @@ internal fun TrainingBuilderContent(
                         selectedExercise = selectedExercise,
                         exerciseExample = popupState?.exerciseExample,
                         save = vm::saveExercise,
-                        toExerciseExampleDetails = toExerciseExampleDetails
+                        toExerciseExampleDetails = { id -> toExerciseExampleDetails.invoke(id, false) }
                     )
                 }
             }
