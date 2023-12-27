@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -25,11 +26,13 @@ import exerciseexample.main.components.HeapMap
 import exerciseexample.main.components.MusclePack
 import exerciseexample.main.components.ResentVolume
 import exerciseexample.main.models.ExerciseExample
+import molecule.ButtonPrimary
 import molecule.PaddingXL
 
 @Composable
 internal fun ExerciseExampleContent(
     vm: ExerciseExampleViewModel,
+    primaryAction: (Pair<String, (id: String) -> Unit>)?,
     close: () -> Unit
 ) {
 
@@ -38,6 +41,7 @@ internal fun ExerciseExampleContent(
     Content(
         error = { state.error },
         clearError = vm::clearError,
+        primaryAction = primaryAction,
         exerciseExample = state.exerciseExample,
         fullFrontImage = state.fullFrontImageVector,
         fullBackImage = state.fullBackImageVector
@@ -48,6 +52,7 @@ internal fun ExerciseExampleContent(
 private fun Content(
     error: () -> String?,
     clearError: () -> Unit,
+    primaryAction: (Pair<String, (id: String) -> Unit>)?,
     exerciseExample: ExerciseExample?,
     fullFrontImage: ImageVector,
     fullBackImage: ImageVector
@@ -79,12 +84,27 @@ private fun Content(
 
             ResentVolume()
 
+            if (primaryAction != null) {
+                Spacer(modifier = Modifier.size(Design.dp.componentM))
+            }
+
             PaddingXL()
         }
 
         Box(modifier = Modifier.fillMaxWidth().height(IntrinsicSize.Min)) {
             TopShadow(modifier = Modifier.fillMaxSize())
-            Spacer(modifier = Modifier.statusBarsPadding().height(Design.dp.paddingXL))
+
+            Column {
+                if (primaryAction != null) {
+                    ButtonPrimary(
+                        modifier = Modifier.statusBarsPadding().fillMaxWidth(0.5f),
+                        text = primaryAction.first,
+                        onClick = { primaryAction.second.invoke(exerciseExample?.id ?: return@ButtonPrimary) }
+                    )
+                }
+
+                Spacer(modifier = Modifier.statusBarsPadding().height(Design.dp.paddingXL))
+            }
         }
     }
 }

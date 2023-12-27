@@ -8,10 +8,13 @@ import com.arkivanov.decompose.router.stack.pop
 import com.arkivanov.decompose.router.stack.push
 import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.parcelable.Parcelize
+import exerciseexample.ExerciseExampleComponent
+import exerciseexample.ExerciseExampleController
 import exerciseexample.ExerciseExampleGraph
 import io.github.xxfast.decompose.router.Router
 import io.github.xxfast.decompose.router.content.RoutedContent
 import io.github.xxfast.decompose.router.rememberRouter
+import kotlinx.coroutines.flow.merge
 import searchexercise.SearchExerciseComponent
 import searchexercise.SearchExerciseController
 import searchexercise.SearchExerciseGraph
@@ -20,8 +23,16 @@ import trainingbuilder.TrainingGraph
 @Parcelize
 internal sealed class MainRouter : Parcelable {
     data class Training(val id: String? = null) : MainRouter()
-    data class ExerciseExample(val id: String) : MainRouter()
-    data class SearchExercise(val action: Pair<String, (id: String) -> Unit>?) : MainRouter()
+    data class ExerciseExample(
+        val id: String,
+        val primaryAction: Pair<String, (id: String) -> Unit>?
+    ) : MainRouter()
+
+    data class SearchExercise(
+        val autoFocus: Boolean,
+        val itemAction: Pair<String, (id: String) -> Unit>?
+    ) : MainRouter()
+
     data object BottomMenu : MainRouter()
 }
 
@@ -32,41 +43,77 @@ internal fun MainGraph(toAuthentication: () -> Unit) {
         listOf(MainRouter.BottomMenu)
     }
 
-    SearchExerciseComponent {
+    ExerciseExampleComponent {
 
-        RoutedContent(router = router, animation = stackAnimation(slide(orientation = Orientation.Vertical))) { child ->
-            when (child) {
-                is MainRouter.BottomMenu -> BottomMenuGraph(
-                    toTrainingBuilder = { trainingId: String? -> router.push(MainRouter.Training(trainingId)) },
-                    toTrainingDetails = {},
-                    toAuthentication = toAuthentication,
-                    toExerciseExamples = { router.push(MainRouter.SearchExercise(action = null)) }
-                )
+        SearchExerciseComponent {
 
-                is MainRouter.Training -> {
-                    val api = SearchExerciseController.api
+            RoutedContent(router = router, animation = stackAnimation(slide(orientation = Orientation.Vertical))) { child ->
+                when (child) {
+                    is MainRouter.BottomMenu -> BottomMenuGraph(
+                        toTrainingBuilder = { trainingId: String? -> router.push(MainRouter.Training(trainingId)) },
+                        toTrainingDetails = {},
+                        toAuthentication = toAuthentication,
+                        toExerciseExamples = { router.push(MainRouter.SearchExercise(itemAction = null, autoFocus = false)) }
+                    )
 
-                    TrainingGraph(
-                        close = router::pop,
-                        searchExerciseExampleId = api.exerciseExampleId,
-                        toExerciseExamples = {
-                            val action = "Select" to { id: String -> api.select(id = id); router.pop() }
-                            router.push(MainRouter.SearchExercise(action = action))
-                        },
-                        toExerciseExampleDetails = { router.push(MainRouter.ExerciseExample(it)) }
+                    is MainRouter.Training -> {
+                        val exerciseSearchApi = SearchExerciseController.api
+                        val exerciseDetailsApi = SearchExerciseController.api
+
+                        TrainingGraph(
+                            close = router::pop,
+                            searchExerciseExampleId = merge(
+                                exerciseDetailsApi.exerciseExampleId,
+                                exerciseSearchApi.exerciseExampleId
+                            ),
+                            toExerciseExamples = {
+                                val action: Pair<String, (String) -> Unit> = "Select" to { id: String ->
+                                    exerciseSearchApi.itemClick(id = id)
+                                    router.pop()
+                                }
+                                router.push(MainRouter.SearchExercise(itemAction = action, autoFocus = true))
+                            },
+                            toExerciseExampleDetails = {
+                                val action: Pair<String, (String) -> Unit> = "Select" to { id: String ->
+                                    exerciseDetailsApi.itemClick(id = id)
+                                    router.pop()
+                                }
+                                router.push(MainRouter.ExerciseExample(id = it, primaryAction = action))
+                            }
+                        )
+                    }
+
+                    is MainRouter.SearchExercise -> {
+                        val api = ExerciseExampleController.api
+
+                        SearchExerciseGraph(
+                            autoFocus = child.autoFocus,
+                            itemAction = child.itemAction,
+                            close = router::pop,
+                            toDetails = {
+                                val parentActionText = child.itemAction?.first
+                                val parentActionLambda = child.itemAction?.second
+
+                                val action = if (parentActionLambda != null && parentActionText != null) {
+                                    parentActionText to { id: String ->
+                                        api.primaryActionClick(id = id) // details action
+                                        router.pop() // close details
+
+                                        parentActionLambda.invoke(id)
+                                    }
+                                } else null
+
+                                router.push(MainRouter.ExerciseExample(id = it, primaryAction = action))
+                            }
+                        )
+                    }
+
+                    is MainRouter.ExerciseExample -> ExerciseExampleGraph(
+                        id = child.id,
+                        primaryAction = child.primaryAction,
+                        close = router::pop
                     )
                 }
-
-                is MainRouter.SearchExercise -> SearchExerciseGraph(
-                    close = router::pop,
-                    toDetails = { router.push(MainRouter.ExerciseExample(it)) },
-                    action = child.action
-                )
-
-                is MainRouter.ExerciseExample -> ExerciseExampleGraph(
-                    id = child.id,
-                    close = router::pop
-                )
             }
         }
     }

@@ -20,9 +20,10 @@ public sealed class SearchExerciseFeature : Parcelable {
 
 @Composable
 public fun SearchExerciseGraph(
+    autoFocus: Boolean,
     close: () -> Unit,
     toDetails: (id: String) -> Unit,
-    action: (Pair<String, (id: String) -> Unit>)?
+    itemAction: (Pair<String, (id: String) -> Unit>)?
 ) {
 
     val router: Router<SearchExerciseFeature> = rememberRouter(SearchExerciseFeature::class) {
@@ -37,9 +38,10 @@ public fun SearchExerciseGraph(
                 }
 
                 SearchExerciseContent(
+                    autoFocus = autoFocus,
                     vm = vm,
                     toDetails = toDetails,
-                    action = action,
+                    itemAction = itemAction,
                     close = close
                 )
             }

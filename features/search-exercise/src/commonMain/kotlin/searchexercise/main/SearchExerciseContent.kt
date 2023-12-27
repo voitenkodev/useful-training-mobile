@@ -24,7 +24,8 @@ import searchexercise.main.models.ExerciseExample
 @Composable
 internal fun SearchExerciseContent(
     vm: SearchExerciseViewModel,
-    action: (Pair<String, (id: String) -> Unit>)?,
+    autoFocus: Boolean,
+    itemAction: (Pair<String, (id: String) -> Unit>)?,
     toDetails: (id: String) -> Unit,
     close: () -> Unit
 ) {
@@ -35,24 +36,26 @@ internal fun SearchExerciseContent(
         error = { state.error },
         loading = state.loading,
         clearError = vm::clearError,
+        autoFocus = autoFocus,
         query = state.query,
         setQuery = vm::setQuery,
         exerciseExamples = state.exerciseExamples,
         toDetails = toDetails,
         close = close,
-        action = action
+        itemAction = itemAction
     )
 }
 
 @Composable
 private fun Content(
+    autoFocus: Boolean,
     error: () -> String?,
     loading: Boolean,
     clearError: () -> Unit,
     query: String,
     setQuery: (String) -> Unit,
     exerciseExamples: ImmutableList<ExerciseExample>,
-    action: (Pair<String, (id: String) -> Unit>)?,
+    itemAction: (Pair<String, (id: String) -> Unit>)?,
     toDetails: (id: String) -> Unit,
     close: () -> Unit
 ) {
@@ -62,6 +65,7 @@ private fun Content(
         Column(modifier = Modifier.fillMaxWidth().primaryBackground()) {
 
             Header(
+                autoFocus = autoFocus,
                 query = query,
                 setQuery = setQuery,
                 close = close
@@ -79,9 +83,9 @@ private fun Content(
 
                 items(exerciseExamples, key = { it.id }) {
 
-                    val actionProvider = remember(action) {
-                        if (action == null) return@remember null
-                        action.first to { action.second.invoke(it.id) }
+                    val actionProvider = remember(itemAction) {
+                        if (itemAction == null) return@remember null
+                        itemAction.first to { itemAction.second.invoke(it.id) }
                     }
 
                     ExerciseCardDefault(

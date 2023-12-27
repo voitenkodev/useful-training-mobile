@@ -18,7 +18,11 @@ public sealed class ExerciseExampleFeature : Parcelable {
 }
 
 @Composable
-public fun ExerciseExampleGraph(id: String, close: () -> Unit) {
+public fun ExerciseExampleGraph(
+    id: String,
+    primaryAction: (Pair<String, (id: String) -> Unit>)?,
+    close: () -> Unit
+) {
 
     val router: Router<ExerciseExampleFeature> = rememberRouter(ExerciseExampleFeature::class) {
         listOf(ExerciseExampleFeature.Main)
@@ -30,7 +34,7 @@ public fun ExerciseExampleGraph(id: String, close: () -> Unit) {
                 val vm = rememberOnRoute(ExerciseExampleViewModel::class) {
                     ExerciseExampleViewModel(id)
                 }
-                ExerciseExampleContent(vm = vm, close = close)
+                ExerciseExampleContent(vm = vm, primaryAction = primaryAction, close = close)
             }
         }
     }

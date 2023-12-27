@@ -24,7 +24,7 @@ public data class SearchExerciseApi(
     val exerciseExampleId: Flow<String> = _exerciseExampleId.receiveAsFlow(),
 ) {
 
-    public fun select(id: String) {
+    public fun itemClick(id: String) {
         _exerciseExampleId.trySend(id)
     }
 }
