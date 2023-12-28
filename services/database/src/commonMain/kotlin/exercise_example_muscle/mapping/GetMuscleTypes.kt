@@ -21,7 +21,8 @@ internal fun List<GetMuscleTypes>.mapToDao(): List<MuscleTypeDao> {
                 muscleTypeId = muscle.id,
                 id = muscle.muscleId ?: return@mapMuscles null,
                 name = muscle.muscleName ?: return@mapMuscles null,
-                type = muscle.muscleType ?: return@mapMuscles null
+                type = muscle.muscleType ?: return@mapMuscles null,
+                status = muscle.muscleStatus ?: return@mapMuscles null,
             )
         }
 

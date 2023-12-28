@@ -10,6 +10,7 @@ internal fun GetMusclesById.mapToDao(): MuscleDao {
         type = type,
         muscleTypeId = muscleTypeId,
         createdAt = createdAt,
-        updatedAt = updatedAt
+        updatedAt = updatedAt,
+        status = status
     )
 }

@@ -16,6 +16,7 @@ internal fun MuscleDao.daoToDomain(): Muscle {
         id = id,
         name = name,
         type = MuscleEnum.of(type),
+        status = status,
         priority = PriorityEnum.entries.toTypedArray().random() // TODO HARDCODE
     )
 }
@@ -31,7 +32,8 @@ internal fun MuscleDto.dtoToDao(): MuscleDao? {
         createdAt = createdAt ?: return null,
         updatedAt = updatedAt ?: return null,
         muscleTypeId = muscleTypeId ?: return null,
-        type = type ?: return null
+        type = type ?: return null,
+        status = status ?: return null
     )
 }
 
@@ -40,6 +42,7 @@ internal fun MuscleDto.dtoToDomain(): Muscle? {
         id = id ?: return null,
         name = name ?: return null,
         type = MuscleEnum.of(type ?: return null),
+        status = status ?: return null,
         priority = PriorityEnum.Medium
     )
 }

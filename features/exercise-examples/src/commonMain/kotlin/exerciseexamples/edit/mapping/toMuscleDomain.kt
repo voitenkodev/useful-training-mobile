@@ -9,6 +9,7 @@ internal fun Muscle.toDomain(): models.Muscle {
         name = name,
         id = id,
         type = type.toDomain(),
+        status = "", // doesn't make sense for body
         priority = PriorityEnum.Medium // doesn't make sense for body
     )
 }

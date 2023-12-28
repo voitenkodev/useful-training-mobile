@@ -101,7 +101,8 @@ public class ExerciseExamplesSource(nativeContext: NativeContext) {
                         createdAt = muscle.createdAt,
                         updatedAt = muscle.updatedAt,
                         muscleTypeId = muscleType.id,
-                        type = muscle.type
+                        type = muscle.type,
+                        status = muscle.status
                     )
                 }
             }

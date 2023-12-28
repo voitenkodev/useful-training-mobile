@@ -20,6 +20,7 @@ CREATE TABLE IF NOT EXISTS Muscle (
     id TEXT NOT NULL PRIMARY KEY,
     muscleTypeId TEXT NOT NULL REFERENCES MuscleType(id) ON DELETE CASCADE,
     name TEXT NOT NULL,
+    status TEXT NOT NULL,
     type TEXT NOT NULL,
     createdAt TEXT NOT NULL,
     updatedAt TEXT NOT NULL
@@ -52,6 +53,7 @@ SELECT
   Muscle.name AS muscleName,
   Muscle.type AS muscleType,
   Muscle.muscleTypeId AS muscleMuscleTypeId,
+  Muscle.status AS muscleStatus,
   Muscle.updatedAt AS muscleUpdatedAt,
   Muscle.createdAt AS muscleCreatedAt
 
@@ -76,8 +78,9 @@ SELECT
 
   Muscle.id AS muscleId,
   Muscle.name AS muscleName,
-  Muscle.muscleTypeId AS muscleMuscleTypeId,
   Muscle.type AS muscleType,
+  Muscle.muscleTypeId AS muscleMuscleTypeId,
+  Muscle.status AS muscleStatus,
   Muscle.updatedAt AS muscleUpdatedAt,
   Muscle.createdAt AS muscleCreatedAt
 FROM ExerciseExample
@@ -100,6 +103,7 @@ SELECT
   Muscle.id AS id,
   Muscle.name AS name,
   Muscle.muscleTypeId AS muscleTypeId,
+  Muscle.status AS status,
   Muscle.type AS type,
   Muscle.updatedAt AS updatedAt,
   Muscle.createdAt AS createdAt
@@ -117,6 +121,7 @@ SELECT
   Muscle.id AS muscleId,
   Muscle.name AS muscleName,
   Muscle.muscleTypeId AS muscleMuscleTypeId,
+  Muscle.status AS muscleStatus,
   Muscle.type AS muscleType,
   Muscle.updatedAt AS muscleUpdatedAt,
   Muscle.createdAt AS muscleCreatedAt
@@ -131,7 +136,7 @@ VALUES (?,?,?,?,?,?);
 
 setMuscle:
 INSERT OR IGNORE INTO Muscle
-VALUES (?,?,?,?,?,?);
+VALUES (?,?,?,?,?,?,?);
 
 setMuscleType:
 INSERT OR IGNORE INTO MuscleType
