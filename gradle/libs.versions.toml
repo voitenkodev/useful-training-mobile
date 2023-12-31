@@ -17,7 +17,7 @@ media3-exoplayer = "1.2.0"
 decompose = "2.0.2-compose-experimental"
 decompose-router = "0.5.1"
 immutable-collections = "0.3.6"
-image-loader = "1.7.1"
+coil3 = "3.0.0-alpha01"
 
 [libraries]
 coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
@@ -29,7 +29,6 @@ datastore = { module = "androidx.datastore:datastore-preferences-core", version.
 
 activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activity-compose" }
 appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
-image-loader = { module = "io.github.qdsfdhvh:image-loader", version.ref = "image-loader" }
 
 media3-exoplayer = { module = "androidx.media3:media3-exoplayer", version.ref = "media3-exoplayer" }
 media3-exoplayer-ui = { module = "androidx.media3:media3-ui", version.ref = "media3-exoplayer" }
@@ -46,6 +45,15 @@ ktor-serialization = { module = "io.ktor:ktor-serialization-kotlinx-json", versi
 sqldelight-android = { module = "app.cash.sqldelight:android-driver", version.ref = "sqldelight" }
 sqldelight-native = { module = "app.cash.sqldelight:native-driver", version.ref = "sqldelight" }
 sqldelight-coroutine = { module = "app.cash.sqldelight:coroutines-extensions", version.ref = "sqldelight" }
+
+coil3 = { group = "io.coil-kt.coil3", name = "coil", version.ref = "coil3" }
+coil3-core = { group = "io.coil-kt.coil3", name = "coil-core", version.ref = "coil3" }
+coil3-network = { group = "io.coil-kt.coil3", name = "coil-network", version.ref = "coil3" }
+coil3-compose-core = { group = "io.coil-kt.coil3", name = "coil-compose-core", version.ref = "coil3" }
+coil3-compose = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "coil3" }
+coil3-gif = { group = "io.coil-kt.coil3", name = "coil-gif", version.ref = "coil3" }
+coil3-video = { group = "io.coil-kt.coil3", name = "coil-video", version.ref = "coil3" }
+coil3-svg = { group = "io.coil-kt.coil3", name = "coil-svg", version.ref = "coil3" }
 
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }

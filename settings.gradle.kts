@@ -37,11 +37,11 @@ include(
     ":services:network",
     ":services:database",
     ":services:preferences",
+    ":services:image-core",
 
     "common:architecture-component",
     "common:utils",
     "common:platform-api",
-    "common:image-loader",
 
     "design-system:atom",
     "design-system:molecule",

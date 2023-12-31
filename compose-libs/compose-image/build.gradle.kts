@@ -13,7 +13,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(projects.common.imageLoader)
+                implementation(projects.services.imageCore)
                 implementation(projects.common.utils)
 
                 implementation(compose.ui)

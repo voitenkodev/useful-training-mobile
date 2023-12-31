@@ -33,6 +33,7 @@ kotlin {
                 implementation(projects.services.network)
                 implementation(projects.services.database)
                 implementation(projects.services.preferences)
+                implementation(projects.services.imageCore)
 
                 // Data
                 implementation(projects.data)
@@ -40,7 +41,6 @@ kotlin {
                 // Other
                 api(projects.common.architectureComponent) // 'api' for bridge Decompose in iOS
                 implementation(projects.common.platformApi)
-                implementation(projects.common.imageLoader)
 
                 // Design
                 implementation(projects.designSystem.atom)

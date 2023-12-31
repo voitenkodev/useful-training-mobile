@@ -1,4 +1,3 @@
-import androidx.compose.foundation.Image
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -7,9 +6,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.DefaultAlpha
 import androidx.compose.ui.layout.ContentScale
-import com.seiko.imageloader.model.ImageAction
-import com.seiko.imageloader.rememberImageAction
-import com.seiko.imageloader.rememberImageActionPainter
+import coil3.compose.AsyncImage
+import coil3.compose.AsyncImagePainter
+import coil3.compose.LocalPlatformContext
+import coil3.request.ImageRequest
 
 @Composable
 public fun AsyncImage(
@@ -20,21 +20,18 @@ public fun AsyncImage(
     alpha: Float = DefaultAlpha,
     colorFilter: ColorFilter? = null
 ) {
-    val action = rememberImageAction(url ?: "")
+    val shimmerVisibility = remember { mutableStateOf(false) }
 
-    val painter = rememberImageActionPainter(action.value)
-
-    val shimmerVisibility = remember(key1 = action.value is ImageAction.Loading) {
-        mutableStateOf(action.value is ImageAction.Loading)
-    }
-
-    Image(
+    AsyncImage(
         modifier = modifier.shimmerLoadingAnimation(shimmerVisibility.value),
+        model = ImageRequest.Builder(LocalPlatformContext.current)
+            .data(url)
+            .build(),
+        contentDescription = null,
         alignment = alignment,
+        onState = { shimmerVisibility.value = it is AsyncImagePainter.State.Loading },
         contentScale = contentScale,
         alpha = alpha,
-        colorFilter = colorFilter,
-        painter = painter,
-        contentDescription = null
+        colorFilter = colorFilter
     )
 }

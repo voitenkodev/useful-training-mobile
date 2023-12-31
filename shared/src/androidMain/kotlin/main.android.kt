@@ -1,8 +1,6 @@
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.remember
-import com.seiko.imageloader.LocalImageLoader
 import io.github.xxfast.decompose.router.LocalRouterContext
 import io.github.xxfast.decompose.router.RouterContext
 import io.github.xxfast.decompose.router.defaultRouterContext
@@ -16,7 +14,7 @@ public fun ComponentActivity.main() {
             LocalRouterContext provides rootComponentContext,
 
             // Cache image
-            LocalImageLoader provides remember { generateImageLoader(this.applicationContext) },
+//            LocalImageLoader provides remember { generateImageLoader(this.applicationContext) },
         ) {
             Main()
         }
