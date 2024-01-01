@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.map
 import models.AuthDto
 import models.RegisterDto
 import traininig_exercise_iteration.TrainingsSource
-import user.UserSource
+import user_weight.UserSource
 
 internal class AuthenticationRepositoryImpl(
     private val remote: NetworkSource,

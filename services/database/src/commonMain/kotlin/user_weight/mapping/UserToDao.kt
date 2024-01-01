@@ -1,7 +1,7 @@
-package user.mapping
+package user_weight.mapping
 
 import data.User
-import user.models.UserDao
+import user_weight.models.UserDao
 
 internal fun User.toDao(): UserDao {
     return UserDao(

@@ -8,13 +8,28 @@ CREATE TABLE IF NOT EXISTS User (
     updatedAt TEXT
 );
 
+CREATE TABLE IF NOT EXISTS UserWeights (
+    id TEXT NOT NULL PRIMARY KEY,
+    weight REAL NOT NULL,
+    createdAt TEXT NOT NULL,
+    updatedAt TEXT NOT NULL
+);
+
 -------------- GET --------------
+
+getUserWeights:
+SELECT *
+FROM UserWeights;
 
 getUser:
 SELECT *
 FROM User;
 
 -------------- SET --------------
+
+setUserWeights:
+INSERT OR REPLACE INTO UserWeights
+VALUES (?,?,?,?);
 
 setUser:
 INSERT OR REPLACE INTO User
@@ -24,3 +39,6 @@ VALUES (?,?,?,?,?,?,?);
 
 deleteTableUser:
 DELETE FROM User;
+
+deleteTableUserWeights:
+DELETE FROM UserWeights;

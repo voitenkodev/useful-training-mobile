@@ -9,7 +9,8 @@ import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import models.User
-import user.UserSource
+import models.UserWeights
+import user_weight.UserSource
 
 internal class UserRepositoryImpl(
     private val remote: NetworkSource,
@@ -27,6 +28,20 @@ internal class UserRepositoryImpl(
         return flow {
             val result = remote.getUser().dtoToDao()
             if (result != null) local.setUser(result)
+            emit(Unit)
+        }
+    }
+
+    override fun observeUserWeights(): Flow<List<UserWeights>> {
+        return local
+            .getUserWeights()
+            .map { it.daoToDomain() }
+    }
+
+    override fun syncUserWeights(): Flow<Unit> {
+        return flow {
+            val result = remote.getUserWeights().dtoToDao()
+            local.setUserWeights(result)
             emit(Unit)
         }
     }

@@ -11,6 +11,7 @@ import models.RegisterDto
 import models.TokenDto
 import models.TrainingDto
 import models.UserDto
+import models.UserWeightsDto
 
 public class NetworkSource(private val clientBackend: ClientBackend) {
 
@@ -96,6 +97,13 @@ public class NetworkSource(private val clientBackend: ClientBackend) {
         return callRequest(
             method = HttpMethod.Get,
             path = "/users/profile"
+        )
+    }
+
+    public suspend fun getUserWeights(): List<UserWeightsDto> {
+        return callRequest(
+            method = HttpMethod.Get,
+            path = "/user-weights"
         )
     }
 
