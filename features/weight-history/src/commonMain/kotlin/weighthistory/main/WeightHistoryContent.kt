@@ -19,6 +19,7 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -82,6 +83,10 @@ private fun Content(
     close: () -> Unit
 ) {
 
+    val reversedList = remember(weightHistory){
+        weightHistory.reversed()
+    }
+
     ScreenRoot(error = { Error(message = { error() }, close = clearError) }) {
 
         Column(modifier = Modifier.fillMaxWidth().primaryBackground()) {
@@ -100,7 +105,7 @@ private fun Content(
                             .fillMaxWidth()
                             .padding(horizontal = Design.dp.paddingXL)
                             .height(130.dp),
-                        values = weightHistory.map { it.weight.toFloat() },
+                        values = reversedList.map { it.weight.toFloat() },
                         chartStyle = LineChartStyle(
                             lineColor = Design.colors.content,
                             labelStyle = LineChartLabelStyle(

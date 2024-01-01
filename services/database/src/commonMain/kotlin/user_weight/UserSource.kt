@@ -49,18 +49,18 @@ public class UserSource(nativeContext: NativeContext) {
 
     public fun setWeightHistories(list: List<WeightHistoryDao>) {
         api.transaction {
+            api.deleteTableWeightHistory()
             list.forEach { item -> setWeightHistory(item) }
         }
     }
 
     public fun setWeightHistory(dao: WeightHistoryDao) {
-        api
-            .setWeightHistory(
-                id = dao.id,
-                weight = dao.weight,
-                updatedAt = dao.updatedAt,
-                createdAt = dao.createdAt
-            )
+        api.setWeightHistory(
+            id = dao.id,
+            weight = dao.weight,
+            updatedAt = dao.updatedAt,
+            createdAt = dao.createdAt
+        )
     }
 
     public fun clearTable() {

@@ -1,10 +1,12 @@
 package weighthistory.main.popups
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -19,7 +21,9 @@ import molecule.ButtonPrimary
 import molecule.PaddingWeight
 import molecule.PaddingXL
 import molecule.TextH1
+import molecule.Toolbar
 import molecule.secondaryBackground
+import resources.Icons
 import weightpicker.WeightPicker
 import weightpicker.WeightPickerStyle
 
@@ -33,9 +37,14 @@ internal fun WeightPickerPopup(
     val weight = remember { mutableStateOf(initialWeight) }
 
     Column(
-        modifier = Modifier.fillMaxWidth().fillMaxHeight(0.9f),
+        modifier = Modifier.fillMaxSize().statusBarsPadding(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+
+        Toolbar(
+            title = "",
+            icon = Icons.close to close
+        )
 
         PaddingWeight()
 
@@ -60,6 +69,7 @@ internal fun WeightPickerPopup(
                 arrowColor = Design.colors.white5
             )
         )
+
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -69,7 +79,7 @@ internal fun WeightPickerPopup(
         ) {
 
             ButtonPrimary(
-                modifier = Modifier,
+                modifier = Modifier.width(Design.dp.componentXL),
                 text = "apply",
                 onClick = {
                     apply.invoke(weight.value)
