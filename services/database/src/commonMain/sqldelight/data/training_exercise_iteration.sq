@@ -2,11 +2,11 @@ import kotlin.String;
 
 CREATE TABLE IF NOT EXISTS Training (
     id TEXT NOT NULL PRIMARY KEY,
-    duration INTEGER,
+    duration INTEGER NOT NULL,
     createdAt INTEGER AS String,
-    volume REAL,
+    volume REAL NOT NULL,
     repetitions INTEGER,
-    intensity REAL,
+    intensity REAL NOT NULL,
     updatedAt INTEGER AS String
 );
 
@@ -14,21 +14,21 @@ CREATE TABLE IF NOT EXISTS Exercise (
     id TEXT NOT NULL PRIMARY KEY,
     trainingId TEXT NOT NULL REFERENCES Training(id) ON DELETE CASCADE,
     exerciseExampleId TEXT REFERENCES ExerciseExample(id),
-    name TEXT,
-    volume REAL,
-    repetitions INTEGER,
-    intensity REAL,
-    createdAt TEXT,
-    updatedAt TEXT
+    name TEXT NOT NULL,
+    volume REAL NOT NULL,
+    repetitions INTEGER NOT NULL,
+    intensity REAL NOT NULL,
+    createdAt TEXT NOT NULL,
+    updatedAt TEXT NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS  Iteration (
     id TEXT NOT NULL PRIMARY KEY,
     exerciseId TEXT NOT NULL REFERENCES Exercise(id) ON DELETE CASCADE,
-    weight REAL,
-    repetitions INTEGER,
-    createdAt TEXT,
-    updatedAt TEXT
+    weight REAL NOT NULL,
+    repetitions INTEGER NOT NULL,
+    createdAt TEXT NOT NULL,
+    updatedAt TEXT NOT NULL
 );
 
 -------------- GET --------------

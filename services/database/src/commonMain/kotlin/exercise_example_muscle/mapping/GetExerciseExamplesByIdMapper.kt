@@ -37,10 +37,10 @@ internal fun List<GetExerciseExamplesById>.mapToDao(): ExerciseExampleDao? {
 
     return ExerciseExampleDao(
         id = root.id,
-        name = root.name ?: return null,
+        name = root.name,
         description = root.description ?: return null,
-        createdAt = root.createdAt ?: return null,
-        updatedAt = root.updatedAt ?: return null,
+        createdAt = root.createdAt,
+        updatedAt = root.updatedAt,
         imageUrl = root.imageUrl,
         muscleExerciseBundles = bundles
     )

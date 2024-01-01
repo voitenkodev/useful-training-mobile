@@ -69,9 +69,9 @@ internal fun List<GetTrainings>.mapToDao(): List<TrainingDao> {
             id = root.id,
             createdAt = root.createdAt ?: return@mapTraining null,
             updatedAt = root.updatedAt ?: return@mapTraining null,
-            volume = root.volume ?: return@mapTraining null,
-            duration = root.duration ?: return@mapTraining null,
-            intensity = root.intensity ?: return@mapTraining null,
+            volume = root.volume,
+            duration = root.duration,
+            intensity = root.intensity,
             repetitions = root.repetitions?.toInt() ?: return@mapTraining null,
             exercises = exercises
         )

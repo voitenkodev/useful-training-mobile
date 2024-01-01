@@ -1,11 +1,11 @@
 CREATE TABLE IF NOT EXISTS User (
     id TEXT NOT NULL PRIMARY KEY,
-    weight REAL,
-    height REAL,
-    email TEXT,
-    name TEXT,
-    createdAt TEXT,
-    updatedAt TEXT
+    weight REAL NOT NULL,
+    height REAL NOT NULL,
+    email TEXT NOT NULL,
+    name TEXT NOT NULL,
+    createdAt TEXT NOT NULL,
+    updatedAt TEXT NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS UserWeights (
