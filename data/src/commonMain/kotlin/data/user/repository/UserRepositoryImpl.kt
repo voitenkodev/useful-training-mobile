@@ -46,6 +46,14 @@ internal class UserRepositoryImpl(
         }
     }
 
+    override fun updateWeight(value: Double): Flow<Unit> {
+        return flow {
+            val result = remote.updateWeightHistory(value).dtoToDao()
+            if (result != null) local.setWeightHistory(result)
+            emit(Unit)
+        }
+    }
+
     override fun clearCache() {
         local.clearTable()
     }

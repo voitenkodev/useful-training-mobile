@@ -145,11 +145,11 @@ internal class TrainingBuilderViewModel(muscleIds: List<String>) : ViewModel() {
     }
 
     fun openFindExercisePopup() {
-        _state.update { it.copy(findExercisePopupIsVisibleIndex = true) }
+        _state.update { it.copy(findExercisePopupIsVisible = true) }
     }
 
     fun closeFindExercisePopup() {
-        _state.update { it.copy(findExercisePopupIsVisibleIndex = false) }
+        _state.update { it.copy(findExercisePopupIsVisible = false) }
     }
 
     fun setMuscleTarget(id: String) {

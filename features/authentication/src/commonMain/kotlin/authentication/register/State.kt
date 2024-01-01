@@ -3,11 +3,12 @@ package authentication.register
 import androidx.compose.runtime.Immutable
 import authentication.register.models.RegistrationStatus
 import authentication.register.models.RegistrationSteps
+import weightpicker.DEFAULT_INITIAL_WEIGHT
 
 @Immutable
 internal data class State(
     val name: String = "",
-    val weight: Int = 650,
+    val weight: Int = DEFAULT_INITIAL_WEIGHT,
     val height: Int = 165,
     val email: String = "",
     val password: String = "",

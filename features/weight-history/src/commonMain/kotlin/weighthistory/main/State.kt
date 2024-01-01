@@ -8,6 +8,7 @@ import weighthistory.main.models.WeightHistory
 @Immutable
 internal data class State(
     val weightHistory: ImmutableList<WeightHistory> = persistentListOf(),
+    val weightPickerPopupVisibleWithLastWeight: Int? = null,
     val error: String? = null,
     val loading: Boolean = false
 )

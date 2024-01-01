@@ -33,6 +33,25 @@ internal class WeightHistoryViewModel : ViewModel() {
             .launchIn(this)
     }
 
+    fun updateWeight(value: Int) {
+        userApi.updateWeight(value.toDouble())
+            .onStart { _state.update { it.copy(loading = true) } }
+            .onEach { _state.update { it.copy(loading = false) } }
+            .catch { r -> _state.update { it.copy(error = r.message, loading = false) } }
+            .launchIn(this)
+    }
+
+    fun closeWeightPickerPopup() {
+        _state.update { it.copy(weightPickerPopupVisibleWithLastWeight = null) }
+    }
+
+    fun openWeightPickerPopup() {
+        _state.update {
+            val lastWeight: Int = it.weightHistory.firstOrNull()?.weight?.toInt() ?: return
+            it.copy(weightPickerPopupVisibleWithLastWeight = lastWeight)
+        }
+    }
+
     fun clearError() {
         _state.update { it.copy(error = null) }
     }

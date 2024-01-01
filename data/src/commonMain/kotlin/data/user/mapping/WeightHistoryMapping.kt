@@ -7,7 +7,7 @@ import user_weight.models.WeightHistoryDao
 internal fun List<WeightHistoryDao>.daoToDomain(): List<WeightHistory> {
     return this.map { item ->
         item.daoToDomain()
-    }
+    }.sortedByDescending { it.createdAt }
 }
 
 internal fun WeightHistoryDao.daoToDomain(): WeightHistory {

@@ -20,7 +20,7 @@ internal data class State(
     val exerciseExamples: ImmutableList<ExerciseExample> = persistentListOf(),
 
     val setExerciseState: SetExerciseState = SetExerciseState.Closed,
-    val findExercisePopupIsVisibleIndex: Boolean = false,
+    val findExercisePopupIsVisible: Boolean = false,
     val recommendationsLoading: Boolean = false,
 
     val fullFrontImageVector: ImageVector = training.exercises.createFrontBackImages().first,

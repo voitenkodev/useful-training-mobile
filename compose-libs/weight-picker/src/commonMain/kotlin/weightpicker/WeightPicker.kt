@@ -23,13 +23,15 @@ import kotlin.math.cos
 import kotlin.math.roundToInt
 import kotlin.math.sin
 
+public const val DEFAULT_INITIAL_WEIGHT: Int = 650
+
 @Composable
 public fun WeightPicker(
     modifier: Modifier = Modifier,
     pickerStyle: WeightPickerStyle,
     minimal: Int = 300,
     maximum: Int = 3000,
-    initial: Int = 300,
+    initial: Int = DEFAULT_INITIAL_WEIGHT,
     onValueChange: (Int) -> Unit
 ) {
 

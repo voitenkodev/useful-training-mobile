@@ -7,5 +7,6 @@ public interface UserRepository {
     public fun syncUser(): Flow<Unit>
     public fun observeWeightHistory(): Flow<List<WeightHistory>>
     public fun syncWeightHistory(): Flow<Unit>
+    public fun updateWeight(value: Double): Flow<Unit>
     public fun clearCache()
 }

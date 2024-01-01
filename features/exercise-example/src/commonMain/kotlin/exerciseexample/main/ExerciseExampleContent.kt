@@ -101,11 +101,9 @@ private fun Content(
             Spacer(modifier = Modifier.size(Design.dp.componentM))
         }
 
-        Box {
-            Box(modifier = Modifier.fillMaxWidth().height(IntrinsicSize.Min)) {
-                TopShadow(modifier = Modifier.fillMaxSize())
-                Spacer(modifier = Modifier.statusBarsPadding().height(Design.dp.paddingXL))
-            }
+        Box(modifier = Modifier.fillMaxWidth().height(IntrinsicSize.Min)) {
+            TopShadow(modifier = Modifier.fillMaxSize())
+            Spacer(modifier = Modifier.statusBarsPadding().height(Design.dp.paddingXL))
         }
 
         Box(modifier = Modifier.fillMaxWidth().align(Alignment.BottomCenter).height(IntrinsicSize.Min)) {

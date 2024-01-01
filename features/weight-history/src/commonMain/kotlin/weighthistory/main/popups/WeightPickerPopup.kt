@@ -1,4 +1,4 @@
-package trainingbuilder.training_builder.popups
+package weighthistory.main.popups
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -70,7 +70,7 @@ internal fun WeightPickerPopup(
 
             ButtonPrimary(
                 modifier = Modifier,
-                text = "Change",
+                text = "apply",
                 onClick = {
                     apply.invoke(weight.value)
                     close.invoke()

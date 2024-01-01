@@ -17,6 +17,7 @@ kotlin {
                 implementation(projects.domain.user)
 
                 implementation(projects.composeLibs.charts)
+                implementation(projects.composeLibs.weightPicker)
 
                 implementation(projects.common.utils)
                 implementation(projects.common.architectureComponent)

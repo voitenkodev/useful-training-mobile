@@ -100,6 +100,14 @@ public class NetworkSource(private val clientBackend: ClientBackend) {
         )
     }
 
+    public suspend fun updateWeightHistory(value: Double): WeightHistoryDto {
+        return callRequest(
+            method = HttpMethod.Post,
+            path = "/weight-history",
+            body = WeightHistoryDto(weight = value)
+        )
+    }
+
     public suspend fun getWeightHistory(): List<WeightHistoryDto> {
         return callRequest(
             method = HttpMethod.Get,

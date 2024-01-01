@@ -53,7 +53,7 @@ public class UserSource(nativeContext: NativeContext) {
         }
     }
 
-    private fun setWeightHistory(dao: WeightHistoryDao) {
+    public fun setWeightHistory(dao: WeightHistoryDao) {
         api
             .setWeightHistory(
                 id = dao.id,
