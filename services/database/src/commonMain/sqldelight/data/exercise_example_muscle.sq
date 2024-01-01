@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS Muscle (
     id TEXT NOT NULL PRIMARY KEY,
     muscleTypeId TEXT NOT NULL REFERENCES MuscleType(id) ON DELETE CASCADE,
     name TEXT NOT NULL,
-    status TEXT NOT NULL,
+    status TEXT,
     type TEXT NOT NULL,
     createdAt TEXT NOT NULL,
     updatedAt TEXT NOT NULL

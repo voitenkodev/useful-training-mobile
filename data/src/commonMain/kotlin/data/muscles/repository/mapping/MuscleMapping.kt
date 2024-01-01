@@ -32,7 +32,7 @@ internal fun MuscleDto.dtoToDao(): MuscleDao? {
         updatedAt = updatedAt ?: return null,
         muscleTypeId = muscleTypeId ?: return null,
         type = type ?: return null,
-        status = status ?: return null
+        status = status
     )
 }
 

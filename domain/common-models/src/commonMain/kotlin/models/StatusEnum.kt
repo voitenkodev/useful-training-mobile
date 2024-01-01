@@ -11,7 +11,7 @@ public enum class StatusEnum(private val key: String) {
     }
 
     public companion object {
-        public fun of(key: String): StatusEnum {
+        public fun of(key: String?): StatusEnum {
             return StatusEnum.entries.firstOrNull { it.key == key } ?: UNKNOWN
         }
     }

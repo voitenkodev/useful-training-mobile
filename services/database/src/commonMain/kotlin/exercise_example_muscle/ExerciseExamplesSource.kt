@@ -91,6 +91,7 @@ public class ExerciseExamplesSource(nativeContext: NativeContext) {
         api.transaction {
             api.deleteTableMuscleType()
             api.deleteTableMuscle()
+
             muscles.forEach { muscleType ->
                 api.setMuscleType(
                     id = muscleType.id,
