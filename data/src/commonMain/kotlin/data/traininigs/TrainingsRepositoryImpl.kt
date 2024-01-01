@@ -1,4 +1,4 @@
-package data.traininigs.repository
+package data.traininigs
 
 import NetworkSource
 import TrainingsRepository

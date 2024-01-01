@@ -1,4 +1,4 @@
-package data.muscles.repository.mapping
+package data.muscles.mapping
 
 import exercise_example_muscle.models.MuscleTypeDao
 import models.MuscleType

@@ -1,4 +1,4 @@
-package data.authentication.repository
+package data.authentication
 
 import AuthenticationRepository
 import NetworkSource

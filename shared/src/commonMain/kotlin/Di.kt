@@ -1,7 +1,4 @@
-import data.authentication.authenticationDataModule
-import data.exerciseexamples.exerciseExamplesDataModule
-import data.muscles.musclesDataModule
-import data.traininigs.trainingsDataModule
+import data.dataModule
 import data.user.userDataModule
 import exercise_example_muscle.ExerciseExamplesSource
 import kotlinx.coroutines.flow.firstOrNull
@@ -19,10 +16,7 @@ public fun initCommonKoin(
     modules(
         platformModule,
         servicesModule,
-        trainingsDataModule,
-        authenticationDataModule,
-        exerciseExamplesDataModule,
-        musclesDataModule,
+        dataModule,
         userDataModule
     )
 }

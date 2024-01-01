@@ -1,8 +1,8 @@
 package data.traininigs.mapping
 
-import data.exerciseexamples.repository.mapping.daoToDomain
-import data.exerciseexamples.repository.mapping.domainToDto
-import data.exerciseexamples.repository.mapping.dtoToDao
+import data.exerciseexamples.mapping.daoToDomain
+import data.exerciseexamples.mapping.domainToDto
+import data.exerciseexamples.mapping.dtoToDao
 import models.Exercise
 import models.ExerciseDto
 import models.Iteration

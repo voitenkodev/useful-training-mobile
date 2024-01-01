@@ -1,9 +1,9 @@
-package data.muscles.repository
+package data.muscles
 
 import MusclesRepository
 import NetworkSource
-import data.muscles.repository.mapping.daoToDomain
-import data.muscles.repository.mapping.dtoToDao
+import data.muscles.mapping.daoToDomain
+import data.muscles.mapping.dtoToDao
 import exercise_example_muscle.ExerciseExamplesSource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

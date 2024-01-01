@@ -1,11 +1,11 @@
-package data.exerciseexamples.repository
+package data.exerciseexamples
 
 import ExerciseExamplesRepository
 import NetworkSource
-import data.exerciseexamples.repository.mapping.daoToDomain
-import data.exerciseexamples.repository.mapping.domainToDto
-import data.exerciseexamples.repository.mapping.dtoToDao
-import data.exerciseexamples.repository.mapping.dtoToDomain
+import data.exerciseexamples.mapping.daoToDomain
+import data.exerciseexamples.mapping.domainToDto
+import data.exerciseexamples.mapping.dtoToDao
+import data.exerciseexamples.mapping.dtoToDomain
 import exercise_example_muscle.ExerciseExamplesSource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

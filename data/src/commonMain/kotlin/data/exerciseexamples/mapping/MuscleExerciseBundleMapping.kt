@@ -1,9 +1,9 @@
-package data.exerciseexamples.repository.mapping
+package data.exerciseexamples.mapping
 
-import data.muscles.repository.mapping.daoToDomain
-import data.muscles.repository.mapping.domainToDto
-import data.muscles.repository.mapping.dtoToDao
-import data.muscles.repository.mapping.dtoToDomain
+import data.muscles.mapping.daoToDomain
+import data.muscles.mapping.domainToDto
+import data.muscles.mapping.dtoToDao
+import data.muscles.mapping.dtoToDomain
 import exercise_example_muscle.models.MuscleExerciseBundleDao
 import models.MuscleExerciseBundle
 import models.MuscleExerciseBundleDto
