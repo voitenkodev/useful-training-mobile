@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import models.User
-import models.UserWeights
+import models.WeightHistory
 import user_weight.UserSource
 
 internal class UserRepositoryImpl(
@@ -32,16 +32,16 @@ internal class UserRepositoryImpl(
         }
     }
 
-    override fun observeUserWeights(): Flow<List<UserWeights>> {
+    override fun observeWeightHistory(): Flow<List<WeightHistory>> {
         return local
-            .getUserWeights()
+            .getWeightHistory()
             .map { it.daoToDomain() }
     }
 
-    override fun syncUserWeights(): Flow<Unit> {
+    override fun syncWeightHistory(): Flow<Unit> {
         return flow {
-            val result = remote.getUserWeights().dtoToDao()
-            local.setUserWeights(result)
+            val result = remote.getWeightHistory().dtoToDao()
+            local.setWeightHistories(result)
             emit(Unit)
         }
     }

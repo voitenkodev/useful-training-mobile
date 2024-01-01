@@ -1,6 +1,6 @@
 package models
 
-public data class UserWeights(
+public data class WeightHistory(
     val id: String,
     val weight: Double,
     val createdAt: String

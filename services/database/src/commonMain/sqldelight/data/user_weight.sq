@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS User (
     updatedAt TEXT NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS UserWeights (
+CREATE TABLE IF NOT EXISTS WeightHistory (
     id TEXT NOT NULL PRIMARY KEY,
     weight REAL NOT NULL,
     createdAt TEXT NOT NULL,
@@ -17,9 +17,9 @@ CREATE TABLE IF NOT EXISTS UserWeights (
 
 -------------- GET --------------
 
-getUserWeights:
+getWeightHistory:
 SELECT *
-FROM UserWeights;
+FROM WeightHistory;
 
 getUser:
 SELECT *
@@ -27,8 +27,8 @@ FROM User;
 
 -------------- SET --------------
 
-setUserWeights:
-INSERT OR REPLACE INTO UserWeights
+setWeightHistory:
+INSERT OR REPLACE INTO WeightHistory
 VALUES (?,?,?,?);
 
 setUser:
@@ -40,5 +40,5 @@ VALUES (?,?,?,?,?,?,?);
 deleteTableUser:
 DELETE FROM User;
 
-deleteTableUserWeights:
-DELETE FROM UserWeights;
+deleteTableWeightHistory:
+DELETE FROM WeightHistory;

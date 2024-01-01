@@ -11,7 +11,7 @@ import models.RegisterDto
 import models.TokenDto
 import models.TrainingDto
 import models.UserDto
-import models.UserWeightsDto
+import models.WeightHistoryDto
 
 public class NetworkSource(private val clientBackend: ClientBackend) {
 
@@ -100,10 +100,10 @@ public class NetworkSource(private val clientBackend: ClientBackend) {
         )
     }
 
-    public suspend fun getUserWeights(): List<UserWeightsDto> {
+    public suspend fun getWeightHistory(): List<WeightHistoryDto> {
         return callRequest(
             method = HttpMethod.Get,
-            path = "/user-weights"
+            path = "/weight-history"
         )
     }
 

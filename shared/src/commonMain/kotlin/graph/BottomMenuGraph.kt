@@ -13,7 +13,7 @@ import io.github.xxfast.decompose.router.content.RoutedContent
 import io.github.xxfast.decompose.router.rememberRouter
 import profile.ProfileFeature
 import profile.ProfileGraph
-import statistics.StatisticGraph
+import statistics.StatisticsGraph
 import trainings.TrainingsGraph
 
 @Parcelize
@@ -69,7 +69,9 @@ internal fun BottomMenuGraph(
                         toExerciseExamples = toExerciseExamples
                     )
 
-                    BottomMenuRouter.Statistics -> StatisticGraph()
+                    BottomMenuRouter.Statistics -> StatisticsGraph(
+
+                    )
                 }
             }
         }

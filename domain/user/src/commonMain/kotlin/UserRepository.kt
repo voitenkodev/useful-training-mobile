@@ -1,11 +1,11 @@
 import kotlinx.coroutines.flow.Flow
 import models.User
-import models.UserWeights
+import models.WeightHistory
 
 public interface UserRepository {
     public fun observeUser(): Flow<User>
     public fun syncUser(): Flow<Unit>
-    public fun observeUserWeights(): Flow<List<UserWeights>>
-    public fun syncUserWeights(): Flow<Unit>
+    public fun observeWeightHistory(): Flow<List<WeightHistory>>
+    public fun syncWeightHistory(): Flow<Unit>
     public fun clearCache()
 }

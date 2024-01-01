@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import user_weight.mapping.toDao
 import user_weight.models.UserDao
-import user_weight.models.UserWeightsDao
+import user_weight.models.WeightHistoryDao
 
 public class UserSource(nativeContext: NativeContext) {
 
@@ -26,9 +26,9 @@ public class UserSource(nativeContext: NativeContext) {
             .map { it.toDao() }
     }
 
-    public fun getUserWeights(): Flow<List<UserWeightsDao>> {
+    public fun getWeightHistory(): Flow<List<WeightHistoryDao>> {
         return api
-            .getUserWeights()
+            .getWeightHistory()
             .asFlow()
             .mapToList(Dispatchers.Default)
             .map { item -> item.map { it.toDao() } }
@@ -47,24 +47,24 @@ public class UserSource(nativeContext: NativeContext) {
             )
     }
 
-    public fun setUserWeights(list: List<UserWeightsDao>) {
+    public fun setWeightHistories(list: List<WeightHistoryDao>) {
         api.transaction {
-            list.forEach { item -> setUserWeight(item) }
+            list.forEach { item -> setWeightHistory(item) }
         }
     }
 
-    private fun setUserWeight(userWeightDao: UserWeightsDao) {
+    private fun setWeightHistory(dao: WeightHistoryDao) {
         api
-            .setUserWeights(
-                id = userWeightDao.id,
-                weight = userWeightDao.weight,
-                updatedAt = userWeightDao.updatedAt,
-                createdAt = userWeightDao.createdAt
+            .setWeightHistory(
+                id = dao.id,
+                weight = dao.weight,
+                updatedAt = dao.updatedAt,
+                createdAt = dao.createdAt
             )
     }
 
     public fun clearTable() {
         api.deleteTableUser()
-        api.deleteTableUserWeights()
+        api.deleteTableWeightHistory()
     }
 }

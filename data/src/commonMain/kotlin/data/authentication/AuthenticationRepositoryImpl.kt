@@ -33,7 +33,6 @@ internal class AuthenticationRepositoryImpl(
         }.map {
             val token = it.accessToken
             if (token != null) preferences.setToken(token)
-
         }
     }
 
