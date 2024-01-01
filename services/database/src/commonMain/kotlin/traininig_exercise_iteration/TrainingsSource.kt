@@ -38,7 +38,7 @@ public class TrainingsSource(nativeContext: NativeContext) {
     }
 
     public fun setTraining(training: TrainingDao): String {
-        api.transaction {
+        val trainingId = api.transactionWithResult {
             api.deleteTrainingById(training.id)
 
             api.setTraining(
@@ -77,8 +77,9 @@ public class TrainingsSource(nativeContext: NativeContext) {
                     )
                 }
             }
+            return@transactionWithResult training.id
         }
-        return training.id
+        return trainingId
     }
 
     public fun clearTables() {

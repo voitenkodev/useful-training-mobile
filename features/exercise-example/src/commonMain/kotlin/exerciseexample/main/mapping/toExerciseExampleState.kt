@@ -2,9 +2,9 @@ package exerciseexample.main.mapping
 
 import exerciseexample.main.models.ExerciseExample
 
-internal fun models.ExerciseExample.toState(): ExerciseExample? {
+internal fun models.ExerciseExample.toState(): ExerciseExample {
     return ExerciseExample(
-        id = id ?: return null,
+        id = id,
         name = name,
         description = description,
         imageUrl = imageUrl,

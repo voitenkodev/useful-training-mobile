@@ -26,7 +26,7 @@ internal fun ExerciseExampleDto.dtoToDao(): ExerciseExampleDao? {
     return ExerciseExampleDao(
         id = id ?: return null,
         name = name ?: return null,
-        description = description ?: return null,
+        description = description,
         muscleExerciseBundles = muscleExerciseBundles.dtoToDao(),
         createdAt = createdAt ?: return null,
         updatedAt = updatedAt ?: return null,
