@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS ExerciseExample (
 CREATE TABLE IF NOT EXISTS MuscleExerciseBundle (
     id TEXT NOT NULL PRIMARY KEY,
     exerciseExampleId TEXT NOT NULL REFERENCES ExerciseExample(id) ON DELETE CASCADE,
-    muscleId TEXT NOT NULL REFERENCES Muscle(id),
+    muscleId TEXT NOT NULL REFERENCES Muscle(id) ON DELETE NO ACTION,
     percentage INTEGER NOT NULL,
     createdAt TEXT NOT NULL,
     updatedAt TEXT NOT NULL
@@ -136,6 +136,10 @@ INSERT OR REPLACE INTO MuscleExerciseBundle
 VALUES (?,?,?,?,?,?);
 
 -------------- DELETE --------------
+
+deleteExerciseExampleById:
+DELETE FROM Training
+WHERE id = ?;
 
 deleteTableExerciseExample:
 DELETE FROM ExerciseExample;

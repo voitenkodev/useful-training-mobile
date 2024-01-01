@@ -36,9 +36,9 @@ public class ExerciseExamplesSource(nativeContext: NativeContext) {
     }
 
     public fun setExerciseExamples(exerciseExamples: List<ExerciseExampleDao>) {
-        api.deleteTableExerciseExample()
-        api.deleteTableMuscleExerciseBundle()
-        exerciseExamples.onEach { exerciseExample -> setExerciseExample(exerciseExample) }
+        exerciseExamples.onEach { exerciseExample ->
+            setExerciseExample(exerciseExample)
+        }
     }
 
     public fun getMuscleTypes(): Flow<List<MuscleTypeDao>> {
@@ -59,6 +59,9 @@ public class ExerciseExamplesSource(nativeContext: NativeContext) {
 
     public fun setExerciseExample(exerciseExample: ExerciseExampleDao): String {
         val result = api.transactionWithResult {
+
+            api.deleteExerciseExampleById(exerciseExample.id)
+
             api.setExerciseExample(
                 id = exerciseExample.id,
                 name = exerciseExample.name,
