@@ -34,7 +34,6 @@ import components.overlay.BottomShadow
 import components.roots.ScreenRoot
 import kg
 import kotlinx.collections.immutable.ImmutableList
-import molecule.ButtonIconPrimary
 import molecule.ButtonPrimary
 import molecule.PopupSheet
 import molecule.primaryBackground
@@ -83,7 +82,7 @@ private fun Content(
     close: () -> Unit
 ) {
 
-    val reversedList = remember(weightHistory){
+    val reversedList = remember(weightHistory) {
         weightHistory.reversed()
     }
 
@@ -165,12 +164,6 @@ private fun Content(
                         modifier = Modifier.width(Design.dp.componentXL),
                         text = "update",
                         onClick = update
-                    )
-
-                    ButtonIconPrimary(
-                        backgroundColor = Design.colors.secondary,
-                        imageVector = Icons.close,
-                        onClick = close
                     )
                 }
 
