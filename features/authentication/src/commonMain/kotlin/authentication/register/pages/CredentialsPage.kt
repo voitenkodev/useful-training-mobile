@@ -2,9 +2,9 @@ package authentication.register.pages
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberUpdatedState
@@ -12,6 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.style.TextAlign
+import atom.Design
 import components.inputs.InputEmail
 import components.inputs.InputPassword
 import components.inputs.InputPasswordRepeat
@@ -77,7 +78,7 @@ internal fun CredentialsPage(
         PaddingWeight()
 
         ButtonPrimary(
-            modifier = Modifier.fillMaxWidth(0.5f),
+            modifier = Modifier.width(Design.dp.componentXL),
             text = "Register",
             onClick = confirmProvider,
             enabled = email.isNotBlank() && password.isNotBlank() && passwordRepeat.isNotBlank(),

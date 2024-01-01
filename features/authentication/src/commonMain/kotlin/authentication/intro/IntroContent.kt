@@ -2,10 +2,10 @@ package authentication.intro
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -92,7 +92,7 @@ private fun Content(
             PaddingM()
 
             ButtonPrimary(
-                modifier = Modifier.fillMaxWidth(0.5f),
+                modifier = Modifier.width(Design.dp.componentXL),
                 text = "Join Us",
                 onClick = registration
             )

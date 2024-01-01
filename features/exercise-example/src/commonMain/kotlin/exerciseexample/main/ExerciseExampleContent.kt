@@ -1,14 +1,17 @@
 package exerciseexample.main
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
@@ -28,9 +31,11 @@ import exerciseexample.main.components.HeapMap
 import exerciseexample.main.components.MusclePack
 import exerciseexample.main.components.ResentVolume
 import exerciseexample.main.models.ExerciseExample
+import molecule.ButtonIconPrimary
 import molecule.ButtonPrimary
 import molecule.PaddingM
 import molecule.PaddingXL
+import resources.Icons
 
 @Composable
 internal fun ExerciseExampleContent(
@@ -42,6 +47,7 @@ internal fun ExerciseExampleContent(
     val state by vm.state.collectAsState()
 
     Content(
+        close = close,
         error = { state.error },
         clearError = vm::clearError,
         primaryAction = primaryAction,
@@ -53,6 +59,7 @@ internal fun ExerciseExampleContent(
 
 @Composable
 private fun Content(
+    close: () -> Unit,
     error: () -> String?,
     clearError: () -> Unit,
     primaryAction: (Pair<String, (id: String) -> Unit>)?,
@@ -89,10 +96,9 @@ private fun Content(
 
             Spacer(modifier = Modifier.statusBarsPadding().height(Design.dp.paddingXL))
 
-            if (primaryAction != null) {
-                PaddingM()
-                Spacer(modifier = Modifier.size(Design.dp.componentM))
-            }
+            PaddingM()
+
+            Spacer(modifier = Modifier.size(Design.dp.componentM))
         }
 
         Box {
@@ -108,12 +114,24 @@ private fun Content(
 
             Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
 
-                if (primaryAction != null) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM, Alignment.End)
+                ) {
 
-                    ButtonPrimary(
-                        modifier = Modifier.fillMaxWidth(0.5f),
-                        text = primaryAction.first,
-                        onClick = { primaryAction.second.invoke(exerciseExample?.id ?: return@ButtonPrimary) }
+                    if (primaryAction != null) {
+
+                        ButtonPrimary(
+                            modifier = Modifier.width(Design.dp.componentXL),
+                            text = primaryAction.first,
+                            onClick = { primaryAction.second.invoke(exerciseExample?.id ?: return@ButtonPrimary) }
+                        )
+                    }
+
+                    ButtonIconPrimary(
+                        backgroundColor = Design.colors.secondary,
+                        imageVector = Icons.close,
+                        onClick = close
                     )
                 }
 
