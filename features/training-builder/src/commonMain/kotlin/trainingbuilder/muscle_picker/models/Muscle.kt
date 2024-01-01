@@ -6,7 +6,7 @@ import androidx.compose.runtime.Immutable
 internal data class Muscle(
     val id: String,
     val name: String,
-    val priority: PriorityEnum,
+    val status: StatusEnum,
     val isSelected: Boolean,
     val type: MuscleEnum
 )

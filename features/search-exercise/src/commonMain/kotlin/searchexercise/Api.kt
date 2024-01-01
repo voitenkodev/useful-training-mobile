@@ -12,7 +12,6 @@ import io.github.xxfast.decompose.router.rememberRouter
 import searchexercise.main.SearchExerciseContent
 import searchexercise.main.SearchExerciseViewModel
 
-
 @Parcelize
 public sealed class SearchExerciseFeature : Parcelable {
     public data object Main : SearchExerciseFeature()

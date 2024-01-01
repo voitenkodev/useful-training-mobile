@@ -9,7 +9,7 @@ import models.MuscleExerciseBundle
 import models.MuscleExerciseBundleDto
 
 internal fun List<MuscleExerciseBundleDao>.daoToDomain(): List<MuscleExerciseBundle> {
-    return mapNotNull { it.daoToDomain() }
+    return map { it.daoToDomain() }
 }
 
 internal fun MuscleExerciseBundleDao.daoToDomain(): MuscleExerciseBundle {

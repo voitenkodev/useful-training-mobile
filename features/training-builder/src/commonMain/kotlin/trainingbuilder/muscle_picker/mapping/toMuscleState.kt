@@ -2,7 +2,7 @@ package trainingbuilder.muscle_picker.mapping
 
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toPersistentList
-import models.PriorityEnum
+import models.StatusEnum
 import trainingbuilder.muscle_picker.models.Muscle
 import trainingbuilder.muscle_picker.models.MuscleEnum
 
@@ -16,16 +16,17 @@ internal fun models.Muscle.toState(): Muscle? {
         name = name,
         id = id,
         isSelected = false,
-        priority = priority.toState(),
+        status = status.toState() ?: return null,
         type = type.toState() ?: return null
     )
 }
 
-private fun PriorityEnum.toState(): trainingbuilder.muscle_picker.models.PriorityEnum {
+private fun StatusEnum.toState(): trainingbuilder.muscle_picker.models.StatusEnum? {
     return when (this) {
-        PriorityEnum.High -> trainingbuilder.muscle_picker.models.PriorityEnum.High
-        PriorityEnum.Medium -> trainingbuilder.muscle_picker.models.PriorityEnum.Medium
-        PriorityEnum.Low -> trainingbuilder.muscle_picker.models.PriorityEnum.Low
+        StatusEnum.HIGH -> trainingbuilder.muscle_picker.models.StatusEnum.High
+        StatusEnum.MEDIUM -> trainingbuilder.muscle_picker.models.StatusEnum.Medium
+        StatusEnum.LOW -> trainingbuilder.muscle_picker.models.StatusEnum.Low
+        StatusEnum.UNKNOWN -> null
     }
 }
 

@@ -108,7 +108,13 @@ internal fun FindExercisePopup(
                     selectExercise.invoke(it)
                 }
             },
-            details = toExerciseExampleDetails
+            details = {
+                coroutineScope.launch {
+                    close.invoke()
+                    delay(POPUP_ANIM_DURATION_MS)
+                    toExerciseExampleDetails.invoke(it)
+                }
+            }
         )
 
         PaddingM()

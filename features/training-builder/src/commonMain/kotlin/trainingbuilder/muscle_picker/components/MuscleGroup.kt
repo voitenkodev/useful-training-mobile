@@ -26,7 +26,7 @@ import molecule.TextH4
 import resources.Icons
 import trainingbuilder.muscle_picker.models.Muscle
 import trainingbuilder.muscle_picker.models.MuscleType
-import trainingbuilder.muscle_picker.models.PriorityEnum
+import trainingbuilder.muscle_picker.models.StatusEnum
 
 
 @Composable
@@ -108,11 +108,11 @@ private fun MuscleChip(
         contentColor = Design.colors.content
     )
 
-    val contentColor = remember(muscle.priority) {
-        when (muscle.priority) {
-            PriorityEnum.High -> Design.palette.content
-            PriorityEnum.Medium -> Design.palette.content
-            PriorityEnum.Low -> Design.palette.caption
+    val contentColor = remember(muscle.status) {
+        when (muscle.status) {
+            StatusEnum.High -> Design.palette.content
+            StatusEnum.Medium -> Design.palette.content
+            StatusEnum.Low -> Design.palette.caption
         }
     }
 
@@ -122,11 +122,11 @@ private fun MuscleChip(
         contentColor = contentColor
     )
 
-    val icon = remember(muscle.priority) {
-        when (muscle.priority) {
-            PriorityEnum.High -> Icons.highBattery
-            PriorityEnum.Medium -> Icons.mediumBattery
-            PriorityEnum.Low -> Icons.lowBattery
+    val icon = remember(muscle.status) {
+        when (muscle.status) {
+            StatusEnum.High -> Icons.highBattery
+            StatusEnum.Medium -> Icons.mediumBattery
+            StatusEnum.Low -> Icons.lowBattery
         }
     }
 

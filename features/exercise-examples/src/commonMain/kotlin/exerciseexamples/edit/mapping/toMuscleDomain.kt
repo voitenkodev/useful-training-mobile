@@ -2,15 +2,14 @@ package exerciseexamples.edit.mapping
 
 import exerciseexamples.edit.state.Muscle
 import exerciseexamples.edit.state.MuscleEnum
-import models.PriorityEnum
+import models.StatusEnum
 
 internal fun Muscle.toDomain(): models.Muscle {
     return models.Muscle(
         name = name,
         id = id,
         type = type.toDomain(),
-        status = "", // doesn't make sense for body
-        priority = PriorityEnum.Medium // doesn't make sense for body
+        status = StatusEnum.UNKNOWN, // doesn't make sense for body
     )
 }
 

@@ -70,18 +70,6 @@ public class ExerciseExamplesSource(nativeContext: NativeContext) {
 
             exerciseExample.muscleExerciseBundles.forEach { muscleExerciseBundle ->
 
-                val muscle = muscleExerciseBundle.muscle
-
-                api.setMuscle(
-                    id = muscle.id,
-                    name = muscle.name,
-                    createdAt = muscle.createdAt,
-                    updatedAt = muscle.updatedAt,
-                    muscleTypeId = muscle.muscleTypeId,
-                    type = muscle.type,
-                    status = muscle.status
-                )
-
                 api.setMuscleExerciseBundle(
                     id = muscleExerciseBundle.id,
                     percentage = muscleExerciseBundle.percentage.toLong(),
