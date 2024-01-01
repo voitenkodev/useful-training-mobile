@@ -63,6 +63,6 @@ include(
     "features:profile",
     "features:training-builder",
     "features:exercise-example",
-    "features:exercise-examples",
+//    "features:exercise-examples",
     "features:search-exercise"
 )
