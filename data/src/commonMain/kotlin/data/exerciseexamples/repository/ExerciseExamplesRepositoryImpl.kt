@@ -47,10 +47,10 @@ internal class ExerciseExamplesRepositoryImpl(
 
     override fun setExerciseExample(exerciseExample: ExerciseExample): Flow<Unit> {
         return flow {
-            remote
+            val result = remote
                 .setExerciseExample(exerciseExample.domainToDto())
                 .dtoToDao()
-                ?.let { dao -> local.setExerciseExample(dao) }
+            if (result != null) local.setExerciseExample(result)
             emit(Unit)
         }
     }

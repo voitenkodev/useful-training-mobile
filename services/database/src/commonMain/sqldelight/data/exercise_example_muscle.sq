@@ -87,17 +87,6 @@ FROM ExerciseExample
 LEFT JOIN MuscleExerciseBundle ON ExerciseExample.id = MuscleExerciseBundle.exerciseExampleId
 LEFT JOIN Muscle ON MuscleExerciseBundle.muscleId = Muscle.id;
 
-getMusclesByMuscleType:
-SELECT
-  Muscle.id AS id,
-  Muscle.name AS name,
-  Muscle.muscleTypeId AS muscleTypeId,
-  Muscle.type AS type,
-  Muscle.updatedAt AS updatedAt,
-  Muscle.createdAt AS createdAt
-FROM Muscle
-WHERE muscleTypeId = ?;
-
 getMusclesById:
 SELECT
   Muscle.id AS id,
@@ -135,7 +124,7 @@ INSERT OR REPLACE INTO ExerciseExample
 VALUES (?,?,?,?,?,?);
 
 setMuscle:
-INSERT OR IGNORE INTO Muscle
+INSERT OR REPLACE INTO Muscle
 VALUES (?,?,?,?,?,?,?);
 
 setMuscleType:
@@ -147,10 +136,6 @@ INSERT OR REPLACE INTO MuscleExerciseBundle
 VALUES (?,?,?,?,?,?);
 
 -------------- DELETE --------------
-
-deleteExerciseExampleById:
-DELETE FROM ExerciseExample
-WHERE id = ?;
 
 deleteTableExerciseExample:
 DELETE FROM ExerciseExample;

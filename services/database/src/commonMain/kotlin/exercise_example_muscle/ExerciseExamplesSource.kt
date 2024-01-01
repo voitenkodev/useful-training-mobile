@@ -58,7 +58,7 @@ public class ExerciseExamplesSource(nativeContext: NativeContext) {
     }
 
     public fun setExerciseExample(exerciseExample: ExerciseExampleDao): String {
-        api.transaction {
+        val result = api.transactionWithResult {
             api.setExerciseExample(
                 id = exerciseExample.id,
                 name = exerciseExample.name,
@@ -69,6 +69,19 @@ public class ExerciseExamplesSource(nativeContext: NativeContext) {
             )
 
             exerciseExample.muscleExerciseBundles.forEach { muscleExerciseBundle ->
+
+                val muscle = muscleExerciseBundle.muscle
+
+                api.setMuscle(
+                    id = muscle.id,
+                    name = muscle.name,
+                    createdAt = muscle.createdAt,
+                    updatedAt = muscle.updatedAt,
+                    muscleTypeId = muscle.muscleTypeId,
+                    type = muscle.type,
+                    status = muscle.status
+                )
+
                 api.setMuscleExerciseBundle(
                     id = muscleExerciseBundle.id,
                     percentage = muscleExerciseBundle.percentage.toLong(),
@@ -78,8 +91,9 @@ public class ExerciseExamplesSource(nativeContext: NativeContext) {
                     exerciseExampleId = muscleExerciseBundle.exerciseExampleId
                 )
             }
+            return@transactionWithResult exerciseExample.id
         }
-        return exerciseExample.id
+        return result
     }
 
     public fun setMuscleTypesWithMuscles(muscles: List<MuscleTypeDao>) {
@@ -100,7 +114,7 @@ public class ExerciseExamplesSource(nativeContext: NativeContext) {
                         name = muscle.name,
                         createdAt = muscle.createdAt,
                         updatedAt = muscle.updatedAt,
-                        muscleTypeId = muscleType.id,
+                        muscleTypeId = muscle.muscleTypeId,
                         type = muscle.type,
                         status = muscle.status
                     )
