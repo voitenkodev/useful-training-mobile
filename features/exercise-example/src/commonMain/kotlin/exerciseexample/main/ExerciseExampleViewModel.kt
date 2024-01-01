@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.update
@@ -25,9 +26,7 @@ internal class ExerciseExampleViewModel(id: String) : ViewModel() {
         launch {
             val result = api
                 .observeExerciseExample(id)
-                .onStart { _state.update { it.copy(loading = true) } }
-                .catch { t -> _state.update { it.copy(loading = false, error = t.message) } }
-                .onEach { _state.update { it.copy(loading = false) } }
+                .catch { t -> _state.update { it.copy(error = t.message) } }
                 .firstOrNull()
                 ?.toState() ?: return@launch
 
@@ -36,6 +35,12 @@ internal class ExerciseExampleViewModel(id: String) : ViewModel() {
                 it.copy(exerciseExample = result, fullFrontImageVector = images.first, fullBackImageVector = images.second)
             }
         }
+
+        api.syncExerciseExampleById(id)
+            .onStart { _state.update { it.copy(loading = true) } }
+            .catch { t -> _state.update { it.copy(loading = false, error = t.message) } }
+            .onEach { _state.update { it.copy(loading = false) } }
+            .launchIn(this)
     }
 
     fun clearError() {

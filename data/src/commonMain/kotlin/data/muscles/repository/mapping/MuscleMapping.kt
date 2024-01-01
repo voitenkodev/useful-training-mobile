@@ -41,7 +41,7 @@ internal fun MuscleDto.dtoToDomain(): Muscle? {
         id = id ?: return null,
         name = name ?: return null,
         type = MuscleEnum.of(type ?: return null),
-        status = StatusEnum.of(status ?: return null)
+        status = StatusEnum.of(status)
     )
 }
 

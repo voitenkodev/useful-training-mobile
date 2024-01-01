@@ -38,6 +38,16 @@ internal class ExerciseExamplesRepositoryImpl(
         }
     }
 
+    override fun syncExerciseExampleById(exerciseExampleId: String): Flow<Unit> {
+        return flow {
+            val result = remote
+                .getExerciseExample(exerciseExampleId)
+                .dtoToDao()
+            if (result != null) local.setExerciseExample(result)
+            emit(Unit)
+        }
+    }
+
     override fun getRecommendedExerciseExamples(): Flow<List<ExerciseExample>> {
         return flow {
             val result = remote.getRecommendedExerciseExamples()

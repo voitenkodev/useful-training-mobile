@@ -51,7 +51,7 @@ internal fun ExerciseExampleDto.dtoToDomain(): ExerciseExample? {
     return ExerciseExample(
         id = id ?: return null,
         name = name ?: return null,
-        description = description ?: return null,
+        description = description,
         muscleExerciseBundles = muscleExerciseBundles.dtoToDomain(),
         imageUrl = imageUrl
     )
