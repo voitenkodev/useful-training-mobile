@@ -1,4 +1,4 @@
-package trainingbuilder.muscle_picker.components
+package weighthistory.main.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -21,7 +21,7 @@ internal fun Header(close: () -> Unit) {
 
         PaddingS()
 
-        Toolbar(title = "Target Muscles", icon = Icons.close to close)
+        Toolbar(title = "Weight History", icon = Icons.close to close)
 
         Shadow()
     }

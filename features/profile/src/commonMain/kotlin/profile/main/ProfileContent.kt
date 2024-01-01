@@ -33,7 +33,8 @@ import resources.Icons
 @Composable
 internal fun ProfileContent(
     vm: ProfileViewModel,
-    toExerciseExamples: () -> Unit
+    toExerciseExamples: () -> Unit,
+    toWeightHistory: () -> Unit
 ) {
 
     val state by vm.state.collectAsState()
@@ -44,7 +45,7 @@ internal fun ProfileContent(
         user = state.user,
         updateUser = {},
         toExerciseExamples = toExerciseExamples,
-        toWeightHistory = {},
+        toWeightHistory = toWeightHistory,
         toSupport = {},
         logout = vm::logout
     )

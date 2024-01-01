@@ -1,4 +1,4 @@
-package profile
+package weighthistory
 
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.runtime.Composable
@@ -10,36 +10,31 @@ import io.github.xxfast.decompose.router.Router
 import io.github.xxfast.decompose.router.content.RoutedContent
 import io.github.xxfast.decompose.router.rememberOnRoute
 import io.github.xxfast.decompose.router.rememberRouter
-import profile.main.ProfileContent
-import profile.main.ProfileViewModel
+import weighthistory.main.WeightHistoryContent
+import weighthistory.main.WeightHistoryViewModel
 
 @Parcelize
-public sealed class ProfileFeature : Parcelable {
-    public data object Main : ProfileFeature()
+public sealed class WeightHistoryFeature : Parcelable {
+    public data object Main : WeightHistoryFeature()
 }
 
 @Composable
-public fun ProfileGraph(
-    startDirection: ProfileFeature,
-    toExerciseExamples: () -> Unit,
-    toWeightHistory: () -> Unit
-) {
+public fun WeightHistoryGraph(close: () -> Unit) {
 
-    val router: Router<ProfileFeature> = rememberRouter(ProfileFeature::class) {
-        listOf(startDirection)
+    val router: Router<WeightHistoryFeature> = rememberRouter(WeightHistoryFeature::class) {
+        listOf(WeightHistoryFeature.Main)
     }
 
     RoutedContent(router = router, animation = stackAnimation(slide(orientation = Orientation.Horizontal))) { child ->
         when (child) {
-            is ProfileFeature.Main -> {
-                val vm = rememberOnRoute(ProfileViewModel::class) {
-                    ProfileViewModel()
+            is WeightHistoryFeature.Main -> {
+                val vm = rememberOnRoute(WeightHistoryViewModel::class) {
+                    WeightHistoryViewModel()
                 }
 
-                ProfileContent(
+                WeightHistoryContent(
                     vm = vm,
-                    toExerciseExamples = toExerciseExamples,
-                    toWeightHistory = toWeightHistory
+                    close = close
                 )
             }
         }

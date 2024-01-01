@@ -28,6 +28,7 @@ kotlin {
                 implementation(projects.features.trainingBuilder)
                 implementation(projects.features.exerciseExample)
                 implementation(projects.features.searchExercise)
+                implementation(projects.features.weightHistory)
 
                 // Services
                 implementation(projects.services.network)
