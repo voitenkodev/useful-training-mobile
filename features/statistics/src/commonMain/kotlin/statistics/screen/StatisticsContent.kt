@@ -5,8 +5,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import components.Error
+import components.ShadowHeader
+import components.ShadowHeaderSpace
 import components.roots.ScreenRoot
-import statistics.components.Header
+import molecule.PaddingM
+import resources.Icons
 
 @Composable
 internal fun StatisticsContent(vm: StatisticsViewModel) {
@@ -49,8 +52,14 @@ private fun Content(
 
         Column {
 
-            Header(filterClick = filterClick)
+            ShadowHeaderSpace()
+            PaddingM()
 
         }
     }
+
+    ShadowHeader(
+        title = "Statistics",
+        icon = Icons.filters to filterClick
+    )
 }

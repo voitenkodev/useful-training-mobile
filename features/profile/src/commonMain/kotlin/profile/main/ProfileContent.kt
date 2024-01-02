@@ -2,12 +2,9 @@ package profile.main
 
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
@@ -16,16 +13,17 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import atom.Design
 import components.Error
+import components.ShadowHeader
+import components.ShadowHeaderSpace
 import components.animation.Levitating
 import components.cards.UserCard
 import components.roots.ScreenRoot
-import molecule.PaddingL
+import molecule.PaddingM
 import molecule.PaddingS
 import molecule.PaddingXL
 import molecule.Shadow
 import molecule.TextH3
 import molecule.secondaryBackground
-import profile.main.components.Header
 import profile.main.components.MenuItem
 import profile.main.models.User
 import resources.Icons
@@ -44,7 +42,6 @@ internal fun ProfileContent(
         error = { state.error },
         clearError = vm::clearError,
         user = state.user,
-        updateUser = {},
         toExerciseExamples = toExerciseExamples,
         toMuscles = toMuscles,
         toWeightHistory = toWeightHistory,
@@ -57,10 +54,7 @@ internal fun ProfileContent(
 private fun Content(
     error: () -> String?,
     clearError: () -> Unit,
-
     user: User,
-    updateUser: () -> Unit,
-
     toExerciseExamples: () -> Unit,
     toMuscles: () -> Unit,
     toSupport: () -> Unit,
@@ -70,7 +64,6 @@ private fun Content(
 
     val listState = rememberLazyListState()
 
-
     ScreenRoot(error = { Error(message = error, close = clearError) }) {
 
         LazyColumn(
@@ -78,12 +71,9 @@ private fun Content(
             modifier = Modifier.fillMaxWidth().animateContentSize().fillMaxSize()
         ) {
 
-            item {
-                Spacer(
-                    modifier = Modifier
-                        .statusBarsPadding()
-                        .size(Design.dp.paddingXL + Design.dp.componentL)
-                )
+            item("shadow_header_space") {
+                ShadowHeaderSpace()
+                PaddingM()
             }
 
             item {
@@ -93,13 +83,10 @@ private fun Content(
                         name = user.name,
                         image = "https://static.vecteezy.com/system/resources/previews/017/067/906/original/ufo-seamless-background-free-vector.jpg",
                         weight = user.weight,
-                        height = user.height,
-                        buttonPrimary = "Upgrade" to updateUser
+                        height = user.height
                     )
                 }
             }
-
-            item { PaddingL() }
 
             item { PaddingXL() }
 
@@ -126,7 +113,7 @@ private fun Content(
                     )
 
                     MenuItem(
-                        icon = Icons.body,
+                        icon = Icons.biceps,
                         text = "Muscles",
                         onClick = toMuscles
                     )
@@ -155,6 +142,7 @@ private fun Content(
             item { PaddingS() }
 
             item {
+
                 Column(modifier = Modifier.secondaryBackground().fillMaxWidth()) {
 
                     Shadow()
@@ -187,6 +175,9 @@ private fun Content(
             }
         }
 
-        Header()
+        ShadowHeader(
+            title = "Profile",
+            icon = Icons.notifications to {}
+        )
     }
 }

@@ -25,8 +25,7 @@ import androidx.compose.ui.Modifier as Modifier1
 
 @Composable
 public fun ShadowFooterSpace() {
-    Spacer(modifier = Modifier.statusBarsPadding().height(Design.dp.paddingXL))
-    Spacer(modifier = Modifier.size(Design.dp.componentM))
+    Spacer(modifier = Modifier.statusBarsPadding().height(Design.dp.paddingXL + Design.dp.componentM))
 }
 
 @Composable

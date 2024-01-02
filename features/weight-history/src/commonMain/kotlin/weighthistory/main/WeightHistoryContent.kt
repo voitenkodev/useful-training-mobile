@@ -2,12 +2,10 @@ package weighthistory.main
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
@@ -25,13 +23,14 @@ import basic.LineChartStyle
 import components.Error
 import components.ShadowFooter
 import components.ShadowFooterSpace
+import components.ShadowHeader
+import components.ShadowHeaderSpace
 import components.cards.HorizontalValueCard
 import components.roots.ScreenRoot
 import kg
 import kotlinx.collections.immutable.ImmutableList
 import molecule.PopupSheet
 import resources.Icons
-import weighthistory.main.components.Header
 import weighthistory.main.models.WeightHistory
 import weighthistory.main.popups.WeightPickerPopup
 
@@ -88,7 +87,7 @@ private fun Content(
         ) {
 
             item("shadow_top_space") {
-                Spacer(modifier = Modifier.statusBarsPadding().height(Design.dp.componentL))
+                ShadowHeaderSpace()
             }
 
             item("chart") {
@@ -140,7 +139,9 @@ private fun Content(
             }
         }
 
-        Header()
+        ShadowHeader(
+            title = "Weight History"
+        )
 
         ShadowFooter(
             modifier = Modifier.fillMaxWidth().align(Alignment.BottomCenter),

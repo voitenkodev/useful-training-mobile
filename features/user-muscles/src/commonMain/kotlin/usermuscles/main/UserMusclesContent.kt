@@ -1,6 +1,5 @@
 package usermuscles.main
 
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
@@ -13,12 +12,12 @@ import androidx.compose.ui.Modifier
 import components.Error
 import components.ShadowFooter
 import components.ShadowFooterSpace
+import components.ShadowHeader
+import components.ShadowHeaderSpace
 import components.roots.ScreenRoot
 import kotlinx.collections.immutable.ImmutableList
 import molecule.PaddingM
 import molecule.Shadow
-import molecule.primaryBackground
-import usermuscles.main.components.Header
 import usermuscles.main.components.MuscleGroup
 import usermuscles.main.models.MuscleType
 
@@ -50,28 +49,32 @@ private fun Content(
 
     ScreenRoot(error = { Error(message = { error }, close = clearError) }) {
 
-        Column(modifier = Modifier.fillMaxSize().primaryBackground()) {
 
-            Header(close = close)
+        LazyColumn(modifier = Modifier.fillMaxSize()) {
 
-            LazyColumn(modifier = Modifier.fillMaxWidth().weight(1f)) {
+            item("shadow_top_space") {
+                ShadowHeaderSpace()
+            }
 
-                itemsIndexed(list, key = { _, item -> item.id }) { index, item ->
+            itemsIndexed(list, key = { _, item -> item.id }) { index, item ->
 
-                    MuscleGroup(
-                        item = item,
-                        selectMuscle = selectMuscle
-                    )
+                MuscleGroup(
+                    item = item,
+                    selectMuscle = selectMuscle
+                )
 
-                    if (index < list.lastIndex) Shadow()
-                }
+                if (index < list.lastIndex) Shadow()
+            }
 
-                item("shadow_bottom_footer") {
-                    PaddingM()
-                    ShadowFooterSpace()
-                }
+            item("shadow_bottom_footer") {
+                PaddingM()
+                ShadowFooterSpace()
             }
         }
+
+        ShadowHeader(
+            title = "Muscles"
+        )
 
         ShadowFooter(
             modifier = Modifier.fillMaxWidth().align(Alignment.BottomCenter),

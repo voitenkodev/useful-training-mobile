@@ -69,13 +69,7 @@ internal fun MuscleGroup(
 
             Column(verticalArrangement = Arrangement.spacedBy(Design.dp.paddingS)) {
 
-
                 if (included.isNotEmpty()) {
-                    TextLabel(
-                        provideText = { "Included" },
-                        color = Design.colors.toxic
-                    )
-
                     included.forEach { muscle ->
                         MuscleChip(
                             muscle = muscle,
