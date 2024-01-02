@@ -1,28 +1,31 @@
 package weighthistory.main.components
 
-import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import atom.Design
+import components.overlay.TopShadow
 import molecule.PaddingS
-import molecule.Shadow
 import molecule.Toolbar
 import resources.Icons
 
 @Composable
 internal fun Header(close: () -> Unit) {
-    Column(
-        modifier = Modifier
-            .background(Design.colors.secondary)
-            .statusBarsPadding()
-    ) {
 
-        PaddingS()
+    Box(modifier = Modifier.fillMaxWidth().height(IntrinsicSize.Min)) {
 
-        Toolbar(title = "Weight History", icon = Icons.close to close)
+        TopShadow(modifier = Modifier.fillMaxSize())
 
-        Shadow()
+        Column(modifier = Modifier.statusBarsPadding()) {
+
+            PaddingS()
+
+            Toolbar(title = "Weight History", icon = Icons.close to close)
+        }
     }
 }

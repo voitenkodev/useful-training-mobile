@@ -28,7 +28,7 @@ public fun ButtonIconPrimary(
 ) {
     IconButton(
         modifier = modifier
-            .size(Design.dp.componentL)
+            .size(Design.dp.componentM)
             .alpha(if (enabled) 1f else 0.5f)
             .border(
                 color = Design.colors.white5,

@@ -18,6 +18,7 @@ import atom.Design
 import grToKg
 import kg
 import molecule.ButtonPrimary
+import molecule.PaddingS
 import molecule.PaddingWeight
 import molecule.PaddingXL
 import molecule.TextH1
@@ -40,6 +41,8 @@ internal fun WeightPickerPopup(
         modifier = Modifier.fillMaxSize().statusBarsPadding(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+
+        PaddingS()
 
         Toolbar(
             title = "",
