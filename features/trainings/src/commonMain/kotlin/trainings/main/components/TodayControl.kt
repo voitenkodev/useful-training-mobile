@@ -6,7 +6,6 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -23,7 +22,7 @@ internal fun BoxScope.TodayControl(
     click: () -> Unit
 ) {
 
-    val width = Design.dp.componentL
+    val width = Design.dp.componentM
     val padding = Design.dp.paddingM
 
     val animatedDp by animateDpAsState(
@@ -38,7 +37,6 @@ internal fun BoxScope.TodayControl(
     ButtonIconPrimary(
         modifier = modifier
             .padding(end = padding)
-            .width(width)
             .align(Alignment.CenterEnd)
             .offset(x = animatedDp),
         imageVector = Icons.arrowRight,

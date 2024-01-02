@@ -130,7 +130,7 @@ private fun Content(
                 HorizontalValueCard(
                     modifier = Modifier.padding(horizontal = Design.dp.paddingM),
                     title = item.weight.kg(true),
-                    description = "At ${item.createdAt}",
+                    description = "At: ${item.createdAt}",
                     startIcon = img to color
                 )
             }
@@ -141,7 +141,7 @@ private fun Content(
             }
         }
 
-        Header(close = close)
+        Header()
 
         Footer(
             modifier = Modifier.fillMaxWidth().align(Alignment.BottomCenter),

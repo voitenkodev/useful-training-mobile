@@ -50,7 +50,7 @@ internal fun Trainings(
                 PaddingM()
 
                 TrainingTitle(
-                    mainTitle = { "At ${training.startDate}" },
+                    mainTitle = { "At: ${training.startDate}" },
                     click = { openTraining.invoke(training.id) }
                 )
 

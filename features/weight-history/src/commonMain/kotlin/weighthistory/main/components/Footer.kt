@@ -26,6 +26,7 @@ internal fun Footer(
     update: () -> Unit,
     close: () -> Unit
 ) {
+
     Box(modifier = modifier.height(IntrinsicSize.Min)) {
 
         BottomShadow(modifier = Modifier.fillMaxSize())

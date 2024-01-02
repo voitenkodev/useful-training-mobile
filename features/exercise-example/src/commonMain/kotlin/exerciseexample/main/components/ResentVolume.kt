@@ -85,7 +85,7 @@ internal fun ResentVolume() {
             HorizontalValueCard(
                 modifier = Modifier.padding(horizontal = Design.dp.paddingM),
                 title = item.first.kg(true),
-                description = "At ${item.second}",
+                description = "At: ${item.second}",
                 startIcon = img to color,
                 actionEndIcon = Icons.arrowRight to {}
             )

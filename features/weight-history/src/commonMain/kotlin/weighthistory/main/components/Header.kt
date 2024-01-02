@@ -12,10 +12,9 @@ import androidx.compose.ui.Modifier
 import components.overlay.TopShadow
 import molecule.PaddingS
 import molecule.Toolbar
-import resources.Icons
 
 @Composable
-internal fun Header(close: () -> Unit) {
+internal fun Header() {
 
     Box(modifier = Modifier.fillMaxWidth().height(IntrinsicSize.Min)) {
 
@@ -25,7 +24,7 @@ internal fun Header(close: () -> Unit) {
 
             PaddingS()
 
-            Toolbar(title = "Weight History", icon = Icons.close to close)
+            Toolbar(title = "Weight History")
         }
     }
 }

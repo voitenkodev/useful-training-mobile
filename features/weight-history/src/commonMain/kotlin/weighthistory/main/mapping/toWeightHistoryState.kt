@@ -14,7 +14,7 @@ internal fun List<models.WeightHistory>.toState(): ImmutableList<WeightHistory> 
 internal fun models.WeightHistory.toState(): WeightHistory {
     return WeightHistory(
         id = id,
-        createdAt = DateTimeKtx.formattedDate(createdAt) ?: "-",
+        createdAt = DateTimeKtx.formattedLongDate(createdAt) ?: "-",
         weight = weight
     )
 }
