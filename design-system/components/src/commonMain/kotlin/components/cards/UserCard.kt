@@ -68,7 +68,7 @@ public fun UserCard(
         TextH2(
             modifier = Modifier
                 .align(Alignment.BottomEnd)
-                .offset(y = 8.dp),
+                .offset(y = 11.dp),
             provideText = { "Sport Card" },
             color = Design.colors.white5
         )

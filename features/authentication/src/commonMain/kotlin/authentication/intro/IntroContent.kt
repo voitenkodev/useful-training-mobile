@@ -2,10 +2,10 @@ package authentication.intro
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBarsPadding
-import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -19,6 +19,7 @@ import components.cards.UserCard
 import components.overlay.AlphaOverlay
 import components.roots.ScreenRoot
 import molecule.ButtonPrimary
+import molecule.ButtonSecondary
 import molecule.PaddingL
 import molecule.PaddingM
 import molecule.PaddingWeight
@@ -75,8 +76,7 @@ private fun Content(
                     name = "Not identified",
                     image = null,
                     weight = null,
-                    height = null,
-                    buttonSecondary = "Sign In" to login
+                    height = null
                 )
             }
 
@@ -92,9 +92,17 @@ private fun Content(
             PaddingM()
 
             ButtonPrimary(
-                modifier = Modifier.width(Design.dp.componentXL),
+                modifier = Modifier.fillMaxWidth().padding(horizontal = Design.dp.paddingM),
                 text = "Join Us",
                 onClick = registration
+            )
+
+            PaddingL()
+
+            ButtonSecondary(
+                modifier = Modifier.fillMaxWidth().padding(horizontal = Design.dp.paddingM),
+                text = "Sign In",
+                onClick = login
             )
 
             PaddingL()
