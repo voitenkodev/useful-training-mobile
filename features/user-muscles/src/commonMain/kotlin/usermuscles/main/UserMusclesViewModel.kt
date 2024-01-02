@@ -2,7 +2,6 @@ package usermuscles.main
 
 import MusclesRepository
 import ViewModel
-import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
@@ -10,7 +9,6 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import org.koin.core.component.inject
-import usermuscles.main.factories.muscleImage
 import usermuscles.main.mapping.toState
 
 internal class UserMusclesViewModel : ViewModel() {
@@ -33,25 +31,25 @@ internal class UserMusclesViewModel : ViewModel() {
     }
 
     fun selectMuscle(id: String) {
-        _state.update {
-            val muscleTypes = it.muscleTypes.map { muscleType ->
-                val muscles = muscleType.muscles.map { muscle ->
-                    if (id == muscle.id) muscle.copy(isSelected = muscle.isSelected.not())
-                    else muscle
-                }
-                val image = muscleImage(
-                    muscleTypeEnumState = muscleType.type,
-                    muscles = muscles
-                )
-                muscleType.copy(
-                    muscles = muscles,
-                    bodyImageVector = image
-                )
-
-            }.toImmutableList()
-
-            it.copy(muscleTypes = muscleTypes)
-        }
+//        _state.update {
+//            val muscleTypes = it.muscleTypes.map { muscleType ->
+//                val muscles = muscleType.muscles.map { muscle ->
+//                    if (id == muscle.id) muscle.copy(isSelected = muscle.isSelected.not())
+//                    else muscle
+//                }
+//                val image = muscleImage(
+//                    muscleTypeEnumState = muscleType.type,
+//                    muscles = muscles
+//                )
+//                muscleType.copy(
+//                    muscles = muscles,
+//                    bodyImageVector = image
+//                )
+//
+//            }.toImmutableList()
+//
+//            it.copy(muscleTypes = muscleTypes)
+//        }
     }
 
     fun clearError() {

@@ -15,7 +15,6 @@ internal fun models.Muscle.toState(): Muscle? {
     return Muscle(
         name = name,
         id = id,
-        isSelected = false,
         status = status.toState() ?: return null,
         type = type.toState() ?: return null
     )

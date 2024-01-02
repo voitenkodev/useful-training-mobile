@@ -5,13 +5,14 @@ import kotlinx.collections.immutable.toPersistentList
 import trainingbuilder.muscle_picker.factories.muscleImage
 import trainingbuilder.muscle_picker.models.MuscleType
 import trainingbuilder.muscle_picker.models.MuscleTypeEnum
+import trainingbuilder.muscle_picker.models.StatusEnum
 
-internal fun List<models.MuscleType>.toState(): ImmutableList<MuscleType> {
-    return mapNotNull { it.toState() }
+internal fun List<models.MuscleType>.toState(includedMuscleStatuses: ImmutableList<StatusEnum>): ImmutableList<MuscleType> {
+    return mapNotNull { it.toState(includedMuscleStatuses) }
         .toPersistentList()
 }
 
-internal fun models.MuscleType.toState(): MuscleType? {
+internal fun models.MuscleType.toState(includedMuscleStatuses: ImmutableList<StatusEnum>): MuscleType? {
 
     val typeState = type.toState() ?: return null
     val muscleState = muscles.toState()
@@ -22,7 +23,7 @@ internal fun models.MuscleType.toState(): MuscleType? {
         muscles = muscleState,
         isSelected = false,
         type = typeState,
-        bodyImageVector = muscleImage(typeState, muscleState)
+        bodyImageVector = muscleImage(typeState, muscleState, includedMuscleStatuses)
     )
 }
 

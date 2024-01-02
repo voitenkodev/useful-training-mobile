@@ -19,6 +19,7 @@ import trainingbuilder.muscle_picker.components.Header
 import trainingbuilder.muscle_picker.components.MuscleGroup
 import trainingbuilder.muscle_picker.components.MusclePack
 import trainingbuilder.muscle_picker.models.MuscleType
+import trainingbuilder.muscle_picker.models.StatusEnum
 
 @Composable
 internal fun MusclePickerContent(
@@ -32,6 +33,7 @@ internal fun MusclePickerContent(
     Content(
         error = state.error,
         list = state.muscleTypes,
+        includedMuscleStatuses = state.includedMuscleStatuses,
         clearError = vm::clearError,
         selectMuscleType = vm::selectMuscleType,
         selectMuscle = vm::selectMuscle,
@@ -48,12 +50,14 @@ private fun Content(
     error: String?,
     clearError: () -> Unit,
     list: ImmutableList<MuscleType>,
+    includedMuscleStatuses: ImmutableList<StatusEnum>,
     selectMuscleType: (id: String) -> Unit,
     selectMuscle: (id: String) -> Unit,
     selectFullBody: () -> Unit,
     selectUpperBody: () -> Unit,
     selectLowerBody: () -> Unit,
     apply: (List<String>) -> Unit,
+
     close: () -> Unit
 ) {
 
@@ -69,6 +73,7 @@ private fun Content(
 
                     MusclePack(
                         list = list,
+                        includedMuscleStatuses = includedMuscleStatuses,
                         selectFullBody = selectFullBody,
                         selectUpperBody = selectUpperBody,
                         selectLowerBody = selectLowerBody

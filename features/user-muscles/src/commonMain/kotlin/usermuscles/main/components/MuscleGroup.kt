@@ -22,11 +22,9 @@ import molecule.PaddingM
 import molecule.PaddingS
 import molecule.TextH4
 import molecule.TextLabel
-import resources.Icons
 import usermuscles.main.models.Muscle
 import usermuscles.main.models.MuscleType
 import usermuscles.main.models.StatusEnum
-
 
 @Composable
 internal fun MuscleGroup(
@@ -114,36 +112,22 @@ private fun MuscleChip(
     selectMuscle: (id: String) -> Unit
 ) {
 
-    val selectedChipState = ChipState.Colored(
-        backgroundColor = Design.colors.toxic.copy(alpha = 0.1f),
-        borderColor = Design.colors.toxic,
-        contentColor = Design.colors.content
-    )
-
     val contentColor = remember(muscle.status) {
         when (muscle.status) {
-            StatusEnum.EXCLUDED -> Design.palette.content
-            StatusEnum.INCLUDED -> Design.palette.caption
+            StatusEnum.EXCLUDED -> Design.palette.caption
+            StatusEnum.INCLUDED -> Design.palette.content
         }
     }
 
-    val unselectedChipState = ChipState.Colored(
+    val chipState = ChipState.Colored(
         backgroundColor = Color.Transparent,
         borderColor = Design.palette.white10,
         contentColor = contentColor
     )
 
-    val icon = remember(muscle.status) {
-        when (muscle.status) {
-            StatusEnum.EXCLUDED -> Icons.done
-            StatusEnum.INCLUDED -> Icons.close
-        }
-    }
-
     Chip(
-        chipState = if (muscle.isSelected) selectedChipState else unselectedChipState,
+        chipState = chipState,
         onClick = { selectMuscle.invoke(muscle.id) },
-        iconStart = icon,
         text = muscle.name
     )
 }

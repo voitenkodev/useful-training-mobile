@@ -17,10 +17,12 @@ import molecule.PaddingXL
 import molecule.Shadow
 import trainingbuilder.muscle_picker.models.MuscleType
 import trainingbuilder.muscle_picker.models.MuscleTypeEnum
+import trainingbuilder.muscle_picker.models.StatusEnum
 
 @Composable
 internal fun MusclePack(
     list: ImmutableList<MuscleType>,
+    includedMuscleStatuses: ImmutableList<StatusEnum>,
     selectFullBody: () -> Unit,
     selectUpperBody: () -> Unit,
     selectLowerBody: () -> Unit
@@ -39,14 +41,23 @@ internal fun MusclePack(
     )
 
     val fullBodyState = when {
-        list.all { it.muscles.all { m -> m.isSelected } } -> selectedChipState
+        list.all {
+            it.muscles
+                .filter { m -> includedMuscleStatuses.contains(m.status) }
+                .all { m -> m.isSelected }
+        } -> selectedChipState
+
         else -> unSelectedChipState
     }
 
     val lowerBodyState = when {
         list
             .filter { it.type == MuscleTypeEnum.LEGS }
-            .all { it.muscles.all { m -> m.isSelected } } -> selectedChipState
+            .all {
+                it.muscles
+                    .filter { m -> includedMuscleStatuses.contains(m.status) }
+                    .all { m -> m.isSelected }
+            } -> selectedChipState
 
         else -> unSelectedChipState
     }
@@ -54,7 +65,11 @@ internal fun MusclePack(
     val topBodyState = when {
         list
             .filterNot { it.type == MuscleTypeEnum.LEGS }
-            .all { it.muscles.all { m -> m.isSelected } } -> selectedChipState
+            .all {
+                it.muscles
+                    .filter { m -> includedMuscleStatuses.contains(m.status) }
+                    .all { m -> m.isSelected }
+            } -> selectedChipState
 
         else -> unSelectedChipState
     }

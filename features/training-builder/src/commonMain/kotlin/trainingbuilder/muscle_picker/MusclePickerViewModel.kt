@@ -24,7 +24,7 @@ internal class MusclePickerViewModel : ViewModel() {
     init {
         musclesApi
             .observeMuscleTypes()
-            .onEach { r -> _state.update { it.copy(muscleTypes = r.toState()) } }
+            .onEach { r -> _state.update { it.copy(muscleTypes = r.toState(it.includedMuscleStatuses)) } }
             .catch { r -> _state.update { it.copy(error = r.message) } }
             .launchIn(this)
 
@@ -43,9 +43,9 @@ internal class MusclePickerViewModel : ViewModel() {
                     }
                 val image = muscleImage(
                     muscleTypeEnumState = muscleType.type,
-                    muscles = muscles
+                    muscles = muscles,
+                    includedMuscleStatuses = st.includedMuscleStatuses
                 )
-
                 muscleType.copy(
                     muscles = muscles,
                     isSelected = muscles
@@ -78,7 +78,8 @@ internal class MusclePickerViewModel : ViewModel() {
                     }
                 val image = muscleImage(
                     muscleTypeEnumState = muscleType.type,
-                    muscles = muscles
+                    muscles = muscles,
+                    includedMuscleStatuses = st.includedMuscleStatuses
                 )
                 muscleType.copy(
                     muscles = muscles,
@@ -110,7 +111,8 @@ internal class MusclePickerViewModel : ViewModel() {
                     }
                 val image = muscleImage(
                     muscleTypeEnumState = muscleType.type,
-                    muscles = muscles
+                    muscles = muscles,
+                    includedMuscleStatuses = st.includedMuscleStatuses
                 )
                 muscleType.copy(
                     muscles = muscles,
@@ -145,7 +147,8 @@ internal class MusclePickerViewModel : ViewModel() {
                         }
                     val image = muscleImage(
                         muscleTypeEnumState = muscleType.type,
-                        muscles = muscles
+                        muscles = muscles,
+                        includedMuscleStatuses = st.includedMuscleStatuses
                     )
                     muscleType.copy(
                         muscles = muscles,
@@ -178,7 +181,8 @@ internal class MusclePickerViewModel : ViewModel() {
                     }
                 val image = muscleImage(
                     muscleTypeEnumState = muscleType.type,
-                    muscles = muscles
+                    muscles = muscles,
+                    includedMuscleStatuses = st.includedMuscleStatuses
                 )
                 muscleType.copy(
                     muscles = muscles,
