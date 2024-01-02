@@ -82,7 +82,7 @@ private fun Content(
 
             PaddingWeight()
 
-            PaddingXL()
+            PaddingM()
 
             TextBody2(
                 provideText = { "Don't have an account yet?" },
@@ -97,7 +97,7 @@ private fun Content(
                 onClick = registration
             )
 
-            PaddingL()
+            PaddingM()
 
             ButtonSecondary(
                 modifier = Modifier.fillMaxWidth().padding(horizontal = Design.dp.paddingM),
