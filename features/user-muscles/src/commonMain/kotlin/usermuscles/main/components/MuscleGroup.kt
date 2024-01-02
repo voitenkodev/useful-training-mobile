@@ -1,10 +1,9 @@
-package trainingbuilder.muscle_picker.components
+package usermuscles.main.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -19,20 +18,18 @@ import androidx.compose.ui.unit.dp
 import atom.Design
 import components.chips.Chip
 import components.chips.ChipState
-import molecule.ButtonTextLink
 import molecule.PaddingM
 import molecule.PaddingS
 import molecule.TextH4
 import resources.Icons
-import trainingbuilder.muscle_picker.models.Muscle
-import trainingbuilder.muscle_picker.models.MuscleType
-import trainingbuilder.muscle_picker.models.StatusEnum
+import usermuscles.main.models.Muscle
+import usermuscles.main.models.MuscleType
+import usermuscles.main.models.StatusEnum
 
 
 @Composable
 internal fun MuscleGroup(
     item: MuscleType,
-    selectMuscleType: (id: String) -> Unit,
     selectMuscle: (id: String) -> Unit
 ) {
 
@@ -43,27 +40,12 @@ internal fun MuscleGroup(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        Row(
+        TextH4(
             modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-
-            TextH4(
-                modifier = Modifier.weight(1f),
-                provideText = { item.name },
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-            )
-
-            PaddingS()
-
-            ButtonTextLink(
-                modifier = Modifier.padding(bottom = 4.dp),
-                text = if (item.isSelected) "CLEAR" else "ALL",
-                onClick = { selectMuscleType.invoke(item.id) },
-                color = if (item.isSelected) Design.colors.caption else Design.colors.toxic
-            )
-        }
+            provideText = { item.name },
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+        )
 
         PaddingM()
 
@@ -97,35 +79,31 @@ private fun MuscleChip(
     selectMuscle: (id: String) -> Unit
 ) {
 
-    val contentColor = remember(muscle.status) {
-        when (muscle.status) {
-            StatusEnum.HIGH -> Design.palette.content
-            StatusEnum.MEDIUM -> Design.palette.content
-            StatusEnum.LOW -> Design.palette.caption
-            StatusEnum.EXCLUDED -> Design.palette.white10
-        }
-    }
-
     val selectedChipState = ChipState.Colored(
         backgroundColor = Design.colors.toxic.copy(alpha = 0.1f),
         borderColor = Design.colors.toxic,
-        contentColor = Design.colors.content,
-        enabled = muscle.status != StatusEnum.EXCLUDED
+        contentColor = Design.colors.content
     )
+
+    val contentColor = remember(muscle.status) {
+        when (muscle.status) {
+            StatusEnum.High -> Design.palette.content
+            StatusEnum.Medium -> Design.palette.content
+            StatusEnum.Low -> Design.palette.caption
+        }
+    }
 
     val unselectedChipState = ChipState.Colored(
         backgroundColor = Color.Transparent,
         borderColor = Design.palette.white10,
-        contentColor = contentColor,
-        enabled = muscle.status != StatusEnum.EXCLUDED
+        contentColor = contentColor
     )
 
     val icon = remember(muscle.status) {
         when (muscle.status) {
-            StatusEnum.HIGH -> Icons.highBattery
-            StatusEnum.MEDIUM -> Icons.mediumBattery
-            StatusEnum.LOW -> Icons.lowBattery
-            StatusEnum.EXCLUDED -> null
+            StatusEnum.High -> Icons.highBattery
+            StatusEnum.Medium -> Icons.mediumBattery
+            StatusEnum.Low -> Icons.lowBattery
         }
     }
 

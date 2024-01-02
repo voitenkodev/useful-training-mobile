@@ -1,4 +1,4 @@
-package trainingbuilder.muscle_picker.factories
+package usermuscles.main.factories
 
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -7,14 +7,15 @@ import musclepickerpicker.bodyBack
 import musclepickerpicker.bodyFront
 import musclepickerpicker.bodySplit
 import musclepickerpicker.legsSplit
-import trainingbuilder.muscle_picker.models.Muscle
-import trainingbuilder.muscle_picker.models.MuscleEnum
-import trainingbuilder.muscle_picker.models.MuscleTypeEnum
-import trainingbuilder.muscle_picker.models.StatusEnum
+import usermuscles.main.models.Muscle
+import usermuscles.main.models.MuscleEnum
+import usermuscles.main.models.MuscleTypeEnum
+import usermuscles.main.models.StatusEnum
 
 private fun colorBySelection(muscle: Muscle?): Color {
 
-    val availableStatusRange = listOf(StatusEnum.HIGH, StatusEnum.LOW, StatusEnum.MEDIUM)
+    // TODO upd
+    val availableStatusRange = listOf(StatusEnum.INCLUDED)
 
     val unSelected = Design.palette.orange.copy(alpha = 0.8f)
     val selected = Design.palette.toxic

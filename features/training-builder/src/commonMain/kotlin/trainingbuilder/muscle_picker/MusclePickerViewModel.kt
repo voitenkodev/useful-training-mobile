@@ -34,118 +34,162 @@ internal class MusclePickerViewModel : ViewModel() {
     }
 
     fun selectMuscle(id: String) {
-        _state.update {
-            val muscleTypes = it.muscleTypes.map { muscleType ->
-                val muscles = muscleType.muscles.map { muscle ->
-                    if (id == muscle.id) muscle.copy(isSelected = muscle.isSelected.not())
-                    else muscle
-                }
+        _state.update { st ->
+            val muscleTypes = st.muscleTypes.map { muscleType ->
+                val muscles = muscleType.muscles
+                    .map { muscle ->
+                        if (id == muscle.id) muscle.copy(isSelected = muscle.isSelected.not())
+                        else muscle
+                    }
                 val image = muscleImage(
                     muscleTypeEnumState = muscleType.type,
                     muscles = muscles
                 )
+
                 muscleType.copy(
                     muscles = muscles,
+                    isSelected = muscles
+                        .filter { st.includedMuscleStatuses.contains(it.status) }
+                        .none { m -> m.isSelected.not() },
                     bodyImageVector = image
                 )
 
             }.toImmutableList()
 
-            it.copy(muscleTypes = muscleTypes)
+            st.copy(muscleTypes = muscleTypes)
         }
     }
 
     fun selectMuscleType(id: String) {
-        _state.update {
-            val muscleTypes = it.muscleTypes.map { muscleType ->
+        _state.update { st ->
+            val newValue = st.muscleTypes.find { it.id == id }?.let { mt ->
+                mt.muscles
+                    .filter { st.includedMuscleStatuses.contains(it.status) }
+                    .all { m -> m.isSelected }
+            }?.not() ?: false
+
+            val muscleTypes = st.muscleTypes.map { muscleType ->
                 if (id != muscleType.id) return@map muscleType
 
-                val muscles = muscleType.muscles.map { muscle ->
-                    muscle.copy(isSelected = muscleType.muscles.any { m -> m.isSelected.not() })
-                }
+                val muscles = muscleType.muscles
+                    .map { muscle ->
+                        if (st.includedMuscleStatuses.contains(muscle.status).not()) muscle
+                        else muscle.copy(isSelected = newValue)
+                    }
                 val image = muscleImage(
                     muscleTypeEnumState = muscleType.type,
                     muscles = muscles
                 )
                 muscleType.copy(
                     muscles = muscles,
+                    isSelected = muscles
+                        .filter { st.includedMuscleStatuses.contains(it.status) }
+                        .none { m -> m.isSelected.not() },
                     bodyImageVector = image
                 )
 
             }.toImmutableList()
 
-            it.copy(muscleTypes = muscleTypes)
+            st.copy(muscleTypes = muscleTypes)
         }
     }
 
     fun selectFullBody() {
-        _state.update {
-            val newValue = it.muscleTypes.all { mt -> mt.muscles.all { m -> m.isSelected } }.not()
+        _state.update { st ->
+            val newValue = st.muscleTypes.all { mt ->
+                mt.muscles
+                    .filter { st.includedMuscleStatuses.contains(it.status) }
+                    .all { m -> m.isSelected }
+            }.not()
 
-            val muscleTypes = it.muscleTypes.map { muscleType ->
-                val muscles = muscleType.muscles.map { m ->
-                    m.copy(isSelected = newValue)
-                }
+            val muscleTypes = st.muscleTypes.map { muscleType ->
+                val muscles = muscleType.muscles
+                    .map { muscle ->
+                        if (st.includedMuscleStatuses.contains(muscle.status).not()) muscle
+                        else muscle.copy(isSelected = newValue)
+                    }
                 val image = muscleImage(
                     muscleTypeEnumState = muscleType.type,
                     muscles = muscles
                 )
                 muscleType.copy(
                     muscles = muscles,
+                    isSelected = muscles
+                        .filter { st.includedMuscleStatuses.contains(it.status) }
+                        .none { m -> m.isSelected.not() },
                     bodyImageVector = image
                 )
 
             }.toImmutableList()
 
-            it.copy(muscleTypes = muscleTypes)
+            st.copy(muscleTypes = muscleTypes)
         }
     }
 
     fun selectUpperBody() {
-        _state.update {
-            val newValue = it.muscleTypes
+        _state.update { st ->
+            val newValue = st.muscleTypes
                 .filterNot { mt -> mt.type == MuscleTypeEnum.LEGS }
-                .all { mt -> mt.muscles.all { m -> m.isSelected } }.not()
+                .all { mt ->
+                    mt.muscles
+                        .filter { st.includedMuscleStatuses.contains(it.status) }
+                        .all { m -> m.isSelected }
+                }.not()
 
-            val muscleTypes = it.muscleTypes.map { muscleType ->
-                val muscles = muscleType.muscles.map { muscle ->
-                    muscle.copy(isSelected = if (muscleType.type == MuscleTypeEnum.LEGS) muscle.isSelected else newValue)
-                }
-                val image = muscleImage(
-                    muscleTypeEnumState = muscleType.type,
-                    muscles = muscles
-                )
-                muscleType.copy(
-                    muscles = muscles,
-                    bodyImageVector = image
-                )
-            }.toImmutableList()
+            val muscleTypes = st.muscleTypes
+                .map { muscleType ->
+                    val muscles = muscleType.muscles
+                        .map { muscle ->
+                            if (st.includedMuscleStatuses.contains(muscle.status).not()) muscle
+                            else muscle.copy(isSelected = if (muscleType.type == MuscleTypeEnum.LEGS) muscle.isSelected else newValue)
+                        }
+                    val image = muscleImage(
+                        muscleTypeEnumState = muscleType.type,
+                        muscles = muscles
+                    )
+                    muscleType.copy(
+                        muscles = muscles,
+                        isSelected = muscles
+                            .filter { st.includedMuscleStatuses.contains(it.status) }
+                            .none { m -> m.isSelected.not() },
+                        bodyImageVector = image
+                    )
+                }.toImmutableList()
 
-            it.copy(muscleTypes = muscleTypes)
+            st.copy(muscleTypes = muscleTypes)
         }
     }
 
     fun selectLowerBody() {
-        _state.update {
-            val newValue = it.muscleTypes
+        _state.update { st ->
+            val newValue = st.muscleTypes
                 .filter { mt -> mt.type == MuscleTypeEnum.LEGS }
-                .all { mt -> mt.muscles.all { m -> m.isSelected } }.not()
+                .all { mt ->
+                    mt.muscles
+                        .filter { st.includedMuscleStatuses.contains(it.status) }
+                        .all { m -> m.isSelected }
+                }.not()
 
-            val muscleTypes = it.muscleTypes.map { muscleType ->
-                val muscles = muscleType.muscles.map { muscle ->
-                    muscle.copy(isSelected = if (muscleType.type != MuscleTypeEnum.LEGS) muscle.isSelected else newValue)
-                }
+            val muscleTypes = st.muscleTypes.map { muscleType ->
+                val muscles = muscleType.muscles
+                    .map { muscle ->
+                        if (st.includedMuscleStatuses.contains(muscle.status).not()) muscle
+                        else muscle.copy(isSelected = if (muscleType.type != MuscleTypeEnum.LEGS) muscle.isSelected else newValue)
+                    }
                 val image = muscleImage(
                     muscleTypeEnumState = muscleType.type,
                     muscles = muscles
                 )
                 muscleType.copy(
                     muscles = muscles,
+                    isSelected = muscles
+                        .filter { st.includedMuscleStatuses.contains(it.status) }
+                        .none { m -> m.isSelected.not() },
                     bodyImageVector = image
                 )
             }.toImmutableList()
 
-            it.copy(muscleTypes = muscleTypes)
+            st.copy(muscleTypes = muscleTypes)
         }
     }
 

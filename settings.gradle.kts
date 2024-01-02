@@ -65,5 +65,6 @@ include(
     "features:exercise-example",
 //    "features:exercise-examples",
     "features:search-exercise",
-    "features:weight-history"
+    "features:weight-history",
+    "features:user-muscles"
 )

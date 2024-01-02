@@ -22,18 +22,18 @@ internal class MusclesRepositoryImpl(
             .map { it.daoToDomain() }
     }
 
-    override fun observeMusclesById(ids: List<String>): Flow<List<Muscle>> {
-        return local
-            .getMusclesByIds(ids)
-            .map { it.daoToDomain() }
-    }
-
     override fun syncMuscleTypes(): Flow<Unit> {
         return flow {
             val result = remote.getMuscles()
             local.setMuscleTypesWithMuscles(result.dtoToDao())
             emit(Unit)
         }
+    }
+
+    override fun observeMusclesById(ids: List<String>): Flow<List<Muscle>> {
+        return local
+            .getMusclesByIds(ids)
+            .map { it.daoToDomain() }
     }
 
     override fun clearCache() {
