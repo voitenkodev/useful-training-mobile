@@ -14,7 +14,7 @@ import usermuscles.main.models.StatusEnum
 
 private fun colorBySelection(muscle: Muscle?): Color {
 
-    val unSelected = Design.palette.orange.copy(alpha = 0.8f)
+    val unSelected = Design.palette.white10
     val selected = Design.palette.toxic
     val default = Design.palette.white10
 
