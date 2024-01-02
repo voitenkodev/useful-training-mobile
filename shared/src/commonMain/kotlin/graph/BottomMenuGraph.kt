@@ -29,6 +29,7 @@ internal fun BottomMenuGraph(
     toTrainingDetails: (id: String) -> Unit,
     toExerciseExamples: () -> Unit,
     toAuthentication: () -> Unit,
+    toMuscles: () -> Unit,
     toWeightHistory: () -> Unit
 ) {
 
@@ -68,7 +69,8 @@ internal fun BottomMenuGraph(
                     BottomMenuRouter.Profile -> ProfileGraph(
                         startDirection = ProfileFeature.Main,
                         toExerciseExamples = toExerciseExamples,
-                        toWeightHistory = toWeightHistory
+                        toWeightHistory = toWeightHistory,
+                        toMuscles = toMuscles
                     )
 
                     BottomMenuRouter.Statistics -> StatisticsGraph(

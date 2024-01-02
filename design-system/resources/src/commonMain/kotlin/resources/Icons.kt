@@ -11,6 +11,7 @@ import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.ui.graphics.vector.ImageVector
+import resources.icons.Body
 import resources.icons.Chart
 import resources.icons.Close
 import resources.icons.Delete
@@ -61,4 +62,5 @@ public object Icons {
     public val lowBattery: ImageVector = LowBattery
     public val mediumBattery: ImageVector = MediumBattery
     public val highBattery: ImageVector = HighBattery
+    public val body: ImageVector = Body
 }

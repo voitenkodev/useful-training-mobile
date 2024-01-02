@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -19,10 +18,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import atom.Design
 import components.Error
+import components.ShadowFooter
+import components.ShadowFooterSpace
 import components.overlay.TopShadow
 import components.roots.ScreenRoot
 import exerciseexample.main.components.Achievements
-import exerciseexample.main.components.Footer
 import exerciseexample.main.components.Header
 import exerciseexample.main.components.HeapMap
 import exerciseexample.main.components.MusclePack
@@ -88,11 +88,9 @@ private fun Content(
 
             ResentVolume()
 
-            Spacer(modifier = Modifier.statusBarsPadding().height(Design.dp.paddingXL))
-
             PaddingM()
 
-            Spacer(modifier = Modifier.size(Design.dp.componentM))
+            ShadowFooterSpace()
         }
 
         Box(modifier = Modifier.fillMaxWidth().height(IntrinsicSize.Min)) {
@@ -100,10 +98,11 @@ private fun Content(
             Spacer(modifier = Modifier.statusBarsPadding().height(Design.dp.paddingXL))
         }
 
-        Footer(
+        ShadowFooter(
             modifier = Modifier.fillMaxWidth().align(Alignment.BottomCenter),
-            exerciseExampleId = exerciseExample?.id,
-            primaryAction = primaryAction,
+            primary = if (primaryAction != null && exerciseExample?.id != null) {
+                primaryAction.first to { primaryAction.second.invoke(exerciseExample.id) }
+            } else null,
             close = close
         )
     }

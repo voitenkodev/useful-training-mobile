@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -24,13 +23,14 @@ import basic.LineChartDotsStyle
 import basic.LineChartLabelStyle
 import basic.LineChartStyle
 import components.Error
+import components.ShadowFooter
+import components.ShadowFooterSpace
 import components.cards.HorizontalValueCard
 import components.roots.ScreenRoot
 import kg
 import kotlinx.collections.immutable.ImmutableList
 import molecule.PopupSheet
 import resources.Icons
-import weighthistory.main.components.Footer
 import weighthistory.main.components.Header
 import weighthistory.main.models.WeightHistory
 import weighthistory.main.popups.WeightPickerPopup
@@ -136,17 +136,16 @@ private fun Content(
             }
 
             item("shadow_bottom_space") {
-                Spacer(modifier = Modifier.statusBarsPadding().height(Design.dp.paddingXL))
-                Spacer(modifier = Modifier.size(Design.dp.componentM))
+                ShadowFooterSpace()
             }
         }
 
         Header()
 
-        Footer(
+        ShadowFooter(
             modifier = Modifier.fillMaxWidth().align(Alignment.BottomCenter),
-            update = update,
-            close = close
+            close = close,
+            primary = "update" to update
         )
     }
 }

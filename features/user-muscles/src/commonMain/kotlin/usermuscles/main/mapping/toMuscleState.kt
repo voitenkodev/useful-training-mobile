@@ -23,10 +23,9 @@ internal fun models.Muscle.toState(): Muscle? {
 
 private fun StatusEnum.toState(): usermuscles.main.models.StatusEnum? {
     return when (this) {
-        StatusEnum.HIGH -> usermuscles.main.models.StatusEnum.High
-        StatusEnum.MEDIUM -> usermuscles.main.models.StatusEnum.Medium
-        StatusEnum.LOW -> usermuscles.main.models.StatusEnum.Low
+        StatusEnum.EXCLUDED -> usermuscles.main.models.StatusEnum.EXCLUDED
         StatusEnum.UNKNOWN -> null
+        else -> usermuscles.main.models.StatusEnum.INCLUDED
     }
 }
 

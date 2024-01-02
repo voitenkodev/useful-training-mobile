@@ -19,6 +19,7 @@ import searchexercise.SearchExerciseComponent
 import searchexercise.SearchExerciseController
 import searchexercise.SearchExerciseGraph
 import trainingbuilder.TrainingGraph
+import usermuscles.UserMusclesGraph
 import weighthistory.WeightHistoryGraph
 
 @Parcelize
@@ -35,6 +36,7 @@ internal sealed class MainRouter : Parcelable {
     ) : MainRouter()
 
     data object WeightHistory : MainRouter()
+    data object UserMuscles : MainRouter()
 
     data object BottomMenu : MainRouter()
 }
@@ -57,7 +59,8 @@ internal fun MainGraph(toAuthentication: () -> Unit) {
                         toTrainingDetails = {},
                         toAuthentication = toAuthentication,
                         toExerciseExamples = { router.push(MainRouter.SearchExercise(itemAction = null, autoFocus = false)) },
-                        toWeightHistory = { router.push(MainRouter.WeightHistory) }
+                        toWeightHistory = { router.push(MainRouter.WeightHistory) },
+                        toMuscles = { router.push(MainRouter.UserMuscles) }
                     )
 
                     is MainRouter.Training -> {
@@ -89,6 +92,10 @@ internal fun MainGraph(toAuthentication: () -> Unit) {
                     }
 
                     is MainRouter.WeightHistory -> WeightHistoryGraph(
+                        close = router::pop
+                    )
+
+                    is MainRouter.UserMuscles -> UserMusclesGraph(
                         close = router::pop
                     )
 

@@ -34,6 +34,7 @@ import resources.Icons
 internal fun ProfileContent(
     vm: ProfileViewModel,
     toExerciseExamples: () -> Unit,
+    toMuscles: () -> Unit,
     toWeightHistory: () -> Unit
 ) {
 
@@ -45,6 +46,7 @@ internal fun ProfileContent(
         user = state.user,
         updateUser = {},
         toExerciseExamples = toExerciseExamples,
+        toMuscles = toMuscles,
         toWeightHistory = toWeightHistory,
         toSupport = {},
         logout = vm::logout
@@ -60,6 +62,7 @@ private fun Content(
     updateUser: () -> Unit,
 
     toExerciseExamples: () -> Unit,
+    toMuscles: () -> Unit,
     toSupport: () -> Unit,
     toWeightHistory: () -> Unit,
     logout: () -> Unit
@@ -123,6 +126,12 @@ private fun Content(
                     )
 
                     MenuItem(
+                        icon = Icons.body,
+                        text = "Muscles",
+                        onClick = toMuscles
+                    )
+
+                    MenuItem(
                         icon = Icons.dumbbell,
                         text = "Exercise",
                         onClick = toExerciseExamples
@@ -133,6 +142,7 @@ private fun Content(
                     Shadow()
                 }
             }
+
             item { PaddingXL() }
 
             item {

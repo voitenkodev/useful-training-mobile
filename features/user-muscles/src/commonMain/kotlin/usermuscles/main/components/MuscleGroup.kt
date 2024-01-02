@@ -21,6 +21,7 @@ import components.chips.ChipState
 import molecule.PaddingM
 import molecule.PaddingS
 import molecule.TextH4
+import molecule.TextLabel
 import resources.Icons
 import usermuscles.main.models.Muscle
 import usermuscles.main.models.MuscleType
@@ -32,6 +33,14 @@ internal fun MuscleGroup(
     item: MuscleType,
     selectMuscle: (id: String) -> Unit
 ) {
+
+    val included = remember(item.muscles) {
+        item.muscles.filter { it.status == StatusEnum.INCLUDED }
+    }
+
+    val excluded = remember(item.muscles) {
+        item.muscles.filter { it.status == StatusEnum.EXCLUDED }
+    }
 
     PaddingS()
 
@@ -62,11 +71,37 @@ internal fun MuscleGroup(
 
             Column(verticalArrangement = Arrangement.spacedBy(Design.dp.paddingS)) {
 
-                item.muscles.forEach { muscle ->
-                    MuscleChip(
-                        muscle = muscle,
-                        selectMuscle = selectMuscle
+
+                if (included.isNotEmpty()) {
+                    TextLabel(
+                        provideText = { "Included" },
+                        color = Design.colors.toxic
                     )
+
+                    included.forEach { muscle ->
+                        MuscleChip(
+                            muscle = muscle,
+                            selectMuscle = selectMuscle
+                        )
+                    }
+                }
+
+                if (included.isNotEmpty() && excluded.isNotEmpty()) {
+                    PaddingM()
+                }
+
+                if (excluded.isNotEmpty()) {
+                    TextLabel(
+                        provideText = { "Excluded" },
+                        color = Design.colors.orange
+                    )
+
+                    excluded.forEach { muscle ->
+                        MuscleChip(
+                            muscle = muscle,
+                            selectMuscle = selectMuscle
+                        )
+                    }
                 }
             }
         }
@@ -87,9 +122,8 @@ private fun MuscleChip(
 
     val contentColor = remember(muscle.status) {
         when (muscle.status) {
-            StatusEnum.High -> Design.palette.content
-            StatusEnum.Medium -> Design.palette.content
-            StatusEnum.Low -> Design.palette.caption
+            StatusEnum.EXCLUDED -> Design.palette.content
+            StatusEnum.INCLUDED -> Design.palette.caption
         }
     }
 
@@ -101,9 +135,8 @@ private fun MuscleChip(
 
     val icon = remember(muscle.status) {
         when (muscle.status) {
-            StatusEnum.High -> Icons.highBattery
-            StatusEnum.Medium -> Icons.mediumBattery
-            StatusEnum.Low -> Icons.lowBattery
+            StatusEnum.EXCLUDED -> Icons.done
+            StatusEnum.INCLUDED -> Icons.close
         }
     }
 

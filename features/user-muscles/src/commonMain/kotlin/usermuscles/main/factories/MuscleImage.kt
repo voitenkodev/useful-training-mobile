@@ -14,16 +14,13 @@ import usermuscles.main.models.StatusEnum
 
 private fun colorBySelection(muscle: Muscle?): Color {
 
-    // TODO upd
-    val availableStatusRange = listOf(StatusEnum.INCLUDED)
-
     val unSelected = Design.palette.orange.copy(alpha = 0.8f)
     val selected = Design.palette.toxic
     val default = Design.palette.white10
 
-    return when {
-        muscle?.isSelected == true && availableStatusRange.contains(muscle.status) -> selected
-        muscle?.isSelected == false && availableStatusRange.contains(muscle.status) -> unSelected
+    return when (muscle?.status) {
+        StatusEnum.INCLUDED -> selected
+        StatusEnum.EXCLUDED -> unSelected
         else -> default
     }
 }

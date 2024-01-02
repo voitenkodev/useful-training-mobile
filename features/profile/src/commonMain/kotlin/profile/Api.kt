@@ -22,6 +22,7 @@ public sealed class ProfileFeature : Parcelable {
 public fun ProfileGraph(
     startDirection: ProfileFeature,
     toExerciseExamples: () -> Unit,
+    toMuscles: () -> Unit,
     toWeightHistory: () -> Unit
 ) {
 
@@ -39,7 +40,8 @@ public fun ProfileGraph(
                 ProfileContent(
                     vm = vm,
                     toExerciseExamples = toExerciseExamples,
-                    toWeightHistory = toWeightHistory
+                    toWeightHistory = toWeightHistory,
+                    toMuscles = toMuscles
                 )
             }
         }
