@@ -2,6 +2,8 @@ import data.dataModule
 import data.user.userDataModule
 import exercise_example_muscle.ExerciseExamplesSource
 import kotlinx.coroutines.flow.firstOrNull
+import network.ClientBackend
+import network.NetworkSource
 import org.koin.core.KoinApplication
 import org.koin.dsl.KoinAppDeclaration
 import org.koin.dsl.module

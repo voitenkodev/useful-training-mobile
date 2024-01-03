@@ -6,7 +6,7 @@ import data.muscles.mapping.dtoToDao
 import data.muscles.mapping.dtoToDomain
 import exercise_example_muscle.models.MuscleExerciseBundleDao
 import models.MuscleExerciseBundle
-import models.MuscleExerciseBundleDto
+import network.models.MuscleExerciseBundleDto
 
 internal fun List<MuscleExerciseBundleDao>.daoToDomain(): List<MuscleExerciseBundle> {
     return map { it.daoToDomain() }

@@ -1,17 +1,21 @@
+package network
+
 import io.ktor.client.call.body
 import io.ktor.client.request.request
 import io.ktor.client.request.setBody
 import io.ktor.http.HttpMethod
 import io.ktor.http.contentType
 import io.ktor.http.path
-import models.AuthDto
-import models.ExerciseExampleDto
-import models.MuscleTypeDto
-import models.RegisterDto
-import models.TokenDto
-import models.TrainingDto
-import models.UserDto
-import models.WeightHistoryDto
+import network.models.AuthDto
+import network.models.ExcludedMuscleDto
+import network.models.ExerciseExampleDto
+import network.models.MuscleDto
+import network.models.MuscleTypeDto
+import network.models.RegisterDto
+import network.models.TokenDto
+import network.models.TrainingDto
+import network.models.UserDto
+import network.models.WeightHistoryDto
 
 public class NetworkSource(private val clientBackend: ClientBackend) {
 
@@ -86,10 +90,24 @@ public class NetworkSource(private val clientBackend: ClientBackend) {
         )
     }
 
+    public suspend fun getUserMuscles(): List<MuscleTypeDto> {
+        return callRequest(
+            method = HttpMethod.Get,
+            path = "/user-muscles"
+        )
+    }
+
     public suspend fun getMuscles(): List<MuscleTypeDto> {
         return callRequest(
             method = HttpMethod.Get,
-            path = "/muscles"
+            path = "/user-muscles"
+        )
+    }
+
+    public suspend fun getUserMuscleById(id: String): MuscleDto {
+        return callRequest(
+            method = HttpMethod.Get,
+            path = "/user-muscles/$id"
         )
     }
 
@@ -97,6 +115,20 @@ public class NetworkSource(private val clientBackend: ClientBackend) {
         return callRequest(
             method = HttpMethod.Get,
             path = "/users/profile"
+        )
+    }
+
+    public suspend fun deleteExcludedMuscle(id: String): ExcludedMuscleDto {
+        return callRequest(
+            method = HttpMethod.Delete,
+            path = "/excluded-muscles/$id"
+        )
+    }
+
+    public suspend fun setExcludedMuscle(id: String): ExcludedMuscleDto {
+        return callRequest(
+            method = HttpMethod.Post,
+            path = "/excluded-muscles/$id"
         )
     }
 

@@ -2,8 +2,8 @@ package data.muscles.mapping
 
 import exercise_example_muscle.models.MuscleTypeDao
 import models.MuscleType
-import models.MuscleTypeDto
 import models.MuscleTypeEnum
+import network.models.MuscleTypeDto
 
 internal fun List<MuscleTypeDao>.daoToDomain(): List<MuscleType> {
     return mapNotNull { it.daoToDomain() }

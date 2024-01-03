@@ -1,7 +1,7 @@
 package data.traininigs.mapping
 
 import models.Iteration
-import models.IterationDto
+import network.models.IterationDto
 import traininig_exercise_iteration.models.IterationDao
 
 internal fun IterationDao.toDomain(): Iteration {

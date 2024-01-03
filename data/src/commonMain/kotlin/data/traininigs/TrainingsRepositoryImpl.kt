@@ -1,6 +1,5 @@
 package data.traininigs
 
-import NetworkSource
 import TrainingsRepository
 import data.traininigs.mapping.daoToDomain
 import data.traininigs.mapping.domainToDto
@@ -10,6 +9,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import models.Training
+import network.NetworkSource
 import traininig_exercise_iteration.TrainingsSource
 
 internal class TrainingsRepositoryImpl(

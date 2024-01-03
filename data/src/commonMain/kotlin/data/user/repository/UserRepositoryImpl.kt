@@ -1,6 +1,5 @@
 package data.user.repository
 
-import NetworkSource
 import UserRepository
 import data.user.mapping.daoToDomain
 import data.user.mapping.dtoToDao
@@ -10,6 +9,7 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import models.User
 import models.WeightHistory
+import network.NetworkSource
 import user_weight.UserSource
 
 internal class UserRepositoryImpl(
@@ -51,6 +51,20 @@ internal class UserRepositoryImpl(
             val result = remote.updateWeightHistory(value).dtoToDao()
             if (result != null) local.setWeightHistory(result)
             emit(Unit)
+        }
+    }
+
+    override fun setExcludedMuscle(id: String): Flow<String?> {
+        return flow {
+            val result = remote.setExcludedMuscle(id).id
+            emit(result)
+        }
+    }
+
+    override fun deleteExcludedMuscle(id: String): Flow<String?> {
+        return flow {
+            val result = remote.deleteExcludedMuscle(id).id
+            emit(result)
         }
     }
 

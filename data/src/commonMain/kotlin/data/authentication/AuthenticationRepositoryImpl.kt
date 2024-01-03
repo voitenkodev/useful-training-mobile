@@ -1,14 +1,14 @@
 package data.authentication
 
 import AuthenticationRepository
-import NetworkSource
 import PreferencesSource
 import exercise_example_muscle.ExerciseExamplesSource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
-import models.AuthDto
-import models.RegisterDto
+import network.NetworkSource
+import network.models.AuthDto
+import network.models.RegisterDto
 import traininig_exercise_iteration.TrainingsSource
 import user_weight.UserSource
 

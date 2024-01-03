@@ -1,7 +1,6 @@
 package data.exerciseexamples
 
 import ExerciseExamplesRepository
-import NetworkSource
 import data.exerciseexamples.mapping.daoToDomain
 import data.exerciseexamples.mapping.domainToDto
 import data.exerciseexamples.mapping.dtoToDao
@@ -12,6 +11,7 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.mapNotNull
 import models.ExerciseExample
+import network.NetworkSource
 
 internal class ExerciseExamplesRepositoryImpl(
     private val remote: NetworkSource,

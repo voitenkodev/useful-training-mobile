@@ -25,7 +25,7 @@ internal class UserMusclesViewModel : ViewModel() {
             .catch { r -> _state.update { it.copy(error = r.message) } }
             .launchIn(this)
 
-        musclesApi.syncMuscleTypes()
+        musclesApi.syncUserMuscleTypes()
             .catch { r -> _state.update { it.copy(error = r.message) } }
             .launchIn(this)
     }

@@ -1,7 +1,6 @@
 package data.muscles
 
 import MusclesRepository
-import NetworkSource
 import data.muscles.mapping.daoToDomain
 import data.muscles.mapping.dtoToDao
 import exercise_example_muscle.ExerciseExamplesSource
@@ -10,6 +9,7 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import models.Muscle
 import models.MuscleType
+import network.NetworkSource
 
 internal class MusclesRepositoryImpl(
     private val remote: NetworkSource,
@@ -22,9 +22,27 @@ internal class MusclesRepositoryImpl(
             .map { it.daoToDomain() }
     }
 
+    override fun syncUserMuscleTypes(): Flow<Unit> {
+        return flow {
+            val result = remote.getUserMuscles()
+            local.setMuscleTypesWithMuscles(result.dtoToDao())
+            emit(Unit)
+        }
+    }
+
+    override fun syncUserMuscleById(id: String): Flow<Unit> {
+        return flow {
+            val result = remote
+                .getUserMuscleById(id)
+                .dtoToDao()
+            if (result != null) local.setMuscle(result)
+            emit(Unit)
+        }
+    }
+
     override fun syncMuscleTypes(): Flow<Unit> {
         return flow {
-            val result = remote.getMuscles()
+            val result = remote.getUserMuscles()
             local.setMuscleTypesWithMuscles(result.dtoToDao())
             emit(Unit)
         }

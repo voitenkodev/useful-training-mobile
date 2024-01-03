@@ -1,3 +1,6 @@
+package network
+
+import NativeContext
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.auth.Auth
 import io.ktor.client.plugins.auth.providers.BearerTokens

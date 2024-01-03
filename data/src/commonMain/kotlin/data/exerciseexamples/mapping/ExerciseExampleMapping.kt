@@ -2,7 +2,7 @@ package data.exerciseexamples.mapping
 
 import exercise_example_muscle.models.ExerciseExampleDao
 import models.ExerciseExample
-import models.ExerciseExampleDto
+import network.models.ExerciseExampleDto
 
 internal fun List<ExerciseExampleDao>.daoToDomain(): List<ExerciseExample> {
     return mapNotNull { it.daoToDomain() }

@@ -4,9 +4,9 @@ import data.exerciseexamples.mapping.daoToDomain
 import data.exerciseexamples.mapping.domainToDto
 import data.exerciseexamples.mapping.dtoToDao
 import models.Exercise
-import models.ExerciseDto
 import models.Iteration
-import models.IterationDto
+import network.models.ExerciseDto
+import network.models.IterationDto
 import traininig_exercise_iteration.models.ExerciseDao
 import traininig_exercise_iteration.models.IterationDao
 

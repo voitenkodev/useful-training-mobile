@@ -1,9 +1,9 @@
 package data.traininigs.mapping
 
 import models.Exercise
-import models.ExerciseDto
 import models.Training
-import models.TrainingDto
+import network.models.ExerciseDto
+import network.models.TrainingDto
 import traininig_exercise_iteration.models.ExerciseDao
 import traininig_exercise_iteration.models.TrainingDao
 

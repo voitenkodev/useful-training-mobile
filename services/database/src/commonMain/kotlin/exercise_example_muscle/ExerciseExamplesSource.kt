@@ -117,6 +117,18 @@ public class ExerciseExamplesSource(nativeContext: NativeContext) {
         }
     }
 
+    public fun setMuscle(muscle: MuscleDao) {
+        api.setMuscle(
+            id = muscle.id,
+            name = muscle.name,
+            createdAt = muscle.createdAt,
+            updatedAt = muscle.updatedAt,
+            muscleTypeId = muscle.muscleTypeId,
+            type = muscle.type,
+            status = muscle.status
+        )
+    }
+
     public fun clearTables() {
         api.deleteTableExerciseExample()
         api.deleteTableMuscle()
