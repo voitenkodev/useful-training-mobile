@@ -7,7 +7,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flatMapConcat
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
@@ -47,10 +46,9 @@ internal class UserMusclesViewModel : ViewModel() {
             userApi.setExcludedMuscle(muscle.id)
         }
 
-        flow.flatMapConcat { r ->
-            if (r == null) flowOf(Unit)
-            else musclesApi.syncUserMuscleById(r)
-        }.onStart { _state.update { it.copy(loading = true) } }
+        flow
+            .flatMapConcat { musclesApi.syncUserMuscles() }
+            .onStart { _state.update { it.copy(loading = true) } }
             .catch { r -> _state.update { it.copy(error = r.message, loading = false) } }
             .onEach { _state.update { it.copy(loading = false) } }
             .launchIn(this)
