@@ -40,11 +40,8 @@ internal class UserMusclesViewModel : ViewModel() {
             .flatMap { it.muscles }
             .find { it.id == id } ?: return
 
-        val flow = if (muscle.status == StatusEnum.EXCLUDED) {
-            userApi.deleteExcludedMuscle(muscle.id)
-        } else {
-            userApi.setExcludedMuscle(muscle.id)
-        }
+        val flow = if (muscle.status == StatusEnum.EXCLUDED) userApi.deleteExcludedMuscle(muscle.id)
+        else userApi.setExcludedMuscle(muscle.id)
 
         flow
             .flatMapConcat { musclesApi.syncUserMuscles() }
