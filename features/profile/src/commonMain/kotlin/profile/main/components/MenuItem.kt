@@ -15,7 +15,6 @@ import atom.Design
 import molecule.Icon
 import molecule.PaddingWeight
 import molecule.TextH4
-import molecule.coloredDefaultBackgroundNoBorder
 import resources.Icons
 
 @Composable
@@ -38,8 +37,7 @@ internal fun MenuItem(
         Icon(
             modifier = Modifier
                 .size(Design.dp.componentL)
-                .padding(Design.dp.paddingM)
-                .coloredDefaultBackgroundNoBorder(Design.colors.white5),
+                .padding(Design.dp.paddingM),
             imageVector = icon,
             color = contentColor
         )

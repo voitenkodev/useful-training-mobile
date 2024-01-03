@@ -23,6 +23,7 @@ public fun ProfileGraph(
     startDirection: ProfileFeature,
     toExerciseExamples: () -> Unit,
     toMuscles: () -> Unit,
+    toEquipment: () -> Unit,
     toWeightHistory: () -> Unit
 ) {
 
@@ -41,7 +42,8 @@ public fun ProfileGraph(
                     vm = vm,
                     toExerciseExamples = toExerciseExamples,
                     toWeightHistory = toWeightHistory,
-                    toMuscles = toMuscles
+                    toMuscles = toMuscles,
+                    toEquipment = toEquipment
                 )
             }
         }

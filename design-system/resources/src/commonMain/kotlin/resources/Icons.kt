@@ -17,6 +17,7 @@ import resources.icons.Close
 import resources.icons.Delete
 import resources.icons.Done
 import resources.icons.Dumbbell
+import resources.icons.Equipment
 import resources.icons.Eye
 import resources.icons.EyeOff
 import resources.icons.Filters
@@ -63,4 +64,5 @@ public object Icons {
     public val mediumBattery: ImageVector = MediumBattery
     public val highBattery: ImageVector = HighBattery
     public val biceps: ImageVector = Biceps
+    public val equipment: ImageVector = Equipment
 }

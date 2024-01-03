@@ -33,6 +33,7 @@ internal fun ProfileContent(
     vm: ProfileViewModel,
     toExerciseExamples: () -> Unit,
     toMuscles: () -> Unit,
+    toEquipment: () -> Unit,
     toWeightHistory: () -> Unit
 ) {
 
@@ -44,6 +45,7 @@ internal fun ProfileContent(
         user = state.user,
         toExerciseExamples = toExerciseExamples,
         toMuscles = toMuscles,
+        toEquipment = toEquipment,
         toWeightHistory = toWeightHistory,
         toSupport = {},
         logout = vm::logout
@@ -57,6 +59,7 @@ private fun Content(
     user: User,
     toExerciseExamples: () -> Unit,
     toMuscles: () -> Unit,
+    toEquipment: () -> Unit,
     toSupport: () -> Unit,
     toWeightHistory: () -> Unit,
     logout: () -> Unit
@@ -113,15 +116,21 @@ private fun Content(
                     )
 
                     MenuItem(
+                        icon = Icons.dumbbell,
+                        text = "Exercise",
+                        onClick = toExerciseExamples
+                    )
+
+                    MenuItem(
                         icon = Icons.biceps,
                         text = "Muscles",
                         onClick = toMuscles
                     )
 
                     MenuItem(
-                        icon = Icons.dumbbell,
-                        text = "Exercise",
-                        onClick = toExerciseExamples
+                        icon = Icons.equipment,
+                        text = "Equipment",
+                        onClick = toEquipment
                     )
 
                     PaddingS()

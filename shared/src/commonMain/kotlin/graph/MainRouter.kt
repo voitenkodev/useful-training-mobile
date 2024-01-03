@@ -60,7 +60,8 @@ internal fun MainGraph(toAuthentication: () -> Unit) {
                         toAuthentication = toAuthentication,
                         toExerciseExamples = { router.push(MainRouter.SearchExercise(itemAction = null, autoFocus = false)) },
                         toWeightHistory = { router.push(MainRouter.WeightHistory) },
-                        toMuscles = { router.push(MainRouter.UserMuscles) }
+                        toMuscles = { router.push(MainRouter.UserMuscles) },
+                        toEquipment = { }
                     )
 
                     is MainRouter.Training -> {

@@ -30,6 +30,7 @@ internal fun BottomMenuGraph(
     toExerciseExamples: () -> Unit,
     toAuthentication: () -> Unit,
     toMuscles: () -> Unit,
+    toEquipment: () -> Unit,
     toWeightHistory: () -> Unit
 ) {
 
@@ -70,7 +71,8 @@ internal fun BottomMenuGraph(
                         startDirection = ProfileFeature.Main,
                         toExerciseExamples = toExerciseExamples,
                         toWeightHistory = toWeightHistory,
-                        toMuscles = toMuscles
+                        toMuscles = toMuscles,
+                        toEquipment = toEquipment
                     )
 
                     BottomMenuRouter.Statistics -> StatisticsGraph(
