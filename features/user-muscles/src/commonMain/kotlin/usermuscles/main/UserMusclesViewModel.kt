@@ -1,15 +1,20 @@
 package usermuscles.main
 
 import MusclesRepository
+import UserRepository
 import ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.flatMapConcat
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.update
 import org.koin.core.component.inject
 import usermuscles.main.mapping.toState
+import usermuscles.main.models.StatusEnum
 
 internal class UserMusclesViewModel : ViewModel() {
 
@@ -17,6 +22,7 @@ internal class UserMusclesViewModel : ViewModel() {
     internal val state: StateFlow<State> = _state
 
     private val musclesApi by inject<MusclesRepository>()
+    private val userApi by inject<UserRepository>()
 
     init {
         musclesApi
@@ -31,25 +37,23 @@ internal class UserMusclesViewModel : ViewModel() {
     }
 
     fun selectMuscle(id: String) {
-//        _state.update {
-//            val muscleTypes = it.muscleTypes.map { muscleType ->
-//                val muscles = muscleType.muscles.map { muscle ->
-//                    if (id == muscle.id) muscle.copy(isSelected = muscle.isSelected.not())
-//                    else muscle
-//                }
-//                val image = muscleImage(
-//                    muscleTypeEnumState = muscleType.type,
-//                    muscles = muscles
-//                )
-//                muscleType.copy(
-//                    muscles = muscles,
-//                    bodyImageVector = image
-//                )
-//
-//            }.toImmutableList()
-//
-//            it.copy(muscleTypes = muscleTypes)
-//        }
+        val muscle = state.value.muscleTypes
+            .flatMap { it.muscles }
+            .find { it.id == id } ?: return
+
+        val flow = if (muscle.status == StatusEnum.EXCLUDED) {
+            userApi.deleteExcludedMuscle(muscle.id)
+        } else {
+            userApi.setExcludedMuscle(muscle.id)
+        }
+
+        flow.flatMapConcat { r ->
+            if (r == null) flowOf(Unit)
+            else musclesApi.syncUserMuscleById(r)
+        }.onStart { _state.update { it.copy(loading = true) } }
+            .catch { r -> _state.update { it.copy(error = r.message, loading = false) } }
+            .onEach { _state.update { it.copy(loading = false) } }
+            .launchIn(this)
     }
 
     fun clearError() {
