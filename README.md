@@ -17,12 +17,9 @@
 * Ktx Serialization
 * Coroutines + Flow
 
-
 **Server:** Node
 
 * NestJs
-
-
 
 | Route         | Modules                     | Description                                           |
 |---------------|-----------------------------|-------------------------------------------------------|

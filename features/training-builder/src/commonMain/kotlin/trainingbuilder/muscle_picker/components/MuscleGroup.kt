@@ -36,6 +36,10 @@ internal fun MuscleGroup(
     selectMuscle: (id: String) -> Unit
 ) {
 
+    val visiblePackAction = remember(item.muscles.map { it.status }) {
+        item.muscles.map { it.status }.any { it != StatusEnum.EXCLUDED }
+    }
+
     PaddingS()
 
     Column(
@@ -57,12 +61,14 @@ internal fun MuscleGroup(
 
             PaddingS()
 
-            ButtonTextLink(
-                modifier = Modifier.padding(bottom = 4.dp),
-                text = if (item.isSelected) "CLEAR" else "ALL",
-                onClick = { selectMuscleType.invoke(item.id) },
-                color = if (item.isSelected) Design.colors.caption else Design.colors.toxic
-            )
+            if (visiblePackAction) {
+                ButtonTextLink(
+                    modifier = Modifier.padding(bottom = 4.dp),
+                    text = if (item.isSelected) "CLEAR" else "ALL",
+                    onClick = { selectMuscleType.invoke(item.id) },
+                    color = if (item.isSelected) Design.colors.caption else Design.colors.toxic
+                )
+            }
         }
 
         PaddingM()
