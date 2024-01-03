@@ -131,9 +131,9 @@ internal class MusclePickerViewModel : ViewModel() {
     fun selectUpperBody() {
         _state.update { st ->
             val newValue = st.muscleTypes
-                .filterNot { mt -> mt.type == MuscleTypeEnum.LEGS }
                 .all { mt ->
                     mt.muscles
+                        .filter { st.upperBodyList.contains(it.type) }
                         .filter { st.includedMuscleStatuses.contains(it.status) }
                         .all { m -> m.isSelected }
                 }.not()
@@ -143,7 +143,7 @@ internal class MusclePickerViewModel : ViewModel() {
                     val muscles = muscleType.muscles
                         .map { muscle ->
                             if (st.includedMuscleStatuses.contains(muscle.status).not()) muscle
-                            else muscle.copy(isSelected = if (muscleType.type == MuscleTypeEnum.LEGS) muscle.isSelected else newValue)
+                            else muscle.copy(isSelected = if (st.upperBodyList.contains(muscle.type)) newValue else muscle.isSelected)
                         }
                     val image = muscleImage(
                         muscleTypeEnumState = muscleType.type,
@@ -166,9 +166,9 @@ internal class MusclePickerViewModel : ViewModel() {
     fun selectLowerBody() {
         _state.update { st ->
             val newValue = st.muscleTypes
-                .filter { mt -> mt.type == MuscleTypeEnum.LEGS }
                 .all { mt ->
                     mt.muscles
+                        .filter { st.lowerBodyList.contains(it.type) }
                         .filter { st.includedMuscleStatuses.contains(it.status) }
                         .all { m -> m.isSelected }
                 }.not()
@@ -177,7 +177,7 @@ internal class MusclePickerViewModel : ViewModel() {
                 val muscles = muscleType.muscles
                     .map { muscle ->
                         if (st.includedMuscleStatuses.contains(muscle.status).not()) muscle
-                        else muscle.copy(isSelected = if (muscleType.type != MuscleTypeEnum.LEGS) muscle.isSelected else newValue)
+                        else muscle.copy(isSelected =  if (st.lowerBodyList.contains(muscle.type)) newValue else muscle.isSelected)
                     }
                 val image = muscleImage(
                     muscleTypeEnumState = muscleType.type,

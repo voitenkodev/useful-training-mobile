@@ -16,14 +16,16 @@ import kotlinx.collections.immutable.ImmutableList
 import molecule.PaddingL
 import molecule.PaddingXL
 import molecule.Shadow
+import trainingbuilder.muscle_picker.models.MuscleEnum
 import trainingbuilder.muscle_picker.models.MuscleType
-import trainingbuilder.muscle_picker.models.MuscleTypeEnum
 import trainingbuilder.muscle_picker.models.StatusEnum
 
 @Composable
 internal fun MusclePack(
     list: ImmutableList<MuscleType>,
     includedMuscleStatuses: ImmutableList<StatusEnum>,
+    upperBodyPackEnums: ImmutableList<MuscleEnum>,
+    lowerBodyPackEnums: ImmutableList<MuscleEnum>,
     selectFullBody: () -> Unit,
     selectUpperBody: () -> Unit,
     selectLowerBody: () -> Unit
@@ -42,8 +44,7 @@ internal fun MusclePack(
     )
 
     val fullBodyVisible = remember(list) {
-        list
-            .any { it.muscles.any { m -> includedMuscleStatuses.contains(m.status) } }
+        list.any { it.muscles.any { m -> includedMuscleStatuses.contains(m.status) } }
     }
 
     val fullBodyState = when {
@@ -57,37 +58,39 @@ internal fun MusclePack(
     }
 
     val lowerBodyVisible = remember(list) {
-        list
-            .filter { it.type == MuscleTypeEnum.LEGS }
-            .any { it.muscles.any { m -> includedMuscleStatuses.contains(m.status) } }
+        list.any {
+            it.muscles
+                .filter { m -> lowerBodyPackEnums.contains(m.type) }
+                .any { m -> includedMuscleStatuses.contains(m.status) }
+        }
     }
 
     val lowerBodyState = when {
-        list
-            .filter { it.type == MuscleTypeEnum.LEGS }
-            .all {
-                it.muscles
-                    .filter { m -> includedMuscleStatuses.contains(m.status) }
-                    .all { m -> m.isSelected }
-            } -> selectedChipState
+        list.all {
+            it.muscles
+                .filter { m -> lowerBodyPackEnums.contains(m.type) }
+                .filter { m -> includedMuscleStatuses.contains(m.status) }
+                .all { m -> m.isSelected }
+        } -> selectedChipState
 
         else -> unSelectedChipState
     }
 
-    val topBodyVisible = remember(list) {
-        list
-            .filterNot { it.type == MuscleTypeEnum.LEGS }
-            .any { it.muscles.any { m -> includedMuscleStatuses.contains(m.status) } }
+    val upperBodyVisible = remember(list) {
+        list.any {
+            it.muscles
+                .filter { m -> upperBodyPackEnums.contains(m.type) }
+                .any { m -> includedMuscleStatuses.contains(m.status) }
+        }
     }
 
-    val topBodyState = when {
-        list
-            .filterNot { it.type == MuscleTypeEnum.LEGS }
-            .all {
-                it.muscles
-                    .filter { m -> includedMuscleStatuses.contains(m.status) }
-                    .all { m -> m.isSelected }
-            } -> selectedChipState
+    val upperBodyState = when {
+        list.all {
+            it.muscles
+                .filter { m -> upperBodyPackEnums.contains(m.type) }
+                .filter { m -> includedMuscleStatuses.contains(m.status) }
+                .all { m -> m.isSelected }
+        } -> selectedChipState
 
         else -> unSelectedChipState
     }
@@ -107,9 +110,9 @@ internal fun MusclePack(
                     text = "Full Body"
                 )
 
-                if (topBodyVisible) {
+                if (upperBodyVisible) {
                     Chip(
-                        chipState = topBodyState,
+                        chipState = upperBodyState,
                         onClick = selectUpperBody,
                         text = "Upper Body"
                     )

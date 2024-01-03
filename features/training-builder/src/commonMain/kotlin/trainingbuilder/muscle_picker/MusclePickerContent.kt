@@ -18,6 +18,7 @@ import trainingbuilder.muscle_picker.components.Footer
 import trainingbuilder.muscle_picker.components.Header
 import trainingbuilder.muscle_picker.components.MuscleGroup
 import trainingbuilder.muscle_picker.components.MusclePack
+import trainingbuilder.muscle_picker.models.MuscleEnum
 import trainingbuilder.muscle_picker.models.MuscleType
 import trainingbuilder.muscle_picker.models.StatusEnum
 
@@ -34,6 +35,8 @@ internal fun MusclePickerContent(
         error = state.error,
         list = state.muscleTypes,
         includedMuscleStatuses = state.includedMuscleStatuses,
+        upperBodyPackEnums = state.upperBodyList,
+        lowerBodyPackEnums = state.lowerBodyList,
         clearError = vm::clearError,
         selectMuscleType = vm::selectMuscleType,
         selectMuscle = vm::selectMuscle,
@@ -50,6 +53,8 @@ private fun Content(
     error: String?,
     clearError: () -> Unit,
     list: ImmutableList<MuscleType>,
+    upperBodyPackEnums: ImmutableList<MuscleEnum>,
+    lowerBodyPackEnums: ImmutableList<MuscleEnum>,
     includedMuscleStatuses: ImmutableList<StatusEnum>,
     selectMuscleType: (id: String) -> Unit,
     selectMuscle: (id: String) -> Unit,
@@ -74,6 +79,8 @@ private fun Content(
                     MusclePack(
                         list = list,
                         includedMuscleStatuses = includedMuscleStatuses,
+                        lowerBodyPackEnums = lowerBodyPackEnums,
+                        upperBodyPackEnums = upperBodyPackEnums,
                         selectFullBody = selectFullBody,
                         selectUpperBody = selectUpperBody,
                         selectLowerBody = selectLowerBody
