@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import atom.Design
 import components.chips.Chip
 import components.chips.ChipState
+import kotlinx.collections.immutable.ImmutableList
 import molecule.ButtonTextLink
 import molecule.PaddingM
 import molecule.PaddingS
@@ -28,16 +29,17 @@ import trainingbuilder.muscle_picker.models.Muscle
 import trainingbuilder.muscle_picker.models.MuscleType
 import trainingbuilder.muscle_picker.models.StatusEnum
 
-
 @Composable
 internal fun MuscleGroup(
     item: MuscleType,
+    includedMuscleStatuses: ImmutableList<StatusEnum>,
     selectMuscleType: (id: String) -> Unit,
     selectMuscle: (id: String) -> Unit
 ) {
 
     val visiblePackAction = remember(item.muscles.map { it.status }) {
-        item.muscles.map { it.status }.any { it != StatusEnum.EXCLUDED }
+        item.muscles
+            .map { it.status }.any { includedMuscleStatuses.contains(it) }
     }
 
     PaddingS()

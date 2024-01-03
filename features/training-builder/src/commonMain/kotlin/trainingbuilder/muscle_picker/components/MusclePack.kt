@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import atom.Design
@@ -40,6 +41,11 @@ internal fun MusclePack(
         contentColor = Design.colors.content
     )
 
+    val fullBodyVisible = remember(list) {
+        list
+            .any { it.muscles.any { m -> includedMuscleStatuses.contains(m.status) } }
+    }
+
     val fullBodyState = when {
         list.all {
             it.muscles
@@ -48,6 +54,12 @@ internal fun MusclePack(
         } -> selectedChipState
 
         else -> unSelectedChipState
+    }
+
+    val lowerBodyVisible = remember(list) {
+        list
+            .filter { it.type == MuscleTypeEnum.LEGS }
+            .any { it.muscles.any { m -> includedMuscleStatuses.contains(m.status) } }
     }
 
     val lowerBodyState = when {
@@ -62,6 +74,12 @@ internal fun MusclePack(
         else -> unSelectedChipState
     }
 
+    val topBodyVisible = remember(list) {
+        list
+            .filterNot { it.type == MuscleTypeEnum.LEGS }
+            .any { it.muscles.any { m -> includedMuscleStatuses.contains(m.status) } }
+    }
+
     val topBodyState = when {
         list
             .filterNot { it.type == MuscleTypeEnum.LEGS }
@@ -74,35 +92,41 @@ internal fun MusclePack(
         else -> unSelectedChipState
     }
 
-    Column(modifier = Modifier.background(Design.colors.black10)) {
-        PaddingXL()
+    if (fullBodyVisible) {
+        Column(modifier = Modifier.background(Design.colors.black10)) {
+            PaddingXL()
 
-        Row(
-            modifier = Modifier.padding(horizontal = Design.dp.paddingM),
-            horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
-        ) {
+            Row(
+                modifier = Modifier.padding(horizontal = Design.dp.paddingM),
+                horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
+            ) {
 
-            Chip(
-                chipState = fullBodyState,
-                onClick = selectFullBody,
-                text = "Full Body"
-            )
+                Chip(
+                    chipState = fullBodyState,
+                    onClick = selectFullBody,
+                    text = "Full Body"
+                )
 
-            Chip(
-                chipState = topBodyState,
-                onClick = selectUpperBody,
-                text = "Upper Body"
-            )
+                if (topBodyVisible) {
+                    Chip(
+                        chipState = topBodyState,
+                        onClick = selectUpperBody,
+                        text = "Upper Body"
+                    )
+                }
 
-            Chip(
-                chipState = lowerBodyState,
-                onClick = selectLowerBody,
-                text = "Lower Body"
-            )
+                if (lowerBodyVisible) {
+                    Chip(
+                        chipState = lowerBodyState,
+                        onClick = selectLowerBody,
+                        text = "Lower Body"
+                    )
+                }
+            }
+
+            PaddingL()
+
+            Shadow()
         }
-
-        PaddingL()
-
-        Shadow()
     }
 }

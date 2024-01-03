@@ -84,6 +84,7 @@ private fun Content(
 
                     MuscleGroup(
                         item = item,
+                        includedMuscleStatuses = includedMuscleStatuses,
                         selectMuscleType = selectMuscleType,
                         selectMuscle = selectMuscle
                     )
