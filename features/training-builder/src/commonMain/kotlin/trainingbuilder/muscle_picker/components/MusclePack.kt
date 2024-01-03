@@ -66,12 +66,11 @@ internal fun MusclePack(
     }
 
     val lowerBodyState = when {
-        list.all {
-            it.muscles
-                .filter { m -> lowerBodyPackEnums.contains(m.type) }
-                .filter { m -> includedMuscleStatuses.contains(m.status) }
-                .all { m -> m.isSelected }
-        } -> selectedChipState
+        list
+            .flatMap { it.muscles }
+            .filter { m -> m.isSelected }
+            .map { m -> m.type }
+            .sorted() == lowerBodyPackEnums.sorted() -> selectedChipState
 
         else -> unSelectedChipState
     }
@@ -85,12 +84,10 @@ internal fun MusclePack(
     }
 
     val upperBodyState = when {
-        list.all {
-            it.muscles
-                .filter { m -> upperBodyPackEnums.contains(m.type) }
-                .filter { m -> includedMuscleStatuses.contains(m.status) }
-                .all { m -> m.isSelected }
-        } -> selectedChipState
+        list.flatMap { it.muscles }
+            .filter { m -> m.isSelected }
+            .map { m -> m.type }
+            .sorted() == upperBodyPackEnums.sorted() -> selectedChipState
 
         else -> unSelectedChipState
     }
