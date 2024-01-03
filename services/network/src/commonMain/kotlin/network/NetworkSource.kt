@@ -97,10 +97,10 @@ public class NetworkSource(private val clientBackend: ClientBackend) {
         )
     }
 
-    public suspend fun getMuscles(): List<MuscleTypeDto> {
+    public suspend fun getPublicMuscles(): List<MuscleTypeDto> {
         return callRequest(
             method = HttpMethod.Get,
-            path = "/user-muscles"
+            path = "/public-muscles"
         )
     }
 
