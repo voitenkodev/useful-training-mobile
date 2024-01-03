@@ -43,3 +43,8 @@ https://github.com/voitenkodev/useful-training-mobile/assets/93656470/74feddb1-c
 | compose-libs  | [:weight-picker]            | Custom weight picker using canvas api                 |
 |               | [:androidApp]               | Android launcher (app module)                         |
 |               | [:iosApp]                   | iOS launcher (Native iOS project)                     |
+|               | [:data]                     | Layer realise domain api using services               |
+| design-system | [:atom]                     | Atomic values for like colors / palette / paddings    |
+| design-system | [:molecule]                 | Basic UI components using atom styles                 |
+| design-system | [:components]               | UI prepared Business components                       |
+| design-system | [:resources]                | Fonts / Icons / Images / Videos                       |
