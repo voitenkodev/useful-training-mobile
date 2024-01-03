@@ -31,7 +31,7 @@ internal class SearchExerciseViewModel : ViewModel() {
             .launchIn(this)
 
         musclesApi
-            .syncUserMuscleTypes()
+            .syncUserMuscles()
             .flatMapConcat { api.syncExerciseExamples() }
             .catch { r -> _state.update { it.copy(error = r.message) } }
             .launchIn(this)

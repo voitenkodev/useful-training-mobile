@@ -35,7 +35,7 @@ internal class StatisticsViewModel : ViewModel() {
             .launchIn(this)
 
         musclesApi
-            .syncUserMuscleTypes()
+            .syncUserMuscles()
             .catch { t -> _state.update { it.copy(error = t.message) } }
             .launchIn(this)
     }

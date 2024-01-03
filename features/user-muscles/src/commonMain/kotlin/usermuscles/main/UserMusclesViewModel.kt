@@ -26,12 +26,12 @@ internal class UserMusclesViewModel : ViewModel() {
 
     init {
         musclesApi
-            .observeMuscleTypes()
+            .observeMuscles()
             .onEach { r -> _state.update { it.copy(muscleTypes = r.toState()) } }
             .catch { r -> _state.update { it.copy(error = r.message) } }
             .launchIn(this)
 
-        musclesApi.syncUserMuscleTypes()
+        musclesApi.syncUserMuscles()
             .catch { r -> _state.update { it.copy(error = r.message) } }
             .launchIn(this)
     }
