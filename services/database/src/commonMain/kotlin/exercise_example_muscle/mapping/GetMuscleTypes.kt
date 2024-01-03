@@ -13,16 +13,16 @@ internal fun List<GetMuscleTypes>.mapToDao(): List<MuscleTypeDao> {
 
         val muscles = mt.value.groupBy { it.muscleId }.mapNotNull mapMuscles@{ m ->
 
-            val muscle = m.value.firstOrNull() ?: return@mapMuscles null
+            val getMuscleTypes = m.value.firstOrNull() ?: return@mapMuscles null
 
             MuscleDao(
-                createdAt = muscle.muscleCreatedAt ?: return@mapMuscles null,
-                updatedAt = muscle.muscleUpdatedAt ?: return@mapMuscles null,
-                muscleTypeId = muscle.id,
-                id = muscle.muscleId ?: return@mapMuscles null,
-                name = muscle.muscleName ?: return@mapMuscles null,
-                type = muscle.muscleType ?: return@mapMuscles null,
-                status = muscle.muscleStatus
+                createdAt = getMuscleTypes.muscleCreatedAt ?: return@mapMuscles null,
+                updatedAt = getMuscleTypes.muscleUpdatedAt ?: return@mapMuscles null,
+                muscleTypeId = getMuscleTypes.id,
+                id = getMuscleTypes.muscleId ?: return@mapMuscles null,
+                name = getMuscleTypes.muscleName ?: return@mapMuscles null,
+                type = getMuscleTypes.muscleType ?: return@mapMuscles null,
+                status = getMuscleTypes.muscleStatus
             )
         }
 

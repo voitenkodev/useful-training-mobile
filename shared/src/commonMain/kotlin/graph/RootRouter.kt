@@ -29,9 +29,7 @@ internal fun RootGraph() {
             )
 
             RootRouter.Main -> MainGraph(
-                toAuthentication = {
-                    router.replaceAll(RootRouter.Auth)
-                }
+                toAuthentication = { router.replaceAll(RootRouter.Auth) }
             )
         }
     }
