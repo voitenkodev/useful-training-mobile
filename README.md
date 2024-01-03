@@ -55,7 +55,7 @@
 
 | **Android App**                                                                                                                       | **iOS App**                                                                                                                      |
 |---------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------|
-| [<img src="[screenshots/android.mov](https://github.com/voitenkodev/useful-training-mobile/assets/93656470/d0c81f85-296d-49ea-ac54-8a4fff9d10f9)" width="200" height = "431" />](screenshots/android.mov)       | [<img src="screenshots/ios.gif" width="200" height = "431" />](screenshots/ios.gif) |
+| [<img src="[screenshots/android.mov]" width="200" height = "431" />](https://github.com/voitenkodev/useful-training-mobile/assets/93656470/d0c81f85-296d-49ea-ac54-8a4fff9d10f9)       | [<img src="screenshots/ios.gif" width="200" height = "431" />](screenshots/ios.gif) |
 
 
 
