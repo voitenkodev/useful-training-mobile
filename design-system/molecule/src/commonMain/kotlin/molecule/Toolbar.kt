@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.unit.dp
 import atom.Design
 
 @Composable
@@ -66,7 +67,7 @@ public fun Toolbar(
         PaddingWeight()
 
         if (icon != null) ButtonIconTransparent(
-            modifier = Modifier.padding(horizontal = Design.dp.paddingM),
+            modifier = Modifier.padding(horizontal = Design.dp.paddingM).padding(bottom = 4.dp),
             imageVector = icon.first,
             contentColor = Design.colors.content,
             onClick = icon.second

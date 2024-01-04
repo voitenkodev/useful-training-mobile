@@ -2,7 +2,10 @@ package components.labels
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -12,21 +15,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import atom.Design
 import molecule.Icon
-import molecule.TextBody2
 import resources.Icons
 
 @Composable
 public fun NoteLabel(
     modifier: Modifier = Modifier,
-    text: String,
-    color: Color = Design.colors.yellow
+    color: Color = Design.colors.yellow,
+    content: @Composable ColumnScope.() -> Unit
 ) {
     Row(
         modifier = modifier
-            .background(
-                shape = Design.shape.small,
-                color = color.copy(alpha = 0.4f)
-            ).padding(Design.dp.paddingM)
+            .background(shape = Design.shape.small, color = Design.colors.white10)
+            .padding(Design.dp.paddingM)
             .defaultMinSize(minHeight = Design.dp.componentS),
         horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM),
         verticalAlignment = Alignment.CenterVertically
@@ -38,9 +38,8 @@ public fun NoteLabel(
             color = color
         )
 
-        TextBody2(
-            { text },
-            color = Design.colors.content
-        )
+        Column(modifier = Modifier.weight(1f), content = content)
+
+        Spacer(modifier = Modifier.size(Design.dp.paddingM))
     }
 }

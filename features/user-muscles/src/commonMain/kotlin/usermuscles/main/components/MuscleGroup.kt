@@ -80,32 +80,6 @@ internal fun MuscleGroup(
                         selectMuscle = selectMuscle
                     )
                 }
-//                if (included.isNotEmpty()) {
-//                    included.forEach { muscle ->
-//                        MuscleChip(
-//                            muscle = muscle,
-//                            selectMuscle = selectMuscle,
-//                        )
-//                    }
-//                }
-//
-//                if (included.isNotEmpty() && excluded.isNotEmpty()) {
-//                    PaddingM()
-//                }
-//
-//                if (excluded.isNotEmpty()) {
-//                    TextLabel(
-//                        provideText = { "Excluded" },
-//                        color = Design.colors.orange
-//                    )
-//
-//                    excluded.forEach { muscle ->
-//                        MuscleChip(
-//                            muscle = muscle,
-//                            selectMuscle = selectMuscle
-//                        )
-//                    }
-//                }
             }
         }
     }

@@ -19,8 +19,8 @@ private fun colorBySelection(
 ): Color {
 
     val unSelected = Design.palette.content.copy(0.3f)
-    val selected = Design.palette.toxic
-    val default = Design.palette.white10
+    val selected = Design.palette.toxic.copy(alpha = 0.7f)
+    val default = Design.palette.content.copy(0.3f)
 
     return when {
         muscle?.isSelected == true && includedMuscleStatuses.contains(muscle.status) -> selected
