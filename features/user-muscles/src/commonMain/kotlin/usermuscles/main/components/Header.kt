@@ -31,7 +31,7 @@ internal fun Header(modifier: Modifier = Modifier) {
         NoteLabel(
             modifier = Modifier.fillMaxWidth().padding(horizontal = Design.dp.paddingM),
             text = "Choose the muscles you wish to exclude from your workouts.",
-            color = Design.colors.orange
+            color = Design.colors.yellow
         )
 
         PaddingM()
