@@ -22,12 +22,14 @@ import resources.icons.Equipment
 import resources.icons.Eye
 import resources.icons.EyeOff
 import resources.icons.Filters
+import resources.icons.GreenCircle
 import resources.icons.HandWeight
 import resources.icons.HighBattery
 import resources.icons.LowBattery
 import resources.icons.MediumBattery
 import resources.icons.Notifications
 import resources.icons.Person
+import resources.icons.RedCircle
 import resources.icons.Success
 import resources.icons.Support
 import resources.icons.Time
@@ -67,4 +69,6 @@ public object Icons {
     public val biceps: ImageVector = Biceps
     public val equipment: ImageVector = Equipment
     public val note: ImageVector = Icons.Default.Notifications
+    public val greenCircle: ImageVector = GreenCircle
+    public val redCircle: ImageVector = RedCircle
 }

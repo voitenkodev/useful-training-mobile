@@ -21,7 +21,7 @@ import components.chips.ChipState
 import molecule.PaddingM
 import molecule.PaddingS
 import molecule.TextH4
-import molecule.TextLabel
+import resources.Icons
 import usermuscles.main.models.Muscle
 import usermuscles.main.models.MuscleType
 import usermuscles.main.models.StatusEnum
@@ -68,33 +68,44 @@ internal fun MuscleGroup(
             )
 
             Column(verticalArrangement = Arrangement.spacedBy(Design.dp.paddingS)) {
-
-                if (included.isNotEmpty()) {
-                    included.forEach { muscle ->
-                        MuscleChip(
-                            muscle = muscle,
-                            selectMuscle = selectMuscle
-                        )
-                    }
-                }
-
-                if (included.isNotEmpty() && excluded.isNotEmpty()) {
-                    PaddingM()
-                }
-
-                if (excluded.isNotEmpty()) {
-                    TextLabel(
-                        provideText = { "Excluded" },
-                        color = Design.colors.orange
+                included.forEach { muscle ->
+                    MuscleChip(
+                        muscle = muscle,
+                        selectMuscle = selectMuscle,
                     )
-
-                    excluded.forEach { muscle ->
-                        MuscleChip(
-                            muscle = muscle,
-                            selectMuscle = selectMuscle
-                        )
-                    }
                 }
+                excluded.forEach { muscle ->
+                    MuscleChip(
+                        muscle = muscle,
+                        selectMuscle = selectMuscle
+                    )
+                }
+//                if (included.isNotEmpty()) {
+//                    included.forEach { muscle ->
+//                        MuscleChip(
+//                            muscle = muscle,
+//                            selectMuscle = selectMuscle,
+//                        )
+//                    }
+//                }
+//
+//                if (included.isNotEmpty() && excluded.isNotEmpty()) {
+//                    PaddingM()
+//                }
+//
+//                if (excluded.isNotEmpty()) {
+//                    TextLabel(
+//                        provideText = { "Excluded" },
+//                        color = Design.colors.orange
+//                    )
+//
+//                    excluded.forEach { muscle ->
+//                        MuscleChip(
+//                            muscle = muscle,
+//                            selectMuscle = selectMuscle
+//                        )
+//                    }
+//                }
             }
         }
     }
@@ -119,9 +130,17 @@ private fun MuscleChip(
         contentColor = contentColor
     )
 
+    val iconStart = remember(muscle.status) {
+        when (muscle.status) {
+            StatusEnum.EXCLUDED -> Icons.redCircle
+            StatusEnum.INCLUDED -> Icons.greenCircle
+        }
+    }
+
     Chip(
         chipState = chipState,
         onClick = { selectMuscle.invoke(muscle.id) },
-        text = muscle.name
+        text = muscle.name,
+        iconStart = iconStart
     )
 }
