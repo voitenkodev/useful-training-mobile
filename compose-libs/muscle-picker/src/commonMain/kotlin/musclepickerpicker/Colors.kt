@@ -1,5 +1,6 @@
 package musclepickerpicker
 
+import androidx.compose.ui.graphics.Color
 import atom.Design
 
 internal object Colors {
@@ -12,5 +13,5 @@ internal object Colors {
     val backgroundFront = bg
     val backgroundBack = bg
 
-    val outline = Design.palette.content.copy(alpha = 0.5f)
+    val outline = Color.Transparent
 }

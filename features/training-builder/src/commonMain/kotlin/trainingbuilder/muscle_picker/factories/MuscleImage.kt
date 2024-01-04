@@ -18,7 +18,7 @@ private fun colorBySelection(
     includedMuscleStatuses: ImmutableList<StatusEnum>
 ): Color {
 
-    val unSelected = Design.palette.orange.copy(alpha = 0.8f)
+    val unSelected = Design.palette.content.copy(0.3f)
     val selected = Design.palette.toxic
     val default = Design.palette.white10
 

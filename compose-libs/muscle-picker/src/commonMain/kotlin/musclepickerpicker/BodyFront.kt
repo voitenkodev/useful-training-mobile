@@ -25,7 +25,7 @@ public fun bodyFront(
 
     other: Color = Colors.defaultFront,
 
-    backgroundFront: Color = Colors.backgroundFront,
+    backgroundFront: Color = Colors.backgroundFront
 ): ImageVector {
     return ImageVector.Builder(
         name = "vector",
