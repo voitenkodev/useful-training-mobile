@@ -9,6 +9,7 @@ import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.KeyboardArrowUp
+import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.ui.graphics.vector.ImageVector
 import resources.icons.Biceps
@@ -65,4 +66,5 @@ public object Icons {
     public val highBattery: ImageVector = HighBattery
     public val biceps: ImageVector = Biceps
     public val equipment: ImageVector = Equipment
+    public val note: ImageVector = Icons.Default.Notifications
 }
