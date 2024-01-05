@@ -42,6 +42,7 @@ private fun models.MuscleEnum.toState(): MuscleEnum? {
         models.MuscleEnum.GLUTEAL -> MuscleEnum.GLUTEAL
         models.MuscleEnum.HAMSTRINGS -> MuscleEnum.HAMSTRINGS
         models.MuscleEnum.QUADRICEPS -> MuscleEnum.QUADRICEPS
+        models.MuscleEnum.TERES_MAJOR -> MuscleEnum.TERES_MAJOR
         models.MuscleEnum.ANTERIOR_DELTOID -> MuscleEnum.ANTERIOR_DELTOID
         models.MuscleEnum.LATERAL_DELTOID -> MuscleEnum.LATERAL_DELTOID
         models.MuscleEnum.POSTERIOR_DELTOID -> MuscleEnum.POSTERIOR_DELTOID

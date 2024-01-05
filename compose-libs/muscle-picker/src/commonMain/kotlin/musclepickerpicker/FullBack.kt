@@ -18,8 +18,8 @@ public fun fullBack(
     trapezius: Color = Colors.defaultBack,
     forearm: Color = Colors.defaultBack,
 
+    teresMajor: Color = Colors.defaultBack,
     posteriorDeltoid: Color = Colors.defaultBack,
-    lateralDeltoid: Color = Colors.defaultBack,
 
     gluteal: Color = Colors.defaultBack,
     hamstrings: Color = Colors.defaultBack,
@@ -757,7 +757,7 @@ public fun fullBack(
             close()
         }
         path(
-            fill = SolidColor(lateralDeltoid),
+            fill = SolidColor(posteriorDeltoid),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,
@@ -774,7 +774,7 @@ public fun fullBack(
             close()
         }
         path(
-            fill = SolidColor(posteriorDeltoid),
+            fill = SolidColor(teresMajor),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,
@@ -791,7 +791,7 @@ public fun fullBack(
             close()
         }
         path(
-            fill = SolidColor(lateralDeltoid),
+            fill = SolidColor(posteriorDeltoid),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,
@@ -808,7 +808,7 @@ public fun fullBack(
             close()
         }
         path(
-            fill = SolidColor(posteriorDeltoid),
+            fill = SolidColor(teresMajor),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,

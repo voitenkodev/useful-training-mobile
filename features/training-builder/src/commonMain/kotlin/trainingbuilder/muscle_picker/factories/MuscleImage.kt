@@ -50,11 +50,13 @@ internal fun muscleImage(
             val trapezius = muscles.find { it.type == MuscleEnum.TRAPEZIUS }
             val latissimus = muscles.find { it.type == MuscleEnum.LATISSIMUS_DORSI }
             val rhomboids = muscles.find { it.type == MuscleEnum.RHOMBOIDS }
+            val teresMajor = muscles.find { it.type == MuscleEnum.TERES_MAJOR }
 
             bodyBack(
                 trapezius = colorBySelection(trapezius, includedMuscleStatuses),
                 latissimus = colorBySelection(latissimus, includedMuscleStatuses),
-                rhomboids = colorBySelection(rhomboids, includedMuscleStatuses)
+                rhomboids = colorBySelection(rhomboids, includedMuscleStatuses),
+                teresMajor = colorBySelection(teresMajor, includedMuscleStatuses)
             )
         }
 
@@ -103,8 +105,7 @@ internal fun muscleImage(
             bodySplit(
                 posteriorDeltoid = colorBySelection(posteriorDeltoid, includedMuscleStatuses),
                 anteriorDeltoid = colorBySelection(anteriorDeltoid, includedMuscleStatuses),
-                lateralDeltoidFront = colorBySelection(lateralDeltoid, includedMuscleStatuses),
-                lateralDeltoidBack = colorBySelection(lateralDeltoid, includedMuscleStatuses)
+                lateralDeltoidFront = colorBySelection(lateralDeltoid, includedMuscleStatuses)
             )
         }
     }

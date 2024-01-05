@@ -19,6 +19,7 @@ internal enum class MuscleEnum {
     TRAPEZIUS,
     LATISSIMUS_DORSI,
     RHOMBOIDS,
+    TERES_MAJOR,
 
     // Abdominal
     RECTUS_ABDOMINIS,

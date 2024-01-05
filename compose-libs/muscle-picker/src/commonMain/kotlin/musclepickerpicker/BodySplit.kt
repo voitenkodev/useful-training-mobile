@@ -12,6 +12,7 @@ import androidx.compose.ui.unit.dp
 public fun bodySplit(
     outlineColor: Color = Colors.outline,
 
+    teresMajor: Color = Colors.defaultBack,
     rhomboids: Color = Colors.defaultBack,
     latissimus: Color = Colors.defaultBack,
     trapezius: Color = Colors.defaultBack,
@@ -23,7 +24,6 @@ public fun bodySplit(
 
     posteriorDeltoid: Color = Colors.defaultBack,
     lateralDeltoidFront: Color = Colors.defaultFront,
-    lateralDeltoidBack: Color = Colors.defaultBack,
     anteriorDeltoid: Color = Colors.defaultFront,
 
     rectusAbdominis: Color = Colors.defaultFront,
@@ -180,7 +180,7 @@ public fun bodySplit(
             close()
         }
         path(
-            fill = SolidColor(lateralDeltoidBack),
+            fill = SolidColor(posteriorDeltoid),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,
@@ -197,7 +197,7 @@ public fun bodySplit(
             close()
         }
         path(
-            fill = SolidColor(posteriorDeltoid),
+            fill = SolidColor(teresMajor),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,

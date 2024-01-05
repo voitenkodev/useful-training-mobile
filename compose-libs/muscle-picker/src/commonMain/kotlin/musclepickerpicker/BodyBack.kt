@@ -18,8 +18,8 @@ public fun bodyBack(
     triceps: Color = Colors.defaultBack,
     forearm: Color = Colors.defaultBack,
 
+    teresMajor: Color = Colors.defaultBack,
     posteriorDeltoid: Color = Colors.defaultBack,
-    lateralDeltoid: Color = Colors.defaultBack,
 
     other: Color = Colors.defaultBack,
 
@@ -280,7 +280,7 @@ public fun bodyBack(
             close()
         }
         path(
-            fill = SolidColor(lateralDeltoid),
+            fill = SolidColor(posteriorDeltoid),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,
@@ -297,7 +297,7 @@ public fun bodyBack(
             close()
         }
         path(
-            fill = SolidColor(posteriorDeltoid),
+            fill = SolidColor(teresMajor),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,
@@ -314,7 +314,7 @@ public fun bodyBack(
             close()
         }
         path(
-            fill = SolidColor(lateralDeltoid),
+            fill = SolidColor(posteriorDeltoid),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,
@@ -331,7 +331,7 @@ public fun bodyBack(
             close()
         }
         path(
-            fill = SolidColor(posteriorDeltoid),
+            fill = SolidColor(teresMajor),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,

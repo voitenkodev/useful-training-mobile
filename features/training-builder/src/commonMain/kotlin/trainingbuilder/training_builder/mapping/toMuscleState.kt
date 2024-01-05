@@ -36,6 +36,7 @@ private fun models.MuscleEnum.toState(): MuscleEnum? {
         models.MuscleEnum.POSTERIOR_DELTOID -> MuscleEnum.POSTERIOR_DELTOID
         models.MuscleEnum.BICEPS -> MuscleEnum.BICEPS
         models.MuscleEnum.TRICEPS -> MuscleEnum.TRICEPS
+        models.MuscleEnum.TERES_MAJOR -> MuscleEnum.TERES_MAJOR
         models.MuscleEnum.FOREARM -> MuscleEnum.FOREARM
         models.MuscleEnum.UNKNOWN -> null
     }
