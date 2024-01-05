@@ -32,6 +32,7 @@ include(
     ":domain:exercise-examples",
     ":domain:muscles",
     ":domain:user",
+    ":domain:statistics",
     ":domain:common-models",
 
     ":services:network",

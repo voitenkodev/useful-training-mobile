@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-public data class ExerciseStatisticsDto(
+public data class ExerciseExampleAchievementsDto(
     @SerialName("lastVolumes")
     val lastVolumes: List<ExerciseVolumeDto>? = null,
     @SerialName("maxRepetition")
