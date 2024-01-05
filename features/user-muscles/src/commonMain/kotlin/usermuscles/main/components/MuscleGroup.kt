@@ -31,14 +31,6 @@ internal fun MuscleGroup(
     selectMuscle: (id: String) -> Unit
 ) {
 
-    val included = remember(item.muscles) {
-        item.muscles.filter { it.status == StatusEnum.INCLUDED }
-    }
-
-    val excluded = remember(item.muscles) {
-        item.muscles.filter { it.status == StatusEnum.EXCLUDED }
-    }
-
     PaddingS()
 
     Column(
@@ -67,13 +59,7 @@ internal fun MuscleGroup(
             )
 
             Column(verticalArrangement = Arrangement.spacedBy(Design.dp.paddingS)) {
-                included.forEach { muscle ->
-                    MuscleChip(
-                        muscle = muscle,
-                        selectMuscle = selectMuscle,
-                    )
-                }
-                excluded.forEach { muscle ->
+                item.muscles.forEach { muscle ->
                     MuscleChip(
                         muscle = muscle,
                         selectMuscle = selectMuscle
