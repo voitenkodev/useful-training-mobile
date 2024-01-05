@@ -3,6 +3,7 @@ package usermuscles.main
 import MusclesRepository
 import UserRepository
 import ViewModel
+import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
@@ -36,6 +37,18 @@ internal class UserMusclesViewModel : ViewModel() {
     }
 
     fun selectMuscle(id: String) {
+        _state.update {
+            it.copy(
+                muscleTypes = it.muscleTypes.map { mt ->
+                    mt.copy(
+                        muscles = mt.muscles.map { m ->
+                            m.copy(loading = id == m.id)
+                        }.toPersistentList()
+                    )
+                }.toPersistentList()
+            )
+        }
+
         val muscle = state.value.muscleTypes
             .flatMap { it.muscles }
             .find { it.id == id } ?: return

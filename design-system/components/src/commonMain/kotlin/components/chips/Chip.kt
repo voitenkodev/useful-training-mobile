@@ -21,6 +21,7 @@ import atom.Design
 import molecule.IconImage
 import molecule.PaddingS
 import molecule.TextBody2
+import shimmerLoadingAnimation
 
 public sealed class ChipState(public open val enabled: Boolean) {
     public data class Default(
@@ -42,6 +43,7 @@ public fun Chip(
     text: String,
     iconStart: ImageVector? = null,
     iconEnd: ImageVector? = null,
+    loading: Boolean = false,
     onClick: () -> Unit = {}
 ) {
 
@@ -82,9 +84,10 @@ public fun Chip(
             .clickable(
                 interactionSource = interactionSource,
                 indication = null,
-                enabled = chipState.enabled,
+                enabled = chipState.enabled && loading.not(),
                 onClick = onClick
             ).then(internalModifier)
+            .shimmerLoadingAnimation(visible = loading)
             .padding(
                 horizontal = Design.dp.paddingM,
                 vertical = Design.dp.paddingS

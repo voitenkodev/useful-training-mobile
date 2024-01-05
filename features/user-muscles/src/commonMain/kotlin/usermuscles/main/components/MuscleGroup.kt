@@ -114,6 +114,7 @@ private fun MuscleChip(
         chipState = chipState,
         onClick = { selectMuscle.invoke(muscle.id) },
         text = muscle.name,
+        loading = muscle.loading,
         iconStart = iconStart
     )
 }
