@@ -28,6 +28,7 @@ import exerciseexample.main.components.HeapMap
 import exerciseexample.main.components.MusclePack
 import exerciseexample.main.components.ResentVolume
 import exerciseexample.main.models.ExerciseExample
+import exerciseexample.main.models.ExerciseExampleAchievements
 import molecule.PaddingM
 import molecule.PaddingXL
 
@@ -45,6 +46,7 @@ internal fun ExerciseExampleContent(
         error = { state.error },
         clearError = vm::clearError,
         primaryAction = primaryAction,
+        achievements = state.achievements,
         exerciseExample = state.exerciseExample,
         fullFrontImage = state.fullFrontImageVector,
         fullBackImage = state.fullBackImageVector
@@ -56,6 +58,7 @@ private fun Content(
     close: () -> Unit,
     error: () -> String?,
     clearError: () -> Unit,
+    achievements: ExerciseExampleAchievements?,
     primaryAction: (Pair<String, (id: String) -> Unit>)?,
     exerciseExample: ExerciseExample?,
     fullFrontImage: ImageVector,
@@ -80,13 +83,16 @@ private fun Content(
 
             HeapMap(fullFrontImage = fullFrontImage, fullBackImage = fullBackImage)
 
-            PaddingXL()
+            if (achievements != null) {
 
-            Achievements()
+                PaddingXL()
 
-            PaddingXL()
+                Achievements()
 
-            ResentVolume()
+                PaddingXL()
+
+                ResentVolume(volumes = achievements.lastVolumes)
+            }
 
             PaddingM()
 

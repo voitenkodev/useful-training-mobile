@@ -12,5 +12,5 @@ public data class ExerciseVolumeDto(
     @SerialName("id")
     val id: String? = null,
     @SerialName("volume")
-    val volume: Int? = null
+    val volume: Double? = null
 )

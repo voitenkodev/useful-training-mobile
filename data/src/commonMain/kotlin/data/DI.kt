@@ -3,6 +3,7 @@ package data
 import AuthenticationRepository
 import ExerciseExamplesRepository
 import MusclesRepository
+import StatisticsRepository
 import TrainingsRepository
 import data.authentication.AuthenticationRepositoryImpl
 import data.exerciseexamples.ExerciseExamplesRepositoryImpl
@@ -17,6 +18,6 @@ public val dataModule: Module = module {
     single { AuthenticationRepositoryImpl(get(), get(), get(), get(), get()) } bind AuthenticationRepository::class
     single { ExerciseExamplesRepositoryImpl(get(), get()) } bind ExerciseExamplesRepository::class
     single { MusclesRepositoryImpl(get(), get()) } bind MusclesRepository::class
-    single { StatisticsRepositoryImpl(get()) } bind StatisticsRepositoryImpl::class
+    single { StatisticsRepositoryImpl(get()) } bind StatisticsRepository::class
     single { TrainingsRepositoryImpl(get(), get(), get()) } bind TrainingsRepository::class
 }

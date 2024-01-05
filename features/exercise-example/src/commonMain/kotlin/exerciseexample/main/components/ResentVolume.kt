@@ -16,23 +16,18 @@ import basic.LineChartDotsStyle
 import basic.LineChartLabelStyle
 import basic.LineChartStyle
 import components.cards.HorizontalValueCard
+import exerciseexample.main.models.ExerciseVolume
 import kg
+import kotlinx.collections.immutable.ImmutableList
 import molecule.Shadow
 import molecule.TextLabel
 import resources.Icons
 
 @Composable
-internal fun ResentVolume() {
+internal fun ResentVolume(volumes: ImmutableList<ExerciseVolume>) {
 
-    val list = listOf(
-        10000.0 to "14.11.2023",
-        6900.0 to "18.11.2023",
-        2000.0 to "20.11.2023",
-        3000.0 to "22.11.2023",
-        5000.0 to "24.11.2023"
-    ) // TODO ADD REQUEST
 
-    val reversed = remember(list) { list.reversed() }
+    val reversed = remember(volumes) { volumes.reversed() }
 
     Column(
         modifier = Modifier.background(Design.colors.black10),
@@ -51,7 +46,7 @@ internal fun ResentVolume() {
                 .fillMaxWidth()
                 .padding(horizontal = Design.dp.paddingXL)
                 .height(130.dp),
-            values = list.map { it.first.toFloat() },
+            values = volumes.map { it.volume.toFloat() },
             chartStyle = LineChartStyle(
                 lineColor = Design.colors.content,
                 labelStyle = LineChartLabelStyle(
@@ -74,18 +69,18 @@ internal fun ResentVolume() {
         repeat(reversed.size) {
 
             val item = reversed.getOrNull(it) ?: return
-            val previousItem = reversed.getOrNull(it + 1)?.first ?: 0.0
+            val previousItem = reversed.getOrNull(it + 1)?.volume ?: 0.0
 
-            val color = if (item.first > previousItem) Design.colors.toxic.copy(alpha = 0.5f)
+            val color = if (item.volume > previousItem) Design.colors.toxic.copy(alpha = 0.5f)
             else Design.colors.orange.copy(alpha = 0.5f)
 
-            val img = if (item.first > previousItem) Icons.arrowUp
+            val img = if (item.volume > previousItem) Icons.arrowUp
             else Icons.arrowDown
 
             HorizontalValueCard(
                 modifier = Modifier.padding(horizontal = Design.dp.paddingM),
-                title = item.first.kg(true),
-                description = "At: ${item.second}",
+                title = item.volume.kg(true),
+                description = "At: ${item.createdAt}",
                 startIcon = img to color,
                 actionEndIcon = Icons.arrowRight to {}
             )

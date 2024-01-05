@@ -1,6 +1,7 @@
 package exerciseexample.main
 
 import ExerciseExamplesRepository
+import StatisticsRepository
 import ViewModel
 import exerciseexample.main.factories.createFrontBackImages
 import exerciseexample.main.mapping.toState
@@ -9,6 +10,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.merge
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.update
@@ -20,11 +22,12 @@ internal class ExerciseExampleViewModel(id: String) : ViewModel() {
     private val _state = MutableStateFlow(State())
     internal val state: StateFlow<State> = _state
 
-    private val api by inject<ExerciseExamplesRepository>()
+    private val exerciseExampleApi by inject<ExerciseExamplesRepository>()
+    private val statisticsApi by inject<StatisticsRepository>()
 
     init {
         launch {
-            val result = api
+            val result = exerciseExampleApi
                 .observeExerciseExample(id)
                 .catch { t -> _state.update { it.copy(error = t.message) } }
                 .firstOrNull()
@@ -36,7 +39,12 @@ internal class ExerciseExampleViewModel(id: String) : ViewModel() {
             }
         }
 
-        api.syncExerciseExampleById(id)
+        val exerciseJob = exerciseExampleApi.syncExerciseExampleById(id)
+
+        val statisticsJob = statisticsApi.getExerciseExampleAchievements(id, 5)
+            .onEach { r -> _state.update { it.copy(achievements = r.toState()) } }
+
+        merge(exerciseJob, statisticsJob)
             .onStart { _state.update { it.copy(loading = true) } }
             .catch { t -> _state.update { it.copy(loading = false, error = t.message) } }
             .onEach { _state.update { it.copy(loading = false) } }
