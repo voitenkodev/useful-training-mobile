@@ -57,7 +57,7 @@ internal fun NamePage(
         PaddingWeight()
 
         ButtonPrimary(
-            modifier = Modifier.width(Design.dp.componentXL),
+            modifier = Modifier.width(Design.dp.componentXXL),
             text = "Confirm",
             onClick = confirmProvider,
             enabled = name.isNotBlank()

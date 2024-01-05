@@ -23,7 +23,10 @@ import molecule.Toolbar
 import resources.Icons
 
 @Composable
-internal fun Header(modifier: Modifier = Modifier) {
+internal fun Header(
+    modifier: Modifier = Modifier,
+    close: () -> Unit
+) {
     Column(
         modifier = modifier
             .background(Design.colors.secondary)
@@ -32,7 +35,7 @@ internal fun Header(modifier: Modifier = Modifier) {
 
         PaddingS()
 
-        Toolbar(title = "Muscles")
+        Toolbar(title = "Muscles", icon = Icons.close to close)
 
         PaddingS()
 

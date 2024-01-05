@@ -14,7 +14,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.dp
 import atom.Design
 import components.chips.Chip
 import components.chips.ChipState
@@ -60,7 +59,7 @@ internal fun MuscleGroup(
 
             Image(
                 modifier = Modifier
-                    .height(180.dp)
+                    .height(Design.dp.componentXL)
                     .aspectRatio(1f)
                     .align(Alignment.CenterEnd),
                 imageVector = item.bodyImageVector,

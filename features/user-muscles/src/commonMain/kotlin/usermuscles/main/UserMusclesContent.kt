@@ -1,21 +1,21 @@
 package usermuscles.main
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import atom.Design
 import components.Error
-import components.ShadowFooter
-import components.ShadowFooterSpace
 import components.roots.ScreenRoot
 import kotlinx.collections.immutable.ImmutableList
-import molecule.PaddingM
 import molecule.Shadow
 import molecule.primaryBackground
 import usermuscles.main.components.Header
@@ -49,7 +49,7 @@ private fun Content(
 
         Column(modifier = Modifier.fillMaxSize()) {
 
-            Header()
+            Header(close = close)
 
             if (list.isNotEmpty()) LazyColumn(modifier = Modifier.fillMaxWidth().weight(1f).primaryBackground()) {
 
@@ -63,16 +63,10 @@ private fun Content(
                     if (index < list.lastIndex) Shadow()
                 }
 
-                item("shadow_bottom_footer") {
-                    PaddingM()
-                    ShadowFooterSpace()
+                item("navigation_padding") {
+                    Spacer(modifier = Modifier.statusBarsPadding().height(Design.dp.paddingM))
                 }
             }
         }
-
-        ShadowFooter(
-            modifier = Modifier.fillMaxWidth().align(Alignment.BottomCenter),
-            close = close
-        )
     }
 }

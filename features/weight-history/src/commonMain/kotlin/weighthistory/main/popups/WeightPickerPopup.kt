@@ -82,7 +82,7 @@ internal fun WeightPickerPopup(
         ) {
 
             ButtonPrimary(
-                modifier = Modifier.width(Design.dp.componentXL),
+                modifier = Modifier.width(Design.dp.componentXXL),
                 text = "apply",
                 onClick = {
                     apply.invoke(weight.value)

@@ -79,7 +79,7 @@ internal fun WeightPage(
             ) {
 
                 ButtonPrimary(
-                    modifier = Modifier.width(Design.dp.componentXL),
+                    modifier = Modifier.width(Design.dp.componentXXL),
                     text = "Confirm",
                     onClick = confirm,
                     enabled = true

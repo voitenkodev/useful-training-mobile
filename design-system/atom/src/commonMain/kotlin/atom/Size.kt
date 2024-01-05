@@ -13,7 +13,8 @@ internal fun dp() = Dp(
     componentS = 42.dp,
     componentM = 50.dp,
     componentL = 56.dp,
-    componentXL = 200.dp
+    componentXL = 146.dp,
+    componentXXL = 200.dp
 )
 
 public data class Dp(
@@ -26,5 +27,6 @@ public data class Dp(
     val componentS: Dp,
     val componentM: Dp,
     val componentL: Dp,
-    val componentXL: Dp
+    val componentXL: Dp,
+    val componentXXL: Dp
 )

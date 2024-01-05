@@ -78,7 +78,7 @@ internal fun CredentialsPage(
         PaddingWeight()
 
         ButtonPrimary(
-            modifier = Modifier.width(Design.dp.componentXL),
+            modifier = Modifier.width(Design.dp.componentXXL),
             text = "Register",
             onClick = confirmProvider,
             enabled = email.isNotBlank() && password.isNotBlank() && passwordRepeat.isNotBlank(),

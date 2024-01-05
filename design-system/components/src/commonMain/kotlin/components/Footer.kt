@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
@@ -48,7 +47,7 @@ public fun ShadowFooter(
 
                 if (primary != null) {
                     ButtonPrimary(
-                        modifier = Modifier1.width(Design.dp.componentXL),
+                        modifier = Modifier1.width(Design.dp.componentXXL),
                         text = primary.first,
                         onClick = primary.second
                     )

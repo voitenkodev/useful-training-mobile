@@ -122,7 +122,7 @@ private fun Content(
             PaddingWeight()
 
             ButtonPrimary(
-                modifier = Modifier.width(Design.dp.componentXL),
+                modifier = Modifier.width(Design.dp.componentXXL),
                 text = "Sign In",
                 onClick = loginProvider,
                 enabled = email.isNotBlank() && password.isNotBlank(),
