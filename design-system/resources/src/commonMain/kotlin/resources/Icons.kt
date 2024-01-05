@@ -30,6 +30,7 @@ import resources.icons.MediumBattery
 import resources.icons.Notifications
 import resources.icons.Person
 import resources.icons.RedCircle
+import resources.icons.Repetitions
 import resources.icons.Success
 import resources.icons.Support
 import resources.icons.Time
@@ -71,4 +72,5 @@ public object Icons {
     public val note: ImageVector = Icons.Default.Notifications
     public val greenCircle: ImageVector = GreenCircle
     public val redCircle: ImageVector = RedCircle
+    public val repetitions: ImageVector = Repetitions
 }

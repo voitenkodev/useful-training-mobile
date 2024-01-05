@@ -15,7 +15,11 @@ import molecule.TextLabel
 import resources.Icons
 
 @Composable
-internal fun Achievements() {
+internal fun Achievements(
+    maxWeight: Double,
+    maxRepetition: Int,
+    maxVolume: Double
+) {
 
     Column(
         modifier = Modifier.padding(horizontal = Design.dp.paddingM),
@@ -34,7 +38,7 @@ internal fun Achievements() {
                     shape = Design.shape.default
                 ),
                 title = "Volume" to Design.colors.content,
-                description = 3546.0.kg(false) to Design.colors.toxic,
+                description = maxVolume.kg(false) to Design.colors.toxic,
                 icon = Icons.weight
             )
 
@@ -45,7 +49,7 @@ internal fun Achievements() {
                     shape = Design.shape.default
                 ),
                 title = "P/M" to Design.colors.caption,
-                description = 1500.0.kg(false) to Design.colors.toxic,
+                description = maxWeight.kg(false) to Design.colors.toxic,
                 icon = Icons.handWeight
             )
 
@@ -55,9 +59,9 @@ internal fun Achievements() {
                     width = 1.dp,
                     shape = Design.shape.default
                 ),
-                title = "Count" to Design.colors.content,
-                description = 50.toString() to Design.colors.toxic,
-                icon = Icons.time
+                title = "Repetitions" to Design.colors.content,
+                description = maxRepetition.toString() to Design.colors.toxic,
+                icon = Icons.repetitions
             )
         }
     }

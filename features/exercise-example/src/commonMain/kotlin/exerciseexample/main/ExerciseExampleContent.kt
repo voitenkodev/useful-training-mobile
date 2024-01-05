@@ -87,7 +87,11 @@ private fun Content(
 
                 PaddingXL()
 
-                Achievements()
+                Achievements(
+                    maxWeight = achievements.maxWeight.weight,
+                    maxRepetition = achievements.maxRepetition.repetition,
+                    maxVolume = achievements.maxVolume.volume
+                )
 
                 PaddingXL()
 
