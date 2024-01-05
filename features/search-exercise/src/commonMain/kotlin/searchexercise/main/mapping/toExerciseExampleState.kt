@@ -5,13 +5,13 @@ import kotlinx.collections.immutable.toImmutableList
 import searchexercise.main.models.ExerciseExample
 
 internal fun List<models.ExerciseExample>.toState(): ImmutableList<ExerciseExample> {
-    return mapNotNull { it.toState() }
+    return map { it.toState() }
         .toImmutableList()
 }
 
-internal fun models.ExerciseExample.toState(): ExerciseExample? {
+internal fun models.ExerciseExample.toState(): ExerciseExample {
     return ExerciseExample(
-        id = id ?: return null,
+        id = id,
         name = name,
         imageUrl = imageUrl,
         muscleExerciseBundles = muscleExerciseBundles.toState()
