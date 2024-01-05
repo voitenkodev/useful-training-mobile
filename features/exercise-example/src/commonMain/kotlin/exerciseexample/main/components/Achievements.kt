@@ -28,9 +28,7 @@ internal fun Achievements(
 
         TextLabel(provideText = { "Achievements" })
 
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
-        ) {
+        Row(horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM)) {
             VerticalValueCard(
                 modifier = Modifier.weight(1f).border(
                     color = Design.colors.toxic,
