@@ -14,7 +14,6 @@ internal fun models.Muscle.toState(): Muscle? {
     return Muscle(
         name = name,
         id = id,
-        loading = false,
         status = authentication.register.models.StatusEnum.INCLUDED,
         type = type.toState() ?: return null
     )

@@ -146,7 +146,7 @@ private fun Content(
         ShadowFooter(
             modifier = Modifier.fillMaxWidth().align(Alignment.BottomCenter),
             close = close,
-            primary = "update" to update
+            primary = "Update" to update
         )
     }
 }

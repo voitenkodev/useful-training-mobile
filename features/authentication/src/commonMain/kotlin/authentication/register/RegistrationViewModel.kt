@@ -4,11 +4,15 @@ import AuthenticationRepository
 import MusclesRepository
 import UserRepository
 import ViewModel
+import authentication.register.factories.muscleImage
 import authentication.register.mapping.toState
 import authentication.register.models.RegistrationStatus
+import authentication.register.models.StatusEnum.EXCLUDED
+import authentication.register.models.StatusEnum.INCLUDED
 import cmToM
 import grToKg
 import isEmailValid
+import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
@@ -58,7 +62,11 @@ internal class RegistrationViewModel : ViewModel() {
                     password = last.password,
                     name = last.name,
                     weight = last.weight.grToKg(),
-                    height = last.height.cmToM()
+                    height = last.height.cmToM(),
+                    excludeMuscleIds = last.muscleTypes
+                        .flatMap { it.muscles }
+                        .filter { it.status == EXCLUDED }
+                        .map { it.id }
                 )
                 .flatMapConcat { userApi.syncUser() }
                 .onStart { _state.update { it.copy(loading = true) } }
@@ -85,7 +93,29 @@ internal class RegistrationViewModel : ViewModel() {
     }
 
     fun selectMuscles(id: String) {
+        _state.update {
+            it.copy(
+                muscleTypes = it.muscleTypes.map { mt ->
+                    val muscles = mt.muscles.map muscleMap@{ m ->
+                        if (id != m.id) {
+                            return@muscleMap m
+                        }
 
+                        m.copy(
+                            status = when (m.status) {
+                                INCLUDED -> EXCLUDED
+                                EXCLUDED -> INCLUDED
+                            }
+                        )
+                    }.toPersistentList()
+
+                    mt.copy(
+                        muscles = muscles,
+                        bodyImageVector = muscleImage(mt.type, muscles)
+                    )
+                }.toPersistentList()
+            )
+        }
     }
 
     fun updatePasswordRepeat(value: String) {

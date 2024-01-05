@@ -14,5 +14,7 @@ public data class RegisterDto(
     @SerialName("weight")
     val weight: Double? = null,
     @SerialName("height")
-    val height: Double? = null
+    val height: Double? = null,
+    @SerialName("excludeMuscleIds")
+    val excludeMuscleIds: List<String>? = null,
 )

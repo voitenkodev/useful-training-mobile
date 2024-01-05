@@ -1,32 +1,25 @@
 package authentication.register.pages
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.imePadding
-import androidx.compose.foundation.layout.navigationBarsPadding
-import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
-import atom.Design
 import authentication.register.components.MuscleGroup
 import authentication.register.models.MuscleType
+import components.ShadowFooter
+import components.ShadowFooterSpace
 import kotlinx.collections.immutable.ImmutableList
-import molecule.ButtonPrimary
 import molecule.PaddingM
-import molecule.PaddingWeight
 import molecule.PaddingXL
 import molecule.Shadow
 import molecule.TextBody2
 import molecule.TextH2
-import molecule.primaryBackground
 
 @Composable
 internal fun ExcludeMusclePage(
@@ -35,44 +28,43 @@ internal fun ExcludeMusclePage(
     confirm: () -> Unit
 ) {
 
-    Column(
-        modifier = Modifier.fillMaxSize().imePadding().navigationBarsPadding(),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
+    Box(modifier = Modifier.fillMaxSize()) {
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
 
-        PaddingM()
+            PaddingM()
 
-        TextH2(provideText = { "Muscles" }, textAlign = TextAlign.Center)
+            TextH2(provideText = { "Muscles" }, textAlign = TextAlign.Center)
 
-        TextBody2(provideText = { "Would you like to exclude some muscles from you workouts?" }, textAlign = TextAlign.Center)
+            TextBody2(provideText = { "Would you like to exclude some muscles from you workouts?" }, textAlign = TextAlign.Center)
 
-        PaddingXL()
+            PaddingXL()
 
-        if (muscles.isNotEmpty()) LazyColumn(modifier = Modifier.fillMaxWidth().weight(1f).primaryBackground()) {
+            Shadow()
 
-            itemsIndexed(muscles, key = { _, item -> item.id }) { index, item ->
+            LazyColumn(modifier = Modifier.fillMaxWidth().weight(1f)) {
 
-                MuscleGroup(
-                    item = item,
-                    selectMuscle = selectMuscle
-                )
+                itemsIndexed(muscles, key = { _, item -> item.id }) { index, item ->
 
-                if (index < muscles.lastIndex) Shadow()
-            }
+                    MuscleGroup(
+                        item = item,
+                        selectMuscle = selectMuscle
+                    )
 
-            item("navigation_padding") {
-                Spacer(modifier = Modifier.statusBarsPadding().height(Design.dp.paddingM))
+                    if (index < muscles.lastIndex) Shadow()
+                }
+
+                item("navigation_padding") {
+                    ShadowFooterSpace()
+                }
             }
         }
 
-        PaddingM()
-
-        ButtonPrimary(
-            modifier = Modifier.width(Design.dp.componentXXL),
-            text = "Continue",
-            onClick = confirm
+        ShadowFooter(
+            modifier = Modifier.fillMaxWidth().align(Alignment.BottomCenter),
+            primary = "Continue" to confirm
         )
-
-        PaddingXL()
     }
 }
