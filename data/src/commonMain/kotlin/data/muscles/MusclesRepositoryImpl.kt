@@ -30,19 +30,9 @@ internal class MusclesRepositoryImpl(
         }
     }
 
-    override fun syncUserMuscleById(id: String): Flow<Unit> {
-        return flow {
-            val result = remote
-                .getUserMuscleById(id)
-                .dtoToDao()
-            if (result != null) local.setMuscle(result)
-            emit(Unit)
-        }
-    }
-
     override fun syncPublicMuscles(): Flow<Unit> {
         return flow {
-            val result = remote.getUserMuscles()
+            val result = remote.getPublicMuscles()
             local.setMuscleTypesWithMuscles(result.dtoToDao())
             emit(Unit)
         }

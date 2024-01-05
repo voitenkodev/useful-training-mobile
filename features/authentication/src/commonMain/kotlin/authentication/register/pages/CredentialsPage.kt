@@ -22,6 +22,7 @@ import molecule.PaddingWeight
 import molecule.PaddingXL
 import molecule.TextBody2
 import molecule.TextH2
+import molecule.primaryBackground
 
 @Composable
 internal fun CredentialsPage(

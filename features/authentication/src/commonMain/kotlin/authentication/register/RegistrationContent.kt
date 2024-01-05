@@ -11,9 +11,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import authentication.register.models.MuscleType
 import authentication.register.models.RegistrationStatus
 import authentication.register.models.RegistrationSteps
 import authentication.register.pages.CredentialsPage
+import authentication.register.pages.ExcludeMusclePage
 import authentication.register.pages.HeightPage
 import authentication.register.pages.NamePage
 import authentication.register.pages.WeightPage
@@ -22,8 +24,10 @@ import components.Error
 import components.indication.SlideIndicator
 import components.roots.ScreenRoot
 import io.github.xxfast.decompose.router.LocalRouterContext
+import kotlinx.collections.immutable.ImmutableList
 import molecule.PaddingL
 import molecule.PaddingXL
+import molecule.primaryBackground
 
 @Composable
 internal fun RegistrationContent(
@@ -59,7 +63,9 @@ internal fun RegistrationContent(
         steps = state.steps,
         selectedStep = state.selectedStep,
         passwordRepeat = state.passwordRepeat,
-        updatePasswordRepeat = vm::updatePasswordRepeat
+        updatePasswordRepeat = vm::updatePasswordRepeat,
+        muscles = state.muscleTypes,
+        selectMuscle = vm::selectMuscles
     )
 }
 
@@ -86,6 +92,9 @@ private fun Content(
     height: Int,
     updateHeight: (Int) -> Unit,
 
+    muscles: ImmutableList<MuscleType>,
+    selectMuscle: (id: String) -> Unit,
+
     email: String,
     updateEmail: (String) -> Unit,
     password: String,
@@ -105,7 +114,7 @@ private fun Content(
 
     ScreenRoot(error = { Error(message = { error }, close = clearError) }) {
         Column(
-            modifier = Modifier.statusBarsPadding(),
+            modifier = Modifier.primaryBackground().statusBarsPadding(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
@@ -139,7 +148,13 @@ private fun Content(
                         confirm = nextStep
                     )
 
-                    3 -> CredentialsPage(
+                    3 -> ExcludeMusclePage(
+                        muscles = muscles,
+                        selectMuscle = selectMuscle,
+                        confirm = nextStep
+                    )
+
+                    4 -> CredentialsPage(
                         password = password,
                         email = email,
                         updateEmail = updateEmail,

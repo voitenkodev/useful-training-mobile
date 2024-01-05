@@ -18,10 +18,6 @@ internal class BottomMenuViewModel : ViewModel() {
     private val api by inject<AuthenticationRepository>()
 
     init {
-        subscribeToken()
-    }
-
-    private fun subscribeToken() {
         api.getToken()
             .onEach { r ->
                 _state.update {

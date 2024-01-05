@@ -16,6 +16,7 @@ kotlin {
             dependencies {
                 implementation(projects.domain.authentication)
                 implementation(projects.domain.user)
+                implementation(projects.domain.muscles)
 
                 implementation(projects.common.utils)
                 implementation(projects.common.architectureComponent)
@@ -23,13 +24,16 @@ kotlin {
                 implementation(projects.designSystem.atom)
                 implementation(projects.designSystem.molecule)
                 implementation(projects.designSystem.components)
+                implementation(projects.designSystem.resources)
 
                 implementation(compose.ui)
                 implementation(compose.foundation)
 
+                implementation(projects.composeLibs.musclePicker)
                 implementation(projects.composeLibs.weightPicker)
                 implementation(projects.composeLibs.heightPicker)
 
+                implementation(libs.immutable.collections)
                 implementation(libs.koin.core)
             }
         }

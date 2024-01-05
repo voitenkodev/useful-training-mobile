@@ -1,8 +1,10 @@
 package authentication.register
 
 import AuthenticationRepository
+import MusclesRepository
 import UserRepository
 import ViewModel
+import authentication.register.mapping.toState
 import authentication.register.models.RegistrationStatus
 import cmToM
 import grToKg
@@ -23,19 +25,26 @@ internal class RegistrationViewModel : ViewModel() {
 
     private val authApi by inject<AuthenticationRepository>()
     private val userApi by inject<UserRepository>()
+    private val musclesApi by inject<MusclesRepository>()
 
     private val _state = MutableStateFlow(State())
     val state: StateFlow<State> = _state
 
     init {
-        subscribeToken()
-    }
-
-    private fun subscribeToken() {
         authApi
             .getToken()
             .filterNotNull()
             .onEach { _state.update { it.copy(registrationStatus = RegistrationStatus.Available) } }
+            .launchIn(this)
+
+        musclesApi
+            .observeMuscles()
+            .onEach { r -> _state.update { it.copy(muscleTypes = r.toState()) } }
+            .catch { r -> _state.update { it.copy(error = r.message) } }
+            .launchIn(this)
+
+        musclesApi.syncPublicMuscles()
+            .catch { r -> _state.update { it.copy(error = r.message) } }
             .launchIn(this)
     }
 
@@ -73,6 +82,10 @@ internal class RegistrationViewModel : ViewModel() {
 
     fun updatePassword(value: String) {
         _state.update { it.copy(password = value) }
+    }
+
+    fun selectMuscles(id: String) {
+
     }
 
     fun updatePasswordRepeat(value: String) {

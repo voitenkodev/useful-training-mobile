@@ -18,10 +18,6 @@ internal class SplashViewModel : ViewModel() {
     val state: StateFlow<State> = _state
 
     init {
-        subscribeToken()
-    }
-
-    private fun subscribeToken() {
         launch {
             _state.update {
                 if (api.getToken().firstOrNull() == null) it.copy(tokenStatus = TokenStatus.Unavailable)
