@@ -9,6 +9,7 @@ import io.ktor.http.path
 import network.models.AuthDto
 import network.models.ExcludedMuscleDto
 import network.models.ExerciseExampleDto
+import network.models.ExerciseStatisticsDto
 import network.models.MuscleDto
 import network.models.MuscleTypeDto
 import network.models.RegisterDto
@@ -87,6 +88,13 @@ public class NetworkSource(private val clientBackend: ClientBackend) {
         return callRequest(
             method = HttpMethod.Get,
             path = "/exercise-examples/$exerciseExampleId"
+        )
+    }
+
+    public suspend fun getExerciseStatistics(exerciseExampleId: String, limit: Int): ExerciseStatisticsDto {
+        return callRequest(
+            method = HttpMethod.Get,
+            path = "/statistics/exercise/$exerciseExampleId/$limit"
         )
     }
 

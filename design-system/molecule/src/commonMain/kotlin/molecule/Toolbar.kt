@@ -46,10 +46,7 @@ public fun SmallToolbar(
 }
 
 @Composable
-public fun Toolbar(
-    title: String,
-    icon: Pair<ImageVector, () -> Unit>? = null
-) {
+public fun Toolbar(title: String, icon: Pair<ImageVector, () -> Unit>? = null) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
