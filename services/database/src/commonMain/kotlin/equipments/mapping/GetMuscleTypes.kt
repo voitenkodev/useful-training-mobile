@@ -1,10 +1,10 @@
 package equipments.mapping
 
-import data.GetMuscleTypes
+import data.GetMuscleGroups
 import equipments.models.EquipmentDao
 import equipments.models.EquipmentTypeDao
 
-internal fun List<GetMuscleTypes>.mapToDao(): List<EquipmentTypeDao> {
+internal fun List<GetMuscleGroups>.mapToDao(): List<EquipmentTypeDao> {
     if (isEmpty()) return emptyList()
 
     return groupBy { it.id }.mapNotNull mapMuscleTypes@{ mt ->

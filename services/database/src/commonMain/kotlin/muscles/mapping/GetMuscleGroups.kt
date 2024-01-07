@@ -1,10 +1,10 @@
 package muscles.mapping
 
-import data.GetMuscleTypes
+import data.GetMuscleGroups
 import muscles.models.MuscleDao
-import muscles.models.MuscleTypeDao
+import muscles.models.MuscleGroupDao
 
-internal fun List<GetMuscleTypes>.mapToDao(): List<MuscleTypeDao> {
+internal fun List<GetMuscleGroups>.mapToDao(): List<MuscleGroupDao> {
     if (isEmpty()) return emptyList()
 
     return groupBy { it.id }.mapNotNull mapMuscleTypes@{ mt ->
@@ -18,7 +18,7 @@ internal fun List<GetMuscleTypes>.mapToDao(): List<MuscleTypeDao> {
             MuscleDao(
                 createdAt = getMuscleTypes.muscleCreatedAt ?: return@mapMuscles null,
                 updatedAt = getMuscleTypes.muscleUpdatedAt ?: return@mapMuscles null,
-                muscleTypeId = getMuscleTypes.id,
+                muscleGroupId = getMuscleTypes.id,
                 id = getMuscleTypes.muscleId ?: return@mapMuscles null,
                 name = getMuscleTypes.muscleName ?: return@mapMuscles null,
                 type = getMuscleTypes.muscleType ?: return@mapMuscles null,
@@ -26,7 +26,7 @@ internal fun List<GetMuscleTypes>.mapToDao(): List<MuscleTypeDao> {
             )
         }
 
-        MuscleTypeDao(
+        MuscleGroupDao(
             createdAt = root.createdAt,
             updatedAt = root.updatedAt,
             name = root.name,

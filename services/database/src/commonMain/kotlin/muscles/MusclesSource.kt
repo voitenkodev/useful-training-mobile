@@ -11,16 +11,16 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.transform
 import muscles.mapping.mapToDao
 import muscles.models.MuscleDao
-import muscles.models.MuscleTypeDao
+import muscles.models.MuscleGroupDao
 
 public class MusclesSource(nativeContext: NativeContext) {
 
     private val database: AlienWorkoutDatabase = nativeContext.database()
     private val muscleApi by lazy { database.muscleQueries }
 
-    public fun getMuscleTypes(): Flow<List<MuscleTypeDao>> {
+    public fun getMuscleGroups(): Flow<List<MuscleGroupDao>> {
         return muscleApi
-            .getMuscleTypes()
+            .getMuscleGroups()
             .asFlow()
             .mapToList(Dispatchers.Default)
             .transform { emit(it.mapToDao()) }
@@ -34,24 +34,24 @@ public class MusclesSource(nativeContext: NativeContext) {
             .map { it.map { item -> item.mapToDao() } }
     }
 
-    public fun setMuscleTypesWithMuscles(muscleTypes: List<MuscleTypeDao>) {
+    public fun setMuscleGroupsWithMuscles(groups: List<MuscleGroupDao>) {
         muscleApi.transaction {
-            muscleTypes.forEach { muscleType ->
-                muscleApi.setMuscleType(
-                    id = muscleType.id,
-                    name = muscleType.name,
-                    createdAt = muscleType.createdAt,
-                    updatedAt = muscleType.updatedAt,
-                    type = muscleType.type
+            groups.forEach { group ->
+                muscleApi.setMuscleGroup(
+                    id = group.id,
+                    name = group.name,
+                    createdAt = group.createdAt,
+                    updatedAt = group.updatedAt,
+                    type = group.type
                 )
 
-                muscleType.muscles.forEach { muscle ->
+                group.muscles.forEach { muscle ->
                     muscleApi.setMuscle(
                         id = muscle.id,
                         name = muscle.name,
                         createdAt = muscle.createdAt,
                         updatedAt = muscle.updatedAt,
-                        muscleTypeId = muscle.muscleTypeId,
+                        muscleGroupId = muscle.muscleGroupId,
                         type = muscle.type,
                         status = muscle.status
                     )
@@ -66,7 +66,7 @@ public class MusclesSource(nativeContext: NativeContext) {
             name = muscle.name,
             createdAt = muscle.createdAt,
             updatedAt = muscle.updatedAt,
-            muscleTypeId = muscle.muscleTypeId,
+            muscleGroupId = muscle.muscleGroupId,
             type = muscle.type,
             status = muscle.status
         )
@@ -74,6 +74,6 @@ public class MusclesSource(nativeContext: NativeContext) {
 
     public fun clearTables() {
         muscleApi.deleteTableMuscle()
-        muscleApi.deleteTableMuscleType()
+        muscleApi.deleteTableMuscleGroup()
     }
 }

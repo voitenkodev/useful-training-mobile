@@ -7,8 +7,8 @@ import kotlinx.serialization.Serializable
 public data class MuscleDto(
     @SerialName("id")
     val id: String? = null,
-    @SerialName("muscleTypeId")
-    val muscleTypeId: String? = null,
+    @SerialName("muscleGroupId")
+    val muscleGroupId: String? = null,
     @SerialName("status")
     val status: String? = null,
     @SerialName("name")

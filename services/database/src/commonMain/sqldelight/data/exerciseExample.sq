@@ -35,7 +35,7 @@ SELECT
   Muscle.id AS muscleId,
   Muscle.name AS muscleName,
   Muscle.type AS muscleType,
-  Muscle.muscleTypeId AS muscleMuscleTypeId,
+  Muscle.muscleGroupId AS muscleMuscleGroupId,
   Muscle.status AS muscleStatus,
   Muscle.updatedAt AS muscleUpdatedAt,
   Muscle.createdAt AS muscleCreatedAt
@@ -62,7 +62,7 @@ SELECT
   Muscle.id AS muscleId,
   Muscle.name AS muscleName,
   Muscle.type AS muscleType,
-  Muscle.muscleTypeId AS muscleMuscleTypeId,
+  Muscle.muscleGroupId AS muscleMuscleGroupId,
   Muscle.status AS muscleStatus,
   Muscle.updatedAt AS muscleUpdatedAt,
   Muscle.createdAt AS muscleCreatedAt

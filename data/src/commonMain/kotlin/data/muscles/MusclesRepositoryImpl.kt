@@ -18,14 +18,14 @@ internal class MusclesRepositoryImpl(
 
     override fun observeMuscles(): Flow<List<MuscleType>> {
         return local
-            .getMuscleTypes()
+            .getMuscleGroups()
             .map { it.daoToDomain() }
     }
 
     override fun syncUserMuscles(): Flow<Unit> {
         return flow {
             val result = remote.getUserMuscles()
-            local.setMuscleTypesWithMuscles(result.dtoToDao())
+            local.setMuscleGroupsWithMuscles(result.dtoToDao())
             emit(Unit)
         }
     }
@@ -33,7 +33,7 @@ internal class MusclesRepositoryImpl(
     override fun syncPublicMuscles(): Flow<Unit> {
         return flow {
             val result = remote.getPublicMuscles()
-            local.setMuscleTypesWithMuscles(result.dtoToDao())
+            local.setMuscleGroupsWithMuscles(result.dtoToDao())
             emit(Unit)
         }
     }

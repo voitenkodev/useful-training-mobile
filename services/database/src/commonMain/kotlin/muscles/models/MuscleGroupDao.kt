@@ -1,6 +1,6 @@
 package muscles.models
 
-public data class MuscleTypeDao(
+public data class MuscleGroupDao(
     val id: String,
     val name: String,
     val createdAt: String,

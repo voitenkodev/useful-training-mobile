@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS Muscle (
     id TEXT NOT NULL PRIMARY KEY,
-    muscleTypeId TEXT NOT NULL REFERENCES MuscleType(id) ON DELETE CASCADE,
+    muscleGroupId TEXT NOT NULL REFERENCES MuscleGroup(id) ON DELETE CASCADE,
     name TEXT NOT NULL,
     status TEXT,
     type TEXT NOT NULL,
@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS Muscle (
     updatedAt TEXT NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS MuscleType (
+CREATE TABLE IF NOT EXISTS MuscleGroup (
     id TEXT NOT NULL PRIMARY KEY,
     name TEXT NOT NULL,
     type TEXT NOT NULL,
@@ -22,7 +22,7 @@ getMusclesById:
 SELECT
   Muscle.id AS id,
   Muscle.name AS name,
-  Muscle.muscleTypeId AS muscleTypeId,
+  Muscle.muscleGroupId AS muscleGroupId,
   Muscle.status AS status,
   Muscle.type AS type,
   Muscle.updatedAt AS updatedAt,
@@ -30,23 +30,23 @@ SELECT
 FROM Muscle
 WHERE id IN ?;
 
-getMuscleTypes:
+getMuscleGroups:
 SELECT
-  MuscleType.id AS id,
-  MuscleType.name AS name,
-  MuscleType.type AS type,
-  MuscleType.updatedAt AS updatedAt,
-  MuscleType.createdAt AS createdAt,
+  MuscleGroup.id AS id,
+  MuscleGroup.name AS name,
+  MuscleGroup.type AS type,
+  MuscleGroup.updatedAt AS updatedAt,
+  MuscleGroup.createdAt AS createdAt,
 
   Muscle.id AS muscleId,
   Muscle.name AS muscleName,
-  Muscle.muscleTypeId AS muscleMuscleTypeId,
+  Muscle.muscleGroupId AS muscleMuscleGroupId,
   Muscle.status AS muscleStatus,
   Muscle.type AS muscleType,
   Muscle.updatedAt AS muscleUpdatedAt,
   Muscle.createdAt AS muscleCreatedAt
-FROM MuscleType
-LEFT JOIN Muscle ON MuscleType.id = Muscle.muscleTypeId;
+FROM MuscleGroup
+LEFT JOIN Muscle ON MuscleGroup.id = Muscle.muscleGroupId;
 
 -------------- SET --------------
 
@@ -54,8 +54,8 @@ setMuscle:
 INSERT OR REPLACE INTO Muscle
 VALUES (?,?,?,?,?,?,?);
 
-setMuscleType:
-INSERT OR IGNORE INTO MuscleType
+setMuscleGroup:
+INSERT OR IGNORE INTO MuscleGroup
 VALUES (?,?,?,?,?);
 
 -------------- DELETE --------------
@@ -63,5 +63,5 @@ VALUES (?,?,?,?,?);
 deleteTableMuscle:
 DELETE FROM Muscle;
 
-deleteTableMuscleType:
-DELETE FROM MuscleType;
+deleteTableMuscleGroup:
+DELETE FROM MuscleGroup;

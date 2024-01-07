@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-public data class MuscleTypeDto(
+public data class MuscleGroupsDto(
     @SerialName("createdAt")
     val createdAt: String? = null,
     @SerialName("id")
