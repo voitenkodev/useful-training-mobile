@@ -63,7 +63,7 @@ internal class UserRepositoryImpl(
 
     override fun deleteExcludedMuscle(id: String): Flow<String?> {
         return flow {
-            val result = remote.deleteExcludedEquipment(id).id
+            val result = remote.deleteExcludedMuscle(id).id
             emit(result)
         }
     }
@@ -77,7 +77,7 @@ internal class UserRepositoryImpl(
 
     override fun deleteExcludedEquipment(id: String): Flow<String?> {
         return flow {
-            val result = remote.deleteExcludedMuscle(id).id
+            val result = remote.deleteExcludedEquipment(id).id
             emit(result)
         }
     }
