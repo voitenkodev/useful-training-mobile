@@ -163,14 +163,14 @@ public class NetworkSource(private val clientBackend: ClientBackend) {
     public suspend fun deleteExcludedEquipment(id: String): ExcludedEquipmentDto {
         return callRequest(
             method = HttpMethod.Delete,
-            path = "/excluded-muscles/$id"
+            path = "/excluded-equipments/$id"
         )
     }
 
     public suspend fun setExcludedEquipment(id: String): ExcludedEquipmentDto {
         return callRequest(
             method = HttpMethod.Post,
-            path = "/excluded-muscles/$id"
+            path = "/excluded-equipments/$id"
         )
     }
 
