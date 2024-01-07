@@ -26,14 +26,14 @@ import molecule.PaddingS
 import molecule.TextH4
 import resources.Icons
 import trainingbuilder.muscle_picker.models.Muscle
-import trainingbuilder.muscle_picker.models.MuscleType
+import trainingbuilder.muscle_picker.models.MuscleGroup
 import trainingbuilder.muscle_picker.models.StatusEnum
 
 @Composable
 internal fun MuscleGroup(
-    item: MuscleType,
+    item: MuscleGroup,
     includedMuscleStatuses: ImmutableList<StatusEnum>,
-    selectMuscleType: (id: String) -> Unit,
+    selectMuscleGroup: (id: String) -> Unit,
     selectMuscle: (id: String) -> Unit
 ) {
 
@@ -67,7 +67,7 @@ internal fun MuscleGroup(
                 ButtonTextLink(
                     modifier = Modifier.padding(bottom = 4.dp),
                     text = if (item.isSelected) "CLEAR" else "ALL",
-                    onClick = { selectMuscleType.invoke(item.id) },
+                    onClick = { selectMuscleGroup.invoke(item.id) },
                     color = if (item.isSelected) Design.colors.caption else Design.colors.toxic
                 )
             }

@@ -16,13 +16,13 @@ import molecule.ButtonPrimary
 import molecule.ButtonSecondary
 import molecule.Shadow
 import molecule.secondaryBackground
-import trainingbuilder.muscle_picker.models.MuscleType
+import trainingbuilder.muscle_picker.models.MuscleGroup
 
 @Composable
 internal fun Footer(
     skip: () -> Unit,
     apply: () -> Unit,
-    list: ImmutableList<MuscleType>
+    list: ImmutableList<MuscleGroup>
 ) {
     Column(modifier = Modifier.fillMaxWidth().secondaryBackground()) {
 

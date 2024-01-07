@@ -1,9 +1,9 @@
-package authentication.register.models
+package usermuscles.main.models
 
 import androidx.compose.runtime.Immutable
 
 @Immutable
-internal enum class MuscleTypeEnum {
+internal enum class MuscleGroupEnum {
     CHEST_MUSCLES,
     BACK_MUSCLES,
     ABDOMINAL_MUSCLES,

@@ -1,8 +1,8 @@
 package models
 
-public data class MuscleType(
+public data class MuscleGroup(
     val id: String,
     val name: String,
     val muscles: List<Muscle>,
-    val type: MuscleTypeEnum
+    val type: MuscleGroupEnum
 )

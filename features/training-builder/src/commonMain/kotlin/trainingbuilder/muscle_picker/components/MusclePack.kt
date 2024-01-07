@@ -17,12 +17,12 @@ import molecule.PaddingL
 import molecule.PaddingXL
 import molecule.Shadow
 import trainingbuilder.muscle_picker.models.MuscleEnum
-import trainingbuilder.muscle_picker.models.MuscleType
+import trainingbuilder.muscle_picker.models.MuscleGroup
 import trainingbuilder.muscle_picker.models.StatusEnum
 
 @Composable
 internal fun MusclePack(
-    list: ImmutableList<MuscleType>,
+    list: ImmutableList<MuscleGroup>,
     includedMuscleStatuses: ImmutableList<StatusEnum>,
     upperBodyPackEnums: ImmutableList<MuscleEnum>,
     lowerBodyPackEnums: ImmutableList<MuscleEnum>,

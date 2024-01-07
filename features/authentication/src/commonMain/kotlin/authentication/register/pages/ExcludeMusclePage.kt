@@ -11,7 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import authentication.register.components.MuscleGroup
-import authentication.register.models.MuscleType
+import authentication.register.models.MuscleGroup
 import components.ShadowFooter
 import components.ShadowFooterSpace
 import kotlinx.collections.immutable.ImmutableList
@@ -23,7 +23,7 @@ import molecule.TextH2
 
 @Composable
 internal fun ExcludeMusclePage(
-    muscles: ImmutableList<MuscleType>,
+    muscles: ImmutableList<MuscleGroup>,
     selectMuscle: (id: String) -> Unit,
     confirm: () -> Unit
 ) {

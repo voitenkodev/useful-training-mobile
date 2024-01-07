@@ -20,7 +20,7 @@ import molecule.Shadow
 import molecule.primaryBackground
 import usermuscles.main.components.Header
 import usermuscles.main.components.MuscleGroup
-import usermuscles.main.models.MuscleType
+import usermuscles.main.models.MuscleGroup
 
 @Composable
 internal fun UserMusclesContent(vm: UserMusclesViewModel, close: () -> Unit) {
@@ -29,7 +29,7 @@ internal fun UserMusclesContent(vm: UserMusclesViewModel, close: () -> Unit) {
 
     Content(
         error = state.error,
-        list = state.muscleTypes,
+        list = state.muscleGroups,
         clearError = vm::clearError,
         selectMuscle = vm::selectMuscle,
         close = close
@@ -40,7 +40,7 @@ internal fun UserMusclesContent(vm: UserMusclesViewModel, close: () -> Unit) {
 private fun Content(
     error: String?,
     clearError: () -> Unit,
-    list: ImmutableList<MuscleType>,
+    list: ImmutableList<MuscleGroup>,
     selectMuscle: (id: String) -> Unit,
     close: () -> Unit
 ) {

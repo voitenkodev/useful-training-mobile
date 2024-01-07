@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import models.Muscle
-import models.MuscleType
+import models.MuscleGroup
 import muscles.MusclesSource
 import network.NetworkSource
 
@@ -16,7 +16,7 @@ internal class MusclesRepositoryImpl(
     private val local: MusclesSource
 ) : MusclesRepository {
 
-    override fun observeMuscles(): Flow<List<MuscleType>> {
+    override fun observeMuscles(): Flow<List<MuscleGroup>> {
         return local
             .getMuscleGroups()
             .map { it.daoToDomain() }

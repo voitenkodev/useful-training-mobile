@@ -43,7 +43,7 @@ internal class RegistrationViewModel : ViewModel() {
 
         musclesApi
             .observeMuscles()
-            .onEach { r -> _state.update { it.copy(muscleTypes = r.toState()) } }
+            .onEach { r -> _state.update { it.copy(muscleGroups = r.toState()) } }
             .catch { r -> _state.update { it.copy(error = r.message) } }
             .launchIn(this)
 
@@ -63,7 +63,7 @@ internal class RegistrationViewModel : ViewModel() {
                     name = last.name,
                     weight = last.weight.grToKg(),
                     height = last.height.cmToM(),
-                    excludeMuscleIds = last.muscleTypes
+                    excludeMuscleIds = last.muscleGroups
                         .flatMap { it.muscles }
                         .filter { it.status == EXCLUDED }
                         .map { it.id },
@@ -96,7 +96,7 @@ internal class RegistrationViewModel : ViewModel() {
     fun selectMuscles(id: String) {
         _state.update {
             it.copy(
-                muscleTypes = it.muscleTypes.map { mt ->
+                muscleGroups = it.muscleGroups.map { mt ->
                     val muscles = mt.muscles.map muscleMap@{ m ->
                         if (id != m.id) {
                             return@muscleMap m

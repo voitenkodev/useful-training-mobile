@@ -11,7 +11,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import authentication.register.models.MuscleType
+import authentication.register.models.MuscleGroup
 import authentication.register.models.RegistrationStatus
 import authentication.register.models.RegistrationSteps
 import authentication.register.pages.CredentialsPage
@@ -64,7 +64,7 @@ internal fun RegistrationContent(
         selectedStep = state.selectedStep,
         passwordRepeat = state.passwordRepeat,
         updatePasswordRepeat = vm::updatePasswordRepeat,
-        muscles = state.muscleTypes,
+        muscles = state.muscleGroups,
         selectMuscle = vm::selectMuscles
     )
 }
@@ -92,7 +92,7 @@ private fun Content(
     height: Int,
     updateHeight: (Int) -> Unit,
 
-    muscles: ImmutableList<MuscleType>,
+    muscles: ImmutableList<MuscleGroup>,
     selectMuscle: (id: String) -> Unit,
 
     email: String,

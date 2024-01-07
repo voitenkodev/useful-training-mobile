@@ -27,7 +27,7 @@ internal class UserMusclesViewModel : ViewModel() {
     init {
         musclesApi
             .observeMuscles()
-            .onEach { r -> _state.update { it.copy(muscleTypes = r.toState()) } }
+            .onEach { r -> _state.update { it.copy(muscleGroups = r.toState()) } }
             .catch { r -> _state.update { it.copy(error = r.message) } }
             .launchIn(this)
 
@@ -39,7 +39,7 @@ internal class UserMusclesViewModel : ViewModel() {
     fun selectMuscle(id: String) {
         _state.update {
             it.copy(
-                muscleTypes = it.muscleTypes.map { mt ->
+                muscleGroups = it.muscleGroups.map { mt ->
                     mt.copy(
                         muscles = mt.muscles.map { m ->
                             m.copy(loading = id == m.id)
@@ -49,7 +49,7 @@ internal class UserMusclesViewModel : ViewModel() {
             )
         }
 
-        val muscle = state.value.muscleTypes
+        val muscle = state.value.muscleGroups
             .flatMap { it.muscles }
             .find { it.id == id } ?: return
 

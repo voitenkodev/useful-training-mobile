@@ -9,7 +9,7 @@ import musclepickerpicker.bodySplit
 import musclepickerpicker.legsSplit
 import usermuscles.main.models.Muscle
 import usermuscles.main.models.MuscleEnum
-import usermuscles.main.models.MuscleTypeEnum
+import usermuscles.main.models.MuscleGroupEnum
 import usermuscles.main.models.StatusEnum
 
 private fun colorBySelection(muscle: Muscle?): Color {
@@ -26,12 +26,12 @@ private fun colorBySelection(muscle: Muscle?): Color {
 }
 
 internal fun muscleImage(
-    muscleTypeEnumState: MuscleTypeEnum,
+    muscleGroupEnumState: MuscleGroupEnum,
     muscles: List<Muscle>
 ): ImageVector {
 
-    return when (muscleTypeEnumState) {
-        MuscleTypeEnum.CHEST_MUSCLES -> {
+    return when (muscleGroupEnumState) {
+        MuscleGroupEnum.CHEST_MUSCLES -> {
             val pectoralisMinor = muscles.find { it.type == MuscleEnum.PECTORALIS_MINOR }
             val pectoralisMajor = muscles.find { it.type == MuscleEnum.PECTORALIS_MAJOR }
 
@@ -41,7 +41,7 @@ internal fun muscleImage(
             )
         }
 
-        MuscleTypeEnum.BACK_MUSCLES -> {
+        MuscleGroupEnum.BACK_MUSCLES -> {
             val trapezius = muscles.find { it.type == MuscleEnum.TRAPEZIUS }
             val latissimus = muscles.find { it.type == MuscleEnum.LATISSIMUS_DORSI }
             val rhomboids = muscles.find { it.type == MuscleEnum.RHOMBOIDS }
@@ -55,7 +55,7 @@ internal fun muscleImage(
             )
         }
 
-        MuscleTypeEnum.ABDOMINAL_MUSCLES -> {
+        MuscleGroupEnum.ABDOMINAL_MUSCLES -> {
             val rectusAbdominis = muscles.find { it.type == MuscleEnum.RECTUS_ABDOMINIS }
             val obliquesAbdominis = muscles.find { it.type == MuscleEnum.OBLIQUES }
 
@@ -65,7 +65,7 @@ internal fun muscleImage(
             )
         }
 
-        MuscleTypeEnum.LEGS -> {
+        MuscleGroupEnum.LEGS -> {
             val quadriceps = muscles.find { it.type == MuscleEnum.QUADRICEPS }
             val hamstrings = muscles.find { it.type == MuscleEnum.HAMSTRINGS }
             val calf = muscles.find { it.type == MuscleEnum.CALF }
@@ -79,7 +79,7 @@ internal fun muscleImage(
             )
         }
 
-        MuscleTypeEnum.ARMS_AND_FOREARMS -> {
+        MuscleGroupEnum.ARMS_AND_FOREARMS -> {
             val biceps = muscles.find { it.type == MuscleEnum.BICEPS }
             val triceps = muscles.find { it.type == MuscleEnum.TRICEPS }
             val forearm = muscles.find { it.type == MuscleEnum.FOREARM }
@@ -92,7 +92,7 @@ internal fun muscleImage(
             )
         }
 
-        MuscleTypeEnum.SHOULDER_MUSCLES -> {
+        MuscleGroupEnum.SHOULDER_MUSCLES -> {
             val posteriorDeltoid = muscles.find { it.type == MuscleEnum.POSTERIOR_DELTOID }
             val anteriorDeltoid = muscles.find { it.type == MuscleEnum.ANTERIOR_DELTOID }
             val lateralDeltoid = muscles.find { it.type == MuscleEnum.LATERAL_DELTOID }

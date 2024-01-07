@@ -1,6 +1,6 @@
 package models
 
-public enum class MuscleTypeEnum(private val key: String) {
+public enum class MuscleGroupEnum(private val key: String) {
     CHEST_MUSCLES("chest_muscles"),
     BACK_MUSCLES("back_muscles"),
     ABDOMINAL_MUSCLES("abdominal_muscles"),
@@ -14,7 +14,7 @@ public enum class MuscleTypeEnum(private val key: String) {
     }
 
     public companion object {
-        public fun of(key: String): MuscleTypeEnum {
+        public fun of(key: String): MuscleGroupEnum {
             return entries.firstOrNull { it.key == key } ?: UNKNOWN
         }
     }

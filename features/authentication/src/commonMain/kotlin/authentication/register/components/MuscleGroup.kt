@@ -16,7 +16,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import atom.Design
 import authentication.register.models.Muscle
-import authentication.register.models.MuscleType
+import authentication.register.models.MuscleGroup
 import authentication.register.models.StatusEnum
 import components.chips.Chip
 import components.chips.ChipState
@@ -27,7 +27,7 @@ import resources.Icons
 
 @Composable
 internal fun MuscleGroup(
-    item: MuscleType,
+    item: MuscleGroup,
     selectMuscle: (id: String) -> Unit
 ) {
 

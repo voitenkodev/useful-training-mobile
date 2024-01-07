@@ -1,10 +1,10 @@
-package muscles.mapping
+package equipments.mapping
 
 import data.GetMuscleGroups
-import muscles.models.MuscleDao
-import muscles.models.MuscleGroupDao
+import equipments.models.EquipmentDao
+import equipments.models.EquipmentTypeDao
 
-internal fun List<GetMuscleGroups>.mapToDao(): List<MuscleGroupDao> {
+internal fun List<GetMuscleGroups>.mapToDao(): List<EquipmentTypeDao> {
     if (isEmpty()) return emptyList()
 
     return groupBy { it.id }.mapNotNull mapMuscleGroups@{ mt ->
@@ -15,10 +15,10 @@ internal fun List<GetMuscleGroups>.mapToDao(): List<MuscleGroupDao> {
 
             val groups = m.value.firstOrNull() ?: return@mapMuscles null
 
-            MuscleDao(
+            EquipmentDao(
                 createdAt = groups.muscleCreatedAt ?: return@mapMuscles null,
                 updatedAt = groups.muscleUpdatedAt ?: return@mapMuscles null,
-                muscleGroupId = groups.id,
+                equipmentGroupId = groups.id,
                 id = groups.muscleId ?: return@mapMuscles null,
                 name = groups.muscleName ?: return@mapMuscles null,
                 type = groups.muscleType ?: return@mapMuscles null,
@@ -26,7 +26,7 @@ internal fun List<GetMuscleGroups>.mapToDao(): List<MuscleGroupDao> {
             )
         }
 
-        MuscleGroupDao(
+        EquipmentTypeDao(
             createdAt = root.createdAt,
             updatedAt = root.updatedAt,
             name = root.name,

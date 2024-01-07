@@ -1,20 +1,20 @@
 package data.muscles.mapping
 
-import models.MuscleType
-import models.MuscleTypeEnum
+import models.MuscleGroup
+import models.MuscleGroupEnum
 import muscles.models.MuscleGroupDao
 import network.models.MuscleGroupsDto
 
-internal fun List<MuscleGroupDao>.daoToDomain(): List<MuscleType> {
+internal fun List<MuscleGroupDao>.daoToDomain(): List<MuscleGroup> {
     return mapNotNull { it.daoToDomain() }
 }
 
-internal fun MuscleGroupDao.daoToDomain(): MuscleType {
-    return MuscleType(
+internal fun MuscleGroupDao.daoToDomain(): MuscleGroup {
+    return MuscleGroup(
         id = id,
         name = name,
         muscles = muscles.daoToDomain(),
-        type = MuscleTypeEnum.of(type)
+        type = MuscleGroupEnum.of(type)
     )
 }
 

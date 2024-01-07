@@ -22,12 +22,12 @@ import molecule.PaddingS
 import molecule.TextH4
 import resources.Icons
 import usermuscles.main.models.Muscle
-import usermuscles.main.models.MuscleType
+import usermuscles.main.models.MuscleGroup
 import usermuscles.main.models.StatusEnum
 
 @Composable
 internal fun MuscleGroup(
-    item: MuscleType,
+    item: MuscleGroup,
     selectMuscle: (id: String) -> Unit
 ) {
 
