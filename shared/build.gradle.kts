@@ -30,6 +30,7 @@ kotlin {
                 implementation(projects.features.searchExercise)
                 implementation(projects.features.weightHistory)
                 implementation(projects.features.userMuscles)
+                implementation(projects.features.userEquipments)
 
                 // Services
                 implementation(projects.services.network)

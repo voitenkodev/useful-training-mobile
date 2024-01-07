@@ -10,6 +10,7 @@ public interface UserRepository {
     public fun updateWeight(value: Double): Flow<Unit>
     public fun setExcludedMuscle(id: String): Flow<String?>
     public fun deleteExcludedMuscle(id: String): Flow<String?>
-
+    public fun setExcludedEquipment(id: String): Flow<String?>
+    public fun deleteExcludedEquipment(id: String): Flow<String?>
     public fun clearCache()
 }
