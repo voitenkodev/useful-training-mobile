@@ -2,6 +2,7 @@ import data.dataModule
 import data.user.userDataModule
 import exercise_examples.ExerciseExamplesSource
 import kotlinx.coroutines.flow.firstOrNull
+import equipments.EquipmentsSource
 import muscles.MusclesSource
 import network.ClientBackend
 import network.NetworkSource
@@ -29,6 +30,7 @@ internal val servicesModule = module {
     single { PreferencesSource(get()) }
     single { NetworkSource(get()) }
     single { ExerciseExamplesSource(get()) }
+    single { EquipmentsSource(get()) }
     single { MusclesSource(get()) }
     single { TrainingsSource(get()) }
     single { UserSource(get()) }
