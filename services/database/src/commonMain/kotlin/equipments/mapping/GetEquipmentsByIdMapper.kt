@@ -1,14 +1,14 @@
 package equipments.mapping
 
-import data.GetMusclesById
+import data.GetEquipmentById
 import equipments.models.EquipmentDao
 
-internal fun GetMusclesById.mapToDao(): EquipmentDao {
+internal fun GetEquipmentById.mapToDao(): EquipmentDao {
     return EquipmentDao(
         id = id,
         name = name,
         type = type,
-        equipmentGroupId = muscleGroupId,
+        equipmentGroupId = equipmentGroupId,
         createdAt = createdAt,
         updatedAt = updatedAt,
         status = status

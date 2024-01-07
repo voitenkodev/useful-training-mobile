@@ -1,0 +1,67 @@
+CREATE TABLE IF NOT EXISTS Equipment (
+    id TEXT NOT NULL PRIMARY KEY,
+    equipmentGroupId TEXT NOT NULL REFERENCES EquipmentGroup(id) ON DELETE CASCADE,
+    name TEXT NOT NULL,
+    status TEXT,
+    type TEXT NOT NULL,
+    createdAt TEXT NOT NULL,
+    updatedAt TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS EquipmentGroup (
+    id TEXT NOT NULL PRIMARY KEY,
+    name TEXT NOT NULL,
+    type TEXT NOT NULL,
+    createdAt TEXT NOT NULL,
+    updatedAt TEXT NOT NULL
+);
+
+-------------- GET --------------
+
+getEquipmentById:
+SELECT
+  Equipment.id AS id,
+  Equipment.name AS name,
+  Equipment.equipmentGroupId AS equipmentGroupId,
+  Equipment.status AS status,
+  Equipment.type AS type,
+  Equipment.updatedAt AS updatedAt,
+  Equipment.createdAt AS createdAt
+FROM Equipment
+WHERE id IN ?;
+
+getEquipmentGroups:
+SELECT
+  EquipmentGroup.id AS id,
+  EquipmentGroup.name AS name,
+  EquipmentGroup.type AS type,
+  EquipmentGroup.updatedAt AS updatedAt,
+  EquipmentGroup.createdAt AS createdAt,
+
+  Equipment.id AS equipmentId,
+  Equipment.name AS equipmentName,
+  Equipment.equipmentGroupId AS equipmentGroupId,
+  Equipment.status AS equipmentStatus,
+  Equipment.type AS equipmentType,
+  Equipment.updatedAt AS equipmentUpdatedAt,
+  Equipment.createdAt AS equipmentCreatedAt
+FROM EquipmentGroup
+LEFT JOIN Equipment ON EquipmentGroup.id = Equipment.equipmentGroupId;
+
+-------------- SET --------------
+
+setEquipment:
+INSERT OR REPLACE INTO Equipment
+VALUES (?,?,?,?,?,?,?);
+
+setEquipmentGroup:
+INSERT OR IGNORE INTO EquipmentGroup
+VALUES (?,?,?,?,?);
+
+-------------- DELETE --------------
+
+deleteTableEquipment:
+DELETE FROM Equipment;
+
+deleteTableEquipmentGroup:
+DELETE FROM EquipmentGroup;
