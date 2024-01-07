@@ -1,6 +1,6 @@
 package models
 
-public enum class StatusEnum(private val key: String) {
+public enum class MuscleStatusEnum(private val key: String) {
     HIGH("high"),
     MEDIUM("medium"),
     LOW("low"),
@@ -12,8 +12,8 @@ public enum class StatusEnum(private val key: String) {
     }
 
     public companion object {
-        public fun of(key: String?): StatusEnum {
-            return StatusEnum.entries.firstOrNull { it.key == key } ?: UNKNOWN
+        public fun of(key: String?): MuscleStatusEnum {
+            return MuscleStatusEnum.entries.firstOrNull { it.key == key } ?: UNKNOWN
         }
     }
 }

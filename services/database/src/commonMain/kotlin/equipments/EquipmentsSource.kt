@@ -18,7 +18,7 @@ public class EquipmentsSource(nativeContext: NativeContext) {
     private val database: AlienWorkoutDatabase = nativeContext.database()
     private val equipmentApi by lazy { database.equipmentQueries }
 
-    public fun getMuscleGroups(): Flow<List<EquipmentGroupDao>> {
+    public fun getEquipmentGroups(): Flow<List<EquipmentGroupDao>> {
         return equipmentApi
             .getEquipmentGroups()
             .asFlow()
@@ -26,7 +26,7 @@ public class EquipmentsSource(nativeContext: NativeContext) {
             .transform { emit(it.mapToDao()) }
     }
 
-    public fun getMusclesByIds(ids: List<String>): Flow<List<EquipmentDao>> {
+    public fun getEquipmentsByIds(ids: List<String>): Flow<List<EquipmentDao>> {
         return equipmentApi
             .getEquipmentById(ids)
             .asFlow()
@@ -34,7 +34,7 @@ public class EquipmentsSource(nativeContext: NativeContext) {
             .map { it.map { item -> item.mapToDao() } }
     }
 
-    public fun setMuscleGroupsWithMuscles(groups: List<EquipmentGroupDao>) {
+    public fun setEquipmentGroupsWithEquipments(groups: List<EquipmentGroupDao>) {
         equipmentApi.transaction {
             groups.forEach { group ->
                 equipmentApi.setEquipmentGroup(

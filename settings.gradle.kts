@@ -31,6 +31,7 @@ include(
     ":domain:authentication",
     ":domain:exercise-examples",
     ":domain:muscles",
+    ":domain:equipments",
     ":domain:user",
     ":domain:statistics",
     ":domain:common-models",

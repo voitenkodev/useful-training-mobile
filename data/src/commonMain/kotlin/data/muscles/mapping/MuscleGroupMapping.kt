@@ -3,7 +3,7 @@ package data.muscles.mapping
 import models.MuscleGroup
 import models.MuscleGroupEnum
 import muscles.models.MuscleGroupDao
-import network.models.MuscleGroupsDto
+import network.models.MuscleGroupDto
 
 internal fun List<MuscleGroupDao>.daoToDomain(): List<MuscleGroup> {
     return mapNotNull { it.daoToDomain() }
@@ -18,11 +18,11 @@ internal fun MuscleGroupDao.daoToDomain(): MuscleGroup {
     )
 }
 
-internal fun List<MuscleGroupsDto>.dtoToDao(): List<MuscleGroupDao> {
+internal fun List<MuscleGroupDto>.dtoToDao(): List<MuscleGroupDao> {
     return mapNotNull { it.dtoToDao() }
 }
 
-internal fun MuscleGroupsDto.dtoToDao(): MuscleGroupDao? {
+internal fun MuscleGroupDto.dtoToDao(): MuscleGroupDao? {
     return MuscleGroupDao(
         id = id ?: return null,
         name = name ?: return null,

@@ -2,7 +2,7 @@ package usermuscles.main.mapping
 
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toPersistentList
-import models.StatusEnum
+import models.MuscleStatusEnum
 import usermuscles.main.models.Muscle
 import usermuscles.main.models.MuscleEnum
 
@@ -21,10 +21,10 @@ internal fun models.Muscle.toState(): Muscle? {
     )
 }
 
-private fun StatusEnum.toState(): usermuscles.main.models.StatusEnum? {
+private fun MuscleStatusEnum.toState(): usermuscles.main.models.StatusEnum? {
     return when (this) {
-        StatusEnum.EXCLUDED -> usermuscles.main.models.StatusEnum.EXCLUDED
-        StatusEnum.UNKNOWN -> null
+        MuscleStatusEnum.EXCLUDED -> usermuscles.main.models.StatusEnum.EXCLUDED
+        MuscleStatusEnum.UNKNOWN -> null
         else -> usermuscles.main.models.StatusEnum.INCLUDED
     }
 }

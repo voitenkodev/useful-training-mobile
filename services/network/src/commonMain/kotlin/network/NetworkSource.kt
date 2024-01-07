@@ -12,7 +12,7 @@ import network.models.ExcludedMuscleDto
 import network.models.ExerciseExampleAchievementsDto
 import network.models.ExerciseExampleDto
 import network.models.MuscleDto
-import network.models.MuscleGroupsDto
+import network.models.MuscleGroupDto
 import network.models.RegisterDto
 import network.models.TokenDto
 import network.models.TrainingDto
@@ -103,14 +103,14 @@ public class NetworkSource(private val clientBackend: ClientBackend) {
         )
     }
 
-    public suspend fun getUserMuscles(): List<MuscleGroupsDto> {
+    public suspend fun getUserMuscles(): List<MuscleGroupDto> {
         return callRequest(
             method = HttpMethod.Get,
             path = "/user-muscles"
         )
     }
 
-    public suspend fun getPublicMuscles(): List<MuscleGroupsDto> {
+    public suspend fun getPublicMuscles(): List<MuscleGroupDto> {
         return callRequest(
             method = HttpMethod.Get,
             path = "/public-muscles"

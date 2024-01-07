@@ -2,7 +2,7 @@ package data.muscles.mapping
 
 import models.Muscle
 import models.MuscleEnum
-import models.StatusEnum
+import models.MuscleStatusEnum
 import muscles.models.MuscleDao
 import network.models.MuscleDto
 
@@ -16,7 +16,7 @@ internal fun MuscleDao.daoToDomain(): Muscle {
         id = id,
         name = name,
         type = MuscleEnum.of(type),
-        status = StatusEnum.of(status)
+        status = MuscleStatusEnum.of(status)
     )
 }
 
@@ -41,7 +41,7 @@ internal fun MuscleDto.dtoToDomain(): Muscle? {
         id = id ?: return null,
         name = name ?: return null,
         type = MuscleEnum.of(type ?: return null),
-        status = StatusEnum.of(status)
+        status = MuscleStatusEnum.of(status)
     )
 }
 
