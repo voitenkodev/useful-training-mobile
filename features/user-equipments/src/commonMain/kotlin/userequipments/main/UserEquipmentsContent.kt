@@ -16,7 +16,6 @@ import atom.Design
 import components.Error
 import components.roots.ScreenRoot
 import kotlinx.collections.immutable.ImmutableList
-import molecule.Shadow
 import molecule.primaryBackground
 import userequipments.main.components.EquipmentGroup
 import userequipments.main.components.Header
@@ -60,7 +59,6 @@ private fun Content(
                         selectEquipment = selectEquipment
                     )
 
-                    if (index < list.lastIndex) Shadow()
                 }
 
                 item("navigation_padding") {
