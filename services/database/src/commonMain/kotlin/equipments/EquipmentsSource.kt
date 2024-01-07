@@ -53,7 +53,8 @@ public class EquipmentsSource(nativeContext: NativeContext) {
                         updatedAt = item.updatedAt,
                         equipmentGroupId = item.equipmentGroupId,
                         type = item.type,
-                        status = item.status
+                        status = item.status,
+                        imageUrl = item.imageUrl
                     )
                 }
             }
@@ -68,7 +69,8 @@ public class EquipmentsSource(nativeContext: NativeContext) {
             updatedAt = equipment.updatedAt,
             equipmentGroupId = equipment.equipmentGroupId,
             type = equipment.type,
-            status = equipment.status
+            status = equipment.status,
+            imageUrl = equipment.imageUrl
         )
     }
 

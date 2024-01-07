@@ -15,6 +15,8 @@ public data class EquipmentDto(
     val name: String? = null,
     @SerialName("type")
     val type: String? = null,
+    @SerialName("imageUrl")
+    val imageUrl: String? = null,
     @SerialName("updatedAt")
     val updatedAt: String? = null,
     @SerialName("createdAt")

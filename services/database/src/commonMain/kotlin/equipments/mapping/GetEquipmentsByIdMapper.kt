@@ -11,6 +11,7 @@ internal fun GetEquipmentById.mapToDao(): EquipmentDao {
         equipmentGroupId = equipmentGroupId,
         createdAt = createdAt,
         updatedAt = updatedAt,
-        status = status
+        status = status,
+        imageUrl = imageUrl
     )
 }

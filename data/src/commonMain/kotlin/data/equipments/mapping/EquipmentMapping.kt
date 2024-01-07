@@ -14,6 +14,7 @@ internal fun EquipmentDao.daoToDomain(): Equipment {
     return Equipment(
         id = id,
         name = name,
+        imageUrl = imageUrl,
         status = EquipmentStatusEnum.of(status)
     )
 }
@@ -26,6 +27,7 @@ internal fun EquipmentDto.dtoToDao(): EquipmentDao? {
     return EquipmentDao(
         id = id ?: return null,
         name = name ?: return null,
+        imageUrl = imageUrl ?: return null,
         createdAt = createdAt ?: return null,
         updatedAt = updatedAt ?: return null,
         equipmentGroupId = equipmentGroupId ?: return null,
@@ -38,6 +40,7 @@ internal fun EquipmentDto.dtoToDomain(): Equipment? {
     return Equipment(
         id = id ?: return null,
         name = name ?: return null,
+        imageUrl = imageUrl ?: return null,
         status = EquipmentStatusEnum.of(status)
     )
 }
