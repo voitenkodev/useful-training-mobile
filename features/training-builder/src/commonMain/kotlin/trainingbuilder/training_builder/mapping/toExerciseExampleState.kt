@@ -11,9 +11,9 @@ internal fun List<models.ExerciseExample>.toState(): ImmutableList<ExerciseExamp
 
 internal fun models.ExerciseExample.toState(): ExerciseExample? {
     return ExerciseExample(
-        id = id ?: return null,
+        id = id,
         name = name,
         imageUrl = imageUrl,
-        muscleExerciseBundles = muscleExerciseBundles.toState()
+        exerciseExampleBundles = exerciseExampleBundles.toState()
     )
 }

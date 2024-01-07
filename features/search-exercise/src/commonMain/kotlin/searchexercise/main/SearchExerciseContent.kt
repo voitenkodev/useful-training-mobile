@@ -93,7 +93,7 @@ private fun Content(
                         imageUrl = it.imageUrl,
                         btn = actionProvider,
                         viewDetails = { toDetails.invoke(it.id) },
-                        musclesWithPercent = it.muscleExerciseBundles.map { b -> b.muscle.name to b.percentage }
+                        musclesWithPercent = it.exerciseExampleBundles.map { b -> b.muscle.name to b.percentage }
                     )
                 }
             }

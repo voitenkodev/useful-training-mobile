@@ -70,8 +70,8 @@ SELECT
 FROM Training
 LEFT JOIN Exercise ON Training.id = Exercise.trainingId
 LEFT JOIN ExerciseExample ON Exercise.exerciseExampleId = ExerciseExample.id
-LEFT JOIN MuscleExerciseBundle ON ExerciseExample.id = MuscleExerciseBundle.exerciseExampleId
-LEFT JOIN Muscle ON MuscleExerciseBundle.muscleId = Muscle.id
+LEFT JOIN ExerciseExampleBundle ON ExerciseExample.id = ExerciseExampleBundle.exerciseExampleId
+LEFT JOIN Muscle ON ExerciseExampleBundle.muscleId = Muscle.id
 LEFT JOIN Iteration ON Exercise.id = Iteration.exerciseId
 WHERE Training.createdAt BETWEEN ? AND ?
 ORDER BY Training.id DESC;
@@ -113,8 +113,8 @@ SELECT
 FROM Training
 LEFT JOIN Exercise ON Training.id = Exercise.trainingId
 LEFT JOIN ExerciseExample ON Exercise.exerciseExampleId = ExerciseExample.id
-LEFT JOIN MuscleExerciseBundle ON ExerciseExample.id = MuscleExerciseBundle.exerciseExampleId
-LEFT JOIN Muscle ON MuscleExerciseBundle.muscleId = Muscle.id
+LEFT JOIN ExerciseExampleBundle ON ExerciseExample.id = ExerciseExampleBundle.exerciseExampleId
+LEFT JOIN Muscle ON ExerciseExampleBundle.muscleId = Muscle.id
 LEFT JOIN Iteration ON Exercise.id = Iteration.exerciseId
 WHERE Training.id = ?
 ORDER BY Training.createdAt DESC

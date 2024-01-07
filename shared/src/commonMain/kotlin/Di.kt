@@ -9,7 +9,7 @@ import org.koin.dsl.KoinAppDeclaration
 import org.koin.dsl.module
 import org.koin.mp.KoinPlatformTools
 import traininig_exercise_iteration.TrainingsSource
-import user_weight.UserSource
+import user.UserSource
 
 public fun initCommonKoin(
     appDeclaration: KoinAppDeclaration = {},

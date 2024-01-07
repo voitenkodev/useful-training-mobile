@@ -10,5 +10,5 @@ internal data class ExerciseExample(
     val name: String = "",
     val description: String = "",
     val imageUrl: String?,
-    val muscleExerciseBundles: ImmutableList<MuscleExerciseBundle> = persistentListOf()
+    val exerciseExampleBundles: ImmutableList<ExerciseExampleBundle> = persistentListOf()
 )

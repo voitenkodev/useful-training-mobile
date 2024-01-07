@@ -1,0 +1,93 @@
+CREATE TABLE IF NOT EXISTS ExerciseExample (
+    id TEXT NOT NULL PRIMARY KEY,
+    name TEXT NOT NULL,
+    description TEXT,
+    createdAt TEXT NOT NULL,
+    updatedAt TEXT NOT NULL,
+    imageUrl TEXT
+);
+
+CREATE TABLE IF NOT EXISTS ExerciseExampleBundle (
+    id TEXT NOT NULL PRIMARY KEY,
+    exerciseExampleId TEXT NOT NULL REFERENCES ExerciseExample(id) ON DELETE CASCADE,
+    muscleId TEXT NOT NULL REFERENCES Muscle(id) ON DELETE NO ACTION,
+    percentage INTEGER NOT NULL,
+    createdAt TEXT NOT NULL,
+    updatedAt TEXT NOT NULL
+);
+
+-------------- GET --------------
+
+getExerciseExamplesById:
+SELECT
+  ExerciseExample.id,
+  ExerciseExample.createdAt,
+  ExerciseExample.updatedAt,
+  ExerciseExample.name,
+  ExerciseExample.description,
+  ExerciseExample.imageUrl,
+
+  ExerciseExampleBundle.id AS bundleId,
+  ExerciseExampleBundle.percentage AS bundlePercentage,
+  ExerciseExampleBundle.createdAt AS bundleCreatedAt,
+  ExerciseExampleBundle.updatedAt AS bundleUpdatedAt,
+
+  Muscle.id AS muscleId,
+  Muscle.name AS muscleName,
+  Muscle.type AS muscleType,
+  Muscle.muscleTypeId AS muscleMuscleTypeId,
+  Muscle.status AS muscleStatus,
+  Muscle.updatedAt AS muscleUpdatedAt,
+  Muscle.createdAt AS muscleCreatedAt
+
+FROM ExerciseExample
+LEFT JOIN ExerciseExampleBundle ON ExerciseExample.id = ExerciseExampleBundle.exerciseExampleId
+LEFT JOIN Muscle ON ExerciseExampleBundle.muscleId = Muscle.id
+WHERE ExerciseExample.id = ?;
+
+getExerciseExamples:
+SELECT
+  ExerciseExample.id,
+  ExerciseExample.createdAt,
+  ExerciseExample.updatedAt,
+  ExerciseExample.name,
+  ExerciseExample.description,
+  ExerciseExample.imageUrl,
+
+  ExerciseExampleBundle.id AS bundleId,
+  ExerciseExampleBundle.percentage AS bundlePercentage,
+  ExerciseExampleBundle.createdAt AS bundleCreatedAt,
+  ExerciseExampleBundle.updatedAt AS bundleUpdatedAt,
+
+  Muscle.id AS muscleId,
+  Muscle.name AS muscleName,
+  Muscle.type AS muscleType,
+  Muscle.muscleTypeId AS muscleMuscleTypeId,
+  Muscle.status AS muscleStatus,
+  Muscle.updatedAt AS muscleUpdatedAt,
+  Muscle.createdAt AS muscleCreatedAt
+FROM ExerciseExample
+LEFT JOIN ExerciseExampleBundle ON ExerciseExample.id = ExerciseExampleBundle.exerciseExampleId
+LEFT JOIN Muscle ON ExerciseExampleBundle.muscleId = Muscle.id;
+
+-------------- SET --------------
+
+setExerciseExample:
+INSERT OR REPLACE INTO ExerciseExample
+VALUES (?,?,?,?,?,?);
+
+setExerciseExampleBundle:
+INSERT OR REPLACE INTO ExerciseExampleBundle
+VALUES (?,?,?,?,?,?);
+
+-------------- DELETE --------------
+
+deleteExerciseExampleById:
+DELETE FROM Training
+WHERE id = ?;
+
+deleteTableExerciseExample:
+DELETE FROM ExerciseExample;
+
+deleteTableExerciseExampleBundle:
+DELETE FROM ExerciseExampleBundle;

@@ -2,7 +2,7 @@ package data.user.mapping
 
 import models.WeightHistory
 import network.models.WeightHistoryDto
-import user_weight.models.WeightHistoryDao
+import user.models.WeightHistoryDao
 
 internal fun List<WeightHistoryDao>.daoToDomain(): List<WeightHistory> {
     return this.map { item ->

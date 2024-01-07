@@ -17,10 +17,11 @@ import kotlinx.coroutines.flow.transform
 public class ExerciseExamplesSource(nativeContext: NativeContext) {
 
     private val database: AlienWorkoutDatabase = nativeContext.database()
-    private val api by lazy { database.exercise_example_muscleQueries }
+    private val exerciseExampleApi by lazy { database.exerciseExampleQueries }
+    private val muscleApi by lazy { database.muscleQueries }
 
     public fun getExerciseExamples(): Flow<List<ExerciseExampleDao>> {
-        return api
+        return exerciseExampleApi
             .getExerciseExamples()
             .asFlow()
             .mapToList(Dispatchers.Default)
@@ -28,7 +29,7 @@ public class ExerciseExamplesSource(nativeContext: NativeContext) {
     }
 
     public fun getExerciseExampleById(id: String): Flow<ExerciseExampleDao?> {
-        return api
+        return exerciseExampleApi
             .getExerciseExamplesById(id)
             .asFlow()
             .mapToList(Dispatchers.Default)
@@ -42,7 +43,7 @@ public class ExerciseExamplesSource(nativeContext: NativeContext) {
     }
 
     public fun getMuscleTypes(): Flow<List<MuscleTypeDao>> {
-        return api
+        return muscleApi
             .getMuscleTypes()
             .asFlow()
             .mapToList(Dispatchers.Default)
@@ -50,7 +51,7 @@ public class ExerciseExamplesSource(nativeContext: NativeContext) {
     }
 
     public fun getMusclesByIds(ids: List<String>): Flow<List<MuscleDao>> {
-        return api
+        return muscleApi
             .getMusclesById(ids)
             .asFlow()
             .mapToList(Dispatchers.Default)
@@ -58,11 +59,11 @@ public class ExerciseExamplesSource(nativeContext: NativeContext) {
     }
 
     public fun setExerciseExample(exerciseExample: ExerciseExampleDao): String {
-        val result = api.transactionWithResult {
+        val result = exerciseExampleApi.transactionWithResult {
 
-            api.deleteExerciseExampleById(exerciseExample.id)
+            exerciseExampleApi.deleteExerciseExampleById(exerciseExample.id)
 
-            api.setExerciseExample(
+            exerciseExampleApi.setExerciseExample(
                 id = exerciseExample.id,
                 name = exerciseExample.name,
                 description = exerciseExample.description,
@@ -71,15 +72,15 @@ public class ExerciseExamplesSource(nativeContext: NativeContext) {
                 imageUrl = exerciseExample.imageUrl
             )
 
-            exerciseExample.muscleExerciseBundles.forEach { muscleExerciseBundle ->
+            exerciseExample.exerciseExampleBundles.forEach { bundle ->
 
-                api.setMuscleExerciseBundle(
-                    id = muscleExerciseBundle.id,
-                    percentage = muscleExerciseBundle.percentage.toLong(),
-                    createdAt = muscleExerciseBundle.createdAt,
-                    updatedAt = muscleExerciseBundle.updatedAt,
-                    muscleId = muscleExerciseBundle.muscleId,
-                    exerciseExampleId = muscleExerciseBundle.exerciseExampleId
+                exerciseExampleApi.setExerciseExampleBundle(
+                    id = bundle.id,
+                    percentage = bundle.percentage.toLong(),
+                    createdAt = bundle.createdAt,
+                    updatedAt = bundle.updatedAt,
+                    muscleId = bundle.muscleId,
+                    exerciseExampleId = bundle.exerciseExampleId
                 )
             }
             return@transactionWithResult exerciseExample.id
@@ -88,9 +89,9 @@ public class ExerciseExamplesSource(nativeContext: NativeContext) {
     }
 
     public fun setMuscleTypesWithMuscles(muscleTypes: List<MuscleTypeDao>) {
-        api.transaction {
+        exerciseExampleApi.transaction {
             muscleTypes.forEach { muscleType ->
-                api.setMuscleType(
+                muscleApi.setMuscleType(
                     id = muscleType.id,
                     name = muscleType.name,
                     createdAt = muscleType.createdAt,
@@ -99,7 +100,7 @@ public class ExerciseExamplesSource(nativeContext: NativeContext) {
                 )
 
                 muscleType.muscles.forEach { muscle ->
-                    api.setMuscle(
+                    muscleApi.setMuscle(
                         id = muscle.id,
                         name = muscle.name,
                         createdAt = muscle.createdAt,
@@ -114,7 +115,7 @@ public class ExerciseExamplesSource(nativeContext: NativeContext) {
     }
 
     public fun setMuscle(muscle: MuscleDao) {
-        api.setMuscle(
+        muscleApi.setMuscle(
             id = muscle.id,
             name = muscle.name,
             createdAt = muscle.createdAt,
@@ -126,9 +127,9 @@ public class ExerciseExamplesSource(nativeContext: NativeContext) {
     }
 
     public fun clearTables() {
-        api.deleteTableExerciseExample()
-        api.deleteTableMuscle()
-        api.deleteTableMuscleType()
-        api.deleteTableMuscleExerciseBundle()
+        exerciseExampleApi.deleteTableExerciseExample()
+        muscleApi.deleteTableMuscle()
+        muscleApi.deleteTableMuscleType()
+        exerciseExampleApi.deleteTableExerciseExampleBundle()
     }
 }

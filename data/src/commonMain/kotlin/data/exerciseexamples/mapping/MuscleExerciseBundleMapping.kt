@@ -4,28 +4,28 @@ import data.muscles.mapping.daoToDomain
 import data.muscles.mapping.domainToDto
 import data.muscles.mapping.dtoToDao
 import data.muscles.mapping.dtoToDomain
-import exercise_example_muscle.models.MuscleExerciseBundleDao
-import models.MuscleExerciseBundle
-import network.models.MuscleExerciseBundleDto
+import exercise_example_muscle.models.ExerciseExampleBundleDao
+import models.ExerciseExampleBundle
+import network.models.ExerciseExampleBundleDto
 
-internal fun List<MuscleExerciseBundleDao>.daoToDomain(): List<MuscleExerciseBundle> {
+internal fun List<ExerciseExampleBundleDao>.daoToDomain(): List<ExerciseExampleBundle> {
     return map { it.daoToDomain() }
 }
 
-internal fun MuscleExerciseBundleDao.daoToDomain(): MuscleExerciseBundle {
-    return MuscleExerciseBundle(
+internal fun ExerciseExampleBundleDao.daoToDomain(): ExerciseExampleBundle {
+    return ExerciseExampleBundle(
         id = id,
         percentage = percentage,
         muscle = muscle.daoToDomain()
     )
 }
 
-internal fun List<MuscleExerciseBundleDto>.dtoToDao(): List<MuscleExerciseBundleDao> {
+internal fun List<ExerciseExampleBundleDto>.dtoToDao(): List<ExerciseExampleBundleDao> {
     return mapNotNull { it.dtoToDao() }
 }
 
-internal fun MuscleExerciseBundleDto.dtoToDao(): MuscleExerciseBundleDao? {
-    return MuscleExerciseBundleDao(
+internal fun ExerciseExampleBundleDto.dtoToDao(): ExerciseExampleBundleDao? {
+    return ExerciseExampleBundleDao(
         id = id ?: return null,
         percentage = percentage ?: return null,
         muscle = muscle?.dtoToDao() ?: return null,
@@ -36,26 +36,26 @@ internal fun MuscleExerciseBundleDto.dtoToDao(): MuscleExerciseBundleDao? {
     )
 }
 
-internal fun List<MuscleExerciseBundleDto>.dtoToDomain(): List<MuscleExerciseBundle> {
+internal fun List<ExerciseExampleBundleDto>.dtoToDomain(): List<ExerciseExampleBundle> {
     return mapNotNull { it.dtoToDomain() }
 }
 
-internal fun MuscleExerciseBundleDto.dtoToDomain(): MuscleExerciseBundle? {
-    return MuscleExerciseBundle(
+internal fun ExerciseExampleBundleDto.dtoToDomain(): ExerciseExampleBundle? {
+    return ExerciseExampleBundle(
         id = id ?: return null,
         percentage = percentage ?: return null,
         muscle = muscle?.dtoToDomain() ?: return null
     )
 }
 
-internal fun List<MuscleExerciseBundle>.domainToDto(): List<MuscleExerciseBundleDto> {
+internal fun List<ExerciseExampleBundle>.domainToDto(): List<ExerciseExampleBundleDto> {
     return mapNotNull { it.domainToDto() }
 }
 
-internal fun MuscleExerciseBundle.domainToDto(): MuscleExerciseBundleDto {
-    return MuscleExerciseBundleDto(
+internal fun ExerciseExampleBundle.domainToDto(): ExerciseExampleBundleDto {
+    return ExerciseExampleBundleDto(
         id = id,
-        muscle = muscle?.domainToDto(),
+        muscle = muscle.domainToDto(),
         percentage = percentage
     )
 }

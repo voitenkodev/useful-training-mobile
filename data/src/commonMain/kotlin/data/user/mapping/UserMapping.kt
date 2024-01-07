@@ -2,7 +2,7 @@ package data.user.mapping
 
 import models.User
 import network.models.UserDto
-import user_weight.models.UserDao
+import user.models.UserDao
 
 internal fun UserDao.daoToDomain(): User {
     return User(

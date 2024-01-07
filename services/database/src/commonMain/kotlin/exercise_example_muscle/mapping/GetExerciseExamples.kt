@@ -1,9 +1,9 @@
 package exercise_example_muscle.mapping
 
 import data.GetExerciseExamples
+import exercise_example_muscle.models.ExerciseExampleBundleDao
 import exercise_example_muscle.models.ExerciseExampleDao
 import exercise_example_muscle.models.MuscleDao
-import exercise_example_muscle.models.MuscleExerciseBundleDao
 
 internal fun List<GetExerciseExamples>.mapToDao(): List<ExerciseExampleDao> {
     if (isEmpty()) return emptyList()
@@ -12,7 +12,7 @@ internal fun List<GetExerciseExamples>.mapToDao(): List<ExerciseExampleDao> {
 
         val root = ex.value.firstOrNull() ?: return@mapNotNull null
 
-        val bundles = ex.value.groupBy { it.muscleExerciseBundleId }.mapNotNull mapBundles@{ bundles ->
+        val bundles = ex.value.groupBy { it.bundleId }.mapNotNull mapBundles@{ bundles ->
 
             val bundle = bundles.value.firstOrNull() ?: return@mapBundles null
 
@@ -26,13 +26,13 @@ internal fun List<GetExerciseExamples>.mapToDao(): List<ExerciseExampleDao> {
                 status = bundle.muscleStatus
             )
 
-            MuscleExerciseBundleDao(
-                createdAt = bundle.muscleExerciseBundleCreatedAt ?: return@mapBundles null,
-                updatedAt = bundle.muscleExerciseBundleUpdatedAt ?: return@mapBundles null,
+            ExerciseExampleBundleDao(
+                createdAt = bundle.bundleCreatedAt ?: return@mapBundles null,
+                updatedAt = bundle.bundleUpdatedAt ?: return@mapBundles null,
                 exerciseExampleId = bundle.id,
-                id = bundle.muscleExerciseBundleId ?: return@mapBundles null,
+                id = bundle.bundleId ?: return@mapBundles null,
                 muscleId = bundle.muscleId,
-                percentage = bundle.muscleExerciseBundlePercentage?.toInt() ?: return@mapBundles null,
+                percentage = bundle.bundlePercentage?.toInt() ?: return@mapBundles null,
                 muscle = muscle
             )
         }
@@ -44,7 +44,7 @@ internal fun List<GetExerciseExamples>.mapToDao(): List<ExerciseExampleDao> {
             createdAt = root.createdAt,
             updatedAt = root.updatedAt,
             imageUrl = root.imageUrl,
-            muscleExerciseBundles = bundles
+            exerciseExampleBundles = bundles
         )
     }
 }

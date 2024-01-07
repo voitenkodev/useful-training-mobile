@@ -1,4 +1,4 @@
-package user_weight.models
+package user.models
 
 public data class UserDao(
     val id: String,

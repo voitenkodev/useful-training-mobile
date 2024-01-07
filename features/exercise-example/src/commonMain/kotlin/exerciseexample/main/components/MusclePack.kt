@@ -26,7 +26,7 @@ import pie.PieChartData
 internal fun MusclePack(exerciseExample: ExerciseExample?) {
 
     val pieData = remember(exerciseExample) {
-        exerciseExample?.muscleExerciseBundles
+        exerciseExample?.exerciseExampleBundles
             ?.map { PieChartData(value = it.percentage, color = ColorUtils.randomColor(), title = it.muscle.name) }
             ?.sortedByDescending { it.value }
             ?.toPersistentList()

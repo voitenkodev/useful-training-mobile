@@ -80,7 +80,7 @@ private fun List<Exercise>.calculateMuscleRatios(): Map<Muscle, Double> {
     forEach { exercise ->
         val muscleWorkRatios = mutableMapOf<Muscle, Double>()
 
-        exercise.exerciseExample?.muscleExerciseBundles?.forEach { bundle ->
+        exercise.exerciseExample?.exerciseExampleBundles?.forEach { bundle ->
             val musclePercentage = bundle.percentage / 100.0
             val muscleWork = exercise.volume * musclePercentage * exercise.repetitions
 

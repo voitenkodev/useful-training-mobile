@@ -10,7 +10,7 @@ public data class ExerciseExampleDto(
     @SerialName("id")
     val id: String? = null,
     @SerialName("muscleExerciseBundles")
-    val muscleExerciseBundles: List<MuscleExerciseBundleDto> = emptyList(),
+    val exerciseExampleBundles: List<ExerciseExampleBundleDto> = emptyList(),
     @SerialName("name")
     val name: String? = null,
     @SerialName("description")

@@ -11,7 +11,7 @@ import musclepickerpicker.fullFront
 internal fun ExerciseExample?.createFrontBackImages(): Pair<ImageVector, ImageVector> {
     if (this == null) return fullFront() to fullBack()
 
-    val muscleWithAlpha = muscleExerciseBundles
+    val muscleWithAlpha = exerciseExampleBundles
 //        .associate { it.muscle.type to it.percentage.toFloat() / 100 }
         .associate { it.muscle.type to 1.0f }
 

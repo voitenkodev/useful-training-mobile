@@ -1,6 +1,6 @@
 package exercise_example_muscle.models
 
-public data class MuscleExerciseBundleDao(
+public data class ExerciseExampleBundleDao(
     val id: String,
     val createdAt: String,
     val exerciseExampleId: String,

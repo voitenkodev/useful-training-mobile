@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.map
 import models.User
 import models.WeightHistory
 import network.NetworkSource
-import user_weight.UserSource
+import user.UserSource
 
 internal class UserRepositoryImpl(
     private val remote: NetworkSource,

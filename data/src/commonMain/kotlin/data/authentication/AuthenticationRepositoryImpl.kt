@@ -10,7 +10,7 @@ import network.NetworkSource
 import network.models.AuthDto
 import network.models.RegisterDto
 import traininig_exercise_iteration.TrainingsSource
-import user_weight.UserSource
+import user.UserSource
 
 internal class AuthenticationRepositoryImpl(
     private val remote: NetworkSource,

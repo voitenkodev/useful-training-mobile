@@ -192,7 +192,7 @@ internal fun ExerciseExamples(
                 btn = "Select" to { select.invoke(item) },
                 imageUrl = item.imageUrl,
                 viewDetails = { details.invoke(item.id) },
-                musclesWithPercent = item.muscleExerciseBundles.map { it.muscle.name to it.percentage }
+                musclesWithPercent = item.exerciseExampleBundles.map { it.muscle.name to it.percentage }
             )
         }
     }

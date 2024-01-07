@@ -15,7 +15,7 @@ import traininig_exercise_iteration.models.TrainingDao
 public class TrainingsSource(nativeContext: NativeContext) {
 
     private val database: AlienWorkoutDatabase = nativeContext.database()
-    private val api by lazy { database.training_exercise_iterationQueries }
+    private val api by lazy { database.trainingQueries }
 
     public fun getTrainings(startDate: String, endDate: String): Flow<List<TrainingDao>> {
         return api

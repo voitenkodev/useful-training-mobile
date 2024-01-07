@@ -96,7 +96,7 @@ internal fun SetExerciseContent(
                     name = ex.name,
                     imageUrl = ex.imageUrl,
                     viewDetails = { toExerciseExampleDetails.invoke(ex.id) },
-                    musclesWithPercent = ex.muscleExerciseBundles.map { it.muscle.name to it.percentage }
+                    musclesWithPercent = ex.exerciseExampleBundles.map { it.muscle.name to it.percentage }
                 )
             } ?: InputExerciseName(
                 provideName = { state.exercise.name },

@@ -1,0 +1,23 @@
+CREATE TABLE IF NOT EXISTS WeightHistory (
+    id TEXT NOT NULL PRIMARY KEY,
+    weight REAL NOT NULL,
+    createdAt TEXT NOT NULL,
+    updatedAt TEXT NOT NULL
+);
+
+-------------- GET --------------
+
+getWeightHistory:
+SELECT *
+FROM WeightHistory;
+
+-------------- SET --------------
+
+setWeightHistory:
+INSERT OR REPLACE INTO WeightHistory
+VALUES (?,?,?,?);
+
+-------------- DELETE --------------
+
+deleteTableWeightHistory:
+DELETE FROM WeightHistory;

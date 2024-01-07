@@ -1,4 +1,4 @@
-package user_weight
+package user
 
 import AlienWorkoutDatabase
 import NativeContext
@@ -9,17 +9,18 @@ import database
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import user_weight.mapping.toDao
-import user_weight.models.UserDao
-import user_weight.models.WeightHistoryDao
+import user.mapping.toDao
+import user.models.UserDao
+import user.models.WeightHistoryDao
 
 public class UserSource(nativeContext: NativeContext) {
 
     private val database: AlienWorkoutDatabase = nativeContext.database()
-    private val api by lazy { database.user_weightQueries }
+    private val userApi by lazy { database.userQueries }
+    private val weightApi by lazy { database.weightHistoryQueries }
 
     public fun getUser(): Flow<UserDao?> {
-        return api
+        return userApi
             .getUser()
             .asFlow()
             .mapToOne(Dispatchers.Default)
@@ -27,7 +28,7 @@ public class UserSource(nativeContext: NativeContext) {
     }
 
     public fun getWeightHistory(): Flow<List<WeightHistoryDao>> {
-        return api
+        return weightApi
             .getWeightHistory()
             .asFlow()
             .mapToList(Dispatchers.Default)
@@ -35,7 +36,7 @@ public class UserSource(nativeContext: NativeContext) {
     }
 
     public fun setUser(userDao: UserDao) {
-        api
+        userApi
             .setUser(
                 id = userDao.id,
                 email = userDao.email,
@@ -48,14 +49,14 @@ public class UserSource(nativeContext: NativeContext) {
     }
 
     public fun setWeightHistories(list: List<WeightHistoryDao>) {
-        api.transaction {
-            api.deleteTableWeightHistory()
+        userApi.transaction {
+            weightApi.deleteTableWeightHistory()
             list.forEach { item -> setWeightHistory(item) }
         }
     }
 
     public fun setWeightHistory(dao: WeightHistoryDao) {
-        api.setWeightHistory(
+        weightApi.setWeightHistory(
             id = dao.id,
             weight = dao.weight,
             updatedAt = dao.updatedAt,
@@ -64,7 +65,7 @@ public class UserSource(nativeContext: NativeContext) {
     }
 
     public fun clearTable() {
-        api.deleteTableUser()
-        api.deleteTableWeightHistory()
+        userApi.deleteTableUser()
+        weightApi.deleteTableWeightHistory()
     }
 }

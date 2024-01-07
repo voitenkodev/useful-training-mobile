@@ -1,7 +1,7 @@
-package user_weight.mapping
+package user.mapping
 
 import data.WeightHistory
-import user_weight.models.WeightHistoryDao
+import user.models.WeightHistoryDao
 
 internal fun WeightHistory.toDao(): WeightHistoryDao {
     return WeightHistoryDao(

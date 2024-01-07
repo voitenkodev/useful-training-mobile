@@ -1,0 +1,67 @@
+CREATE TABLE IF NOT EXISTS Muscle (
+    id TEXT NOT NULL PRIMARY KEY,
+    muscleTypeId TEXT NOT NULL REFERENCES MuscleType(id) ON DELETE CASCADE,
+    name TEXT NOT NULL,
+    status TEXT,
+    type TEXT NOT NULL,
+    createdAt TEXT NOT NULL,
+    updatedAt TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS MuscleType (
+    id TEXT NOT NULL PRIMARY KEY,
+    name TEXT NOT NULL,
+    type TEXT NOT NULL,
+    createdAt TEXT NOT NULL,
+    updatedAt TEXT NOT NULL
+);
+
+-------------- GET --------------
+
+getMusclesById:
+SELECT
+  Muscle.id AS id,
+  Muscle.name AS name,
+  Muscle.muscleTypeId AS muscleTypeId,
+  Muscle.status AS status,
+  Muscle.type AS type,
+  Muscle.updatedAt AS updatedAt,
+  Muscle.createdAt AS createdAt
+FROM Muscle
+WHERE id IN ?;
+
+getMuscleTypes:
+SELECT
+  MuscleType.id AS id,
+  MuscleType.name AS name,
+  MuscleType.type AS type,
+  MuscleType.updatedAt AS updatedAt,
+  MuscleType.createdAt AS createdAt,
+
+  Muscle.id AS muscleId,
+  Muscle.name AS muscleName,
+  Muscle.muscleTypeId AS muscleMuscleTypeId,
+  Muscle.status AS muscleStatus,
+  Muscle.type AS muscleType,
+  Muscle.updatedAt AS muscleUpdatedAt,
+  Muscle.createdAt AS muscleCreatedAt
+FROM MuscleType
+LEFT JOIN Muscle ON MuscleType.id = Muscle.muscleTypeId;
+
+-------------- SET --------------
+
+setMuscle:
+INSERT OR REPLACE INTO Muscle
+VALUES (?,?,?,?,?,?,?);
+
+setMuscleType:
+INSERT OR IGNORE INTO MuscleType
+VALUES (?,?,?,?,?);
+
+-------------- DELETE --------------
+
+deleteTableMuscle:
+DELETE FROM Muscle;
+
+deleteTableMuscleType:
+DELETE FROM MuscleType;
