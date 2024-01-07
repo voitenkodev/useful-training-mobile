@@ -9,7 +9,7 @@ public data class ExerciseExampleDto(
     val createdAt: String? = null,
     @SerialName("id")
     val id: String? = null,
-    @SerialName("muscleExerciseBundles")
+    @SerialName("exerciseExampleBundles")
     val exerciseExampleBundles: List<ExerciseExampleBundleDto> = emptyList(),
     @SerialName("name")
     val name: String? = null,
