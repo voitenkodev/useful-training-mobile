@@ -7,6 +7,7 @@ import io.ktor.http.HttpMethod
 import io.ktor.http.contentType
 import io.ktor.http.path
 import network.models.AuthDto
+import network.models.ExcludedEquipmentDto
 import network.models.ExcludedMuscleDto
 import network.models.ExerciseExampleAchievementsDto
 import network.models.ExerciseExampleDto
@@ -138,6 +139,20 @@ public class NetworkSource(private val clientBackend: ClientBackend) {
     }
 
     public suspend fun setExcludedMuscle(id: String): ExcludedMuscleDto {
+        return callRequest(
+            method = HttpMethod.Post,
+            path = "/excluded-muscles/$id"
+        )
+    }
+
+    public suspend fun deleteExcludedEquipment(id: String): ExcludedEquipmentDto {
+        return callRequest(
+            method = HttpMethod.Delete,
+            path = "/excluded-muscles/$id"
+        )
+    }
+
+    public suspend fun setExcludedEquipment(id: String): ExcludedEquipmentDto {
         return callRequest(
             method = HttpMethod.Post,
             path = "/excluded-muscles/$id"

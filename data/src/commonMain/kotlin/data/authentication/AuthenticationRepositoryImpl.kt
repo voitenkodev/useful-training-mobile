@@ -26,7 +26,8 @@ internal class AuthenticationRepositoryImpl(
         weight: Double,
         height: Double,
         name: String,
-        excludeMuscleIds: List<String>
+        excludeMuscleIds: List<String>,
+        excludeEquipmentIds: List<String>
     ): Flow<Unit> {
         return flow {
             val dto = RegisterDto(
@@ -35,7 +36,8 @@ internal class AuthenticationRepositoryImpl(
                 weight = weight,
                 height = height,
                 name = name,
-                excludeMuscleIds = excludeMuscleIds
+                excludeMuscleIds = excludeMuscleIds,
+                excludeEquipmentIds = excludeEquipmentIds
             )
             emit(remote.register(dto))
         }.map {

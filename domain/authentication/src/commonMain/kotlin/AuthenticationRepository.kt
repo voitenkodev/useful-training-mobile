@@ -8,7 +8,8 @@ public interface AuthenticationRepository {
         weight: Double,
         height: Double,
         name: String,
-        excludeMuscleIds: List<String>
+        excludeMuscleIds: List<String>,
+        excludeEquipmentIds: List<String>
     ): Flow<Unit>
 
     public fun getToken(): Flow<String?>

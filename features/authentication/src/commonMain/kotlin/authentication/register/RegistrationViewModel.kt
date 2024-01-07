@@ -66,7 +66,8 @@ internal class RegistrationViewModel : ViewModel() {
                     excludeMuscleIds = last.muscleTypes
                         .flatMap { it.muscles }
                         .filter { it.status == EXCLUDED }
-                        .map { it.id }
+                        .map { it.id },
+                    excludeEquipmentIds = emptyList() // TODO()
                 )
                 .flatMapConcat { userApi.syncUser() }
                 .onStart { _state.update { it.copy(loading = true) } }
