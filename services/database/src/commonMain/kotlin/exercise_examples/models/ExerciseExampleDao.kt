@@ -1,4 +1,4 @@
-package exercise_example_muscle.models
+package exercise_examples.models
 
 public data class ExerciseExampleDao(
     val id: String,

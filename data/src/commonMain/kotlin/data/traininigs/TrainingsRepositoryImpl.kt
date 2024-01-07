@@ -4,7 +4,7 @@ import TrainingsRepository
 import data.traininigs.mapping.daoToDomain
 import data.traininigs.mapping.domainToDto
 import data.traininigs.mapping.dtoToDao
-import exercise_example_muscle.ExerciseExamplesSource
+import exercise_examples.ExerciseExamplesSource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map

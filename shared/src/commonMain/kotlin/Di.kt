@@ -1,7 +1,8 @@
 import data.dataModule
 import data.user.userDataModule
-import exercise_example_muscle.ExerciseExamplesSource
+import exercise_examples.ExerciseExamplesSource
 import kotlinx.coroutines.flow.firstOrNull
+import muscles.MusclesSource
 import network.ClientBackend
 import network.NetworkSource
 import org.koin.core.KoinApplication
@@ -28,6 +29,7 @@ internal val servicesModule = module {
     single { PreferencesSource(get()) }
     single { NetworkSource(get()) }
     single { ExerciseExamplesSource(get()) }
+    single { MusclesSource(get()) }
     single { TrainingsSource(get()) }
     single { UserSource(get()) }
 }

@@ -1,9 +1,9 @@
 package data.muscles.mapping
 
-import exercise_example_muscle.models.MuscleDao
 import models.Muscle
 import models.MuscleEnum
 import models.StatusEnum
+import muscles.models.MuscleDao
 import network.models.MuscleDto
 
 internal fun List<MuscleDao>.daoToDomain(): List<Muscle> {

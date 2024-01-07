@@ -1,8 +1,8 @@
-package exercise_example_muscle.mapping
+package muscles.mapping
 
 import data.GetMuscleTypes
-import exercise_example_muscle.models.MuscleDao
-import exercise_example_muscle.models.MuscleTypeDao
+import muscles.models.MuscleDao
+import muscles.models.MuscleTypeDao
 
 internal fun List<GetMuscleTypes>.mapToDao(): List<MuscleTypeDao> {
     if (isEmpty()) return emptyList()

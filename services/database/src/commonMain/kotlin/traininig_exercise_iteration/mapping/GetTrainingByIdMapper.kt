@@ -1,7 +1,7 @@
 package traininig_exercise_iteration.mapping
 
 import data.GetTrainingById
-import exercise_example_muscle.models.ExerciseExampleDao
+import exercise_examples.models.ExerciseExampleDao
 import traininig_exercise_iteration.models.ExerciseDao
 import traininig_exercise_iteration.models.IterationDao
 import traininig_exercise_iteration.models.TrainingDao

@@ -1,4 +1,4 @@
-package exercise_example_muscle.models
+package muscles.models
 
 public data class MuscleDao(
     val id: String,
@@ -7,5 +7,5 @@ public data class MuscleDao(
     val type: String,
     val createdAt: String,
     val updatedAt: String,
-    val status: String?,
+    val status: String?
 )

@@ -1,6 +1,6 @@
 package data.exerciseexamples.mapping
 
-import exercise_example_muscle.models.ExerciseExampleDao
+import exercise_examples.models.ExerciseExampleDao
 import models.ExerciseExample
 import network.models.ExerciseExampleDto
 

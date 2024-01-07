@@ -3,17 +3,17 @@ package data.muscles
 import MusclesRepository
 import data.muscles.mapping.daoToDomain
 import data.muscles.mapping.dtoToDao
-import exercise_example_muscle.ExerciseExamplesSource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import models.Muscle
 import models.MuscleType
+import muscles.MusclesSource
 import network.NetworkSource
 
 internal class MusclesRepositoryImpl(
     private val remote: NetworkSource,
-    private val local: ExerciseExamplesSource
+    private val local: MusclesSource
 ) : MusclesRepository {
 
     override fun observeMuscles(): Flow<List<MuscleType>> {

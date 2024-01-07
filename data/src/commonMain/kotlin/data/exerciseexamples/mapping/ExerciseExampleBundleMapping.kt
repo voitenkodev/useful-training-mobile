@@ -4,7 +4,7 @@ import data.muscles.mapping.daoToDomain
 import data.muscles.mapping.domainToDto
 import data.muscles.mapping.dtoToDao
 import data.muscles.mapping.dtoToDomain
-import exercise_example_muscle.models.ExerciseExampleBundleDao
+import exercise_examples.models.ExerciseExampleBundleDao
 import models.ExerciseExampleBundle
 import network.models.ExerciseExampleBundleDto
 

@@ -1,9 +1,9 @@
-package exercise_example_muscle.mapping
+package exercise_examples.mapping
 
 import data.GetExerciseExamplesById
-import exercise_example_muscle.models.ExerciseExampleBundleDao
-import exercise_example_muscle.models.ExerciseExampleDao
-import exercise_example_muscle.models.MuscleDao
+import exercise_examples.models.ExerciseExampleBundleDao
+import exercise_examples.models.ExerciseExampleDao
+import muscles.models.MuscleDao
 
 internal fun List<GetExerciseExamplesById>.mapToDao(): ExerciseExampleDao? {
     if (isEmpty()) return null

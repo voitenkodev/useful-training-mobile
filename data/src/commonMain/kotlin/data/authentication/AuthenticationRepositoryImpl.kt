@@ -2,7 +2,7 @@ package data.authentication
 
 import AuthenticationRepository
 import PreferencesSource
-import exercise_example_muscle.ExerciseExamplesSource
+import exercise_examples.ExerciseExamplesSource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map

@@ -5,7 +5,7 @@ import data.exerciseexamples.mapping.daoToDomain
 import data.exerciseexamples.mapping.domainToDto
 import data.exerciseexamples.mapping.dtoToDao
 import data.exerciseexamples.mapping.dtoToDomain
-import exercise_example_muscle.ExerciseExamplesSource
+import exercise_examples.ExerciseExamplesSource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map

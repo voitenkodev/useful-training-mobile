@@ -1,7 +1,7 @@
-package exercise_example_muscle.mapping
+package muscles.mapping
 
 import data.GetMusclesById
-import exercise_example_muscle.models.MuscleDao
+import muscles.models.MuscleDao
 
 internal fun GetMusclesById.mapToDao(): MuscleDao {
     return MuscleDao(

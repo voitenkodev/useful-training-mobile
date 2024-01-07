@@ -1,6 +1,6 @@
 package traininig_exercise_iteration.models
 
-import exercise_example_muscle.models.ExerciseExampleDao
+import exercise_examples.models.ExerciseExampleDao
 
 public data class ExerciseDao(
     val id: String,
