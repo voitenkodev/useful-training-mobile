@@ -7,6 +7,7 @@ import io.ktor.http.HttpMethod
 import io.ktor.http.contentType
 import io.ktor.http.path
 import network.models.AuthDto
+import network.models.EquipmentGroupDto
 import network.models.ExcludedEquipmentDto
 import network.models.ExcludedMuscleDto
 import network.models.ExerciseExampleAchievementsDto
@@ -114,6 +115,20 @@ public class NetworkSource(private val clientBackend: ClientBackend) {
         return callRequest(
             method = HttpMethod.Get,
             path = "/public-muscles"
+        )
+    }
+
+    public suspend fun getUserEquipments(): List<EquipmentGroupDto> {
+        return callRequest(
+            method = HttpMethod.Get,
+            path = "/user-equipments"
+        )
+    }
+
+    public suspend fun getPublicEquipments(): List<EquipmentGroupDto> {
+        return callRequest(
+            method = HttpMethod.Get,
+            path = "/public-equipments"
         )
     }
 
