@@ -86,11 +86,16 @@ internal fun EquipmentGroup(
                 ) {
                     Box(modifier = Modifier.weight(1f)) {
 
-                        AsyncImage(
+                        IconImage(
                             modifier = Modifier.fillMaxSize(),
-                            url = equipment.imageUrl,
-                            contentScale = ContentScale.Crop
+                            imageVector = Icons.rollup
                         )
+
+//                        AsyncImage(
+//                            modifier = Modifier.fillMaxSize(),
+//                            url = equipment.imageUrl,
+//                            contentScale = ContentScale.Crop
+//                        )
 
                         val iconStart = remember(equipment.status) {
                             when (equipment.status) {
