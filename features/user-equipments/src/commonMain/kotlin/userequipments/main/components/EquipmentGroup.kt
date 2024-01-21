@@ -1,11 +1,11 @@
 package userequipments.main.components
 
-import AsyncImage
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -19,7 +19,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -41,29 +40,32 @@ internal fun EquipmentGroup(
     selectEquipment: (id: String) -> Unit
 ) {
 
+    val multiplier = remember(item.equipments.size) { if (item.equipments.size > 8) 2 else 1 }
+
     val interactionSource = remember { MutableInteractionSource() }
 
     PaddingS()
 
     Column(
-        modifier = Modifier.fillMaxWidth().padding(Design.dp.paddingM),
+        modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
+        PaddingM()
+
         TextH4(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth().padding(horizontal = Design.dp.paddingM),
             provideText = { item.name },
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
         )
 
-        PaddingM()
-
         LazyHorizontalGrid(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(400.dp),
-            rows = GridCells.Fixed(2),
+                .height(180.dp * multiplier),
+            rows = GridCells.Fixed(multiplier),
+            contentPadding = PaddingValues(Design.dp.paddingM),
             horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS),
             verticalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
         ) {
@@ -87,15 +89,9 @@ internal fun EquipmentGroup(
                     Box(modifier = Modifier.weight(1f)) {
 
                         IconImage(
-                            modifier = Modifier.fillMaxSize(),
-                            imageVector = Icons.rollup
+                            modifier = Modifier.fillMaxSize().padding(Design.dp.paddingM),
+                            imageVector = equipment.image
                         )
-
-//                        AsyncImage(
-//                            modifier = Modifier.fillMaxSize(),
-//                            url = equipment.imageUrl,
-//                            contentScale = ContentScale.Crop
-//                        )
 
                         val iconStart = remember(equipment.status) {
                             when (equipment.status) {

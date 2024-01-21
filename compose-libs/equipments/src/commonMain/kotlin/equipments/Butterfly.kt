@@ -12,7 +12,7 @@ import androidx.compose.ui.unit.dp
 
 private var _Batterfly: ImageVector? = null
 
-public val Batterfly: ImageVector
+public val Butterfly: ImageVector
     get() {
         if (_Batterfly != null) {
             return _Batterfly!!

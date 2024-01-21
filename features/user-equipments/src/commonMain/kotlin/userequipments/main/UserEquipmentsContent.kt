@@ -58,7 +58,6 @@ private fun Content(
                         item = item,
                         selectEquipment = selectEquipment
                     )
-
                 }
 
                 item("navigation_padding") {

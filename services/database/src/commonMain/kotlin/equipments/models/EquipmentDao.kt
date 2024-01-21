@@ -5,7 +5,6 @@ public data class EquipmentDao(
     val name: String,
     val equipmentGroupId: String,
     val type: String,
-    val imageUrl: String,
     val createdAt: String,
     val updatedAt: String,
     val status: String?

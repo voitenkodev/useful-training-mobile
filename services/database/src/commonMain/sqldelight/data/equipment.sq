@@ -4,7 +4,6 @@ CREATE TABLE IF NOT EXISTS Equipment (
     name TEXT NOT NULL,
     status TEXT,
     type TEXT NOT NULL,
-    imageUrl TEXT NOT NULL,
     createdAt TEXT NOT NULL,
     updatedAt TEXT NOT NULL
 );
@@ -25,7 +24,6 @@ SELECT
   Equipment.name AS name,
   Equipment.equipmentGroupId AS equipmentGroupId,
   Equipment.status AS status,
-  Equipment.imageUrl AS imageUrl,
   Equipment.type AS type,
   Equipment.updatedAt AS updatedAt,
   Equipment.createdAt AS createdAt
@@ -44,7 +42,6 @@ SELECT
   Equipment.name AS equipmentName,
   Equipment.equipmentGroupId AS equipmentGroupId,
   Equipment.status AS equipmentStatus,
-  Equipment.imageUrl AS equipmentImageUrl,
   Equipment.type AS equipmentType,
   Equipment.updatedAt AS equipmentUpdatedAt,
   Equipment.createdAt AS equipmentCreatedAt
@@ -55,7 +52,7 @@ LEFT JOIN Equipment ON EquipmentGroup.id = Equipment.equipmentGroupId;
 
 setEquipment:
 INSERT OR REPLACE INTO Equipment
-VALUES (?,?,?,?,?,?,?,?);
+VALUES (?,?,?,?,?,?,?);
 
 setEquipmentGroup:
 INSERT OR IGNORE INTO EquipmentGroup

@@ -22,7 +22,6 @@ internal fun List<GetEquipmentGroups>.mapToDao(): List<EquipmentGroupDao> {
                 id = groups.equipmentId ?: return@mapequipments null,
                 name = groups.equipmentName ?: return@mapequipments null,
                 type = groups.equipmentType ?: return@mapequipments null,
-                imageUrl = groups.equipmentImageUrl ?: return@mapequipments null,
                 status = groups.equipmentStatus,
             )
         }

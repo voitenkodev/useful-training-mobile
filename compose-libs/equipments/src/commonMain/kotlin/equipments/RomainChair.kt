@@ -11,7 +11,7 @@ import androidx.compose.ui.unit.dp
 
 private var _RomanChair: ImageVector? = null
 
-public val RomanChair: ImageVector
+public val RomainChair: ImageVector
     get() {
         if (_RomanChair != null) {
             return _RomanChair!!

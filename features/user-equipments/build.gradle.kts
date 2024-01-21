@@ -17,7 +17,7 @@ kotlin {
                 implementation(projects.domain.user)
                 implementation(projects.domain.equipments)
 
-                implementation(projects.composeLibs.composeImage)
+                implementation(projects.composeLibs.equipments)
 
                 implementation(projects.common.utils)
                 implementation(projects.common.architectureComponent)
