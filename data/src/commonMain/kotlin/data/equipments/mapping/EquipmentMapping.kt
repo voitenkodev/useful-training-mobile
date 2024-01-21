@@ -8,7 +8,6 @@ import network.models.EquipmentDto
 
 internal fun List<EquipmentDao>.daoToDomain(): List<Equipment> {
     return mapNotNull { it.daoToDomain() }
-        .sortedBy { it.status }
 }
 
 internal fun EquipmentDao.daoToDomain(): Equipment {

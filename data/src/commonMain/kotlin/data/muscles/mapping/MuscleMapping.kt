@@ -8,7 +8,6 @@ import network.models.MuscleDto
 
 internal fun List<MuscleDao>.daoToDomain(): List<Muscle> {
     return mapNotNull { it.daoToDomain() }
-        .sortedBy { it.status }
 }
 
 internal fun MuscleDao.daoToDomain(): Muscle {

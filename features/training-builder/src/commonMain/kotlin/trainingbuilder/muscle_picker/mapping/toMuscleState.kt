@@ -8,6 +8,7 @@ import trainingbuilder.muscle_picker.models.MuscleEnum
 
 internal fun List<models.Muscle>.toState(): ImmutableList<Muscle> {
     return mapNotNull { it.toState() }
+        .sortedBy { it.status }
         .toPersistentList()
 }
 
