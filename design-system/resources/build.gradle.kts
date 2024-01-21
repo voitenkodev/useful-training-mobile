@@ -6,9 +6,9 @@ plugins {
     alias(libs.plugins.moko.resources)
 }
 
-apply(from = "../../gradle/configs/android.gradle")
-apply(from = "../../gradle/configs/ios.gradle")
-apply(from = "../../gradle/configs/kotlin.gradle")
+apply(from = "$rootDir/gradle/configs/android.gradle")
+apply(from = "$rootDir/gradle/configs/ios.gradle")
+apply(from = "$rootDir/gradle/configs/kotlin.gradle")
 
 android { namespace = "com.voitenko.alienworkout.designsystem.resources" }
 

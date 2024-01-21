@@ -5,8 +5,8 @@ plugins {
     alias(libs.plugins.kotlin.parcelize)
 }
 
-apply(from = "../../gradle/configs/kotlin.gradle")
-apply(from = "../../gradle/configs/android.gradle")
+apply(from = "$rootDir/gradle/configs/kotlin.gradle")
+apply(from = "$rootDir/gradle/configs/android.gradle")
 
 android { namespace = "com.voitenko.alienworkout.features.weighthistory" }
 

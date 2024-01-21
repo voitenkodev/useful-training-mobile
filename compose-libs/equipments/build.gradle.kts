@@ -4,19 +4,19 @@ plugins {
     alias(libs.plugins.compose)
 }
 
-apply(from = "$rootDir/gradle/configs/kotlin.gradle")
 apply(from = "$rootDir/gradle/configs/android.gradle")
+apply(from = "$rootDir/gradle/configs/kotlin.gradle")
 
-android { namespace = "com.voitenko.alienworkout.designsystem.atom" }
+android { namespace = "com.voitenko.alienworkout.composelibs.equipments" }
 
 kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(projects.designSystem.resources)
-
                 implementation(compose.ui)
-                implementation(compose.material)
+                implementation(compose.foundation)
+
+                implementation(projects.designSystem.atom)
             }
         }
     }

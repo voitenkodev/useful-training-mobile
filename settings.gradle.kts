@@ -57,6 +57,7 @@ include(
     "compose-libs:height-picker",
     "compose-libs:percentage-picker",
     "compose-libs:muscles",
+    "compose-libs:equipments",
 
     "features:authentication",
     "features:bottom-menu",

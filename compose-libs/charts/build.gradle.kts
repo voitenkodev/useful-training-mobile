@@ -4,8 +4,8 @@ plugins {
     alias(libs.plugins.compose)
 }
 
-apply(from = "../../gradle/configs/android.gradle")
-apply(from = "../../gradle/configs/kotlin.gradle")
+apply(from = "$rootDir/gradle/configs/android.gradle")
+apply(from = "$rootDir/gradle/configs/kotlin.gradle")
 
 android { namespace = "com.voitenko.alienworkout.composelibs.charts" }
 
