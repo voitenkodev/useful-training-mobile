@@ -5,15 +5,15 @@ agp = "8.2.0"
 compose = "1.5.11"
 coroutines = "1.7.3"
 moko-resources = "0.23.0"
-activity-compose = "1.8.1"
+activity-compose = "1.8.2"
 appcompat = "1.6.1"
 serialization = "1.5.1"
 datetime = "0.4.0"
 ktor = "2.3.7"
-datastore = "1.1.0-alpha07"
+datastore = "1.1.0-beta01"
 koin = "3.4.0"
 sqldelight = "2.0.0"
-media3-exoplayer = "1.2.0"
+media3-exoplayer = "1.2.1"
 decompose = "2.0.2-compose-experimental"
 decompose-router = "0.5.1"
 immutable-collections = "0.3.6"
@@ -45,6 +45,7 @@ ktor-serialization = { module = "io.ktor:ktor-serialization-kotlinx-json", versi
 sqldelight-android = { module = "app.cash.sqldelight:android-driver", version.ref = "sqldelight" }
 sqldelight-native = { module = "app.cash.sqldelight:native-driver", version.ref = "sqldelight" }
 sqldelight-coroutine = { module = "app.cash.sqldelight:coroutines-extensions", version.ref = "sqldelight" }
+sqldelight-adapters = { module = "app.cash.sqldelight:primitive-adapters", version.ref = "sqldelight" }
 
 coil3 = { group = "io.coil-kt.coil3", name = "coil", version.ref = "coil3" }
 coil3-core = { group = "io.coil-kt.coil3", name = "coil-core", version.ref = "coil3" }

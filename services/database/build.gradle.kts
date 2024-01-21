@@ -27,8 +27,8 @@ kotlin {
                 implementation(projects.common.platformApi)
                 implementation(projects.common.utils)
 
-                implementation("app.cash.sqldelight:primitive-adapters:2.0.0-alpha05")
                 implementation(libs.sqldelight.coroutine)
+                implementation(libs.sqldelight.adapters)
             }
         }
 

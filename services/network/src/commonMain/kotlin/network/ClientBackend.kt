@@ -52,11 +52,7 @@ public class ClientBackend(
         }
 
         defaultRequest {
-            host = "192.168.0.112:3010"
-//            host = "172.20.10.3:3010"
-//            host = "192.168.0.100:3010"
-//            host = "192.168.31.183:3010"
-//            host = "192.168.88.201:3010"
+            host = "192.168.0.100:3010"
             url { protocol = URLProtocol.HTTP }
 //            url { protocol = URLProtocol.HTTPS }
             contentType(ContentType.Application.Json)
