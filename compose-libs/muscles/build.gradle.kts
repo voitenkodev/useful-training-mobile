@@ -7,7 +7,7 @@ plugins {
 apply(from = "../../gradle/configs/android.gradle")
 apply(from = "../../gradle/configs/kotlin.gradle")
 
-android { namespace = "com.voitenko.alienworkout.composelibs.musclepicker" }
+android { namespace = "com.voitenko.alienworkout.composelibs.muscles" }
 
 kotlin {
     sourceSets {

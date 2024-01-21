@@ -4,10 +4,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import atom.Design
 import kotlinx.collections.immutable.ImmutableList
-import musclepickerpicker.bodyBack
-import musclepickerpicker.bodyFront
-import musclepickerpicker.bodySplit
-import musclepickerpicker.legsSplit
+import muscles.bodyBack
+import muscles.bodyFront
+import muscles.bodySplit
+import muscles.legsSplit
 import trainingbuilder.muscle_picker.models.Muscle
 import trainingbuilder.muscle_picker.models.MuscleEnum
 import trainingbuilder.muscle_picker.models.MuscleGroupEnum

@@ -29,7 +29,7 @@ kotlin {
                 implementation(compose.ui)
                 implementation(compose.foundation)
 
-                implementation(projects.composeLibs.musclePicker)
+                implementation(projects.composeLibs.muscles)
                 implementation(projects.composeLibs.weightPicker)
                 implementation(projects.composeLibs.heightPicker)
 

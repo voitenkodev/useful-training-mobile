@@ -1,4 +1,4 @@
-package musclepickerpicker
+package muscles
 
 import androidx.compose.ui.graphics.Color
 import atom.Design

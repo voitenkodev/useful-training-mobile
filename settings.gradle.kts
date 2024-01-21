@@ -56,7 +56,7 @@ include(
     "compose-libs:weight-picker",
     "compose-libs:height-picker",
     "compose-libs:percentage-picker",
-    "compose-libs:muscle-picker",
+    "compose-libs:muscles",
 
     "features:authentication",
     "features:bottom-menu",

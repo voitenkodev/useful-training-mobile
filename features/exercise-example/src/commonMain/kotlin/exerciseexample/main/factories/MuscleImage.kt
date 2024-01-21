@@ -5,8 +5,8 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import atom.Design
 import exerciseexample.main.models.ExerciseExample
 import exerciseexample.main.models.MuscleEnum
-import musclepickerpicker.fullBack
-import musclepickerpicker.fullFront
+import muscles.fullBack
+import muscles.fullFront
 
 internal fun ExerciseExample?.createFrontBackImages(): Pair<ImageVector, ImageVector> {
     if (this == null) return fullFront() to fullBack()

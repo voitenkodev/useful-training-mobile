@@ -7,10 +7,10 @@ import authentication.register.models.Muscle
 import authentication.register.models.MuscleEnum
 import authentication.register.models.MuscleGroupEnum
 import authentication.register.models.StatusEnum
-import musclepickerpicker.bodyBack
-import musclepickerpicker.bodyFront
-import musclepickerpicker.bodySplit
-import musclepickerpicker.legsSplit
+import muscles.bodyBack
+import muscles.bodyFront
+import muscles.bodySplit
+import muscles.legsSplit
 
 private fun colorBySelection(muscle: Muscle?): Color {
 

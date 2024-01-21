@@ -25,7 +25,7 @@ kotlin {
                 implementation(projects.designSystem.components)
                 implementation(projects.designSystem.resources)
 
-                implementation(projects.composeLibs.musclePicker)
+                implementation(projects.composeLibs.muscles)
                 implementation(projects.composeLibs.composeVideo)
                 implementation(projects.composeLibs.composeImage)
                 implementation(projects.composeLibs.charts)

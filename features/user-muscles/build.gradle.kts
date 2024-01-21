@@ -17,7 +17,7 @@ kotlin {
                 implementation(projects.domain.user)
                 implementation(projects.domain.muscles)
 
-                implementation(projects.composeLibs.musclePicker)
+                implementation(projects.composeLibs.muscles)
 
                 implementation(projects.common.utils)
                 implementation(projects.common.architectureComponent)

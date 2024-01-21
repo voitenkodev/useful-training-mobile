@@ -3,8 +3,8 @@ package trainingbuilder.training_builder.factories
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import atom.Design
-import musclepickerpicker.fullBack
-import musclepickerpicker.fullFront
+import muscles.fullBack
+import muscles.fullFront
 import trainingbuilder.training_builder.models.Exercise
 import trainingbuilder.training_builder.models.Muscle
 import trainingbuilder.training_builder.models.MuscleEnum
