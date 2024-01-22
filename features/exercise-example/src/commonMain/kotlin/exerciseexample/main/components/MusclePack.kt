@@ -61,9 +61,9 @@ internal fun MusclePack(exerciseExample: ExerciseExample?) {
                             contentColor = Design.colors.content
                         ),
                         text = buildString {
-                            append(item.title)
-                            append(" ")
                             append(item.value.percents())
+                            append(" ")
+                            append(item.title)
                         }
                     )
                 }

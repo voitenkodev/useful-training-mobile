@@ -16,6 +16,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import atom.Design
 import molecule.IconImage
@@ -110,7 +111,8 @@ public fun Chip(
             textAlign = TextAlign.Center,
             maxLines = 1,
             provideText = { text },
-            color = contentColor
+            color = contentColor,
+            overflow = TextOverflow.Ellipsis
         )
 
         if (iconEnd != null) {
