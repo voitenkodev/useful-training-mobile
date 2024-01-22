@@ -1,8 +1,10 @@
 package exercise_examples.mapping
 
 import data.GetExerciseExamplesById
+import equipments.models.EquipmentDao
 import exercise_examples.models.ExerciseExampleBundleDao
 import exercise_examples.models.ExerciseExampleDao
+import exercise_examples.models.ExerciseExampleEquipmentDao
 import muscles.models.MuscleDao
 
 internal fun List<GetExerciseExamplesById>.mapToDao(): ExerciseExampleDao? {
@@ -35,6 +37,30 @@ internal fun List<GetExerciseExamplesById>.mapToDao(): ExerciseExampleDao? {
         )
     }
 
+    val equipments = groupBy { it.equipmentRefId }.mapNotNull mapEquip@{ item ->
+
+        val value = item.value.firstOrNull() ?: return@mapEquip null
+
+        val equipment = EquipmentDao(
+            createdAt = value.equipmentCreatedAt ?: return@mapEquip null,
+            updatedAt = value.equipmentUpdatedAt ?: return@mapEquip null,
+            id = value.equipmentId ?: return@mapEquip null,
+            type = value.equipmentType ?: return@mapEquip null,
+            name = value.equipmentName ?: return@mapEquip null,
+            equipmentGroupId = value.equipmentEquipmentGroupId ?: return@mapEquip null,
+            status = value.equipmentStatus
+        )
+
+        return@mapEquip ExerciseExampleEquipmentDao(
+            id = value.equipmentRefId ?: return@mapEquip null,
+            equipmentId = value.equipmentRefEquipmentId ?: return@mapEquip null,
+            exerciseExampleId = value.equipmentRefExerciseExampleId ?: return@mapEquip null,
+            equipment = equipment,
+            createdAt = value.equipmentRefCreatedAt ?: return@mapEquip null,
+            updatedAt = value.equipmentRefUpdatedAt ?: return@mapEquip null
+        )
+    }
+
     return ExerciseExampleDao(
         id = root.id,
         name = root.name,
@@ -42,6 +68,7 @@ internal fun List<GetExerciseExamplesById>.mapToDao(): ExerciseExampleDao? {
         createdAt = root.createdAt,
         updatedAt = root.updatedAt,
         imageUrl = root.imageUrl,
-        exerciseExampleBundles = bundles
+        exerciseExampleBundles = bundles,
+        equipments = equipments
     )
 }

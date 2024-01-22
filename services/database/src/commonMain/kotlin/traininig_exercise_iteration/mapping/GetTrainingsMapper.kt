@@ -46,7 +46,8 @@ internal fun List<GetTrainings>.mapToDao(): List<TrainingDao> {
                     imageUrl = imageUrl,
                     createdAt = createdAt,
                     updatedAt = updatedAt,
-                    exerciseExampleBundles = emptyList() // todo
+                    equipments = emptyList(), // todo do not need it
+                    exerciseExampleBundles = emptyList() // todo do not need it
                 )
             }
 

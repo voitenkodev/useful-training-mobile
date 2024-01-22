@@ -8,6 +8,7 @@ internal fun models.ExerciseExample.toState(): ExerciseExample {
         name = name,
         description = description,
         imageUrl = imageUrl,
-        exerciseExampleBundles = exerciseExampleBundles.toState()
+        exerciseExampleBundles = exerciseExampleBundles.toState(),
+        equipments = equipments.toState()
     )
 }

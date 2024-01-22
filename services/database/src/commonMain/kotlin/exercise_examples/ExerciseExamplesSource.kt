@@ -63,6 +63,16 @@ public class ExerciseExamplesSource(nativeContext: NativeContext) {
                     exerciseExampleId = bundle.exerciseExampleId
                 )
             }
+            exerciseExample.equipments.forEach { equipmentRef ->
+
+                exerciseExampleApi.setExerciseEquipment(
+                    id = equipmentRef.id,
+                    equipmentId = equipmentRef.equipmentId,
+                    exerciseExampleId = equipmentRef.exerciseExampleId,
+                    createdAt = equipmentRef.createdAt,
+                    updatedAt = equipmentRef.updatedAt
+                )
+            }
             return@transactionWithResult exerciseExample.id
         }
         return result
@@ -71,5 +81,6 @@ public class ExerciseExamplesSource(nativeContext: NativeContext) {
     public fun clearTables() {
         exerciseExampleApi.deleteTableExerciseExample()
         exerciseExampleApi.deleteTableExerciseExampleBundle()
+        exerciseExampleApi.deleteTableExerciseEquipment()
     }
 }

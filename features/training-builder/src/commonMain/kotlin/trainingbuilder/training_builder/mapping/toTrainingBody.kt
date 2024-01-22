@@ -25,7 +25,9 @@ internal fun Training.toBody(): models.Training {
                         id = ex.id,
                         name = ex.name,
                         description = ex.description,
-                        imageUrl = ex.imageUrl
+                        imageUrl = ex.imageUrl,
+                        equipments = emptyList(), // todo do not need it in body
+                        exerciseExampleBundles = emptyList() // todo do not need it in body
                     )
                 }
             )

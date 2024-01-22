@@ -20,5 +20,7 @@ public data class ExerciseExampleDto(
     @SerialName("userId")
     val userId: String? = null,
     @SerialName("imageUrl")
-    val imageUrl: String? = null
+    val imageUrl: String? = null,
+    @SerialName("equipmentRefs")
+    val equipmentRefs: List<ExerciseExampleEquipmentRefDto> = emptyList()
 )

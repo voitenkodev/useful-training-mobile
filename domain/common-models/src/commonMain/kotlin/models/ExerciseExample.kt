@@ -2,7 +2,8 @@ package models
 
 public data class ExerciseExample(
     val id: String,
-    val exerciseExampleBundles: List<ExerciseExampleBundle> = emptyList(),
+    val exerciseExampleBundles: List<ExerciseExampleBundle>,
+    val equipments: List<Equipment>,
     val name: String,
     val description: String?,
     val imageUrl: String?

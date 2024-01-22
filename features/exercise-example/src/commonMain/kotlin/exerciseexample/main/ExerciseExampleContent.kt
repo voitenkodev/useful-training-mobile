@@ -23,6 +23,7 @@ import components.ShadowFooterSpace
 import components.overlay.TopShadow
 import components.roots.ScreenRoot
 import exerciseexample.main.components.Achievements
+import exerciseexample.main.components.Equipments
 import exerciseexample.main.components.Header
 import exerciseexample.main.components.HeapMap
 import exerciseexample.main.components.MusclePack
@@ -71,11 +72,16 @@ private fun Content(
 
             Header(exerciseExample = exerciseExample)
 
-            PaddingXL()
-
 //            Tutorial(url = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4", onClick = {})
 
 //            PaddingXL()
+
+            if (exerciseExample?.equipments != null) {
+
+                Equipments(equipments = exerciseExample.equipments)
+
+                PaddingXL()
+            }
 
             MusclePack(exerciseExample = exerciseExample)
 
