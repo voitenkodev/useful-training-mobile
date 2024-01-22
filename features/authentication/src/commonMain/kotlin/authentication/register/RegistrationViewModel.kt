@@ -1,6 +1,7 @@
 package authentication.register
 
 import AuthenticationRepository
+import EquipmentsRepository
 import MusclesRepository
 import UserRepository
 import ViewModel
@@ -30,6 +31,7 @@ internal class RegistrationViewModel : ViewModel() {
     private val authApi by inject<AuthenticationRepository>()
     private val userApi by inject<UserRepository>()
     private val musclesApi by inject<MusclesRepository>()
+    private val equipmentsApi by inject<EquipmentsRepository>()
 
     private val _state = MutableStateFlow(State())
     val state: StateFlow<State> = _state
@@ -50,6 +52,16 @@ internal class RegistrationViewModel : ViewModel() {
         musclesApi.syncPublicMuscles()
             .catch { r -> _state.update { it.copy(error = r.message) } }
             .launchIn(this)
+
+        equipmentsApi
+            .observeEquipments()
+            .onEach { r -> _state.update { it.copy(equipmentGroups = r.toState()) } }
+            .catch { r -> _state.update { it.copy(error = r.message) } }
+            .launchIn(this)
+
+        equipmentsApi.syncPublicEquipments()
+            .catch { r -> _state.update { it.copy(error = r.message) } }
+            .launchIn(this)
     }
 
     fun registration() {
@@ -67,7 +79,10 @@ internal class RegistrationViewModel : ViewModel() {
                         .flatMap { it.muscles }
                         .filter { it.status == EXCLUDED }
                         .map { it.id },
-                    excludeEquipmentIds = emptyList() // TODO()
+                    excludeEquipmentIds = last.equipmentGroups
+                        .flatMap { it.equipments }
+                        .filter { it.status == EXCLUDED }
+                        .map { it.id },
                 )
                 .flatMapConcat { userApi.syncUser() }
                 .onStart { _state.update { it.copy(loading = true) } }
@@ -93,7 +108,32 @@ internal class RegistrationViewModel : ViewModel() {
         _state.update { it.copy(password = value) }
     }
 
-    fun selectMuscles(id: String) {
+    fun selectEquipment(id: String) {
+        _state.update {
+            it.copy(
+                equipmentGroups = it.equipmentGroups.map { mt ->
+                    val equipments = mt.equipments.map equipMap@{ v ->
+                        if (id != v.id) {
+                            return@equipMap v
+                        }
+
+                        v.copy(
+                            status = when (v.status) {
+                                INCLUDED -> EXCLUDED
+                                EXCLUDED -> INCLUDED
+                            }
+                        )
+                    }.toPersistentList()
+
+                    mt.copy(
+                        equipments = equipments
+                    )
+                }.toPersistentList()
+            )
+        }
+    }
+
+    fun selectMuscle(id: String) {
         _state.update {
             it.copy(
                 muscleGroups = it.muscleGroups.map { mt ->

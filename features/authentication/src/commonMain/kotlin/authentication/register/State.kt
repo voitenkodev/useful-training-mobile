@@ -1,6 +1,7 @@
 package authentication.register
 
 import androidx.compose.runtime.Immutable
+import authentication.register.models.EquipmentGroup
 import authentication.register.models.MuscleGroup
 import authentication.register.models.RegistrationStatus
 import authentication.register.models.RegistrationSteps
@@ -21,6 +22,7 @@ internal data class State(
     val steps: List<RegistrationSteps> = RegistrationSteps.entries,
 
     val muscleGroups: ImmutableList<MuscleGroup> = persistentListOf(),
+    val equipmentGroups: ImmutableList<EquipmentGroup> = persistentListOf(),
 
     val registrationStatus: RegistrationStatus = RegistrationStatus.Unavailable,
     val error: String? = null,

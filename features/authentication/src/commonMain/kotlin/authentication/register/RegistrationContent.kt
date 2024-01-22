@@ -11,10 +11,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import authentication.register.models.EquipmentGroup
 import authentication.register.models.MuscleGroup
 import authentication.register.models.RegistrationStatus
 import authentication.register.models.RegistrationSteps
 import authentication.register.pages.CredentialsPage
+import authentication.register.pages.ExcludeEquipmentPage
 import authentication.register.pages.ExcludeMusclePage
 import authentication.register.pages.HeightPage
 import authentication.register.pages.NamePage
@@ -65,7 +67,9 @@ internal fun RegistrationContent(
         passwordRepeat = state.passwordRepeat,
         updatePasswordRepeat = vm::updatePasswordRepeat,
         muscles = state.muscleGroups,
-        selectMuscle = vm::selectMuscles
+        selectMuscle = vm::selectMuscle,
+        equipments = state.equipmentGroups,
+        selectEquipment = vm::selectEquipment
     )
 }
 
@@ -94,6 +98,9 @@ private fun Content(
 
     muscles: ImmutableList<MuscleGroup>,
     selectMuscle: (id: String) -> Unit,
+
+    equipments: ImmutableList<EquipmentGroup>,
+    selectEquipment: (id: String) -> Unit,
 
     email: String,
     updateEmail: (String) -> Unit,
@@ -154,7 +161,13 @@ private fun Content(
                         confirm = nextStep
                     )
 
-                    4 -> CredentialsPage(
+                    4 -> ExcludeEquipmentPage(
+                        equipments = equipments,
+                        selectEquipment = selectEquipment,
+                        confirm = nextStep
+                    )
+
+                    5 -> CredentialsPage(
                         password = password,
                         email = email,
                         updateEmail = updateEmail,

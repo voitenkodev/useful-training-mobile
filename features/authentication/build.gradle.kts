@@ -17,6 +17,7 @@ kotlin {
                 implementation(projects.domain.authentication)
                 implementation(projects.domain.user)
                 implementation(projects.domain.muscles)
+                implementation(projects.domain.equipments)
 
                 implementation(projects.common.utils)
                 implementation(projects.common.architectureComponent)
@@ -30,6 +31,7 @@ kotlin {
                 implementation(compose.foundation)
 
                 implementation(projects.composeLibs.muscles)
+                implementation(projects.composeLibs.equipments)
                 implementation(projects.composeLibs.weightPicker)
                 implementation(projects.composeLibs.heightPicker)
 

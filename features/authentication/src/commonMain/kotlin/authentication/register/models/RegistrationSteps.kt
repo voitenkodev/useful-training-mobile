@@ -8,5 +8,6 @@ internal enum class RegistrationSteps {
     Weight,
     Height,
     MusclePicker,
+    EquipmentPicker,
     EmailPassword
 }
