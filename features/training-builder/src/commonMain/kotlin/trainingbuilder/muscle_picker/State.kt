@@ -13,6 +13,7 @@ internal data class State(
     val upperBodyList: ImmutableList<MuscleEnum> = persistentListOf(
         MuscleEnum.TRAPEZIUS,
         MuscleEnum.LATISSIMUS_DORSI,
+        MuscleEnum.TERES_MAJOR,
         MuscleEnum.PECTORALIS_MAJOR,
         MuscleEnum.PECTORALIS_MINOR,
         MuscleEnum.POSTERIOR_DELTOID,
