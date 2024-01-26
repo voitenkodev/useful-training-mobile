@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
@@ -81,7 +80,7 @@ internal fun SetExerciseContent(
         }
     }
 
-    Box(modifier = Modifier.fillMaxSize().secondaryBackground().imePadding()) {
+    Box(modifier = Modifier.fillMaxSize().secondaryBackground()) {
 
         Column(modifier = Modifier.statusBarsPadding()) {
 

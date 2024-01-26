@@ -29,7 +29,7 @@ public fun ShadowFooterSpace() {
 @Composable
 public fun ShadowFooter(
     modifier: Modifier = Modifier,
-    primary: Pair<String, () -> Unit>? = null,
+    primary: Triple<String, Boolean, () -> Unit>? = null,
     close: (() -> Unit)? = null
 ) {
 
@@ -48,7 +48,8 @@ public fun ShadowFooter(
                     ButtonPrimary(
                         modifier = Modifier.width(Design.dp.componentXXL),
                         text = primary.first,
-                        onClick = primary.second
+                        onClick = primary.third,
+                        enabled = primary.second
                     )
                 }
 

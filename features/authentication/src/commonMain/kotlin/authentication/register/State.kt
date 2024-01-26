@@ -2,11 +2,13 @@ package authentication.register
 
 import androidx.compose.runtime.Immutable
 import authentication.register.models.EquipmentGroup
+import authentication.register.models.ExperienceEnum
 import authentication.register.models.MuscleGroup
 import authentication.register.models.RegistrationStatus
 import authentication.register.models.RegistrationSteps
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
+import kotlinx.collections.immutable.toPersistentList
 import weightpicker.DEFAULT_INITIAL_WEIGHT
 
 @Immutable
@@ -19,7 +21,10 @@ internal data class State(
     val passwordRepeat: String = "",
 
     val selectedStep: RegistrationSteps = RegistrationSteps.Name,
-    val steps: List<RegistrationSteps> = RegistrationSteps.entries,
+    val steps: ImmutableList<RegistrationSteps> = RegistrationSteps.entries.toPersistentList(),
+
+    val selectedExperience: ExperienceEnum? = null,
+    val experiences: ImmutableList<ExperienceEnum> = ExperienceEnum.entries.toPersistentList(),
 
     val muscleGroups: ImmutableList<MuscleGroup> = persistentListOf(),
     val equipmentGroups: ImmutableList<EquipmentGroup> = persistentListOf(),

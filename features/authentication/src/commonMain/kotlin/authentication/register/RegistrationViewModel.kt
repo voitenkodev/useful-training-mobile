@@ -6,7 +6,9 @@ import MusclesRepository
 import UserRepository
 import ViewModel
 import authentication.register.factories.muscleImage
+import authentication.register.mapping.toExperienceEnumDomain
 import authentication.register.mapping.toState
+import authentication.register.models.ExperienceEnum
 import authentication.register.models.RegistrationStatus
 import authentication.register.models.StatusEnum.EXCLUDED
 import authentication.register.models.StatusEnum.INCLUDED
@@ -67,6 +69,18 @@ internal class RegistrationViewModel : ViewModel() {
     fun registration() {
         val last = _state.updateAndGet { it.validate() }
 
+        val experience = last.selectedExperience?.toExperienceEnumDomain()?.toString() ?: return
+
+        val excludeEquipmentIds = last.equipmentGroups
+            .flatMap { it.equipments }
+            .filter { it.status == EXCLUDED }
+            .map { it.id }
+
+        val excludeMuscleIds = last.muscleGroups
+            .flatMap { it.muscles }
+            .filter { it.status == EXCLUDED }
+            .map { it.id }
+
         if (last.error == null) {
             authApi
                 .registration(
@@ -75,14 +89,9 @@ internal class RegistrationViewModel : ViewModel() {
                     name = last.name,
                     weight = last.weight.grToKg(),
                     height = last.height.cmToM(),
-                    excludeMuscleIds = last.muscleGroups
-                        .flatMap { it.muscles }
-                        .filter { it.status == EXCLUDED }
-                        .map { it.id },
-                    excludeEquipmentIds = last.equipmentGroups
-                        .flatMap { it.equipments }
-                        .filter { it.status == EXCLUDED }
-                        .map { it.id },
+                    experience = experience,
+                    excludeMuscleIds = excludeMuscleIds,
+                    excludeEquipmentIds = excludeEquipmentIds,
                 )
                 .flatMapConcat { userApi.syncUser() }
                 .onStart { _state.update { it.copy(loading = true) } }
@@ -106,6 +115,12 @@ internal class RegistrationViewModel : ViewModel() {
 
     fun updatePassword(value: String) {
         _state.update { it.copy(password = value) }
+    }
+
+    fun selectExperience(value: ExperienceEnum) {
+        _state.update {
+            it.copy(selectedExperience = value)
+        }
     }
 
     fun selectEquipment(id: String) {

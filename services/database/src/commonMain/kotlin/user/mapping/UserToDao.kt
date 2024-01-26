@@ -11,6 +11,7 @@ internal fun User.toDao(): UserDao {
         weight = weight,
         height = height,
         updatedAt = updatedAt,
+        experience = experience,
         createdAt = createdAt
     )
 }

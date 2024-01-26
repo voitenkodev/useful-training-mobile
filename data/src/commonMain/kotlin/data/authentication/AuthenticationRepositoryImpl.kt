@@ -25,6 +25,7 @@ internal class AuthenticationRepositoryImpl(
         password: String,
         weight: Double,
         height: Double,
+        experience: String,
         name: String,
         excludeMuscleIds: List<String>,
         excludeEquipmentIds: List<String>
@@ -35,6 +36,7 @@ internal class AuthenticationRepositoryImpl(
                 password = password,
                 weight = weight,
                 height = height,
+                experience = experience,
                 name = name,
                 excludeMuscleIds = excludeMuscleIds,
                 excludeEquipmentIds = excludeEquipmentIds

@@ -3,6 +3,7 @@ CREATE TABLE IF NOT EXISTS User (
     weight REAL NOT NULL,
     height REAL NOT NULL,
     email TEXT NOT NULL,
+    experience TEXT NOT NULL,
     name TEXT NOT NULL,
     createdAt TEXT NOT NULL,
     updatedAt TEXT NOT NULL
@@ -18,7 +19,7 @@ FROM User;
 
 setUser:
 INSERT OR REPLACE INTO User
-VALUES (?,?,?,?,?,?,?);
+VALUES (?,?,?,?,?,?,?,?);
 
 -------------- DELETE --------------
 

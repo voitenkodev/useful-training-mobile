@@ -43,6 +43,7 @@ public class UserSource(nativeContext: NativeContext) {
                 weight = userDao.weight,
                 height = userDao.height,
                 name = userDao.name,
+                experience = userDao.experience,
                 updatedAt = userDao.updatedAt,
                 createdAt = userDao.createdAt
             )

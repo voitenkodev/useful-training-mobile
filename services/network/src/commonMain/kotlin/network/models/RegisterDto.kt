@@ -13,6 +13,8 @@ public data class RegisterDto(
     val name: String? = null,
     @SerialName("weight")
     val weight: Double? = null,
+    @SerialName("experience")
+    val experience: String? = null,
     @SerialName("height")
     val height: Double? = null,
     @SerialName("excludeMuscleIds")

@@ -81,8 +81,7 @@ internal fun ResentVolume(volumes: ImmutableList<ExerciseVolume>) {
                 modifier = Modifier.padding(horizontal = Design.dp.paddingM),
                 title = item.volume.kg(true),
                 description = "At: ${item.createdAt}",
-                startIcon = img to color,
-                actionEndIcon = Icons.arrowRight to {}
+                startIcon = img to color
             )
         }
 

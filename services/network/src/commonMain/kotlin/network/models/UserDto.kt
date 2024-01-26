@@ -13,6 +13,8 @@ public data class UserDto(
     val height: Double? = null,
     @SerialName("id")
     val id: String? = null,
+    @SerialName("experience")
+    val experience: String? = null,
     @SerialName("name")
     val name: String? = null,
     @SerialName("updatedAt")

@@ -7,6 +7,7 @@ public interface AuthenticationRepository {
         password: String,
         weight: Double,
         height: Double,
+        experience: String,
         name: String,
         excludeMuscleIds: List<String>,
         excludeEquipmentIds: List<String>

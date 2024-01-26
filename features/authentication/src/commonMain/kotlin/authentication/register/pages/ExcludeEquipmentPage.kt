@@ -62,7 +62,7 @@ internal fun ExcludeEquipmentPage(
 
         ShadowFooter(
             modifier = Modifier.fillMaxWidth().align(Alignment.BottomCenter),
-            primary = "Continue" to confirm
+            primary = Triple("Continue", true, confirm)
         )
     }
 }

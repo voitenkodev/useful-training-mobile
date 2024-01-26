@@ -4,6 +4,7 @@ import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
@@ -22,7 +23,8 @@ public fun ScreenRoot(
     Box(
         modifier = modifier
             .fillMaxSize()
-            .pointerInput(Unit) { detectTapGestures(onTap = { focusManager.clearFocus() }) },
+            .pointerInput(Unit) { detectTapGestures(onTap = { focusManager.clearFocus() }) }
+            .imePadding(),
         content = content
     )
 

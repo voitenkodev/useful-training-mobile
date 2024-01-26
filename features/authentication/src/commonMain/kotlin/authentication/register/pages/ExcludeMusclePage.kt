@@ -29,6 +29,7 @@ internal fun ExcludeMusclePage(
 ) {
 
     Box(modifier = Modifier.fillMaxSize()) {
+
         Column(
             modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally
@@ -64,7 +65,7 @@ internal fun ExcludeMusclePage(
 
         ShadowFooter(
             modifier = Modifier.fillMaxWidth().align(Alignment.BottomCenter),
-            primary = "Continue" to confirm
+            primary = Triple("Continue", true, confirm)
         )
     }
 }

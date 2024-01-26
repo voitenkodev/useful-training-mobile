@@ -13,6 +13,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -114,11 +115,15 @@ private fun Content(
             Spacer(modifier = Modifier.statusBarsPadding().height(Design.dp.paddingXL))
         }
 
+        val primary = remember(primaryAction, exerciseExample?.id) {
+            if (primaryAction != null && exerciseExample?.id != null) {
+                Triple(primaryAction.first, true) { primaryAction.second.invoke(exerciseExample.id) }
+            } else null
+        }
+
         ShadowFooter(
             modifier = Modifier.fillMaxWidth().align(Alignment.BottomCenter),
-            primary = if (primaryAction != null && exerciseExample?.id != null) {
-                primaryAction.first to { primaryAction.second.invoke(exerciseExample.id) }
-            } else null,
+            primary = primary,
             close = close
         )
     }

@@ -12,12 +12,14 @@ import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import authentication.register.models.EquipmentGroup
+import authentication.register.models.ExperienceEnum
 import authentication.register.models.MuscleGroup
 import authentication.register.models.RegistrationStatus
 import authentication.register.models.RegistrationSteps
 import authentication.register.pages.CredentialsPage
 import authentication.register.pages.ExcludeEquipmentPage
 import authentication.register.pages.ExcludeMusclePage
+import authentication.register.pages.ExperiencePage
 import authentication.register.pages.HeightPage
 import authentication.register.pages.NamePage
 import authentication.register.pages.WeightPage
@@ -69,7 +71,10 @@ internal fun RegistrationContent(
         muscles = state.muscleGroups,
         selectMuscle = vm::selectMuscle,
         equipments = state.equipmentGroups,
-        selectEquipment = vm::selectEquipment
+        selectEquipment = vm::selectEquipment,
+        experience = state.selectedExperience,
+        experiences = state.experiences,
+        selectExperience = vm::selectExperience
     )
 }
 
@@ -95,6 +100,10 @@ private fun Content(
 
     height: Int,
     updateHeight: (Int) -> Unit,
+
+    experiences: ImmutableList<ExperienceEnum>,
+    experience: ExperienceEnum?,
+    selectExperience: (value: ExperienceEnum) -> Unit,
 
     muscles: ImmutableList<MuscleGroup>,
     selectMuscle: (id: String) -> Unit,
@@ -155,19 +164,26 @@ private fun Content(
                         confirm = nextStep
                     )
 
-                    3 -> ExcludeMusclePage(
+                    3 -> ExperiencePage(
+                        experiences = experiences,
+                        experience = experience,
+                        update = selectExperience,
+                        confirm = nextStep
+                    )
+
+                    4 -> ExcludeMusclePage(
                         muscles = muscles,
                         selectMuscle = selectMuscle,
                         confirm = nextStep
                     )
 
-                    4 -> ExcludeEquipmentPage(
+                    5 -> ExcludeEquipmentPage(
                         equipments = equipments,
                         selectEquipment = selectEquipment,
                         confirm = nextStep
                     )
 
-                    5 -> CredentialsPage(
+                    6 -> CredentialsPage(
                         password = password,
                         email = email,
                         updateEmail = updateEmail,
