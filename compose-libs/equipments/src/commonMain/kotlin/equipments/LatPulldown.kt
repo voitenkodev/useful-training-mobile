@@ -9,19 +9,19 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.path
 import androidx.compose.ui.unit.dp
 
-private var _LatPulldown: ImageVector? = null
+private var _LatPulldownUpd: ImageVector? = null
 
 public val LatPulldown: ImageVector
     get() {
-        if (_LatPulldown != null) {
-            return _LatPulldown!!
+        if (_LatPulldownUpd != null) {
+            return _LatPulldownUpd!!
         }
-        _LatPulldown = ImageVector.Builder(
-            name = "LatPulldown",
-            defaultWidth = 274.dp,
-            defaultHeight = 370.dp,
-            viewportWidth = 274f,
-            viewportHeight = 370f
+        _LatPulldownUpd = ImageVector.Builder(
+            name = "LatPulldownUpd",
+            defaultWidth = 219.dp,
+            defaultHeight = 336.dp,
+            viewportWidth = 219f,
+            viewportHeight = 336f
         ).apply {
             path(
                 fill = SolidColor(Color(0xFFBEBEBE)),
@@ -34,11 +34,11 @@ public val LatPulldown: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(142.635f, 312.793f)
-                verticalLineTo(298.068f)
-                lineTo(157.361f, 306.192f)
-                verticalLineTo(320.41f)
-                lineTo(142.635f, 312.793f)
+                moveTo(0f, 318.556f)
+                verticalLineToRelative(-14.997f)
+                lineToRelative(14.997f, 8.274f)
+                verticalLineToRelative(14.48f)
+                lineTo(0f, 318.556f)
                 close()
             }
             path(
@@ -52,11 +52,11 @@ public val LatPulldown: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(157.361f, 320.411f)
-                verticalLineTo(306.193f)
-                lineTo(273.136f, 239.165f)
-                verticalLineTo(252.875f)
-                lineTo(157.361f, 320.411f)
+                moveTo(14.997f, 326.313f)
+                verticalLineToRelative(-14.479f)
+                lineToRelative(117.908f, -68.262f)
+                verticalLineToRelative(13.962f)
+                lineTo(14.997f, 326.313f)
                 close()
             }
             path(
@@ -70,11 +70,11 @@ public val LatPulldown: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(157.361f, 306.141f)
-                lineTo(142.635f, 298.016f)
-                lineTo(259.933f, 230.533f)
-                lineTo(273.136f, 239.165f)
-                lineTo(157.361f, 306.141f)
+                moveTo(14.997f, 311.781f)
+                lineTo(0f, 303.507f)
+                lineToRelative(119.459f, -68.727f)
+                lineToRelative(13.445f, 8.792f)
+                lineToRelative(-117.907f, 68.209f)
                 close()
             }
             path(
@@ -88,11 +88,11 @@ public val LatPulldown: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(273.136f, 239.166f)
-                verticalLineTo(20.3114f)
-                lineTo(260.949f, 27.4204f)
-                verticalLineTo(246.275f)
-                lineTo(273.136f, 239.166f)
+                moveTo(132.905f, 243.572f)
+                verticalLineTo(20.685f)
+                lineToRelative(-12.412f, 7.24f)
+                verticalLineToRelative(222.887f)
+                lineToRelative(12.412f, -7.24f)
                 close()
             }
             path(
@@ -106,11 +106,11 @@ public val LatPulldown: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(249.27f, 236.627f)
-                verticalLineTo(33.0062f)
-                lineTo(260.949f, 26.9128f)
-                verticalLineTo(246.783f)
-                lineTo(249.27f, 236.627f)
+                moveTo(108.599f, 240.986f)
+                verticalLineTo(33.614f)
+                lineToRelative(11.894f, -6.206f)
+                verticalLineTo(251.33f)
+                lineToRelative(-11.894f, -10.343f)
                 close()
             }
             path(
@@ -124,11 +124,11 @@ public val LatPulldown: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(235.936f, 233.201f)
-                lineTo(260.951f, 249.617f)
-                lineTo(175.772f, 298.956f)
-                lineTo(150.757f, 282.54f)
-                lineTo(235.936f, 233.201f)
+                moveTo(95.022f, 237.411f)
+                lineToRelative(25.614f, 16.809f)
+                lineToRelative(-86.891f, 50.33f)
+                lineTo(8.13f, 287.741f)
+                lineToRelative(86.89f, -50.33f)
                 close()
             }
             path(
@@ -142,11 +142,11 @@ public val LatPulldown: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(268.565f, 240.689f)
-                verticalLineTo(249.829f)
-                lineTo(236.067f, 228.502f)
-                verticalLineTo(219.362f)
-                lineTo(268.565f, 240.689f)
+                moveTo(128.25f, 245.124f)
+                verticalLineToRelative(9.308f)
+                lineToRelative(-33.097f, -21.72f)
+                verticalLineToRelative(-9.308f)
+                lineToRelative(33.097f, 21.72f)
                 close()
             }
             path(
@@ -160,11 +160,11 @@ public val LatPulldown: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(235.936f, 222.029f)
-                lineTo(260.951f, 238.445f)
-                lineTo(175.772f, 287.784f)
-                lineTo(150.757f, 271.368f)
-                lineTo(235.936f, 222.029f)
+                moveTo(95.022f, 226.033f)
+                lineToRelative(25.614f, 16.809f)
+                lineToRelative(-86.891f, 50.331f)
+                lineTo(8.13f, 276.364f)
+                lineToRelative(86.89f, -50.331f)
                 close()
             }
             path(
@@ -178,11 +178,11 @@ public val LatPulldown: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(268.565f, 229.517f)
-                verticalLineTo(238.657f)
-                lineTo(236.067f, 217.331f)
-                verticalLineTo(208.19f)
-                lineTo(268.565f, 229.517f)
+                moveTo(128.25f, 233.746f)
+                verticalLineToRelative(9.309f)
+                lineToRelative(-33.097f, -21.72f)
+                verticalLineToRelative(-9.309f)
+                lineToRelative(33.097f, 21.72f)
                 close()
             }
             path(
@@ -196,11 +196,11 @@ public val LatPulldown: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(235.936f, 210.858f)
-                lineTo(260.951f, 227.274f)
-                lineTo(175.772f, 276.613f)
-                lineTo(150.757f, 260.197f)
-                lineTo(235.936f, 210.858f)
+                moveTo(95.022f, 214.656f)
+                lineToRelative(25.614f, 16.809f)
+                lineToRelative(-86.891f, 50.33f)
+                lineTo(8.13f, 264.986f)
+                lineToRelative(86.89f, -50.33f)
                 close()
             }
             path(
@@ -214,11 +214,11 @@ public val LatPulldown: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(268.565f, 218.347f)
-                verticalLineTo(227.487f)
-                lineTo(236.067f, 206.16f)
-                verticalLineTo(197.02f)
-                lineTo(268.565f, 218.347f)
+                moveTo(128.25f, 222.369f)
+                verticalLineToRelative(9.309f)
+                lineToRelative(-33.097f, -21.72f)
+                verticalLineToRelative(-9.309f)
+                lineToRelative(33.097f, 21.72f)
                 close()
             }
             path(
@@ -232,11 +232,11 @@ public val LatPulldown: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(235.936f, 199.687f)
-                lineTo(260.951f, 216.104f)
-                lineTo(175.772f, 265.442f)
-                lineTo(150.757f, 249.026f)
-                lineTo(235.936f, 199.687f)
+                moveTo(95.022f, 203.279f)
+                lineToRelative(25.614f, 16.809f)
+                lineToRelative(-86.891f, 50.331f)
+                lineTo(8.13f, 253.61f)
+                lineToRelative(86.89f, -50.331f)
                 close()
             }
             path(
@@ -250,11 +250,11 @@ public val LatPulldown: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(268.565f, 207.176f)
-                verticalLineTo(216.316f)
-                lineTo(236.067f, 194.989f)
-                verticalLineTo(185.849f)
-                lineTo(268.565f, 207.176f)
+                moveTo(128.25f, 210.992f)
+                verticalLineToRelative(9.309f)
+                lineToRelative(-33.097f, -21.72f)
+                verticalLineToRelative(-9.309f)
+                lineToRelative(33.097f, 21.72f)
                 close()
             }
             path(
@@ -268,11 +268,11 @@ public val LatPulldown: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(235.936f, 188.516f)
-                lineTo(260.951f, 204.932f)
-                lineTo(175.772f, 254.271f)
-                lineTo(150.757f, 237.855f)
-                lineTo(235.936f, 188.516f)
+                moveTo(95.022f, 191.902f)
+                lineToRelative(25.614f, 16.809f)
+                lineToRelative(-86.891f, 50.33f)
+                lineTo(8.13f, 242.232f)
+                lineToRelative(86.89f, -50.33f)
                 close()
             }
             path(
@@ -286,11 +286,11 @@ public val LatPulldown: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(268.565f, 196.005f)
-                verticalLineTo(205.145f)
-                lineTo(236.067f, 183.818f)
-                verticalLineTo(174.678f)
-                lineTo(268.565f, 196.005f)
+                moveTo(128.25f, 199.615f)
+                verticalLineToRelative(9.309f)
+                lineToRelative(-33.097f, -21.72f)
+                verticalLineToRelative(-9.308f)
+                lineToRelative(33.097f, 21.719f)
                 close()
             }
             path(
@@ -304,11 +304,11 @@ public val LatPulldown: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(268.566f, 196.005f)
-                lineTo(175.641f, 249.83f)
-                lineTo(143.143f, 228.503f)
-                lineTo(236.067f, 174.678f)
-                lineTo(268.566f, 196.005f)
+                moveTo(128.25f, 199.615f)
+                lineToRelative(-94.636f, 54.817f)
+                lineToRelative(-33.097f, -21.72f)
+                lineToRelative(94.636f, -54.816f)
+                lineToRelative(33.097f, 21.719f)
                 close()
             }
             path(
@@ -322,11 +322,11 @@ public val LatPulldown: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(230.78f, 184.844f)
-                lineTo(250.796f, 197.979f)
-                lineTo(179.913f, 239.037f)
-                lineTo(159.897f, 225.902f)
-                lineTo(230.78f, 184.844f)
+                moveTo(89.771f, 188.163f)
+                lineToRelative(20.522f, 13.467f)
+                lineToRelative(-72.332f, 41.897f)
+                lineTo(17.44f, 230.06f)
+                lineToRelative(72.332f, -41.897f)
                 close()
             }
             path(
@@ -340,11 +340,11 @@ public val LatPulldown: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(258.41f, 189.403f)
-                verticalLineTo(198.191f)
-                lineTo(234.036f, 181.786f)
-                verticalLineTo(172.998f)
-                lineTo(258.41f, 189.403f)
+                moveTo(117.907f, 192.892f)
+                verticalLineToRelative(8.951f)
+                lineToRelative(-24.822f, -16.708f)
+                verticalLineToRelative(-8.95f)
+                lineToRelative(24.822f, 16.707f)
                 close()
             }
             path(
@@ -358,11 +358,11 @@ public val LatPulldown: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(258.41f, 189.403f)
-                lineTo(179.782f, 234.361f)
-                lineTo(155.408f, 218.432f)
-                lineTo(234.037f, 172.888f)
-                lineTo(258.41f, 189.403f)
+                moveTo(117.908f, 192.892f)
+                lineToRelative(-80.077f, 45.787f)
+                lineToRelative(-24.823f, -16.223f)
+                lineToRelative(80.077f, -46.383f)
+                lineToRelative(24.823f, 16.819f)
                 close()
             }
             path(
@@ -376,11 +376,11 @@ public val LatPulldown: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(227.321f, 181.824f)
-                lineTo(241.065f, 190.844f)
-                lineTo(183.148f, 224.392f)
-                lineTo(169.403f, 215.372f)
-                lineTo(227.321f, 181.824f)
+                moveTo(86.247f, 185.098f)
+                lineToRelative(14.118f, 9.266f)
+                lineToRelative(-59.109f, 34.238f)
+                lineToRelative(-14.118f, -9.266f)
+                lineToRelative(59.109f, -34.238f)
                 close()
             }
             path(
@@ -394,11 +394,11 @@ public val LatPulldown: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(247.727f, 184.325f)
-                verticalLineTo(191.029f)
-                lineTo(233.8f, 181.889f)
-                verticalLineTo(175.185f)
-                lineTo(247.727f, 184.325f)
+                moveTo(107.028f, 187.721f)
+                verticalLineToRelative(6.828f)
+                lineToRelative(-14.184f, -9.309f)
+                verticalLineToRelative(-6.827f)
+                lineToRelative(14.184f, 9.308f)
                 close()
             }
             path(
@@ -412,11 +412,11 @@ public val LatPulldown: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(247.747f, 184.325f)
-                lineTo(182.75f, 220.885f)
-                lineTo(168.532f, 211.745f)
-                lineTo(232.796f, 174.45f)
-                lineTo(247.747f, 184.325f)
+                moveTo(107.048f, 187.72f)
+                lineToRelative(-66.194f, 37.234f)
+                lineToRelative(-14.48f, -9.308f)
+                lineToRelative(65.448f, -37.983f)
+                lineToRelative(15.226f, 10.057f)
                 close()
             }
             path(
@@ -430,11 +430,11 @@ public val LatPulldown: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(194.937f, 202.604f)
-                verticalLineTo(65.9717f)
-                lineTo(200.523f, 62.8043f)
-                verticalLineTo(202.604f)
-                curveTo(198.492f, 205.651f, 195.445f, 204.128f, 194.937f, 202.604f)
+                moveTo(53.265f, 206.337f)
+                verticalLineTo(67.187f)
+                lineToRelative(5.689f, -3.226f)
+                verticalLineToRelative(142.376f)
+                curveToRelative(-2.069f, 3.103f, -5.172f, 1.551f, -5.689f, 0f)
                 close()
             }
             path(
@@ -448,11 +448,11 @@ public val LatPulldown: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(197.476f, 204.371f)
-                verticalLineTo(64.4881f)
-                lineTo(200.523f, 62.457f)
-                verticalLineTo(202.097f)
-                curveTo(200.523f, 203.722f, 198.492f, 204.371f, 197.476f, 204.371f)
+                moveTo(55.85f, 208.136f)
+                verticalLineTo(65.676f)
+                lineToRelative(3.104f, -2.068f)
+                verticalLineTo(205.82f)
+                curveToRelative(0f, 1.655f, -2.069f, 2.315f, -3.103f, 2.315f)
                 close()
             }
             path(
@@ -466,11 +466,11 @@ public val LatPulldown: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(219.311f, 188.388f)
-                verticalLineTo(52.0244f)
-                lineTo(224.896f, 48.998f)
-                verticalLineTo(188.388f)
-                curveTo(222.865f, 191.435f, 219.819f, 189.912f, 219.311f, 188.388f)
+                moveTo(78.088f, 191.859f)
+                verticalLineTo(52.983f)
+                lineToRelative(5.688f, -3.082f)
+                verticalLineToRelative(141.958f)
+                curveToRelative(-2.068f, 3.103f, -5.171f, 1.551f, -5.688f, 0f)
                 close()
             }
             path(
@@ -484,29 +484,17 @@ public val LatPulldown: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(221.85f, 190.152f)
-                verticalLineTo(50.6055f)
-                lineTo(224.896f, 48.7469f)
-                verticalLineTo(187.879f)
-                curveTo(224.896f, 189.503f, 222.865f, 190.152f, 221.85f, 190.152f)
+                moveTo(80.673f, 193.656f)
+                verticalLineTo(51.538f)
+                lineToRelative(3.103f, -1.893f)
+                verticalLineTo(191.34f)
+                curveToRelative(0f, 1.655f, -2.068f, 2.316f, -3.103f, 2.316f)
                 close()
-            }
-            path(
-                fill = SolidColor(Color(0xFFA0A0A0)),
-                fillAlpha = 1.0f,
-                stroke = null,
-                strokeAlpha = 1.0f,
-                strokeLineWidth = 1.0f,
-                strokeLineCap = StrokeCap.Butt,
-                strokeLineJoin = StrokeJoin.Miter,
-                strokeLineMiter = 1.0f,
-                pathFillType = PathFillType.NonZero
-            ) {
-                moveTo(169.04f, 299.592f)
-                verticalLineTo(81.0269f)
-                lineTo(157.361f, 87.3389f)
-                verticalLineTo(306.194f)
-                lineTo(169.04f, 299.592f)
+                moveTo(26.892f, 305.111f)
+                verticalLineTo(82.519f)
+                lineToRelative(-11.895f, 6.429f)
+                verticalLineToRelative(222.886f)
+                lineToRelative(11.895f, -6.723f)
                 close()
             }
             path(
@@ -520,11 +508,11 @@ public val LatPulldown: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(142.635f, 298.576f)
-                verticalLineTo(80.2296f)
-                lineTo(157.361f, 87.3385f)
-                verticalLineTo(306.193f)
-                lineTo(142.635f, 298.576f)
+                moveTo(0f, 304.076f)
+                verticalLineTo(81.707f)
+                lineToRelative(14.997f, 7.24f)
+                verticalLineToRelative(222.886f)
+                lineTo(0f, 304.076f)
                 close()
             }
             path(
@@ -538,11 +526,11 @@ public val LatPulldown: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(142.635f, 80.2298f)
-                verticalLineTo(65.5041f)
-                lineTo(157.361f, 73.6286f)
-                verticalLineTo(87.8465f)
-                lineTo(142.635f, 80.2298f)
+                moveTo(0f, 81.707f)
+                verticalLineTo(66.71f)
+                lineToRelative(14.997f, 8.275f)
+                verticalLineToRelative(14.48f)
+                lineTo(0f, 81.706f)
                 close()
             }
             path(
@@ -556,11 +544,11 @@ public val LatPulldown: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(157.361f, 87.8466f)
-                verticalLineTo(73.6286f)
-                lineTo(273.136f, 6.60138f)
-                verticalLineTo(21.8348f)
-                lineTo(157.361f, 87.8466f)
+                moveTo(14.997f, 89.465f)
+                verticalLineToRelative(-14.48f)
+                lineTo(132.905f, 6.723f)
+                verticalLineToRelative(15.514f)
+                lineTo(14.997f, 89.465f)
                 close()
             }
             path(
@@ -574,11 +562,11 @@ public val LatPulldown: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(157.361f, 73.5768f)
-                lineTo(142.635f, 65.4523f)
-                lineTo(258.918f, 0f)
-                lineTo(273.136f, 6.60117f)
-                lineTo(157.361f, 73.5768f)
+                moveTo(14.997f, 74.932f)
+                lineTo(0f, 66.658f)
+                lineTo(118.424f, 0f)
+                lineToRelative(14.48f, 6.723f)
+                lineToRelative(-117.907f, 68.21f)
                 close()
             }
             path(
@@ -592,11 +580,11 @@ public val LatPulldown: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(65.647f, 139.441f)
-                curveTo(65.8618f, 144.697f, 71.8666f, 144.691f, 71.8666f, 144.691f)
-                curveTo(71.8666f, 144.691f, 76.8689f, 144.644f, 76.6379f, 138.991f)
-                curveTo(76.4133f, 133.496f, 73.409f, 133.452f, 71.4379f, 134.2f)
-                curveTo(69.4395f, 134.282f, 65.4428f, 134.445f, 65.647f, 139.441f)
+                moveTo(173.151f, 84.21f)
+                curveToRelative(-0.179f, 4.394f, -5.198f, 4.389f, -5.198f, 4.389f)
+                reflectiveCurveToRelative(-4.181f, -0.04f, -3.988f, -4.764f)
+                curveToRelative(0.188f, -4.593f, 2.699f, -4.63f, 4.346f, -4.005f)
+                curveToRelative(1.67f, 0.068f, 5.011f, 0.205f, 4.84f, 4.38f)
                 close()
             }
             path(
@@ -604,17 +592,17 @@ public val LatPulldown: ImageVector
                 fillAlpha = 1.0f,
                 stroke = SolidColor(Color(0xFF717171)),
                 strokeAlpha = 1.0f,
-                strokeLineWidth = 0.2f,
+                strokeLineWidth = .2f,
                 strokeLineCap = StrokeCap.Butt,
                 strokeLineJoin = StrokeJoin.Miter,
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(65.6062f, 138.441f)
-                curveTo(65.821f, 143.698f, 71.8258f, 143.692f, 71.8258f, 143.692f)
-                curveTo(71.8258f, 143.692f, 76.8281f, 143.644f, 76.5971f, 137.992f)
-                curveTo(76.3725f, 132.497f, 73.3682f, 132.453f, 71.3971f, 133.201f)
-                curveTo(69.3987f, 133.282f, 65.4021f, 133.446f, 65.6062f, 138.441f)
+                moveTo(173.186f, 83.375f)
+                curveToRelative(-0.18f, 4.394f, -5.199f, 4.389f, -5.199f, 4.389f)
+                reflectiveCurveToRelative(-4.181f, -0.04f, -3.988f, -4.764f)
+                curveToRelative(0.188f, -4.593f, 2.699f, -4.63f, 4.346f, -4.005f)
+                curveToRelative(1.671f, 0.068f, 5.011f, 0.205f, 4.841f, 4.38f)
                 close()
             }
             path(
@@ -628,13 +616,13 @@ public val LatPulldown: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(76.0284f, 136.321f)
-                lineTo(75.8117f, 131.019f)
-                curveTo(75.8117f, 131.019f, 72.7711f, 129.141f, 70.7342f, 129.225f)
-                curveTo(68.6974f, 129.308f, 65.8201f, 131.427f, 65.8201f, 131.427f)
-                lineTo(66.0367f, 136.729f)
-                curveTo(66.1158f, 138.663f, 66.7688f, 142.397f, 70.7304f, 142.736f)
-                curveTo(76.2658f, 143.209f, 76.1338f, 138.899f, 76.0284f, 136.321f)
+                moveTo(164.475f, 81.603f)
+                lineToRelative(0.181f, -4.432f)
+                reflectiveCurveToRelative(2.541f, -1.569f, 4.244f, -1.5f)
+                curveToRelative(1.702f, 0.07f, 4.107f, 1.842f, 4.107f, 1.842f)
+                lineToRelative(-0.181f, 4.431f)
+                curveToRelative(-0.066f, 1.617f, -0.612f, 4.738f, -3.923f, 5.02f)
+                curveToRelative(-4.627f, 0.396f, -4.517f, -3.206f, -4.428f, -5.361f)
                 close()
             }
             path(
@@ -642,28 +630,28 @@ public val LatPulldown: ImageVector
                 fillAlpha = 1.0f,
                 stroke = SolidColor(Color(0xFF414040)),
                 strokeAlpha = 1.0f,
-                strokeLineWidth = 0.3f,
+                strokeLineWidth = .3f,
                 strokeLineCap = StrokeCap.Butt,
                 strokeLineJoin = StrokeJoin.Miter,
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(83.4197f, 179.637f)
-                curveTo(80.0664f, 177.201f, 74.198f, 161.327f, 73.5025f, 160.127f)
-                curveTo(72.807f, 158.928f, 73.2527f, 159.877f, 72.0026f, 159.627f)
-                curveTo(70.7526f, 159.377f, 69.5027f, 158.627f, 69.0027f, 159.127f)
-                curveTo(68.5027f, 159.627f, 60.8031f, 168.91f, 58.5691f, 170.5f)
-                curveTo(55.7974f, 172.472f, 54.7452f, 172.356f, 53.3323f, 172.408f)
-                lineTo(6.64362f, 163.016f)
-                curveTo(3.194f, 164.955f, 4.8328f, 167.232f, 6.0834f, 168.127f)
-                lineTo(54.0571f, 177.454f)
-                curveTo(58.1334f, 177.569f, 60.6391f, 175.692f, 61.3825f, 174.739f)
-                lineTo(71.1581f, 161.327f)
-                curveTo(72.0069f, 164.593f, 74.2346f, 172.506f, 76.3546f, 178.035f)
-                curveTo(78.4745f, 183.565f, 84.1354f, 186.061f, 86.7009f, 186.618f)
-                lineTo(128.523f, 200.739f)
-                curveTo(132.478f, 198.855f, 130.544f, 196.546f, 129.083f, 195.627f)
-                curveTo(129.083f, 195.627f, 86.773f, 182.074f, 83.4197f, 179.637f)
+                moveTo(158.297f, 117.808f)
+                curveToRelative(2.802f, -2.037f, 7.707f, -15.304f, 8.289f, -16.307f)
+                curveToRelative(0.581f, -1.003f, 0.208f, -0.209f, 1.253f, -0.418f)
+                reflectiveCurveToRelative(2.09f, -0.836f, 2.508f, -0.418f)
+                curveToRelative(0.418f, 0.418f, 6.853f, 8.177f, 8.72f, 9.505f)
+                curveToRelative(2.317f, 1.649f, 3.196f, 1.552f, 4.377f, 1.596f)
+                lineToRelative(28.854f, -10.265f)
+                curveToRelative(2.884f, 1.621f, 1.046f, 3.157f, 0f, 3.906f)
+                lineToRelative(-29.46f, 10.576f)
+                curveToRelative(-3.407f, 0.096f, -5.501f, -1.473f, -6.122f, -2.269f)
+                lineToRelative(-8.171f, -11.21f)
+                curveToRelative(-0.709f, 2.729f, -2.571f, 9.343f, -4.343f, 13.965f)
+                curveToRelative(-1.772f, 4.621f, -6.504f, 6.708f, -8.648f, 7.173f)
+                lineToRelative(-34.956f, 11.803f)
+                curveToRelative(-3.305f, -1.575f, -1.689f, -3.505f, -0.468f, -4.273f)
+                curveToRelative(0f, 0f, 35.364f, -11.328f, 38.167f, -13.364f)
                 close()
             }
             path(
@@ -677,23 +665,11 @@ public val LatPulldown: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(70.8196f, 159.5f)
-                curveTo(69.6529f, 158.666f, 67.623f, 156.6f, 70.423f, 155f)
-                curveTo(73.923f, 153f, 73.9231f, 159.5f, 70.9231f, 159.5f)
-            }
-            path(
-                fill = null,
-                fillAlpha = 1.0f,
-                stroke = SolidColor(Color(0xFF292828)),
-                strokeAlpha = 1.0f,
-                strokeLineWidth = 1.5f,
-                strokeLineCap = StrokeCap.Butt,
-                strokeLineJoin = StrokeJoin.Miter,
-                strokeLineMiter = 1.0f,
-                pathFillType = PathFillType.NonZero
-            ) {
-                moveTo(71.4229f, 155f)
-                verticalLineTo(144.5f)
+                moveTo(168.828f, 100.976f)
+                curveToRelative(0.975f, -0.696f, 2.672f, -2.424f, 0.332f, -3.761f)
+                curveToRelative(-2.926f, -1.672f, -2.926f, 3.761f, -0.418f, 3.761f)
+                moveTo(168.324f, 97.215f)
+                verticalLineToRelative(-8.776f)
             }
             path(
                 fill = SolidColor(Color(0xFF3C3C3C)),
@@ -706,11 +682,11 @@ public val LatPulldown: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(69.6232f, 138.778f)
-                curveTo(69.2726f, 139.993f, 70.5171f, 140.243f, 71.1832f, 140.215f)
-                curveTo(71.676f, 140.028f, 72.1538f, 139.475f, 72.1212f, 138.676f)
-                curveTo(72.1008f, 138.176f, 72.1008f, 138.176f, 71.5807f, 137.697f)
-                curveTo(71.3846f, 137.516f, 69.9739f, 137.563f, 69.6232f, 138.778f)
+                moveTo(169.828f, 83.656f)
+                curveToRelative(0.293f, 1.016f, -0.747f, 1.225f, -1.304f, 1.202f)
+                curveToRelative(-0.412f, -0.156f, -0.811f, -0.619f, -0.784f, -1.287f)
+                curveToRelative(0.017f, -0.417f, 0.017f, -0.417f, 0.452f, -0.818f)
+                curveToRelative(0.164f, -0.15f, 1.343f, -0.112f, 1.636f, 0.903f)
                 close()
             }
             path(
@@ -724,29 +700,11 @@ public val LatPulldown: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(143.636f, 254f)
-                lineTo(156.136f, 259f)
-                lineTo(51.7388f, 325f)
-                lineTo(41.7388f, 315f)
-                lineTo(143.636f, 254f)
-                close()
-            }
-            path(
-                fill = SolidColor(Color(0xFFA0A0A0)),
-                fillAlpha = 1.0f,
-                stroke = null,
-                strokeAlpha = 1.0f,
-                strokeLineWidth = 1.0f,
-                strokeLineCap = StrokeCap.Butt,
-                strokeLineJoin = StrokeJoin.Miter,
-                strokeLineMiter = 1.0f,
-                pathFillType = PathFillType.NonZero
-            ) {
-                moveTo(52.2388f, 337.5f)
-                verticalLineTo(324f)
-                lineTo(156.135f, 259f)
-                verticalLineTo(272f)
-                lineTo(52.2388f, 337.5f)
+                moveTo(180.955f, 64.776f)
+                lineTo(76.203f, 39.486f)
+                lineToRelative(-9.391f, 4.815f)
+                lineToRelative(106.505f, 25.567f)
+                lineToRelative(7.638f, -5.092f)
                 close()
             }
             path(
@@ -760,11 +718,47 @@ public val LatPulldown: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(42.2388f, 328.5f)
-                verticalLineTo(316f)
-                lineTo(52.2388f, 326f)
-                verticalLineTo(337.5f)
-                lineTo(42.2388f, 328.5f)
+                moveTo(67.321f, 58.05f)
+                verticalLineTo(44.302f)
+                lineToRelative(106.112f, 25.296f)
+                verticalLineToRelative(12.73f)
+                lineTo(67.321f, 58.05f)
+                close()
+            }
+            path(
+                fill = SolidColor(Color(0xFFBEBEBE)),
+                fillAlpha = 1.0f,
+                stroke = null,
+                strokeAlpha = 1.0f,
+                strokeLineWidth = 1.0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+                strokeLineMiter = 1.0f,
+                pathFillType = PathFillType.NonZero
+            ) {
+                moveTo(75.469f, 290.251f)
+                verticalLineTo(46.339f)
+                lineToRelative(12.22f, 3.055f)
+                verticalLineToRelative(245.949f)
+                lineToRelative(-12.22f, -5.092f)
+                close()
+            }
+            path(
+                fill = SolidColor(Color(0xFFA0A0A0)),
+                fillAlpha = 1.0f,
+                stroke = null,
+                strokeAlpha = 1.0f,
+                strokeLineWidth = 1.0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+                strokeLineMiter = 1.0f,
+                pathFillType = PathFillType.NonZero
+            ) {
+                moveTo(95.328f, 290.76f)
+                lineToRelative(-7.638f, 4.583f)
+                lineToRelative(-0.1f, -232.58f)
+                lineToRelative(8.111f, 1.595f)
+                lineToRelative(-0.373f, 226.402f)
                 close()
             }
             path(
@@ -778,11 +772,11 @@ public val LatPulldown: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(142.739f, 65.4999f)
-                lineTo(157.739f, 73.4999f)
-                lineTo(66.2388f, 130.377f)
-                lineTo(54.7388f, 120f)
-                lineTo(142.739f, 65.4999f)
+                moveTo(161.5f, 305.902f)
+                lineToRelative(-7.94f, 3.342f)
+                lineToRelative(41.186f, 17.562f)
+                lineToRelative(6.269f, -5.851f)
+                lineToRelative(-39.515f, -15.053f)
                 close()
             }
             path(
@@ -796,11 +790,29 @@ public val LatPulldown: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(66.2388f, 141.877f)
-                verticalLineTo(130.377f)
-                lineTo(158.239f, 72.9999f)
-                verticalLineTo(84.4999f)
-                lineTo(66.2388f, 141.877f)
+                moveTo(186.806f, 315.522f)
+                lineToRelative(0.836f, -25.91f)
+                lineToRelative(-7.105f, -2.925f)
+                lineToRelative(-0.835f, 34.15f)
+                lineToRelative(7.104f, -5.315f)
+                close()
+            }
+            path(
+                fill = SolidColor(Color(0xFFD9D9D9)),
+                fillAlpha = 1.0f,
+                stroke = null,
+                strokeAlpha = 1.0f,
+                strokeLineWidth = 1.0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+                strokeLineMiter = 1.0f,
+                pathFillType = PathFillType.NonZero
+            ) {
+                moveTo(95.701f, 236.537f)
+                lineToRelative(-7.94f, 3.343f)
+                lineToRelative(106.985f, 42.628f)
+                lineToRelative(6.269f, -5.851f)
+                lineToRelative(-105.314f, -40.12f)
                 close()
             }
             path(
@@ -814,11 +826,41 @@ public val LatPulldown: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(54.7388f, 131.5f)
-                verticalLineTo(120f)
-                lineTo(66.2388f, 130f)
-                verticalLineTo(141.5f)
-                lineTo(54.7388f, 131.5f)
+                moveTo(191.403f, 291.284f)
+                lineToRelative(0.418f, -9.762f)
+                lineToRelative(-104.896f, -42.068f)
+                verticalLineToRelative(10.866f)
+                lineToRelative(104.478f, 40.964f)
+                close()
+            }
+            path(
+                fill = SolidColor(Color(0xFFBEBEBE)),
+                fillAlpha = 1.0f,
+                stroke = null,
+                strokeAlpha = 1.0f,
+                strokeLineWidth = 1.0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+                strokeLineMiter = 1.0f,
+                pathFillType = PathFillType.NonZero
+            ) {
+                moveTo(191.403f, 282.09f)
+                lineToRelative(7.94f, -4.597f)
+                lineToRelative(-0.418f, 9.194f)
+                lineToRelative(-7.522f, 4.597f)
+                verticalLineToRelative(-9.194f)
+                close()
+                moveTo(194.328f, 336f)
+                verticalLineToRelative(-9.612f)
+                lineTo(153.5f, 309f)
+                verticalLineToRelative(10.866f)
+                lineTo(194.328f, 336f)
+                close()
+                moveTo(194.328f, 326.806f)
+                lineToRelative(6.687f, -5.851f)
+                lineToRelative(-0.418f, 9.194f)
+                lineToRelative(-6.269f, 5.851f)
+                verticalLineToRelative(-9.194f)
                 close()
             }
             path(
@@ -832,13 +874,13 @@ public val LatPulldown: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(35.1357f, 313.5f)
-                lineTo(35.1356f, 303.777f)
-                lineTo(97.6354f, 269.777f)
-                lineTo(121.635f, 281.277f)
-                lineTo(121.635f, 288.277f)
-                lineTo(55.6444f, 329.277f)
-                lineTo(35.1357f, 313.5f)
+                moveTo(208.939f, 278.688f)
+                verticalLineToRelative(-7.543f)
+                lineToRelative(-61.597f, -19.801f)
+                lineToRelative(-19.165f, 6.862f)
+                verticalLineToRelative(6.6f)
+                lineToRelative(62.068f, 23.783f)
+                lineToRelative(18.694f, -9.901f)
                 close()
             }
             path(
@@ -852,65 +894,17 @@ public val LatPulldown: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(120.135f, 288.277f)
-                verticalLineTo(282.277f)
-                lineTo(55.6355f, 320.777f)
-                verticalLineTo(328.777f)
-                lineTo(120.135f, 288.277f)
+                moveTo(128.716f, 263.702f)
+                verticalLineToRelative(-5.433f)
+                lineToRelative(61.433f, 21.917f)
+                verticalLineToRelative(7.754f)
+                lineToRelative(-61.433f, -24.238f)
                 close()
-            }
-            path(
-                fill = SolidColor(Color(0xFF2F2A2D)),
-                fillAlpha = 1.0f,
-                stroke = null,
-                strokeAlpha = 1.0f,
-                strokeLineWidth = 1.0f,
-                strokeLineCap = StrokeCap.Butt,
-                strokeLineJoin = StrokeJoin.Miter,
-                strokeLineMiter = 1.0f,
-                pathFillType = PathFillType.NonZero
-            ) {
-                moveTo(35.6355f, 313.5f)
-                verticalLineTo(306.277f)
-                lineTo(55.1355f, 320.777f)
-                verticalLineTo(328.277f)
-                lineTo(35.6355f, 313.5f)
-                close()
-            }
-            path(
-                fill = SolidColor(Color(0xFFD9D9D9)),
-                fillAlpha = 1.0f,
-                stroke = null,
-                strokeAlpha = 1.0f,
-                strokeLineWidth = 1.0f,
-                strokeLineCap = StrokeCap.Butt,
-                strokeLineJoin = StrokeJoin.Miter,
-                strokeLineMiter = 1.0f,
-                pathFillType = PathFillType.NonZero
-            ) {
-                moveTo(112.912f, 314.138f)
-                lineTo(124.256f, 318.516f)
-                lineTo(64.2228f, 358.29f)
-                lineTo(54.6709f, 350.14f)
-                lineTo(112.912f, 314.138f)
-                close()
-            }
-            path(
-                fill = SolidColor(Color(0xFFA0A0A0)),
-                fillAlpha = 1.0f,
-                stroke = null,
-                strokeAlpha = 1.0f,
-                strokeLineWidth = 1.0f,
-                strokeLineCap = StrokeCap.Butt,
-                strokeLineJoin = StrokeJoin.Miter,
-                strokeLineMiter = 1.0f,
-                pathFillType = PathFillType.NonZero
-            ) {
-                moveTo(64.3497f, 368.639f)
-                lineTo(64.2225f, 358.253f)
-                lineTo(124.256f, 318.516f)
-                lineTo(124.4f, 330.257f)
-                lineTo(64.3497f, 368.639f)
+                moveTo(208.537f, 278.328f)
+                verticalLineToRelative(-6.269f)
+                lineToRelative(-17.97f, 8.359f)
+                verticalLineToRelative(7.522f)
+                lineToRelative(17.97f, -9.612f)
                 close()
             }
             path(
@@ -924,82 +918,19 @@ public val LatPulldown: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(54.7649f, 360.467f)
-                lineTo(54.6709f, 350.14f)
-                lineTo(64.2204f, 358.093f)
-                lineTo(64.3531f, 368.931f)
-                lineTo(54.7649f, 360.467f)
+                moveTo(173.851f, 283.343f)
+                lineToRelative(6.686f, 2.926f)
+                lineToRelative(-0.835f, 37.612f)
+                lineToRelative(-6.687f, -4.18f)
+                lineToRelative(0.836f, -36.358f)
                 close()
-            }
-            path(
-                fill = SolidColor(Color(0xFFBEBEBE)),
-                fillAlpha = 1.0f,
-                stroke = null,
-                strokeAlpha = 1.0f,
-                strokeLineWidth = 1.0f,
-                strokeLineCap = StrokeCap.Butt,
-                strokeLineJoin = StrokeJoin.Miter,
-                strokeLineMiter = 1.0f,
-                pathFillType = PathFillType.NonZero
-            ) {
-                moveTo(70.1709f, 341.64f)
-                verticalLineTo(324.64f)
-                lineTo(78.6709f, 319.14f)
-                verticalLineTo(347.998f)
-                lineTo(70.1709f, 341.64f)
-                close()
-            }
-            path(
-                fill = SolidColor(Color(0xFFA0A0A0)),
-                fillAlpha = 1.0f,
-                stroke = null,
-                strokeAlpha = 1.0f,
-                strokeLineWidth = 1.0f,
-                strokeLineCap = StrokeCap.Butt,
-                strokeLineJoin = StrokeJoin.Miter,
-                strokeLineMiter = 1.0f,
-                pathFillType = PathFillType.NonZero
-            ) {
-                moveTo(85.1709f, 314.64f)
-                lineTo(78.6709f, 319.14f)
-                verticalLineTo(348.14f)
-                lineTo(85.6709f, 343.14f)
-                lineTo(85.1709f, 314.64f)
-                close()
-            }
-            path(
-                fill = SolidColor(Color(0xFF171717)),
-                fillAlpha = 1.0f,
-                stroke = null,
-                strokeAlpha = 1.0f,
-                strokeLineWidth = 1.0f,
-                strokeLineCap = StrokeCap.Butt,
-                strokeLineJoin = StrokeJoin.Miter,
-                strokeLineMiter = 1.0f,
-                pathFillType = PathFillType.NonZero
-            ) {
-                moveTo(132.635f, 237.5f)
-                curveTo(132.635f, 236.833f, 132.935f, 235.7f, 134.135f, 236.5f)
-                curveTo(135.635f, 237.5f, 134.135f, 238.5f, 132.635f, 237.5f)
-                close()
-            }
-            path(
-                fill = SolidColor(Color(0xFF171717)),
-                fillAlpha = 1.0f,
-                stroke = null,
-                strokeAlpha = 1.0f,
-                strokeLineWidth = 1.0f,
-                strokeLineCap = StrokeCap.Butt,
-                strokeLineJoin = StrokeJoin.Miter,
-                strokeLineMiter = 1.0f,
-                pathFillType = PathFillType.NonZero
-            ) {
-                moveTo(117.635f, 226.275f)
-                curveTo(117.635f, 225.608f, 117.935f, 224.475f, 119.135f, 225.275f)
-                curveTo(120.635f, 226.275f, 119.135f, 227.275f, 117.635f, 226.275f)
+                moveTo(173.015f, 69.791f)
+                lineToRelative(0.418f, 12.537f)
+                lineToRelative(7.522f, -5.85f)
+                verticalLineTo(64.776f)
+                lineToRelative(-7.94f, 5.015f)
                 close()
             }
         }.build()
-        return _LatPulldown!!
+        return _LatPulldownUpd!!
     }
-

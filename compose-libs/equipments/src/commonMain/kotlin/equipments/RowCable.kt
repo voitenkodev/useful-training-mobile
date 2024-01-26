@@ -18,10 +18,10 @@ public val RowCable: ImageVector
         }
         _RowCable = ImageVector.Builder(
             name = "RowCable",
-            defaultWidth = 283.dp,
-            defaultHeight = 398.dp,
-            viewportWidth = 283f,
-            viewportHeight = 398f
+            defaultWidth = 241.dp,
+            defaultHeight = 346.dp,
+            viewportWidth = 241f,
+            viewportHeight = 346f
         ).apply {
             path(
                 fill = SolidColor(Color(0xFFBEBEBE)),
@@ -34,11 +34,11 @@ public val RowCable: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(152.397f, 312.793f)
-                verticalLineTo(298.068f)
-                lineTo(167.122f, 306.192f)
-                verticalLineTo(320.41f)
-                lineTo(152.397f, 312.793f)
+                moveTo(0f, 323.386f)
+                verticalLineToRelative(-15.225f)
+                lineToRelative(15.224f, 8.4f)
+                verticalLineToRelative(14.699f)
+                lineTo(0f, 323.386f)
                 close()
             }
             path(
@@ -52,11 +52,11 @@ public val RowCable: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(167.123f, 320.411f)
-                verticalLineTo(306.193f)
-                lineTo(282.897f, 239.165f)
-                verticalLineTo(252.875f)
-                lineTo(167.123f, 320.411f)
+                moveTo(15.225f, 331.261f)
+                verticalLineToRelative(-14.699f)
+                lineToRelative(119.695f, -69.298f)
+                verticalLineToRelative(14.175f)
+                lineTo(15.225f, 331.261f)
                 close()
             }
             path(
@@ -70,11 +70,11 @@ public val RowCable: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(167.122f, 306.141f)
-                lineTo(152.397f, 298.016f)
-                lineTo(269.694f, 230.533f)
-                lineTo(282.897f, 239.165f)
-                lineTo(167.122f, 306.141f)
+                moveTo(15.224f, 316.509f)
+                lineTo(0f, 308.109f)
+                lineToRelative(121.27f, -69.769f)
+                lineToRelative(13.65f, 8.925f)
+                lineToRelative(-119.696f, 69.244f)
                 close()
             }
             path(
@@ -88,11 +88,11 @@ public val RowCable: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(282.897f, 239.166f)
-                verticalLineTo(20.3114f)
-                lineTo(270.711f, 27.4204f)
-                verticalLineTo(246.275f)
-                lineTo(282.897f, 239.166f)
+                moveTo(134.92f, 247.265f)
+                verticalLineTo(20.999f)
+                lineToRelative(-12.599f, 7.35f)
+                verticalLineToRelative(226.266f)
+                lineToRelative(12.599f, -7.35f)
                 close()
             }
             path(
@@ -106,11 +106,11 @@ public val RowCable: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(259.031f, 236.627f)
-                verticalLineTo(33.0062f)
-                lineTo(270.71f, 26.9128f)
-                verticalLineTo(246.783f)
-                lineTo(259.031f, 236.627f)
+                moveTo(110.246f, 244.64f)
+                verticalLineTo(34.124f)
+                lineToRelative(12.074f, -6.3f)
+                verticalLineTo(255.14f)
+                lineToRelative(-12.074f, -10.5f)
                 close()
             }
             path(
@@ -124,11 +124,11 @@ public val RowCable: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(245.697f, 233.201f)
-                lineTo(270.713f, 249.617f)
-                lineTo(185.533f, 298.956f)
-                lineTo(160.518f, 282.54f)
-                lineTo(245.697f, 233.201f)
+                moveTo(96.465f, 240.939f)
+                lineToRelative(26.116f, 17.139f)
+                lineToRelative(-88.327f, 51.161f)
+                lineTo(8.14f, 292.101f)
+                lineToRelative(88.326f, -51.162f)
                 close()
             }
             path(
@@ -142,11 +142,11 @@ public val RowCable: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(278.327f, 240.689f)
-                verticalLineTo(249.829f)
-                lineTo(245.829f, 228.502f)
-                verticalLineTo(219.362f)
-                lineTo(278.327f, 240.689f)
+                moveTo(130.195f, 248.84f)
+                verticalLineToRelative(9.45f)
+                lineToRelative(-33.6f, -22.049f)
+                verticalLineToRelative(-9.45f)
+                lineToRelative(33.6f, 22.049f)
                 close()
             }
             path(
@@ -160,11 +160,11 @@ public val RowCable: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(245.697f, 222.029f)
-                lineTo(270.713f, 238.445f)
-                lineTo(185.533f, 287.784f)
-                lineTo(160.518f, 271.368f)
-                lineTo(245.697f, 222.029f)
+                moveTo(96.465f, 229.389f)
+                lineToRelative(26.116f, 17.139f)
+                lineToRelative(-88.327f, 51.161f)
+                lineTo(8.14f, 280.551f)
+                lineToRelative(88.326f, -51.162f)
                 close()
             }
             path(
@@ -178,11 +178,11 @@ public val RowCable: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(278.327f, 229.517f)
-                verticalLineTo(238.657f)
-                lineTo(245.829f, 217.331f)
-                verticalLineTo(208.19f)
-                lineTo(278.327f, 229.517f)
+                moveTo(130.195f, 237.29f)
+                verticalLineToRelative(9.45f)
+                lineToRelative(-33.6f, -22.049f)
+                verticalLineToRelative(-9.45f)
+                lineToRelative(33.6f, 22.049f)
                 close()
             }
             path(
@@ -196,11 +196,11 @@ public val RowCable: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(245.697f, 210.858f)
-                lineTo(270.713f, 227.274f)
-                lineTo(185.533f, 276.613f)
-                lineTo(160.518f, 260.197f)
-                lineTo(245.697f, 210.858f)
+                moveTo(96.465f, 217.84f)
+                lineToRelative(26.116f, 17.138f)
+                lineToRelative(-88.327f, 51.162f)
+                lineTo(8.14f, 269.002f)
+                lineToRelative(88.326f, -51.162f)
                 close()
             }
             path(
@@ -214,11 +214,11 @@ public val RowCable: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(278.327f, 218.347f)
-                verticalLineTo(227.487f)
-                lineTo(245.829f, 206.16f)
-                verticalLineTo(197.02f)
-                lineTo(278.327f, 218.347f)
+                moveTo(130.195f, 225.741f)
+                verticalLineToRelative(9.45f)
+                lineToRelative(-33.6f, -22.049f)
+                verticalLineToRelative(-9.45f)
+                lineToRelative(33.6f, 22.049f)
                 close()
             }
             path(
@@ -232,11 +232,11 @@ public val RowCable: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(245.697f, 199.687f)
-                lineTo(270.713f, 216.104f)
-                lineTo(185.533f, 265.442f)
-                lineTo(160.518f, 249.026f)
-                lineTo(245.697f, 199.687f)
+                moveTo(96.465f, 206.291f)
+                lineToRelative(26.116f, 17.138f)
+                lineToRelative(-88.327f, 51.162f)
+                lineTo(8.14f, 257.452f)
+                lineToRelative(88.326f, -51.161f)
                 close()
             }
             path(
@@ -250,11 +250,11 @@ public val RowCable: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(278.327f, 207.176f)
-                verticalLineTo(216.316f)
-                lineTo(245.829f, 194.989f)
-                verticalLineTo(185.849f)
-                lineTo(278.327f, 207.176f)
+                moveTo(130.195f, 214.192f)
+                verticalLineToRelative(9.449f)
+                lineToRelative(-33.6f, -22.049f)
+                verticalLineToRelative(-9.45f)
+                lineToRelative(33.6f, 22.05f)
                 close()
             }
             path(
@@ -268,11 +268,11 @@ public val RowCable: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(245.697f, 188.516f)
-                lineTo(270.713f, 204.932f)
-                lineTo(185.533f, 254.271f)
-                lineTo(160.518f, 237.855f)
-                lineTo(245.697f, 188.516f)
+                moveTo(96.465f, 194.741f)
+                lineToRelative(26.116f, 17.138f)
+                lineToRelative(-88.327f, 51.162f)
+                lineTo(8.14f, 245.902f)
+                lineToRelative(88.326f, -51.161f)
                 close()
             }
             path(
@@ -286,11 +286,11 @@ public val RowCable: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(278.327f, 196.005f)
-                verticalLineTo(205.145f)
-                lineTo(245.829f, 183.818f)
-                verticalLineTo(174.678f)
-                lineTo(278.327f, 196.005f)
+                moveTo(130.195f, 202.642f)
+                verticalLineToRelative(9.45f)
+                lineToRelative(-33.6f, -22.049f)
+                verticalLineToRelative(-9.45f)
+                lineToRelative(33.6f, 22.049f)
                 close()
             }
             path(
@@ -304,11 +304,11 @@ public val RowCable: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(278.327f, 196.005f)
-                lineTo(185.403f, 249.83f)
-                lineTo(152.905f, 228.503f)
-                lineTo(245.829f, 174.678f)
-                lineTo(278.327f, 196.005f)
+                moveTo(130.195f, 202.642f)
+                lineTo(34.124f, 258.29f)
+                lineToRelative(-33.6f, -22.049f)
+                lineToRelative(96.072f, -55.648f)
+                lineToRelative(33.599f, 22.049f)
                 close()
             }
             path(
@@ -322,11 +322,11 @@ public val RowCable: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(240.542f, 184.844f)
-                lineTo(260.557f, 197.979f)
-                lineTo(189.674f, 239.037f)
-                lineTo(169.658f, 225.902f)
-                lineTo(240.542f, 184.844f)
+                moveTo(91.135f, 190.945f)
+                lineToRelative(20.946f, 13.746f)
+                lineToRelative(-73.546f, 42.601f)
+                lineToRelative(-20.946f, -13.747f)
+                lineToRelative(73.546f, -42.6f)
                 close()
             }
             path(
@@ -340,11 +340,11 @@ public val RowCable: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(268.171f, 189.403f)
-                verticalLineTo(198.191f)
-                lineTo(243.798f, 181.786f)
-                verticalLineTo(172.998f)
-                lineTo(268.171f, 189.403f)
+                moveTo(119.695f, 195.817f)
+                verticalLineToRelative(9.086f)
+                lineToRelative(-25.199f, -16.96f)
+                verticalLineToRelative(-9.086f)
+                lineToRelative(25.199f, 16.96f)
                 close()
             }
             path(
@@ -358,11 +358,11 @@ public val RowCable: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(268.171f, 189.403f)
-                lineTo(189.543f, 234.361f)
-                lineTo(165.17f, 218.432f)
-                lineTo(243.798f, 172.888f)
-                lineTo(268.171f, 189.403f)
+                moveTo(119.696f, 195.817f)
+                lineToRelative(-81.291f, 46.481f)
+                lineToRelative(-25.2f, -16.469f)
+                lineToRelative(81.291f, -47.086f)
+                lineToRelative(25.2f, 17.074f)
                 close()
             }
             path(
@@ -376,11 +376,11 @@ public val RowCable: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(237.082f, 181.824f)
-                lineTo(250.826f, 190.844f)
-                lineTo(192.909f, 224.392f)
-                lineTo(179.165f, 215.372f)
-                lineTo(237.082f, 181.824f)
+                moveTo(87.557f, 187.842f)
+                lineToRelative(14.431f, 9.471f)
+                lineTo(41.88f, 232.13f)
+                lineToRelative(-14.431f, -9.471f)
+                lineToRelative(60.108f, -34.817f)
                 close()
             }
             path(
@@ -394,11 +394,11 @@ public val RowCable: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(257.489f, 184.325f)
-                verticalLineTo(191.029f)
-                lineTo(243.561f, 181.889f)
-                verticalLineTo(175.185f)
-                lineTo(257.489f, 184.325f)
+                moveTo(108.651f, 190.567f)
+                verticalLineToRelative(6.932f)
+                lineToRelative(-14.399f, -9.45f)
+                verticalLineToRelative(-6.931f)
+                lineToRelative(14.399f, 9.449f)
                 close()
             }
             path(
@@ -412,11 +412,11 @@ public val RowCable: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(257.508f, 184.325f)
-                lineTo(192.511f, 220.885f)
-                lineTo(178.293f, 211.745f)
-                lineTo(242.558f, 174.45f)
-                lineTo(257.508f, 184.325f)
+                moveTo(108.671f, 190.567f)
+                lineToRelative(-67.198f, 37.798f)
+                lineToRelative(-14.7f, -9.449f)
+                lineToRelative(66.441f, -38.559f)
+                lineToRelative(15.457f, 10.21f)
                 close()
             }
             path(
@@ -430,11 +430,11 @@ public val RowCable: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(204.698f, 202.604f)
-                verticalLineTo(65.9717f)
-                lineTo(210.284f, 62.8043f)
-                verticalLineTo(202.604f)
-                curveTo(208.253f, 205.651f, 205.206f, 204.128f, 204.698f, 202.604f)
+                moveTo(54.073f, 209.466f)
+                verticalLineTo(68.206f)
+                lineToRelative(5.774f, -3.274f)
+                verticalLineToRelative(144.534f)
+                curveToRelative(-2.1f, 3.15f, -5.25f, 1.575f, -5.774f, 0f)
                 close()
             }
             path(
@@ -448,11 +448,11 @@ public val RowCable: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(207.237f, 204.371f)
-                verticalLineTo(64.4881f)
-                lineTo(210.284f, 62.457f)
-                verticalLineTo(202.097f)
-                curveTo(210.284f, 203.722f, 208.253f, 204.371f, 207.237f, 204.371f)
+                moveTo(56.698f, 211.293f)
+                verticalLineTo(66.673f)
+                lineToRelative(3.15f, -2.1f)
+                verticalLineToRelative(144.369f)
+                curveToRelative(0f, 1.68f, -2.1f, 2.351f, -3.15f, 2.351f)
                 close()
             }
             path(
@@ -466,11 +466,11 @@ public val RowCable: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(229.072f, 188.388f)
-                verticalLineTo(52.0244f)
-                lineTo(234.658f, 48.998f)
-                verticalLineTo(188.388f)
-                curveTo(232.626f, 191.435f, 229.58f, 189.912f, 229.072f, 188.388f)
+                moveTo(79.272f, 194.768f)
+                verticalLineTo(53.787f)
+                lineToRelative(5.774f, -3.13f)
+                verticalLineToRelative(144.111f)
+                curveToRelative(-2.1f, 3.15f, -5.25f, 1.575f, -5.774f, 0f)
                 close()
             }
             path(
@@ -484,29 +484,17 @@ public val RowCable: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(231.611f, 190.152f)
-                verticalLineTo(50.6055f)
-                lineTo(234.658f, 48.7469f)
-                verticalLineTo(187.879f)
-                curveTo(234.658f, 189.503f, 232.626f, 190.152f, 231.611f, 190.152f)
+                moveTo(81.897f, 196.592f)
+                verticalLineTo(52.319f)
+                lineToRelative(3.15f, -1.921f)
+                verticalLineToRelative(143.843f)
+                curveToRelative(0f, 1.68f, -2.1f, 2.351f, -3.15f, 2.351f)
                 close()
-            }
-            path(
-                fill = SolidColor(Color(0xFFA0A0A0)),
-                fillAlpha = 1.0f,
-                stroke = null,
-                strokeAlpha = 1.0f,
-                strokeLineWidth = 1.0f,
-                strokeLineCap = StrokeCap.Butt,
-                strokeLineJoin = StrokeJoin.Miter,
-                strokeLineMiter = 1.0f,
-                pathFillType = PathFillType.NonZero
-            ) {
-                moveTo(178.802f, 299.592f)
-                verticalLineTo(81.0269f)
-                lineTo(167.123f, 87.3389f)
-                verticalLineTo(306.194f)
-                lineTo(178.802f, 299.592f)
+                moveTo(27.3f, 309.738f)
+                verticalLineTo(83.771f)
+                lineToRelative(-12.075f, 6.525f)
+                verticalLineToRelative(226.267f)
+                lineToRelative(12.074f, -6.825f)
                 close()
             }
             path(
@@ -520,11 +508,11 @@ public val RowCable: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(152.397f, 298.576f)
-                verticalLineTo(80.2296f)
-                lineTo(167.122f, 87.3385f)
-                verticalLineTo(306.193f)
-                lineTo(152.397f, 298.576f)
+                moveTo(0f, 308.687f)
+                verticalLineTo(82.947f)
+                lineToRelative(15.224f, 7.35f)
+                verticalLineToRelative(226.265f)
+                lineTo(0f, 308.687f)
                 close()
             }
             path(
@@ -538,11 +526,11 @@ public val RowCable: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(152.397f, 80.2298f)
-                verticalLineTo(65.5041f)
-                lineTo(167.122f, 73.6286f)
-                verticalLineTo(87.8465f)
-                lineTo(152.397f, 80.2298f)
+                moveTo(0f, 82.946f)
+                verticalLineTo(67.722f)
+                lineToRelative(15.224f, 8.4f)
+                verticalLineToRelative(14.7f)
+                lineTo(0f, 82.945f)
                 close()
             }
             path(
@@ -556,11 +544,11 @@ public val RowCable: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(167.123f, 87.8466f)
-                verticalLineTo(73.6286f)
-                lineTo(282.897f, 6.60138f)
-                verticalLineTo(21.8348f)
-                lineTo(167.123f, 87.8466f)
+                moveTo(15.225f, 90.822f)
+                verticalLineToRelative(-14.7f)
+                lineTo(134.92f, 6.825f)
+                verticalLineToRelative(15.75f)
+                lineTo(15.225f, 90.82f)
                 close()
             }
             path(
@@ -574,29 +562,11 @@ public val RowCable: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(167.122f, 73.5768f)
-                lineTo(152.397f, 65.4523f)
-                lineTo(268.679f, 0f)
-                lineTo(282.897f, 6.60117f)
-                lineTo(167.122f, 73.5768f)
-                close()
-            }
-            path(
-                fill = SolidColor(Color(0xFF717171)),
-                fillAlpha = 1.0f,
-                stroke = SolidColor(Color(0xFF7A7979)),
-                strokeAlpha = 1.0f,
-                strokeLineWidth = 1.0f,
-                strokeLineCap = StrokeCap.Butt,
-                strokeLineJoin = StrokeJoin.Miter,
-                strokeLineMiter = 1.0f,
-                pathFillType = PathFillType.NonZero
-            ) {
-                moveTo(111.111f, 290.476f)
-                lineTo(117.897f, 267f)
-                lineTo(95.8967f, 261f)
-                lineTo(92.3967f, 279f)
-                lineTo(111.111f, 290.476f)
+                moveTo(15.224f, 76.069f)
+                lineTo(0f, 67.669f)
+                lineTo(120.22f, 0f)
+                lineToRelative(14.7f, 6.825f)
+                lineTo(15.224f, 76.069f)
                 close()
             }
             path(
@@ -610,29 +580,11 @@ public val RowCable: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(153.397f, 254f)
-                lineTo(165.897f, 259f)
-                lineTo(19.3967f, 353.5f)
-                lineTo(9.39673f, 343.5f)
-                lineTo(153.397f, 254f)
-                close()
-            }
-            path(
-                fill = SolidColor(Color(0xFFA0A0A0)),
-                fillAlpha = 1.0f,
-                stroke = null,
-                strokeAlpha = 1.0f,
-                strokeLineWidth = 1.0f,
-                strokeLineCap = StrokeCap.Butt,
-                strokeLineJoin = StrokeJoin.Miter,
-                strokeLineMiter = 1.0f,
-                pathFillType = PathFillType.NonZero
-            ) {
-                moveTo(19.3967f, 365f)
-                verticalLineTo(353.5f)
-                lineTo(165.897f, 259f)
-                verticalLineTo(272f)
-                lineTo(19.3967f, 365f)
+                moveTo(97.078f, 44.973f)
+                lineTo(77.36f, 40.085f)
+                lineToRelative(-9.534f, 4.888f)
+                lineToRelative(20.971f, 4.716f)
+                lineToRelative(8.282f, -4.716f)
                 close()
             }
             path(
@@ -646,35 +598,17 @@ public val RowCable: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(9.39673f, 356f)
-                verticalLineTo(343.5f)
-                lineTo(19.3967f, 353.5f)
-                verticalLineTo(365f)
-                lineTo(9.39673f, 356f)
+                moveTo(68.342f, 58.93f)
+                verticalLineTo(44.973f)
+                lineToRelative(8.393f, 2.144f)
+                verticalLineTo(60.04f)
+                lineToRelative(-8.393f, -1.11f)
                 close()
             }
             path(
-                fill = SolidColor(Color(0xFFA0A0A0)),
+                fill = SolidColor(Color(0xFFBEBEBE)),
                 fillAlpha = 1.0f,
-                stroke = SolidColor(Color(0xFF717171)),
-                strokeAlpha = 1.0f,
-                strokeLineWidth = 0.2f,
-                strokeLineCap = StrokeCap.Butt,
-                strokeLineJoin = StrokeJoin.Miter,
-                strokeLineMiter = 1.0f,
-                pathFillType = PathFillType.NonZero
-            ) {
-                moveTo(131.397f, 277.5f)
-                lineTo(116.897f, 272.5f)
-                lineTo(114.397f, 277.5f)
-                lineTo(129.397f, 282.5f)
-                lineTo(131.397f, 277.5f)
-                close()
-            }
-            path(
-                fill = SolidColor(Color(0xFF717171)),
-                fillAlpha = 1.0f,
-                stroke = SolidColor(Color(0xFF7A7979)),
+                stroke = null,
                 strokeAlpha = 1.0f,
                 strokeLineWidth = 1.0f,
                 strokeLineCap = StrokeCap.Butt,
@@ -682,11 +616,29 @@ public val RowCable: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(149.897f, 306.5f)
-                lineTo(156.897f, 284f)
-                lineTo(133.897f, 272f)
-                lineTo(125.397f, 295f)
-                lineTo(149.897f, 306.5f)
+                moveTo(76.613f, 294.652f)
+                verticalLineTo(47.042f)
+                lineToRelative(12.406f, 2.647f)
+                verticalLineToRelative(250.133f)
+                lineToRelative(-12.406f, -5.17f)
+                close()
+            }
+            path(
+                fill = SolidColor(Color(0xFFA0A0A0)),
+                fillAlpha = 1.0f,
+                stroke = null,
+                strokeAlpha = 1.0f,
+                strokeLineWidth = 1.0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+                strokeLineMiter = 1.0f,
+                pathFillType = PathFillType.NonZero
+            ) {
+                moveTo(96.773f, 295.169f)
+                lineToRelative(-7.754f, 4.652f)
+                curveToRelative(-0.041f, -97.505f, -0.18f, -152.626f, -0.223f, -250.132f)
+                lineToRelative(7.87f, -4.716f)
+                lineToRelative(0.107f, 250.196f)
                 close()
             }
             path(
@@ -700,159 +652,13 @@ public val RowCable: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(163.397f, 201f)
-                lineTo(154.397f, 198.5f)
-                lineTo(134.897f, 215f)
-                lineTo(126.397f, 241.5f)
-                lineTo(168.397f, 257f)
-                lineTo(175.397f, 227f)
-                lineTo(163.397f, 201f)
-                close()
-            }
-            path(
-                fill = SolidColor(Color(0xFF393337)),
-                fillAlpha = 1.0f,
-                stroke = null,
-                strokeAlpha = 1.0f,
-                strokeLineWidth = 1.0f,
-                strokeLineCap = StrokeCap.Butt,
-                strokeLineJoin = StrokeJoin.Miter,
-                strokeLineMiter = 1.0f,
-                pathFillType = PathFillType.NonZero
-            ) {
-                moveTo(2.89697f, 341.277f)
-                lineTo(2.89693f, 332.777f)
-                lineTo(65.3967f, 298.777f)
-                lineTo(89.3967f, 310.277f)
-                lineTo(89.3967f, 317.277f)
-                lineTo(23.4057f, 358.277f)
-                lineTo(2.89697f, 341.277f)
-                close()
-            }
-            path(
-                fill = SolidColor(Color(0xFF2F2A2D)),
-                fillAlpha = 1.0f,
-                stroke = null,
-                strokeAlpha = 1.0f,
-                strokeLineWidth = 1.0f,
-                strokeLineCap = StrokeCap.Butt,
-                strokeLineJoin = StrokeJoin.Miter,
-                strokeLineMiter = 1.0f,
-                pathFillType = PathFillType.NonZero
-            ) {
-                moveTo(87.5f, 317.277f)
-                verticalLineTo(311.277f)
-                lineTo(23f, 348.5f)
-                verticalLineTo(357.777f)
-                lineTo(87.5f, 317.277f)
-                close()
-            }
-            path(
-                fill = SolidColor(Color(0xFF2F2A2D)),
-                fillAlpha = 1.0f,
-                stroke = null,
-                strokeAlpha = 1.0f,
-                strokeLineWidth = 1.0f,
-                strokeLineCap = StrokeCap.Butt,
-                strokeLineJoin = StrokeJoin.Miter,
-                strokeLineMiter = 1.0f,
-                pathFillType = PathFillType.NonZero
-            ) {
-                moveTo(3f, 340.278f)
-                verticalLineTo(334.278f)
-                lineTo(22.5f, 348f)
-                verticalLineTo(356.278f)
-                lineTo(3f, 340.278f)
-                close()
-            }
-            path(
-                fill = SolidColor(Color(0xFFD9D9D9)),
-                fillAlpha = 1.0f,
-                stroke = null,
-                strokeAlpha = 1.0f,
-                strokeLineWidth = 1.0f,
-                strokeLineCap = StrokeCap.Butt,
-                strokeLineJoin = StrokeJoin.Miter,
-                strokeLineMiter = 1.0f,
-                pathFillType = PathFillType.NonZero
-            ) {
-                moveTo(81.1371f, 342.499f)
-                lineTo(92.4819f, 346.876f)
-                lineTo(32.4484f, 386.65f)
-                lineTo(22.8965f, 378.5f)
-                lineTo(81.1371f, 342.499f)
-                close()
-            }
-            path(
-                fill = SolidColor(Color(0xFFA0A0A0)),
-                fillAlpha = 1.0f,
-                stroke = null,
-                strokeAlpha = 1.0f,
-                strokeLineWidth = 1.0f,
-                strokeLineCap = StrokeCap.Butt,
-                strokeLineJoin = StrokeJoin.Miter,
-                strokeLineMiter = 1.0f,
-                pathFillType = PathFillType.NonZero
-            ) {
-                moveTo(32.5753f, 397f)
-                lineTo(32.4481f, 386.614f)
-                lineTo(92.482f, 346.876f)
-                lineTo(92.6258f, 358.617f)
-                lineTo(32.5753f, 397f)
-                close()
-            }
-            path(
-                fill = SolidColor(Color(0xFFBEBEBE)),
-                fillAlpha = 1.0f,
-                stroke = null,
-                strokeAlpha = 1.0f,
-                strokeLineWidth = 1.0f,
-                strokeLineCap = StrokeCap.Butt,
-                strokeLineJoin = StrokeJoin.Miter,
-                strokeLineMiter = 1.0f,
-                pathFillType = PathFillType.NonZero
-            ) {
-                moveTo(22.9905f, 388.827f)
-                lineTo(22.8965f, 378.5f)
-                lineTo(32.446f, 386.453f)
-                lineTo(32.5787f, 397.291f)
-                lineTo(22.9905f, 388.827f)
-                close()
-            }
-            path(
-                fill = SolidColor(Color(0xFFBEBEBE)),
-                fillAlpha = 1.0f,
-                stroke = null,
-                strokeAlpha = 1.0f,
-                strokeLineWidth = 1.0f,
-                strokeLineCap = StrokeCap.Butt,
-                strokeLineJoin = StrokeJoin.Miter,
-                strokeLineMiter = 1.0f,
-                pathFillType = PathFillType.NonZero
-            ) {
-                moveTo(38.3967f, 370f)
-                verticalLineTo(353f)
-                lineTo(46.8967f, 347.5f)
-                verticalLineTo(376.358f)
-                lineTo(38.3967f, 370f)
-                close()
-            }
-            path(
-                fill = SolidColor(Color(0xFFA0A0A0)),
-                fillAlpha = 1.0f,
-                stroke = null,
-                strokeAlpha = 1.0f,
-                strokeLineWidth = 1.0f,
-                strokeLineCap = StrokeCap.Butt,
-                strokeLineJoin = StrokeJoin.Miter,
-                strokeLineMiter = 1.0f,
-                pathFillType = PathFillType.NonZero
-            ) {
-                moveTo(53.3967f, 343f)
-                lineTo(46.8967f, 347.5f)
-                verticalLineTo(376.5f)
-                lineTo(53.8967f, 371.5f)
-                lineTo(53.3967f, 343f)
+                moveTo(90.789f, 191.76f)
+                lineToRelative(7.636f, -2.122f)
+                lineToRelative(16.546f, 14f)
+                lineToRelative(7.212f, 22.486f)
+                lineToRelative(-35.636f, 13.151f)
+                lineToRelative(-5.94f, -25.455f)
+                lineToRelative(10.182f, -22.06f)
                 close()
             }
             path(
@@ -860,28 +666,28 @@ public val RowCable: ImageVector
                 fillAlpha = 1.0f,
                 stroke = SolidColor(Color(0xFF3E3E3E)),
                 strokeAlpha = 1.0f,
-                strokeLineWidth = 0.3f,
+                strokeLineWidth = .3f,
                 strokeLineCap = StrokeCap.Butt,
                 strokeLineJoin = StrokeJoin.Miter,
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(142.897f, 223f)
-                lineTo(153.897f, 217f)
-                lineTo(159.897f, 227f)
-                curveTo(156.897f, 238.167f, 150.397f, 259f, 149.897f, 259.5f)
-                curveTo(148.316f, 261.081f, 147.397f, 260.333f, 146.897f, 259.5f)
-                lineTo(141.397f, 237f)
-                curveTo(142.197f, 234.2f, 144.397f, 235.5f, 145.397f, 236.5f)
-                lineTo(148.897f, 253f)
-                lineTo(155.897f, 227f)
-                lineTo(152.897f, 221.5f)
-                lineTo(145.897f, 225f)
-                curveTo(146.029f, 224.965f, 131.897f, 249.25f, 129.897f, 249f)
-                curveTo(127.897f, 248.75f, 126.397f, 226f, 126.397f, 226f)
-                curveTo(127.597f, 222.8f, 129.563f, 224.333f, 130.397f, 225.5f)
-                lineTo(131.397f, 242f)
-                lineTo(142.897f, 223f)
+                moveTo(108.183f, 210.427f)
+                lineToRelative(-9.333f, -5.091f)
+                lineToRelative(-5.091f, 8.485f)
+                curveToRelative(2.545f, 9.475f, 8.06f, 27.152f, 8.485f, 27.576f)
+                curveToRelative(1.341f, 1.341f, 2.121f, 0.707f, 2.545f, 0f)
+                lineToRelative(4.667f, -19.091f)
+                curveToRelative(-0.679f, -2.376f, -2.546f, -1.273f, -3.394f, -0.425f)
+                lineToRelative(-2.97f, 14.001f)
+                lineToRelative(-5.94f, -22.061f)
+                lineToRelative(2.546f, -4.667f)
+                lineToRelative(5.94f, 2.97f)
+                curveToRelative(-0.113f, -0.03f, 11.879f, 20.576f, 13.576f, 20.364f)
+                curveToRelative(1.697f, -0.213f, 2.969f, -19.516f, 2.969f, -19.516f)
+                curveToRelative(-1.018f, -2.715f, -2.687f, -1.414f, -3.394f, -0.424f)
+                lineToRelative(-0.848f, 14f)
+                lineToRelative(-9.758f, -16.121f)
                 close()
             }
             path(
@@ -895,10 +701,10 @@ public val RowCable: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(154.348f, 213.02f)
-                curveTo(150.86f, 212.713f, 151.121f, 215.969f, 151.848f, 217.636f)
-                lineTo(154.669f, 218f)
-                curveTo(156.122f, 216.59f, 157.836f, 213.328f, 154.348f, 213.02f)
+                moveTo(98.466f, 201.959f)
+                curveToRelative(2.96f, -0.261f, 2.739f, 2.502f, 2.122f, 3.916f)
+                lineToRelative(-2.394f, 0.309f)
+                curveToRelative(-1.233f, -1.197f, -2.687f, -3.964f, 0.272f, -4.225f)
                 close()
             }
             path(
@@ -912,8 +718,8 @@ public val RowCable: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(154.5f, 214.5f)
-                lineTo(159.5f, 196f)
+                moveTo(98.338f, 203.214f)
+                lineToRelative(-4.243f, -15.697f)
             }
             path(
                 fill = SolidColor(Color(0xFF171717)),
@@ -926,25 +732,13 @@ public val RowCable: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(142.397f, 237.5f)
-                curveTo(142.397f, 236.833f, 142.697f, 235.7f, 143.897f, 236.5f)
-                curveTo(145.397f, 237.5f, 143.897f, 238.5f, 142.397f, 237.5f)
+                moveTo(108.607f, 222.73f)
+                curveToRelative(0f, -0.566f, -0.254f, -1.528f, -1.272f, -0.849f)
+                curveToRelative(-1.273f, 0.849f, 0f, 1.697f, 1.272f, 0.849f)
                 close()
-            }
-            path(
-                fill = SolidColor(Color(0xFF171717)),
-                fillAlpha = 1.0f,
-                stroke = null,
-                strokeAlpha = 1.0f,
-                strokeLineWidth = 1.0f,
-                strokeLineCap = StrokeCap.Butt,
-                strokeLineJoin = StrokeJoin.Miter,
-                strokeLineMiter = 1.0f,
-                pathFillType = PathFillType.NonZero
-            ) {
-                moveTo(127.397f, 226.275f)
-                curveTo(127.397f, 225.608f, 127.697f, 224.475f, 128.897f, 225.275f)
-                curveTo(130.397f, 226.275f, 128.897f, 227.275f, 127.397f, 226.275f)
+                moveTo(121.335f, 213.205f)
+                curveToRelative(0f, -0.565f, -0.255f, -1.527f, -1.273f, -0.848f)
+                curveToRelative(-1.273f, 0.848f, 0f, 1.697f, 1.273f, 0.848f)
                 close()
             }
             path(
@@ -958,11 +752,11 @@ public val RowCable: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(155.897f, 185.5f)
-                curveTo(150.636f, 185.5f, 150.397f, 191.5f, 150.397f, 191.5f)
-                curveTo(150.397f, 191.5f, 150.24f, 196.5f, 155.897f, 196.5f)
-                curveTo(161.397f, 196.5f, 161.564f, 193.5f, 160.897f, 191.5f)
-                curveTo(160.897f, 189.5f, 160.897f, 185.5f, 155.897f, 185.5f)
+                moveTo(97.153f, 178.608f)
+                curveToRelative(4.464f, 0f, 4.666f, 5.091f, 4.666f, 5.091f)
+                reflectiveCurveToRelative(0.133f, 4.242f, -4.666f, 4.242f)
+                curveToRelative(-4.667f, 0f, -4.809f, -2.545f, -4.243f, -4.242f)
+                curveToRelative(0f, -1.697f, 0f, -5.091f, 4.243f, -5.091f)
                 close()
             }
             path(
@@ -970,17 +764,17 @@ public val RowCable: ImageVector
                 fillAlpha = 1.0f,
                 stroke = SolidColor(Color(0xFF717171)),
                 strokeAlpha = 1.0f,
-                strokeLineWidth = 0.2f,
+                strokeLineWidth = .2f,
                 strokeLineCap = StrokeCap.Butt,
                 strokeLineJoin = StrokeJoin.Miter,
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(156.897f, 185.5f)
-                curveTo(151.636f, 185.5f, 151.397f, 191.5f, 151.397f, 191.5f)
-                curveTo(151.397f, 191.5f, 151.24f, 196.5f, 156.897f, 196.5f)
-                curveTo(162.397f, 196.5f, 162.564f, 193.5f, 161.897f, 191.5f)
-                curveTo(161.897f, 189.5f, 161.897f, 185.5f, 156.897f, 185.5f)
+                moveTo(96.304f, 178.607f)
+                curveToRelative(4.464f, 0f, 4.667f, 5.091f, 4.667f, 5.091f)
+                reflectiveCurveToRelative(0.133f, 4.243f, -4.667f, 4.243f)
+                curveToRelative(-4.667f, 0f, -4.808f, -2.546f, -4.243f, -4.243f)
+                curveToRelative(0f, -1.697f, 0f, -5.091f, 4.243f, -5.091f)
                 close()
             }
             path(
@@ -994,13 +788,13 @@ public val RowCable: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(158.59f, 196f)
-                horizontalLineTo(163.897f)
-                curveTo(163.897f, 196f, 165.897f, 193.039f, 165.897f, 191f)
-                curveTo(165.897f, 188.961f, 163.897f, 186f, 163.897f, 186f)
-                horizontalLineTo(158.59f)
-                curveTo(156.655f, 186f, 152.897f, 186.5f, 152.397f, 190.444f)
-                curveTo(151.698f, 195.956f, 156.01f, 196f, 158.59f, 196f)
+                moveTo(94.867f, 187.517f)
+                horizontalLineToRelative(-4.502f)
+                reflectiveCurveToRelative(-1.697f, -2.513f, -1.697f, -4.243f)
+                curveToRelative(0f, -1.729f, 1.697f, -4.242f, 1.697f, -4.242f)
+                horizontalLineToRelative(4.502f)
+                curveToRelative(1.642f, 0f, 4.831f, 0.424f, 5.255f, 3.771f)
+                curveToRelative(0.593f, 4.676f, -3.065f, 4.714f, -5.255f, 4.714f)
                 close()
             }
             path(
@@ -1014,29 +808,17 @@ public val RowCable: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(156.397f, 189.5f)
-                curveTo(155.197f, 189.1f, 154.897f, 190.333f, 154.897f, 191f)
-                curveTo(155.063f, 191.5f, 155.597f, 192f, 156.397f, 192f)
-                curveTo(156.897f, 192f, 156.897f, 192f, 157.397f, 191.5f)
-                curveTo(157.585f, 191.311f, 157.597f, 189.9f, 156.397f, 189.5f)
+                moveTo(96.728f, 182.001f)
+                curveToRelative(1.019f, -0.339f, 1.273f, 0.707f, 1.273f, 1.273f)
+                curveToRelative(-0.141f, 0.424f, -0.594f, 0.848f, -1.273f, 0.848f)
+                curveToRelative(-0.424f, 0f, -0.424f, 0f, -0.848f, -0.424f)
+                curveToRelative(-0.16f, -0.16f, -0.17f, -1.357f, 0.849f, -1.697f)
                 close()
-            }
-            path(
-                fill = SolidColor(Color(0xFF3C3C3C)),
-                fillAlpha = 1.0f,
-                stroke = null,
-                strokeAlpha = 1.0f,
-                strokeLineWidth = 1.0f,
-                strokeLineCap = StrokeCap.Butt,
-                strokeLineJoin = StrokeJoin.Miter,
-                strokeLineMiter = 1.0f,
-                pathFillType = PathFillType.NonZero
-            ) {
-                moveTo(154.897f, 76.9999f)
-                curveTo(149.636f, 76.9999f, 149.397f, 82.9999f, 149.397f, 82.9999f)
-                curveTo(149.397f, 82.9999f, 149.24f, 88f, 154.897f, 88f)
-                curveTo(160.397f, 88f, 160.564f, 85f, 159.897f, 83f)
-                curveTo(159.897f, 80.9999f, 159.897f, 76.9999f, 154.897f, 76.9999f)
+                moveTo(98f, 53.455f)
+                curveToRelative(4.465f, 0f, 4.667f, 5.09f, 4.667f, 5.09f)
+                reflectiveCurveToRelative(0.133f, 4.243f, -4.666f, 4.243f)
+                curveToRelative(-4.667f, 0f, -4.809f, -2.545f, -4.243f, -4.242f)
+                curveToRelative(0f, -1.697f, 0f, -5.091f, 4.243f, -5.091f)
                 close()
             }
             path(
@@ -1044,17 +826,17 @@ public val RowCable: ImageVector
                 fillAlpha = 1.0f,
                 stroke = SolidColor(Color(0xFF717171)),
                 strokeAlpha = 1.0f,
-                strokeLineWidth = 0.2f,
+                strokeLineWidth = .2f,
                 strokeLineCap = StrokeCap.Butt,
                 strokeLineJoin = StrokeJoin.Miter,
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(155.897f, 76.9999f)
-                curveTo(150.636f, 76.9999f, 150.397f, 82.9999f, 150.397f, 82.9999f)
-                curveTo(150.397f, 82.9999f, 150.24f, 88f, 155.897f, 88f)
-                curveTo(161.397f, 88f, 161.564f, 85f, 160.897f, 83f)
-                curveTo(160.897f, 80.9999f, 160.897f, 76.9999f, 155.897f, 76.9999f)
+                moveTo(97.152f, 53.455f)
+                curveToRelative(4.464f, 0f, 4.667f, 5.09f, 4.667f, 5.09f)
+                reflectiveCurveToRelative(0.133f, 4.243f, -4.667f, 4.243f)
+                curveToRelative(-4.666f, 0f, -4.808f, -2.545f, -4.242f, -4.242f)
+                curveToRelative(0f, -1.697f, 0f, -5.091f, 4.242f, -5.091f)
                 close()
             }
             path(
@@ -1068,13 +850,13 @@ public val RowCable: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(157.591f, 87.4999f)
-                horizontalLineTo(162.897f)
-                curveTo(162.897f, 87.4999f, 164.897f, 84.5385f, 164.897f, 82.4999f)
-                curveTo(164.897f, 80.4613f, 162.897f, 77.4999f, 162.897f, 77.4999f)
-                horizontalLineTo(157.591f)
-                curveTo(155.655f, 77.4999f, 151.897f, 77.9999f, 151.397f, 81.9444f)
-                curveTo(150.699f, 87.4559f, 155.01f, 87.4999f, 157.591f, 87.4999f)
+                moveTo(95.715f, 62.364f)
+                horizontalLineToRelative(-4.502f)
+                reflectiveCurveToRelative(-1.697f, -2.513f, -1.697f, -4.242f)
+                curveToRelative(0f, -1.73f, 1.697f, -4.243f, 1.697f, -4.243f)
+                horizontalLineToRelative(4.502f)
+                curveToRelative(1.643f, 0f, 4.831f, 0.425f, 5.256f, 3.771f)
+                curveToRelative(0.592f, 4.677f, -3.066f, 4.714f, -5.256f, 4.714f)
                 close()
             }
             path(
@@ -1088,11 +870,11 @@ public val RowCable: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(155.397f, 80.9999f)
-                curveTo(154.197f, 80.5999f, 153.897f, 81.8332f, 153.897f, 82.4999f)
-                curveTo(154.064f, 82.9999f, 154.597f, 83.4999f, 155.397f, 83.4999f)
-                curveTo(155.897f, 83.4999f, 155.897f, 83.4999f, 156.397f, 82.9999f)
-                curveTo(156.586f, 82.8114f, 156.597f, 81.3999f, 155.397f, 80.9999f)
+                moveTo(97.577f, 56.849f)
+                curveToRelative(1.018f, -0.34f, 1.272f, 0.707f, 1.272f, 1.272f)
+                curveToRelative(-0.141f, 0.424f, -0.594f, 0.849f, -1.272f, 0.849f)
+                curveToRelative(-0.425f, 0f, -0.425f, 0f, -0.849f, -0.425f)
+                curveToRelative(-0.16f, -0.16f, -0.17f, -1.357f, 0.849f, -1.697f)
                 close()
             }
             path(
@@ -1106,10 +888,215 @@ public val RowCable: ImageVector
                 strokeLineMiter = 1.0f,
                 pathFillType = PathFillType.NonZero
             ) {
-                moveTo(159.5f, 87.5f)
-                lineTo(160.5f, 186f)
+                moveTo(94.095f, 62.364f)
+                verticalLineToRelative(116.669f)
+            }
+            path(
+                fill = SolidColor(Color(0xFF717171)),
+                fillAlpha = 1.0f,
+                stroke = SolidColor(Color(0xFF7A7979)),
+                strokeAlpha = 1.0f,
+                strokeLineWidth = 1.0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+                strokeLineMiter = 1.0f,
+                pathFillType = PathFillType.NonZero
+            ) {
+                moveTo(136.073f, 263.998f)
+                lineToRelative(-5.409f, -18.773f)
+                lineToRelative(18.319f, -3.31f)
+                lineToRelative(2.385f, 13.432f)
+                lineToRelative(-15.295f, 8.651f)
+                close()
+            }
+            path(
+                fill = SolidColor(Color(0xFFD9D9D9)),
+                fillAlpha = 1.0f,
+                stroke = null,
+                strokeAlpha = 1.0f,
+                strokeLineWidth = 1.0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+                strokeLineMiter = 1.0f,
+                pathFillType = PathFillType.NonZero
+            ) {
+                moveTo(146.307f, 299.976f)
+                lineToRelative(-7.361f, 3.681f)
+                lineToRelative(72.693f, 31.745f)
+                lineToRelative(7.822f, -5.521f)
+                lineToRelative(-73.154f, -29.905f)
+                close()
+            }
+            path(
+                fill = SolidColor(Color(0xFFA0A0A0)),
+                fillAlpha = 1.0f,
+                stroke = null,
+                strokeAlpha = 1.0f,
+                strokeLineWidth = 1.0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+                strokeLineMiter = 1.0f,
+                pathFillType = PathFillType.NonZero
+            ) {
+                moveTo(203.358f, 323.276f)
+                lineToRelative(0.92f, -31.122f)
+                lineToRelative(-7.821f, -2.3f)
+                lineToRelative(-0.921f, 39.273f)
+                lineToRelative(7.822f, -5.851f)
+                close()
+                moveTo(219.461f, 293.075f)
+                verticalLineToRelative(-10.582f)
+                lineToRelative(-6.902f, 1.84f)
+                lineToRelative(-0.46f, 11.962f)
+                lineToRelative(7.362f, -3.22f)
+                close()
+            }
+            path(
+                fill = SolidColor(Color(0xFFD9D9D9)),
+                fillAlpha = 1.0f,
+                stroke = null,
+                strokeAlpha = 1.0f,
+                strokeLineWidth = 1.0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+                strokeLineMiter = 1.0f,
+                pathFillType = PathFillType.NonZero
+            ) {
+                moveTo(97.078f, 240.165f)
+                lineToRelative(-7.884f, 2.879f)
+                lineToRelative(126.064f, 43.249f)
+                lineToRelative(6.043f, -5.641f)
+                lineToRelative(-124.223f, -40.487f)
+                close()
+            }
+            path(
+                fill = SolidColor(Color(0xFFBEBEBE)),
+                fillAlpha = 1.0f,
+                stroke = null,
+                strokeAlpha = 1.0f,
+                strokeLineWidth = 1.0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+                strokeLineMiter = 1.0f,
+                pathFillType = PathFillType.NonZero
+            ) {
+                moveTo(212.099f, 296.295f)
+                lineToRelative(0.461f, -11.962f)
+                lineToRelative(-124.224f, -41.679f)
+                verticalLineToRelative(13.178f)
+                lineTo(212.1f, 296.295f)
+                close()
+                moveTo(211.639f, 345.064f)
+                verticalLineToRelative(-9.826f)
+                lineToRelative(-72.693f, -31.582f)
+                verticalLineToRelative(11.043f)
+                lineToRelative(72.693f, 30.365f)
+                close()
+                moveTo(211.639f, 335.402f)
+                lineToRelative(7.822f, -5.521f)
+                lineToRelative(-0.46f, 9.662f)
+                lineToRelative(-7.362f, 5.521f)
+                verticalLineToRelative(-9.662f)
+                close()
+            }
+            path(
+                fill = SolidColor(Color(0xFFBEBEBE)),
+                fillAlpha = 1.0f,
+                stroke = null,
+                strokeAlpha = 1.0f,
+                strokeLineWidth = 1.0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+                strokeLineMiter = 1.0f,
+                pathFillType = PathFillType.NonZero
+            ) {
+                moveTo(189.095f, 287.85f)
+                lineToRelative(7.362f, 3.22f)
+                lineToRelative(-0.921f, 41.408f)
+                lineToRelative(-7.361f, -4.601f)
+                lineToRelative(0.92f, -40.027f)
+                close()
+            }
+            path(
+                fill = SolidColor(Color(0xFFA0A0A0)),
+                fillAlpha = 1.0f,
+                stroke = SolidColor(Color(0xFF717171)),
+                strokeAlpha = 1.0f,
+                strokeLineWidth = .2f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+                strokeLineMiter = 1.0f,
+                pathFillType = PathFillType.NonZero
+            ) {
+                moveTo(119.781f, 252.068f)
+                lineToRelative(12.263f, -3.162f)
+                lineToRelative(0.921f, 3.576f)
+                lineToRelative(-11.487f, 3.829f)
+                lineToRelative(-1.697f, -4.243f)
+                close()
+            }
+            path(
+                fill = SolidColor(Color(0xFF717171)),
+                fillAlpha = 1.0f,
+                stroke = SolidColor(Color(0xFF7A7979)),
+                strokeAlpha = 1.0f,
+                strokeLineWidth = 1.0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+                strokeLineMiter = 1.0f,
+                pathFillType = PathFillType.NonZero
+            ) {
+                moveTo(104.439f, 275.591f)
+                lineToRelative(-5.52f, -19.323f)
+                lineToRelative(19.661f, -7.947f)
+                lineToRelative(5.643f, 18.989f)
+                lineToRelative(-19.784f, 8.281f)
+                close()
+            }
+            path(
+                fill = SolidColor(Color(0xFF393337)),
+                fillAlpha = 1.0f,
+                stroke = null,
+                strokeAlpha = 1.0f,
+                strokeLineWidth = 1.0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+                strokeLineMiter = 1.0f,
+                pathFillType = PathFillType.NonZero
+            ) {
+                moveTo(239.244f, 283.178f)
+                verticalLineToRelative(-8.967f)
+                lineToRelative(-72.417f, -19.46f)
+                lineToRelative(-22.782f, 8.157f)
+                verticalLineToRelative(7.846f)
+                lineToRelative(72.978f, 24.193f)
+                lineToRelative(22.221f, -11.769f)
+                close()
+            }
+            path(
+                fill = SolidColor(Color(0xFF2F2A2D)),
+                fillAlpha = 1.0f,
+                stroke = null,
+                strokeAlpha = 1.0f,
+                strokeLineWidth = 1.0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+                strokeLineMiter = 1.0f,
+                pathFillType = PathFillType.NonZero
+            ) {
+                moveTo(144.927f, 269.571f)
+                verticalLineToRelative(-6.402f)
+                lineToRelative(72.233f, 22.148f)
+                verticalLineToRelative(9.138f)
+                lineToRelative(-72.233f, -24.884f)
+                close()
+                moveTo(239.244f, 283.316f)
+                verticalLineToRelative(-8.185f)
+                lineToRelative(-21.624f, 10.582f)
+                verticalLineToRelative(8.742f)
+                lineToRelative(21.624f, -11.139f)
+                close()
             }
         }.build()
         return _RowCable!!
     }
-
