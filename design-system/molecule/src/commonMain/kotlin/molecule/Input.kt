@@ -48,7 +48,7 @@ public fun InputField(
 
     val textStyle = Design.typography.Input
         .merge(color = Design.colors.content)
-        .merge(textAlign = textAlign)
+        .merge(textAlign = textAlign ?: TextAlign.Start)
         .merge(fontWeight = fontWeight)
 
     androidx.compose.material3.OutlinedTextField(
@@ -131,7 +131,7 @@ public fun InputField(
 
     val textStyle = Design.typography.Input
         .merge(color = Design.colors.content)
-        .merge(textAlign = textAlign)
+        .merge(textAlign = textAlign ?: TextAlign.Start)
         .merge(fontWeight = fontWeight)
 
     androidx.compose.material3.OutlinedTextField(

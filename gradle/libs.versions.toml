@@ -1,14 +1,14 @@
 [versions]
 
 kotlin = "1.9.21"
-agp = "8.2.0"
-compose = "1.5.11"
+agp = "8.2.1"
+compose = "1.6.0-beta01"
 coroutines = "1.7.3"
 moko-resources = "0.23.0"
 activity-compose = "1.8.2"
 appcompat = "1.6.1"
 serialization = "1.5.1"
-datetime = "0.4.0"
+datetime = "0.5.0"
 ktor = "2.3.7"
 datastore = "1.1.0-beta01"
 koin = "3.4.0"
@@ -48,10 +48,7 @@ sqldelight-coroutine = { module = "app.cash.sqldelight:coroutines-extensions", v
 sqldelight-adapters = { module = "app.cash.sqldelight:primitive-adapters", version.ref = "sqldelight" }
 
 coil3 = { group = "io.coil-kt.coil3", name = "coil", version.ref = "coil3" }
-coil3-core = { group = "io.coil-kt.coil3", name = "coil-core", version.ref = "coil3" }
 coil3-network = { group = "io.coil-kt.coil3", name = "coil-network", version.ref = "coil3" }
-coil3-compose-core = { group = "io.coil-kt.coil3", name = "coil-compose-core", version.ref = "coil3" }
-coil3-compose = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "coil3" }
 coil3-gif = { group = "io.coil-kt.coil3", name = "coil-gif", version.ref = "coil3" }
 coil3-video = { group = "io.coil-kt.coil3", name = "coil-video", version.ref = "coil3" }
 coil3-svg = { group = "io.coil-kt.coil3", name = "coil-svg", version.ref = "coil3" }
