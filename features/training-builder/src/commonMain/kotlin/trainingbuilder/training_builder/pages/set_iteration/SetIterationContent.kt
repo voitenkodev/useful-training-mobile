@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -29,6 +30,7 @@ import atom.Design
 import components.inputs.InputRepeat
 import components.inputs.InputWeight
 import components.overlay.ShadowBackground
+import kotlinx.coroutines.delay
 import molecule.ButtonIconTransparent
 import molecule.PaddingM
 import molecule.Shadow
@@ -58,8 +60,6 @@ internal fun BoxScope.SetIterationContent(
         }
     }
 
-
-
     ShadowBackground(
         modifier = Modifier.fillMaxSize(),
         condition = state.iterationIndex != -1,
@@ -72,6 +72,7 @@ internal fun BoxScope.SetIterationContent(
         val repeatRequester = remember { FocusRequester() }
 
         LaunchedEffect(Unit) {
+            delay(100)
             when (state.targetFocus) {
                 IterationTargetFocus.Weight -> weightRequester.requestFocus()
                 IterationTargetFocus.Repetition -> repeatRequester.requestFocus()
@@ -134,7 +135,7 @@ internal fun BoxScope.SetIterationContent(
             }
 
             Row(
-                modifier = Modifier.padding(horizontal = Design.dp.paddingS),
+                modifier = Modifier.imePadding().padding(horizontal = Design.dp.paddingS),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
             ) {
