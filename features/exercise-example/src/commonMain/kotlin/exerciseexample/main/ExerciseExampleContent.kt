@@ -77,18 +77,21 @@ private fun Content(
 
 //            PaddingXL()
 
-            if (exerciseExample?.equipments != null) {
+            if (exerciseExample?.equipments?.isNotEmpty() == true) {
 
                 Equipments(equipments = exerciseExample.equipments)
-
-                PaddingXL()
             }
 
-            MusclePack(exerciseExample = exerciseExample)
+            if (exerciseExample?.exerciseExampleBundles?.isNotEmpty() == true) {
 
-            PaddingXL()
+                PaddingXL()
 
-            HeapMap(fullFrontImage = fullFrontImage, fullBackImage = fullBackImage)
+                MusclePack(exerciseExample = exerciseExample)
+
+                PaddingXL()
+
+                HeapMap(fullFrontImage = fullFrontImage, fullBackImage = fullBackImage)
+            }
 
             if (achievements != null) {
 
