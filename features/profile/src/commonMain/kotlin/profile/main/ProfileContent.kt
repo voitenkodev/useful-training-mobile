@@ -100,7 +100,7 @@ private fun Content(
                 )
             }
 
-            item { PaddingS() }
+            item { PaddingM() }
 
             item {
                 Column(modifier = Modifier.secondaryBackground().fillMaxWidth()) {
@@ -148,7 +148,7 @@ private fun Content(
                 )
             }
 
-            item { PaddingS() }
+            item { PaddingM() }
 
             item {
 

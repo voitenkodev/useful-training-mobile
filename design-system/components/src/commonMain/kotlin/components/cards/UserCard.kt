@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -27,7 +26,6 @@ import molecule.PaddingWeight
 import molecule.PaddingXS
 import molecule.TextBody1
 import molecule.TextBody2
-import molecule.TextH2
 import molecule.TextH3
 import molecule.secondaryDefaultBackground
 
@@ -64,14 +62,6 @@ public fun UserCard(
                     .background(Design.colors.black30)
             )
         }
-
-        TextH2(
-            modifier = Modifier
-                .align(Alignment.BottomEnd)
-                .offset(y = 11.dp),
-            provideText = { "Sport Card" },
-            color = Design.colors.white5
-        )
 
         Column(modifier = Modifier.padding(vertical = Design.dp.paddingL, horizontal = Design.dp.paddingXL)) {
 

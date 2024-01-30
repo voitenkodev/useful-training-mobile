@@ -22,7 +22,6 @@ import molecule.PaddingWeight
 import molecule.PaddingXL
 import molecule.TextBody2
 import molecule.TextH2
-import molecule.primaryBackground
 
 @Composable
 internal fun CredentialsPage(
@@ -60,7 +59,7 @@ internal fun CredentialsPage(
             onValueChange = updateEmail
         )
 
-        PaddingXL()
+        PaddingM()
 
         InputPassword(
             provideValue = { password },

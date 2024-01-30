@@ -59,7 +59,7 @@ public fun InputSearch(
             onValueChange = update,
             keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Sentences, imeAction = ImeAction.Next),
             fontWeight = FontWeight.Bold,
-            leading = {
+            prefix = {
                 Icon(
                     modifier = Modifier.padding(end = Design.dp.paddingS),
                     imageVector = Icons.search,

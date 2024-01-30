@@ -1,5 +1,7 @@
 package molecule
 
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -23,7 +25,8 @@ public fun InputField(
     onValueChange: (String) -> Unit,
     placeholder: String? = null,
     textAlign: TextAlign? = null,
-    leading: @Composable (() -> Unit)? = null,
+    label: @Composable (() -> Unit)? = null,
+    prefix: @Composable (() -> Unit)? = null,
     trailing: @Composable (() -> Unit)? = null,
     backgroundColor: Color = Design.colors.secondary,
     maxLines: Int = Int.MAX_VALUE,
@@ -51,52 +54,57 @@ public fun InputField(
         .merge(textAlign = textAlign ?: TextAlign.Start)
         .merge(fontWeight = fontWeight)
 
-    androidx.compose.material3.OutlinedTextField(
-        value = value,
-        onValueChange = updater,
-        modifier = modifier,
-        enabled = enabled,
-        colors = OutlinedTextFieldDefaults.colors(
-            errorContainerColor = Design.colors.red,
+    Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(Design.dp.paddingXS)) {
 
-            focusedContainerColor = backgroundColor,
-            disabledContainerColor = Design.colors.black30,
-            unfocusedContainerColor = backgroundColor,
+        label?.invoke()
 
-            disabledBorderColor = Color.Transparent,
-            errorBorderColor = Design.colors.red,
-            focusedBorderColor = Design.colors.white5,
-            unfocusedBorderColor = Design.colors.white5,
+        androidx.compose.material3.OutlinedTextField(
+            value = value,
+            onValueChange = updater,
+            modifier = Modifier.fillMaxWidth(),
+            enabled = enabled,
+            colors = OutlinedTextFieldDefaults.colors(
+                errorContainerColor = Design.colors.red,
 
-            unfocusedPlaceholderColor = Design.colors.content.copy(alpha = 0.3f),
-            disabledPlaceholderColor = Design.colors.content.copy(alpha = 0.3f),
-            errorPlaceholderColor = Design.colors.content.copy(alpha = 0.3f),
-            focusedPlaceholderColor = Design.colors.content.copy(alpha = 0.3f),
+                focusedContainerColor = backgroundColor,
+                disabledContainerColor = Design.colors.black30,
+                unfocusedContainerColor = backgroundColor,
 
-            cursorColor = Design.colors.content
-        ),
-        shape = Design.shape.default,
-        placeholder = placeholder?.let {
-            {
-                androidx.compose.material3.Text(
-                    modifier = Modifier.fillMaxWidth(),
-                    text = placeholder,
-                    maxLines = 1,
-                    textAlign = textStyle.textAlign,
-                    fontFamily = textStyle.fontFamily,
-                    fontSize = textStyle.fontSize,
-                )
-            }
-        },
-        visualTransformation = visualTransformation,
-        keyboardOptions = keyboardOptions,
-        keyboardActions = keyboardActions,
-        prefix = leading,
-        suffix = trailing,
-        maxLines = maxLines,
-        singleLine = maxLines == 1,
-        textStyle = textStyle
-    )
+                disabledBorderColor = Color.Transparent,
+                errorBorderColor = Design.colors.red,
+                focusedBorderColor = Design.colors.white5,
+                unfocusedBorderColor = Design.colors.white5,
+
+                unfocusedPlaceholderColor = Design.colors.content.copy(alpha = 0.3f),
+                disabledPlaceholderColor = Design.colors.content.copy(alpha = 0.3f),
+                errorPlaceholderColor = Design.colors.content.copy(alpha = 0.3f),
+                focusedPlaceholderColor = Design.colors.content.copy(alpha = 0.3f),
+
+                cursorColor = Design.colors.content
+            ),
+            shape = Design.shape.default,
+            placeholder = placeholder?.let {
+                {
+                    androidx.compose.material3.Text(
+                        modifier = Modifier.fillMaxWidth(),
+                        text = placeholder,
+                        maxLines = 1,
+                        textAlign = textStyle.textAlign,
+                        fontFamily = textStyle.fontFamily,
+                        fontSize = textStyle.fontSize,
+                    )
+                }
+            },
+            prefix = prefix,
+            visualTransformation = visualTransformation,
+            keyboardOptions = keyboardOptions,
+            keyboardActions = keyboardActions,
+            suffix = trailing,
+            maxLines = maxLines,
+            singleLine = maxLines == 1,
+            textStyle = textStyle
+        )
+    }
 }
 
 @Composable

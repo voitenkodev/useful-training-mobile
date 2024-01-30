@@ -32,6 +32,7 @@ import molecule.PaddingWeight
 import molecule.PaddingXL
 import molecule.TextBody2
 import molecule.TextH2
+import molecule.primaryBackground
 
 @Composable
 internal fun AuthenticationContent(
@@ -86,7 +87,7 @@ private fun Content(
     }
 
     ScreenRoot(
-        modifier = Modifier.imePadding(),
+        modifier = Modifier.primaryBackground().imePadding(),
         error = { Error(message = error, close = clearError) }
     ) {
 
