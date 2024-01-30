@@ -9,6 +9,10 @@ internal data class ExerciseExample(
     val exerciseExampleBundles: ImmutableList<ExerciseExampleBundle>,
     val equipments: ImmutableList<Equipment>,
     val name: String,
+    val experience: Experience?,
+    val forceType: ForceType?,
+    val weightType: WeightType?,
+    val category: Category?,
     val description: String?,
     val imageUrl: String?
 )

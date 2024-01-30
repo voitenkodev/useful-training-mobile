@@ -71,7 +71,11 @@ internal fun List<GetExerciseExamples>.mapToDao(): List<ExerciseExampleDao> {
             updatedAt = root.updatedAt,
             imageUrl = root.imageUrl,
             exerciseExampleBundles = bundles,
-            equipments = equipments
+            equipments = equipments,
+            experience = root.experience,
+            forceType = root.forceType,
+            weightType = root.weightType,
+            category = root.category
         )
     }
 }

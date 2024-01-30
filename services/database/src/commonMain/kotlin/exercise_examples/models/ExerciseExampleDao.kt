@@ -8,5 +8,9 @@ public data class ExerciseExampleDao(
     val description: String?,
     val createdAt: String,
     val updatedAt: String,
-    val imageUrl: String?
+    val imageUrl: String?,
+    val forceType: String,
+    val experience: String,
+    val weightType: String,
+    val category: String
 )

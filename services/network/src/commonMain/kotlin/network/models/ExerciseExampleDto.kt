@@ -13,6 +13,14 @@ public data class ExerciseExampleDto(
     val exerciseExampleBundles: List<ExerciseExampleBundleDto> = emptyList(),
     @SerialName("name")
     val name: String? = null,
+    @SerialName("forceType")
+    val forceType: String? = null,
+    @SerialName("weightType")
+    val weightType: String? = null,
+    @SerialName("category")
+    val category: String? = null,
+    @SerialName("experience")
+    val experience: String? = null,
     @SerialName("description")
     val description: String? = null,
     @SerialName("updatedAt")

@@ -49,7 +49,11 @@ public class ExerciseExamplesSource(nativeContext: NativeContext) {
                 description = exerciseExample.description,
                 createdAt = exerciseExample.createdAt,
                 updatedAt = exerciseExample.updatedAt,
-                imageUrl = exerciseExample.imageUrl
+                imageUrl = exerciseExample.imageUrl,
+                forceType = exerciseExample.forceType,
+                experience = exerciseExample.experience,
+                weightType = exerciseExample.weightType,
+                category = exerciseExample.category
             )
 
             exerciseExample.exerciseExampleBundles.forEach { bundle ->

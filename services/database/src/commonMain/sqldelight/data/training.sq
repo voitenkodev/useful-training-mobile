@@ -57,6 +57,10 @@ SELECT
   ExerciseExample.imageUrl AS exerciseExampleImageUrl,
   ExerciseExample.createdAt AS exerciseExampleCreatedAt,
   ExerciseExample.updatedAt AS exerciseExampleUpdatedAt,
+  ExerciseExample.experience AS exerciseExampleExperience,
+  ExerciseExample.forceType AS exerciseExampleForceType,
+  ExerciseExample.weightType  AS exerciseExampleWeightType,
+  ExerciseExample.category AS exerciseExampleCategory,
 
   Muscle.id AS muscleId,
   Muscle.name AS muscleName,
@@ -100,6 +104,10 @@ SELECT
   ExerciseExample.imageUrl AS exerciseExampleImageUrl,
   ExerciseExample.createdAt AS exerciseExampleCreatedAt,
   ExerciseExample.updatedAt AS exerciseExampleUpdatedAt,
+  ExerciseExample.experience AS exerciseExampleExperience,
+  ExerciseExample.forceType AS exerciseExampleForceType,
+  ExerciseExample.weightType  AS exerciseExampleWeightType,
+  ExerciseExample.category AS exerciseExampleCategory,
 
   Muscle.id AS muscleId,
   Muscle.name AS muscleName,

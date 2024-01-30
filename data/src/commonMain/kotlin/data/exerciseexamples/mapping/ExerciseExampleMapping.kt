@@ -3,7 +3,11 @@ package data.exerciseexamples.mapping
 import data.equipments.mapping.daoToDomain
 import data.equipments.mapping.dtoToDomain
 import exercise_examples.models.ExerciseExampleDao
+import models.CategoryEnum
 import models.ExerciseExample
+import models.ExperienceEnum
+import models.ForceTypeEnum
+import models.WeightTypeEnum
 import network.models.ExerciseExampleDto
 
 internal fun List<ExerciseExampleDao>.daoToDomain(): List<ExerciseExample> {
@@ -17,7 +21,11 @@ internal fun ExerciseExampleDao.daoToDomain(): ExerciseExample {
         description = description,
         exerciseExampleBundles = exerciseExampleBundles.daoToDomain(),
         equipments = equipments.map { it.equipment.daoToDomain() },
-        imageUrl = imageUrl
+        imageUrl = imageUrl,
+        experience = ExperienceEnum.of(experience),
+        forceType = ForceTypeEnum.of(forceType),
+        weightType = WeightTypeEnum.of(weightType),
+        category = CategoryEnum.of(category)
     )
 }
 
@@ -34,7 +42,11 @@ internal fun ExerciseExampleDto.dtoToDao(): ExerciseExampleDao? {
         equipments = equipmentRefs.mapNotNull { it.dtoToDao() },
         createdAt = createdAt ?: return null,
         updatedAt = updatedAt ?: return null,
-        imageUrl = imageUrl
+        imageUrl = imageUrl,
+        experience = experience ?: return null,
+        forceType = forceType ?: return null,
+        weightType = weightType ?: return null,
+        category = category ?: return null
     )
 }
 
@@ -58,6 +70,10 @@ internal fun ExerciseExampleDto.dtoToDomain(): ExerciseExample? {
         description = description,
         exerciseExampleBundles = exerciseExampleBundles.dtoToDomain(),
         equipments = equipmentRefs.mapNotNull { it.equipment?.dtoToDomain() },
-        imageUrl = imageUrl
+        imageUrl = imageUrl,
+        experience = ExperienceEnum.of(experience),
+        forceType = ForceTypeEnum.of(forceType),
+        weightType = WeightTypeEnum.of(weightType),
+        category = CategoryEnum.of(category)
     )
 }

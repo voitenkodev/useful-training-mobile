@@ -36,6 +36,10 @@ internal fun List<GetTrainingById>.mapToDao(): TrainingDao? {
             val imageUrl = training.exerciseExampleImageUrl ?: return@let null
             val createdAt = training.exerciseExampleCreatedAt ?: return@let null
             val updatedAt = training.exerciseExampleUpdatedAt ?: return@let null
+            val experience = training.exerciseExampleExperience ?: return@let null
+            val forceType = training.exerciseExampleForceType ?: return@let null
+            val weightType = training.exerciseExampleWeightType ?: return@let null
+            val category = training.exerciseExampleCategory ?: return@let null
 
             ExerciseExampleDao(
                 id = id,
@@ -44,6 +48,10 @@ internal fun List<GetTrainingById>.mapToDao(): TrainingDao? {
                 imageUrl = imageUrl,
                 createdAt = createdAt,
                 updatedAt = updatedAt,
+                experience = experience,
+                forceType = forceType,
+                weightType = weightType,
+                category = category,
                 equipments = emptyList(), // todo do i need it here?
                 exerciseExampleBundles = emptyList() // todo do i need it here?
             )

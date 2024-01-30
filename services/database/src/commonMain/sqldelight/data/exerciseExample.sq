@@ -4,6 +4,10 @@ CREATE TABLE IF NOT EXISTS ExerciseExample (
     description TEXT,
     createdAt TEXT NOT NULL,
     updatedAt TEXT NOT NULL,
+    forceType TEXT NOT NULL,
+    weightType TEXT NOT NULL,
+    category TEXT NOT NULL,
+    experience TEXT NOT NULL,
     imageUrl TEXT
 );
 
@@ -34,6 +38,10 @@ SELECT
   ExerciseExample.name,
   ExerciseExample.description,
   ExerciseExample.imageUrl,
+  ExerciseExample.experience,
+  ExerciseExample.forceType,
+  ExerciseExample.weightType,
+  ExerciseExample.category,
 
   ExerciseExampleBundle.id AS bundleId,
   ExerciseExampleBundle.percentage AS bundlePercentage,
@@ -77,6 +85,10 @@ SELECT
   ExerciseExample.name,
   ExerciseExample.description,
   ExerciseExample.imageUrl,
+  ExerciseExample.experience,
+  ExerciseExample.forceType,
+  ExerciseExample.weightType,
+  ExerciseExample.category,
 
   ExerciseExampleBundle.id AS bundleId,
   ExerciseExampleBundle.percentage AS bundlePercentage,
@@ -115,7 +127,7 @@ LEFT JOIN Equipment ON ExerciseEquipment.equipmentId = Equipment.id;
 
 setExerciseExample:
 INSERT OR REPLACE INTO ExerciseExample
-VALUES (?,?,?,?,?,?);
+VALUES (?,?,?,?,?,?,?,?,?,?);
 
 setExerciseExampleBundle:
 INSERT OR REPLACE INTO ExerciseExampleBundle

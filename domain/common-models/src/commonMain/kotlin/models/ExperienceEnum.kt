@@ -13,7 +13,7 @@ public enum class ExperienceEnum(private val key: String) {
     }
 
     public companion object {
-        public fun of(key: String): ExperienceEnum {
+        public fun of(key: String?): ExperienceEnum {
             return ExperienceEnum.entries.firstOrNull { it.key == key } ?: UNKNOWN
         }
     }

@@ -64,27 +64,27 @@ internal fun Header(exerciseExample: ExerciseExample?) {
                 Column(modifier = Modifier.weight(1f)) {
                     Item(
                         title = "Category:",
-                        value = "Compound", // Isolation
+                        value = exerciseExample?.category?.name ?: "-",
                         icon = Icons.weight
                     )
 
                     Item(
-                        title = "Equipment:",
-                        value = "Barbell", // Dumbbells
+                        title = "Force Type:",
+                        value = exerciseExample?.forceType?.name ?: "-",
                         icon = Icons.dumbbell
                     )
                 }
 
                 Column(modifier = Modifier.weight(1f)) {
                     Item(
-                        title = "Weight:",
-                        value = "Fixed", // Free
+                        title = "Weight Type:",
+                        value = exerciseExample?.weightType?.name ?: "-",
                         icon = Icons.time
                     )
 
                     Item(
                         title = "Level:",
-                        value = "Beginner", // Advanced
+                        value = exerciseExample?.experience?.name ?: "-",
                         icon = Icons.time
                     )
                 }
