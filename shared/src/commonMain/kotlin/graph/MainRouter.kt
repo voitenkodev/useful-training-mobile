@@ -67,7 +67,7 @@ internal fun MainGraph(toAuthentication: () -> Unit) {
 
                     is MainRouter.Training -> {
                         val exerciseSearchApi = SearchExerciseController.api
-                        val exerciseDetailsApi = SearchExerciseController.api
+                        val exerciseDetailsApi = ExerciseExampleController.api
 
                         TrainingGraph(
                             close = router::pop,
@@ -83,8 +83,8 @@ internal fun MainGraph(toAuthentication: () -> Unit) {
                                 router.push(MainRouter.SearchExercise(itemAction = action, autoFocus = true))
                             },
                             toExerciseExampleDetails = { id, isSelectable ->
-                                val action: Pair<String, (String) -> Unit>? = if (isSelectable) "Select" to { id: String ->
-                                    exerciseDetailsApi.itemClick(id = id)
+                                val action: Pair<String, (String) -> Unit>? = if (isSelectable) "Select" to { idFromAction: String ->
+                                    exerciseDetailsApi.primaryActionClick(id = idFromAction)
                                     router.pop()
                                 } else null
 
@@ -113,18 +113,14 @@ internal fun MainGraph(toAuthentication: () -> Unit) {
                             itemAction = child.itemAction,
                             close = router::pop,
                             toDetails = {
-                                val parentActionText = child.itemAction?.first
-                                val parentActionLambda = child.itemAction?.second
-
-                                val action = if (parentActionLambda != null && parentActionText != null) {
-                                    parentActionText to { id: String ->
-                                        api.primaryActionClick(id = id) // details action
-                                        router.pop() // close details
+                                child.itemAction?.let { (parentActionText, parentActionLambda) ->
+                                    val action = parentActionText to { id: String ->
+                                        api.primaryActionClick(id = id)
+                                        router.pop()
                                         parentActionLambda.invoke(id)
                                     }
-                                } else null
-
-                                router.push(MainRouter.ExerciseExample(id = it, primaryAction = action))
+                                    router.push(MainRouter.ExerciseExample(id = it, primaryAction = action))
+                                }
                             }
                         )
                     }
