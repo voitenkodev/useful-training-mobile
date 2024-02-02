@@ -117,7 +117,7 @@ internal fun MainGraph(toAuthentication: () -> Unit) {
                                         parentActionLambda.invoke(id)
                                     }
                                     router.push(MainRouter.ExerciseExample(id = it, primaryAction = action))
-                                }
+                                } ?: router.push(MainRouter.ExerciseExample(id = it, primaryAction = null))
                             }
                         )
                     }
