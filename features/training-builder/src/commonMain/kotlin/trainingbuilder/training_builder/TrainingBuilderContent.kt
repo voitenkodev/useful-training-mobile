@@ -30,12 +30,7 @@ import components.overlay.BottomShadow
 import components.roots.ScreenRoot
 import io.github.xxfast.decompose.router.LocalRouterContext
 import kotlinx.collections.immutable.ImmutableList
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.onEach
 import molecule.ButtonPrimary
-import molecule.POPUP_ANIM_DURATION_MS
 import molecule.PaddingM
 import molecule.PopupSheet
 import molecule.TextLabel
@@ -54,7 +49,7 @@ internal fun TrainingBuilderContent(
     close: () -> Unit,
     toExerciseExampleDetails: (id: String, isSelectable: Boolean) -> Unit,
     toSearchExerciseExample: () -> Unit,
-    searchExerciseExampleId: Flow<String>
+    searchExerciseExampleId: String?
 ) {
 
     val state by vm.state.collectAsState()
@@ -64,9 +59,12 @@ internal fun TrainingBuilderContent(
     backHandler.register(BackCallback { if (pagerState.currentPage == 1) vm.closeSetExercise() else close.invoke() })
     LaunchedEffect(state.setExerciseState) { pagerState.animateScrollToPage(page = if (state.setExerciseState is SetExerciseState.Opened) 1 else 0) }
 
-    LaunchedEffect(Unit) {
-        searchExerciseExampleId.onEach { delay(POPUP_ANIM_DURATION_MS) }
-            .collectLatest(vm::getExerciseExampleById)
+    LaunchedEffect(searchExerciseExampleId) {
+        if (searchExerciseExampleId != null) {
+            vm.getExerciseExampleById(searchExerciseExampleId)
+        }
+//        searchExerciseExampleId.onEach { delay(POPUP_ANIM_DURATION_MS) }
+//            .collectLatest(vm::getExerciseExampleById)
     }
 
     if (state.findExercisePopupIsVisible) PopupSheet(

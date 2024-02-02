@@ -11,7 +11,6 @@ import io.github.xxfast.decompose.router.Router
 import io.github.xxfast.decompose.router.content.RoutedContent
 import io.github.xxfast.decompose.router.rememberOnRoute
 import io.github.xxfast.decompose.router.rememberRouter
-import kotlinx.coroutines.flow.Flow
 import trainingbuilder.muscle_picker.MusclePickerContent
 import trainingbuilder.muscle_picker.MusclePickerViewModel
 import trainingbuilder.training_builder.TrainingBuilderContent
@@ -27,13 +26,14 @@ public sealed class TrainingRouter : Parcelable {
 public fun TrainingGraph(
     close: () -> Unit,
     toExerciseExamples: () -> Unit,
-    searchExerciseExampleId: Flow<String>,
+    searchExerciseExampleId: String?,
     toExerciseExampleDetails: (id: String, isSelectable: Boolean) -> Unit
 ) {
 
     val router: Router<TrainingRouter> = rememberRouter(TrainingRouter::class) {
         listOf(TrainingRouter.MusclePicker)
     }
+
 
     RoutedContent(router = router, animation = stackAnimation(slide(orientation = Orientation.Horizontal))) { child ->
         when (child) {

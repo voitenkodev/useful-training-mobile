@@ -14,7 +14,6 @@ import exerciseexample.ExerciseExampleGraph
 import io.github.xxfast.decompose.router.Router
 import io.github.xxfast.decompose.router.content.RoutedContent
 import io.github.xxfast.decompose.router.rememberRouter
-import kotlinx.coroutines.flow.merge
 import searchexercise.SearchExerciseComponent
 import searchexercise.SearchExerciseController
 import searchexercise.SearchExerciseGraph
@@ -71,12 +70,10 @@ internal fun MainGraph(toAuthentication: () -> Unit) {
 
                         TrainingGraph(
                             close = router::pop,
-                            searchExerciseExampleId = merge(
-                                exerciseDetailsApi.exerciseExampleId,
-                                exerciseSearchApi.exerciseExampleId
-                            ),
+                            searchExerciseExampleId = exerciseDetailsApi.exerciseExampleId ?: exerciseSearchApi.exerciseExampleId,
                             toExerciseExamples = {
                                 val action: Pair<String, (String) -> Unit> = "Select" to { id: String ->
+                                    println("TrainingGraph -> toExerciseExamples -> itemClick(id = $id)")
                                     exerciseSearchApi.itemClick(id = id)
                                     router.pop()
                                 }

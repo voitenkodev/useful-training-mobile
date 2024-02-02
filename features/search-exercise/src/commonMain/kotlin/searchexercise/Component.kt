@@ -3,9 +3,6 @@ package searchexercise
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.staticCompositionLocalOf
-import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.receiveAsFlow
 
 @Composable
 public fun SearchExerciseComponent(content: @Composable () -> Unit): Unit = CompositionLocalProvider(
@@ -20,12 +17,13 @@ public object SearchExerciseController {
 }
 
 public data class SearchExerciseApi(
-    private val _exerciseExampleId: Channel<String> = Channel(Channel.BUFFERED),
-    val exerciseExampleId: Flow<String> = _exerciseExampleId.receiveAsFlow(),
+    private var _exerciseExampleId: String? = null
 ) {
 
+    val exerciseExampleId: String? get() = _exerciseExampleId
+
     public fun itemClick(id: String) {
-        _exerciseExampleId.trySend(id)
+        _exerciseExampleId = id
     }
 }
 
