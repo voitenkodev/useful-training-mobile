@@ -98,8 +98,8 @@ internal fun SetExerciseContent(
                     musclesWithPercent = ex.exerciseExampleBundles.map { it.muscle.name to it.percentage }
                 )
             } ?: InputExerciseName(
-                provideName = { state.exercise.name },
-                update = setExerciseStateHolder::updateName
+                value = { state.exercise.name },
+                onValueChange = setExerciseStateHolder::updateName
             )
 
             PaddingM()

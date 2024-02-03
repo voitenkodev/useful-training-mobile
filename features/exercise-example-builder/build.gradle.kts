@@ -15,7 +15,8 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(projects.domain.exerciseExamples)
-                implementation(projects.domain.statistics)
+                implementation(projects.domain.equipments)
+                implementation(projects.domain.muscles)
 
                 implementation(projects.common.architectureComponent)
                 implementation(projects.common.utils)
@@ -25,14 +26,12 @@ kotlin {
                 implementation(projects.designSystem.components)
                 implementation(projects.designSystem.resources)
 
-                implementation(projects.composeLibs.muscles)
-                implementation(projects.composeLibs.equipments)
-                implementation(projects.composeLibs.composeVideo)
-                implementation(projects.composeLibs.composeImage)
-                implementation(projects.composeLibs.charts)
-
                 implementation(compose.ui)
                 implementation(compose.foundation)
+
+                implementation(projects.composeLibs.muscles)
+                implementation(projects.composeLibs.equipments)
+                implementation(projects.composeLibs.percentagePicker)
 
                 implementation(libs.immutable.collections)
                 implementation(libs.koin.core)

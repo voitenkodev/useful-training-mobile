@@ -16,7 +16,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import atom.Design
@@ -24,7 +23,7 @@ import molecule.ButtonIconSecondary
 import molecule.InputField
 
 @Composable
-public fun InputExerciseName(
+public fun InputUrl(
     modifier: Modifier = Modifier,
     value: () -> String,
     onValueChange: (String) -> Unit
@@ -36,13 +35,12 @@ public fun InputExerciseName(
             .fillMaxWidth()
             .padding(horizontal = Design.dp.paddingM),
         value = value.invoke(),
-        placeholder = "Exercise name",
+        placeholder = "https://",
         maxLines = 1,
-        backgroundColor = Design.colors.black10,
         keyboardActions = KeyboardActions { focusManager.moveFocus(FocusDirection.Next) },
         onValueChange = onValueChange,
+        backgroundColor = Design.colors.black10,
         keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Sentences, imeAction = ImeAction.Next),
-        fontWeight = FontWeight.Bold,
         trailing = {
             AnimatedVisibility(
                 visible = value().isNotEmpty(),
