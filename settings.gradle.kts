@@ -34,6 +34,7 @@ include(
     ":domain:equipments",
     ":domain:user",
     ":domain:statistics",
+    ":domain:filters",
     ":domain:common-models",
 
     ":services:network",

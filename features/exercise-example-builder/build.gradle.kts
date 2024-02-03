@@ -17,6 +17,7 @@ kotlin {
                 implementation(projects.domain.exerciseExamples)
                 implementation(projects.domain.equipments)
                 implementation(projects.domain.muscles)
+                implementation(projects.domain.filters)
 
                 implementation(projects.common.architectureComponent)
                 implementation(projects.common.utils)

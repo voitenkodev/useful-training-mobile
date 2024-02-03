@@ -12,6 +12,7 @@ import network.models.ExcludedEquipmentDto
 import network.models.ExcludedMuscleDto
 import network.models.ExerciseExampleAchievementsDto
 import network.models.ExerciseExampleDto
+import network.models.ExerciseExampleFiltersDto
 import network.models.MuscleDto
 import network.models.MuscleGroupDto
 import network.models.RegisterDto
@@ -75,6 +76,13 @@ public class NetworkSource(private val clientBackend: ClientBackend) {
         return callRequest(
             method = HttpMethod.Get,
             path = "/exercise-examples/recommended"
+        )
+    }
+
+    public suspend fun getExerciseExampleFilters(): ExerciseExampleFiltersDto {
+        return callRequest(
+            method = HttpMethod.Get,
+            path = "/filters"
         )
     }
 

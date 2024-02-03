@@ -19,6 +19,7 @@ kotlin {
                 implementation(projects.domain.muscles)
                 implementation(projects.domain.statistics)
                 implementation(projects.domain.equipments)
+                implementation(projects.domain.filters)
 
                 implementation(projects.services.network)
                 implementation(projects.services.database)

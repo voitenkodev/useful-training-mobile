@@ -1,6 +1,7 @@
 package exerciseexamplebuilder.main
 
 import EquipmentsRepository
+import FiltersRepository
 import MusclesRepository
 import ViewModel
 import exerciseexamplebuilder.main.factories.muscleImage
@@ -14,6 +15,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.update
 import org.koin.core.component.inject
 
@@ -24,6 +26,7 @@ internal class ExerciseExampleBuilderViewModel : ViewModel() {
 
     private val equipmentsApi by inject<EquipmentsRepository>()
     private val musclesApi by inject<MusclesRepository>()
+    private val filtersApi by inject<FiltersRepository>()
 
     init {
         equipmentsApi
@@ -36,6 +39,13 @@ internal class ExerciseExampleBuilderViewModel : ViewModel() {
             .observeMuscles()
             .onEach { r -> _state.update { it.copy(muscleGroups = r.toState()) } }
             .catch { r -> _state.update { it.copy(error = r.message) } }
+            .launchIn(this)
+
+        filtersApi
+            .getExerciseExampleFilters()
+            .onStart { _state.update { it.copy(loading = true) } }
+            .onEach { r -> _state.update { it.copy(filterPack = r.toState(), loading = false) } }
+            .catch { r -> _state.update { it.copy(error = r.message, loading = false) } }
             .launchIn(this)
     }
 
@@ -50,6 +60,50 @@ internal class ExerciseExampleBuilderViewModel : ViewModel() {
     fun onMuscleBundleChange(values: ImmutableList<MuscleGroup>) {
         _state.update {
             it.copy(muscleGroups = values)
+        }
+    }
+
+    fun selectCategory(value: String) {
+        _state.update {
+            val newFilterPack = it.filterPack.copy(
+                categories = it.filterPack.categories.map { item ->
+                    item.copy(isSelected = item.value == value)
+                }.toPersistentList()
+            )
+            it.copy(filterPack = newFilterPack)
+        }
+    }
+
+    fun selectWeightType(value: String) {
+        _state.update {
+            val newFilterPack = it.filterPack.copy(
+                weightTypes = it.filterPack.weightTypes.map { item ->
+                    item.copy(isSelected = item.value == value)
+                }.toPersistentList()
+            )
+            it.copy(filterPack = newFilterPack)
+        }
+    }
+
+    fun selectExperience(value: String) {
+        _state.update {
+            val newFilterPack = it.filterPack.copy(
+                experiences = it.filterPack.experiences.map { item ->
+                    item.copy(isSelected = item.value == value)
+                }.toPersistentList()
+            )
+            it.copy(filterPack = newFilterPack)
+        }
+    }
+
+    fun selectForceType(value: String) {
+        _state.update {
+            val newFilterPack = it.filterPack.copy(
+                forceTypes = it.filterPack.forceTypes.map { item ->
+                    item.copy(isSelected = item.value == value)
+                }.toPersistentList()
+            )
+            it.copy(filterPack = newFilterPack)
         }
     }
 

@@ -3,12 +3,14 @@ package data
 import AuthenticationRepository
 import EquipmentsRepository
 import ExerciseExamplesRepository
+import FiltersRepository
 import MusclesRepository
 import StatisticsRepository
 import TrainingsRepository
 import data.authentication.AuthenticationRepositoryImpl
 import data.equipments.EquipmentsRepositoryImpl
 import data.exerciseexamples.ExerciseExamplesRepositoryImpl
+import data.filters.FiltersRepositoryImpl
 import data.muscles.MusclesRepositoryImpl
 import data.statistics.StatisticsRepositoryImpl
 import data.traininigs.TrainingsRepositoryImpl
@@ -23,4 +25,5 @@ public val dataModule: Module = module {
     single { EquipmentsRepositoryImpl(get(), get()) } bind EquipmentsRepository::class
     single { StatisticsRepositoryImpl(get()) } bind StatisticsRepository::class
     single { TrainingsRepositoryImpl(get(), get(), get()) } bind TrainingsRepository::class
+    single { FiltersRepositoryImpl(get()) } bind FiltersRepository::class
 }
