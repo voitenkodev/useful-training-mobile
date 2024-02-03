@@ -34,7 +34,8 @@ internal fun ProfileContent(
     toExerciseExamples: () -> Unit,
     toMuscles: () -> Unit,
     toEquipment: () -> Unit,
-    toWeightHistory: () -> Unit
+    toWeightHistory: () -> Unit,
+    toExerciseExampleBuilder: () -> Unit
 ) {
 
     val state by vm.state.collectAsState()
@@ -47,6 +48,7 @@ internal fun ProfileContent(
         toMuscles = toMuscles,
         toEquipment = toEquipment,
         toWeightHistory = toWeightHistory,
+        toExerciseExampleBuilder = toExerciseExampleBuilder,
         toSupport = {},
         logout = vm::logout
     )
@@ -62,6 +64,7 @@ private fun Content(
     toEquipment: () -> Unit,
     toSupport: () -> Unit,
     toWeightHistory: () -> Unit,
+    toExerciseExampleBuilder: () -> Unit,
     logout: () -> Unit
 ) {
 
@@ -88,6 +91,36 @@ private fun Content(
                         weight = user.weight,
                         height = user.height
                     )
+                }
+            }
+
+            item { PaddingXL() }
+
+            item {
+                TextH3(
+                    modifier = Modifier.padding(horizontal = Design.dp.paddingM),
+                    provideText = { "Admin" }
+                )
+            }
+
+            item { PaddingM() }
+
+            item {
+                Column(modifier = Modifier.secondaryBackground().fillMaxWidth()) {
+
+                    Shadow()
+
+                    PaddingS()
+
+                    MenuItem(
+                        icon = Icons.handWeight,
+                        text = "Exercise Builder",
+                        onClick = toExerciseExampleBuilder
+                    )
+
+                    PaddingS()
+
+                    Shadow()
                 }
             }
 

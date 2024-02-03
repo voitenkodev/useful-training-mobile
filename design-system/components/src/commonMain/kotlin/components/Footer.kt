@@ -29,6 +29,7 @@ public fun ShadowFooterSpace() {
 @Composable
 public fun ShadowFooter(
     modifier: Modifier = Modifier,
+    // Name / Enabled / Action
     primary: Triple<String, Boolean, () -> Unit>? = null,
     close: (() -> Unit)? = null
 ) {

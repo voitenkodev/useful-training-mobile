@@ -24,7 +24,8 @@ public fun ProfileGraph(
     toExerciseExamples: () -> Unit,
     toMuscles: () -> Unit,
     toEquipment: () -> Unit,
-    toWeightHistory: () -> Unit
+    toWeightHistory: () -> Unit,
+    toExerciseExampleBuilder: () -> Unit
 ) {
 
     val router: Router<ProfileFeature> = rememberRouter(ProfileFeature::class) {
@@ -43,7 +44,8 @@ public fun ProfileGraph(
                     toExerciseExamples = toExerciseExamples,
                     toWeightHistory = toWeightHistory,
                     toMuscles = toMuscles,
-                    toEquipment = toEquipment
+                    toEquipment = toEquipment,
+                    toExerciseExampleBuilder = toExerciseExampleBuilder
                 )
             }
         }

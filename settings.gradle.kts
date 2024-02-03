@@ -66,6 +66,7 @@ include(
     "features:profile",
     "features:training-builder",
     "features:exercise-example",
+    "features:exercise-example-builder",
     "features:search-exercise",
     "features:weight-history",
     "features:user-muscles",

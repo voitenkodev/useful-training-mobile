@@ -31,7 +31,8 @@ internal fun BottomMenuGraph(
     toAuthentication: () -> Unit,
     toMuscles: () -> Unit,
     toEquipment: () -> Unit,
-    toWeightHistory: () -> Unit
+    toWeightHistory: () -> Unit,
+    toExerciseExampleBuilder: () -> Unit
 ) {
 
     val router: Router<BottomMenuRouter> = rememberRouter(BottomMenuRouter::class) {
@@ -72,7 +73,8 @@ internal fun BottomMenuGraph(
                         toExerciseExamples = toExerciseExamples,
                         toWeightHistory = toWeightHistory,
                         toMuscles = toMuscles,
-                        toEquipment = toEquipment
+                        toEquipment = toEquipment,
+                        toExerciseExampleBuilder = toExerciseExampleBuilder
                     )
 
                     BottomMenuRouter.Statistics -> StatisticsGraph(
