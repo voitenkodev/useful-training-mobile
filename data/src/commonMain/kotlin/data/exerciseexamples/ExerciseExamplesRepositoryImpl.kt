@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.mapNotNull
 import models.ExerciseExample
+import models.InputExerciseExample
 import network.NetworkSource
 
 internal class ExerciseExamplesRepositoryImpl(
@@ -55,7 +56,7 @@ internal class ExerciseExamplesRepositoryImpl(
         }
     }
 
-    override fun setExerciseExample(exerciseExample: ExerciseExample): Flow<Unit> {
+    override fun setExerciseExample(exerciseExample: InputExerciseExample): Flow<Unit> {
         return flow {
             val result = remote
                 .setExerciseExample(exerciseExample.domainToDto())

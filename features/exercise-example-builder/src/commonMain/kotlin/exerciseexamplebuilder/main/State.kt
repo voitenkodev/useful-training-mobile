@@ -10,6 +10,7 @@ import kotlinx.collections.immutable.persistentListOf
 @Immutable
 internal data class State(
     val name: String = "",
+    val description: String = "",
     val imageUrl: String = "",
 
     val muscleGroups: ImmutableList<MuscleGroup> = persistentListOf(),

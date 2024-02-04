@@ -1,6 +1,7 @@
 package exerciseexamplebuilder.main
 
 import EquipmentsRepository
+import ExerciseExamplesRepository
 import FiltersRepository
 import MusclesRepository
 import ViewModel
@@ -17,6 +18,12 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.update
+import models.CategoryEnum
+import models.ExperienceEnum
+import models.ForceTypeEnum
+import models.InputExerciseExample
+import models.InputExerciseExampleBundle
+import models.WeightTypeEnum
 import org.koin.core.component.inject
 
 internal class ExerciseExampleBuilderViewModel : ViewModel() {
@@ -27,6 +34,7 @@ internal class ExerciseExampleBuilderViewModel : ViewModel() {
     private val equipmentsApi by inject<EquipmentsRepository>()
     private val musclesApi by inject<MusclesRepository>()
     private val filtersApi by inject<FiltersRepository>()
+    private val exerciseExampleApi by inject<ExerciseExamplesRepository>()
 
     init {
         equipmentsApi
@@ -49,10 +57,44 @@ internal class ExerciseExampleBuilderViewModel : ViewModel() {
             .launchIn(this)
     }
 
-    fun saveExercise() {}
+    fun saveExercise(onSuccess: () -> Unit) {
+        val lastState = state.value
+
+        val inputExerciseExample = InputExerciseExample(
+            category = CategoryEnum.of(lastState.filterPack.categories.firstOrNull { it.isSelected }?.value),
+            experience = ExperienceEnum.of(lastState.filterPack.experiences.firstOrNull { it.isSelected }?.value),
+            forceType = ForceTypeEnum.of(lastState.filterPack.forceTypes.firstOrNull { it.isSelected }?.value),
+            weightType = WeightTypeEnum.of(lastState.filterPack.weightTypes.firstOrNull { it.isSelected }?.value),
+            description = lastState.description,
+            imageUrl = lastState.imageUrl,
+            name = lastState.name,
+            equipmentIds = lastState.equipmentGroups
+                .flatMap { it.equipments }
+                .filter { it.status == StatusEnum.SELECTED }
+                .map { it.id },
+            exerciseExampleBundles = lastState.muscleGroups
+                .flatMap { it.muscles }
+                .filter { it.status == StatusEnum.SELECTED }
+                .map { InputExerciseExampleBundle(muscleId = it.id, percentage = it.percentage) }
+        )
+
+        exerciseExampleApi.setExerciseExample(inputExerciseExample)
+            .onStart {
+                _state.update { it.copy(loading = true) }
+            }.onEach {
+                _state.update { it.copy(loading = false, error = null) }
+                onSuccess.invoke()
+            }.catch { t ->
+                _state.update { it.copy(loading = false, error = t.message) }
+            }.launchIn(this)
+    }
 
     fun updateName(value: String) {
         _state.update { it.copy(name = value) }
+    }
+
+    fun updateDescription(value: String) {
+        _state.update { it.copy(description = value) }
     }
 
     fun updateImageUrl(value: String) {

@@ -31,6 +31,7 @@ import components.ShadowHeader
 import components.ShadowHeaderSpace
 import components.chips.Chip
 import components.chips.ChipState
+import components.inputs.InputDescription
 import components.inputs.InputExerciseName
 import components.inputs.InputUrl
 import components.roots.ScreenRoot
@@ -61,10 +62,12 @@ internal fun ExerciseExampleBuilderContent(
         close = close,
         error = { state.error },
         clearError = vm::clearError,
-        updateName = vm::updateName,
         name = state.name,
-        updateImageUrl = vm::updateImageUrl,
+        updateName = vm::updateName,
+        description = state.description,
+        updateDescription = vm::updateDescription,
         imageUrl = state.imageUrl,
+        updateImageUrl = vm::updateImageUrl,
 
         muscles = state.muscleGroups,
         selectMuscle = vm::selectMuscle,
@@ -80,7 +83,7 @@ internal fun ExerciseExampleBuilderContent(
 
         equipments = state.equipmentGroups,
         selectEquipment = vm::selectEquipment,
-        save = vm::saveExercise
+        save = { vm.saveExercise(close) }
     )
 }
 
@@ -92,6 +95,8 @@ private fun Content(
 
     name: String,
     updateName: (String) -> Unit,
+    description: String,
+    updateDescription: (String) -> Unit,
     imageUrl: String,
     updateImageUrl: (String) -> Unit,
 
@@ -146,6 +151,12 @@ private fun Content(
 
             PaddingM()
 
+            InputDescription(
+                value = { description },
+                onValueChange = updateDescription
+            )
+
+            PaddingM()
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
