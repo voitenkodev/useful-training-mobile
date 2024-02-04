@@ -16,6 +16,8 @@ kotlin {
             dependencies {
                 implementation(projects.domain.exerciseExamples)
                 implementation(projects.domain.muscles)
+                implementation(projects.domain.filters)
+                implementation(projects.domain.equipments)
 
                 implementation(projects.common.utils)
                 implementation(projects.common.architectureComponent)
@@ -27,6 +29,10 @@ kotlin {
 
                 implementation(compose.ui)
                 implementation(compose.foundation)
+
+                implementation(projects.composeLibs.muscles)
+                implementation(projects.composeLibs.equipments)
+
                 implementation(libs.immutable.collections)
                 implementation(libs.koin.core)
             }

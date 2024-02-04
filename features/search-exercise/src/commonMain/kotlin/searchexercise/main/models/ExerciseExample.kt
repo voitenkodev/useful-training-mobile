@@ -4,7 +4,7 @@ import androidx.compose.runtime.Immutable
 import kotlinx.collections.immutable.ImmutableList
 
 @Immutable
-public data class ExerciseExample(
+internal data class ExerciseExample(
     val id: String,
     val exerciseExampleBundles: ImmutableList<ExerciseExampleBundle>,
     val name: String,

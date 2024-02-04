@@ -150,7 +150,7 @@ private fun Content(
 
                     MenuItem(
                         icon = Icons.dumbbell,
-                        text = "Exercise",
+                        text = "Exercises",
                         onClick = toExerciseExamples
                     )
 

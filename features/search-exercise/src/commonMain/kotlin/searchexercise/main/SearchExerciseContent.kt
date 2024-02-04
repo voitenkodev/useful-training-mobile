@@ -17,9 +17,11 @@ import components.cards.ExerciseCardDefault
 import components.cards.ExerciseCardDefaultLoading
 import components.roots.ScreenRoot
 import kotlinx.collections.immutable.ImmutableList
+import molecule.PopupSheet
 import molecule.primaryBackground
 import searchexercise.main.components.Header
 import searchexercise.main.models.ExerciseExample
+import searchexercise.main.popups.ExerciseExampleFiltersPopup
 
 @Composable
 internal fun SearchExerciseContent(
@@ -31,6 +33,25 @@ internal fun SearchExerciseContent(
 ) {
 
     val state by vm.state.collectAsState()
+
+    if (state.filtersPopupIsVisible) PopupSheet(
+        onDismiss = vm::closeFiltersPopup,
+        content = { hideLambda ->
+            ExerciseExampleFiltersPopup(
+                close = hideLambda,
+                muscles = state.muscles,
+                equipments = state.equipments,
+                filterPack = state.filterPack,
+                selectEquipment = vm::selectEquipment,
+                selectMuscle = vm::selectMuscle,
+                selectWeightType = vm::selectWeightType,
+                selectExperience = vm::selectExperience,
+                selectForceType = vm::selectForceType,
+                selectCategory = vm::selectCategory,
+                applyFilters = {}
+            )
+        }
+    )
 
     Content(
         error = { state.error },

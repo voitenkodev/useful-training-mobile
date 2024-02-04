@@ -1,4 +1,4 @@
-package exerciseexamplebuilder.main.components
+package searchexercise.main.popups.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -19,18 +19,17 @@ import androidx.compose.ui.unit.dp
 import atom.Design
 import components.chips.Chip
 import components.chips.ChipState
-import exerciseexamplebuilder.main.models.Muscle
-import exerciseexamplebuilder.main.models.MuscleGroup
-import exerciseexamplebuilder.main.models.StatusEnum
 import molecule.PaddingM
 import molecule.PaddingS
 import molecule.TextH4
-import percents
 import resources.Icons
+import searchexercise.main.models.FilterMuscle
+import searchexercise.main.models.FilterMuscleGroup
+import searchexercise.main.models.StatusEnum
 
 @Composable
 internal fun MuscleGroup(
-    item: MuscleGroup,
+    item: FilterMuscleGroup,
     selectMuscle: (id: String) -> Unit
 ) {
 
@@ -75,7 +74,7 @@ internal fun MuscleGroup(
 
 @Composable
 private fun MuscleChip(
-    muscle: Muscle,
+    muscle: FilterMuscle,
     selectMuscle: (id: String) -> Unit
 ) {
 
@@ -88,7 +87,7 @@ private fun MuscleChip(
 
     val chipState = ChipState.Colored(
         backgroundColor = Color.Transparent,
-        borderColor = if (muscle.status == StatusEnum.SELECTED) muscle.color else Design.palette.white10,
+        borderColor = if (muscle.status == StatusEnum.SELECTED) Design.colors.toxic else Design.palette.white10,
         contentColor = contentColor
     )
 
@@ -102,7 +101,7 @@ private fun MuscleChip(
     Chip(
         chipState = chipState,
         onClick = { selectMuscle.invoke(muscle.id) },
-        text = "${muscle.percentage.percents()} ${muscle.name}",
+        text = muscle.name,
         iconStart = iconStart
     )
 }

@@ -63,8 +63,6 @@ internal fun TrainingBuilderContent(
         if (searchExerciseExampleId != null) {
             vm.getExerciseExampleById(searchExerciseExampleId)
         }
-//        searchExerciseExampleId.onEach { delay(POPUP_ANIM_DURATION_MS) }
-//            .collectLatest(vm::getExerciseExampleById)
     }
 
     if (state.findExercisePopupIsVisible) PopupSheet(
