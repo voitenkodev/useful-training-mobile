@@ -157,12 +157,8 @@ private fun Content(
             )
 
             PaddingM()
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(Design.colors.black10)
-                    .defaultMinSize(minHeight = 320.dp)
-            ) {
+
+            Column(modifier = Modifier.fillMaxWidth().defaultMinSize(minHeight = 320.dp)) {
 
                 PaddingM()
 
@@ -304,16 +300,9 @@ private fun Content(
             ShadowFooterSpace()
         }
 
-        ShadowHeader(
-            title = "Exercise Builder"
-        )
-        val primary = remember(
-            equipments,
-            muscles,
-            name,
-            imageUrl,
-            filterPack
-        ) {
+        ShadowHeader(title = "Exercise Builder")
+
+        val primary = remember(equipments, muscles, name, imageUrl, filterPack) {
             val hasEquip = equipments.flatMap { it.equipments }.any { it.status == StatusEnum.SELECTED }
             val hasMuscles = muscles.flatMap { it.muscles }.any { it.status == StatusEnum.SELECTED }
             val hasAllFilters = filterPack.categories.any { it.isSelected } and
