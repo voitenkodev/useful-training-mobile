@@ -34,6 +34,7 @@ import components.chips.ChipState
 import components.inputs.InputExerciseName
 import components.inputs.InputUrl
 import components.roots.ScreenRoot
+import exerciseexamplebuilder.main.components.EquipmentGroups
 import exerciseexamplebuilder.main.components.MuscleGroup
 import exerciseexamplebuilder.main.models.EquipmentGroup
 import exerciseexamplebuilder.main.models.FilterPack
@@ -44,6 +45,7 @@ import kotlinx.collections.immutable.toPersistentList
 import molecule.PaddingM
 import molecule.PaddingS
 import molecule.TextBody1
+import molecule.primaryBackground
 import percentagepicker.RangeSlider
 import percentagepicker.ThumbRangeState
 
@@ -76,7 +78,9 @@ internal fun ExerciseExampleBuilderContent(
         selectExperience = vm::selectExperience,
         selectWeightType = vm::selectWeightType,
 
-        equipments = state.equipmentGroups
+        equipments = state.equipmentGroups,
+        selectEquipment = vm::selectEquipment,
+        save = vm::saveExercise
     )
 }
 
@@ -103,7 +107,9 @@ private fun Content(
     selectForceType: (value: String) -> Unit,
     selectWeightType: (value: String) -> Unit,
 
-    equipments: ImmutableList<EquipmentGroup>
+    equipments: ImmutableList<EquipmentGroup>,
+    selectEquipment: (id: String) -> Unit,
+    save: () -> Unit
 ) {
 
     val selectedChipState = ChipState.Colored(
@@ -120,7 +126,7 @@ private fun Content(
 
     ScreenRoot(error = { Error(message = error, close = clearError) }) {
 
-        Column(modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState())) {
+        Column(modifier = Modifier.fillMaxSize().primaryBackground().verticalScroll(rememberScrollState())) {
 
             ShadowHeaderSpace()
 
@@ -279,16 +285,43 @@ private fun Content(
                 }
             }
 
+            EquipmentGroups(
+                items = equipments,
+                selectEquipment = selectEquipment
+            )
+
             ShadowFooterSpace()
         }
 
         ShadowHeader(
             title = "Exercise Builder"
         )
+        val primary = remember(
+            equipments,
+            muscles,
+            name,
+            imageUrl,
+            filterPack
+        ) {
+            val hasEquip = equipments.flatMap { it.equipments }.any { it.status == StatusEnum.SELECTED }
+            val hasMuscles = muscles.flatMap { it.muscles }.any { it.status == StatusEnum.SELECTED }
+            val hasAllFilters = filterPack.categories.any { it.isSelected } and
+                    filterPack.forceTypes.any { it.isSelected } and
+                    filterPack.weightTypes.any { it.isSelected } and
+                    filterPack.experiences.any { it.isSelected }
+            val hasName = name.isNotBlank()
+            val hasImage = imageUrl.isNotBlank()
+
+            Triple(
+                first = "Save",
+                second = hasEquip && hasMuscles && hasName && hasImage && hasAllFilters,
+                third = save
+            )
+        }
 
         ShadowFooter(
             modifier = Modifier.fillMaxWidth().align(Alignment.BottomCenter),
-//            primary = primary,
+            primary = primary,
             close = close
         )
     }

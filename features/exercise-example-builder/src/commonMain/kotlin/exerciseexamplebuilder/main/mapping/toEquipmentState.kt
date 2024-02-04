@@ -41,7 +41,6 @@ import exerciseexamplebuilder.main.models.StatusEnum
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toPersistentList
 import models.EquipmentEnum
-import models.EquipmentStatusEnum
 
 internal fun List<models.Equipment>.toState(): ImmutableList<Equipment> {
     return mapNotNull { it.toState() }
@@ -53,16 +52,8 @@ internal fun models.Equipment.toState(): Equipment? {
         name = name,
         id = id,
         image = type.toImageState() ?: return null,
-        status = status.toState() ?: return null,
+        status = StatusEnum.UNSELECTED
     )
-}
-
-private fun EquipmentStatusEnum.toState(): StatusEnum? {
-    return when (this) {
-        EquipmentStatusEnum.EXCLUDED -> StatusEnum.UNSELECTED
-        EquipmentStatusEnum.UNKNOWN -> null
-        else -> StatusEnum.SELECTED
-    }
 }
 
 private fun EquipmentEnum.toImageState(): ImageVector? {

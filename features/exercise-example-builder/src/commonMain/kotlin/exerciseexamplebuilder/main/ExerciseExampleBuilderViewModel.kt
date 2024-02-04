@@ -49,6 +49,8 @@ internal class ExerciseExampleBuilderViewModel : ViewModel() {
             .launchIn(this)
     }
 
+    fun saveExercise() {}
+
     fun updateName(value: String) {
         _state.update { it.copy(name = value) }
     }
@@ -93,6 +95,31 @@ internal class ExerciseExampleBuilderViewModel : ViewModel() {
                 }.toPersistentList()
             )
             it.copy(filterPack = newFilterPack)
+        }
+    }
+
+    fun selectEquipment(id: String) {
+        _state.update {
+            it.copy(
+                equipmentGroups = it.equipmentGroups.map { mt ->
+                    val equipments = mt.equipments.map equipMap@{ v ->
+                        if (id != v.id) {
+                            return@equipMap v
+                        }
+
+                        v.copy(
+                            status = when (v.status) {
+                                StatusEnum.SELECTED -> StatusEnum.UNSELECTED
+                                StatusEnum.UNSELECTED -> StatusEnum.SELECTED
+                            }
+                        )
+                    }.toPersistentList()
+
+                    mt.copy(
+                        equipments = equipments
+                    )
+                }.toPersistentList()
+            )
         }
     }
 
