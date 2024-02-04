@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -22,7 +21,6 @@ import components.chips.ChipState
 import molecule.PaddingM
 import molecule.PaddingS
 import molecule.TextH4
-import resources.Icons
 import searchexercise.main.models.FilterMuscle
 import searchexercise.main.models.FilterMuscleGroup
 import searchexercise.main.models.StatusEnum
@@ -78,30 +76,21 @@ private fun MuscleChip(
     selectMuscle: (id: String) -> Unit
 ) {
 
-    val contentColor = remember(muscle.status) {
-        when (muscle.status) {
-            StatusEnum.UNSELECTED -> Design.palette.caption
-            StatusEnum.SELECTED -> Design.palette.content
-        }
-    }
-
-    val chipState = ChipState.Colored(
-        backgroundColor = Color.Transparent,
-        borderColor = if (muscle.status == StatusEnum.SELECTED) Design.colors.toxic else Design.palette.white10,
-        contentColor = contentColor
+    val selectedChipState = ChipState.Colored(
+        backgroundColor = Design.colors.toxic.copy(alpha = 0.2f),
+        borderColor = Design.colors.toxic,
+        contentColor = Design.colors.content
     )
 
-    val iconStart = remember(muscle.status) {
-        when (muscle.status) {
-            StatusEnum.UNSELECTED -> Icons.redCircle
-            StatusEnum.SELECTED -> Icons.greenCircle
-        }
-    }
+    val unSelectedChipState = ChipState.Colored(
+        backgroundColor = Color.Transparent,
+        borderColor = Design.colors.caption,
+        contentColor = Design.colors.content
+    )
 
     Chip(
-        chipState = chipState,
+        chipState = if (muscle.status == StatusEnum.SELECTED) selectedChipState else unSelectedChipState,
         onClick = { selectMuscle.invoke(muscle.id) },
-        text = muscle.name,
-        iconStart = iconStart
+        text = muscle.name
     )
 }

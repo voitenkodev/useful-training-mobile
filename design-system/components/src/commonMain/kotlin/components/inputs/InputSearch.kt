@@ -44,7 +44,6 @@ public fun InputSearch(
         modifier
             .fillMaxWidth()
             .height(IntrinsicSize.Min)
-            .padding(horizontal = Design.dp.paddingM)
     ) {
         InputField(
             modifier = Modifier.fillMaxWidth().conditional(

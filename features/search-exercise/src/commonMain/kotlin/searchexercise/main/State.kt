@@ -13,7 +13,7 @@ internal data class State(
     val exerciseExamples: ImmutableList<ExerciseExample> = persistentListOf(),
 
     // Filters
-    val filtersPopupIsVisible: Boolean = true,
+    val filtersPopupIsVisible: Boolean = false,
     val query: String = "",
     val equipments: ImmutableList<FilterEquipment> = persistentListOf(),
     val muscles: ImmutableList<FilterMuscleGroup> = persistentListOf(),

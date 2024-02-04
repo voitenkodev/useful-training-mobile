@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -18,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.capitalize
 import androidx.compose.ui.text.intl.Locale
+import androidx.compose.ui.unit.dp
 import atom.Design
 import components.chips.Chip
 import components.chips.ChipState
@@ -27,11 +29,12 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import molecule.ButtonPrimary
 import molecule.POPUP_ANIM_DURATION_MS
+import molecule.PaddingL
 import molecule.PaddingM
 import molecule.PaddingS
 import molecule.Shadow
 import molecule.SmallToolbar
-import molecule.TextBody1
+import molecule.TextLabel
 import resources.Icons
 import searchexercise.main.models.FilterEquipment
 import searchexercise.main.models.FilterMuscleGroup
@@ -84,20 +87,10 @@ internal fun ExerciseExampleFiltersPopup(
         Shadow()
 
         Column(modifier = Modifier.weight(1f).verticalScroll(rememberScrollState())) {
-            PaddingM()
 
-            LazyRow(modifier = Modifier.fillMaxWidth()) {
-                items(muscles, key = { it.id }) {
-                    MuscleGroup(
-                        item = it,
-                        selectMuscle = selectMuscle
-                    )
-                }
-            }
+            PaddingL()
 
-            PaddingM()
-
-            TextBody1(modifier = Modifier.padding(horizontal = Design.dp.paddingM), provideText = { "Categories" })
+            TextLabel(modifier = Modifier.padding(horizontal = Design.dp.paddingM), provideText = { "Categories" })
 
             PaddingS()
 
@@ -116,9 +109,9 @@ internal fun ExerciseExampleFiltersPopup(
                 }
             }
 
-            PaddingM()
+            PaddingL()
 
-            TextBody1(modifier = Modifier.padding(horizontal = Design.dp.paddingM), provideText = { "Weight Type" })
+            TextLabel(modifier = Modifier.padding(horizontal = Design.dp.paddingM), provideText = { "Weight Type" })
 
             PaddingS()
 
@@ -137,9 +130,9 @@ internal fun ExerciseExampleFiltersPopup(
                 }
             }
 
-            PaddingM()
+            PaddingL()
 
-            TextBody1(modifier = Modifier.padding(horizontal = Design.dp.paddingM), provideText = { "Force Type" })
+            TextLabel(modifier = Modifier.padding(horizontal = Design.dp.paddingM), provideText = { "Force Type" })
 
             PaddingS()
 
@@ -158,9 +151,9 @@ internal fun ExerciseExampleFiltersPopup(
                 }
             }
 
-            PaddingM()
+            PaddingL()
 
-            TextBody1(modifier = Modifier.padding(horizontal = Design.dp.paddingM), provideText = { "Experience" })
+            TextLabel(modifier = Modifier.padding(horizontal = Design.dp.paddingM), provideText = { "Experience" })
 
             PaddingS()
 
@@ -178,6 +171,31 @@ internal fun ExerciseExampleFiltersPopup(
                     }
                 }
             }
+
+            PaddingL()
+
+            TextLabel(
+                modifier = Modifier.padding(horizontal = Design.dp.paddingM),
+                provideText = { "Muscles" }
+            )
+
+            LazyRow(modifier = Modifier.defaultMinSize(minHeight = 240.dp).fillMaxWidth()) {
+                items(muscles, key = { it.id }) {
+                    MuscleGroup(
+                        item = it,
+                        selectMuscle = selectMuscle
+                    )
+                }
+            }
+
+            PaddingM()
+
+            TextLabel(
+                modifier = Modifier.padding(horizontal = Design.dp.paddingM),
+                provideText = { "Equipments" }
+            )
+
+            PaddingS()
 
             EquipmentGroups(
                 items = equipments,

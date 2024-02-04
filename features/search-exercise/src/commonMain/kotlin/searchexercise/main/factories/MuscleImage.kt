@@ -14,7 +14,7 @@ import searchexercise.main.models.StatusEnum
 
 private fun colorBySelection(muscle: FilterMuscle?): Color {
 
-    val unSelected = Design.palette.red.copy(alpha = 0.7f)
+    val unSelected = Design.palette.white10
     val selected = Design.palette.toxic.copy(alpha = 0.7f)
     val default = Design.palette.white10
 

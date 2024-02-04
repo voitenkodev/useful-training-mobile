@@ -74,6 +74,7 @@ internal fun FindExercisePopup(
         PaddingM()
 
         InputSearch(
+            modifier = Modifier.padding(horizontal = Design.dp.paddingM),
             provideName = { "" },
             update = {},
             onClick = {

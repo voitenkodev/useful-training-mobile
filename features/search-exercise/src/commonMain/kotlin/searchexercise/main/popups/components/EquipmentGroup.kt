@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
@@ -27,11 +26,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import atom.Design
 import kotlinx.collections.immutable.ImmutableList
-import molecule.IconImage
-import molecule.PaddingM
-import molecule.PaddingS
 import molecule.TextBody2
-import resources.Icons
 import searchexercise.main.models.FilterEquipment
 import searchexercise.main.models.StatusEnum
 
@@ -45,14 +40,10 @@ internal fun EquipmentGroups(
 
     val interactionSource = remember { MutableInteractionSource() }
 
-    PaddingS()
-
     Column(
         modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-
-        PaddingM()
 
         LazyHorizontalGrid(
             modifier = Modifier.fillMaxWidth().height(200.dp * multiplier),
@@ -67,7 +58,7 @@ internal fun EquipmentGroups(
                     modifier = Modifier
                         .width(160.dp)
                         .border(
-                            color = Design.colors.white10,
+                            color = if (equipment.status == StatusEnum.SELECTED) Design.colors.toxic else Design.colors.white10,
                             width = 1.dp,
                             shape = Design.shape.default
                         )
@@ -82,7 +73,6 @@ internal fun EquipmentGroups(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Box(modifier = Modifier.fillMaxWidth().weight(1f)) {
-
                         Image(
                             modifier = Modifier
                                 .fillMaxSize()
@@ -90,21 +80,6 @@ internal fun EquipmentGroups(
                             imageVector = equipment.image,
                             contentScale = ContentScale.Fit,
                             contentDescription = null
-                        )
-
-                        val iconStart = remember(equipment.status) {
-                            when (equipment.status) {
-                                StatusEnum.UNSELECTED -> Icons.redCircle
-                                StatusEnum.SELECTED -> Icons.greenCircle
-                            }
-                        }
-
-                        IconImage(
-                            modifier = Modifier
-                                .align(Alignment.TopEnd)
-                                .padding(Design.dp.paddingS)
-                                .size(18.dp),
-                            imageVector = iconStart
                         )
                     }
 

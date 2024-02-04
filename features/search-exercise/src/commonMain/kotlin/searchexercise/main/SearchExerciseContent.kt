@@ -63,6 +63,7 @@ internal fun SearchExerciseContent(
         exerciseExamples = state.exerciseExamples,
         toDetails = toDetails,
         close = close,
+        openFilters = vm::openFiltersPopup,
         itemAction = itemAction
     )
 }
@@ -72,6 +73,7 @@ private fun Content(
     autoFocus: Boolean,
     error: () -> String?,
     loading: Boolean,
+    openFilters: () -> Unit,
     clearError: () -> Unit,
     query: String,
     setQuery: (String) -> Unit,
@@ -89,6 +91,7 @@ private fun Content(
                 autoFocus = autoFocus,
                 query = query,
                 setQuery = setQuery,
+                openFilters = openFilters,
                 close = close
             )
 
