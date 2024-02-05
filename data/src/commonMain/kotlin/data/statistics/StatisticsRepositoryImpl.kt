@@ -9,10 +9,10 @@ import network.NetworkSource
 
 internal class StatisticsRepositoryImpl(private val remote: NetworkSource) : StatisticsRepository {
 
-    override fun getExerciseExampleAchievements(exerciseExampleId: String, limit: Int): Flow<ExerciseExampleAchievements> {
+    override fun getExerciseExampleAchievements(exerciseExampleId: String, size: Int): Flow<ExerciseExampleAchievements> {
         return flow {
             val result = remote
-                .getExerciseExampleAchievements(exerciseExampleId, limit)
+                .getExerciseExampleAchievements(exerciseExampleId, size)
                 .dtoToDomain()
 
             if (result != null) emit(result)

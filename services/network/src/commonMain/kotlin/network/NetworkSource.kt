@@ -78,7 +78,18 @@ public class NetworkSource(private val clientBackend: ClientBackend) {
     ): List<ExerciseExampleDto> {
         return callRequest(
             method = HttpMethod.Get,
-            path = "/exercise-examples"
+            path = "/exercise-examples",
+            queryParams = buildMap {
+                put("page", page.toString())
+                put("size", size.toString())
+                put("query", query.toString())
+                weightType?.let { put("weightType", it) }
+                experience?.let { put("experience", it) }
+                forceType?.let { put("forceType", it) }
+                category?.let { put("category", it) }
+                muscleIds.takeIf { it.isNotEmpty() }?.let { put("muscleIds", it.joinToString(",")) }
+                equipmentIds.takeIf { it.isNotEmpty() }?.let { put("equipmentIds", it.joinToString(",")) }
+            }
         )
     }
 
@@ -111,13 +122,13 @@ public class NetworkSource(private val clientBackend: ClientBackend) {
         )
     }
 
-    public suspend fun getExerciseExampleAchievements(exerciseExampleId: String, limit: Int): ExerciseExampleAchievementsDto {
+    public suspend fun getExerciseExampleAchievements(exerciseExampleId: String, size: Int): ExerciseExampleAchievementsDto {
         return callRequest(
             method = HttpMethod.Get,
             path = "/statistics/achievements/exercise-example",
             queryParams = mapOf(
                 "id" to exerciseExampleId,
-                "limit" to limit.toString()
+                "size" to size.toString()
             ),
         )
     }
