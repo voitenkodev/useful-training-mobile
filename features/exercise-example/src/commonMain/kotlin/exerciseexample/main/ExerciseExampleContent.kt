@@ -29,6 +29,7 @@ import exerciseexample.main.components.Header
 import exerciseexample.main.components.HeapMap
 import exerciseexample.main.components.MusclePack
 import exerciseexample.main.components.ResentVolume
+import exerciseexample.main.components.Tutorial
 import exerciseexample.main.models.ExerciseExample
 import exerciseexample.main.models.ExerciseExampleAchievements
 import molecule.PaddingM
@@ -73,9 +74,11 @@ private fun Content(
 
             Header(exerciseExample = exerciseExample)
 
-//            Tutorial(url = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4", onClick = {})
+            PaddingXL()
 
-//            PaddingXL()
+            Tutorial(url = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4", onClick = {})
+
+            PaddingXL()
 
             if (exerciseExample?.equipments?.isNotEmpty() == true) {
 

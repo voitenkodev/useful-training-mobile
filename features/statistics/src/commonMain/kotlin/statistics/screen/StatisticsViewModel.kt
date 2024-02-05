@@ -31,7 +31,7 @@ internal class StatisticsViewModel : ViewModel() {
             .launchIn(this)
 
         exerciseExamplesApi
-            .syncExerciseExamples()
+            .getExerciseExamples(page = 1, size = 10)
             .catch { t -> _state.update { it.copy(error = t.message) } }
             .launchIn(this)
 

@@ -65,7 +65,17 @@ public class NetworkSource(private val clientBackend: ClientBackend) {
         )
     }
 
-    public suspend fun getAllExerciseExamples(): List<ExerciseExampleDto> {
+    public suspend fun getExerciseExamples(
+        page: Int,
+        size: Int,
+        query: String?,
+        weightType: String?,
+        forceType: String?,
+        experience: String?,
+        category: String?,
+        muscleIds: List<String>,
+        equipmentIds: List<String>
+    ): List<ExerciseExampleDto> {
         return callRequest(
             method = HttpMethod.Get,
             path = "/exercise-examples"

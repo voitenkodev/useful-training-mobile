@@ -31,11 +31,21 @@ internal class ExerciseExamplesRepositoryImpl(
             .map { it.daoToDomain() }
     }
 
-    override fun syncExerciseExamples(): Flow<Unit> {
+    override fun getExerciseExamples(
+        page: Int,
+        size: Int,
+        query: String?,
+        weightType: String?,
+        forceType: String?,
+        experience: String?,
+        category: String?,
+        muscleIds: List<String>,
+        equipmentIds: List<String>
+    ): Flow<List<ExerciseExample>> {
         return flow {
-            val result = remote.getAllExerciseExamples()
+            val result = remote.getExerciseExamples(page, size, query, weightType, forceType, experience, category, muscleIds, equipmentIds)
             local.setExerciseExamples(result.dtoToDao())
-            emit(Unit)
+            emit(result.dtoToDomain())
         }
     }
 
