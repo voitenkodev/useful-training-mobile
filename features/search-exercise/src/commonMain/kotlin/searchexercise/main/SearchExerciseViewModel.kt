@@ -86,7 +86,6 @@ internal class SearchExerciseViewModel : ViewModel() {
             .distinctUntilChanged()
             .debounce(500)
             .flatMapLatest {
-                println("CALL EXERCISES")
                 val filters = it.second
                 val query = it.first
                 exerciseExampleApi.getExerciseExamples(

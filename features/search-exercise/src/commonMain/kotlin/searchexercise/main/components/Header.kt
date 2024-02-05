@@ -13,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.platform.LocalFocusManager
 import atom.Design
 import components.inputs.InputSearch
 import molecule.ButtonIconTransparent
@@ -33,6 +34,7 @@ internal fun Header(
 ) {
 
     val inputRequester = remember { FocusRequester() }
+    val focus = LocalFocusManager.current
 
     LaunchedEffect(Unit) {
         if (autoFocus) {
@@ -68,6 +70,7 @@ internal fun Header(
                 imageVector = Icons.filters,
                 contentColor = Design.colors.content,
                 onClick = {
+                    focus.clearFocus()
                     inputRequester.freeFocus()
                     openFilters.invoke()
                 }
