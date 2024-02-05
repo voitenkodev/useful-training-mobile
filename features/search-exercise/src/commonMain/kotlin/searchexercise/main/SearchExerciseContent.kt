@@ -40,12 +40,12 @@ internal fun SearchExerciseContent(
         content = { hideLambda ->
             ExerciseExampleFiltersPopup(
                 close = hideLambda,
+                applyFilters = vm::applyFilters,
                 stateHolder = ExerciseExampleFiltersStateHolder(
-                    equipments = state.equipments,
-                    filterPack = state.filterPack,
-                    muscles = state.muscles
-                ),
-                applyFilters = vm::applyFilters
+                    equipments = state.filtersState.equipments,
+                    filterPack = state.filtersState.filterPack,
+                    muscles = state.filtersState.muscles
+                )
             )
         }
     )

@@ -67,7 +67,10 @@ internal fun Header(
             ButtonIconTransparent(
                 imageVector = Icons.filters,
                 contentColor = Design.colors.content,
-                onClick = openFilters
+                onClick = {
+                    inputRequester.freeFocus()
+                    openFilters.invoke()
+                }
             )
         }
 

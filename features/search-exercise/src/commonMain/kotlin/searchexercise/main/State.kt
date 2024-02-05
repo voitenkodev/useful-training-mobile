@@ -4,9 +4,7 @@ import androidx.compose.runtime.Immutable
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import searchexercise.main.models.ExerciseExample
-import searchexercise.main.models.FilterEquipment
-import searchexercise.main.models.FilterMuscleGroup
-import searchexercise.main.models.FilterPack
+import searchexercise.main.popups.ExerciseExampleFiltersState
 
 @Immutable
 internal data class State(
@@ -15,9 +13,7 @@ internal data class State(
     // Filters
     val filtersPopupIsVisible: Boolean = false,
     val query: String = "",
-    val equipments: ImmutableList<FilterEquipment> = persistentListOf(),
-    val muscles: ImmutableList<FilterMuscleGroup> = persistentListOf(),
-    val filterPack: FilterPack = FilterPack(),
+    val filtersState: ExerciseExampleFiltersState = ExerciseExampleFiltersState(),
 
     val error: String? = null,
     val loading: Boolean = false
