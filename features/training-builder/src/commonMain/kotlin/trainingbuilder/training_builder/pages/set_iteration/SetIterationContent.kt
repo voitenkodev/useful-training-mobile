@@ -43,13 +43,13 @@ import trainingbuilder.training_builder.models.IterationTargetFocus
 
 @Composable
 internal fun BoxScope.SetIterationContent(
-    setIterationStateHolder: SetIterationStateHolder,
+    stateHolder: SetIterationStateHolder,
     save: (index: Int, iteration: Iteration) -> Unit,
     remove: () -> Unit,
     close: () -> Unit
 ) {
 
-    val state by setIterationStateHolder.state.collectAsState()
+    val state by stateHolder.state.collectAsState()
 
     val focus = LocalFocusManager.current
 
@@ -153,7 +153,7 @@ internal fun BoxScope.SetIterationContent(
                         .secondaryDefaultBackground()
                         .weight(0.56f),
                     provideValue = { state.iteration.weight },
-                    onValueChange = setIterationStateHolder::updateWeight
+                    onValueChange = stateHolder::updateWeight
                 )
 
                 InputRepeat(
@@ -162,7 +162,7 @@ internal fun BoxScope.SetIterationContent(
                         .secondaryDefaultBackground()
                         .weight(0.44f),
                     provideValue = { state.iteration.repetitions },
-                    onValueChange = setIterationStateHolder::updateRepeat
+                    onValueChange = stateHolder::updateRepeat
                 )
 
                 ButtonIconTransparent(

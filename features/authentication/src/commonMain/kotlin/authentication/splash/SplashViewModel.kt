@@ -5,6 +5,7 @@ import ViewModel
 import authentication.splash.models.TokenStatus
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -15,7 +16,7 @@ internal class SplashViewModel : ViewModel() {
     private val api by inject<AuthenticationRepository>()
 
     private val _state = MutableStateFlow(State())
-    val state: StateFlow<State> = _state
+    val state: StateFlow<State> = _state.asStateFlow()
 
     init {
         launch {

@@ -2,6 +2,7 @@ package trainingbuilder.training_builder.pages.set_iteration
 
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import trainingbuilder.training_builder.models.Iteration
 import trainingbuilder.training_builder.models.IterationTargetFocus
@@ -19,7 +20,7 @@ internal class SetIterationStateHolder(
             iterationIndex = iterationIndex
         )
     )
-    val state: StateFlow<SetIterationState> = _state
+    val state: StateFlow<SetIterationState> = _state.asStateFlow()
 
     fun updateRepeat(value: String) {
         _state.update {

@@ -60,7 +60,10 @@ internal fun SetExerciseContent(
     val focus = LocalFocusManager.current
 
     val setExerciseStateHolder = remember {
-        SetExerciseStateHolder(exerciseExample = exerciseExample, selectedExercise = selectedExercise)
+        SetExerciseStateHolder(
+            exerciseExample = exerciseExample,
+            selectedExercise = selectedExercise
+        )
     }
 
     val state by setExerciseStateHolder.state.collectAsState()
@@ -134,7 +137,7 @@ internal fun SetExerciseContent(
         }
 
         SetIterationContent(
-            setIterationStateHolder = setIterationStateHolder,
+            stateHolder = setIterationStateHolder,
             remove = setExerciseStateHolder::removeSelectedIteration,
             save = setExerciseStateHolder::saveIteration,
             close = setExerciseStateHolder::clearSelectedIteration

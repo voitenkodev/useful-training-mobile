@@ -7,6 +7,7 @@ import exerciseexample.main.factories.createFrontBackImages
 import exerciseexample.main.mapping.toState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.launchIn
@@ -20,7 +21,7 @@ import org.koin.core.component.inject
 internal class ExerciseExampleViewModel(id: String) : ViewModel() {
 
     private val _state = MutableStateFlow(State())
-    internal val state: StateFlow<State> = _state
+    internal val state: StateFlow<State> = _state.asStateFlow()
 
     private val exerciseExampleApi by inject<ExerciseExamplesRepository>()
     private val statisticsApi by inject<StatisticsRepository>()

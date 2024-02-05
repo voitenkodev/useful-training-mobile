@@ -8,6 +8,7 @@ import kotlinx.collections.immutable.toImmutableList
 import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flatMapLatest
@@ -24,7 +25,7 @@ import trainings.main.models.Training
 internal class TrainingsViewModel : ViewModel() {
 
     private val _state = MutableStateFlow(State())
-    internal val state: StateFlow<State> = _state
+    internal val state: StateFlow<State> = _state.asStateFlow()
 
     private val trainingApi by inject<TrainingsRepository>()
 

@@ -13,6 +13,9 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -24,10 +27,10 @@ import atom.Design
 import components.chips.Chip
 import components.chips.ChipState
 import components.roots.PopupRoot
-import kotlinx.collections.immutable.ImmutableList
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import molecule.ButtonPrimary
+import molecule.ButtonSecondary
 import molecule.POPUP_ANIM_DURATION_MS
 import molecule.PaddingL
 import molecule.PaddingM
@@ -36,30 +39,19 @@ import molecule.Shadow
 import molecule.SmallToolbar
 import molecule.TextLabel
 import resources.Icons
-import searchexercise.main.models.FilterEquipment
-import searchexercise.main.models.FilterMuscleGroup
-import searchexercise.main.models.FilterPack
+import searchexercise.main.models.StatusEnum
 import searchexercise.main.popups.components.EquipmentGroups
 import searchexercise.main.popups.components.MuscleGroup
 
 @Composable
 internal fun ExerciseExampleFiltersPopup(
     close: () -> Unit,
-
-    muscles: ImmutableList<FilterMuscleGroup>,
-    selectMuscle: (id: String) -> Unit,
-
-    filterPack: FilterPack,
-    selectCategory: (value: String) -> Unit,
-    selectExperience: (value: String) -> Unit,
-    selectForceType: (value: String) -> Unit,
-    selectWeightType: (value: String) -> Unit,
-
-    equipments: ImmutableList<FilterEquipment>,
-    selectEquipment: (id: String) -> Unit,
-
-    applyFilters: () -> Unit
+    stateHolder: ExerciseExampleFiltersStateHolder,
+    applyFilters: (ExerciseExampleFiltersState) -> Unit
 ) {
+
+
+    val state by stateHolder.state.collectAsState()
 
     val coroutineScope = rememberCoroutineScope()
 
@@ -98,12 +90,12 @@ internal fun ExerciseExampleFiltersPopup(
                 contentPadding = PaddingValues(horizontal = Design.dp.paddingM),
                 horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
             ) {
-                filterPack.categories.forEach {
+                state.filterPack.categories.forEach {
                     item {
                         Chip(
                             chipState = if (it.isSelected) selectedChipState else unSelectedChipState,
                             text = it.value.capitalize(Locale.current),
-                            onClick = { selectCategory.invoke(it.value) }
+                            onClick = { stateHolder.selectCategory(it.value) }
                         )
                     }
                 }
@@ -119,12 +111,12 @@ internal fun ExerciseExampleFiltersPopup(
                 contentPadding = PaddingValues(horizontal = Design.dp.paddingM),
                 horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
             ) {
-                filterPack.weightTypes.forEach {
+                state.filterPack.weightTypes.forEach {
                     item {
                         Chip(
                             chipState = if (it.isSelected) selectedChipState else unSelectedChipState,
                             text = it.value.capitalize(Locale.current),
-                            onClick = { selectWeightType.invoke(it.value) }
+                            onClick = { stateHolder.selectWeightType(it.value) }
                         )
                     }
                 }
@@ -140,12 +132,12 @@ internal fun ExerciseExampleFiltersPopup(
                 contentPadding = PaddingValues(horizontal = Design.dp.paddingM),
                 horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
             ) {
-                filterPack.forceTypes.forEach {
+                state.filterPack.forceTypes.forEach {
                     item {
                         Chip(
                             chipState = if (it.isSelected) selectedChipState else unSelectedChipState,
                             text = it.value.capitalize(Locale.current),
-                            onClick = { selectForceType.invoke(it.value) }
+                            onClick = { stateHolder.selectForceType(it.value) }
                         )
                     }
                 }
@@ -161,12 +153,12 @@ internal fun ExerciseExampleFiltersPopup(
                 contentPadding = PaddingValues(horizontal = Design.dp.paddingM),
                 horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
             ) {
-                filterPack.experiences.forEach {
+                state.filterPack.experiences.forEach {
                     item {
                         Chip(
                             chipState = if (it.isSelected) selectedChipState else unSelectedChipState,
                             text = it.value.capitalize(Locale.current),
-                            onClick = { selectExperience.invoke(it.value) }
+                            onClick = { stateHolder.selectExperience(it.value) }
                         )
                     }
                 }
@@ -180,10 +172,10 @@ internal fun ExerciseExampleFiltersPopup(
             )
 
             LazyRow(modifier = Modifier.defaultMinSize(minHeight = 240.dp).fillMaxWidth()) {
-                items(muscles, key = { it.id }) {
+                items(state.muscles, key = { it.id }) {
                     MuscleGroup(
                         item = it,
-                        selectMuscle = selectMuscle
+                        selectMuscle = stateHolder::selectMuscle
                     )
                 }
             }
@@ -198,8 +190,8 @@ internal fun ExerciseExampleFiltersPopup(
             PaddingS()
 
             EquipmentGroups(
-                items = equipments,
-                selectEquipment = selectEquipment
+                items = state.equipments,
+                selectEquipment = stateHolder::selectEquipment
             )
         }
 
@@ -211,14 +203,40 @@ internal fun ExerciseExampleFiltersPopup(
             horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
         ) {
 
+            val countFilters = remember(state) {
+                val muscles = state.muscles.flatMap { it.muscles }.count { it.status == StatusEnum.SELECTED }
+                val equipments = state.equipments.count { it.status == StatusEnum.SELECTED }
+                val categories = state.filterPack.categories.count { it.isSelected }
+                val experience = state.filterPack.experiences.count { it.isSelected }
+                val forceType = state.filterPack.forceTypes.count { it.isSelected }
+                val weightType = state.filterPack.weightTypes.count { it.isSelected }
+                muscles + categories + experience + forceType + weightType + equipments
+            }
+
+            ButtonSecondary(
+                modifier = Modifier.weight(1f),
+                text = "Clear",
+                onClick = {
+                    coroutineScope.launch {
+                        stateHolder.clearFilters()
+                        close.invoke()
+                        delay(POPUP_ANIM_DURATION_MS)
+                        applyFilters.invoke(state)
+                    }
+                }
+            )
             ButtonPrimary(
                 modifier = Modifier.weight(1f),
-                text = "Apply",
+                enabled = countFilters > 0,
+                text = buildString {
+                    append("Apply")
+                    if (countFilters > 0) append(" ($countFilters)")
+                },
                 onClick = {
                     coroutineScope.launch {
                         close.invoke()
                         delay(POPUP_ANIM_DURATION_MS)
-                        applyFilters.invoke()
+                        applyFilters.invoke(state)
                     }
                 }
             )

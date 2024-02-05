@@ -7,6 +7,7 @@ import ViewModel
 import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.firstOrNull
@@ -30,7 +31,7 @@ import trainingbuilder.training_builder.models.Training
 internal class TrainingBuilderViewModel(muscleIds: List<String>) : ViewModel() {
 
     private val _state = MutableStateFlow(State())
-    internal val state: StateFlow<State> = _state
+    internal val state: StateFlow<State> = _state.asStateFlow()
 
     private val trainingsApi by inject<TrainingsRepository>()
     private val exerciseExampleApi by inject<ExerciseExamplesRepository>()

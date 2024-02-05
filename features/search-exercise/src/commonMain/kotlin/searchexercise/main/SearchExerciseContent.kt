@@ -22,6 +22,7 @@ import molecule.primaryBackground
 import searchexercise.main.components.Header
 import searchexercise.main.models.ExerciseExample
 import searchexercise.main.popups.ExerciseExampleFiltersPopup
+import searchexercise.main.popups.ExerciseExampleFiltersStateHolder
 
 @Composable
 internal fun SearchExerciseContent(
@@ -39,16 +40,12 @@ internal fun SearchExerciseContent(
         content = { hideLambda ->
             ExerciseExampleFiltersPopup(
                 close = hideLambda,
-                muscles = state.muscles,
-                equipments = state.equipments,
-                filterPack = state.filterPack,
-                selectEquipment = vm::selectEquipment,
-                selectMuscle = vm::selectMuscle,
-                selectWeightType = vm::selectWeightType,
-                selectExperience = vm::selectExperience,
-                selectForceType = vm::selectForceType,
-                selectCategory = vm::selectCategory,
-                applyFilters = {}
+                stateHolder = ExerciseExampleFiltersStateHolder(
+                    equipments = state.equipments,
+                    filterPack = state.filterPack,
+                    muscles = state.muscles
+                ),
+                applyFilters = vm::applyFilters
             )
         }
     )

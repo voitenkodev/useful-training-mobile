@@ -3,6 +3,7 @@ package trainingbuilder.training_builder.pages.set_exercise
 import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import trainingbuilder.training_builder.models.Exercise
 import trainingbuilder.training_builder.models.ExerciseExample
@@ -19,7 +20,7 @@ internal class SetExerciseStateHolder(selectedExercise: Exercise? = null, exerci
             )
         )
     )
-    val state: StateFlow<SetExerciseState> = _state
+    val state: StateFlow<SetExerciseState> = _state.asStateFlow()
 
     fun saveIteration(index: Int, iteration: Iteration) {
         _state.update {

@@ -13,6 +13,7 @@ import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -29,7 +30,7 @@ import org.koin.core.component.inject
 internal class ExerciseExampleBuilderViewModel : ViewModel() {
 
     private val _state = MutableStateFlow(State())
-    internal val state: StateFlow<State> = _state
+    internal val state: StateFlow<State> = _state.asStateFlow()
 
     private val equipmentsApi by inject<EquipmentsRepository>()
     private val musclesApi by inject<MusclesRepository>()

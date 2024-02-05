@@ -6,6 +6,7 @@ import ViewModel
 import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.flow.launchIn
@@ -19,7 +20,7 @@ import usermuscles.main.models.StatusEnum
 internal class UserMusclesViewModel : ViewModel() {
 
     private val _state = MutableStateFlow(State())
-    internal val state: StateFlow<State> = _state
+    internal val state: StateFlow<State> = _state.asStateFlow()
 
     private val musclesApi by inject<MusclesRepository>()
     private val userApi by inject<UserRepository>()
