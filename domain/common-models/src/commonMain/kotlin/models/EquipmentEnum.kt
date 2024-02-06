@@ -5,6 +5,7 @@ public enum class EquipmentEnum(private val key: String) {
     BARBELL("barbell"),
     EZ_BAR("ez_bar"),
     TRAP_BAR("trap_bar"),
+    ROPE("rope"),
 
     AB_MACHINES("ab_machines"),
     BUTTERFLY("butterfly"),

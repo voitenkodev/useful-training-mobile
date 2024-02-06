@@ -31,6 +31,7 @@ import equipments.LegExtensionMachine
 import equipments.PreacherCurlBench
 import equipments.PullUpBar
 import equipments.RomainChair
+import equipments.Rope
 import equipments.RowBench
 import equipments.RowCable
 import equipments.ShoulderPressMachines
@@ -59,6 +60,7 @@ internal fun models.Equipment.toState(): Equipment? {
 private fun EquipmentEnum.toImageState(): ImageVector? {
     return when (this) {
         EquipmentEnum.DUMBBELLS -> Dumbbell
+        EquipmentEnum.ROPE -> Rope
         EquipmentEnum.BARBELL -> Barbell
         EquipmentEnum.EZ_BAR -> EzBar
         EquipmentEnum.TRAP_BAR -> TrapBar
