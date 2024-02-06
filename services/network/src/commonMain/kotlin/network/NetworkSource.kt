@@ -82,7 +82,7 @@ public class NetworkSource(private val clientBackend: ClientBackend) {
             queryParams = buildMap {
                 put("page", page.toString())
                 put("size", size.toString())
-                put("query", query.toString())
+                query?.let { put("query", query) }
                 weightType?.let { put("weightType", it) }
                 experience?.let { put("experience", it) }
                 forceType?.let { put("forceType", it) }

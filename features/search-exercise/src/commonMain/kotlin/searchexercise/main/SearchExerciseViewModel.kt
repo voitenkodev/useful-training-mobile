@@ -89,7 +89,7 @@ internal class SearchExerciseViewModel : ViewModel() {
                 val filters = it.second
                 val query = it.first
                 exerciseExampleApi.getExerciseExamples(
-                    page = 0,
+                    page = 1,
                     size = 10,
                     weightType = filters.filterPack.weightTypes.firstOrNull { it.isSelected }?.value,
                     category = filters.filterPack.categories.firstOrNull { it.isSelected }?.value,
