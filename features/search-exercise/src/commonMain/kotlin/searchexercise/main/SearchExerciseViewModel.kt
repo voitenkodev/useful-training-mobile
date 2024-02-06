@@ -5,6 +5,7 @@ import ExerciseExamplesRepository
 import FiltersRepository
 import MusclesRepository
 import ViewModel
+import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -12,6 +13,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.launchIn
@@ -19,6 +21,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import org.koin.core.component.inject
 import searchexercise.main.mapping.toState
 import searchexercise.main.models.StatusEnum
@@ -36,12 +39,15 @@ internal class SearchExerciseViewModel : ViewModel() {
     private val filtersApi by inject<FiltersRepository>()
 
     init {
-        exerciseExampleApi
-            .observeExerciseExamples()
-            .onStart { _state.update { it.copy(loading = true) } }
-            .onEach { r -> _state.update { it.copy(loading = false, exerciseExamples = r.toState()) } }
-            .catch { t -> _state.update { it.copy(loading = false, error = t.message) } }
-            .launchIn(this)
+        launch {
+            val initialList = exerciseExampleApi
+                .observeExerciseExamples()
+                .catch { t -> _state.update { it.copy(error = t.message) } }
+                .firstOrNull()
+                ?.toState() ?: persistentListOf()
+
+            _state.update { it.copy(exerciseExamples = initialList) }
+        }
 
         musclesApi
             .syncUserMuscles()
@@ -51,35 +57,22 @@ internal class SearchExerciseViewModel : ViewModel() {
 
         equipmentsApi
             .observeEquipments()
-            .onEach { r ->
-                _state.update {
-                    val filters = it.filtersState.copy(equipments = r.flatMap { it.equipments }.toState())
-                    it.copy(filtersState = filters)
-                }
-            }.catch { r -> _state.update { it.copy(error = r.message) } }
+            .onEach { r -> _state.update { it.copy(filtersState = it.filtersState.copy(equipments = r.flatMap { it.equipments }.toState())) } }
+            .catch { r -> _state.update { it.copy(error = r.message) } }
             .launchIn(this)
 
         musclesApi
             .observeMuscles()
-            .onEach { r ->
-                _state.update {
-                    val filters = it.filtersState.copy(muscles = r.toState())
-                    it.copy(filtersState = filters)
-                }
-            }.catch { r -> _state.update { it.copy(error = r.message) } }
+            .onEach { r -> _state.update { it.copy(filtersState = it.filtersState.copy(muscles = r.toState())) } }
+            .catch { r -> _state.update { it.copy(error = r.message) } }
             .launchIn(this)
 
         filtersApi
             .getExerciseExampleFilters()
             .onStart { _state.update { it.copy(loading = true) } }
-            .onEach { r ->
-                _state.update {
-                    val filters = it.filtersState.copy(filterPack = r.toState())
-                    it.copy(filtersState = filters)
-                }
-            }.catch { r -> _state.update { it.copy(error = r.message, loading = false) } }
+            .onEach { r -> _state.update { it.copy(filtersState = it.filtersState.copy(filterPack = r.toState())) } }
+            .catch { r -> _state.update { it.copy(error = r.message, loading = false) } }
             .launchIn(this)
-
 
         state
             .map { it.query to it.filtersState }
