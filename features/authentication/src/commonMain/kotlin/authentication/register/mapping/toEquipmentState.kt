@@ -37,6 +37,7 @@ import equipments.RowCable
 import equipments.ShoulderPressMachines
 import equipments.SmithMachine
 import equipments.SquatRack
+import equipments.StraightBar
 import equipments.TrapBar
 import equipments.TricepsMachines
 import kotlinx.collections.immutable.ImmutableList
@@ -61,6 +62,7 @@ private fun EquipmentEnum.toImageState(): ImageVector? {
     return when (this) {
         EquipmentEnum.DUMBBELLS -> Dumbbell
         EquipmentEnum.ROPE -> Rope
+        EquipmentEnum.STRAIGHT_BAR -> StraightBar
         EquipmentEnum.BARBELL -> Barbell
         EquipmentEnum.EZ_BAR -> EzBar
         EquipmentEnum.TRAP_BAR -> TrapBar
