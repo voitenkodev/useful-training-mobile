@@ -60,7 +60,7 @@ internal fun ExperiencePage(
                         description = it.description,
                         startIcon = it.icon to Color.Transparent,
                         isSelected = experience == it,
-                        action = { update.invoke(it) }
+                        onClick = { update.invoke(it) }
                     )
                 }
 

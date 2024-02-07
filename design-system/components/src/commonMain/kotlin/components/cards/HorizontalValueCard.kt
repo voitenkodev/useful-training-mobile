@@ -31,10 +31,11 @@ public fun HorizontalValueCard(
     isSelected: Boolean = false,
     startIcon: Pair<ImageVector, Color>,
     endIcon: Pair<ImageVector, Color>? = null,
-    action: (() -> Unit)? = null
+    onClick: (() -> Unit)? = null
 ) {
 
-    val initialModifier = modifier.secondaryDefaultBackground()
+    val initialModifier = modifier
+        .secondaryDefaultBackground()
         .conditional(
             condition = isSelected,
             onYes = {
@@ -46,8 +47,8 @@ public fun HorizontalValueCard(
             }
         )
 
-    val actionModifierProvider = remember(action) {
-        if (action != null) initialModifier.clickable(onClick = action)
+    val actionModifierProvider = remember(onClick) {
+        if (onClick != null) initialModifier.clickable(onClick = onClick)
         else initialModifier
     }
 
@@ -95,14 +96,9 @@ public fun HorizontalValueCard(
             Icon(
                 modifier = Modifier
                     .size(Design.dp.componentS)
-                    .border(
-                        color = startIcon.second,
-                        width = 1.dp,
-                        shape = Design.shape.default
-                    ).coloredDefaultBackgroundNoBorder(startIcon.second)
                     .padding(Design.dp.paddingS),
-                color = Design.colors.content,
-                imageVector = startIcon.first
+                color = endIcon.second,
+                imageVector = endIcon.first
             )
         }
     }

@@ -54,7 +54,7 @@ internal fun Header(exerciseExample: ExerciseExample?) {
 
             TextBody1(
                 modifier = Modifier.padding(horizontal = Design.dp.paddingM),
-                provideText = { exerciseExample?.description }
+                provideText = { "Some description" }
             )
 
             PaddingM()

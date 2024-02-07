@@ -40,6 +40,7 @@ import resources.icons.Support
 import resources.icons.Time
 import resources.icons.Weigher
 import resources.icons.Weight
+import resources.icons.Youtube
 
 public object Icons {
     public val add: ImageVector = Icons.Default.Add
@@ -81,4 +82,5 @@ public object Icons {
     public val advanced: ImageVector = Advanced
     public val intermediate: ImageVector = Intermediate
     public val pro: ImageVector = Pro
+    public val youtube: ImageVector = Youtube
 }

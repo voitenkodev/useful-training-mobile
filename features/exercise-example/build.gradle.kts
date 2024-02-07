@@ -18,6 +18,7 @@ kotlin {
                 implementation(projects.domain.statistics)
 
                 implementation(projects.common.architectureComponent)
+                implementation(projects.common.platformApi)
                 implementation(projects.common.utils)
 
                 implementation(projects.designSystem.atom)

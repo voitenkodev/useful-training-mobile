@@ -1,6 +1,7 @@
 package exerciseexample.main
 
 import ExerciseExamplesRepository
+import NativeIntentApi
 import StatisticsRepository
 import ViewModel
 import exerciseexample.main.factories.createFrontBackImages
@@ -26,6 +27,8 @@ internal class ExerciseExampleViewModel(id: String) : ViewModel() {
     private val exerciseExampleApi by inject<ExerciseExamplesRepository>()
     private val statisticsApi by inject<StatisticsRepository>()
 
+    private val intentApi by inject<NativeIntentApi>()
+
     init {
         launch {
             val result = exerciseExampleApi
@@ -50,6 +53,10 @@ internal class ExerciseExampleViewModel(id: String) : ViewModel() {
             .catch { t -> _state.update { it.copy(loading = false, error = t.message) } }
             .onEach { _state.update { it.copy(loading = false) } }
             .launchIn(this)
+    }
+
+    fun openBrowser(url: String) {
+        intentApi.openBrowser(url)
     }
 
     fun clearError() {
