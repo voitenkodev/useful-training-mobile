@@ -7,6 +7,7 @@ public enum class EquipmentEnum(private val key: String) {
     TRAP_BAR("trap_bar"),
     ROPE("rope"),
     STRAIGHT_BAR("straight_bar"),
+    CORD_HANDLES("cord_handles"),
 
     AB_MACHINES("ab_machines"),
     BUTTERFLY("butterfly"),

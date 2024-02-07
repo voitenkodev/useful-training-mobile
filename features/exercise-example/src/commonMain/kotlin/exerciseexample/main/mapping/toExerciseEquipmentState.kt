@@ -9,6 +9,7 @@ import equipments.Butterfly
 import equipments.Cable
 import equipments.CalfRaiseMachines
 import equipments.ChestPressMachines
+import equipments.CordHandles
 import equipments.Crossower
 import equipments.DeadliftMachines
 import equipments.DeclineBench
@@ -61,6 +62,7 @@ private fun EquipmentEnum.toImageState(): ImageVector? {
     return when (this) {
         EquipmentEnum.DUMBBELLS -> Dumbbell
         EquipmentEnum.ROPE -> Rope
+        EquipmentEnum.CORD_HANDLES -> CordHandles
         EquipmentEnum.STRAIGHT_BAR -> StraightBar
         EquipmentEnum.BARBELL -> Barbell
         EquipmentEnum.EZ_BAR -> EzBar

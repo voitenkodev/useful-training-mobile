@@ -74,9 +74,9 @@ private fun Content(
 
             Header(exerciseExample = exerciseExample)
 
-            PaddingXL()
-
-            Tutorial(url = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4", onClick = {})
+//            PaddingXL()
+//
+//            Tutorial(url = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4", onClick = {})
 
             PaddingXL()
 
