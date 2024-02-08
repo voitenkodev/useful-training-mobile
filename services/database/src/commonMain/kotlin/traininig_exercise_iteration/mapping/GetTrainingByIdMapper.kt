@@ -53,6 +53,7 @@ internal fun List<GetTrainingById>.mapToDao(): TrainingDao? {
                 weightType = weightType,
                 category = category,
                 equipments = emptyList(), // todo do i need it here?
+                tutorials = emptyList(), // todo do i need it here?
                 exerciseExampleBundles = emptyList() // todo do i need it here?
             )
         }

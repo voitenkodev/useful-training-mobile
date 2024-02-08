@@ -55,6 +55,7 @@ internal fun List<GetTrainings>.mapToDao(): List<TrainingDao> {
                     weightType = weightType,
                     category = category,
                     equipments = emptyList(), // todo do not need it
+                    tutorials = emptyList(), // todo do not need it
                     exerciseExampleBundles = emptyList() // todo do not need it
                 )
             }

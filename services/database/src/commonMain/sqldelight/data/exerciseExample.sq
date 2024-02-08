@@ -28,6 +28,17 @@ CREATE TABLE IF NOT EXISTS ExerciseEquipment (
     updatedAt TEXT NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS ExerciseTutorial (
+    id TEXT NOT NULL PRIMARY KEY,
+    title TEXT NOT NULL,
+    language TEXT NOT NULL,
+    resource TEXT NOT NULL,
+    resourceType TEXT NOT NULL,
+    exerciseExampleId TEXT NOT NULL REFERENCES ExerciseExample(id) ON DELETE CASCADE,
+    createdAt TEXT NOT NULL,
+    updatedAt TEXT NOT NULL
+);
+
 -------------- GET --------------
 
 getExerciseExamplesById:
@@ -62,6 +73,15 @@ SELECT
   ExerciseEquipment.updatedAt AS equipmentRefUpdatedAt,
   ExerciseEquipment.createdAt AS equipmentRefCreatedAt,
 
+  ExerciseTutorial.id AS tutorialId,
+  ExerciseTutorial.id AS tutorialExerciseExampleId,
+  ExerciseTutorial.title AS tutorialTitle,
+  ExerciseTutorial.language AS tutorialLanguage,
+  ExerciseTutorial.resource AS tutorialResource,
+  ExerciseTutorial.resourceType AS tutorialResourceType,
+  ExerciseTutorial.updatedAt AS tutorialUpdateAt,
+  ExerciseTutorial.createdAt AS tutorialCreateAt,
+
   Equipment.id AS equipmentId,
   Equipment.name AS equipmentName,
   Equipment.equipmentGroupId AS equipmentEquipmentGroupId,
@@ -75,6 +95,7 @@ LEFT JOIN ExerciseExampleBundle ON ExerciseExample.id = ExerciseExampleBundle.ex
 LEFT JOIN Muscle ON ExerciseExampleBundle.muscleId = Muscle.id
 LEFT JOIN ExerciseEquipment ON ExerciseExample.id = ExerciseEquipment.exerciseExampleId
 LEFT JOIN Equipment ON ExerciseEquipment.equipmentId = Equipment.id
+LEFT JOIN ExerciseTutorial ON ExerciseExample.id = ExerciseTutorial.exerciseExampleId
 WHERE ExerciseExample.id = ?;
 
 getExerciseExamples:
@@ -109,6 +130,15 @@ SELECT
   ExerciseEquipment.updatedAt AS equipmentRefUpdatedAt,
   ExerciseEquipment.createdAt AS equipmentRefCreatedAt,
 
+  ExerciseTutorial.id AS tutorialId,
+  ExerciseTutorial.id AS tutorialExerciseExampleId,
+  ExerciseTutorial.title AS tutorialTitle,
+  ExerciseTutorial.language AS tutorialLanguage,
+  ExerciseTutorial.resource AS tutorialResource,
+  ExerciseTutorial.resourceType AS tutorialResourceType,
+  ExerciseTutorial.updatedAt AS tutorialUpdateAt,
+  ExerciseTutorial.createdAt AS tutorialCreateAt,
+
   Equipment.id AS equipmentId,
   Equipment.name AS equipmentName,
   Equipment.equipmentGroupId AS equipmentEquipmentGroupId,
@@ -121,6 +151,7 @@ FROM ExerciseExample
 LEFT JOIN ExerciseExampleBundle ON ExerciseExample.id = ExerciseExampleBundle.exerciseExampleId
 LEFT JOIN Muscle ON ExerciseExampleBundle.muscleId = Muscle.id
 LEFT JOIN ExerciseEquipment ON ExerciseExample.id = ExerciseEquipment.exerciseExampleId
+LEFT JOIN ExerciseTutorial ON ExerciseExample.id = ExerciseTutorial.exerciseExampleId
 LEFT JOIN Equipment ON ExerciseEquipment.equipmentId = Equipment.id;
 
 -------------- SET --------------
@@ -137,6 +168,10 @@ setExerciseEquipment:
 INSERT OR REPLACE INTO ExerciseEquipment
 VALUES (?,?,?,?,?);
 
+setExerciseTutorial:
+INSERT OR REPLACE INTO ExerciseTutorial
+VALUES (?,?,?,?,?,?,?,?);
+
 -------------- DELETE --------------
 
 deleteExerciseExampleById:
@@ -151,3 +186,6 @@ DELETE FROM ExerciseExampleBundle;
 
 deleteTableExerciseEquipment:
 DELETE FROM ExerciseEquipment;
+
+deleteTableExerciseTutorial:
+DELETE FROM ExerciseTutorial;

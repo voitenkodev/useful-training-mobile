@@ -11,6 +11,8 @@ public data class ExerciseExampleDto(
     val id: String? = null,
     @SerialName("exerciseExampleBundles")
     val exerciseExampleBundles: List<ExerciseExampleBundleDto> = emptyList(),
+    @SerialName("tutorials")
+    val tutorials: List<TutorialDto> = emptyList(),
     @SerialName("name")
     val name: String? = null,
     @SerialName("forceType")

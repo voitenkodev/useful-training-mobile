@@ -77,6 +77,20 @@ public class ExerciseExamplesSource(nativeContext: NativeContext) {
                     updatedAt = equipmentRef.updatedAt
                 )
             }
+
+            exerciseExample.tutorials.forEach { tutorial ->
+                exerciseExampleApi.setExerciseTutorial(
+                    id = tutorial.id,
+                    exerciseExampleId = tutorial.exerciseExampleId,
+                    title = tutorial.title,
+                    resourceType = tutorial.resourceType,
+                    resource = tutorial.resource,
+                    language = tutorial.language,
+                    createdAt = tutorial.createdAt,
+                    updatedAt = tutorial.updatedAt
+                )
+            }
+
             return@transactionWithResult exerciseExample.id
         }
         return result
@@ -86,5 +100,6 @@ public class ExerciseExamplesSource(nativeContext: NativeContext) {
         exerciseExampleApi.deleteTableExerciseExample()
         exerciseExampleApi.deleteTableExerciseExampleBundle()
         exerciseExampleApi.deleteTableExerciseEquipment()
+        exerciseExampleApi.deleteTableExerciseTutorial()
     }
 }

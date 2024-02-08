@@ -5,6 +5,7 @@ import equipments.models.EquipmentDao
 import exercise_examples.models.ExerciseExampleBundleDao
 import exercise_examples.models.ExerciseExampleDao
 import exercise_examples.models.ExerciseExampleEquipmentDao
+import exercise_examples.models.ExerciseExampleTutorialDao
 import muscles.models.MuscleDao
 
 internal fun List<GetExerciseExamples>.mapToDao(): List<ExerciseExampleDao> {
@@ -63,6 +64,22 @@ internal fun List<GetExerciseExamples>.mapToDao(): List<ExerciseExampleDao> {
             )
         }
 
+        val tutorials = groupBy { it.tutorialId }.mapNotNull mapTutorial@{ item ->
+
+            val value = item.value.firstOrNull() ?: return@mapTutorial null
+
+            return@mapTutorial ExerciseExampleTutorialDao(
+                id = value.tutorialId ?: return@mapTutorial null,
+                title = value.tutorialTitle ?: return@mapTutorial null,
+                language = value.tutorialLanguage ?: return@mapTutorial null,
+                resource = value.tutorialResource ?: return@mapTutorial null,
+                exerciseExampleId = value.tutorialExerciseExampleId ?: return@mapTutorial null,
+                resourceType = value.tutorialResourceType ?: return@mapTutorial null,
+                createdAt = value.tutorialCreateAt ?: return@mapTutorial null,
+                updatedAt = value.tutorialUpdateAt ?: return@mapTutorial null
+            )
+        }
+
         ExerciseExampleDao(
             id = root.id,
             name = root.name,
@@ -75,7 +92,8 @@ internal fun List<GetExerciseExamples>.mapToDao(): List<ExerciseExampleDao> {
             experience = root.experience,
             forceType = root.forceType,
             weightType = root.weightType,
-            category = root.category
+            category = root.category,
+            tutorials = tutorials
         )
     }
 }

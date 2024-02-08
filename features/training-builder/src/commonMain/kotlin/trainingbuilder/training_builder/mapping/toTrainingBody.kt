@@ -35,6 +35,7 @@ internal fun Training.toBody(): models.Training {
                         forceType = ForceTypeEnum.PULL, // todo do not need it in body
                         experience = ExperienceEnum.BEGINNER, // todo do not need it in body
                         equipments = emptyList(), // todo do not need it in body
+                        tutorials = emptyList(), // todo do not need it in body
                         exerciseExampleBundles = emptyList() // todo do not need it in body
                     )
                 }

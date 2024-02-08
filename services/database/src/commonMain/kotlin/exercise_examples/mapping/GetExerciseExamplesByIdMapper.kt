@@ -5,6 +5,7 @@ import equipments.models.EquipmentDao
 import exercise_examples.models.ExerciseExampleBundleDao
 import exercise_examples.models.ExerciseExampleDao
 import exercise_examples.models.ExerciseExampleEquipmentDao
+import exercise_examples.models.ExerciseExampleTutorialDao
 import muscles.models.MuscleDao
 
 internal fun List<GetExerciseExamplesById>.mapToDao(): ExerciseExampleDao? {
@@ -61,6 +62,22 @@ internal fun List<GetExerciseExamplesById>.mapToDao(): ExerciseExampleDao? {
         )
     }
 
+    val tutorials = groupBy { it.tutorialId }.mapNotNull mapTutorial@{ item ->
+
+        val value = item.value.firstOrNull() ?: return@mapTutorial null
+
+        return@mapTutorial ExerciseExampleTutorialDao(
+            id = value.tutorialId ?: return@mapTutorial null,
+            title = value.tutorialTitle ?: return@mapTutorial null,
+            language = value.tutorialLanguage ?: return@mapTutorial null,
+            resource = value.tutorialResource ?: return@mapTutorial null,
+            exerciseExampleId = value.tutorialExerciseExampleId ?: return@mapTutorial null,
+            resourceType = value.tutorialResourceType ?: return@mapTutorial null,
+            createdAt = value.tutorialCreateAt ?: return@mapTutorial null,
+            updatedAt = value.tutorialUpdateAt ?: return@mapTutorial null
+        )
+    }
+
     return ExerciseExampleDao(
         id = root.id,
         name = root.name,
@@ -68,6 +85,7 @@ internal fun List<GetExerciseExamplesById>.mapToDao(): ExerciseExampleDao? {
         createdAt = root.createdAt,
         updatedAt = root.updatedAt,
         imageUrl = root.imageUrl,
+        tutorials = tutorials,
         exerciseExampleBundles = bundles,
         equipments = equipments,
         experience = root.experience,

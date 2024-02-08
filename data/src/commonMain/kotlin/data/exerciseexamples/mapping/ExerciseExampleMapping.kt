@@ -25,7 +25,8 @@ internal fun ExerciseExampleDao.daoToDomain(): ExerciseExample {
         experience = ExperienceEnum.of(experience),
         forceType = ForceTypeEnum.of(forceType),
         weightType = WeightTypeEnum.of(weightType),
-        category = CategoryEnum.of(category)
+        category = CategoryEnum.of(category),
+        tutorials = tutorials.daoToDomain()
     )
 }
 
@@ -46,7 +47,8 @@ internal fun ExerciseExampleDto.dtoToDao(): ExerciseExampleDao? {
         experience = experience ?: return null,
         forceType = forceType ?: return null,
         weightType = weightType ?: return null,
-        category = category ?: return null
+        category = category ?: return null,
+        tutorials = tutorials.dtoToDao()
     )
 }
 
@@ -74,6 +76,7 @@ internal fun ExerciseExampleDto.dtoToDomain(): ExerciseExample? {
         experience = ExperienceEnum.of(experience),
         forceType = ForceTypeEnum.of(forceType),
         weightType = WeightTypeEnum.of(weightType),
-        category = CategoryEnum.of(category)
+        category = CategoryEnum.of(category),
+        tutorials = tutorials.dtoToDomain()
     )
 }
