@@ -20,7 +20,8 @@ internal fun models.ExerciseExample.toState(): ExerciseExample {
         experience = experience.toState(),
         forceType = forceType.toState(),
         weightType = weightType.toState(),
-        category = category.toState()
+        category = category.toState(),
+        tutorials = tutorials.toState()
     )
 }
 

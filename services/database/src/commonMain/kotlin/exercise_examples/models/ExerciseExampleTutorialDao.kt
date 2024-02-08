@@ -4,6 +4,7 @@ public data class ExerciseExampleTutorialDao(
     val id: String,
     val exerciseExampleId: String,
     val title: String,
+    val value: String,
     val language: String,
     val resource: String,
     val resourceType: String,

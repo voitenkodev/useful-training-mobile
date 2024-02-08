@@ -73,6 +73,7 @@ internal fun List<GetExerciseExamplesById>.mapToDao(): ExerciseExampleDao? {
             resource = value.tutorialResource ?: return@mapTutorial null,
             exerciseExampleId = value.tutorialExerciseExampleId ?: return@mapTutorial null,
             resourceType = value.tutorialResourceType ?: return@mapTutorial null,
+            value = value.tutorialValue ?: return@mapTutorial null,
             createdAt = value.tutorialCreateAt ?: return@mapTutorial null,
             updatedAt = value.tutorialUpdateAt ?: return@mapTutorial null
         )

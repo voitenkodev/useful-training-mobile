@@ -33,6 +33,7 @@ CREATE TABLE IF NOT EXISTS ExerciseTutorial (
     title TEXT NOT NULL,
     language TEXT NOT NULL,
     resource TEXT NOT NULL,
+    value TEXT NOT NULL,
     resourceType TEXT NOT NULL,
     exerciseExampleId TEXT NOT NULL REFERENCES ExerciseExample(id) ON DELETE CASCADE,
     createdAt TEXT NOT NULL,
@@ -76,6 +77,7 @@ SELECT
   ExerciseTutorial.id AS tutorialId,
   ExerciseTutorial.id AS tutorialExerciseExampleId,
   ExerciseTutorial.title AS tutorialTitle,
+  ExerciseTutorial.value AS tutorialValue,
   ExerciseTutorial.language AS tutorialLanguage,
   ExerciseTutorial.resource AS tutorialResource,
   ExerciseTutorial.resourceType AS tutorialResourceType,
@@ -133,6 +135,7 @@ SELECT
   ExerciseTutorial.id AS tutorialId,
   ExerciseTutorial.id AS tutorialExerciseExampleId,
   ExerciseTutorial.title AS tutorialTitle,
+  ExerciseTutorial.value AS tutorialValue,
   ExerciseTutorial.language AS tutorialLanguage,
   ExerciseTutorial.resource AS tutorialResource,
   ExerciseTutorial.resourceType AS tutorialResourceType,
@@ -170,7 +173,7 @@ VALUES (?,?,?,?,?);
 
 setExerciseTutorial:
 INSERT OR REPLACE INTO ExerciseTutorial
-VALUES (?,?,?,?,?,?,?,?);
+VALUES (?,?,?,?,?,?,?,?,?);
 
 -------------- DELETE --------------
 

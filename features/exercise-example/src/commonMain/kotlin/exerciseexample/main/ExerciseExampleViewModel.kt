@@ -6,6 +6,7 @@ import StatisticsRepository
 import ViewModel
 import exerciseexample.main.factories.createFrontBackImages
 import exerciseexample.main.mapping.toState
+import exerciseexample.main.models.Tutorial
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -55,8 +56,8 @@ internal class ExerciseExampleViewModel(id: String) : ViewModel() {
             .launchIn(this)
     }
 
-    fun openBrowser(url: String) {
-        intentApi.openBrowser(url)
+    fun selectTutorial(value: Tutorial) {
+        intentApi.openBrowser(value.value)
     }
 
     fun clearError() {

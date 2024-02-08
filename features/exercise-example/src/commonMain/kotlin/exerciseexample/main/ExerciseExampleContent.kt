@@ -32,6 +32,7 @@ import exerciseexample.main.components.ResentVolume
 import exerciseexample.main.components.Tutorial
 import exerciseexample.main.models.ExerciseExample
 import exerciseexample.main.models.ExerciseExampleAchievements
+import exerciseexample.main.models.Tutorial
 import molecule.PaddingM
 import molecule.PaddingXL
 
@@ -53,7 +54,7 @@ internal fun ExerciseExampleContent(
         exerciseExample = state.exerciseExample,
         fullFrontImage = state.fullFrontImageVector,
         fullBackImage = state.fullBackImageVector,
-        openBrowser = vm::openBrowser
+        selectTutorial = vm::selectTutorial
     )
 }
 
@@ -62,7 +63,7 @@ private fun Content(
     close: () -> Unit,
     error: () -> String?,
     clearError: () -> Unit,
-    openBrowser: (url: String) -> Unit,
+    selectTutorial: (Tutorial) -> Unit,
     achievements: ExerciseExampleAchievements?,
     primaryAction: (Pair<String, (id: String) -> Unit>)?,
     exerciseExample: ExerciseExample?,
@@ -76,12 +77,14 @@ private fun Content(
 
             Header(exerciseExample = exerciseExample)
 
-            PaddingXL()
+            if (exerciseExample?.equipments?.isNotEmpty() == true) {
+                PaddingXL()
 
-            Tutorial(
-                url = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-                onClick = { openBrowser.invoke("https://youtu.be/dGqI0Z5ul4k?si=zUvLLT5LHtir34Tq") }
-            )
+                Tutorial(
+                    tutorials = exerciseExample.tutorials,
+                    onClick = selectTutorial,
+                )
+            }
 
             PaddingXL()
 

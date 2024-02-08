@@ -15,7 +15,8 @@ internal fun ExerciseExampleTutorialDao.daoToDomain(): Tutorial {
         resourceType = ResourceTypeEnum.of(resourceType),
         resource = resource,
         title = title,
-        language = language
+        language = language,
+        value = value
     )
 }
 
@@ -32,7 +33,8 @@ internal fun TutorialDto.dtoToDao(): ExerciseExampleTutorialDao? {
         resourceType = resourceType ?: return null,
         language = language ?: return null,
         exerciseExampleId = exerciseExampleId ?: return null,
-        title = title ?: return null
+        title = title ?: return null,
+        value = value ?: return null
     )
 }
 
@@ -46,6 +48,7 @@ internal fun TutorialDto.dtoToDomain(): Tutorial? {
         resource = resource ?: return null,
         resourceType = ResourceTypeEnum.of(resourceType),
         language = language ?: return null,
-        title = title ?: return null
+        title = title ?: return null,
+        value = value ?: return null
     )
 }

@@ -37,6 +37,7 @@ import resources.icons.RedCircle
 import resources.icons.Repetitions
 import resources.icons.Success
 import resources.icons.Support
+import resources.icons.Text
 import resources.icons.Time
 import resources.icons.Weigher
 import resources.icons.Weight
@@ -83,4 +84,5 @@ public object Icons {
     public val intermediate: ImageVector = Intermediate
     public val pro: ImageVector = Pro
     public val youtube: ImageVector = Youtube
+    public val text: ImageVector = Text
 }
