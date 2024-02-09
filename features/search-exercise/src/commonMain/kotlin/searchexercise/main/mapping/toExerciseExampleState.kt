@@ -14,6 +14,6 @@ internal fun models.ExerciseExample.toState(): ExerciseExample {
         id = id,
         name = name,
         imageUrl = imageUrl,
-        exerciseExampleBundles = exerciseExampleBundles.toState()
+        exerciseExampleBundles = exerciseExampleBundles.toState(),
     )
 }

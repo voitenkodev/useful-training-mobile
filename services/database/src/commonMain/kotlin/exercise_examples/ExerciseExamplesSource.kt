@@ -67,18 +67,9 @@ public class ExerciseExamplesSource(nativeContext: NativeContext) {
                     exerciseExampleId = bundle.exerciseExampleId
                 )
             }
-            exerciseExample.equipments.forEach { equipmentRef ->
-
-                exerciseExampleApi.setExerciseEquipment(
-                    id = equipmentRef.id,
-                    equipmentId = equipmentRef.equipmentId,
-                    exerciseExampleId = equipmentRef.exerciseExampleId,
-                    createdAt = equipmentRef.createdAt,
-                    updatedAt = equipmentRef.updatedAt
-                )
-            }
 
             exerciseExample.tutorials.forEach { tutorial ->
+
                 exerciseExampleApi.setExerciseTutorial(
                     id = tutorial.id,
                     exerciseExampleId = tutorial.exerciseExampleId,
@@ -92,8 +83,20 @@ public class ExerciseExamplesSource(nativeContext: NativeContext) {
                 )
             }
 
+            exerciseExample.equipments.forEach { equipmentRef ->
+
+                exerciseExampleApi.setExerciseEquipment(
+                    id = equipmentRef.id,
+                    equipmentId = equipmentRef.equipmentId,
+                    exerciseExampleId = equipmentRef.exerciseExampleId,
+                    createdAt = equipmentRef.createdAt,
+                    updatedAt = equipmentRef.updatedAt
+                )
+            }
+
             return@transactionWithResult exerciseExample.id
         }
+
         return result
     }
 

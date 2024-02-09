@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import atom.Design
 import components.cards.HorizontalValueCard
 import exerciseexample.main.models.Tutorial
@@ -32,7 +31,7 @@ internal fun Tutorial(
             HorizontalValueCard(
                 title = "[${it.language}] ${it.title}",
                 description = "By \"${it.resource}\"",
-                startIcon = it.imageVector to Color(0xffff0100),
+                startIcon = it.icon,
                 endIcon = Icons.arrowRight to Design.colors.content,
                 onClick = { onClick.invoke(it) }
             )

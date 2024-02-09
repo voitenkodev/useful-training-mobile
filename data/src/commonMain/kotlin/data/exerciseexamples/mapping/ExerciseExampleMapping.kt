@@ -39,6 +39,7 @@ internal fun ExerciseExampleDto.dtoToDao(): ExerciseExampleDao? {
         id = id ?: return null,
         name = name ?: return null,
         description = description,
+        tutorials = tutorials.dtoToDao(),
         exerciseExampleBundles = exerciseExampleBundles.dtoToDao(),
         equipments = equipmentRefs.mapNotNull { it.dtoToDao() },
         createdAt = createdAt ?: return null,
@@ -47,8 +48,7 @@ internal fun ExerciseExampleDto.dtoToDao(): ExerciseExampleDao? {
         experience = experience ?: return null,
         forceType = forceType ?: return null,
         weightType = weightType ?: return null,
-        category = category ?: return null,
-        tutorials = tutorials.dtoToDao()
+        category = category ?: return null
     )
 }
 

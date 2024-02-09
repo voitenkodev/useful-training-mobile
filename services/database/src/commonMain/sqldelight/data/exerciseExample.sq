@@ -30,12 +30,12 @@ CREATE TABLE IF NOT EXISTS ExerciseEquipment (
 
 CREATE TABLE IF NOT EXISTS ExerciseTutorial (
     id TEXT NOT NULL PRIMARY KEY,
+    exerciseExampleId TEXT NOT NULL REFERENCES ExerciseExample(id) ON DELETE CASCADE,
     title TEXT NOT NULL,
     language TEXT NOT NULL,
     resource TEXT NOT NULL,
     value TEXT NOT NULL,
     resourceType TEXT NOT NULL,
-    exerciseExampleId TEXT NOT NULL REFERENCES ExerciseExample(id) ON DELETE CASCADE,
     createdAt TEXT NOT NULL,
     updatedAt TEXT NOT NULL
 );
@@ -75,7 +75,7 @@ SELECT
   ExerciseEquipment.createdAt AS equipmentRefCreatedAt,
 
   ExerciseTutorial.id AS tutorialId,
-  ExerciseTutorial.id AS tutorialExerciseExampleId,
+  ExerciseTutorial.exerciseExampleId AS tutorialExerciseExampleId,
   ExerciseTutorial.title AS tutorialTitle,
   ExerciseTutorial.value AS tutorialValue,
   ExerciseTutorial.language AS tutorialLanguage,
@@ -133,7 +133,7 @@ SELECT
   ExerciseEquipment.createdAt AS equipmentRefCreatedAt,
 
   ExerciseTutorial.id AS tutorialId,
-  ExerciseTutorial.id AS tutorialExerciseExampleId,
+  ExerciseTutorial.exerciseExampleId AS tutorialExerciseExampleId,
   ExerciseTutorial.title AS tutorialTitle,
   ExerciseTutorial.value AS tutorialValue,
   ExerciseTutorial.language AS tutorialLanguage,

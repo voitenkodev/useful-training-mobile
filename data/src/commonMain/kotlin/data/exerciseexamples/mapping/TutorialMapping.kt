@@ -27,12 +27,12 @@ internal fun List<TutorialDto>.dtoToDao(): List<ExerciseExampleTutorialDao> {
 internal fun TutorialDto.dtoToDao(): ExerciseExampleTutorialDao? {
     return ExerciseExampleTutorialDao(
         id = id ?: return null,
+        exerciseExampleId = exerciseExampleId ?: return null,
         createdAt = createdAt ?: return null,
         updatedAt = updatedAt ?: return null,
         resource = resource ?: return null,
         resourceType = resourceType ?: return null,
         language = language ?: return null,
-        exerciseExampleId = exerciseExampleId ?: return null,
         title = title ?: return null,
         value = value ?: return null
     )

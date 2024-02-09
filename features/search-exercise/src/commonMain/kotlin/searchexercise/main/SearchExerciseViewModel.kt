@@ -17,7 +17,7 @@ import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.update
@@ -57,7 +57,11 @@ internal class SearchExerciseViewModel : ViewModel() {
 
         equipmentsApi
             .observeEquipments()
-            .onEach { r -> _state.update { it.copy(filtersState = it.filtersState.copy(equipments = r.flatMap { it.equipments }.toState())) } }
+            .onEach { r ->
+                _state.update {
+                    it.copy(filtersState = it.filtersState.copy(equipments = r.flatMap { it.equipments }.toState()))
+                }
+            }
             .catch { r -> _state.update { it.copy(error = r.message) } }
             .launchIn(this)
 
@@ -75,7 +79,7 @@ internal class SearchExerciseViewModel : ViewModel() {
             .launchIn(this)
 
         state
-            .map { it.query to it.filtersState }
+            .mapLatest { it.query to it.filtersState }
             .distinctUntilChanged()
             .debounce(500)
             .flatMapLatest {
@@ -94,7 +98,10 @@ internal class SearchExerciseViewModel : ViewModel() {
                 )
             }.onStart { _state.update { it.copy(loading = true) } }
             .onEach { r -> _state.update { it.copy(loading = false, exerciseExamples = r.toState()) } }
-            .catch { t -> _state.update { it.copy(loading = false, error = t.message) } }
+            .catch { t ->
+                println("SOME ERROR SEARCH: ${t.message}")
+                _state.update { it.copy(loading = false, error = t.message) }
+            }
             .launchIn(this)
     }
 

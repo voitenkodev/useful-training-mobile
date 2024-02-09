@@ -1,6 +1,8 @@
 package exerciseexample.main.mapping
 
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import atom.Design
 import exerciseexample.main.models.ResourceTypeEnum
 import exerciseexample.main.models.Tutorial
 import kotlinx.collections.immutable.ImmutableList
@@ -20,7 +22,7 @@ internal fun models.Tutorial.toState(): Tutorial {
         title = title,
         value = value,
         resourceType = resourceType.toState(),
-        imageVector = resourceType.toImageState(),
+        icon = resourceType.toImageState()
     )
 }
 
@@ -33,11 +35,11 @@ private fun models.ResourceTypeEnum.toState(): ResourceTypeEnum {
     }
 }
 
-private fun models.ResourceTypeEnum.toImageState(): ImageVector {
+private fun models.ResourceTypeEnum.toImageState(): Pair<ImageVector, Color> {
     return when (this) {
-        models.ResourceTypeEnum.YOUTUBE_VIDEO -> Icons.youtube
-        models.ResourceTypeEnum.VIDEO -> Icons.youtube
-        models.ResourceTypeEnum.TEXT -> Icons.text
-        models.ResourceTypeEnum.UNKNOWN -> Icons.youtube
+        models.ResourceTypeEnum.YOUTUBE_VIDEO -> Icons.youtube to Color(0xffff0100)
+        models.ResourceTypeEnum.VIDEO -> Icons.youtube to Design.palette.white10
+        models.ResourceTypeEnum.TEXT -> Icons.text to Design.palette.white10
+        models.ResourceTypeEnum.UNKNOWN -> Icons.add to Design.palette.white10
     }
 }

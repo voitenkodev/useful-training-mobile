@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.update
@@ -46,7 +47,7 @@ internal class TrainingBuilderViewModel(muscleIds: List<String>) : ViewModel() {
             .launchIn(this)
 
         _state
-            .map { it.selectedMuscle }
+            .mapLatest { it.selectedMuscle }
             .flatMapLatest { muscle -> _state.map { it.training.exercises }.map { muscle to it } }
             .distinctUntilChanged()
             .flatMapLatest {
