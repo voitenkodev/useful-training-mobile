@@ -82,117 +82,134 @@ internal fun ExerciseExampleFiltersPopup(
 
             PaddingL()
 
-            TextLabel(modifier = Modifier.padding(horizontal = Design.dp.paddingM), provideText = { "Categories" })
+            if (state.filterPack.categories.isNotEmpty()) {
 
-            PaddingS()
+                TextLabel(modifier = Modifier.padding(horizontal = Design.dp.paddingM), provideText = { "Categories" })
 
-            LazyRow(
-                contentPadding = PaddingValues(horizontal = Design.dp.paddingM),
-                horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
-            ) {
-                state.filterPack.categories.forEach {
-                    item {
-                        Chip(
-                            chipState = if (it.isSelected) selectedChipState else unSelectedChipState,
-                            text = it.value.capitalize(Locale.current),
-                            onClick = { stateHolder.selectCategory(it.value) }
+                PaddingS()
+
+                LazyRow(
+                    contentPadding = PaddingValues(horizontal = Design.dp.paddingM),
+                    horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
+                ) {
+                    state.filterPack.categories.forEach {
+                        item {
+                            Chip(
+                                chipState = if (it.isSelected) selectedChipState else unSelectedChipState,
+                                text = it.value.capitalize(Locale.current),
+                                onClick = { stateHolder.selectCategory(it.value) }
+                            )
+                        }
+                    }
+                }
+
+                PaddingL()
+            }
+
+            if (state.filterPack.weightTypes.isNotEmpty()) {
+
+                TextLabel(modifier = Modifier.padding(horizontal = Design.dp.paddingM), provideText = { "Weight Type" })
+
+                PaddingS()
+
+                LazyRow(
+                    contentPadding = PaddingValues(horizontal = Design.dp.paddingM),
+                    horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
+                ) {
+                    state.filterPack.weightTypes.forEach {
+                        item {
+                            Chip(
+                                chipState = if (it.isSelected) selectedChipState else unSelectedChipState,
+                                text = it.value.capitalize(Locale.current),
+                                onClick = { stateHolder.selectWeightType(it.value) }
+                            )
+                        }
+                    }
+                }
+
+                PaddingL()
+            }
+
+            if (state.filterPack.forceTypes.isNotEmpty()) {
+
+                TextLabel(modifier = Modifier.padding(horizontal = Design.dp.paddingM), provideText = { "Force Type" })
+
+                PaddingS()
+
+                LazyRow(
+                    contentPadding = PaddingValues(horizontal = Design.dp.paddingM),
+                    horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
+                ) {
+                    state.filterPack.forceTypes.forEach {
+                        item {
+                            Chip(
+                                chipState = if (it.isSelected) selectedChipState else unSelectedChipState,
+                                text = it.value.capitalize(Locale.current),
+                                onClick = { stateHolder.selectForceType(it.value) }
+                            )
+                        }
+                    }
+                }
+
+                PaddingL()
+            }
+
+            if (state.filterPack.experiences.isNotEmpty()) {
+
+                TextLabel(modifier = Modifier.padding(horizontal = Design.dp.paddingM), provideText = { "Experience" })
+
+                PaddingS()
+
+                LazyRow(
+                    contentPadding = PaddingValues(horizontal = Design.dp.paddingM),
+                    horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
+                ) {
+                    state.filterPack.experiences.forEach {
+                        item {
+                            Chip(
+                                chipState = if (it.isSelected) selectedChipState else unSelectedChipState,
+                                text = it.value.capitalize(Locale.current),
+                                onClick = { stateHolder.selectExperience(it.value) }
+                            )
+                        }
+                    }
+                }
+
+                PaddingL()
+            }
+
+            if (state.muscles.isNotEmpty()) {
+                TextLabel(
+                    modifier = Modifier.padding(horizontal = Design.dp.paddingM),
+                    provideText = { "Muscles" }
+                )
+
+                LazyRow(modifier = Modifier.defaultMinSize(minHeight = 240.dp).fillMaxWidth()) {
+                    items(state.muscles, key = { it.id }) {
+                        MuscleGroup(
+                            item = it,
+                            selectMuscle = stateHolder::selectMuscle
                         )
                     }
                 }
+
+                PaddingM()
             }
 
-            PaddingL()
+            if (state.equipments.isNotEmpty()) {
 
-            TextLabel(modifier = Modifier.padding(horizontal = Design.dp.paddingM), provideText = { "Weight Type" })
+                TextLabel(
+                    modifier = Modifier.padding(horizontal = Design.dp.paddingM),
+                    provideText = { "Equipments" }
+                )
 
-            PaddingS()
+                PaddingS()
 
-            LazyRow(
-                contentPadding = PaddingValues(horizontal = Design.dp.paddingM),
-                horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
-            ) {
-                state.filterPack.weightTypes.forEach {
-                    item {
-                        Chip(
-                            chipState = if (it.isSelected) selectedChipState else unSelectedChipState,
-                            text = it.value.capitalize(Locale.current),
-                            onClick = { stateHolder.selectWeightType(it.value) }
-                        )
-                    }
-                }
+                EquipmentGroups(
+                    items = state.equipments,
+                    selectEquipment = stateHolder::selectEquipment
+                )
             }
-
-            PaddingL()
-
-            TextLabel(modifier = Modifier.padding(horizontal = Design.dp.paddingM), provideText = { "Force Type" })
-
-            PaddingS()
-
-            LazyRow(
-                contentPadding = PaddingValues(horizontal = Design.dp.paddingM),
-                horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
-            ) {
-                state.filterPack.forceTypes.forEach {
-                    item {
-                        Chip(
-                            chipState = if (it.isSelected) selectedChipState else unSelectedChipState,
-                            text = it.value.capitalize(Locale.current),
-                            onClick = { stateHolder.selectForceType(it.value) }
-                        )
-                    }
-                }
-            }
-
-            PaddingL()
-
-            TextLabel(modifier = Modifier.padding(horizontal = Design.dp.paddingM), provideText = { "Experience" })
-
-            PaddingS()
-
-            LazyRow(
-                contentPadding = PaddingValues(horizontal = Design.dp.paddingM),
-                horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
-            ) {
-                state.filterPack.experiences.forEach {
-                    item {
-                        Chip(
-                            chipState = if (it.isSelected) selectedChipState else unSelectedChipState,
-                            text = it.value.capitalize(Locale.current),
-                            onClick = { stateHolder.selectExperience(it.value) }
-                        )
-                    }
-                }
-            }
-
-            PaddingL()
-
-            TextLabel(
-                modifier = Modifier.padding(horizontal = Design.dp.paddingM),
-                provideText = { "Muscles" }
-            )
-
-            LazyRow(modifier = Modifier.defaultMinSize(minHeight = 240.dp).fillMaxWidth()) {
-                items(state.muscles, key = { it.id }) {
-                    MuscleGroup(
-                        item = it,
-                        selectMuscle = stateHolder::selectMuscle
-                    )
-                }
-            }
-
-            PaddingM()
-
-            TextLabel(
-                modifier = Modifier.padding(horizontal = Design.dp.paddingM),
-                provideText = { "Equipments" }
-            )
-
-            PaddingS()
-
-            EquipmentGroups(
-                items = state.equipments,
-                selectEquipment = stateHolder::selectEquipment
-            )
         }
 
         Shadow()
