@@ -25,8 +25,6 @@ internal fun Tutorial(
 
         TextLabel(provideText = { "Tutorial" })
 
-        PaddingS()
-
         tutorials.forEach {
             HorizontalValueCard(
                 title = "[${it.language}] ${it.title}",
