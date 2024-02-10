@@ -93,10 +93,23 @@ public class NetworkSource(private val clientBackend: ClientBackend) {
         )
     }
 
-    public suspend fun getRecommendedExerciseExamples(): List<ExerciseExampleDto> {
+    public suspend fun getRecommendedExerciseExamples(
+        page: Int,
+        size: Int,
+        exerciseCount: Int?,
+        targetMuscleId: String?,
+        exerciseExampleIds: List<String>
+    ): List<ExerciseExampleDto> {
         return callRequest(
             method = HttpMethod.Get,
-            path = "/exercise-examples/recommended"
+            path = "/exercise-examples/recommended",
+            queryParams = buildMap {
+                put("page", page.toString())
+                put("size", size.toString())
+                exerciseCount?.let { put("exerciseCount", exerciseCount.toString()) }
+                targetMuscleId?.let { put("targetMuscleId", targetMuscleId) }
+                exerciseExampleIds.takeIf { it.isNotEmpty() }?.let { put("exerciseExampleIds", it.joinToString(",")) }
+            }
         )
     }
 

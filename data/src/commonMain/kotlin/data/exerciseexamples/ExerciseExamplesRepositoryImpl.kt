@@ -59,9 +59,15 @@ internal class ExerciseExamplesRepositoryImpl(
         }
     }
 
-    override fun getRecommendedExerciseExamples(): Flow<List<ExerciseExample>> {
+    override fun getRecommendedExerciseExamples(
+        page: Int,
+        size: Int,
+        targetMuscleId: String?,
+        exerciseCount: Int?,
+        exerciseExampleIds: List<String>
+    ): Flow<List<ExerciseExample>> {
         return flow {
-            val result = remote.getRecommendedExerciseExamples()
+            val result = remote.getRecommendedExerciseExamples(page, size, exerciseCount, targetMuscleId, exerciseExampleIds)
             emit(result.dtoToDomain())
         }
     }

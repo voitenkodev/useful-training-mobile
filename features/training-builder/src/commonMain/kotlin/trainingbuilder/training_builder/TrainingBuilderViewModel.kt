@@ -51,8 +51,13 @@ internal class TrainingBuilderViewModel(muscleIds: List<String>) : ViewModel() {
             .flatMapLatest { muscle -> _state.map { it.training.exercises }.map { muscle to it } }
             .distinctUntilChanged()
             .flatMapLatest {
-                exerciseExampleApi.getRecommendedExerciseExamples()
-                    .onStart { _state.update { it.copy(recommendationsLoading = true) } }
+                exerciseExampleApi.getRecommendedExerciseExamples(
+                    page = 1,
+                    size = 10,
+                    targetMuscleId = it.first?.id,
+                    exerciseCount = it.second.size,
+                    exerciseExampleIds = it.second.mapNotNull { it.exerciseExample?.id }
+                ).onStart { _state.update { it.copy(recommendationsLoading = true) } }
                     .catch { t -> _state.update { it.copy(recommendationsLoading = false, error = t.message) } }
                     .onEach { r -> _state.update { it.copy(recommendationsLoading = false, exerciseExamples = r.toState()) } }
             }.launchIn(this)
