@@ -11,7 +11,9 @@ import network.models.EquipmentGroupDto
 import network.models.ExcludedEquipmentDto
 import network.models.ExcludedMuscleDto
 import network.models.ExerciseExampleAchievementsDto
+import network.models.ExerciseExampleCriteriaBody
 import network.models.ExerciseExampleDto
+import network.models.ExerciseExampleFiltersBody
 import network.models.ExerciseExampleFiltersDto
 import network.models.MuscleDto
 import network.models.MuscleGroupDto
@@ -77,19 +79,21 @@ public class NetworkSource(private val clientBackend: ClientBackend) {
         equipmentIds: List<String>
     ): List<ExerciseExampleDto> {
         return callRequest(
-            method = HttpMethod.Get,
-            path = "/exercise-examples",
+            method = HttpMethod.Post,
+            path = "/exercise-examples/all",
             queryParams = buildMap {
                 put("page", page.toString())
                 put("size", size.toString())
-                query?.let { put("query", query) }
-                weightType?.let { put("weightType", it) }
-                experience?.let { put("experience", it) }
-                forceType?.let { put("forceType", it) }
-                category?.let { put("category", it) }
-                muscleIds.takeIf { it.isNotEmpty() }?.let { put("muscleIds", it.joinToString(",")) }
-                equipmentIds.takeIf { it.isNotEmpty() }?.let { put("equipmentIds", it.joinToString(",")) }
-            }
+            },
+            body = ExerciseExampleFiltersBody(
+                category = category,
+                equipmentIds = equipmentIds,
+                experience = experience,
+                forceType = forceType,
+                muscleIds = muscleIds,
+                query = query,
+                weightType = weightType
+            )
         )
     }
 
@@ -101,15 +105,17 @@ public class NetworkSource(private val clientBackend: ClientBackend) {
         exerciseExampleIds: List<String>
     ): List<ExerciseExampleDto> {
         return callRequest(
-            method = HttpMethod.Get,
+            method = HttpMethod.Post,
             path = "/exercise-examples/recommended",
             queryParams = buildMap {
                 put("page", page.toString())
                 put("size", size.toString())
-                exerciseCount?.let { put("exerciseCount", exerciseCount.toString()) }
-                targetMuscleId?.let { put("targetMuscleId", targetMuscleId) }
-                exerciseExampleIds.takeIf { it.isNotEmpty() }?.let { put("exerciseExampleIds", it.joinToString(",")) }
-            }
+            },
+            body = ExerciseExampleCriteriaBody(
+                exerciseCount = exerciseCount,
+                exerciseExampleIds = exerciseExampleIds,
+                targetMuscleId = targetMuscleId
+            )
         )
     }
 
