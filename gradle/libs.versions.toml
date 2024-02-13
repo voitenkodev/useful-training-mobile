@@ -2,7 +2,7 @@
 
 kotlin = "1.9.21"
 agp = "8.2.2"
-compose = "1.6.0-beta01"
+compose = "1.6.0-beta02"
 coroutines = "1.7.3"
 moko-resources = "0.23.0"
 activity-compose = "1.8.2"

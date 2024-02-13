@@ -19,6 +19,8 @@ import atom.Design
 import kotlin.math.abs
 import kotlin.math.roundToInt
 
+public const val DEFAULT_INITIAL_HEIGHT: Int = 165
+
 @Composable
 public fun HeightPicker(
     modifier: Modifier = Modifier,

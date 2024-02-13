@@ -6,6 +6,7 @@ import authentication.register.models.ExperienceEnum
 import authentication.register.models.MuscleGroup
 import authentication.register.models.RegistrationStatus
 import authentication.register.models.RegistrationSteps
+import heightpicker.DEFAULT_INITIAL_HEIGHT
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toPersistentList
@@ -15,7 +16,7 @@ import weightpicker.DEFAULT_INITIAL_WEIGHT
 internal data class State(
     val name: String = "",
     val weight: Int = DEFAULT_INITIAL_WEIGHT,
-    val height: Int = 165,
+    val height: Int = DEFAULT_INITIAL_HEIGHT,
     val email: String = "",
     val password: String = "",
     val passwordRepeat: String = "",
