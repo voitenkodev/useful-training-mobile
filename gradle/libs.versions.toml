@@ -1,13 +1,13 @@
 [versions]
 
-kotlin = "1.9.21"
+kotlin = "1.9.22"
 agp = "8.2.2"
 compose = "1.6.0-beta02"
-coroutines = "1.7.3"
+coroutines = "1.8.0-RC2"
 moko-resources = "0.23.0"
 activity-compose = "1.8.2"
 appcompat = "1.6.1"
-serialization = "1.5.1"
+serialization = "1.6.3"
 datetime = "0.5.0"
 ktor = "2.3.7"
 datastore = "1.1.0-beta01"
