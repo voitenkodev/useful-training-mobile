@@ -1,4 +1,4 @@
-package atom
+package components
 
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
@@ -35,7 +35,7 @@ private data class Star(
 }
 
 @Composable
-internal fun SpaceBackground(modifier: Modifier = Modifier) {
+public fun SpaceBackground(modifier: Modifier = Modifier) {
 
     val infinitelyAnimatedFloat = rememberInfiniteTransition().animateFloat(
         initialValue = 0f,

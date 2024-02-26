@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import atom.Design
 import authentication.intro.models.ScreenState
+import components.SpaceBackground
 import components.animation.Levitating
 import components.cards.UserCard
 import components.overlay.AlphaOverlay
@@ -54,6 +55,8 @@ private fun Content(
 ) {
 
     ScreenRoot(modifier = Modifier.imePadding()) {
+
+        SpaceBackground()
 
         Column(
             modifier = Modifier.fillMaxSize().systemBarsPadding(),

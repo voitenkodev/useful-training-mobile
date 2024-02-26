@@ -27,10 +27,7 @@ public fun DesignTheme(
         Surface(
             modifier = Modifier.then(modifier),
             color = Design.colors.primary,
-            content = {
-                SpaceBackground()
-                content.invoke()
-            }
+            content = content
         )
     }
 )
