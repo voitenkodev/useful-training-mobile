@@ -20,7 +20,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import atom.Design
 import authentication.login.models.AuthStatus
-import components.Error
 import components.inputs.InputEmail
 import components.inputs.InputPassword
 import components.roots.ScreenRoot
@@ -86,10 +85,7 @@ private fun Content(
         registration.invoke()
     }
 
-    ScreenRoot(
-        modifier = Modifier.primaryBackground().imePadding(),
-        error = { Error(message = error, close = clearError) }
-    ) {
+    ScreenRoot(modifier = Modifier.primaryBackground().imePadding()) {
 
         Column(
             modifier = Modifier.fillMaxSize().systemBarsPadding(),

@@ -87,7 +87,7 @@ private fun Content(
 
     registration: () -> Unit,
 
-    steps: List<RegistrationSteps>,
+    steps: ImmutableList<RegistrationSteps>,
     selectedStep: RegistrationSteps,
     nextStep: () -> Unit,
     previousStep: (onEmpty: () -> Unit) -> Unit,
