@@ -39,7 +39,7 @@ public fun PopupSheet(
     }
 
     ModalBottomSheet(
-        onDismissRequest = { onDismiss() },
+        onDismissRequest = onDismiss,
         sheetState = modalBottomSheetState,
         dragHandle = null,
         windowInsets = WindowInsets(top = 0.dp),
