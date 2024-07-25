@@ -27,6 +27,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import atom.Design
+import equipment.EquipmentGroup
+import equipment.IncludedStatusEnum
 import molecule.IconImage
 import molecule.PaddingM
 import molecule.PaddingS
@@ -34,8 +36,6 @@ import molecule.TextBody2
 import molecule.TextH4
 import resources.Icons
 import shimmerLoadingAnimation
-import userequipments.main.models.EquipmentGroup
-import userequipments.main.models.StatusEnum
 
 @Composable
 internal fun EquipmentGroup(
@@ -97,7 +97,11 @@ internal fun EquipmentGroup(
                         Image(
                             modifier = Modifier
                                 .fillMaxSize()
-                                .padding(start = Design.dp.paddingL, end = Design.dp.paddingL, top = Design.dp.paddingM),
+                                .padding(
+                                    start = Design.dp.paddingL,
+                                    end = Design.dp.paddingL,
+                                    top = Design.dp.paddingM
+                                ),
                             imageVector = equipment.image,
                             contentScale = ContentScale.Fit,
                             contentDescription = null
@@ -105,8 +109,8 @@ internal fun EquipmentGroup(
 
                         val iconStart = remember(equipment.status) {
                             when (equipment.status) {
-                                StatusEnum.EXCLUDED -> Icons.redCircle
-                                StatusEnum.INCLUDED -> Icons.greenCircle
+                                IncludedStatusEnum.EXCLUDED -> Icons.redCircle
+                                IncludedStatusEnum.INCLUDED -> Icons.greenCircle
                             }
                         }
 

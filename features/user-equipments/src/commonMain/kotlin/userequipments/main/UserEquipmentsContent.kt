@@ -15,11 +15,11 @@ import androidx.compose.ui.Modifier
 import atom.Design
 import components.Error
 import components.roots.ScreenRoot
+import equipment.EquipmentGroup
 import kotlinx.collections.immutable.ImmutableList
 import molecule.primaryBackground
 import userequipments.main.components.EquipmentGroup
 import userequipments.main.components.Header
-import userequipments.main.models.EquipmentGroup
 
 @Composable
 internal fun UserEquipmentsContent(vm: UserEquipmentsViewModel, close: () -> Unit) {
@@ -50,7 +50,9 @@ private fun Content(
 
             Header(close = close)
 
-            if (list.isNotEmpty()) LazyColumn(modifier = Modifier.fillMaxWidth().weight(1f).primaryBackground()) {
+            if (list.isNotEmpty()) LazyColumn(
+                modifier = Modifier.fillMaxWidth().weight(1f).primaryBackground()
+            ) {
 
                 itemsIndexed(list, key = { _, item -> item.id }) { index, item ->
 

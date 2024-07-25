@@ -1,9 +1,9 @@
-package userequipments.main.models
+package equipment
 
 import androidx.compose.runtime.Immutable
 
 @Immutable
-internal enum class StatusEnum {
+public enum class IncludedStatusEnum {
     INCLUDED,
     EXCLUDED
 }

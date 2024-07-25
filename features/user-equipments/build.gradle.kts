@@ -17,10 +17,9 @@ kotlin {
                 implementation(projects.domain.user)
                 implementation(projects.domain.equipments)
 
-                implementation(projects.composeLibs.equipments)
-
                 implementation(projects.common.utils)
                 implementation(projects.common.architectureComponent)
+                implementation(projects.common.state)
 
                 implementation(projects.designSystem.atom)
                 implementation(projects.designSystem.molecule)

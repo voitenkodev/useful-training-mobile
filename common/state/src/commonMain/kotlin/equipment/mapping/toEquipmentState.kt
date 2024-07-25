@@ -1,6 +1,8 @@
-package userequipments.main.mapping
+package equipment.mapping
 
 import androidx.compose.ui.graphics.vector.ImageVector
+import equipment.Equipment
+import equipment.IncludedStatusEnum
 import equipments.AbMachine
 import equipments.AdjustableBench
 import equipments.Barbell
@@ -43,15 +45,13 @@ import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toPersistentList
 import models.EquipmentEnum
 import models.EquipmentStatusEnum
-import userequipments.main.models.Equipment
-import userequipments.main.models.StatusEnum
 
-internal fun List<models.Equipment>.toState(): ImmutableList<Equipment> {
+public fun List<models.Equipment>.toState(): ImmutableList<Equipment> {
     return mapNotNull { it.toState() }
         .toPersistentList()
 }
 
-internal fun models.Equipment.toState(): Equipment? {
+public fun models.Equipment.toState(): Equipment? {
     return Equipment(
         name = name,
         id = id,
@@ -61,11 +61,11 @@ internal fun models.Equipment.toState(): Equipment? {
     )
 }
 
-private fun EquipmentStatusEnum.toState(): StatusEnum? {
+private fun EquipmentStatusEnum.toState(): IncludedStatusEnum? {
     return when (this) {
-        EquipmentStatusEnum.EXCLUDED -> StatusEnum.EXCLUDED
+        EquipmentStatusEnum.EXCLUDED -> IncludedStatusEnum.EXCLUDED
         EquipmentStatusEnum.UNKNOWN -> null
-        else -> StatusEnum.INCLUDED
+        else -> IncludedStatusEnum.INCLUDED
     }
 }
 

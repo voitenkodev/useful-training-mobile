@@ -44,6 +44,7 @@ include(
 
     "common:architecture-component",
     "common:utils",
+    "common:state",
     "common:platform-api",
 
     "design-system:atom",

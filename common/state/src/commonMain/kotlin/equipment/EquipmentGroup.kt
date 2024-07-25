@@ -1,10 +1,10 @@
-package userequipments.main.models
+package equipment
 
 import androidx.compose.runtime.Immutable
 import kotlinx.collections.immutable.ImmutableList
 
 @Immutable
-internal data class EquipmentGroup(
+public data class EquipmentGroup(
     val id: String,
     val name: String = "",
     val equipments: ImmutableList<Equipment>

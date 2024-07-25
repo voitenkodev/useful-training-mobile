@@ -3,6 +3,8 @@ package userequipments.main
 import EquipmentsRepository
 import UserRepository
 import ViewModel
+import equipment.IncludedStatusEnum
+import equipment.mapping.toState
 import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -14,8 +16,6 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.update
 import org.koin.core.component.inject
-import userequipments.main.mapping.toState
-import userequipments.main.models.StatusEnum
 
 internal class UserEquipmentsViewModel : ViewModel() {
 
@@ -54,8 +54,11 @@ internal class UserEquipmentsViewModel : ViewModel() {
             .flatMap { it.equipments }
             .find { it.id == id } ?: return
 
-        val flow = if (equipment.status == StatusEnum.EXCLUDED) userApi.deleteExcludedEquipment(equipment.id)
-        else userApi.setExcludedEquipment(equipment.id)
+        val flow =
+            if (equipment.status == IncludedStatusEnum.EXCLUDED) userApi.deleteExcludedEquipment(
+                equipment.id
+            )
+            else userApi.setExcludedEquipment(equipment.id)
 
         flow
             .flatMapConcat { equipmentsApi.syncUserEquipments() }

@@ -1,14 +1,13 @@
-package userequipments.main.models
+package equipment
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.vector.ImageVector
 
 @Immutable
-internal data class Equipment(
+public data class Equipment(
     val id: String,
     val name: String,
     val loading: Boolean,
     val image: ImageVector,
-    val status: StatusEnum
+    val status: IncludedStatusEnum
 )
-
