@@ -1,21 +1,21 @@
-package trainingbuilder.muscle_picker.factories
+package muscles.factories
 
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import atom.Design
 import kotlinx.collections.immutable.ImmutableList
+import muscles.Muscle
+import muscles.MuscleEnum
+import muscles.MuscleGroupEnum
+import muscles.MuscleStatusEnum
 import muscles.bodyBack
 import muscles.bodyFront
 import muscles.bodySplit
 import muscles.legsSplit
-import trainingbuilder.muscle_picker.models.Muscle
-import trainingbuilder.muscle_picker.models.MuscleEnum
-import trainingbuilder.muscle_picker.models.MuscleGroupEnum
-import trainingbuilder.muscle_picker.models.StatusEnum
 
 private fun colorBySelection(
     muscle: Muscle?,
-    includedMuscleStatuses: ImmutableList<StatusEnum>
+    includedMuscleStatuses: ImmutableList<MuscleStatusEnum>
 ): Color {
 
     val unSelected = Design.palette.content.copy(0.3f)
@@ -29,10 +29,10 @@ private fun colorBySelection(
     }
 }
 
-internal fun muscleImage(
+public fun muscleImage(
     muscleGroupEnumState: MuscleGroupEnum,
     muscles: List<Muscle>,
-    includedMuscleStatuses: ImmutableList<StatusEnum>,
+    includedMuscleStatuses: ImmutableList<MuscleStatusEnum>,
 ): ImageVector {
 
     return when (muscleGroupEnumState) {

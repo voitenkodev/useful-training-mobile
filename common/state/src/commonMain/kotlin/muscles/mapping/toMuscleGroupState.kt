@@ -1,18 +1,18 @@
-package trainingbuilder.muscle_picker.mapping
+package muscles.mapping
 
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toPersistentList
-import trainingbuilder.muscle_picker.factories.muscleImage
-import trainingbuilder.muscle_picker.models.MuscleGroup
-import trainingbuilder.muscle_picker.models.MuscleGroupEnum
-import trainingbuilder.muscle_picker.models.StatusEnum
+import muscles.MuscleGroup
+import muscles.MuscleGroupEnum
+import muscles.MuscleStatusEnum
+import muscles.factories.muscleImage
 
-internal fun List<models.MuscleGroup>.toState(includedMuscleStatuses: ImmutableList<StatusEnum>): ImmutableList<MuscleGroup> {
+public fun List<models.MuscleGroup>.toState(includedMuscleStatuses: ImmutableList<MuscleStatusEnum>): ImmutableList<MuscleGroup> {
     return mapNotNull { it.toState(includedMuscleStatuses) }
         .toPersistentList()
 }
 
-internal fun models.MuscleGroup.toState(includedMuscleStatuses: ImmutableList<StatusEnum>): MuscleGroup? {
+public fun models.MuscleGroup.toState(includedMuscleStatuses: ImmutableList<MuscleStatusEnum>): MuscleGroup? {
 
     val typeState = type.toState() ?: return null
     val muscleState = muscles.toState()

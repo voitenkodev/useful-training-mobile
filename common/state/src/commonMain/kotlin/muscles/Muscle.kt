@@ -1,12 +1,12 @@
-package trainingbuilder.muscle_picker.models
+package muscles
 
 import androidx.compose.runtime.Immutable
 
 @Immutable
-internal data class Muscle(
+public data class Muscle(
     val id: String,
     val name: String,
-    val status: StatusEnum,
+    val status: MuscleStatusEnum,
     val isSelected: Boolean,
     val type: MuscleEnum
 )

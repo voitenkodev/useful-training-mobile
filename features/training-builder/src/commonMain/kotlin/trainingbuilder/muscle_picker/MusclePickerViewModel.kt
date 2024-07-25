@@ -11,9 +11,9 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
+import muscles.factories.muscleImage
+import muscles.mapping.toState
 import org.koin.core.component.inject
-import trainingbuilder.muscle_picker.factories.muscleImage
-import trainingbuilder.muscle_picker.mapping.toState
 
 internal class MusclePickerViewModel : ViewModel() {
 
@@ -36,8 +36,10 @@ internal class MusclePickerViewModel : ViewModel() {
 
                     st.copy(
                         muscleGroups = result,
-                        lowerBodyList = st.lowerBodyList.filter { filteredTypes.contains(it) }.toPersistentList(),
-                        upperBodyList = st.upperBodyList.filter { filteredTypes.contains(it) }.toPersistentList()
+                        lowerBodyList = st.lowerBodyList.filter { filteredTypes.contains(it) }
+                            .toPersistentList(),
+                        upperBodyList = st.upperBodyList.filter { filteredTypes.contains(it) }
+                            .toPersistentList()
                     )
                 }
             }

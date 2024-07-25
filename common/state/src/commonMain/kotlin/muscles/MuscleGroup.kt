@@ -1,10 +1,10 @@
-package trainingbuilder.muscle_picker.models
+package muscles
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.vector.ImageVector
 
 @Immutable
-internal data class MuscleGroup(
+public data class MuscleGroup(
     val id: String,
     val name: String = "",
     val muscles: List<Muscle>,

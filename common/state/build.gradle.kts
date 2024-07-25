@@ -23,6 +23,7 @@ kotlin {
                 implementation(projects.domain.equipments)
 
                 implementation(projects.composeLibs.muscles)
+                implementation(projects.domain.muscles)
             }
         }
     }

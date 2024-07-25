@@ -24,15 +24,15 @@ import molecule.ButtonTextLink
 import molecule.PaddingM
 import molecule.PaddingS
 import molecule.TextH4
+import muscles.Muscle
+import muscles.MuscleGroup
+import muscles.MuscleStatusEnum
 import resources.Icons
-import trainingbuilder.muscle_picker.models.Muscle
-import trainingbuilder.muscle_picker.models.MuscleGroup
-import trainingbuilder.muscle_picker.models.StatusEnum
 
 @Composable
 internal fun MuscleGroup(
     item: MuscleGroup,
-    includedMuscleStatuses: ImmutableList<StatusEnum>,
+    includedMuscleStatuses: ImmutableList<MuscleStatusEnum>,
     selectMuscleGroup: (id: String) -> Unit,
     selectMuscle: (id: String) -> Unit
 ) {
@@ -107,10 +107,10 @@ private fun MuscleChip(
 
     val contentColor = remember(muscle.status) {
         when (muscle.status) {
-            StatusEnum.HIGH -> Design.palette.content
-            StatusEnum.MEDIUM -> Design.palette.content
-            StatusEnum.LOW -> Design.palette.caption
-            StatusEnum.EXCLUDED -> Design.palette.white10
+            MuscleStatusEnum.HIGH -> Design.palette.content
+            MuscleStatusEnum.MEDIUM -> Design.palette.content
+            MuscleStatusEnum.LOW -> Design.palette.caption
+            MuscleStatusEnum.EXCLUDED -> Design.palette.white10
         }
     }
 
@@ -118,22 +118,22 @@ private fun MuscleChip(
         backgroundColor = Design.colors.toxic.copy(alpha = 0.1f),
         borderColor = Design.colors.toxic,
         contentColor = Design.colors.content,
-        enabled = muscle.status != StatusEnum.EXCLUDED
+        enabled = muscle.status != MuscleStatusEnum.EXCLUDED
     )
 
     val unselectedChipState = ChipState.Colored(
         backgroundColor = Color.Transparent,
         borderColor = Design.palette.white10,
         contentColor = contentColor,
-        enabled = muscle.status != StatusEnum.EXCLUDED
+        enabled = muscle.status != MuscleStatusEnum.EXCLUDED
     )
 
     val icon = remember(muscle.status) {
         when (muscle.status) {
-            StatusEnum.HIGH -> Icons.highBattery
-            StatusEnum.MEDIUM -> Icons.mediumBattery
-            StatusEnum.LOW -> Icons.lowBattery
-            StatusEnum.EXCLUDED -> null
+            MuscleStatusEnum.HIGH -> Icons.highBattery
+            MuscleStatusEnum.MEDIUM -> Icons.mediumBattery
+            MuscleStatusEnum.LOW -> Icons.lowBattery
+            MuscleStatusEnum.EXCLUDED -> null
         }
     }
 

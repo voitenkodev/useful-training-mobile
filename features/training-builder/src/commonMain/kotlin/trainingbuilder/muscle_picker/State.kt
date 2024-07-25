@@ -3,9 +3,9 @@ package trainingbuilder.muscle_picker
 import androidx.compose.runtime.Immutable
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
-import trainingbuilder.muscle_picker.models.MuscleEnum
-import trainingbuilder.muscle_picker.models.MuscleGroup
-import trainingbuilder.muscle_picker.models.StatusEnum
+import muscles.MuscleEnum
+import muscles.MuscleGroup
+import muscles.MuscleStatusEnum
 
 @Immutable
 internal data class State(
@@ -32,7 +32,11 @@ internal data class State(
         MuscleEnum.CALF,
         MuscleEnum.GLUTEAL
     ),
-    val includedMuscleStatuses: ImmutableList<StatusEnum> = persistentListOf(StatusEnum.MEDIUM, StatusEnum.LOW, StatusEnum.HIGH),
+    val includedMuscleStatuses: ImmutableList<MuscleStatusEnum> = persistentListOf(
+        MuscleStatusEnum.MEDIUM,
+        MuscleStatusEnum.LOW,
+        MuscleStatusEnum.HIGH
+    ),
     val error: String? = null,
     val loading: Boolean = false
 )

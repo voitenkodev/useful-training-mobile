@@ -1,9 +1,9 @@
-package trainingbuilder.muscle_picker.models
+package muscles
 
 import androidx.compose.runtime.Immutable
 
 @Immutable
-internal enum class MuscleEnum {
+public enum class MuscleEnum {
     // Chest
     PECTORALIS_MAJOR,
     PECTORALIS_MINOR,

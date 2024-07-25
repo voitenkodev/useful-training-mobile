@@ -16,14 +16,14 @@ import kotlinx.collections.immutable.ImmutableList
 import molecule.PaddingL
 import molecule.PaddingXL
 import molecule.Shadow
-import trainingbuilder.muscle_picker.models.MuscleEnum
-import trainingbuilder.muscle_picker.models.MuscleGroup
-import trainingbuilder.muscle_picker.models.StatusEnum
+import muscles.MuscleEnum
+import muscles.MuscleGroup
+import muscles.MuscleStatusEnum
 
 @Composable
 internal fun MusclePack(
     list: ImmutableList<MuscleGroup>,
-    includedMuscleStatuses: ImmutableList<StatusEnum>,
+    includedMuscleStatuses: ImmutableList<MuscleStatusEnum>,
     upperBodyPackEnums: ImmutableList<MuscleEnum>,
     lowerBodyPackEnums: ImmutableList<MuscleEnum>,
     selectFullBody: () -> Unit,

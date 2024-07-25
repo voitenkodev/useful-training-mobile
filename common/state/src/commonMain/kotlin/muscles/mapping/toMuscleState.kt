@@ -1,19 +1,19 @@
-package trainingbuilder.muscle_picker.mapping
+package muscles.mapping
 
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toPersistentList
+import models.Muscle
 import models.MuscleStatusEnum
-import trainingbuilder.muscle_picker.models.Muscle
-import trainingbuilder.muscle_picker.models.MuscleEnum
+import muscles.MuscleEnum
 
-internal fun List<models.Muscle>.toState(): ImmutableList<Muscle> {
+public fun List<Muscle>.toState(): ImmutableList<muscles.Muscle> {
     return mapNotNull { it.toState() }
         .sortedBy { it.status }
         .toPersistentList()
 }
 
-internal fun models.Muscle.toState(): Muscle? {
-    return Muscle(
+public fun Muscle.toState(): muscles.Muscle? {
+    return muscles.Muscle(
         name = name,
         id = id,
         isSelected = false,
@@ -22,12 +22,12 @@ internal fun models.Muscle.toState(): Muscle? {
     )
 }
 
-private fun MuscleStatusEnum.toState(): trainingbuilder.muscle_picker.models.StatusEnum? {
+private fun MuscleStatusEnum.toState(): muscles.MuscleStatusEnum? {
     return when (this) {
-        MuscleStatusEnum.HIGH -> trainingbuilder.muscle_picker.models.StatusEnum.HIGH
-        MuscleStatusEnum.MEDIUM -> trainingbuilder.muscle_picker.models.StatusEnum.MEDIUM
-        MuscleStatusEnum.LOW -> trainingbuilder.muscle_picker.models.StatusEnum.LOW
-        MuscleStatusEnum.EXCLUDED -> trainingbuilder.muscle_picker.models.StatusEnum.EXCLUDED
+        MuscleStatusEnum.HIGH -> muscles.MuscleStatusEnum.HIGH
+        MuscleStatusEnum.MEDIUM -> muscles.MuscleStatusEnum.MEDIUM
+        MuscleStatusEnum.LOW -> muscles.MuscleStatusEnum.LOW
+        MuscleStatusEnum.EXCLUDED -> muscles.MuscleStatusEnum.EXCLUDED
         else -> null
     }
 }

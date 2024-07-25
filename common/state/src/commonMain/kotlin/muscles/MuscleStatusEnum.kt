@@ -1,9 +1,9 @@
-package trainingbuilder.muscle_picker.models
+package muscles
 
 import androidx.compose.runtime.Immutable
 
 @Immutable
-internal enum class StatusEnum {
+public enum class MuscleStatusEnum {
     HIGH,
     MEDIUM,
     LOW,

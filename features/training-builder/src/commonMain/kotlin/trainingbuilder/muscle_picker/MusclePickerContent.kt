@@ -14,13 +14,13 @@ import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import molecule.Shadow
 import molecule.primaryBackground
+import muscles.MuscleEnum
+import muscles.MuscleGroup
+import muscles.MuscleStatusEnum
 import trainingbuilder.muscle_picker.components.Footer
 import trainingbuilder.muscle_picker.components.Header
 import trainingbuilder.muscle_picker.components.MuscleGroup
 import trainingbuilder.muscle_picker.components.MusclePack
-import trainingbuilder.muscle_picker.models.MuscleEnum
-import trainingbuilder.muscle_picker.models.MuscleGroup
-import trainingbuilder.muscle_picker.models.StatusEnum
 
 @Composable
 internal fun MusclePickerContent(
@@ -55,7 +55,7 @@ private fun Content(
     list: ImmutableList<MuscleGroup>,
     upperBodyPackEnums: ImmutableList<MuscleEnum>,
     lowerBodyPackEnums: ImmutableList<MuscleEnum>,
-    includedMuscleStatuses: ImmutableList<StatusEnum>,
+    includedMuscleStatuses: ImmutableList<MuscleStatusEnum>,
     selectMuscleGroup: (id: String) -> Unit,
     selectMuscle: (id: String) -> Unit,
     selectFullBody: () -> Unit,
