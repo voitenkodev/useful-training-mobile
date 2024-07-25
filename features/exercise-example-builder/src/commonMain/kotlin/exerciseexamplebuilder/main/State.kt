@@ -1,7 +1,7 @@
 package exerciseexamplebuilder.main
 
 import androidx.compose.runtime.Immutable
-import exerciseexamplebuilder.main.models.EquipmentGroup
+import equipment.EquipmentGroup
 import exerciseexamplebuilder.main.models.FilterPack
 import exerciseexamplebuilder.main.models.MuscleGroup
 import kotlinx.collections.immutable.ImmutableList

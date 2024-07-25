@@ -21,6 +21,7 @@ kotlin {
 
                 implementation(projects.common.architectureComponent)
                 implementation(projects.common.utils)
+                implementation(projects.common.state)
 
                 implementation(projects.designSystem.atom)
                 implementation(projects.designSystem.molecule)
@@ -31,7 +32,6 @@ kotlin {
                 implementation(compose.foundation)
 
                 implementation(projects.composeLibs.muscles)
-                implementation(projects.composeLibs.equipments)
                 implementation(projects.composeLibs.percentagePicker)
 
                 implementation(libs.immutable.collections)

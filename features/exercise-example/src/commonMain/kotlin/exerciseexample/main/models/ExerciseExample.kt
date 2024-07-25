@@ -1,6 +1,7 @@
 package exerciseexample.main.models
 
 import androidx.compose.runtime.Immutable
+import equipment.Equipment
 import kotlinx.collections.immutable.ImmutableList
 
 @Immutable

@@ -2,6 +2,7 @@ package authentication.register.mapping
 
 import authentication.register.models.Muscle
 import authentication.register.models.MuscleEnum
+import equipment.IncludedStatusEnum
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toPersistentList
 
@@ -14,7 +15,7 @@ internal fun models.Muscle.toState(): Muscle? {
     return Muscle(
         name = name,
         id = id,
-        status = authentication.register.models.StatusEnum.INCLUDED,
+        status = IncludedStatusEnum.INCLUDED,
         type = type.toState() ?: return null
     )
 }

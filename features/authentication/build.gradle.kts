@@ -20,6 +20,7 @@ kotlin {
                 implementation(projects.domain.equipments)
 
                 implementation(projects.common.utils)
+                implementation(projects.common.state)
                 implementation(projects.common.architectureComponent)
 
                 implementation(projects.designSystem.atom)
@@ -31,7 +32,6 @@ kotlin {
                 implementation(compose.foundation)
 
                 implementation(projects.composeLibs.muscles)
-                implementation(projects.composeLibs.equipments)
                 implementation(projects.composeLibs.weightPicker)
                 implementation(projects.composeLibs.heightPicker)
 

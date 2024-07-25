@@ -1,11 +1,11 @@
 package authentication.register
 
 import androidx.compose.runtime.Immutable
-import authentication.register.models.EquipmentGroup
 import authentication.register.models.ExperienceEnum
 import authentication.register.models.MuscleGroup
 import authentication.register.models.RegistrationStatus
 import authentication.register.models.RegistrationSteps
+import equipment.EquipmentGroup
 import heightpicker.DEFAULT_INITIAL_HEIGHT
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf

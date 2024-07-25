@@ -6,7 +6,7 @@ import atom.Design
 import authentication.register.models.Muscle
 import authentication.register.models.MuscleEnum
 import authentication.register.models.MuscleGroupEnum
-import authentication.register.models.StatusEnum
+import equipment.IncludedStatusEnum
 import muscles.bodyBack
 import muscles.bodyFront
 import muscles.bodySplit
@@ -19,8 +19,8 @@ private fun colorBySelection(muscle: Muscle?): Color {
     val default = Design.palette.white10
 
     return when (muscle?.status) {
-        StatusEnum.INCLUDED -> selected
-        StatusEnum.EXCLUDED -> unSelected
+        IncludedStatusEnum.INCLUDED -> selected
+        IncludedStatusEnum.EXCLUDED -> unSelected
         else -> default
     }
 }

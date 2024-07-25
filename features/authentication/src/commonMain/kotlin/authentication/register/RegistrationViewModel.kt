@@ -10,9 +10,9 @@ import authentication.register.mapping.toExperienceEnumDomain
 import authentication.register.mapping.toState
 import authentication.register.models.ExperienceEnum
 import authentication.register.models.RegistrationStatus
-import authentication.register.models.StatusEnum.EXCLUDED
-import authentication.register.models.StatusEnum.INCLUDED
 import cmToM
+import equipment.IncludedStatusEnum
+import equipment.mapping.toState
 import grToKg
 import isEmailValid
 import kotlinx.collections.immutable.toPersistentList
@@ -74,12 +74,12 @@ internal class RegistrationViewModel : ViewModel() {
 
         val excludeEquipmentIds = last.equipmentGroups
             .flatMap { it.equipments }
-            .filter { it.status == EXCLUDED }
+            .filter { it.status == IncludedStatusEnum.EXCLUDED }
             .map { it.id }
 
         val excludeMuscleIds = last.muscleGroups
             .flatMap { it.muscles }
-            .filter { it.status == EXCLUDED }
+            .filter { it.status == IncludedStatusEnum.EXCLUDED }
             .map { it.id }
 
         if (last.error == null) {
@@ -96,7 +96,14 @@ internal class RegistrationViewModel : ViewModel() {
                 )
                 .flatMapConcat { userApi.syncUser() }
                 .onStart { _state.update { it.copy(loading = true) } }
-                .onEach { _state.update { it.copy(registrationStatus = RegistrationStatus.Available, loading = false) } }
+                .onEach {
+                    _state.update {
+                        it.copy(
+                            registrationStatus = RegistrationStatus.Available,
+                            loading = false
+                        )
+                    }
+                }
                 .catch { t -> _state.update { it.copy(loading = false, error = t.message) } }
                 .launchIn(this)
         }
@@ -135,8 +142,8 @@ internal class RegistrationViewModel : ViewModel() {
 
                         v.copy(
                             status = when (v.status) {
-                                INCLUDED -> EXCLUDED
-                                EXCLUDED -> INCLUDED
+                                IncludedStatusEnum.INCLUDED -> IncludedStatusEnum.EXCLUDED
+                                IncludedStatusEnum.EXCLUDED -> IncludedStatusEnum.INCLUDED
                             }
                         )
                     }.toPersistentList()
@@ -160,8 +167,8 @@ internal class RegistrationViewModel : ViewModel() {
 
                         m.copy(
                             status = when (m.status) {
-                                INCLUDED -> EXCLUDED
-                                EXCLUDED -> INCLUDED
+                                IncludedStatusEnum.INCLUDED -> IncludedStatusEnum.EXCLUDED
+                                IncludedStatusEnum.EXCLUDED -> IncludedStatusEnum.INCLUDED
                             }
                         )
                     }.toPersistentList()

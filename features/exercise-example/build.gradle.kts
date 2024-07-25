@@ -20,6 +20,7 @@ kotlin {
                 implementation(projects.common.architectureComponent)
                 implementation(projects.common.platformApi)
                 implementation(projects.common.utils)
+                implementation(projects.common.state)
 
                 implementation(projects.designSystem.atom)
                 implementation(projects.designSystem.molecule)
@@ -27,7 +28,6 @@ kotlin {
                 implementation(projects.designSystem.resources)
 
                 implementation(projects.composeLibs.muscles)
-                implementation(projects.composeLibs.equipments)
                 implementation(projects.composeLibs.composeVideo)
                 implementation(projects.composeLibs.composeImage)
                 implementation(projects.composeLibs.charts)

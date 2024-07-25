@@ -21,7 +21,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import atom.Design
-import exerciseexample.main.models.Equipment
+import equipment.Equipment
 import kotlinx.collections.immutable.ImmutableList
 import molecule.PaddingM
 import molecule.TextBody2
@@ -63,7 +63,11 @@ internal fun Equipments(equipments: ImmutableList<Equipment>) {
                     Image(
                         modifier = Modifier
                             .weight(1f)
-                            .padding(start = Design.dp.paddingL, end = Design.dp.paddingL, top = Design.dp.paddingM),
+                            .padding(
+                                start = Design.dp.paddingL,
+                                end = Design.dp.paddingL,
+                                top = Design.dp.paddingM
+                            ),
                         imageVector = it.image,
                         contentScale = ContentScale.Fit,
                         contentDescription = null

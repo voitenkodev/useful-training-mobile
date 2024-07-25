@@ -26,8 +26,8 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import atom.Design
-import exerciseexamplebuilder.main.models.EquipmentGroup
-import exerciseexamplebuilder.main.models.StatusEnum
+import equipment.EquipmentGroup
+import equipment.IncludedStatusEnum
 import kotlinx.collections.immutable.ImmutableList
 import molecule.IconImage
 import molecule.PaddingM
@@ -86,7 +86,11 @@ internal fun EquipmentGroups(
                         Image(
                             modifier = Modifier
                                 .fillMaxSize()
-                                .padding(start = Design.dp.paddingL, end = Design.dp.paddingL, top = Design.dp.paddingM),
+                                .padding(
+                                    start = Design.dp.paddingL,
+                                    end = Design.dp.paddingL,
+                                    top = Design.dp.paddingM
+                                ),
                             imageVector = equipment.image,
                             contentScale = ContentScale.Fit,
                             contentDescription = null
@@ -94,8 +98,8 @@ internal fun EquipmentGroups(
 
                         val iconStart = remember(equipment.status) {
                             when (equipment.status) {
-                                StatusEnum.UNSELECTED -> Icons.redCircle
-                                StatusEnum.SELECTED -> Icons.greenCircle
+                                IncludedStatusEnum.EXCLUDED -> Icons.redCircle
+                                IncludedStatusEnum.INCLUDED -> Icons.greenCircle
                             }
                         }
 

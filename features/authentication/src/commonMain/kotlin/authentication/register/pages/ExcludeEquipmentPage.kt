@@ -11,9 +11,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import authentication.register.components.EquipmentGroup
-import authentication.register.models.EquipmentGroup
 import components.ShadowFooter
 import components.ShadowFooterSpace
+import equipment.EquipmentGroup
 import kotlinx.collections.immutable.ImmutableList
 import molecule.PaddingM
 import molecule.PaddingXL
@@ -38,7 +38,10 @@ internal fun ExcludeEquipmentPage(
 
             TextH2(provideText = { "Equipment" }, textAlign = TextAlign.Center)
 
-            TextBody2(provideText = { "Would you like to exclude some equipments?" }, textAlign = TextAlign.Center)
+            TextBody2(
+                provideText = { "Would you like to exclude some equipments?" },
+                textAlign = TextAlign.Center
+            )
 
             PaddingXL()
 

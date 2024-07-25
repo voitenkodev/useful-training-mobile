@@ -1,6 +1,5 @@
 package exerciseexamplebuilder.main
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -35,9 +34,10 @@ import components.inputs.InputDescription
 import components.inputs.InputExerciseName
 import components.inputs.InputUrl
 import components.roots.ScreenRoot
+import equipment.EquipmentGroup
+import equipment.IncludedStatusEnum
 import exerciseexamplebuilder.main.components.EquipmentGroups
 import exerciseexamplebuilder.main.components.MuscleGroup
-import exerciseexamplebuilder.main.models.EquipmentGroup
 import exerciseexamplebuilder.main.models.FilterPack
 import exerciseexamplebuilder.main.models.MuscleGroup
 import exerciseexamplebuilder.main.models.StatusEnum
@@ -131,7 +131,10 @@ private fun Content(
 
     ScreenRoot(error = { Error(message = error, close = clearError) }) {
 
-        Column(modifier = Modifier.fillMaxSize().primaryBackground().verticalScroll(rememberScrollState())) {
+        Column(
+            modifier = Modifier.fillMaxSize().primaryBackground()
+                .verticalScroll(rememberScrollState())
+        ) {
 
             ShadowHeaderSpace()
 
@@ -188,7 +191,9 @@ private fun Content(
                     onValueChange = { updatedThumbs ->
                         val newList = muscles.map {
                             val innerMuscles = it.muscles.map { m ->
-                                val newPercentage = updatedThumbs.find { it.id == m.id }?.positionInRange ?: m.percentage
+                                val newPercentage =
+                                    updatedThumbs.find { it.id == m.id }?.positionInRange
+                                        ?: m.percentage
                                 m.copy(percentage = newPercentage)
                             }.toPersistentList()
                             it.copy(muscles = innerMuscles)
@@ -210,7 +215,9 @@ private fun Content(
 
             PaddingM()
 
-            TextBody1(modifier = Modifier.padding(horizontal = Design.dp.paddingM), provideText = { "Categories" })
+            TextBody1(
+                modifier = Modifier.padding(horizontal = Design.dp.paddingM),
+                provideText = { "Categories" })
 
             PaddingS()
 
@@ -231,7 +238,9 @@ private fun Content(
 
             PaddingM()
 
-            TextBody1(modifier = Modifier.padding(horizontal = Design.dp.paddingM), provideText = { "Weight Type" })
+            TextBody1(
+                modifier = Modifier.padding(horizontal = Design.dp.paddingM),
+                provideText = { "Weight Type" })
 
             PaddingS()
 
@@ -252,7 +261,9 @@ private fun Content(
 
             PaddingM()
 
-            TextBody1(modifier = Modifier.padding(horizontal = Design.dp.paddingM), provideText = { "Force Type" })
+            TextBody1(
+                modifier = Modifier.padding(horizontal = Design.dp.paddingM),
+                provideText = { "Force Type" })
 
             PaddingS()
 
@@ -273,7 +284,9 @@ private fun Content(
 
             PaddingM()
 
-            TextBody1(modifier = Modifier.padding(horizontal = Design.dp.paddingM), provideText = { "Experience" })
+            TextBody1(
+                modifier = Modifier.padding(horizontal = Design.dp.paddingM),
+                provideText = { "Experience" })
 
             PaddingS()
 
@@ -303,7 +316,8 @@ private fun Content(
         ShadowHeader(title = "Exercise Builder")
 
         val primary = remember(equipments, muscles, name, imageUrl, filterPack) {
-            val hasEquip = equipments.flatMap { it.equipments }.any { it.status == StatusEnum.SELECTED }
+            val hasEquip = equipments.flatMap { it.equipments }
+                .any { it.status == IncludedStatusEnum.INCLUDED }
             val hasMuscles = muscles.flatMap { it.muscles }.any { it.status == StatusEnum.SELECTED }
             val hasAllFilters = filterPack.categories.any { it.isSelected } and
                     filterPack.forceTypes.any { it.isSelected } and

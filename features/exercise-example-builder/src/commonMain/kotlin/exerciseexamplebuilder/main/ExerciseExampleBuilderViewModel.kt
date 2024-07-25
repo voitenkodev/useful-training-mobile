@@ -5,6 +5,8 @@ import ExerciseExamplesRepository
 import FiltersRepository
 import MusclesRepository
 import ViewModel
+import equipment.IncludedStatusEnum
+import equipment.mapping.toState
 import exerciseexamplebuilder.main.factories.muscleImage
 import exerciseexamplebuilder.main.mapping.toState
 import exerciseexamplebuilder.main.models.MuscleGroup
@@ -71,7 +73,7 @@ internal class ExerciseExampleBuilderViewModel : ViewModel() {
             name = lastState.name,
             equipmentIds = lastState.equipmentGroups
                 .flatMap { it.equipments }
-                .filter { it.status == StatusEnum.SELECTED }
+                .filter { it.status == IncludedStatusEnum.INCLUDED }
                 .map { it.id },
             exerciseExampleBundles = lastState.muscleGroups
                 .flatMap { it.muscles }
@@ -152,8 +154,8 @@ internal class ExerciseExampleBuilderViewModel : ViewModel() {
 
                         v.copy(
                             status = when (v.status) {
-                                StatusEnum.SELECTED -> StatusEnum.UNSELECTED
-                                StatusEnum.UNSELECTED -> StatusEnum.SELECTED
+                                IncludedStatusEnum.INCLUDED -> IncludedStatusEnum.EXCLUDED
+                                IncludedStatusEnum.EXCLUDED -> IncludedStatusEnum.INCLUDED
                             }
                         )
                     }.toPersistentList()
@@ -194,7 +196,8 @@ internal class ExerciseExampleBuilderViewModel : ViewModel() {
             val muscleTypes = it.muscleGroups.map { muscleType ->
                 val muscles = muscleType.muscles.map { muscle ->
 
-                    val newValue = if (selectedMuscle.status == StatusEnum.UNSELECTED) StatusEnum.SELECTED else StatusEnum.UNSELECTED
+                    val newValue =
+                        if (selectedMuscle.status == StatusEnum.UNSELECTED) StatusEnum.SELECTED else StatusEnum.UNSELECTED
 
                     val newPercentage =
                         if (selectedMuscle.status == StatusEnum.SELECTED) 0 // become unselected

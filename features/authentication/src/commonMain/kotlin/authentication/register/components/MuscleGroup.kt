@@ -17,9 +17,9 @@ import androidx.compose.ui.text.style.TextOverflow
 import atom.Design
 import authentication.register.models.Muscle
 import authentication.register.models.MuscleGroup
-import authentication.register.models.StatusEnum
 import components.chips.Chip
 import components.chips.ChipState
+import equipment.IncludedStatusEnum
 import molecule.PaddingM
 import molecule.PaddingS
 import molecule.TextH4
@@ -78,8 +78,8 @@ private fun MuscleChip(
 
     val contentColor = remember(muscle.status) {
         when (muscle.status) {
-            StatusEnum.EXCLUDED -> Design.palette.caption
-            StatusEnum.INCLUDED -> Design.palette.content
+            IncludedStatusEnum.EXCLUDED -> Design.palette.caption
+            IncludedStatusEnum.INCLUDED -> Design.palette.content
         }
     }
 
@@ -91,8 +91,8 @@ private fun MuscleChip(
 
     val iconStart = remember(muscle.status) {
         when (muscle.status) {
-            StatusEnum.EXCLUDED -> Icons.redCircle
-            StatusEnum.INCLUDED -> Icons.greenCircle
+            IncludedStatusEnum.EXCLUDED -> Icons.redCircle
+            IncludedStatusEnum.INCLUDED -> Icons.greenCircle
         }
     }
 

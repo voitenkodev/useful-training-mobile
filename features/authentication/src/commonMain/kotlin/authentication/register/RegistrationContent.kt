@@ -11,7 +11,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import authentication.register.models.EquipmentGroup
 import authentication.register.models.ExperienceEnum
 import authentication.register.models.MuscleGroup
 import authentication.register.models.RegistrationStatus
@@ -27,6 +26,7 @@ import com.arkivanov.essenty.backhandler.BackCallback
 import components.Error
 import components.indication.SlideIndicator
 import components.roots.ScreenRoot
+import equipment.EquipmentGroup
 import io.github.xxfast.decompose.router.LocalRouterContext
 import kotlinx.collections.immutable.ImmutableList
 import molecule.PaddingL
