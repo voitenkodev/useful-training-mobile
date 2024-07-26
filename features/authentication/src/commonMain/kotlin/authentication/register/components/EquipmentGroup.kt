@@ -108,10 +108,11 @@ internal fun EquipmentGroup(
                             when (equipment.status) {
                                 IncludedStatusEnum.EXCLUDED -> Icons.redCircle
                                 IncludedStatusEnum.INCLUDED -> Icons.greenCircle
+                                null -> null
                             }
                         }
 
-                        IconImage(
+                        if (iconStart != null) IconImage(
                             modifier = Modifier
                                 .align(Alignment.TopEnd)
                                 .padding(Design.dp.paddingS)

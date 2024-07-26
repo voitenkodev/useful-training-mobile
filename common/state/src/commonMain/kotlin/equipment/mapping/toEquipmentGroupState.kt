@@ -1,18 +1,23 @@
 package equipment.mapping
 
 import equipment.EquipmentGroup
+import equipment.IncludedStatusEnum
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toPersistentList
 
-public fun List<models.EquipmentGroup>.toState(): ImmutableList<EquipmentGroup> {
-    return map { it.toState() }
+public fun List<models.EquipmentGroup>.toState(
+    defaultStatus: IncludedStatusEnum? = null
+): ImmutableList<EquipmentGroup> {
+    return map { it.toState(defaultStatus) }
         .toPersistentList()
 }
 
-public fun models.EquipmentGroup.toState(): EquipmentGroup {
+public fun models.EquipmentGroup.toState(
+    defaultStatus: IncludedStatusEnum?
+): EquipmentGroup {
     return EquipmentGroup(
         name = name,
         id = id,
-        equipments = equipments.toState()
+        equipments = equipments.toState(defaultStatus)
     )
 }

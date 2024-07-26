@@ -46,18 +46,22 @@ import kotlinx.collections.immutable.toPersistentList
 import models.EquipmentEnum
 import models.EquipmentStatusEnum
 
-public fun List<models.Equipment>.toState(): ImmutableList<Equipment> {
-    return mapNotNull { it.toState() }
+public fun List<models.Equipment>.toState(
+    defaultStatus: IncludedStatusEnum? = null
+): ImmutableList<Equipment> {
+    return mapNotNull { it.toState(defaultStatus) }
         .toPersistentList()
 }
 
-public fun models.Equipment.toState(): Equipment? {
+public fun models.Equipment.toState(
+    defaultStatus: IncludedStatusEnum? = null
+): Equipment? {
     return Equipment(
         name = name,
         id = id,
         loading = false,
         image = type.toImageState() ?: return null,
-        status = status.toState() ?: return null,
+        status = status.toState() ?: defaultStatus,
     )
 }
 

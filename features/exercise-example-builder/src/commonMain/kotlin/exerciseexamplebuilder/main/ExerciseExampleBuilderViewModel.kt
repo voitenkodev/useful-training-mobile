@@ -156,6 +156,7 @@ internal class ExerciseExampleBuilderViewModel : ViewModel() {
                             status = when (v.status) {
                                 IncludedStatusEnum.INCLUDED -> IncludedStatusEnum.EXCLUDED
                                 IncludedStatusEnum.EXCLUDED -> IncludedStatusEnum.INCLUDED
+                                null -> null
                             }
                         )
                     }.toPersistentList()

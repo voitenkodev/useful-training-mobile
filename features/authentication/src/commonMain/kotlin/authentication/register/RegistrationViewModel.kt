@@ -58,7 +58,7 @@ internal class RegistrationViewModel : ViewModel() {
 
         equipmentsApi
             .observeEquipments()
-            .onEach { r -> _state.update { it.copy(equipmentGroups = r.toState()) } }
+            .onEach { r -> _state.update { it.copy(equipmentGroups = r.toState(defaultStatus = IncludedStatusEnum.INCLUDED)) } }
             .catch { r -> _state.update { it.copy(error = r.message) } }
             .launchIn(this)
 
@@ -144,6 +144,7 @@ internal class RegistrationViewModel : ViewModel() {
                             status = when (v.status) {
                                 IncludedStatusEnum.INCLUDED -> IncludedStatusEnum.EXCLUDED
                                 IncludedStatusEnum.EXCLUDED -> IncludedStatusEnum.INCLUDED
+                                null -> null
                             }
                         )
                     }.toPersistentList()

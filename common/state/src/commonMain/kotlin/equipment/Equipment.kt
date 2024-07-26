@@ -9,5 +9,5 @@ public data class Equipment(
     val name: String,
     val loading: Boolean,
     val image: ImageVector,
-    val status: IncludedStatusEnum
+    val status: IncludedStatusEnum?
 )

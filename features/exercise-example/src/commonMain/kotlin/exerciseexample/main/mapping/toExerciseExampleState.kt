@@ -1,5 +1,6 @@
 package exerciseexample.main.mapping
 
+import equipment.mapping.toState
 import exerciseexample.main.models.Category
 import exerciseexample.main.models.ExerciseExample
 import exerciseexample.main.models.Experience
