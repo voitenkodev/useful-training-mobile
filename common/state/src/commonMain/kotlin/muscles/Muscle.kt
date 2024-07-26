@@ -10,4 +10,3 @@ public data class Muscle(
     val isSelected: Boolean,
     val type: MuscleEnum
 )
-
