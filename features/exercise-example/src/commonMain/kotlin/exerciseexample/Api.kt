@@ -3,17 +3,17 @@ package exerciseexample
 import androidx.compose.runtime.Composable
 import com.arkivanov.decompose.extensions.compose.jetbrains.stack.animation.fade
 import com.arkivanov.decompose.extensions.compose.jetbrains.stack.animation.stackAnimation
-import com.arkivanov.essenty.parcelable.Parcelable
-import com.arkivanov.essenty.parcelable.Parcelize
 import exerciseexample.main.ExerciseExampleContent
 import exerciseexample.main.ExerciseExampleViewModel
-import io.github.xxfast.decompose.router.Router
-import io.github.xxfast.decompose.router.content.RoutedContent
 import io.github.xxfast.decompose.router.rememberOnRoute
-import io.github.xxfast.decompose.router.rememberRouter
+import io.github.xxfast.decompose.router.stack.RoutedContent
+import io.github.xxfast.decompose.router.stack.Router
+import io.github.xxfast.decompose.router.stack.rememberRouter
+import kotlinx.serialization.Serializable
 
-@Parcelize
-public sealed class ExerciseExampleFeature : Parcelable {
+@Serializable
+public sealed class ExerciseExampleFeature {
+    @Serializable
     public data object Main : ExerciseExampleFeature()
 }
 

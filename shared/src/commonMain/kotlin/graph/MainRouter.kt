@@ -6,15 +6,14 @@ import com.arkivanov.decompose.extensions.compose.jetbrains.stack.animation.slid
 import com.arkivanov.decompose.extensions.compose.jetbrains.stack.animation.stackAnimation
 import com.arkivanov.decompose.router.stack.pop
 import com.arkivanov.decompose.router.stack.push
-import com.arkivanov.essenty.parcelable.Parcelable
-import com.arkivanov.essenty.parcelable.Parcelize
 import exerciseexample.ExerciseExampleComponent
 import exerciseexample.ExerciseExampleController
 import exerciseexample.ExerciseExampleGraph
 import exerciseexamplebuilder.ExerciseExampleBuilderGraph
-import io.github.xxfast.decompose.router.Router
-import io.github.xxfast.decompose.router.content.RoutedContent
-import io.github.xxfast.decompose.router.rememberRouter
+import io.github.xxfast.decompose.router.stack.RoutedContent
+import io.github.xxfast.decompose.router.stack.Router
+import io.github.xxfast.decompose.router.stack.rememberRouter
+import kotlinx.serialization.Serializable
 import searchexercise.SearchExerciseComponent
 import searchexercise.SearchExerciseController
 import searchexercise.SearchExerciseGraph
@@ -23,23 +22,36 @@ import userequipments.UserEquipmentsGraph
 import usermuscles.UserMusclesGraph
 import weighthistory.WeightHistoryGraph
 
-@Parcelize
-internal sealed class MainRouter : Parcelable {
+@Serializable
+internal sealed class MainRouter {
+    @Serializable
     data class Training(val id: String? = null) : MainRouter()
+
+    @Serializable
     data class ExerciseExample(
         val id: String,
         val primaryAction: Pair<String, (id: String) -> Unit>?
     ) : MainRouter()
 
+    @Serializable
     data class SearchExercise(
         val autoFocus: Boolean,
         val itemAction: Pair<String, (id: String) -> Unit>?
     ) : MainRouter()
 
+    @Serializable
     data object WeightHistory : MainRouter()
+
+    @Serializable
     data object UserMuscles : MainRouter()
+
+    @Serializable
     data object UserEquipments : MainRouter()
+
+    @Serializable
     data object ExerciseExampleBuilder : MainRouter()
+
+    @Serializable
     data object BottomMenu : MainRouter()
 }
 
@@ -54,13 +66,29 @@ internal fun MainGraph(toAuthentication: () -> Unit) {
 
         SearchExerciseComponent {
 
-            RoutedContent(router = router, animation = stackAnimation(slide(orientation = Orientation.Vertical))) { child ->
+            RoutedContent(
+                router = router,
+                animation = stackAnimation(slide(orientation = Orientation.Vertical))
+            ) { child ->
                 when (child) {
                     is MainRouter.BottomMenu -> BottomMenuGraph(
-                        toTrainingBuilder = { trainingId: String? -> router.push(MainRouter.Training(trainingId)) },
+                        toTrainingBuilder = { trainingId: String? ->
+                            router.push(
+                                MainRouter.Training(
+                                    trainingId
+                                )
+                            )
+                        },
                         toTrainingDetails = {},
                         toAuthentication = toAuthentication,
-                        toExerciseExamples = { router.push(MainRouter.SearchExercise(itemAction = null, autoFocus = false)) },
+                        toExerciseExamples = {
+                            router.push(
+                                MainRouter.SearchExercise(
+                                    itemAction = null,
+                                    autoFocus = false
+                                )
+                            )
+                        },
                         toWeightHistory = { router.push(MainRouter.WeightHistory) },
                         toMuscles = { router.push(MainRouter.UserMuscles) },
                         toEquipment = { router.push(MainRouter.UserEquipments) },
@@ -73,22 +101,35 @@ internal fun MainGraph(toAuthentication: () -> Unit) {
 
                         TrainingGraph(
                             close = router::pop,
-                            searchExerciseExampleId = exerciseDetailsApi.exerciseExampleId ?: exerciseSearchApi.exerciseExampleId,
+                            searchExerciseExampleId = exerciseDetailsApi.exerciseExampleId
+                                ?: exerciseSearchApi.exerciseExampleId,
                             toExerciseExamples = {
-                                val action: Pair<String, (String) -> Unit> = "Select" to { id: String ->
-                                    println("TrainingGraph -> toExerciseExamples -> itemClick(id = $id)")
-                                    exerciseSearchApi.itemClick(id = id)
-                                    router.pop()
-                                }
-                                router.push(MainRouter.SearchExercise(itemAction = action, autoFocus = true))
+                                val action: Pair<String, (String) -> Unit> =
+                                    "Select" to { id: String ->
+                                        println("TrainingGraph -> toExerciseExamples -> itemClick(id = $id)")
+                                        exerciseSearchApi.itemClick(id = id)
+                                        router.pop()
+                                    }
+                                router.push(
+                                    MainRouter.SearchExercise(
+                                        itemAction = action,
+                                        autoFocus = true
+                                    )
+                                )
                             },
                             toExerciseExampleDetails = { id, isSelectable ->
-                                val action: Pair<String, (String) -> Unit>? = if (isSelectable) "Select" to { idFromAction: String ->
-                                    exerciseDetailsApi.primaryActionClick(id = idFromAction)
-                                    router.pop()
-                                } else null
+                                val action: Pair<String, (String) -> Unit>? =
+                                    if (isSelectable) "Select" to { idFromAction: String ->
+                                        exerciseDetailsApi.primaryActionClick(id = idFromAction)
+                                        router.pop()
+                                    } else null
 
-                                router.push(MainRouter.ExerciseExample(id = id, primaryAction = action))
+                                router.push(
+                                    MainRouter.ExerciseExample(
+                                        id = id,
+                                        primaryAction = action
+                                    )
+                                )
                             }
                         )
                     }
@@ -123,8 +164,18 @@ internal fun MainGraph(toAuthentication: () -> Unit) {
                                         router.pop()
                                         parentActionLambda.invoke(id)
                                     }
-                                    router.push(MainRouter.ExerciseExample(id = it, primaryAction = action))
-                                } ?: router.push(MainRouter.ExerciseExample(id = it, primaryAction = null))
+                                    router.push(
+                                        MainRouter.ExerciseExample(
+                                            id = it,
+                                            primaryAction = action
+                                        )
+                                    )
+                                } ?: router.push(
+                                    MainRouter.ExerciseExample(
+                                        id = it,
+                                        primaryAction = null
+                                    )
+                                )
                             }
                         )
                     }

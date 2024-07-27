@@ -6,20 +6,24 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import bottommenu.BottomMenuFeature
 import com.arkivanov.decompose.router.stack.bringToFront
-import com.arkivanov.essenty.parcelable.Parcelable
-import com.arkivanov.essenty.parcelable.Parcelize
-import io.github.xxfast.decompose.router.Router
-import io.github.xxfast.decompose.router.content.RoutedContent
-import io.github.xxfast.decompose.router.rememberRouter
+import io.github.xxfast.decompose.router.stack.RoutedContent
+import io.github.xxfast.decompose.router.stack.Router
+import io.github.xxfast.decompose.router.stack.rememberRouter
+import kotlinx.serialization.Serializable
 import profile.ProfileFeature
 import profile.ProfileGraph
 import statistics.StatisticsGraph
 import trainings.TrainingsGraph
 
-@Parcelize
-internal sealed class BottomMenuRouter : Parcelable {
+@Serializable
+internal sealed class BottomMenuRouter {
+    @Serializable
     data object Trainings : BottomMenuRouter()
+
+    @Serializable
     data object Statistics : BottomMenuRouter()
+
+    @Serializable
     data object Profile : BottomMenuRouter()
 }
 

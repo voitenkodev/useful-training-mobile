@@ -2,8 +2,9 @@ plugins {
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.kotlin.cocoapods)
     alias(libs.plugins.android.library)
-    alias(libs.plugins.kotlin.parcelize)
-    alias(libs.plugins.compose)
+    alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.compose.core)
 }
 
 apply(from = "$rootDir/gradle/configs/android.gradle")
@@ -16,6 +17,12 @@ kotlin.cocoapods {
 }
 
 kotlin {
+    composeCompiler {
+        // Enable 'strong skipping'
+        // https://medium.com/androiddevelopers/jetpack-compose-strong-skipping-mode-explained-cbdb2aa4b900
+        enableStrongSkippingMode.set(true)
+    }
+
     sourceSets {
         val commonMain by getting {
             dependencies {
@@ -55,6 +62,8 @@ kotlin {
 
                 // Koin
                 implementation(libs.koin.core)
+
+                implementation(libs.serialization)
             }
         }
 

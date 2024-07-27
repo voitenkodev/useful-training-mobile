@@ -3,15 +3,17 @@ package graph
 import androidx.compose.runtime.Composable
 import authentication.AuthenticationGraph
 import com.arkivanov.decompose.router.stack.replaceAll
-import com.arkivanov.essenty.parcelable.Parcelable
-import com.arkivanov.essenty.parcelable.Parcelize
-import io.github.xxfast.decompose.router.Router
-import io.github.xxfast.decompose.router.content.RoutedContent
-import io.github.xxfast.decompose.router.rememberRouter
+import io.github.xxfast.decompose.router.stack.RoutedContent
+import io.github.xxfast.decompose.router.stack.Router
+import io.github.xxfast.decompose.router.stack.rememberRouter
+import kotlinx.serialization.Serializable
 
-@Parcelize
-internal sealed class RootRouter : Parcelable {
+@Serializable
+internal sealed class RootRouter {
+    @Serializable
     data object Auth : RootRouter()
+
+    @Serializable
     data object Main : RootRouter()
 }
 

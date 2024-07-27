@@ -2,7 +2,8 @@ plugins {
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.kotlin.cocoapods)
     alias(libs.plugins.android.library)
-    alias(libs.plugins.compose)
+    alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.compose.core)
     alias(libs.plugins.moko.resources)
 }
 
@@ -20,6 +21,12 @@ multiplatformResources {
 }
 
 kotlin {
+    composeCompiler {
+        // Enable 'strong skipping'
+        // https://medium.com/androiddevelopers/jetpack-compose-strong-skipping-mode-explained-cbdb2aa4b900
+        enableStrongSkippingMode.set(true)
+    }
+
     sourceSets {
         val commonMain by getting {
             dependencies {

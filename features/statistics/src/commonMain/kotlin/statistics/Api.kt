@@ -1,17 +1,17 @@
 package statistics
 
 import androidx.compose.runtime.Composable
-import com.arkivanov.essenty.parcelable.Parcelable
-import com.arkivanov.essenty.parcelable.Parcelize
-import io.github.xxfast.decompose.router.Router
-import io.github.xxfast.decompose.router.content.RoutedContent
 import io.github.xxfast.decompose.router.rememberOnRoute
-import io.github.xxfast.decompose.router.rememberRouter
+import io.github.xxfast.decompose.router.stack.RoutedContent
+import io.github.xxfast.decompose.router.stack.Router
+import io.github.xxfast.decompose.router.stack.rememberRouter
+import kotlinx.serialization.Serializable
 import statistics.screen.StatisticsContent
 import statistics.screen.StatisticsViewModel
 
-@Parcelize
-public sealed class StatisticsRouter : Parcelable {
+@Serializable
+public sealed class StatisticsRouter {
+    @Serializable
     public data object Main : StatisticsRouter()
 }
 

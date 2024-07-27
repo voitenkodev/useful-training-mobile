@@ -5,20 +5,23 @@ import androidx.compose.runtime.Composable
 import com.arkivanov.decompose.extensions.compose.jetbrains.stack.animation.slide
 import com.arkivanov.decompose.extensions.compose.jetbrains.stack.animation.stackAnimation
 import com.arkivanov.decompose.router.stack.push
-import com.arkivanov.essenty.parcelable.Parcelable
-import com.arkivanov.essenty.parcelable.Parcelize
-import io.github.xxfast.decompose.router.Router
-import io.github.xxfast.decompose.router.content.RoutedContent
 import io.github.xxfast.decompose.router.rememberOnRoute
-import io.github.xxfast.decompose.router.rememberRouter
+import io.github.xxfast.decompose.router.stack.RoutedContent
+import io.github.xxfast.decompose.router.stack.Router
+import io.github.xxfast.decompose.router.stack.rememberRouter
+import kotlinx.serialization.Serializable
 import trainingbuilder.muscle_picker.MusclePickerContent
 import trainingbuilder.muscle_picker.MusclePickerViewModel
 import trainingbuilder.training_builder.TrainingBuilderContent
 import trainingbuilder.training_builder.TrainingBuilderViewModel
 
-@Parcelize
-public sealed class TrainingRouter : Parcelable {
-    public data class TrainingBuilder(val trainingId: String?, val muscleIds: List<String>) : TrainingRouter()
+@Serializable
+public sealed class TrainingRouter {
+    @Serializable
+    public data class TrainingBuilder(val trainingId: String?, val muscleIds: List<String>) :
+        TrainingRouter()
+
+    @Serializable
     public data object MusclePicker : TrainingRouter()
 }
 
@@ -35,7 +38,10 @@ public fun TrainingGraph(
     }
 
 
-    RoutedContent(router = router, animation = stackAnimation(slide(orientation = Orientation.Horizontal))) { child ->
+    RoutedContent(
+        router = router,
+        animation = stackAnimation(slide(orientation = Orientation.Horizontal))
+    ) { child ->
         when (child) {
 
             is TrainingRouter.TrainingBuilder -> {
@@ -60,7 +66,14 @@ public fun TrainingGraph(
                 MusclePickerContent(
                     vm = vm,
                     close = close,
-                    apply = { router.push(TrainingRouter.TrainingBuilder(trainingId = null, muscleIds = it)) }
+                    apply = {
+                        router.push(
+                            TrainingRouter.TrainingBuilder(
+                                trainingId = null,
+                                muscleIds = it
+                            )
+                        )
+                    }
                 )
             }
         }

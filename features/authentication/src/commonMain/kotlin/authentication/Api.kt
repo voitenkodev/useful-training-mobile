@@ -16,19 +16,27 @@ import com.arkivanov.decompose.extensions.compose.jetbrains.stack.animation.stac
 import com.arkivanov.decompose.router.stack.pop
 import com.arkivanov.decompose.router.stack.push
 import com.arkivanov.decompose.router.stack.replaceAll
-import com.arkivanov.essenty.parcelable.Parcelable
-import com.arkivanov.essenty.parcelable.Parcelize
-import io.github.xxfast.decompose.router.Router
-import io.github.xxfast.decompose.router.content.RoutedContent
 import io.github.xxfast.decompose.router.rememberOnRoute
-import io.github.xxfast.decompose.router.rememberRouter
+import io.github.xxfast.decompose.router.stack.RoutedContent
+import io.github.xxfast.decompose.router.stack.Router
+import io.github.xxfast.decompose.router.stack.rememberRouter
+import kotlinx.serialization.Serializable
 
-@Parcelize
-public sealed class AuthenticationRouter : Parcelable {
+@Serializable
+public sealed class AuthenticationRouter {
+    @Serializable
     public data object Splash : AuthenticationRouter()
+
+    @Serializable
     public data object Intro : AuthenticationRouter()
+
+    @Serializable
     public data object Login : AuthenticationRouter()
+
+    @Serializable
     public data object Registration : AuthenticationRouter()
+
+    @Serializable
     public data object SuccessRegistration : AuthenticationRouter()
 }
 
