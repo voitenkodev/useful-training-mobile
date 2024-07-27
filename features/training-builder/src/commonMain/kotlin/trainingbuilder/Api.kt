@@ -2,8 +2,8 @@ package trainingbuilder
 
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.runtime.Composable
-import com.arkivanov.decompose.extensions.compose.jetbrains.stack.animation.slide
-import com.arkivanov.decompose.extensions.compose.jetbrains.stack.animation.stackAnimation
+import com.arkivanov.decompose.extensions.compose.stack.animation.slide
+import com.arkivanov.decompose.extensions.compose.stack.animation.stackAnimation
 import com.arkivanov.decompose.router.stack.push
 import io.github.xxfast.decompose.router.rememberOnRoute
 import io.github.xxfast.decompose.router.stack.RoutedContent

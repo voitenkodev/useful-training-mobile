@@ -11,34 +11,26 @@ android { namespace = "com.voitenko.alienworkout.services.network" }
 
 kotlin {
     sourceSets {
-        val commonMain by getting {
-            dependencies {
-                // NativeContext
-                implementation(projects.common.platformApi)
+        commonMain.dependencies {
+            // NativeContext
+            implementation(projects.common.platformApi)
 
-                // Ktor
-                implementation(libs.ktor.core)
-                implementation(libs.ktor.logging)
-                implementation(libs.ktor.serialization)
-                implementation(libs.ktor.auth)
-                implementation(libs.ktor.negotiation)
+            // Ktor
+            implementation(libs.ktor.core)
+            implementation(libs.ktor.logging)
+            implementation(libs.ktor.serialization)
+            implementation(libs.ktor.auth)
+            implementation(libs.ktor.negotiation)
 
-                implementation(libs.serialization)
-            }
+            implementation(libs.serialization)
         }
 
-        val androidMain by getting {
-            dependencies {
-                implementation(libs.ktor.okhttp)
-            }
+        androidMain.dependencies {
+            implementation(libs.ktor.okhttp)
         }
-        val iosMain by getting {
-            dependencies {
-                implementation(libs.ktor.darwin)
-            }
-        }
-        val iosSimulatorArm64Main by getting {
-            dependsOn(iosMain)
+
+        iosMain.dependencies {
+            implementation(libs.ktor.darwin)
         }
     }
 }

@@ -16,8 +16,8 @@ android { namespace = "com.voitenko.alienworkout.designsystem.resources" }
 kotlin.cocoapods { podfile = project.file("../../iosApp/Podfile") }
 
 multiplatformResources {
-    multiplatformResourcesPackage = "com.voitenko.alienworkout"
-    multiplatformResourcesClassName = "SharedRes"
+    resourcesPackage.set("com.voitenko.alienworkout")
+    resourcesClassName.set("SharedRes")
 }
 
 kotlin {
@@ -28,27 +28,14 @@ kotlin {
     }
 
     sourceSets {
-        val commonMain by getting {
-            dependencies {
-                // Compose
-                implementation(compose.ui)
-                implementation(compose.material)
+        commonMain.dependencies {
+            // Compose
+            implementation(compose.ui)
+            implementation(compose.material)
 
-                // Moko
-                implementation(libs.moko.resources)
-                implementation(libs.moko.resources.compose)
-            }
-        }
-        val androidMain by getting {
-            dependencies {
-                dependsOn(commonMain)
-            }
-        }
-        val iosMain by getting {
-            dependencies {}
-        }
-        val iosSimulatorArm64Main by getting {
-            dependsOn(iosMain)
+            // Moko
+            implementation(libs.moko.resources)
+            implementation(libs.moko.resources.compose)
         }
     }
 }

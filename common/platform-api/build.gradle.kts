@@ -18,20 +18,9 @@ kotlin {
     }
 
     sourceSets {
-        val commonMain by getting {
-            dependencies {
-                implementation(compose.ui)
-                implementation(compose.foundation)
-            }
-        }
-        val androidMain by getting {
-            dependencies {}
-        }
-        val iosMain by getting {
-            dependencies {}
-        }
-        val iosSimulatorArm64Main by getting {
-            dependsOn(iosMain)
+        commonMain.dependencies {
+            implementation(compose.ui)
+            implementation(compose.foundation)
         }
     }
 }

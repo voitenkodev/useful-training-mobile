@@ -21,29 +21,21 @@ sqldelight {
 
 kotlin {
     sourceSets {
-        val commonMain by getting {
-            dependencies {
-                // NativeContext
-                implementation(projects.common.platformApi)
-                implementation(projects.common.utils)
+        commonMain.dependencies {
+            // NativeContext
+            implementation(projects.common.platformApi)
+            implementation(projects.common.utils)
 
-                implementation(libs.sqldelight.coroutine)
-                implementation(libs.sqldelight.adapters)
-            }
+            implementation(libs.sqldelight.coroutine)
+            implementation(libs.sqldelight.adapters)
         }
 
-        val androidMain by getting {
-            dependencies {
-                implementation(libs.sqldelight.android)
-            }
+        androidMain.dependencies {
+            implementation(libs.sqldelight.android)
         }
-        val iosMain by getting {
-            dependencies {
-                implementation(libs.sqldelight.native)
-            }
-        }
-        val iosSimulatorArm64Main by getting {
-            dependsOn(iosMain)
+
+        iosMain.dependencies {
+            implementation(libs.sqldelight.native)
         }
     }
 }

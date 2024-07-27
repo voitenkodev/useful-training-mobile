@@ -10,12 +10,10 @@ android { namespace = "com.voitenko.alienworkout.domain.filters" }
 
 kotlin {
     sourceSets {
-        val commonMain by getting {
-            dependencies {
-                api(projects.domain.commonModels)
+        commonMain.dependencies {
+            api(projects.domain.commonModels)
 
-                implementation(libs.coroutines)
-            }
+            implementation(libs.coroutines)
         }
     }
 }

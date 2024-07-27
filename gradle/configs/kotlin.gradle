@@ -2,9 +2,11 @@ kotlin {
     explicitApi()
 
     androidTarget()
-    ios()
+
+    iosX64()
+    iosArm64()
     iosSimulatorArm64()
-    
+
     kotlin.sourceSets.configureEach {
         languageSettings.optIn("androidx.compose.ui.text.ExperimentalTextApi")
         languageSettings.optIn("androidx.compose.foundation.ExperimentalFoundationApi")

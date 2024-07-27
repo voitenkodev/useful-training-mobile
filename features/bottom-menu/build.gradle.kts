@@ -18,23 +18,21 @@ kotlin {
     }
 
     sourceSets {
-        val commonMain by getting {
-            dependencies {
-                implementation(projects.domain.authentication)
+        commonMain.dependencies {
+            implementation(projects.domain.authentication)
 
-                implementation(projects.common.architectureComponent)
+            implementation(projects.common.architectureComponent)
 
-                implementation(projects.designSystem.atom)
-                implementation(projects.designSystem.molecule)
-                implementation(projects.designSystem.components)
-                implementation(projects.designSystem.resources)
+            implementation(projects.designSystem.atom)
+            implementation(projects.designSystem.molecule)
+            implementation(projects.designSystem.components)
+            implementation(projects.designSystem.resources)
 
-                implementation(compose.ui)
-                implementation(compose.foundation)
+            implementation(compose.ui)
+            implementation(compose.foundation)
 
-                implementation(libs.immutable.collections)
-                implementation(libs.koin.core)
-            }
+            implementation(libs.immutable.collections)
+            implementation(libs.koin.core)
         }
     }
 }

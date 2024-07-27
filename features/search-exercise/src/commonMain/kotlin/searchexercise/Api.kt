@@ -1,8 +1,8 @@
 package searchexercise
 
 import androidx.compose.runtime.Composable
-import com.arkivanov.decompose.extensions.compose.jetbrains.stack.animation.fade
-import com.arkivanov.decompose.extensions.compose.jetbrains.stack.animation.stackAnimation
+import com.arkivanov.decompose.extensions.compose.stack.animation.fade
+import com.arkivanov.decompose.extensions.compose.stack.animation.stackAnimation
 import io.github.xxfast.decompose.router.rememberOnRoute
 import io.github.xxfast.decompose.router.stack.RoutedContent
 import io.github.xxfast.decompose.router.stack.Router

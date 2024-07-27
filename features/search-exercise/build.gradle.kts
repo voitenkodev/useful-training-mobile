@@ -19,31 +19,29 @@ kotlin {
     }
 
     sourceSets {
-        val commonMain by getting {
-            dependencies {
-                implementation(projects.domain.exerciseExamples)
-                implementation(projects.domain.muscles)
-                implementation(projects.domain.filters)
-                implementation(projects.domain.equipments)
+        commonMain.dependencies {
+            implementation(projects.domain.exerciseExamples)
+            implementation(projects.domain.muscles)
+            implementation(projects.domain.filters)
+            implementation(projects.domain.equipments)
 
-                implementation(projects.common.utils)
-                implementation(projects.common.architectureComponent)
+            implementation(projects.common.utils)
+            implementation(projects.common.architectureComponent)
 
-                implementation(projects.designSystem.atom)
-                implementation(projects.designSystem.molecule)
-                implementation(projects.designSystem.components)
-                implementation(projects.designSystem.resources)
+            implementation(projects.designSystem.atom)
+            implementation(projects.designSystem.molecule)
+            implementation(projects.designSystem.components)
+            implementation(projects.designSystem.resources)
 
-                implementation(compose.ui)
-                implementation(compose.foundation)
+            implementation(compose.ui)
+            implementation(compose.foundation)
 
-                implementation(projects.composeLibs.muscles)
-                implementation(projects.composeLibs.equipments)
+            implementation(projects.composeLibs.muscles)
+            implementation(projects.composeLibs.equipments)
 
-                implementation(libs.immutable.collections)
-                implementation(libs.koin.core)
-                implementation(libs.serialization)
-            }
+            implementation(libs.immutable.collections)
+            implementation(libs.koin.core)
+            implementation(libs.serialization)
         }
     }
 }

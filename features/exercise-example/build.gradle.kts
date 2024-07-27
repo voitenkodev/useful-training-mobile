@@ -19,33 +19,31 @@ kotlin {
     }
 
     sourceSets {
-        val commonMain by getting {
-            dependencies {
-                implementation(projects.domain.exerciseExamples)
-                implementation(projects.domain.statistics)
+        commonMain.dependencies {
+            implementation(projects.domain.exerciseExamples)
+            implementation(projects.domain.statistics)
 
-                implementation(projects.common.architectureComponent)
-                implementation(projects.common.platformApi)
-                implementation(projects.common.utils)
-                implementation(projects.common.state)
+            implementation(projects.common.architectureComponent)
+            implementation(projects.common.platformApi)
+            implementation(projects.common.utils)
+            implementation(projects.common.state)
 
-                implementation(projects.designSystem.atom)
-                implementation(projects.designSystem.molecule)
-                implementation(projects.designSystem.components)
-                implementation(projects.designSystem.resources)
+            implementation(projects.designSystem.atom)
+            implementation(projects.designSystem.molecule)
+            implementation(projects.designSystem.components)
+            implementation(projects.designSystem.resources)
 
-                implementation(projects.composeLibs.muscles)
-                implementation(projects.composeLibs.composeVideo)
-                implementation(projects.composeLibs.composeImage)
-                implementation(projects.composeLibs.charts)
+            implementation(projects.composeLibs.muscles)
+            implementation(projects.composeLibs.composeVideo)
+            implementation(projects.composeLibs.composeImage)
+            implementation(projects.composeLibs.charts)
 
-                implementation(compose.ui)
-                implementation(compose.foundation)
+            implementation(compose.ui)
+            implementation(compose.foundation)
 
-                implementation(libs.immutable.collections)
-                implementation(libs.koin.core)
-                implementation(libs.serialization)
-            }
+            implementation(libs.immutable.collections)
+            implementation(libs.koin.core)
+            implementation(libs.serialization)
         }
     }
 }

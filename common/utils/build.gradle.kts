@@ -18,12 +18,10 @@ kotlin {
     }
 
     sourceSets {
-        val commonMain by getting {
-            dependencies {
-                implementation(compose.foundation)
+        commonMain.dependencies {
+            implementation(compose.foundation)
 
-                implementation(libs.datetime)
-            }
+            implementation(libs.datetime)
         }
     }
 }

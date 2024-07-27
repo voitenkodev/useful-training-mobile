@@ -18,15 +18,13 @@ kotlin {
     }
 
     sourceSets {
-        val commonMain by getting {
-            dependencies {
-                implementation(projects.designSystem.atom)
-                implementation(projects.designSystem.resources)
+        commonMain.dependencies {
+            implementation(projects.designSystem.atom)
+            implementation(projects.designSystem.resources)
 
-                implementation(compose.ui)
-                implementation(compose.material)
-                implementation(compose.material3)
-            }
+            implementation(compose.ui)
+            implementation(compose.material)
+            implementation(compose.material3)
         }
     }
 }

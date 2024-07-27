@@ -10,10 +10,8 @@ android { namespace = "com.voitenko.alienworkout.domain.trainings" }
 
 kotlin {
     sourceSets {
-        val commonMain by getting {
-            dependencies {
-                implementation(libs.coroutines)
-            }
+        commonMain.dependencies {
+            implementation(libs.coroutines)
         }
     }
 }

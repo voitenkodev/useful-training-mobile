@@ -19,28 +19,16 @@ kotlin {
     }
 
     sourceSets {
-        val commonMain by getting {
-            dependencies {
-                implementation(compose.foundation)
+        commonMain.dependencies {
+            implementation(compose.foundation)
 
-                // Decompose
-                api(libs.decompose)
-                api(libs.decompose.extensions)
-                api(libs.decompose.router)
+            // Decompose
+            api(libs.decompose)
+            api(libs.decompose.extensions)
+            api(libs.decompose.router)
 
-                // Koin
-                implementation(libs.koin.core)
-            }
-        }
-
-        val androidMain by getting {
-            dependencies {}
-        }
-        val iosMain by getting {
-            dependencies {}
-        }
-        val iosSimulatorArm64Main by getting {
-            dependsOn(iosMain)
+            // Koin
+            implementation(libs.koin.core)
         }
     }
 }
