@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
+
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.kotlin.cocoapods)
@@ -24,6 +26,15 @@ kotlin {
         // https://medium.com/androiddevelopers/jetpack-compose-strong-skipping-mode-explained-cbdb2aa4b900
         enableStrongSkippingMode.set(true)
     }
+
+    //todo  https://github.com/cashapp/sqldelight/issues/4357
+//    targets.withType<KotlinNativeTarget> {
+//        binaries {
+//            all {
+//                linkerOpts("-lsqlite3")
+//            }
+//        }
+//    }
 
     sourceSets {
         commonMain.dependencies {
