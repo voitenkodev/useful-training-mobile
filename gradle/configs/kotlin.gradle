@@ -7,6 +7,9 @@ kotlin {
     iosArm64()
     iosSimulatorArm64()
 
+    // to make iosMain as default for each ios target
+    applyDefaultHierarchyTemplate()
+
     kotlin.sourceSets.configureEach {
         languageSettings.optIn("androidx.compose.ui.text.ExperimentalTextApi")
         languageSettings.optIn("androidx.compose.foundation.ExperimentalFoundationApi")
