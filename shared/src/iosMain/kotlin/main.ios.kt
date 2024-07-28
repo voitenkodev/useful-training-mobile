@@ -2,6 +2,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.CompositionLocalProvider
+import com.arkivanov.decompose.extensions.compose.stack.animation.predictiveback.PredictiveBackGestureOverlay
+import com.arkivanov.decompose.extensions.compose.stack.animation.predictiveback.PredictiveBackGestureIcon
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.uikit.OnFocusBehavior
 import androidx.compose.ui.window.ComposeUIViewController
@@ -27,18 +29,18 @@ public fun MainUIController(routerContext: RouterContext): UIViewController = Co
 //        LocalImageLoader provides remember { generateImageLoader() },
     ) {
 
-//        PredictiveBackGestureOverlay(
-//            modifier = Modifier.fillMaxSize(),
-//            backDispatcher = routerContext.backHandler as BackDispatcher, // Use the same BackDispatcher as above
-//            backIcon = { progress, _ ->
-//                PredictiveBackGestureIcon(
-//                    imageVector = Icons.Default.ArrowBack,
-//                    progress = progress
-//                )
-//            },
-//            content = {
+        PredictiveBackGestureOverlay(
+            modifier = Modifier.fillMaxSize(),
+            backDispatcher = routerContext.backHandler as BackDispatcher, // Use the same BackDispatcher as above
+            backIcon = { progress, _ ->
+                PredictiveBackGestureIcon(
+                    imageVector = Icons.Default.ArrowBack,
+                    progress = progress
+                )
+            },
+            content = {
                 Main()
-//            }
-//        )
+            }
+        )
     }
 }
