@@ -15,7 +15,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import atom.Design
-import conditional
 import molecule.Icon
 import molecule.PaddingS
 import molecule.TextBody3
@@ -36,24 +35,22 @@ public fun HorizontalValueCard(
 
     val initialModifier = modifier
         .secondaryDefaultBackground()
-        .conditional(
-            condition = isSelected,
-            onYes = {
-                border(
-                    color = Design.colors.toxic,
-                    width = 1.dp,
-                    shape = Design.shape.default
-                )
-            }
+        .border(
+            color = if (isSelected) Design.colors.toxic else Color.Transparent,
+            width = 1.dp,
+            shape = Design.shape.default
         )
 
-    val actionModifierProvider = remember(onClick) {
+    val actionModifierProvider = remember(onClick, isSelected) {
         if (onClick != null) initialModifier.clickable(onClick = onClick)
         else initialModifier
     }
 
     Row(
-        modifier = actionModifierProvider.padding(vertical = Design.dp.paddingS, horizontal = Design.dp.paddingM),
+        modifier = actionModifierProvider.padding(
+            vertical = Design.dp.paddingS,
+            horizontal = Design.dp.paddingM
+        ),
         horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM),
         verticalAlignment = Alignment.CenterVertically
     ) {
