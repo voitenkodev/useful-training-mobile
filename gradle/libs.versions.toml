@@ -4,7 +4,6 @@ kotlin = "2.0.0"
 agp = "8.2.2"
 compose = "1.6.11"
 coroutines = "1.8.1"
-moko-resources = "0.24.1"
 activity-compose = "1.9.1"
 appcompat = "1.7.0"
 serialization = "1.6.3"
@@ -14,7 +13,7 @@ datastore = "1.1.1"
 koin = "3.5.3"
 sqldelight = "2.0.2"
 media3-exoplayer = "1.4.0"
-decompose = "3.0.0"
+decompose = "3.1.0"
 decompose-router = "0.8.0"
 immutable-collections = "0.3.6"
 coil3 = "3.0.0-alpha01"
@@ -60,9 +59,6 @@ decompose = { module = "com.arkivanov.decompose:decompose", version.ref = "decom
 decompose-extensions = { module = "com.arkivanov.decompose:extensions-compose", version.ref = "decompose" }
 decompose-router = { module = "io.github.xxfast:decompose-router", version.ref = "decompose-router" }
 
-moko-resources = { module = "dev.icerock.moko:resources", version.ref = "moko-resources" }
-moko-resources-compose = { module = "dev.icerock.moko:resources-compose", version.ref = "moko-resources" }
-
 #Compose
 compose-runtime = { module = "androidx.compose.runtime:runtime", version.ref = "compose" }
 compose-ui = { module = "androidx.compose.ui:ui", version.ref = "compose" }
@@ -82,4 +78,3 @@ compose-core = { id = "org.jetbrains.compose", version.ref = "compose" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 
 sqldelight = { id = "app.cash.sqldelight", version.ref = "sqldelight" }
-moko-resources = { id = "dev.icerock.mobile.multiplatform-resources", version.ref = "moko-resources" }

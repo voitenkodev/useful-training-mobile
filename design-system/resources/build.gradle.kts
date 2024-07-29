@@ -4,7 +4,6 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.compose.core)
-    alias(libs.plugins.moko.resources)
 }
 
 apply(from = "$rootDir/gradle/configs/android.gradle")
@@ -15,9 +14,10 @@ android { namespace = "com.voitenko.alienworkout.designsystem.resources" }
 
 kotlin.cocoapods { podfile = project.file("../../iosApp/Podfile") }
 
-multiplatformResources {
-    resourcesPackage.set("com.voitenko.alienworkout")
-    resourcesClassName.set("SharedRes")
+compose.resources {
+    publicResClass = true
+    packageOfResClass = "com.voitenko.alienworkout.designsystem.resources"
+    generateResClass = always
 }
 
 kotlin {
@@ -32,10 +32,7 @@ kotlin {
             // Compose
             implementation(compose.ui)
             implementation(compose.material)
-
-            // Moko
-            implementation(libs.moko.resources)
-            implementation(libs.moko.resources.compose)
+            implementation(compose.components.resources)
         }
     }
 }

@@ -8,7 +8,6 @@ plugins {
     alias(libs.plugins.compose.core) apply false
     alias(libs.plugins.compose.compiler) apply false
     alias(libs.plugins.sqldelight) apply false
-    alias(libs.plugins.moko.resources) apply false
 }
 
 // https://medium.com/androiddevelopers/jetpack-compose-strong-skipping-mode-explained-cbdb2aa4b900
