@@ -5,6 +5,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.BaselineShift
+import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.sp
 import resources.Fonts
@@ -15,28 +16,46 @@ internal fun typography() = Typography(
         fontSize = 34.sp,
         fontWeight = FontWeight.Bold,
         fontStyle = FontStyle.Normal,
-        fontFamily = Fonts.GunterzFamily()
+        fontFamily = Fonts.GunterzFamily(),
+        lineHeightStyle = LineHeightStyle(
+            alignment = LineHeightStyle.Alignment.Center,
+            trim = LineHeightStyle.Trim.Both
+        ),
     ),
     H2 = TextStyle(
         baselineShift = BaselineShift.None,
         fontSize = 24.sp,
         fontWeight = FontWeight.Bold,
         fontStyle = FontStyle.Normal,
+        lineHeightStyle = LineHeightStyle(
+            alignment = LineHeightStyle.Alignment.Center,
+            trim = LineHeightStyle.Trim.Both
+        ),
         fontFamily = Fonts.GunterzFamily(),
     ),
     H3 = TextStyle(
         fontSize = 20.sp,
         fontWeight = FontWeight.ExtraBold,
         fontStyle = FontStyle.Normal,
-        fontFamily = Fonts.GunterzFamily()
-    ),
+        fontFamily = Fonts.GunterzFamily(),
+        lineHeightStyle = LineHeightStyle(
+            alignment = LineHeightStyle.Alignment.Center,
+            trim = LineHeightStyle.Trim.Both
+        ),
+
+        ),
     H4 = TextStyle(
         fontSize = 16.sp,
         fontWeight = FontWeight.Bold,
         fontStyle = FontStyle.Normal,
         fontFamily = Fonts.GunterzFamily(),
-        lineHeight = 16.sp
-    ),
+        lineHeight = 16.sp,
+        lineHeightStyle = LineHeightStyle(
+            alignment = LineHeightStyle.Alignment.Center,
+            trim = LineHeightStyle.Trim.Both
+        ),
+
+        ),
     Label = TextStyle(
         fontSize = 18.sp,
         fontWeight = FontWeight.SemiBold,

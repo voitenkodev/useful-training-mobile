@@ -1,5 +1,8 @@
 package authentication.intro
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,11 +16,12 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.unit.dp
 import atom.Design
 import authentication.intro.models.ScreenState
 import components.SpaceBackground
-import components.animation.Levitating
 import components.overlay.AlphaOverlay
 import components.roots.ScreenRoot
 import molecule.ButtonPrimary
@@ -57,6 +61,25 @@ private fun Content(
 
     ScreenRoot(modifier = Modifier.imePadding()) {
 
+        BoxWithConstraints(modifier = Modifier.fillMaxSize()) {
+
+            val aspectRatio = maxWidth / maxHeight
+
+            Box(
+                Modifier
+                    .fillMaxSize()
+                    .scale(maxOf(aspectRatio, 1f), maxOf(1 / aspectRatio, 1f))
+                    .background(
+                        brush = Brush.radialGradient(
+                            colors = listOf(
+                                Design.colors.secondary,
+                                Design.colors.primary
+                            )
+                        )
+                    )
+            )
+        }
+
         SpaceBackground()
 
         Column(
@@ -66,17 +89,14 @@ private fun Content(
 
             PaddingWeight()
 
-            Levitating { modifier ->
-                IconImage(
-                    modifier = modifier
-                        .height(260.dp)
-                        .aspectRatio(1f),
-                    imageVector = Icons.logo
-                )
-            }
+            IconImage(
+                modifier = Modifier
+                    .height(240.dp)
+                    .aspectRatio(1f),
+                imageVector = Icons.logo
+            )
 
             PaddingWeight()
-
 
             PaddingXL()
 

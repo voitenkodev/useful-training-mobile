@@ -26,9 +26,8 @@ public fun AlphaOverlay(
 
     if (condition.not()) return
 
-    val animatedValue = remember {
-        mutableStateOf(initialAlpha)
-    }
+    val animatedValue = remember { mutableStateOf(initialAlpha) }
+
     val animatedFloat by animateFloatAsState(
         targetValue = animatedValue.value,
         animationSpec = tween(

@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -22,7 +21,6 @@ import androidx.compose.ui.unit.dp
 import atom.Design
 import molecule.ButtonPrimarySmall
 import molecule.ButtonSecondarySmall
-import molecule.IconImage
 import molecule.PaddingS
 import molecule.PaddingWeight
 import molecule.PaddingXS
@@ -30,7 +28,6 @@ import molecule.TextBody1
 import molecule.TextBody2
 import molecule.TextH3
 import molecule.secondaryDefaultBackground
-import resources.Icons
 
 @Composable
 public fun UserCard(
@@ -130,37 +127,5 @@ public fun UserCard(
                 )
             }
         }
-    }
-}
-
-@Composable
-public fun UserCardUnknown(
-    modifier: Modifier = Modifier,
-) {
-    Box(
-        modifier = modifier
-            .border(width = 1.dp, shape = Design.shape.default, color = Design.colors.white5)
-            .background(
-                color = Design.colors.secondary,
-                shape = Design.shape.default
-            )
-            .fillMaxWidth()
-            .aspectRatio(1.72f)
-            .clipToBounds()
-            .padding(
-                vertical = Design.dp.paddingM,
-                horizontal = Design.dp.paddingM
-            )
-    ) {
-
-        IconImage(
-            modifier = Modifier
-                .align(Alignment.BottomEnd)
-//                .padding(Design.dp.paddingM)
-                .size(Design.dp.componentL)
-                .fillMaxWidth()
-                .aspectRatio(1f),
-            imageVector = Icons.logo
-        )
     }
 }
