@@ -28,6 +28,7 @@ import resources.icons.GreenCircle
 import resources.icons.HandWeight
 import resources.icons.HighBattery
 import resources.icons.Intermediate
+import resources.icons.Logo
 import resources.icons.LowBattery
 import resources.icons.MediumBattery
 import resources.icons.Notifications
@@ -44,6 +45,7 @@ import resources.icons.Weight
 import resources.icons.Youtube
 
 public object Icons {
+    public val logo: ImageVector = Logo
     public val add: ImageVector = Icons.Default.Add
     public val close: ImageVector = Close
     public val save: ImageVector = Success

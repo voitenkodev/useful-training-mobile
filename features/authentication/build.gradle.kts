@@ -13,8 +13,6 @@ android { namespace = "com.voitenko.alienworkout.features.authentication" }
 
 kotlin {
     composeCompiler {
-        // Enable 'strong skipping'
-        // https://medium.com/androiddevelopers/jetpack-compose-strong-skipping-mode-explained-cbdb2aa4b900
         enableStrongSkippingMode.set(true)
     }
 

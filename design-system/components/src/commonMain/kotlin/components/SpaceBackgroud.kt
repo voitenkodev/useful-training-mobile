@@ -75,7 +75,7 @@ public fun SpaceBackground(modifier: Modifier = Modifier) {
                 star.y += deltaY
 
                 drawCircle(
-                    color = Color.White.copy(alpha = 0.3f),
+                    color = Color.White.copy(alpha = 0.6f),
                     center = Offset(star.x, star.y),
                     radius = 2f,
                     alpha = star.alpha,

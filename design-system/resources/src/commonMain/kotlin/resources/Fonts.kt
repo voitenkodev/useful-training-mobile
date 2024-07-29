@@ -7,7 +7,7 @@ public object Fonts {
 
     @Composable
     public fun GunterzFamily(): FontFamily {
-        return FontFamily.Serif
+        return FontFamily.Default
 //        return FontFamily(
 //            listOfNotNull(
 //                SharedRes.fonts.gunterz.medium.asFont(

@@ -8,14 +8,14 @@ public data class Color(
     val primary: Color = Color(0xff151522),
     val secondary: Color = Color(0xff222238), // Sea dark
 
-    val white5: Color = Color(0x0Dffffff), // Shadow + Borders
-    val white10: Color = Color(0x1Affffff),
+    val white5: Color = Color(0x0DFCFBFA), // Shadow + Borders
+    val white10: Color = Color(0x1AFCFBFA),
     val black10: Color = Color(0x33000000),
     val black30: Color = Color(0x80000000), // shadow on images
     val black70: Color = Color(0xB3000000), // Background shadow (popups)
 
     // Text
-    val content: Color = Color(0xffffffff),
+    val content: Color = Color(0xffFCFBFA),
     val caption: Color = Color(0xffa6a6a6),
 
     // Accent Primary

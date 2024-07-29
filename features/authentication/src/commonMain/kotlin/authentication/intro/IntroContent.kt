@@ -1,8 +1,10 @@
 package authentication.intro
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBarsPadding
@@ -11,23 +13,21 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import atom.Design
 import authentication.intro.models.ScreenState
 import components.SpaceBackground
-import components.animation.Levitating
-import components.cards.UserCard
 import components.overlay.AlphaOverlay
 import components.roots.ScreenRoot
 import molecule.ButtonPrimary
 import molecule.ButtonSecondary
+import molecule.IconImage
 import molecule.PaddingL
 import molecule.PaddingM
 import molecule.PaddingWeight
 import molecule.PaddingXL
-import molecule.TextBody1
 import molecule.TextBody2
-import molecule.TextH2
+import resources.Icons
 
 @Composable
 internal fun IntroContent(
@@ -63,29 +63,21 @@ private fun Content(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
+            PaddingWeight()
+
+//            Levitating { modifier ->
+            IconImage(
+                modifier = Modifier
+                    .height(260.dp)
+                    .aspectRatio(1f),
+                imageVector = Icons.logo
+            )
+//            }
+
+            PaddingWeight()
+
+
             PaddingXL()
-
-            PaddingM()
-
-            TextH2(provideText = { "Alien workout" }, textAlign = TextAlign.Center, color = Design.colors.toxic)
-
-            TextBody1(provideText = { "Get your card and take power up" }, textAlign = TextAlign.Center)
-
-            PaddingWeight()
-
-            Levitating { modifier ->
-                UserCard(
-                    modifier = modifier.padding(horizontal = Design.dp.paddingL),
-                    name = "Not identified",
-                    image = null,
-                    weight = null,
-                    height = null
-                )
-            }
-
-            PaddingWeight()
-
-            PaddingM()
 
             TextBody2(
                 provideText = { "Don't have an account yet?" },
