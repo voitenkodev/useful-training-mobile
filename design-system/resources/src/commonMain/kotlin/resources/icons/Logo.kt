@@ -32,11 +32,11 @@ internal val Logo: ImageVector
                 close()
             }
             path(fill = SolidColor(Color(0xFFFC5E0F))) {
-                moveTo(102.07f, 38.79f)
-                curveTo(61.41f, 59.65f, 37.35f, 53.36f, 14.13f, 48.42f)
-                curveTo(15.49f, 76.52f, 33.26f, 88.91f, 50.27f, 91.72f)
-                curveTo(64.58f, 94.09f, 74.26f, 90.04f, 78.9f, 87.55f)
-                curveTo(101.83f, 75.28f, 105.18f, 53.03f, 102.07f, 38.79f)
+                moveTo(102.56f, 39.29f)
+                curveTo(61.9f, 60.15f, 37.85f, 53.86f, 14.63f, 48.92f)
+                curveTo(15.98f, 77.02f, 33.75f, 89.41f, 50.76f, 92.22f)
+                curveTo(65.07f, 94.59f, 74.75f, 90.54f, 79.4f, 88.05f)
+                curveTo(101.99f, 75.96f, 105.68f, 53.53f, 102.56f, 39.29f)
                 close()
             }
             path(
@@ -88,6 +88,17 @@ internal val Logo: ImageVector
                 moveToRelative(2.97f, -0.39f)
                 arcToRelative(3f, 3f, 129.95f, true, true, -5.95f, 0.79f)
                 arcToRelative(3f, 3f, 129.95f, true, true, 5.95f, -0.79f)
+            }
+            path(
+                stroke = SolidColor(Color(0xFFFCFBFA)),
+                strokeLineWidth = 3f
+            ) {
+                moveTo(104.21f, 53.56f)
+                curveTo(101.18f, 78.75f, 78.31f, 96.71f, 53.12f, 93.68f)
+                curveTo(27.94f, 90.65f, 9.97f, 67.78f, 13f, 42.59f)
+                curveTo(16.03f, 17.4f, 38.91f, -0.56f, 64.09f, 2.47f)
+                curveTo(89.28f, 5.5f, 107.24f, 28.37f, 104.21f, 53.56f)
+                close()
             }
             path(
                 stroke = SolidColor(Color(0xFFFCFBFA)),

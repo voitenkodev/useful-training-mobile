@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import atom.Design
 import authentication.intro.models.ScreenState
 import components.SpaceBackground
+import components.animation.Levitating
 import components.overlay.AlphaOverlay
 import components.roots.ScreenRoot
 import molecule.ButtonPrimary
@@ -65,14 +66,14 @@ private fun Content(
 
             PaddingWeight()
 
-//            Levitating { modifier ->
-            IconImage(
-                modifier = Modifier
-                    .height(260.dp)
-                    .aspectRatio(1f),
-                imageVector = Icons.logo
-            )
-//            }
+            Levitating { modifier ->
+                IconImage(
+                    modifier = modifier
+                        .height(260.dp)
+                        .aspectRatio(1f),
+                    imageVector = Icons.logo
+                )
+            }
 
             PaddingWeight()
 
