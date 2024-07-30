@@ -13,7 +13,6 @@ import androidx.compose.ui.text.style.TextAlign
 import atom.Design
 import com.arkivanov.essenty.backhandler.BackCallback
 import components.Error
-import components.SpaceBackground
 import components.animation.Levitating
 import components.cards.UserCard
 import components.roots.ScreenRoot
@@ -56,8 +55,6 @@ private fun Content(
     backHandler.register(BackCallback(onBack = toTrainings))
 
     ScreenRoot(error = { Error(message = { error }, close = clearError) }) {
-
-        SpaceBackground()
 
         Column(
             modifier = Modifier.fillMaxSize().systemBarsPadding(),

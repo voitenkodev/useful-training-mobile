@@ -31,7 +31,6 @@ import io.github.xxfast.decompose.router.LocalRouterContext
 import kotlinx.collections.immutable.ImmutableList
 import molecule.PaddingL
 import molecule.PaddingXL
-import molecule.primaryBackground
 
 @Composable
 internal fun RegistrationContent(
@@ -129,8 +128,9 @@ private fun Content(
     }
 
     ScreenRoot(error = { Error(message = { error }, close = clearError) }) {
+
         Column(
-            modifier = Modifier.primaryBackground().statusBarsPadding(),
+            modifier = Modifier.statusBarsPadding(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 

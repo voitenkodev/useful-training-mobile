@@ -91,7 +91,7 @@ private fun MuscleChip(
 
     val iconStart = remember(muscle.status) {
         when (muscle.status) {
-            IncludedStatusEnum.EXCLUDED -> Icons.redCircle
+            IncludedStatusEnum.EXCLUDED -> Icons.grayCircle
             IncludedStatusEnum.INCLUDED -> Icons.greenCircle
         }
     }

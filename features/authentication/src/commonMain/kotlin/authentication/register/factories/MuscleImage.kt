@@ -14,8 +14,8 @@ import muscles.legsSplit
 
 private fun colorBySelection(muscle: Muscle?): Color {
 
-    val unSelected = Design.palette.red.copy(alpha = 0.7f)
-    val selected = Design.palette.toxic.copy(alpha = 0.7f)
+    val unSelected = Design.palette.content.copy(alpha = 0.3f)
+    val selected = Design.palette.toxic
     val default = Design.palette.white10
 
     return when (muscle?.status) {

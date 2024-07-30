@@ -24,7 +24,7 @@ public data class Color(
     val toxic: Color = Color(0xff2afa2d),
 
     // Accent Secondary
-    val red: Color = Color(0xfff54949)
+    val red: Color = Color(0xffff0000)
 )
 
 //    val primary: Color = Color(0xff121219), primary old

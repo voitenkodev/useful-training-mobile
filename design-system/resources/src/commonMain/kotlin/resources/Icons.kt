@@ -24,6 +24,7 @@ import resources.icons.Equipment
 import resources.icons.Eye
 import resources.icons.EyeOff
 import resources.icons.Filters
+import resources.icons.GrayCircle
 import resources.icons.GreenCircle
 import resources.icons.HandWeight
 import resources.icons.HighBattery
@@ -80,6 +81,7 @@ public object Icons {
     public val note: ImageVector = Icons.Default.Notifications
     public val greenCircle: ImageVector = GreenCircle
     public val redCircle: ImageVector = RedCircle
+    public val grayCircle: ImageVector = GrayCircle
     public val repetitions: ImageVector = Repetitions
     public val beginner: ImageVector = Beginner
     public val advanced: ImageVector = Advanced
