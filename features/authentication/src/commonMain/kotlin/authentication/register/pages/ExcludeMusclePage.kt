@@ -17,6 +17,7 @@ import components.ShadowFooter
 import components.ShadowFooterSpace
 import kotlinx.collections.immutable.ImmutableList
 import molecule.PaddingXL
+import molecule.PaddingXS
 import molecule.PaddingXXL
 import molecule.Shadow
 import molecule.TextBody2
@@ -39,6 +40,8 @@ internal fun ExcludeMusclePage(
             PaddingXXL()
 
             TextH2(provideText = { "Muscles" }, textAlign = TextAlign.Center)
+
+            PaddingXS()
 
             TextBody2(
                 provideText = { "Would you like to exclude some muscles\nfrom your workouts?" },

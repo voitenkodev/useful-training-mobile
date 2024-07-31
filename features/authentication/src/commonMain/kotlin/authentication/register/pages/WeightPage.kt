@@ -19,6 +19,7 @@ import kg
 import molecule.ButtonPrimary
 import molecule.PaddingWeight
 import molecule.PaddingXL
+import molecule.PaddingXS
 import molecule.PaddingXXL
 import molecule.TextBody2
 import molecule.TextH1
@@ -41,6 +42,8 @@ internal fun WeightPage(
         PaddingXXL()
 
         TextH2(provideText = { "Your weight" }, textAlign = TextAlign.Center)
+
+        PaddingXS()
 
         TextBody2(
             provideText = { "Enter your current weight!" },

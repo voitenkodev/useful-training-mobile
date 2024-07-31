@@ -17,6 +17,7 @@ import components.ShadowFooterSpace
 import equipment.EquipmentGroup
 import kotlinx.collections.immutable.ImmutableList
 import molecule.PaddingXL
+import molecule.PaddingXS
 import molecule.PaddingXXL
 import molecule.Shadow
 import molecule.TextBody2
@@ -38,6 +39,8 @@ internal fun ExcludeEquipmentPage(
             PaddingXXL()
 
             TextH2(provideText = { "Equipment" }, textAlign = TextAlign.Center)
+
+            PaddingXS()
 
             TextBody2(
                 provideText = { "If you don't have any of equipment\nyou may to exclude it?" },

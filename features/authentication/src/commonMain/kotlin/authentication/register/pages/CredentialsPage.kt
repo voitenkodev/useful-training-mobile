@@ -23,6 +23,7 @@ import molecule.PaddingL
 import molecule.PaddingM
 import molecule.PaddingWeight
 import molecule.PaddingXL
+import molecule.PaddingXS
 import molecule.PaddingXXL
 import molecule.TextBody2
 import molecule.TextH2
@@ -53,6 +54,8 @@ internal fun CredentialsPage(
         PaddingXXL()
 
         TextH2(provideText = { "Last Step" }, textAlign = TextAlign.Center)
+
+        PaddingXS()
 
         TextBody2(
             provideText = { "Enter email and password!" },

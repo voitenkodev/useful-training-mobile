@@ -21,6 +21,7 @@ import components.ShadowFooterSpace
 import components.cards.HorizontalValueCard
 import kotlinx.collections.immutable.ImmutableList
 import molecule.PaddingXL
+import molecule.PaddingXS
 import molecule.PaddingXXL
 import molecule.TextBody2
 import molecule.TextH2
@@ -43,6 +44,8 @@ internal fun ExperiencePage(
             PaddingXXL()
 
             TextH2(provideText = { "Experience" }, textAlign = TextAlign.Center)
+
+            PaddingXS()
 
             TextBody2(
                 provideText = { "How experienced are you lifting weights?" },

@@ -29,6 +29,7 @@ import molecule.ButtonTextLink
 import molecule.PaddingL
 import molecule.PaddingM
 import molecule.PaddingWeight
+import molecule.PaddingXS
 import molecule.PaddingXXL
 import molecule.TextBody2
 import molecule.TextH2
@@ -98,7 +99,12 @@ private fun Content(
 
             TextH2(provideText = { "Sign In" }, textAlign = TextAlign.Center)
 
-            TextBody2(provideText = { "Sign in with your email" }, textAlign = TextAlign.Center)
+            PaddingXS()
+
+            TextBody2(
+                provideText = { "Sign in with your email and password" },
+                textAlign = TextAlign.Center
+            )
 
             PaddingXXL()
 

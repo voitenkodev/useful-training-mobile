@@ -20,6 +20,7 @@ import meter
 import molecule.ButtonPrimary
 import molecule.PaddingWeight
 import molecule.PaddingXL
+import molecule.PaddingXS
 import molecule.PaddingXXL
 import molecule.TextBody2
 import molecule.TextH1
@@ -41,6 +42,8 @@ internal fun HeightPage(
         PaddingXXL()
 
         TextH2(provideText = { "Your height" }, textAlign = TextAlign.Center)
+
+        PaddingXS()
 
         TextBody2(
             provideText = { "Enter your current height!" },

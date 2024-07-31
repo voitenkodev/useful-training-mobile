@@ -17,9 +17,10 @@ import components.animation.Levitating
 import components.cards.UserCard
 import components.roots.ScreenRoot
 import io.github.xxfast.decompose.router.LocalRouterContext
-import molecule.PaddingM
 import molecule.PaddingWeight
 import molecule.PaddingXL
+import molecule.PaddingXS
+import molecule.PaddingXXL
 import molecule.TextBody2
 import molecule.TextH2
 
@@ -61,15 +62,17 @@ private fun Content(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-            PaddingXL()
+            PaddingXXL()
 
-            PaddingM()
+            PaddingXXL()
 
             TextH2(
-                provideText = { "Success Registration" },
+                provideText = { "Congratulations!" },
                 color = Design.colors.toxic,
                 textAlign = TextAlign.Center
             )
+
+            PaddingXS()
 
             TextBody2(
                 provideText = { "Take your personal card!" },
