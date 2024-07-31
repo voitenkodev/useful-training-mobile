@@ -88,7 +88,7 @@ private fun Content(
             PaddingM()
 
             ButtonPrimary(
-                modifier = Modifier.fillMaxWidth().padding(horizontal = Design.dp.paddingM),
+                modifier = Modifier.fillMaxWidth().padding(horizontal = Design.dp.paddingL),
                 text = "Join Us",
                 onClick = registration
             )
@@ -96,7 +96,7 @@ private fun Content(
             PaddingM()
 
             ButtonSecondary(
-                modifier = Modifier.fillMaxWidth().padding(horizontal = Design.dp.paddingM),
+                modifier = Modifier.fillMaxWidth().padding(horizontal = Design.dp.paddingL),
                 text = "Sign In",
                 onClick = login
             )

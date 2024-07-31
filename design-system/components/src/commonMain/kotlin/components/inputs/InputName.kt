@@ -6,9 +6,7 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.layout.IntrinsicSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -34,9 +32,7 @@ public fun InputName(
     val focusManager = LocalFocusManager.current
 
     InputField(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(horizontal = Design.dp.paddingM),
+        modifier = modifier,
         value = provideValue.invoke(),
         onValueChange = onValueChange,
         backgroundColor = Design.colors.content,

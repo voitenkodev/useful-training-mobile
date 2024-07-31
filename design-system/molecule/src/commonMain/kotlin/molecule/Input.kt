@@ -13,6 +13,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
@@ -37,6 +38,7 @@ public fun InputField(
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     maxLength: Int? = null,
     fontWeight: FontWeight? = null,
+    shape: Shape = Design.shape.default,
     digits: Array<Char> = emptyArray(),
     keyboardActions: KeyboardActions = KeyboardActions.Default,
     visualTransformation: VisualTransformation = VisualTransformation.None,
@@ -86,7 +88,7 @@ public fun InputField(
 
                 cursorColor = contentColor
             ),
-            shape = Design.shape.default,
+            shape = shape,
             placeholder = placeholder?.let {
                 {
                     androidx.compose.material3.Text(

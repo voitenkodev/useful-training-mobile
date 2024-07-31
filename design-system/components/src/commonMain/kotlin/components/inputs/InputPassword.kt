@@ -1,7 +1,5 @@
 package components.inputs
 
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -27,9 +25,7 @@ public fun InputPassword(
     val passwordVisibility = rememberSaveable { mutableStateOf(false) }
 
     InputField(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(horizontal = Design.dp.paddingM),
+        modifier = modifier,
         value = provideValue.invoke(),
         onValueChange = onValueChange,
         backgroundColor = Design.colors.content,
