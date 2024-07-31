@@ -1,6 +1,7 @@
 package authentication.register.components
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -21,7 +22,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -73,10 +76,18 @@ internal fun EquipmentGroup(
 
                 Column(
                     modifier = Modifier
-                        .width(160.dp)
+                        .width(140.dp)
                         .border(
                             color = Design.colors.white10,
                             width = 1.dp,
+                            shape = Design.shape.default
+                        )
+                        .background(
+                            color = when (equipment.status) {
+                                IncludedStatusEnum.INCLUDED -> Design.colors.white5
+                                IncludedStatusEnum.EXCLUDED -> Color.Transparent
+                                null -> Color.Transparent
+                            },
                             shape = Design.shape.default
                         )
                         .clip(shape = Design.shape.default)
@@ -98,6 +109,12 @@ internal fun EquipmentGroup(
                                     start = Design.dp.paddingL,
                                     end = Design.dp.paddingL,
                                     top = Design.dp.paddingM
+                                ).alpha(
+                                    alpha = when (equipment.status) {
+                                        IncludedStatusEnum.INCLUDED -> 1f
+                                        IncludedStatusEnum.EXCLUDED -> 0.5f
+                                        null -> 0.5f
+                                    },
                                 ),
                             imageVector = equipment.image,
                             contentScale = ContentScale.Fit,
@@ -106,7 +123,7 @@ internal fun EquipmentGroup(
 
                         val iconStart = remember(equipment.status) {
                             when (equipment.status) {
-                                IncludedStatusEnum.EXCLUDED -> Icons.redCircle
+                                IncludedStatusEnum.EXCLUDED -> Icons.grayCircle
                                 IncludedStatusEnum.INCLUDED -> Icons.greenCircle
                                 null -> null
                             }
@@ -125,6 +142,11 @@ internal fun EquipmentGroup(
                         modifier = Modifier.padding(horizontal = Design.dp.paddingM),
                         textAlign = TextAlign.Center,
                         provideText = { equipment.name },
+                        color = when (equipment.status) {
+                            IncludedStatusEnum.EXCLUDED -> Design.colors.caption
+                            IncludedStatusEnum.INCLUDED -> Design.colors.content
+                            null -> Design.colors.caption
+                        }
                     )
                 }
             }
