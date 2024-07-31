@@ -40,6 +40,11 @@ public fun PaddingXL(modifier: Modifier = Modifier) {
 }
 
 @Composable
+public fun PaddingXXL(modifier: Modifier = Modifier) {
+    Spacer(modifier = modifier.size(Design.dp.paddingXL))
+}
+
+@Composable
 public fun RowScope.PaddingWeight(modifier: Modifier = Modifier) {
     Spacer(modifier = modifier.weight(1f))
 }

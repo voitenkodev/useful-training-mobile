@@ -5,24 +5,29 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import atom.Design
 import authentication.intro.models.ScreenState
 import components.overlay.AlphaOverlay
 import components.roots.ScreenRoot
 import molecule.ButtonPrimary
 import molecule.ButtonSecondary
+import molecule.IconImage
 import molecule.PaddingL
 import molecule.PaddingM
 import molecule.PaddingWeight
 import molecule.PaddingXL
+import molecule.PaddingXXL
 import molecule.TextBody2
 import molecule.TextH1
+import resources.Icons
 
 @Composable
 internal fun IntroContent(
@@ -56,11 +61,19 @@ private fun Content(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-            PaddingXL()
+            PaddingXXL()
+
+            PaddingXXL()
 
             TextH1(
-                modifier = Modifier.fillMaxWidth().padding(horizontal = Design.dp.paddingM),
-                provideText = { "Alien\nWorkout" },
+                provideText = { "Alien Workout" },
+            )
+
+            PaddingWeight()
+
+            IconImage(
+                modifier = Modifier.size(250.dp),
+                imageVector = Icons.logo
             )
 
             PaddingWeight()

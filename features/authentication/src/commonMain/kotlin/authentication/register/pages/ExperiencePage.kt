@@ -44,7 +44,11 @@ internal fun ExperiencePage(
 
             TextH2(provideText = { "Experience" }, textAlign = TextAlign.Center)
 
-            TextBody2(provideText = { "How experienced are you lifting weights?" }, textAlign = TextAlign.Center)
+            TextBody2(
+                provideText = { "How experienced are you lifting weights?" },
+                textAlign = TextAlign.Center,
+                color = Design.colors.caption
+            )
 
             PaddingXL()
 

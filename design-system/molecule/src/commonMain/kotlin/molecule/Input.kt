@@ -3,6 +3,7 @@ package molecule
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.OutlinedTextFieldDefaults
@@ -16,6 +17,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import atom.Design
 
 @Composable
@@ -29,6 +31,7 @@ public fun InputField(
     prefix: @Composable (() -> Unit)? = null,
     trailing: @Composable (() -> Unit)? = null,
     backgroundColor: Color = Design.colors.secondary,
+    contentColor: Color = Design.colors.content,
     maxLines: Int = Int.MAX_VALUE,
     enabled: Boolean = true,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
@@ -43,14 +46,15 @@ public fun InputField(
         mutableStateOf(
             { s: String ->
                 val v = if (maxLength != null) s.take(maxLength) else s
-                val digitsFilter = if (digits.isNotEmpty()) v.filter { char -> digits.contains(char) } else v
+                val digitsFilter =
+                    if (digits.isNotEmpty()) v.filter { char -> digits.contains(char) } else v
                 onValueChange.invoke(digitsFilter)
             }
         )
     }
 
     val textStyle = Design.typography.Input
-        .merge(color = Design.colors.content)
+        .merge(color = contentColor)
         .merge(textAlign = textAlign ?: TextAlign.Start)
         .merge(fontWeight = fontWeight)
 
@@ -80,18 +84,19 @@ public fun InputField(
                 errorPlaceholderColor = Design.colors.content.copy(alpha = 0.3f),
                 focusedPlaceholderColor = Design.colors.content.copy(alpha = 0.3f),
 
-                cursorColor = Design.colors.content
+                cursorColor = contentColor
             ),
             shape = Design.shape.default,
             placeholder = placeholder?.let {
                 {
                     androidx.compose.material3.Text(
-                        modifier = Modifier.fillMaxWidth(),
+                        modifier = Modifier.fillMaxWidth().padding(start = 2.dp),
                         text = placeholder,
                         maxLines = 1,
                         textAlign = textStyle.textAlign,
                         fontFamily = textStyle.fontFamily,
                         fontSize = textStyle.fontSize,
+                        color = contentColor.copy(alpha = 0.5f)
                     )
                 }
             },
@@ -131,7 +136,8 @@ public fun InputField(
             { tf: TextFieldValue ->
                 val s = tf.text
                 val v = if (maxLength != null) s.take(maxLength) else s
-                val digitsFilter = if (digits.isNotEmpty()) v.filter { char -> digits.contains(char) } else v
+                val digitsFilter =
+                    if (digits.isNotEmpty()) v.filter { char -> digits.contains(char) } else v
                 onValueChange.invoke(tf.copy(text = digitsFilter))
             }
         )

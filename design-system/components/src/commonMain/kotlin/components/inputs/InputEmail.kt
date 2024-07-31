@@ -39,7 +39,8 @@ public fun InputEmail(
             .padding(horizontal = Design.dp.paddingM),
         value = provideValue(),
         onValueChange = onValueChange,
-        backgroundColor = Design.colors.secondary,
+        backgroundColor = Design.colors.content,
+        contentColor = Design.colors.primary,
         trailing = {
 
             AnimatedVisibility(
@@ -52,12 +53,12 @@ public fun InputEmail(
                         .wrapContentSize()
                         .height(IntrinsicSize.Min),
                     imageVector = resources.Icons.clear,
-                    color = Design.colors.caption,
+                    color = Design.colors.primary.copy(alpha = 0.5f),
                     onClick = { onValueChange.invoke("") }
                 )
             }
         },
-        placeholder = "example@mail.com",
+        placeholder = "Your email",
         label = {
             InputLabel(provideText = { "Enter email" })
         },

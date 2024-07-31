@@ -23,7 +23,6 @@ import molecule.PaddingXL
 import molecule.TextBody2
 import molecule.TextH1
 import molecule.TextH2
-import molecule.primaryBackground
 import weightpicker.WeightPicker
 import weightpicker.WeightPickerStyle
 
@@ -43,7 +42,11 @@ internal fun WeightPage(
 
         TextH2(provideText = { "Your weight" }, textAlign = TextAlign.Center)
 
-        TextBody2(provideText = { "Enter your current weight!" }, textAlign = TextAlign.Center)
+        TextBody2(
+            provideText = { "Enter your current weight!" },
+            textAlign = TextAlign.Center,
+            color = Design.colors.caption
+        )
 
         PaddingWeight()
 

@@ -13,7 +13,7 @@ import resources.Fonts
 @Composable
 internal fun typography() = Typography(
     H1 = TextStyle(
-        fontSize = 34.sp,
+        fontSize = 30.sp,
         fontWeight = FontWeight.Bold,
         fontStyle = FontStyle.Normal,
         fontFamily = Fonts.GunterzFamily(),
@@ -27,11 +27,11 @@ internal fun typography() = Typography(
         fontSize = 24.sp,
         fontWeight = FontWeight.Bold,
         fontStyle = FontStyle.Normal,
+        fontFamily = Fonts.GunterzFamily(),
         lineHeightStyle = LineHeightStyle(
             alignment = LineHeightStyle.Alignment.Center,
             trim = LineHeightStyle.Trim.Both
         ),
-        fontFamily = Fonts.GunterzFamily(),
     ),
     H3 = TextStyle(
         fontSize = 20.sp,
@@ -41,9 +41,8 @@ internal fun typography() = Typography(
         lineHeightStyle = LineHeightStyle(
             alignment = LineHeightStyle.Alignment.Center,
             trim = LineHeightStyle.Trim.Both
-        ),
-
-        ),
+        )
+    ),
     H4 = TextStyle(
         fontSize = 16.sp,
         fontWeight = FontWeight.Bold,
@@ -54,8 +53,7 @@ internal fun typography() = Typography(
             alignment = LineHeightStyle.Alignment.Center,
             trim = LineHeightStyle.Trim.Both
         ),
-
-        ),
+    ),
     Label = TextStyle(
         fontSize = 18.sp,
         fontWeight = FontWeight.SemiBold,
@@ -63,7 +61,7 @@ internal fun typography() = Typography(
         lineHeight = 20.sp
     ),
     Input = TextStyle(
-        fontSize = 14.sp,
+        fontSize = 16.sp,
         fontWeight = FontWeight.Medium,
         fontStyle = FontStyle.Normal,
     ),

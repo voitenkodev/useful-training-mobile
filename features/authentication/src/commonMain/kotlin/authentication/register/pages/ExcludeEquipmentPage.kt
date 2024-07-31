@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
+import atom.Design
 import authentication.register.components.EquipmentGroup
 import components.ShadowFooter
 import components.ShadowFooterSpace
@@ -40,7 +41,8 @@ internal fun ExcludeEquipmentPage(
 
             TextBody2(
                 provideText = { "Would you like to exclude some equipments?" },
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
+                color = Design.colors.caption
             )
 
             PaddingXL()

@@ -39,8 +39,9 @@ public fun InputName(
             .padding(horizontal = Design.dp.paddingM),
         value = provideValue.invoke(),
         onValueChange = onValueChange,
-        backgroundColor = Design.colors.secondary,
-        placeholder = "Arnold Schwarzenegger",
+        backgroundColor = Design.colors.content,
+        contentColor = Design.colors.primary,
+        placeholder = "Username",
         trailing = {
 
             AnimatedVisibility(
@@ -53,7 +54,7 @@ public fun InputName(
                         .wrapContentSize()
                         .height(IntrinsicSize.Min),
                     imageVector = resources.Icons.clear,
-                    color = Design.colors.caption,
+                    color = Design.colors.primary.copy(alpha = 0.5f),
                     onClick = { onValueChange.invoke("") }
                 )
             }

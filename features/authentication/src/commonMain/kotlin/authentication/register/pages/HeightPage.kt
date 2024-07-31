@@ -24,7 +24,6 @@ import molecule.PaddingXL
 import molecule.TextBody2
 import molecule.TextH1
 import molecule.TextH2
-import molecule.primaryBackground
 import molecule.secondaryBackground
 
 @Composable
@@ -43,7 +42,11 @@ internal fun HeightPage(
 
         TextH2(provideText = { "Your height" }, textAlign = TextAlign.Center)
 
-        TextBody2(provideText = { "Enter your current height!" }, textAlign = TextAlign.Center)
+        TextBody2(
+            provideText = { "Enter your current height!" },
+            textAlign = TextAlign.Center,
+            color = Design.colors.caption
+        )
 
         PaddingWeight()
 

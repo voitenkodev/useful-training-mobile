@@ -18,6 +18,7 @@ import molecule.ButtonPrimary
 import molecule.PaddingM
 import molecule.PaddingWeight
 import molecule.PaddingXL
+import molecule.PaddingXXL
 import molecule.TextBody2
 import molecule.TextH2
 
@@ -43,9 +44,13 @@ internal fun NamePage(
 
         TextH2(provideText = { "Nice to meet you" }, textAlign = TextAlign.Center)
 
-        TextBody2(provideText = { "How can we call you?" }, textAlign = TextAlign.Center)
+        TextBody2(
+            provideText = { "How can we call you?" },
+            textAlign = TextAlign.Center,
+            color = Design.colors.caption
+        )
 
-        PaddingXL()
+        PaddingXXL()
 
         InputName(
             provideValue = { name },

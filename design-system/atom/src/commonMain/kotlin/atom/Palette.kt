@@ -16,7 +16,7 @@ public data class Color(
 
     // Text
     val content: Color = Color(0xffFCFBFA),
-    val caption: Color = Color(0xffa6a6a6),
+    val caption: Color = Color(0xffC9C5C5),
 
     // Accent Primary
     val orange: Color = Color(0xfffc5e0f),
@@ -31,7 +31,6 @@ public data class Color(
 //    val secondary: Color = Color(0xff1f2129),// default
 //    val secondary: Color = Color(0xff1f2424),// green
 //    val secondary: Color = Color(0xff172937), // Sea
-
 
 /*
 100% — FF

@@ -3,6 +3,8 @@ package components.labels
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import atom.Design
@@ -12,6 +14,7 @@ import molecule.TextBody3
 public fun InputLabel(
     modifier: Modifier = Modifier,
     provideText: () -> String,
+    color: Color = Design.colors.caption,
     textAlign: TextAlign? = null
 ) {
     TextBody3(
@@ -21,8 +24,9 @@ public fun InputLabel(
             top = Design.dp.paddingXS,
             end = Design.dp.paddingS
         ),
+        fontWeight = FontWeight.Medium,
         provideText = provideText,
-        color = Design.colors.caption,
+        color = color,
         maxLines = 1,
         overflow = TextOverflow.Ellipsis,
         textAlign = textAlign

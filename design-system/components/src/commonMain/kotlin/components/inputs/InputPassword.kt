@@ -32,14 +32,15 @@ public fun InputPassword(
             .padding(horizontal = Design.dp.paddingM),
         value = provideValue.invoke(),
         onValueChange = onValueChange,
-        backgroundColor = Design.colors.secondary,
+        backgroundColor = Design.colors.content,
+        contentColor = Design.colors.primary,
         visualTransformation = if (passwordVisibility.value) VisualTransformation.None else PasswordVisualTransformation(),
         label = { InputLabel(provideText = { "Enter password" }) },
-        placeholder = "********",
+        placeholder = "Password",
         trailing = {
             ButtonIconSecondary(
                 imageVector = if (passwordVisibility.value) Icons.eyeOff else Icons.eye,
-                color = Design.colors.caption,
+                color = Design.colors.primary.copy(alpha = 0.5f),
                 onClick = { passwordVisibility.value = passwordVisibility.value.not() }
             )
         },

@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
+import atom.Design
 import authentication.register.components.MuscleGroup
 import authentication.register.models.MuscleGroup
 import components.ShadowFooter
@@ -39,7 +40,11 @@ internal fun ExcludeMusclePage(
 
             TextH2(provideText = { "Muscles" }, textAlign = TextAlign.Center)
 
-            TextBody2(provideText = { "Would you like to exclude some muscles from you workouts?" }, textAlign = TextAlign.Center)
+            TextBody2(
+                provideText = { "Would you like to exclude some muscles from you workouts?" },
+                textAlign = TextAlign.Center,
+                color = Design.colors.caption
+            )
 
             PaddingXL()
 

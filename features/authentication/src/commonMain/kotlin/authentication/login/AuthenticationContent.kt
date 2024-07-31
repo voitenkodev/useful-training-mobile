@@ -28,10 +28,9 @@ import molecule.ButtonTextLink
 import molecule.PaddingL
 import molecule.PaddingM
 import molecule.PaddingWeight
-import molecule.PaddingXL
+import molecule.PaddingXXL
 import molecule.TextBody2
 import molecule.TextH2
-import molecule.primaryBackground
 
 @Composable
 internal fun AuthenticationContent(
@@ -85,22 +84,20 @@ private fun Content(
         registration.invoke()
     }
 
-    ScreenRoot(modifier = Modifier.primaryBackground().imePadding()) {
+    ScreenRoot(modifier = Modifier.imePadding()) {
 
         Column(
             modifier = Modifier.fillMaxSize().systemBarsPadding(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-            PaddingXL()
-
-            PaddingM()
+            PaddingXXL()
 
             TextH2(provideText = { "Sign In" }, textAlign = TextAlign.Center)
 
             TextBody2(provideText = { "Sign in with your email" }, textAlign = TextAlign.Center)
 
-            PaddingXL()
+            PaddingXXL()
 
             InputEmail(
                 provideValue = { email },
