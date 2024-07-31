@@ -84,8 +84,8 @@ private fun MuscleChip(
     }
 
     val chipState = ChipState.Colored(
-        backgroundColor = Color.Transparent,
-        borderColor = Design.palette.white10,
+        backgroundColor = Design.colors.secondary,
+        borderColor = Color.Transparent,
         contentColor = contentColor
     )
 

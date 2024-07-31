@@ -1,7 +1,5 @@
 package components.inputs
 
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -19,7 +17,7 @@ import molecule.InputField
 import resources.Icons
 
 @Composable
-public fun InputPasswordRepeat(
+public fun InputPasswordConfirm(
     modifier: Modifier = Modifier,
     provideValue: () -> String,
     onValueChange: (String) -> Unit
@@ -27,19 +25,18 @@ public fun InputPasswordRepeat(
     val passwordVisibility = rememberSaveable { mutableStateOf(false) }
 
     InputField(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(horizontal = Design.dp.paddingM),
+        modifier = modifier,
         value = provideValue.invoke(),
         onValueChange = onValueChange,
         visualTransformation = if (passwordVisibility.value) VisualTransformation.None else PasswordVisualTransformation(),
         label = { InputLabel(provideText = { "Confirm password" }) },
-        placeholder = "********",
-        backgroundColor = Design.colors.secondary,
+        placeholder = "Confirm password",
+        backgroundColor = Design.colors.content,
+        contentColor = Design.colors.primary,
         trailing = {
             ButtonIconSecondary(
                 imageVector = if (passwordVisibility.value) Icons.eyeOff else Icons.eye,
-                color = Design.colors.caption,
+                color = Design.colors.primary.copy(alpha = 0.5f),
                 onClick = { passwordVisibility.value = passwordVisibility.value.not() }
             )
         },

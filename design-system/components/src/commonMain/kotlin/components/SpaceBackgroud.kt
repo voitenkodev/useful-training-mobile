@@ -10,6 +10,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.offset
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -50,6 +51,9 @@ public fun SpaceBackground(modifier: Modifier = Modifier) {
             Modifier
                 .fillMaxSize()
                 .scale(maxOf(aspectRatio, 1f), maxOf(1 / aspectRatio, 1f))
+                .offset(
+                    y = -(maxHeight / 4)
+                )
                 .background(
                     brush = Brush.radialGradient(
                         colors = listOf(

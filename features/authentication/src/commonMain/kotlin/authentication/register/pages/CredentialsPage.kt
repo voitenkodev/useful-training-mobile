@@ -2,8 +2,10 @@ package authentication.register.pages
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -15,8 +17,9 @@ import androidx.compose.ui.text.style.TextAlign
 import atom.Design
 import components.inputs.InputEmail
 import components.inputs.InputPassword
-import components.inputs.InputPasswordRepeat
+import components.inputs.InputPasswordConfirm
 import molecule.ButtonPrimary
+import molecule.PaddingL
 import molecule.PaddingM
 import molecule.PaddingWeight
 import molecule.PaddingXL
@@ -49,7 +52,7 @@ internal fun CredentialsPage(
 
         PaddingXXL()
 
-        TextH2(provideText = { "Credentials" }, textAlign = TextAlign.Center)
+        TextH2(provideText = { "Last Step" }, textAlign = TextAlign.Center)
 
         TextBody2(
             provideText = { "Enter email and password!" },
@@ -60,20 +63,26 @@ internal fun CredentialsPage(
         PaddingXXL()
 
         InputEmail(
+            modifier = Modifier.fillMaxWidth()
+                .padding(horizontal = Design.dp.paddingL),
             provideValue = { email },
             onValueChange = updateEmail
         )
 
-        PaddingM()
+        PaddingL()
 
         InputPassword(
+            modifier = Modifier.fillMaxWidth()
+                .padding(horizontal = Design.dp.paddingL),
             provideValue = { password },
             onValueChange = updatePassword
         )
 
         PaddingM()
 
-        InputPasswordRepeat(
+        InputPasswordConfirm(
+            modifier = Modifier.fillMaxWidth()
+                .padding(horizontal = Design.dp.paddingL),
             provideValue = { passwordRepeat },
             onValueChange = updatePasswordRepeat
         )
