@@ -41,7 +41,7 @@ internal fun ExcludeMusclePage(
             TextH2(provideText = { "Muscles" }, textAlign = TextAlign.Center)
 
             TextBody2(
-                provideText = { "Would you like to exclude some muscles from you workouts?" },
+                provideText = { "Would you like to exclude some muscles\nfrom your workouts?" },
                 textAlign = TextAlign.Center,
                 color = Design.colors.caption
             )

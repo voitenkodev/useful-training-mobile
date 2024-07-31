@@ -15,7 +15,8 @@ public data class Color(
     val black70: Color = Color(0xB3000000), // Background shadow (popups)
 
     // Text
-    val content: Color = Color(0xffFCFBFA),
+//    val content: Color = Color(0xffFCFBFA),
+    val content: Color = Color(0xffffffff),
     val caption: Color = Color(0xffC9C5C5),
 
     // Accent Primary

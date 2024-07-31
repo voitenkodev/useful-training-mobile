@@ -40,7 +40,7 @@ internal fun ExcludeEquipmentPage(
             TextH2(provideText = { "Equipment" }, textAlign = TextAlign.Center)
 
             TextBody2(
-                provideText = { "Would you like to exclude some equipments?" },
+                provideText = { "If you don't have any of equipment\nyou may to exclude it?" },
                 textAlign = TextAlign.Center,
                 color = Design.colors.caption
             )

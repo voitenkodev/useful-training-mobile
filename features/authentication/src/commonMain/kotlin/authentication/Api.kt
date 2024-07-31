@@ -16,7 +16,7 @@ import com.arkivanov.decompose.extensions.compose.stack.animation.stackAnimation
 import com.arkivanov.decompose.router.stack.pop
 import com.arkivanov.decompose.router.stack.push
 import com.arkivanov.decompose.router.stack.replaceAll
-import components.SpaceBackground
+import components.GradientBackground
 import io.github.xxfast.decompose.router.rememberOnRoute
 import io.github.xxfast.decompose.router.stack.RoutedContent
 import io.github.xxfast.decompose.router.stack.Router
@@ -48,7 +48,7 @@ public fun AuthenticationGraph(toTrainings: () -> Unit) {
         listOf(AuthenticationRouter.Splash)
     }
 
-    SpaceBackground()
+    GradientBackground()
 
     RoutedContent(router = router, animation = stackAnimation(slide())) { child ->
 

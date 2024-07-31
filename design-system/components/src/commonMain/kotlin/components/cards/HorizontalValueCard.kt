@@ -2,6 +2,7 @@ package components.cards
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -41,8 +42,14 @@ public fun HorizontalValueCard(
             shape = Design.shape.default
         )
 
+    val interactionSource = remember { MutableInteractionSource() }
+
     val actionModifierProvider = remember(onClick, isSelected) {
-        if (onClick != null) initialModifier.clickable(onClick = onClick)
+        if (onClick != null) initialModifier.clickable(
+            onClick = onClick,
+            interactionSource = interactionSource,
+            indication = null
+        )
         else initialModifier
     }
 
