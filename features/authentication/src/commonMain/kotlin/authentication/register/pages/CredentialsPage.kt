@@ -47,7 +47,7 @@ internal fun CredentialsPage(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        PaddingM()
+        PaddingXXL()
 
         TextH2(provideText = { "Credentials" }, textAlign = TextAlign.Center)
 

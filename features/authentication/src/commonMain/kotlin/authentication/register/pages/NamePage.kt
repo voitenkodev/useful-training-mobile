@@ -42,7 +42,7 @@ internal fun NamePage(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        PaddingM()
+        PaddingXXL()
 
         TextH2(provideText = { "Nice to meet you" }, textAlign = TextAlign.Center)
 

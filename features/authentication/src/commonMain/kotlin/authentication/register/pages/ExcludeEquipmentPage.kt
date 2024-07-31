@@ -16,8 +16,8 @@ import components.ShadowFooter
 import components.ShadowFooterSpace
 import equipment.EquipmentGroup
 import kotlinx.collections.immutable.ImmutableList
-import molecule.PaddingM
 import molecule.PaddingXL
+import molecule.PaddingXXL
 import molecule.Shadow
 import molecule.TextBody2
 import molecule.TextH2
@@ -35,7 +35,7 @@ internal fun ExcludeEquipmentPage(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-            PaddingM()
+            PaddingXXL()
 
             TextH2(provideText = { "Equipment" }, textAlign = TextAlign.Center)
 

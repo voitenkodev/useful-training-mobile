@@ -17,9 +17,9 @@ import atom.Design
 import grToKg
 import kg
 import molecule.ButtonPrimary
-import molecule.PaddingM
 import molecule.PaddingWeight
 import molecule.PaddingXL
+import molecule.PaddingXXL
 import molecule.TextBody2
 import molecule.TextH1
 import molecule.TextH2
@@ -38,7 +38,7 @@ internal fun WeightPage(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        PaddingM()
+        PaddingXXL()
 
         TextH2(provideText = { "Your weight" }, textAlign = TextAlign.Center)
 

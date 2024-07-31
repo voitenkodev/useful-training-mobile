@@ -16,8 +16,8 @@ import authentication.register.models.MuscleGroup
 import components.ShadowFooter
 import components.ShadowFooterSpace
 import kotlinx.collections.immutable.ImmutableList
-import molecule.PaddingM
 import molecule.PaddingXL
+import molecule.PaddingXXL
 import molecule.Shadow
 import molecule.TextBody2
 import molecule.TextH2
@@ -36,7 +36,7 @@ internal fun ExcludeMusclePage(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-            PaddingM()
+            PaddingXXL()
 
             TextH2(provideText = { "Muscles" }, textAlign = TextAlign.Center)
 

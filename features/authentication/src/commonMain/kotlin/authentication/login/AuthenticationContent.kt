@@ -94,9 +94,13 @@ private fun Content(
 
             PaddingXXL()
 
+            PaddingXXL()
+
             TextH2(provideText = { "Sign In" }, textAlign = TextAlign.Center)
 
             TextBody2(provideText = { "Sign in with your email" }, textAlign = TextAlign.Center)
+
+            PaddingXXL()
 
             PaddingXXL()
 

@@ -20,8 +20,8 @@ import components.ShadowFooter
 import components.ShadowFooterSpace
 import components.cards.HorizontalValueCard
 import kotlinx.collections.immutable.ImmutableList
-import molecule.PaddingM
 import molecule.PaddingXL
+import molecule.PaddingXXL
 import molecule.TextBody2
 import molecule.TextH2
 
@@ -40,7 +40,7 @@ internal fun ExperiencePage(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-            PaddingM()
+            PaddingXXL()
 
             TextH2(provideText = { "Experience" }, textAlign = TextAlign.Center)
 
