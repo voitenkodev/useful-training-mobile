@@ -15,7 +15,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import atom.Design
-import authentication.register.models.ExperienceEnum
 import components.ShadowFooter
 import components.ShadowFooterSpace
 import components.cards.HorizontalValueCard
@@ -25,6 +24,7 @@ import molecule.PaddingXS
 import molecule.PaddingXXL
 import molecule.TextBody2
 import molecule.TextH2
+import user.ExperienceEnum
 
 @Composable
 internal fun ExperiencePage(

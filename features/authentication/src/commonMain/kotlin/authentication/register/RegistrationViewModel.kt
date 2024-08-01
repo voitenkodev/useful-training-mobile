@@ -6,9 +6,7 @@ import MusclesRepository
 import UserRepository
 import ViewModel
 import authentication.register.factories.muscleImage
-import authentication.register.mapping.toExperienceEnumDomain
 import authentication.register.mapping.toState
-import authentication.register.models.ExperienceEnum
 import authentication.register.models.RegistrationStatus
 import cmToM
 import equipment.IncludedStatusEnum
@@ -28,6 +26,8 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.flow.updateAndGet
 import org.koin.core.component.inject
+import user.ExperienceEnum
+import user.mapping.toExperienceEnumDomain
 
 internal class RegistrationViewModel : ViewModel() {
 

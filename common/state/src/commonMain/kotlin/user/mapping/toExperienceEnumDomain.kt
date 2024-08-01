@@ -1,8 +1,8 @@
-package authentication.register.mapping
+package user.mapping
 
-import authentication.register.models.ExperienceEnum
+import user.ExperienceEnum
 
-internal fun ExperienceEnum.toExperienceEnumDomain(): models.ExperienceEnum {
+public fun ExperienceEnum.toExperienceEnumDomain(): models.ExperienceEnum {
     return when (this) {
         ExperienceEnum.BEGINNER -> models.ExperienceEnum.BEGINNER
         ExperienceEnum.INTERMEDIATE -> models.ExperienceEnum.INTERMEDIATE

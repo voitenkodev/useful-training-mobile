@@ -1,7 +1,6 @@
 package authentication.register
 
 import androidx.compose.runtime.Immutable
-import authentication.register.models.ExperienceEnum
 import authentication.register.models.MuscleGroup
 import authentication.register.models.RegistrationStatus
 import authentication.register.models.RegistrationSteps
@@ -10,6 +9,7 @@ import heightpicker.DEFAULT_INITIAL_HEIGHT
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toPersistentList
+import user.ExperienceEnum
 import weightpicker.DEFAULT_INITIAL_WEIGHT
 
 @Immutable
