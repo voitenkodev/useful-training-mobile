@@ -5,7 +5,6 @@ import EquipmentsRepository
 import MusclesRepository
 import UserRepository
 import ViewModel
-import authentication.register.factories.muscleImage
 import authentication.register.models.RegistrationStatus
 import cmToM
 import equipment.IncludedStatusEnum
@@ -24,6 +23,7 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.flow.updateAndGet
+import muscles.factories.muscleImage
 import muscles.mapping.toState
 import org.koin.core.component.inject
 import user.ExperienceEnum
@@ -175,7 +175,7 @@ internal class RegistrationViewModel : ViewModel() {
 
                     mt.copy(
                         muscles = muscles,
-                        bodyImageVector = muscleImage(mt.type, muscles)
+                        bodyImageVector = muscleImage(mt.type, muscles, null)
                     )
                 }.toPersistentList()
             )
