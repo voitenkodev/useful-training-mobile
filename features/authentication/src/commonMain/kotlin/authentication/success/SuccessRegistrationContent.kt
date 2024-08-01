@@ -21,8 +21,8 @@ import components.cards.UserCard
 import components.roots.ScreenRoot
 import io.github.xxfast.decompose.router.LocalRouterContext
 import molecule.ButtonPrimary
-import molecule.PaddingL
 import molecule.PaddingWeight
+import molecule.PaddingXL
 import molecule.PaddingXS
 import molecule.PaddingXXL
 import molecule.TextBody2
@@ -111,7 +111,7 @@ private fun Content(
                 onClick = toTrainings,
             )
 
-            PaddingL()
+            PaddingXL()
         }
     }
 }
