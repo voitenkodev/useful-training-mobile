@@ -2,6 +2,7 @@ package authentication.success
 
 import UserRepository
 import ViewModel
+import authentication.register.models.ExperienceEnum
 import kg
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -33,6 +34,18 @@ internal class SuccessRegistrationViewModel : ViewModel() {
                 }
             }.catch { t -> _state.update { it.copy(error = t.message) } }
             .launchIn(this)
+
+        // todo remove it
+        val expEnum = ExperienceEnum.INTERMEDIATE
+
+        _state.update {
+            it.copy(
+                name = "Adam Sandler",
+                weight = 122.0.kg(true),
+                height = 188.0.meter(true),
+                experienceIcon = expEnum.icon
+            )
+        }
     }
 
     fun clearError() {

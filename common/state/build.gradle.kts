@@ -24,12 +24,18 @@ kotlin {
             implementation(libs.immutable.collections)
 
             implementation(projects.designSystem.atom)
+            implementation(projects.designSystem.resources)
 
+            // Equip
             implementation(projects.composeLibs.equipments)
             implementation(projects.domain.equipments)
 
+            // Muscles
             implementation(projects.composeLibs.muscles)
             implementation(projects.domain.muscles)
+
+            // User
+            implementation(projects.domain.user)
         }
     }
 }

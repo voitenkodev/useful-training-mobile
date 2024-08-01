@@ -4,21 +4,25 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import atom.Design
 import com.arkivanov.essenty.backhandler.BackCallback
 import components.Error
-import components.animation.Levitating
 import components.cards.UserCard
 import components.roots.ScreenRoot
 import io.github.xxfast.decompose.router.LocalRouterContext
+import molecule.ButtonPrimary
+import molecule.PaddingL
 import molecule.PaddingWeight
-import molecule.PaddingXL
 import molecule.PaddingXS
 import molecule.PaddingXXL
 import molecule.TextBody2
@@ -36,6 +40,7 @@ internal fun SuccessRegistrationContent(
         name = state.name,
         height = state.height,
         weight = state.weight,
+        experienceIcon = state.experienceIcon,
         toTrainings = toTrainings,
         error = state.error,
         clearError = vm::clearError
@@ -47,6 +52,7 @@ private fun Content(
     name: String,
     height: String,
     weight: String,
+    experienceIcon: ImageVector?,
     toTrainings: () -> Unit,
     error: String?,
     clearError: () -> Unit
@@ -68,7 +74,6 @@ private fun Content(
 
             TextH2(
                 provideText = { "Congratulations!" },
-                color = Design.colors.toxic,
                 textAlign = TextAlign.Center
             )
 
@@ -79,22 +84,34 @@ private fun Content(
                 textAlign = TextAlign.Center
             )
 
+            PaddingXXL()
+
+            PaddingXXL()
+
+            UserCard(
+                modifier = Modifier
+                    .padding(Design.dp.paddingL)
+                    .shadow(
+                        elevation = 5.dp,
+                        ambientColor = Design.colors.white10,
+                        spotColor = Design.colors.white10,
+                        shape = Design.shape.default,
+                    ),
+                name = name,
+                weight = weight,
+                experienceIcon = experienceIcon,
+                height = height,
+            )
+
             PaddingWeight()
 
-            Levitating { modifier ->
-                UserCard(
-                    modifier = modifier.padding(Design.dp.paddingL),
-                    name = name,
-                    image = "https://static.vecteezy.com/system/resources/previews/017/067/906/original/ufo-seamless-background-free-vector.jpg",
-                    weight = weight,
-                    height = height,
-                    buttonPrimary = "Pick Up" to toTrainings
-                )
-            }
+            ButtonPrimary(
+                modifier = Modifier.width(Design.dp.componentXXL),
+                text = "Start",
+                onClick = toTrainings,
+            )
 
-            PaddingWeight()
-
-            PaddingXL()
+            PaddingL()
         }
     }
 }

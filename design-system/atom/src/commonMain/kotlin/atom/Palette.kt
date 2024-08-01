@@ -10,6 +10,8 @@ public data class Color(
 
     val white5: Color = Color(0x0DFCFBFA), // Shadow + Borders
     val white10: Color = Color(0x1AFCFBFA),
+    val white30: Color = Color(0x4DFCFBFA),
+    val white50: Color = Color(0x80FCFBFA),
     val black10: Color = Color(0x33000000),
     val black30: Color = Color(0x80000000), // shadow on images
     val black70: Color = Color(0xB3000000), // Background shadow (popups)

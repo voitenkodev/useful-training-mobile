@@ -1,16 +1,23 @@
 package components
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.offset
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.scale
-import androidx.compose.ui.graphics.Brush
-import atom.Design
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalDensity
+import kotlin.math.PI
+import kotlin.math.cos
 import kotlin.math.sin
+import kotlin.random.Random
 
 private data class Star(
     var x: Float,
@@ -30,85 +37,64 @@ private data class Star(
 @Composable
 public fun SpaceBackground(modifier: Modifier = Modifier) {
 
+
+    val infinitelyAnimatedFloat = rememberInfiniteTransition().animateFloat(
+        initialValue = 0f,
+        targetValue = 2f * PI.toFloat(),
+        animationSpec = infiniteRepeatable(
+            animation = tween(5000),
+            repeatMode = RepeatMode.Restart
+        )
+    )
+
     BoxWithConstraints(modifier = modifier.fillMaxSize()) {
 
-        val aspectRatio = maxWidth / maxHeight
+        val density = LocalDensity.current
+        val width = with(density) { maxWidth.toPx() }
+        val height = with(density) { maxHeight.toPx() }
 
-        Box(
-            Modifier
-                .fillMaxSize()
-                .scale(maxOf(aspectRatio, 1f), maxOf(1 / aspectRatio, 1f))
-                .offset(
-                    y = -(maxHeight / 4)
-                )
-                .background(
-                    brush = Brush.radialGradient(
-                        colors = listOf(
-                            Design.colors.secondary,
-                            Design.colors.primary
-                        )
+        val stars = remember {
+            buildList {
+                repeat(500) {
+                    val star = Star(
+                        x = (Random.nextFloat() * width),
+                        y = (Random.nextFloat() * height),
+                        alpha = (Random.nextFloat() * 2.0 * PI).toFloat(),
+                        velocity = (Random.nextFloat() * 2f + 1f)
                     )
-                )
-        )
-    }
+                    add(star)
+                }
+            }
+        }
 
-//    val infinitelyAnimatedFloat = rememberInfiniteTransition().animateFloat(
-//        initialValue = 0f,
-//        targetValue = 2f * PI.toFloat(),
-//        animationSpec = infiniteRepeatable(
-//            animation = tween(5000),
-//            repeatMode = RepeatMode.Restart
-//        )
-//    )
-//
-//    BoxWithConstraints(modifier = modifier.fillMaxSize()) {
-//
-//        val density = LocalDensity.current
-//        val width = with(density) { maxWidth.toPx() }
-//        val height = with(density) { maxHeight.toPx() }
-//
-//        val stars = remember {
-//            buildList {
-//                repeat(500) {
-//                    val star = Star(
-//                        x = (Random.nextFloat() * width),
-//                        y = (Random.nextFloat() * height),
-//                        alpha = (Random.nextFloat() * 2.0 * PI).toFloat(),
-//                        velocity = (Random.nextFloat() * 2f + 1f)
-//                    )
-//                    add(star)
-//                }
-//            }
-//        }
-//
-//        Canvas(modifier = Modifier.fillMaxSize()) {
-//            for (star in stars) {
-//                star.update(infinitelyAnimatedFloat.value)
-//                val deltaX = (star.alpha * cos(star.alpha))
-//                val deltaY = (star.alpha * sin(star.alpha))
-//                star.x += deltaX
-//                star.y += deltaY
-//
-//                drawCircle(
-//                    color = Color.White.copy(alpha = 0.6f),
-//                    center = Offset(star.x, star.y),
-//                    radius = 2f,
-//                    alpha = star.alpha,
-//                )
-//
-//                if (star.x < 0) {
-//                    star.x = width
-//                }
-//                if (star.x > width) {
-//                    star.x = 0f
-//                }
-//                if (star.y < 0) {
-//                    star.y = height
-//                }
-//                if (star.y > height) {
-//                    star.y = 0f
-//                }
-//            }
-//        }
-//    }
+        Canvas(modifier = Modifier.fillMaxSize()) {
+            for (star in stars) {
+                star.update(infinitelyAnimatedFloat.value)
+                val deltaX = (star.alpha * cos(star.alpha))
+                val deltaY = (star.alpha * sin(star.alpha))
+                star.x += deltaX
+                star.y += deltaY
+
+                drawCircle(
+                    color = Color.White.copy(alpha = 0.6f),
+                    center = Offset(star.x, star.y),
+                    radius = 2f,
+                    alpha = star.alpha,
+                )
+
+                if (star.x < 0) {
+                    star.x = width
+                }
+                if (star.x > width) {
+                    star.x = 0f
+                }
+                if (star.y < 0) {
+                    star.y = height
+                }
+                if (star.y > height) {
+                    star.y = 0f
+                }
+            }
+        }
+    }
 }
