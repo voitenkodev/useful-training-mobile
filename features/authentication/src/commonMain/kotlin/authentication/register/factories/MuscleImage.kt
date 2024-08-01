@@ -3,10 +3,9 @@ package authentication.register.factories
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import atom.Design
-import authentication.register.models.Muscle
-import authentication.register.models.MuscleEnum
-import authentication.register.models.MuscleGroupEnum
-import equipment.IncludedStatusEnum
+import muscles.Muscle
+import muscles.MuscleEnum
+import muscles.MuscleGroupEnum
 import muscles.bodyBack
 import muscles.bodyFront
 import muscles.bodySplit
@@ -18,9 +17,9 @@ private fun colorBySelection(muscle: Muscle?): Color {
     val selected = Design.palette.toxic
     val default = Design.palette.white10
 
-    return when (muscle?.status) {
-        IncludedStatusEnum.INCLUDED -> selected
-        IncludedStatusEnum.EXCLUDED -> unSelected
+    return when (muscle?.isSelected) {
+        true -> selected
+        false -> unSelected
         else -> default
     }
 }

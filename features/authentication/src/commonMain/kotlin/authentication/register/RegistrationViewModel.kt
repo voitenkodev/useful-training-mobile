@@ -6,7 +6,6 @@ import MusclesRepository
 import UserRepository
 import ViewModel
 import authentication.register.factories.muscleImage
-import authentication.register.mapping.toState
 import authentication.register.models.RegistrationStatus
 import cmToM
 import equipment.IncludedStatusEnum
@@ -25,9 +24,10 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.flow.updateAndGet
+import muscles.mapping.toState
 import org.koin.core.component.inject
 import user.ExperienceEnum
-import user.mapping.toExperienceEnumDomain
+import user.mapping.toState
 
 internal class RegistrationViewModel : ViewModel() {
 
@@ -43,12 +43,16 @@ internal class RegistrationViewModel : ViewModel() {
         authApi
             .getToken()
             .filterNotNull()
-            .onEach { _state.update { it.copy(registrationStatus = RegistrationStatus.Available) } }
+            .onEach {
+                _state.update { it.copy(registrationStatus = RegistrationStatus.Available) }
+            }
             .launchIn(this)
 
         musclesApi
             .observeMuscles()
-            .onEach { r -> _state.update { it.copy(muscleGroups = r.toState()) } }
+            .onEach { r ->
+                _state.update { it.copy(muscleGroups = r.toState(defaultMuscleSelection = true)) }
+            }
             .catch { r -> _state.update { it.copy(error = r.message) } }
             .launchIn(this)
 
@@ -70,7 +74,7 @@ internal class RegistrationViewModel : ViewModel() {
     fun registration() {
         val last = _state.updateAndGet { it.validate() }
 
-        val experience = last.selectedExperience?.toExperienceEnumDomain()?.toString() ?: return
+        val experience = last.selectedExperience?.toState()?.toString() ?: return
 
         val excludeEquipmentIds = last.equipmentGroups
             .flatMap { it.equipments }
@@ -79,7 +83,7 @@ internal class RegistrationViewModel : ViewModel() {
 
         val excludeMuscleIds = last.muscleGroups
             .flatMap { it.muscles }
-            .filter { it.status == IncludedStatusEnum.EXCLUDED }
+            .filter { it.isSelected.not() }
             .map { it.id }
 
         if (last.error == null) {
@@ -166,12 +170,7 @@ internal class RegistrationViewModel : ViewModel() {
                             return@muscleMap m
                         }
 
-                        m.copy(
-                            status = when (m.status) {
-                                IncludedStatusEnum.INCLUDED -> IncludedStatusEnum.EXCLUDED
-                                IncludedStatusEnum.EXCLUDED -> IncludedStatusEnum.INCLUDED
-                            }
-                        )
+                        m.copy(isSelected = m.isSelected.not())
                     }.toPersistentList()
 
                     mt.copy(

@@ -18,12 +18,12 @@ import molecule.PaddingXL
 import molecule.Shadow
 import muscles.MuscleEnum
 import muscles.MuscleGroup
-import muscles.MuscleStatusEnum
+import muscles.MuscleLoadEnum
 
 @Composable
 internal fun MusclePack(
     list: ImmutableList<MuscleGroup>,
-    includedMuscleStatuses: ImmutableList<MuscleStatusEnum>,
+    includedMuscleStatuses: ImmutableList<MuscleLoadEnum>,
     upperBodyPackEnums: ImmutableList<MuscleEnum>,
     lowerBodyPackEnums: ImmutableList<MuscleEnum>,
     selectFullBody: () -> Unit,
@@ -44,13 +44,13 @@ internal fun MusclePack(
     )
 
     val fullBodyVisible = remember(list) {
-        list.any { it.muscles.any { m -> includedMuscleStatuses.contains(m.status) } }
+        list.any { it.muscles.any { m -> includedMuscleStatuses.contains(m.load) } }
     }
 
     val fullBodyState = when {
         list.all {
             it.muscles
-                .filter { m -> includedMuscleStatuses.contains(m.status) }
+                .filter { m -> includedMuscleStatuses.contains(m.load) }
                 .all { m -> m.isSelected }
         } -> selectedChipState
 
@@ -61,7 +61,7 @@ internal fun MusclePack(
         list.any {
             it.muscles
                 .filter { m -> lowerBodyPackEnums.contains(m.type) }
-                .any { m -> includedMuscleStatuses.contains(m.status) }
+                .any { m -> includedMuscleStatuses.contains(m.load) }
         }
     }
 
@@ -79,7 +79,7 @@ internal fun MusclePack(
         list.any {
             it.muscles
                 .filter { m -> upperBodyPackEnums.contains(m.type) }
-                .any { m -> includedMuscleStatuses.contains(m.status) }
+                .any { m -> includedMuscleStatuses.contains(m.load) }
         }
     }
 

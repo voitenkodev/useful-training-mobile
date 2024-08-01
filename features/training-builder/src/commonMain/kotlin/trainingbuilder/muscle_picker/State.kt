@@ -5,7 +5,7 @@ import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import muscles.MuscleEnum
 import muscles.MuscleGroup
-import muscles.MuscleStatusEnum
+import muscles.MuscleLoadEnum
 
 @Immutable
 internal data class State(
@@ -32,10 +32,10 @@ internal data class State(
         MuscleEnum.CALF,
         MuscleEnum.GLUTEAL
     ),
-    val includedMuscleStatuses: ImmutableList<MuscleStatusEnum> = persistentListOf(
-        MuscleStatusEnum.MEDIUM,
-        MuscleStatusEnum.LOW,
-        MuscleStatusEnum.HIGH
+    val includedMuscleStatuses: ImmutableList<MuscleLoadEnum> = persistentListOf(
+        MuscleLoadEnum.MEDIUM,
+        MuscleLoadEnum.LOW,
+        MuscleLoadEnum.HIGH
     ),
     val error: String? = null,
     val loading: Boolean = false

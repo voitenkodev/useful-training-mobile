@@ -31,7 +31,7 @@ internal class MusclePickerViewModel : ViewModel() {
 
                     val filteredTypes = result
                         .flatMap { it.muscles }
-                        .filter { st.includedMuscleStatuses.contains(it.status) }
+                        .filter { st.includedMuscleStatuses.contains(it.load) }
                         .map { it.type }
 
                     st.copy(
@@ -67,7 +67,7 @@ internal class MusclePickerViewModel : ViewModel() {
                 muscleGroup.copy(
                     muscles = muscles,
                     isSelected = muscles
-                        .filter { st.includedMuscleStatuses.contains(it.status) }
+                        .filter { st.includedMuscleStatuses.contains(it.load) }
                         .none { m -> m.isSelected.not() },
                     bodyImageVector = image
                 )
@@ -82,7 +82,7 @@ internal class MusclePickerViewModel : ViewModel() {
         _state.update { st ->
             val newValue = st.muscleGroups.find { it.id == id }?.let { mt ->
                 mt.muscles
-                    .filter { st.includedMuscleStatuses.contains(it.status) }
+                    .filter { st.includedMuscleStatuses.contains(it.load) }
                     .all { m -> m.isSelected }
             }?.not() ?: false
 
@@ -91,7 +91,7 @@ internal class MusclePickerViewModel : ViewModel() {
 
                 val muscles = group.muscles
                     .map { muscle ->
-                        if (st.includedMuscleStatuses.contains(muscle.status).not()) muscle
+                        if (st.includedMuscleStatuses.contains(muscle.load).not()) muscle
                         else muscle.copy(isSelected = newValue)
                     }
                 val image = muscleImage(
@@ -102,7 +102,7 @@ internal class MusclePickerViewModel : ViewModel() {
                 group.copy(
                     muscles = muscles,
                     isSelected = muscles
-                        .filter { st.includedMuscleStatuses.contains(it.status) }
+                        .filter { st.includedMuscleStatuses.contains(it.load) }
                         .none { m -> m.isSelected.not() },
                     bodyImageVector = image
                 )
@@ -117,14 +117,14 @@ internal class MusclePickerViewModel : ViewModel() {
         _state.update { st ->
             val newValue = st.muscleGroups.all { mt ->
                 mt.muscles
-                    .filter { st.includedMuscleStatuses.contains(it.status) }
+                    .filter { st.includedMuscleStatuses.contains(it.load) }
                     .all { m -> m.isSelected }
             }.not()
 
             val groups = st.muscleGroups.map { group ->
                 val muscles = group.muscles
                     .map { muscle ->
-                        if (st.includedMuscleStatuses.contains(muscle.status).not()) muscle
+                        if (st.includedMuscleStatuses.contains(muscle.load).not()) muscle
                         else muscle.copy(isSelected = newValue)
                     }
                 val image = muscleImage(
@@ -135,7 +135,7 @@ internal class MusclePickerViewModel : ViewModel() {
                 group.copy(
                     muscles = muscles,
                     isSelected = muscles
-                        .filter { st.includedMuscleStatuses.contains(it.status) }
+                        .filter { st.includedMuscleStatuses.contains(it.load) }
                         .none { m -> m.isSelected.not() },
                     bodyImageVector = image
                 )
@@ -158,7 +158,7 @@ internal class MusclePickerViewModel : ViewModel() {
                 .map { group ->
                     val muscles = group.muscles
                         .map { muscle ->
-                            if (st.includedMuscleStatuses.contains(muscle.status).not()) muscle
+                            if (st.includedMuscleStatuses.contains(muscle.load).not()) muscle
                             else muscle.copy(isSelected = if (st.upperBodyList.contains(muscle.type)) newValue else false)
                         }
                     val image = muscleImage(
@@ -169,7 +169,7 @@ internal class MusclePickerViewModel : ViewModel() {
                     group.copy(
                         muscles = muscles,
                         isSelected = muscles
-                            .filter { st.includedMuscleStatuses.contains(it.status) }
+                            .filter { st.includedMuscleStatuses.contains(it.load) }
                             .none { m -> m.isSelected.not() },
                         bodyImageVector = image
                     )
@@ -190,7 +190,7 @@ internal class MusclePickerViewModel : ViewModel() {
             val groups = st.muscleGroups.map { group ->
                 val muscles = group.muscles
                     .map { muscle ->
-                        if (st.includedMuscleStatuses.contains(muscle.status).not()) muscle
+                        if (st.includedMuscleStatuses.contains(muscle.load).not()) muscle
                         else muscle.copy(isSelected = if (st.lowerBodyList.contains(muscle.type)) newValue else false)
                     }
                 val image = muscleImage(
@@ -201,7 +201,7 @@ internal class MusclePickerViewModel : ViewModel() {
                 group.copy(
                     muscles = muscles,
                     isSelected = muscles
-                        .filter { st.includedMuscleStatuses.contains(it.status) }
+                        .filter { st.includedMuscleStatuses.contains(it.load) }
                         .none { m -> m.isSelected.not() },
                     bodyImageVector = image
                 )

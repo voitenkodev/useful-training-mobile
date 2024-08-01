@@ -11,7 +11,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import authentication.register.models.MuscleGroup
 import authentication.register.models.RegistrationStatus
 import authentication.register.models.RegistrationSteps
 import authentication.register.pages.CredentialsPage
@@ -30,6 +29,7 @@ import io.github.xxfast.decompose.router.LocalRouterContext
 import kotlinx.collections.immutable.ImmutableList
 import molecule.PaddingL
 import molecule.PaddingXL
+import muscles.MuscleGroup
 import user.ExperienceEnum
 
 @Composable

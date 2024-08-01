@@ -2,7 +2,7 @@ package user.mapping
 
 import user.ExperienceEnum
 
-public fun ExperienceEnum.toExperienceEnumDomain(): models.ExperienceEnum {
+public fun ExperienceEnum.toState(): models.ExperienceEnum {
     return when (this) {
         ExperienceEnum.BEGINNER -> models.ExperienceEnum.BEGINNER
         ExperienceEnum.INTERMEDIATE -> models.ExperienceEnum.INTERMEDIATE

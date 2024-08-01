@@ -16,7 +16,7 @@ import molecule.Shadow
 import molecule.primaryBackground
 import muscles.MuscleEnum
 import muscles.MuscleGroup
-import muscles.MuscleStatusEnum
+import muscles.MuscleLoadEnum
 import trainingbuilder.muscle_picker.components.Footer
 import trainingbuilder.muscle_picker.components.Header
 import trainingbuilder.muscle_picker.components.MuscleGroup
@@ -55,7 +55,7 @@ private fun Content(
     list: ImmutableList<MuscleGroup>,
     upperBodyPackEnums: ImmutableList<MuscleEnum>,
     lowerBodyPackEnums: ImmutableList<MuscleEnum>,
-    includedMuscleStatuses: ImmutableList<MuscleStatusEnum>,
+    includedMuscleStatuses: ImmutableList<MuscleLoadEnum>,
     selectMuscleGroup: (id: String) -> Unit,
     selectMuscle: (id: String) -> Unit,
     selectFullBody: () -> Unit,

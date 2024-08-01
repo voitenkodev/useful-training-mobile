@@ -6,33 +6,37 @@ import models.Muscle
 import models.MuscleStatusEnum
 import muscles.MuscleEnum
 
-public fun List<Muscle>.toState(): ImmutableList<muscles.Muscle> {
-    return mapNotNull { it.toState() }
-        .sortedBy { it.status }
+public fun List<Muscle>.toState(
+    defaultMuscleSelection: Boolean
+): ImmutableList<muscles.Muscle> {
+    return mapNotNull { it.toState(defaultMuscleSelection) }
+        .sortedBy { it.load }
         .toPersistentList()
 }
 
-public fun Muscle.toState(): muscles.Muscle? {
+public fun Muscle.toState(
+    defaultMuscleSelection: Boolean
+): muscles.Muscle? {
     return muscles.Muscle(
         name = name,
         id = id,
-        isSelected = false,
-        status = status.toState() ?: return null,
+        isSelected = defaultMuscleSelection,
+        load = status.toState(),
         type = type.toState() ?: return null
     )
 }
 
-private fun MuscleStatusEnum.toState(): muscles.MuscleStatusEnum? {
+public fun MuscleStatusEnum.toState(): muscles.MuscleLoadEnum? {
     return when (this) {
-        MuscleStatusEnum.HIGH -> muscles.MuscleStatusEnum.HIGH
-        MuscleStatusEnum.MEDIUM -> muscles.MuscleStatusEnum.MEDIUM
-        MuscleStatusEnum.LOW -> muscles.MuscleStatusEnum.LOW
-        MuscleStatusEnum.EXCLUDED -> muscles.MuscleStatusEnum.EXCLUDED
+        MuscleStatusEnum.HIGH -> muscles.MuscleLoadEnum.HIGH
+        MuscleStatusEnum.MEDIUM -> muscles.MuscleLoadEnum.MEDIUM
+        MuscleStatusEnum.LOW -> muscles.MuscleLoadEnum.LOW
+        MuscleStatusEnum.EXCLUDED -> muscles.MuscleLoadEnum.EXCLUDED
         else -> null
     }
 }
 
-private fun models.MuscleEnum.toState(): MuscleEnum? {
+public fun models.MuscleEnum.toState(): MuscleEnum? {
     return when (this) {
         models.MuscleEnum.PECTORALIS_MAJOR -> MuscleEnum.PECTORALIS_MAJOR
         models.MuscleEnum.PECTORALIS_MINOR -> MuscleEnum.PECTORALIS_MINOR

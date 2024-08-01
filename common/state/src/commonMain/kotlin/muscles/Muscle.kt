@@ -6,7 +6,9 @@ import androidx.compose.runtime.Immutable
 public data class Muscle(
     val id: String,
     val name: String,
-    val status: MuscleStatusEnum,
     val isSelected: Boolean,
-    val type: MuscleEnum
+    val type: MuscleEnum,
+
+    // dynamic external value
+    val load: MuscleLoadEnum?,
 )

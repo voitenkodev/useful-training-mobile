@@ -26,20 +26,20 @@ import molecule.PaddingS
 import molecule.TextH4
 import muscles.Muscle
 import muscles.MuscleGroup
-import muscles.MuscleStatusEnum
+import muscles.MuscleLoadEnum
 import resources.Icons
 
 @Composable
 internal fun MuscleGroup(
     item: MuscleGroup,
-    includedMuscleStatuses: ImmutableList<MuscleStatusEnum>,
+    includedMuscleStatuses: ImmutableList<MuscleLoadEnum>,
     selectMuscleGroup: (id: String) -> Unit,
     selectMuscle: (id: String) -> Unit
 ) {
 
-    val visiblePackAction = remember(item.muscles.map { it.status }) {
+    val visiblePackAction = remember(item.muscles.map { it.load }) {
         item.muscles
-            .map { it.status }.any { includedMuscleStatuses.contains(it) }
+            .map { it.load }.any { includedMuscleStatuses.contains(it) }
     }
 
     PaddingS()
@@ -105,12 +105,13 @@ private fun MuscleChip(
     selectMuscle: (id: String) -> Unit
 ) {
 
-    val contentColor = remember(muscle.status) {
-        when (muscle.status) {
-            MuscleStatusEnum.HIGH -> Design.palette.content
-            MuscleStatusEnum.MEDIUM -> Design.palette.content
-            MuscleStatusEnum.LOW -> Design.palette.caption
-            MuscleStatusEnum.EXCLUDED -> Design.palette.white10
+    val contentColor = remember(muscle.load) {
+        when (muscle.load) {
+            MuscleLoadEnum.HIGH -> Design.palette.content
+            MuscleLoadEnum.MEDIUM -> Design.palette.content
+            MuscleLoadEnum.LOW -> Design.palette.caption
+            MuscleLoadEnum.EXCLUDED -> Design.palette.white10
+            null -> Design.palette.white10
         }
     }
 
@@ -118,22 +119,23 @@ private fun MuscleChip(
         backgroundColor = Design.colors.toxic.copy(alpha = 0.1f),
         borderColor = Design.colors.toxic,
         contentColor = Design.colors.content,
-        enabled = muscle.status != MuscleStatusEnum.EXCLUDED
+        enabled = muscle.load != MuscleLoadEnum.EXCLUDED
     )
 
     val unselectedChipState = ChipState.Colored(
         backgroundColor = Color.Transparent,
         borderColor = Design.palette.white10,
         contentColor = contentColor,
-        enabled = muscle.status != MuscleStatusEnum.EXCLUDED
+        enabled = muscle.load != MuscleLoadEnum.EXCLUDED
     )
 
-    val icon = remember(muscle.status) {
-        when (muscle.status) {
-            MuscleStatusEnum.HIGH -> Icons.highBattery
-            MuscleStatusEnum.MEDIUM -> Icons.mediumBattery
-            MuscleStatusEnum.LOW -> Icons.lowBattery
-            MuscleStatusEnum.EXCLUDED -> null
+    val icon = remember(muscle.load) {
+        when (muscle.load) {
+            MuscleLoadEnum.HIGH -> Icons.highBattery
+            MuscleLoadEnum.MEDIUM -> Icons.mediumBattery
+            MuscleLoadEnum.LOW -> Icons.lowBattery
+            MuscleLoadEnum.EXCLUDED -> null
+            null -> null
         }
     }
 

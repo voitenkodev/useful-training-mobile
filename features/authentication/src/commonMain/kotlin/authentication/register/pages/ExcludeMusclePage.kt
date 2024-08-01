@@ -12,7 +12,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import atom.Design
 import authentication.register.components.MuscleGroup
-import authentication.register.models.MuscleGroup
 import components.ShadowFooter
 import components.ShadowFooterSpace
 import kotlinx.collections.immutable.ImmutableList
@@ -22,6 +21,7 @@ import molecule.PaddingXXL
 import molecule.Shadow
 import molecule.TextBody2
 import molecule.TextH2
+import muscles.MuscleGroup
 
 @Composable
 internal fun ExcludeMusclePage(

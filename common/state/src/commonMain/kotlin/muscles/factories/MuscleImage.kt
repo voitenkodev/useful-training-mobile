@@ -1,5 +1,6 @@
 package muscles.factories
 
+import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import atom.Design
@@ -7,33 +8,64 @@ import kotlinx.collections.immutable.ImmutableList
 import muscles.Muscle
 import muscles.MuscleEnum
 import muscles.MuscleGroupEnum
-import muscles.MuscleStatusEnum
+import muscles.MuscleLoadEnum
 import muscles.bodyBack
 import muscles.bodyFront
 import muscles.bodySplit
 import muscles.legsSplit
 
+@Immutable
+internal sealed class MuscleColorStyle {
+
+    data class Loading(val includedMuscleStatuses: ImmutableList<MuscleLoadEnum>) :
+        MuscleColorStyle()
+
+    data object Default :
+        MuscleColorStyle()
+}
+
 private fun colorBySelection(
     muscle: Muscle?,
-    includedMuscleStatuses: ImmutableList<MuscleStatusEnum>
+    style: MuscleColorStyle,
 ): Color {
 
     val unSelected = Design.palette.content.copy(0.3f)
-    val selected = Design.palette.toxic.copy(alpha = 0.7f)
-    val default = Design.palette.content.copy(0.3f)
+    val default = Design.palette.white10
 
-    return when {
-        muscle?.isSelected == true && includedMuscleStatuses.contains(muscle.status) -> selected
-        muscle?.isSelected == false && includedMuscleStatuses.contains(muscle.status) -> unSelected
-        else -> default
+    return when (style) {
+        is MuscleColorStyle.Loading -> {
+            val selected = Design.palette.toxic.copy(alpha = 0.7f)
+
+            when {
+                muscle?.isSelected == true && style.includedMuscleStatuses.contains(muscle.load) -> selected
+                muscle?.isSelected == false && style.includedMuscleStatuses.contains(muscle.load) -> unSelected
+                else -> default
+            }
+        }
+
+        is MuscleColorStyle.Default -> {
+            val selected = Design.palette.toxic
+
+            when (muscle?.isSelected) {
+                true -> selected
+                false -> unSelected
+                else -> default
+            }
+        }
     }
 }
 
 public fun muscleImage(
     muscleGroupEnumState: MuscleGroupEnum,
     muscles: List<Muscle>,
-    includedMuscleStatuses: ImmutableList<MuscleStatusEnum>,
+    includedMuscleStatuses: ImmutableList<MuscleLoadEnum>?,
 ): ImageVector {
+
+    val style = if (includedMuscleStatuses == null) {
+        MuscleColorStyle.Default
+    } else {
+        MuscleColorStyle.Loading(includedMuscleStatuses)
+    }
 
     return when (muscleGroupEnumState) {
         MuscleGroupEnum.CHEST_MUSCLES -> {
@@ -41,8 +73,8 @@ public fun muscleImage(
             val pectoralisMajor = muscles.find { it.type == MuscleEnum.PECTORALIS_MAJOR }
 
             bodyFront(
-                pectoralisMinor = colorBySelection(pectoralisMinor, includedMuscleStatuses),
-                pectoralisMajor = colorBySelection(pectoralisMajor, includedMuscleStatuses)
+                pectoralisMinor = colorBySelection(pectoralisMinor, style),
+                pectoralisMajor = colorBySelection(pectoralisMajor, style)
             )
         }
 
@@ -53,10 +85,10 @@ public fun muscleImage(
             val teresMajor = muscles.find { it.type == MuscleEnum.TERES_MAJOR }
 
             bodyBack(
-                trapezius = colorBySelection(trapezius, includedMuscleStatuses),
-                latissimus = colorBySelection(latissimus, includedMuscleStatuses),
-                rhomboids = colorBySelection(rhomboids, includedMuscleStatuses),
-                teresMajor = colorBySelection(teresMajor, includedMuscleStatuses)
+                trapezius = colorBySelection(trapezius, style),
+                latissimus = colorBySelection(latissimus, style),
+                rhomboids = colorBySelection(rhomboids, style),
+                teresMajor = colorBySelection(teresMajor, style)
             )
         }
 
@@ -65,8 +97,8 @@ public fun muscleImage(
             val obliquesAbdominis = muscles.find { it.type == MuscleEnum.OBLIQUES }
 
             bodyFront(
-                rectusAbdominis = colorBySelection(rectusAbdominis, includedMuscleStatuses),
-                obliquesAbdominis = colorBySelection(obliquesAbdominis, includedMuscleStatuses)
+                rectusAbdominis = colorBySelection(rectusAbdominis, style),
+                obliquesAbdominis = colorBySelection(obliquesAbdominis, style)
             )
         }
 
@@ -77,10 +109,10 @@ public fun muscleImage(
             val gluteal = muscles.find { it.type == MuscleEnum.GLUTEAL }
 
             legsSplit(
-                quadriceps = colorBySelection(quadriceps, includedMuscleStatuses),
-                hamstrings = colorBySelection(hamstrings, includedMuscleStatuses),
-                calf = colorBySelection(calf, includedMuscleStatuses),
-                gluteal = colorBySelection(gluteal, includedMuscleStatuses)
+                quadriceps = colorBySelection(quadriceps, style),
+                hamstrings = colorBySelection(hamstrings, style),
+                calf = colorBySelection(calf, style),
+                gluteal = colorBySelection(gluteal, style)
             )
         }
 
@@ -90,10 +122,10 @@ public fun muscleImage(
             val forearm = muscles.find { it.type == MuscleEnum.FOREARM }
 
             bodySplit(
-                biceps = colorBySelection(biceps, includedMuscleStatuses),
-                triceps = colorBySelection(triceps, includedMuscleStatuses),
-                forearmFront = colorBySelection(forearm, includedMuscleStatuses),
-                forearmBack = colorBySelection(forearm, includedMuscleStatuses)
+                biceps = colorBySelection(biceps, style),
+                triceps = colorBySelection(triceps, style),
+                forearmFront = colorBySelection(forearm, style),
+                forearmBack = colorBySelection(forearm, style)
             )
         }
 
@@ -103,9 +135,9 @@ public fun muscleImage(
             val lateralDeltoid = muscles.find { it.type == MuscleEnum.LATERAL_DELTOID }
 
             bodySplit(
-                posteriorDeltoid = colorBySelection(posteriorDeltoid, includedMuscleStatuses),
-                anteriorDeltoid = colorBySelection(anteriorDeltoid, includedMuscleStatuses),
-                lateralDeltoidFront = colorBySelection(lateralDeltoid, includedMuscleStatuses)
+                posteriorDeltoid = colorBySelection(posteriorDeltoid, style),
+                anteriorDeltoid = colorBySelection(anteriorDeltoid, style),
+                lateralDeltoidFront = colorBySelection(lateralDeltoid, style)
             )
         }
     }

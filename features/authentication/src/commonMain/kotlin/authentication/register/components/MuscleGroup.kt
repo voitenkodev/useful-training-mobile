@@ -15,14 +15,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import atom.Design
-import authentication.register.models.Muscle
-import authentication.register.models.MuscleGroup
 import components.chips.Chip
 import components.chips.ChipState
-import equipment.IncludedStatusEnum
 import molecule.PaddingM
 import molecule.PaddingS
 import molecule.TextH4
+import muscles.Muscle
+import muscles.MuscleGroup
 import resources.Icons
 
 @Composable
@@ -76,10 +75,10 @@ private fun MuscleChip(
     selectMuscle: (id: String) -> Unit
 ) {
 
-    val contentColor = remember(muscle.status) {
-        when (muscle.status) {
-            IncludedStatusEnum.EXCLUDED -> Design.palette.caption
-            IncludedStatusEnum.INCLUDED -> Design.palette.content
+    val contentColor = remember(muscle.isSelected) {
+        when (muscle.isSelected) {
+            false -> Design.palette.caption
+            true -> Design.palette.content
         }
     }
 
@@ -89,10 +88,10 @@ private fun MuscleChip(
         contentColor = contentColor
     )
 
-    val iconStart = remember(muscle.status) {
-        when (muscle.status) {
-            IncludedStatusEnum.EXCLUDED -> Icons.grayCircle
-            IncludedStatusEnum.INCLUDED -> Icons.greenCircle
+    val iconStart = remember(muscle.isSelected) {
+        when (muscle.isSelected) {
+            false -> Icons.grayCircle
+            true -> Icons.greenCircle
         }
     }
 
