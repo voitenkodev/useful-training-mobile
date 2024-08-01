@@ -142,7 +142,7 @@ private fun Content(
 
             item {
                 TextH4(
-                    modifier = Modifier.padding(horizontal = Design.dp.paddingM),
+                    modifier = Modifier.padding(horizontal = Design.dp.paddingL),
                     provideText = { "User Data" },
                     color = Design.colors.caption
                 )
@@ -208,7 +208,7 @@ private fun Content(
 
             item {
                 TextH4(
-                    modifier = Modifier.padding(horizontal = Design.dp.paddingM),
+                    modifier = Modifier.padding(horizontal = Design.dp.paddingL),
                     provideText = { "Settings" },
                     color = Design.colors.caption
                 )
