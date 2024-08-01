@@ -1,6 +1,5 @@
 package weighthistory.main
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -20,16 +19,21 @@ import basic.LineChart
 import basic.LineChartDotsStyle
 import basic.LineChartLabelStyle
 import basic.LineChartStyle
+import components.EmptyData
 import components.Error
 import components.ShadowFooter
 import components.ShadowFooterSpace
 import components.ShadowHeader
 import components.ShadowHeaderSpace
-import components.cards.HorizontalValueCard
+import components.cards.WeightCard
 import components.roots.ScreenRoot
 import kg
 import kotlinx.collections.immutable.ImmutableList
+import molecule.PaddingM
+import molecule.PaddingS
+import molecule.PaddingXXL
 import molecule.PopupSheet
+import molecule.TextH4
 import resources.Icons
 import weighthistory.main.models.WeightHistory
 import weighthistory.main.popups.WeightPickerPopup
@@ -83,7 +87,6 @@ private fun Content(
         LazyColumn(
             modifier = Modifier.fillMaxSize(),
             contentPadding = PaddingValues(vertical = Design.dp.paddingM),
-            verticalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
         ) {
 
             item("shadow_top_space") {
@@ -91,47 +94,77 @@ private fun Content(
             }
 
             item("chart") {
-                LineChart(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = Design.dp.paddingXL)
-                        .height(130.dp),
-                    values = reversedList.map { it.weight.toFloat() },
-                    chartStyle = LineChartStyle(
-                        lineColor = Design.colors.content,
-                        labelStyle = LineChartLabelStyle(
-                            backgroundColor = Design.colors.toxic.copy(alpha = 0.2f),
-                            borderColor = Design.colors.toxic,
-                            paddings = Design.dp.paddingXS,
-                            textColor = Design.colors.content,
-                            spaceTillLine = 26.dp,
-                            borderWidth = 1.dp
-                        ),
-                        dotsStyle = LineChartDotsStyle(
-                            backgroundColor = Design.colors.orange,
-                            width = 6.dp,
-                            type = LineChartDotsStyle.DotsType.START_END
+                if (reversedList.size > 1) {
+                    LineChart(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = Design.dp.paddingXL)
+                            .height(130.dp),
+                        values = reversedList.map { it.weight.toFloat() },
+                        chartStyle = LineChartStyle(
+                            lineColor = Design.colors.content,
+                            labelStyle = LineChartLabelStyle(
+                                backgroundColor = Design.colors.toxic.copy(alpha = 0.2f),
+                                borderColor = Design.colors.toxic,
+                                paddings = Design.dp.paddingXS,
+                                textColor = Design.colors.content,
+                                spaceTillLine = 26.dp,
+                                borderWidth = 1.dp
+                            ),
+                            dotsStyle = LineChartDotsStyle(
+                                backgroundColor = Design.colors.orange,
+                                width = 6.dp,
+                                type = LineChartDotsStyle.DotsType.START_END
+                            )
                         )
                     )
+                } else {
+                    EmptyData(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = Design.dp.paddingXL)
+                            .height(130.dp),
+                        title = "Chart is unavailable",
+                        description = "Provide mode data"
+                    )
+                }
+            }
+
+            item {
+                PaddingXXL()
+                PaddingM()
+            }
+
+            item {
+                TextH4(
+                    modifier = Modifier.padding(horizontal = Design.dp.paddingL),
+                    provideText = { "History" },
+                    color = Design.colors.caption
                 )
             }
+
+            item { PaddingS() }
 
             itemsIndexed(weightHistory, key = { _, item -> item.id }) { index, item ->
 
                 val previousWeight = weightHistory.getOrNull(index + 1)?.weight ?: 0.0
 
-                val color = if (item.weight > previousWeight) Design.colors.toxic.copy(alpha = 0.5f)
-                else Design.colors.orange.copy(alpha = 0.5f)
+                val color = if (item.weight > previousWeight) Design.colors.toxic
+                else Design.colors.orange
 
                 val img = if (item.weight > previousWeight) Icons.arrowUp
                 else Icons.arrowDown
 
-                HorizontalValueCard(
+                WeightCard(
                     modifier = Modifier.padding(horizontal = Design.dp.paddingM),
                     title = item.weight.kg(true),
                     description = "At: ${item.createdAt}",
                     startIcon = img to color
                 )
+
+                if (index != weightHistory.lastIndex) {
+                    PaddingM()
+                }
             }
 
             item("shadow_bottom_space") {

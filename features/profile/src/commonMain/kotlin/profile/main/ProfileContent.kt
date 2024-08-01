@@ -2,6 +2,7 @@ package profile.main
 
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
@@ -161,7 +162,13 @@ private fun Content(
                     MenuItem(
                         icon = Icons.weigher,
                         text = "Weight",
-                        onClick = toWeightHistory
+                        onClick = toWeightHistory,
+                        paddingValues = PaddingValues(
+                            start = Design.dp.paddingL,
+                            end = Design.dp.paddingL,
+                            top = Design.dp.paddingM,
+                            bottom = Design.dp.paddingS
+                        )
                     )
 
                     HorizontalDivider(
@@ -172,7 +179,11 @@ private fun Content(
                     MenuItem(
                         icon = Icons.dumbbell,
                         text = "Exercises",
-                        onClick = toExerciseExamples
+                        onClick = toExerciseExamples,
+                        paddingValues = PaddingValues(
+                            vertical = Design.dp.paddingS,
+                            horizontal = Design.dp.paddingL
+                        )
                     )
 
                     HorizontalDivider(
@@ -188,7 +199,11 @@ private fun Content(
                     MenuItem(
                         icon = Icons.biceps,
                         text = "Muscles",
-                        onClick = toMuscles
+                        onClick = toMuscles,
+                        paddingValues = PaddingValues(
+                            vertical = Design.dp.paddingS,
+                            horizontal = Design.dp.paddingL
+                        )
                     )
 
                     HorizontalDivider(
@@ -199,7 +214,13 @@ private fun Content(
                     MenuItem(
                         icon = Icons.equipment,
                         text = "Equipment",
-                        onClick = toEquipment
+                        onClick = toEquipment,
+                        paddingValues = PaddingValues(
+                            start = Design.dp.paddingL,
+                            end = Design.dp.paddingL,
+                            top = Design.dp.paddingS,
+                            bottom = Design.dp.paddingM
+                        )
                     )
                 }
             }
@@ -225,11 +246,16 @@ private fun Content(
                         .fillMaxWidth()
                 ) {
 
-
                     MenuItem(
                         icon = Icons.card,
                         text = "Subscriptions",
-                        onClick = logout
+                        onClick = logout,
+                        paddingValues = PaddingValues(
+                            start = Design.dp.paddingL,
+                            end = Design.dp.paddingL,
+                            top = Design.dp.paddingM,
+                            bottom = Design.dp.paddingS
+                        )
                     )
 
                     HorizontalDivider(
@@ -240,7 +266,11 @@ private fun Content(
                     MenuItem(
                         icon = Icons.support,
                         text = "Support",
-                        onClick = toSupport
+                        onClick = toSupport,
+                        paddingValues = PaddingValues(
+                            vertical = Design.dp.paddingS,
+                            horizontal = Design.dp.paddingL
+                        )
                     )
 
                     HorizontalDivider(
@@ -252,7 +282,13 @@ private fun Content(
                         icon = Icons.logout,
                         text = "Logout",
                         contentColor = Design.colors.red,
-                        onClick = logout
+                        onClick = logout,
+                        paddingValues = PaddingValues(
+                            start = Design.dp.paddingL,
+                            end = Design.dp.paddingL,
+                            top = Design.dp.paddingS,
+                            bottom = Design.dp.paddingM
+                        )
                     )
                 }
             }

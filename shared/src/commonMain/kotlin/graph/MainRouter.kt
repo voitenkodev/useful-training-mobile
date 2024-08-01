@@ -6,6 +6,7 @@ import com.arkivanov.decompose.extensions.compose.stack.animation.slide
 import com.arkivanov.decompose.extensions.compose.stack.animation.stackAnimation
 import com.arkivanov.decompose.router.stack.pop
 import com.arkivanov.decompose.router.stack.push
+import components.GradientBackground
 import exerciseexample.ExerciseExampleComponent
 import exerciseexample.ExerciseExampleController
 import exerciseexample.ExerciseExampleGraph
@@ -61,6 +62,8 @@ internal fun MainGraph(toAuthentication: () -> Unit) {
     val router: Router<MainRouter> = rememberRouter(MainRouter::class) {
         listOf(MainRouter.BottomMenu)
     }
+
+    GradientBackground()
 
     ExerciseExampleComponent {
 
