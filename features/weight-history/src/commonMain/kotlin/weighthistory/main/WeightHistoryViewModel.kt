@@ -2,6 +2,8 @@ package weighthistory.main
 
 import UserRepository
 import ViewModel
+import grToKg
+import kgToGr
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -35,7 +37,7 @@ internal class WeightHistoryViewModel : ViewModel() {
     }
 
     fun updateWeight(value: Int) {
-        userApi.updateWeight(value.toDouble())
+        userApi.updateWeight(value.grToKg())
             .onStart { _state.update { it.copy(loading = true) } }
             .onEach { _state.update { it.copy(loading = false) } }
             .catch { r -> _state.update { it.copy(error = r.message, loading = false) } }
@@ -48,7 +50,7 @@ internal class WeightHistoryViewModel : ViewModel() {
 
     fun openWeightPickerPopup() {
         _state.update {
-            val lastWeight: Int = it.weightHistory.firstOrNull()?.weight?.toInt() ?: return
+            val lastWeight: Int = it.weightHistory.firstOrNull()?.weight?.kgToGr() ?: return
             it.copy(weightPickerPopupVisibleWithLastWeight = lastWeight)
         }
     }

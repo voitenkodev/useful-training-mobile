@@ -16,6 +16,7 @@ import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.text.style.TextOverflow
 import atom.Design
 import kg
+import round
 
 @Composable
 public fun LineChart(
@@ -67,7 +68,12 @@ public fun LineChart(
         val bgStyle = chartStyle.backgroundStyle
         if (bgStyle != null) {
             drawPath(
-                path = drawElement.path.apply { lineTo(size.width, size.height); lineTo(0f, size.height) },
+                path = drawElement.path.apply {
+                    lineTo(size.width, size.height); lineTo(
+                    0f,
+                    size.height
+                )
+                },
                 brush = Brush.verticalGradient(
                     0.0f to bgStyle.backgroundColor.copy(alpha = 0.6f),
                     0.9f to bgStyle.backgroundColor.copy(alpha = 0.0f)
@@ -98,11 +104,19 @@ public fun LineChart(
 
         // Labels
         val labelsStyle = chartStyle.labelStyle
+
         if (labelsStyle != null) {
             drawElement.listOfPoints.forEachIndexed { index, point ->
 
-                val text = drawElement.values.getOrNull(index)?.toDouble()?.kg(true) ?: return@forEachIndexed
+                val text = drawElement
+                    .values
+                    .getOrNull(index)
+                    ?.toDouble()
+                    ?.round(1)
+                    ?.kg(true) ?: return@forEachIndexed
+
                 val padding = labelsStyle.paddings.toPx()
+
                 val spaceTillLine = labelsStyle.spaceTillLine.toPx()
 
                 val dimensions = textMeasurer.measure(

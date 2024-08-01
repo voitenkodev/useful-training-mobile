@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import atom.Design
-import molecule.TextBody3
+import molecule.TextBody2
 import molecule.TextH4
 
 @Composable
@@ -34,7 +34,7 @@ public fun EmptyData(
             color = Design.colors.caption,
         )
 
-        TextBody3(
+        TextBody2(
             textAlign = TextAlign.Center,
             provideText = { description },
             color = Design.colors.caption,

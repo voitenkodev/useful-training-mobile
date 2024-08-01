@@ -49,7 +49,7 @@ internal fun WeightHistoryContent(
     state.weightPickerPopupVisibleWithLastWeight?.let { lastWeight ->
         PopupSheet(
             onDismiss = vm::closeWeightPickerPopup,
-            cancelable = false,
+            cancelable = true,
             content = { hideLambda ->
                 WeightPickerPopup(
                     initialWeight = lastWeight,
