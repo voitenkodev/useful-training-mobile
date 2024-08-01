@@ -23,6 +23,7 @@ kotlin {
             implementation(projects.domain.user)
             implementation(projects.domain.authentication)
 
+            implementation(projects.common.state)
             implementation(projects.common.utils)
             implementation(projects.common.architectureComponent)
 
@@ -33,6 +34,7 @@ kotlin {
 
             implementation(compose.ui)
             implementation(compose.foundation)
+            implementation(compose.material3)
             implementation(libs.immutable.collections)
             implementation(libs.koin.core)
             implementation(libs.serialization)

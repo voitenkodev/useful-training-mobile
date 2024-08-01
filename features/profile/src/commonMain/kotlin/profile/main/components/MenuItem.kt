@@ -14,7 +14,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import atom.Design
 import molecule.Icon
 import molecule.PaddingWeight
-import molecule.TextH4
+import molecule.TextLabel
 import resources.Icons
 
 @Composable
@@ -36,13 +36,13 @@ internal fun MenuItem(
 
         Icon(
             modifier = Modifier
-                .size(Design.dp.componentL)
-                .padding(Design.dp.paddingM),
+                .size(Design.dp.componentS)
+                .padding(Design.dp.paddingXS),
             imageVector = icon,
             color = contentColor
         )
 
-        TextH4(
+        TextLabel(
             provideText = { text },
             color = contentColor
         )
@@ -51,8 +51,8 @@ internal fun MenuItem(
 
         if (allowRightArrow) Icon(
             modifier = Modifier
-                .size(Design.dp.componentL)
-                .padding(Design.dp.paddingM),
+                .size(Design.dp.componentS)
+                .padding(Design.dp.paddingXS),
             imageVector = Icons.arrowRight,
             color = contentColor
         )

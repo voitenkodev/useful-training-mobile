@@ -4,7 +4,7 @@ import kg
 import meter
 import models.User
 
-public fun User.toUserState(): user.User {
+public fun User.toState(): user.User {
     return user.User(
         name = name,
         email = email,

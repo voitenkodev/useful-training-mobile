@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import org.koin.core.component.inject
-import user.mapping.toUserState
+import user.mapping.toState
 
 internal class SuccessRegistrationViewModel : ViewModel() {
 
@@ -22,7 +22,7 @@ internal class SuccessRegistrationViewModel : ViewModel() {
     init {
         userApi
             .observeUser()
-            .onEach { r -> _state.update { it.copy(user = r.toUserState()) } }
+            .onEach { r -> _state.update { it.copy(user = r.toState()) } }
             .catch { t -> _state.update { it.copy(error = t.message) } }
             .launchIn(this)
     }

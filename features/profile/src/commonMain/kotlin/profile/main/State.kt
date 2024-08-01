@@ -1,11 +1,11 @@
 package profile.main
 
 import androidx.compose.runtime.Immutable
-import profile.main.models.User
+import user.User
 
 @Immutable
 internal data class State(
-    val user: User = User(),
+    val user: User? = null,
 
     val error: String? = null,
     val loading: Boolean = false

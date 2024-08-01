@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.koin.core.component.inject
-import profile.main.mapping.toState
+import user.mapping.toState
 
 internal class ProfileViewModel : ViewModel() {
 

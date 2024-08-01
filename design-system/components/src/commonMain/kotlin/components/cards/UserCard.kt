@@ -35,10 +35,10 @@ import molecule.secondaryDefaultBackground
 public fun UserCard(
     modifier: Modifier = Modifier,
     name: String,
-    height: String?,
-    weight: String?,
-    email: String?,
-    experienceIcon: ImageVector?,
+    height: String,
+    weight: String,
+    email: String,
+    experienceIcon: ImageVector,
 ) {
 
     Box(
@@ -108,45 +108,39 @@ public fun UserCard(
 
                 PaddingWeight()
 
-                if (experienceIcon != null) {
-                    Icon(
-                        modifier = Modifier
-                            .size(Design.dp.componentS),
-                        imageVector = experienceIcon,
-                        color = Design.colors.content
-                    )
-                }
+                Icon(
+                    modifier = Modifier
+                        .size(Design.dp.componentS),
+                    imageVector = experienceIcon,
+                    color = Design.colors.content
+                )
             }
 
             PaddingWeight()
 
-            if (weight != null) {
-                TextBody3(
-                    provideText = { "Weight" },
-                    color = Design.colors.caption
-                )
-
-                PaddingS()
-
-                TextH4(
-                    provideText = { weight }
-                )
-            }
+            TextBody3(
+                provideText = { "Weight" },
+                color = Design.colors.caption
+            )
 
             PaddingS()
 
-            if (height != null) {
-                TextBody3(
-                    provideText = { "Height" },
-                    color = Design.colors.caption
-                )
+            TextH4(
+                provideText = { weight }
+            )
 
-                PaddingS()
+            PaddingS()
 
-                TextH4(
-                    provideText = { height }
-                )
-            }
+            TextBody3(
+                provideText = { "Height" },
+                color = Design.colors.caption
+            )
+
+            PaddingS()
+
+            TextH4(
+                provideText = { height }
+            )
         }
     }
 }

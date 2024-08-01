@@ -2,11 +2,14 @@ package profile.main
 
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -15,18 +18,17 @@ import atom.Design
 import components.Error
 import components.ShadowHeader
 import components.ShadowHeaderSpace
-import components.animation.Levitating
 import components.cards.UserCard
 import components.roots.ScreenRoot
 import molecule.PaddingM
 import molecule.PaddingS
 import molecule.PaddingXL
-import molecule.Shadow
-import molecule.TextH3
-import molecule.secondaryBackground
+import molecule.PaddingXXL
+import molecule.TextH4
+import molecule.secondaryDefaultBackground
 import profile.main.components.MenuItem
-import profile.main.models.User
 import resources.Icons
+import user.User
 
 @Composable
 internal fun ProfileContent(
@@ -58,7 +60,7 @@ internal fun ProfileContent(
 private fun Content(
     error: () -> String?,
     clearError: () -> Unit,
-    user: User,
+    user: User?,
     toExerciseExamples: () -> Unit,
     toMuscles: () -> Unit,
     toEquipment: () -> Unit,
@@ -83,70 +85,88 @@ private fun Content(
             }
 
             item {
-                Levitating { modifier ->
+                PaddingM()
+            }
+
+            item {
+                if (user != null) {
                     UserCard(
-                        modifier = modifier.padding(horizontal = Design.dp.paddingL),
+                        modifier = Modifier.padding(horizontal = Design.dp.paddingM),
                         name = user.name,
                         weight = user.weight,
                         height = user.height,
-                        email = "", // todo add data
-                        experienceIcon = null // todo add data
+                        email = user.email,
+                        experienceIcon = user.experience.icon
+                    )
+                } else {
+                    Spacer(
+                        modifier = Modifier
+                            .padding(horizontal = Design.dp.paddingM)
+                            .fillMaxWidth()
+                            .aspectRatio(1.72f)
                     )
                 }
             }
 
-            item { PaddingXL() }
+//            item { PaddingXL() }
+//
+//            item {
+//                TextH4(
+//                    modifier = Modifier.padding(horizontal = Design.dp.paddingM),
+//                    provideText = { "Admin panel" },
+//                    color = Design.colors.yellow
+//                )
+//            }
+//
+//            item { PaddingS() }
+//
+//            item {
+//                Column(
+//                    modifier = Modifier
+//                        .padding(horizontal = Design.dp.paddingM)
+//                        .secondaryDefaultBackground()
+//                        .fillMaxWidth()
+//                ) {
+//                    MenuItem(
+//                        icon = Icons.person,
+//                        text = "Exercise Builder",
+//                        onClick = toExerciseExampleBuilder
+//                    )
+//                }
+//            }
 
             item {
-                TextH3(
+                PaddingXXL()
+                PaddingM()
+            }
+
+            item {
+                TextH4(
                     modifier = Modifier.padding(horizontal = Design.dp.paddingM),
-                    provideText = { "Admin" }
+                    provideText = { "User Data" },
+                    color = Design.colors.caption
                 )
             }
 
-            item { PaddingM() }
+            item { PaddingS() }
 
             item {
-                Column(modifier = Modifier.secondaryBackground().fillMaxWidth()) {
-
-                    Shadow()
-
-                    PaddingS()
-
-                    MenuItem(
-                        icon = Icons.handWeight,
-                        text = "Exercise Builder",
-                        onClick = toExerciseExampleBuilder
-                    )
-
-                    PaddingS()
-
-                    Shadow()
-                }
-            }
-
-            item { PaddingXL() }
-
-            item {
-                TextH3(
-                    modifier = Modifier.padding(horizontal = Design.dp.paddingM),
-                    provideText = { "Menu" }
-                )
-            }
-
-            item { PaddingM() }
-
-            item {
-                Column(modifier = Modifier.secondaryBackground().fillMaxWidth()) {
-
-                    Shadow()
-
-                    PaddingS()
+                Column(
+                    modifier = Modifier
+                        .padding(horizontal = Design.dp.paddingM)
+                        .secondaryDefaultBackground()
+                        .fillMaxWidth()
+                ) {
 
                     MenuItem(
                         icon = Icons.weigher,
-                        text = "Weight History",
+                        text = "Weight",
                         onClick = toWeightHistory
+                    )
+
+                    HorizontalDivider(
+                        modifier = Modifier.fillMaxWidth(),
+                        color = Design.colors.white5
                     )
 
                     MenuItem(
@@ -155,10 +175,25 @@ private fun Content(
                         onClick = toExerciseExamples
                     )
 
+                    HorizontalDivider(
+                        modifier = Modifier.fillMaxWidth(),
+                        color = Design.colors.white5
+                    )
+
+                    HorizontalDivider(
+                        modifier = Modifier.fillMaxWidth(),
+                        color = Design.colors.white5
+                    )
+
                     MenuItem(
                         icon = Icons.biceps,
                         text = "Muscles",
                         onClick = toMuscles
+                    )
+
+                    HorizontalDivider(
+                        modifier = Modifier.fillMaxWidth(),
+                        color = Design.colors.white5
                     )
 
                     MenuItem(
@@ -166,36 +201,40 @@ private fun Content(
                         text = "Equipment",
                         onClick = toEquipment
                     )
-
-                    PaddingS()
-
-                    Shadow()
                 }
             }
 
-            item { PaddingXL() }
+            item { PaddingXXL() }
 
             item {
-                TextH3(
+                TextH4(
                     modifier = Modifier.padding(horizontal = Design.dp.paddingM),
-                    provideText = { "Settings" }
+                    provideText = { "Settings" },
+                    color = Design.colors.caption
                 )
             }
 
-            item { PaddingM() }
+            item { PaddingS() }
 
             item {
 
-                Column(modifier = Modifier.secondaryBackground().fillMaxWidth()) {
+                Column(
+                    modifier = Modifier
+                        .padding(horizontal = Design.dp.paddingM)
+                        .secondaryDefaultBackground()
+                        .fillMaxWidth()
+                ) {
 
-                    Shadow()
-
-                    PaddingS()
 
                     MenuItem(
                         icon = Icons.card,
                         text = "Subscriptions",
                         onClick = logout
+                    )
+
+                    HorizontalDivider(
+                        modifier = Modifier.fillMaxWidth(),
+                        color = Design.colors.white5
                     )
 
                     MenuItem(
@@ -204,18 +243,21 @@ private fun Content(
                         onClick = toSupport
                     )
 
+                    HorizontalDivider(
+                        modifier = Modifier.fillMaxWidth(),
+                        color = Design.colors.white5
+                    )
+
                     MenuItem(
                         icon = Icons.logout,
                         text = "Logout",
                         contentColor = Design.colors.red,
                         onClick = logout
                     )
-
-                    PaddingS()
-
-                    Shadow()
                 }
             }
+
+            item { PaddingXL() }
         }
 
         ShadowHeader(
