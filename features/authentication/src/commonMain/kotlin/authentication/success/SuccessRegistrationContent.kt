@@ -11,7 +11,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import atom.Design
@@ -27,6 +26,7 @@ import molecule.PaddingXS
 import molecule.PaddingXXL
 import molecule.TextBody2
 import molecule.TextH2
+import user.User
 
 @Composable
 internal fun SuccessRegistrationContent(
@@ -37,11 +37,7 @@ internal fun SuccessRegistrationContent(
     val state by vm.state.collectAsState()
 
     Content(
-        name = state.name,
-        height = state.height,
-        weight = state.weight,
-        email = state.email,
-        experienceIcon = state.experienceIcon,
+        user = state.user,
         toTrainings = toTrainings,
         error = state.error,
         clearError = vm::clearError
@@ -50,11 +46,7 @@ internal fun SuccessRegistrationContent(
 
 @Composable
 private fun Content(
-    name: String,
-    height: String,
-    email: String,
-    weight: String,
-    experienceIcon: ImageVector?,
+    user: User?,
     toTrainings: () -> Unit,
     error: String?,
     clearError: () -> Unit
@@ -90,21 +82,23 @@ private fun Content(
 
             PaddingXXL()
 
-            UserCard(
-                modifier = Modifier
-                    .padding(Design.dp.paddingL)
-                    .shadow(
-                        elevation = 5.dp,
-                        ambientColor = Design.colors.white10,
-                        spotColor = Design.colors.white10,
-                        shape = Design.shape.default,
-                    ),
-                name = name,
-                weight = weight,
-                email = email,
-                experienceIcon = experienceIcon,
-                height = height,
-            )
+            if (user != null) {
+                UserCard(
+                    modifier = Modifier
+                        .padding(Design.dp.paddingL)
+                        .shadow(
+                            elevation = 5.dp,
+                            ambientColor = Design.colors.white10,
+                            spotColor = Design.colors.white10,
+                            shape = Design.shape.default,
+                        ),
+                    name = user.name,
+                    weight = user.weight,
+                    email = user.email,
+                    experienceIcon = user.experience.icon,
+                    height = user.height,
+                )
+            }
 
             PaddingWeight()
 

@@ -36,6 +36,9 @@ kotlin {
 
             // User
             implementation(projects.domain.user)
+
+            implementation(projects.common.utils)
+
         }
     }
 }

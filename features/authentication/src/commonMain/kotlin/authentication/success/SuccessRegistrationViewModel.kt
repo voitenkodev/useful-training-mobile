@@ -2,7 +2,6 @@ package authentication.success
 
 import UserRepository
 import ViewModel
-import kg
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -10,9 +9,8 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
-import meter
 import org.koin.core.component.inject
-import user.mapping.toExperienceEnumState
+import user.mapping.toUserState
 
 internal class SuccessRegistrationViewModel : ViewModel() {
 
@@ -24,17 +22,8 @@ internal class SuccessRegistrationViewModel : ViewModel() {
     init {
         userApi
             .observeUser()
-            .onEach { r ->
-                _state.update {
-                    it.copy(
-                        name = r.name,
-                        weight = r.weight.kg(true),
-                        height = r.height.meter(true),
-                        email = r.email,
-                        experienceIcon = r.experience.toExperienceEnumState()?.icon
-                    )
-                }
-            }.catch { t -> _state.update { it.copy(error = t.message) } }
+            .onEach { r -> _state.update { it.copy(user = r.toUserState()) } }
+            .catch { t -> _state.update { it.copy(error = t.message) } }
             .launchIn(this)
     }
 
