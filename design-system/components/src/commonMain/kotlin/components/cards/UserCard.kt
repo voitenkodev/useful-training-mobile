@@ -20,6 +20,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.TileMode
 import androidx.compose.ui.graphics.drawscope.Fill
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import atom.Design
 import molecule.Icon
@@ -36,6 +37,7 @@ public fun UserCard(
     name: String,
     height: String?,
     weight: String?,
+    email: String?,
     experienceIcon: ImageVector?,
 ) {
 
@@ -44,7 +46,7 @@ public fun UserCard(
             .border(width = 1.dp, shape = Design.shape.default, color = Design.colors.white5)
             .secondaryDefaultBackground()
             .fillMaxWidth()
-            .aspectRatio(1.66f)
+            .aspectRatio(1.72f)
             .clipToBounds()
     ) {
 
@@ -69,10 +71,19 @@ public fun UserCard(
             )
         }
 
+        TextBody3(
+            modifier = Modifier
+                .padding(Design.dp.paddingM)
+                .align(Alignment.BottomEnd),
+            provideText = { email },
+            fontWeight = FontWeight.Medium,
+            color = Design.colors.white30
+        )
+
         Column(
             modifier = Modifier.padding(
-                vertical = Design.dp.paddingL,
-                horizontal = Design.dp.paddingL
+                vertical = Design.dp.paddingM,
+                horizontal = Design.dp.paddingM
             )
         ) {
 

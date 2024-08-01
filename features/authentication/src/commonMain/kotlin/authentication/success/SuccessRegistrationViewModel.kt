@@ -2,7 +2,6 @@ package authentication.success
 
 import UserRepository
 import ViewModel
-import authentication.register.models.ExperienceEnum
 import kg
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -13,6 +12,7 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import meter
 import org.koin.core.component.inject
+import user.mapping.toExperienceEnumState
 
 internal class SuccessRegistrationViewModel : ViewModel() {
 
@@ -29,23 +29,13 @@ internal class SuccessRegistrationViewModel : ViewModel() {
                     it.copy(
                         name = r.name,
                         weight = r.weight.kg(true),
-                        height = r.height.meter(true)
+                        height = r.height.meter(true),
+                        email = r.email,
+                        experienceIcon = r.experience.toExperienceEnumState()?.icon
                     )
                 }
             }.catch { t -> _state.update { it.copy(error = t.message) } }
             .launchIn(this)
-
-        // todo remove it
-        val expEnum = ExperienceEnum.INTERMEDIATE
-
-        _state.update {
-            it.copy(
-                name = "Adam Sandler",
-                weight = 122.0.kg(true),
-                height = 188.0.meter(true),
-                experienceIcon = expEnum.icon
-            )
-        }
     }
 
     fun clearError() {

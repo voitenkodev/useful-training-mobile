@@ -40,6 +40,7 @@ internal fun SuccessRegistrationContent(
         name = state.name,
         height = state.height,
         weight = state.weight,
+        email = state.email,
         experienceIcon = state.experienceIcon,
         toTrainings = toTrainings,
         error = state.error,
@@ -51,6 +52,7 @@ internal fun SuccessRegistrationContent(
 private fun Content(
     name: String,
     height: String,
+    email: String,
     weight: String,
     experienceIcon: ImageVector?,
     toTrainings: () -> Unit,
@@ -99,6 +101,7 @@ private fun Content(
                     ),
                 name = name,
                 weight = weight,
+                email = email,
                 experienceIcon = experienceIcon,
                 height = height,
             )

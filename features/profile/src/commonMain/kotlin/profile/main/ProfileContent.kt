@@ -89,6 +89,7 @@ private fun Content(
                         name = user.name,
                         weight = user.weight,
                         height = user.height,
+                        email = "", // todo add data
                         experienceIcon = null // todo add data
                     )
                 }

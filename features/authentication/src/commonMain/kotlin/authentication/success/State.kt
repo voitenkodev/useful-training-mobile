@@ -8,6 +8,7 @@ internal data class State(
     val name: String = "",
     val height: String = "",
     val weight: String = "",
+    val email: String = "",
     val experienceIcon: ImageVector? = null,
     val error: String? = null
 )
