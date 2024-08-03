@@ -3,7 +3,6 @@ package usermuscles.main
 import MusclesRepository
 import UserRepository
 import ViewModel
-import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -11,11 +10,10 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.update
+import models.MuscleStatusEnum
+import muscles.mapping.toState
 import org.koin.core.component.inject
-import usermuscles.main.mapping.toState
-import usermuscles.main.models.StatusEnum
 
 internal class UserMusclesViewModel : ViewModel() {
 
@@ -28,7 +26,20 @@ internal class UserMusclesViewModel : ViewModel() {
     init {
         musclesApi
             .observeMuscles()
-            .onEach { r -> _state.update { it.copy(muscleGroups = r.toState()) } }
+            .onEach { r ->
+                val muscleGroupState = r.toState(
+                    eachMuscle = { m ->
+                        val isSelected = when (m.status) {
+                            MuscleStatusEnum.EXCLUDED -> false
+                            MuscleStatusEnum.UNKNOWN -> null
+                            else -> true
+                        }
+                        m.toState(isSelected = isSelected ?: false)
+                    }
+                )
+
+                _state.update { it.copy(muscleGroups = muscleGroupState) }
+            }
             .catch { r -> _state.update { it.copy(error = r.message) } }
             .launchIn(this)
 
@@ -39,29 +50,20 @@ internal class UserMusclesViewModel : ViewModel() {
 
     fun selectMuscle(id: String) {
         _state.update {
-            it.copy(
-                muscleGroups = it.muscleGroups.map { mt ->
-                    mt.copy(
-                        muscles = mt.muscles.map { m ->
-                            m.copy(loading = id == m.id)
-                        }.toPersistentList()
-                    )
-                }.toPersistentList()
-            )
+            it.copy(loadingById = id)
         }
 
         val muscle = state.value.muscleGroups
             .flatMap { it.muscles }
             .find { it.id == id } ?: return
 
-        val flow = if (muscle.status == StatusEnum.EXCLUDED) userApi.deleteExcludedMuscle(muscle.id)
+        val flow = if (muscle.isSelected.not()) userApi.deleteExcludedMuscle(muscle.id)
         else userApi.setExcludedMuscle(muscle.id)
 
         flow
             .flatMapConcat { musclesApi.syncUserMuscles() }
-            .onStart { _state.update { it.copy(loading = true) } }
-            .catch { r -> _state.update { it.copy(error = r.message, loading = false) } }
-            .onEach { _state.update { it.copy(loading = false) } }
+            .catch { r -> _state.update { it.copy(error = r.message, loadingById = null) } }
+            .onEach { _state.update { it.copy(loadingById = null) } }
             .launchIn(this)
     }
 

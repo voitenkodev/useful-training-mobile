@@ -18,9 +18,9 @@ import components.roots.ScreenRoot
 import kotlinx.collections.immutable.ImmutableList
 import molecule.Shadow
 import molecule.primaryBackground
+import muscles.MuscleGroup
 import usermuscles.main.components.Header
 import usermuscles.main.components.MuscleGroup
-import usermuscles.main.models.MuscleGroup
 
 @Composable
 internal fun UserMusclesContent(vm: UserMusclesViewModel, close: () -> Unit) {
@@ -29,6 +29,7 @@ internal fun UserMusclesContent(vm: UserMusclesViewModel, close: () -> Unit) {
 
     Content(
         error = state.error,
+        loadingById = state.loadingById,
         list = state.muscleGroups,
         clearError = vm::clearError,
         selectMuscle = vm::selectMuscle,
@@ -40,6 +41,7 @@ internal fun UserMusclesContent(vm: UserMusclesViewModel, close: () -> Unit) {
 private fun Content(
     error: String?,
     clearError: () -> Unit,
+    loadingById: String? = null,
     list: ImmutableList<MuscleGroup>,
     selectMuscle: (id: String) -> Unit,
     close: () -> Unit
@@ -51,13 +53,16 @@ private fun Content(
 
             Header(close = close)
 
-            if (list.isNotEmpty()) LazyColumn(modifier = Modifier.fillMaxWidth().weight(1f).primaryBackground()) {
+            if (list.isNotEmpty()) LazyColumn(
+                modifier = Modifier.fillMaxWidth().weight(1f).primaryBackground()
+            ) {
 
                 itemsIndexed(list, key = { _, item -> item.id }) { index, item ->
 
                     MuscleGroup(
                         item = item,
-                        selectMuscle = selectMuscle
+                        selectMuscle = selectMuscle,
+                        loadingById = loadingById
                     )
 
                     if (index < list.lastIndex) Shadow()

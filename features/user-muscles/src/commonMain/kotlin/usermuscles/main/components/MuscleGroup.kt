@@ -20,14 +20,14 @@ import components.chips.ChipState
 import molecule.PaddingM
 import molecule.PaddingS
 import molecule.TextH4
+import muscles.Muscle
+import muscles.MuscleGroup
 import resources.Icons
-import usermuscles.main.models.Muscle
-import usermuscles.main.models.MuscleGroup
-import usermuscles.main.models.StatusEnum
 
 @Composable
 internal fun MuscleGroup(
     item: MuscleGroup,
+    loadingById: String? = null,
     selectMuscle: (id: String) -> Unit
 ) {
 
@@ -61,6 +61,7 @@ internal fun MuscleGroup(
             Column(verticalArrangement = Arrangement.spacedBy(Design.dp.paddingS)) {
                 item.muscles.forEach { muscle ->
                     MuscleChip(
+                        loadingById = loadingById,
                         muscle = muscle,
                         selectMuscle = selectMuscle
                     )
@@ -72,14 +73,15 @@ internal fun MuscleGroup(
 
 @Composable
 private fun MuscleChip(
+    loadingById: String? = null,
     muscle: Muscle,
     selectMuscle: (id: String) -> Unit
 ) {
 
-    val contentColor = remember(muscle.status) {
-        when (muscle.status) {
-            StatusEnum.EXCLUDED -> Design.palette.caption
-            StatusEnum.INCLUDED -> Design.palette.content
+    val contentColor = remember(muscle.isSelected) {
+        when (muscle.isSelected) {
+            false -> Design.palette.caption
+            true -> Design.palette.content
         }
     }
 
@@ -89,10 +91,10 @@ private fun MuscleChip(
         contentColor = contentColor
     )
 
-    val iconStart = remember(muscle.status) {
-        when (muscle.status) {
-            StatusEnum.EXCLUDED -> Icons.redCircle
-            StatusEnum.INCLUDED -> Icons.greenCircle
+    val iconStart = remember(muscle.isSelected) {
+        when (muscle.isSelected) {
+            false -> Icons.grayCircle
+            true -> Icons.greenCircle
         }
     }
 
@@ -100,7 +102,7 @@ private fun MuscleChip(
         chipState = chipState,
         onClick = { selectMuscle.invoke(muscle.id) },
         text = muscle.name,
-        loading = muscle.loading,
+        loading = loadingById == muscle.id,
         iconStart = iconStart
     )
 }

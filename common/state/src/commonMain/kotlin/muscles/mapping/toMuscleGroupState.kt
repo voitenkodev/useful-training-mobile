@@ -2,39 +2,43 @@ package muscles.mapping
 
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toPersistentList
+import models.Muscle
 import muscles.MuscleGroup
 import muscles.MuscleGroupEnum
 import muscles.MuscleLoadEnum
 import muscles.factories.muscleImage
 
 public fun List<models.MuscleGroup>.toState(
-    muscleLoad: ImmutableList<MuscleLoadEnum>? = null,
-    defaultMuscleGroupSelection: Boolean = false,
-    defaultMuscleSelection: Boolean = false
+    load: ImmutableList<MuscleLoadEnum>? = null,
+    eachMuscle: (Muscle) -> muscles.Muscle? = {
+        it.toState(isSelected = false)
+    },
+    eachMuscleGroup: (models.MuscleGroup) -> MuscleGroup? = {
+        it.toState(isSelected = false, load = load, eachMuscle = eachMuscle)
+    },
 ): ImmutableList<MuscleGroup> {
-    return mapNotNull {
-        it.toState(
-            muscleLoad,
-            defaultMuscleGroupSelection,
-            defaultMuscleSelection
-        )
-    }.toPersistentList()
+    return mapNotNull(eachMuscleGroup)
+        .toPersistentList()
 }
 
 public fun models.MuscleGroup.toState(
+    isSelected: Boolean = false,
     load: ImmutableList<MuscleLoadEnum>?,
-    defaultMuscleGroupSelection: Boolean,
-    defaultMuscleSelection: Boolean
+    eachMuscle: (Muscle) -> muscles.Muscle? = { it.toState(false) },
 ): MuscleGroup? {
 
-    val typeState = type.toState() ?: return null
-    val muscleState = muscles.toState(defaultMuscleSelection)
+    val typeState = type
+        .toState() ?: return null
+
+    val muscleState = muscles
+        .mapNotNull(eachMuscle)
+        .toPersistentList()
 
     return MuscleGroup(
         name = name,
         id = id,
         muscles = muscleState,
-        isSelected = defaultMuscleGroupSelection,
+        isSelected = isSelected,
         type = typeState,
         bodyImageVector = muscleImage(typeState, muscleState, load)
     )

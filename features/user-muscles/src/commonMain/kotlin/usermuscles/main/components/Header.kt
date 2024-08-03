@@ -61,7 +61,7 @@ internal fun Header(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS),
                     content = {
-                        IconImage(modifier = Modifier.size(20.dp), imageVector = Icons.redCircle)
+                        IconImage(modifier = Modifier.size(20.dp), imageVector = Icons.grayCircle)
                         TextBody3(provideText = { "Excluded" })
                     }
                 )

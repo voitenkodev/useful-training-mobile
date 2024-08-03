@@ -27,7 +27,13 @@ internal class MusclePickerViewModel : ViewModel() {
             .observeMuscles()
             .onEach { r ->
                 _state.update { st ->
-                    val result = r.toState(st.includedMuscleStatuses)
+                    val result = r.mapNotNull {
+                        it.toState(
+                            load = st.includedMuscleStatuses,
+                            isSelected = false,
+                            eachMuscle = { m -> m.toState(isSelected = false) }
+                        )
+                    }.toPersistentList()
 
                     val filteredTypes = result
                         .flatMap { it.muscles }

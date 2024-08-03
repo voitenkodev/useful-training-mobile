@@ -51,7 +51,14 @@ internal class RegistrationViewModel : ViewModel() {
         musclesApi
             .observeMuscles()
             .onEach { r ->
-                _state.update { it.copy(muscleGroups = r.toState(defaultMuscleSelection = true)) }
+                _state.update {
+                    it.copy(
+                        muscleGroups = r
+                            .toState(
+                                eachMuscle = { m -> m.toState(isSelected = true) }
+                            )
+                    )
+                }
             }
             .catch { r -> _state.update { it.copy(error = r.message) } }
             .launchIn(this)

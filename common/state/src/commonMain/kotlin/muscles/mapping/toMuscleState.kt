@@ -1,26 +1,17 @@
 package muscles.mapping
 
-import kotlinx.collections.immutable.ImmutableList
-import kotlinx.collections.immutable.toPersistentList
 import models.Muscle
 import models.MuscleStatusEnum
 import muscles.MuscleEnum
 
-public fun List<Muscle>.toState(
-    defaultMuscleSelection: Boolean
-): ImmutableList<muscles.Muscle> {
-    return mapNotNull { it.toState(defaultMuscleSelection) }
-        .sortedBy { it.load }
-        .toPersistentList()
-}
-
 public fun Muscle.toState(
-    defaultMuscleSelection: Boolean
+    isSelected: Boolean
 ): muscles.Muscle? {
+
     return muscles.Muscle(
         name = name,
         id = id,
-        isSelected = defaultMuscleSelection,
+        isSelected = isSelected,
         load = status.toState(),
         type = type.toState() ?: return null
     )
