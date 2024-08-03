@@ -70,7 +70,7 @@ internal fun Header(
                         contentColor = Design.palette.content
                     ),
                     text = "Included",
-                    iconStart = Icons.greenCircle
+                    iconStart = Icons.checkOn
                 )
 
                 Chip(
@@ -80,7 +80,7 @@ internal fun Header(
                         contentColor = Design.palette.caption
                     ),
                     text = "Excluded",
-                    iconStart = Icons.grayCircle
+                    iconStart = Icons.checkOff
                 )
             }
         }

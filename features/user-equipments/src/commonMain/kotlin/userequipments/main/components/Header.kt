@@ -51,7 +51,7 @@ internal fun Header(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS),
                     content = {
-                        IconImage(modifier = Modifier.size(20.dp), imageVector = Icons.greenCircle)
+                        IconImage(modifier = Modifier.size(20.dp), imageVector = Icons.checkOn)
                         TextBody3(provideText = { "Included" })
                     }
                 )

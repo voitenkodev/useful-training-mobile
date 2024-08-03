@@ -93,8 +93,8 @@ private fun MuscleChip(
 
     val iconStart = remember(muscle.isSelected) {
         when (muscle.isSelected) {
-            false -> Icons.grayCircle
-            true -> Icons.greenCircle
+            false -> Icons.checkOff
+            true -> Icons.checkOn
         }
     }
 

@@ -16,6 +16,8 @@ import resources.icons.Advanced
 import resources.icons.Beginner
 import resources.icons.Biceps
 import resources.icons.Chart
+import resources.icons.CheckOff
+import resources.icons.CheckOn
 import resources.icons.Close
 import resources.icons.Delete
 import resources.icons.Done
@@ -24,8 +26,6 @@ import resources.icons.Equipment
 import resources.icons.Eye
 import resources.icons.EyeOff
 import resources.icons.Filters
-import resources.icons.GrayCircle
-import resources.icons.GreenCircle
 import resources.icons.HandWeight
 import resources.icons.HighBattery
 import resources.icons.Intermediate
@@ -79,9 +79,9 @@ public object Icons {
     public val biceps: ImageVector = Biceps
     public val equipment: ImageVector = Equipment
     public val note: ImageVector = Icons.Default.Notifications
-    public val greenCircle: ImageVector = GreenCircle
+    public val checkOn: ImageVector = CheckOn
+    public val checkOff: ImageVector = CheckOff
     public val redCircle: ImageVector = RedCircle
-    public val grayCircle: ImageVector = GrayCircle
     public val repetitions: ImageVector = Repetitions
     public val beginner: ImageVector = Beginner
     public val advanced: ImageVector = Advanced

@@ -90,7 +90,7 @@ public fun Chip(
             ).then(internalModifier)
             .shimmerLoadingAnimation(visible = loading)
             .padding(
-                horizontal = Design.dp.paddingM,
+                horizontal = Design.dp.paddingS,
                 vertical = Design.dp.paddingS
             ),
         horizontalArrangement = Arrangement.Center,
@@ -123,5 +123,7 @@ public fun Chip(
                 imageVector = iconEnd
             )
         }
+
+        PaddingS()
     }
 }
