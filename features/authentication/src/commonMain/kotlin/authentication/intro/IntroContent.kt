@@ -66,7 +66,7 @@ private fun Content(
             PaddingXXL()
 
             TextH1(
-                provideText = { "Alien Workout" },
+                provideText = { "ALIEN WORKOUT" },
             )
 
             PaddingWeight()

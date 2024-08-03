@@ -15,7 +15,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.unit.dp
 import atom.Design
 
 @Composable
@@ -65,8 +64,7 @@ public fun Toolbar(title: String, icon: Pair<ImageVector, () -> Unit>? = null) {
         if (icon != null) ButtonIconTransparent(
             modifier = Modifier
                 .align(Alignment.CenterEnd)
-                .padding(horizontal = Design.dp.paddingM)
-                .padding(bottom = 2.dp),
+                .padding(horizontal = Design.dp.paddingM),
             imageVector = icon.first,
             contentColor = Design.colors.content,
             onClick = icon.second
