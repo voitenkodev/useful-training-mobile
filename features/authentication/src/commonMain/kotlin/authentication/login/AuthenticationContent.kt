@@ -94,8 +94,6 @@ private fun Content(
 
             PaddingXXL()
 
-            PaddingXXL()
-
             TextH2(provideText = { "Sign In" }, textAlign = TextAlign.Center)
 
             PaddingXS()

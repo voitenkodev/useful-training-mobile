@@ -89,7 +89,7 @@ private fun Content(
 
             ButtonPrimary(
                 modifier = Modifier.fillMaxWidth().padding(horizontal = Design.dp.paddingL),
-                text = "Join Us",
+                text = "Get Started",
                 onClick = registration
             )
 

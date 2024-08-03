@@ -17,7 +17,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import atom.Design
 import molecule.Icon
-import molecule.PaddingS
+import molecule.PaddingXS
 import molecule.TextBody3
 import molecule.TextH4
 import molecule.coloredDefaultBackgroundNoBorder
@@ -55,7 +55,7 @@ public fun HorizontalValueCard(
 
     Row(
         modifier = actionModifierProvider.padding(
-            vertical = Design.dp.paddingS,
+            vertical = Design.dp.paddingM,
             horizontal = Design.dp.paddingM
         ),
         horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM),
@@ -80,20 +80,16 @@ public fun HorizontalValueCard(
             verticalArrangement = Arrangement.Center
         ) {
 
-            PaddingS()
-
             TextH4(
                 provideText = { title }
             )
 
-            PaddingS()
+            PaddingXS()
 
             TextBody3(
                 provideText = { description },
                 color = Design.colors.caption
             )
-
-            PaddingS()
         }
 
         if (endIcon != null) {

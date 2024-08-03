@@ -15,13 +15,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import atom.Design
-import components.ShadowFooter
+import components.ShadowBottomButtons
 import components.ShadowFooterSpace
 import components.cards.HorizontalValueCard
 import kotlinx.collections.immutable.ImmutableList
+import molecule.ButtonPrimary
+import molecule.ButtonSecondary
+import molecule.PaddingL
 import molecule.PaddingXL
 import molecule.PaddingXS
-import molecule.PaddingXXL
 import molecule.TextBody2
 import molecule.TextH2
 import user.ExperienceEnum
@@ -31,7 +33,8 @@ internal fun ExperiencePage(
     experiences: ImmutableList<ExperienceEnum>,
     experience: ExperienceEnum?,
     update: (ExperienceEnum) -> Unit,
-    confirm: () -> Unit
+    confirm: () -> Unit,
+    back: () -> Unit,
 ) {
 
     Box(modifier = Modifier.fillMaxSize()) {
@@ -41,7 +44,7 @@ internal fun ExperiencePage(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-            PaddingXXL()
+            PaddingL()
 
             TextH2(provideText = { "Experience" }, textAlign = TextAlign.Center)
 
@@ -77,9 +80,23 @@ internal fun ExperiencePage(
             }
         }
 
-        ShadowFooter(
+        ShadowBottomButtons(
             modifier = Modifier.fillMaxWidth().align(Alignment.BottomCenter),
-            primary = Triple("Continue", experience != null, confirm)
+            first = {
+                ButtonSecondary(
+                    modifier = Modifier.weight(1f),
+                    text = "Back",
+                    onClick = back
+                )
+            },
+            second = {
+                ButtonPrimary(
+                    modifier = Modifier.weight(1f),
+                    text = "Next",
+                    onClick = confirm,
+                    enabled = experience != null
+                )
+            }
         )
     }
 }

@@ -25,6 +25,7 @@ public data class Color(
     val orange: Color = Color(0xfffc5e0f),
     val yellow: Color = Color(0xffffba00),
     val toxic: Color = Color(0xff2afa2d),
+    val gray: Color = Color(0xff2E2E3E),
 
     // Accent Secondary
     val red: Color = Color(0xffff0000)

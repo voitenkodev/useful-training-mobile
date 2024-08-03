@@ -149,38 +149,44 @@ private fun Content(
                     0 -> NamePage(
                         name = name,
                         updateName = updateName,
-                        confirm = nextStep
+                        confirm = nextStep,
+                        back = { previousStep.invoke(backProvider) }
                     )
 
                     1 -> WeightPage(
                         weight = weight,
                         updateWeight = updateWeight,
-                        confirm = nextStep
+                        confirm = nextStep,
+                        back = { previousStep.invoke(backProvider) }
                     )
 
                     2 -> HeightPage(
                         height = height,
                         updateHeight = updateHeight,
-                        confirm = nextStep
+                        confirm = nextStep,
+                        back = { previousStep.invoke(backProvider) }
                     )
 
                     3 -> ExperiencePage(
                         experiences = experiences,
                         experience = experience,
                         update = selectExperience,
-                        confirm = nextStep
+                        confirm = nextStep,
+                        back = { previousStep.invoke(backProvider) }
                     )
 
                     4 -> ExcludeMusclePage(
                         muscles = muscles,
                         selectMuscle = selectMuscle,
-                        confirm = nextStep
+                        confirm = nextStep,
+                        back = { previousStep.invoke(backProvider) }
                     )
 
                     5 -> ExcludeEquipmentPage(
                         equipments = equipments,
                         selectEquipment = selectEquipment,
-                        confirm = nextStep
+                        confirm = nextStep,
+                        back = { previousStep.invoke(backProvider) }
                     )
 
                     6 -> CredentialsPage(
@@ -191,7 +197,8 @@ private fun Content(
                         passwordRepeat = passwordRepeat,
                         updatePasswordRepeat = updatePasswordRepeat,
                         loading = loading,
-                        confirm = registration
+                        confirm = registration,
+                        back = { previousStep.invoke(backProvider) }
                     )
                 }
             }

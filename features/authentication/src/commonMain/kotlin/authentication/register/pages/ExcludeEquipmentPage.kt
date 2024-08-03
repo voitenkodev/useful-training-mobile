@@ -12,13 +12,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import atom.Design
 import authentication.register.components.EquipmentGroup
-import components.ShadowFooter
+import components.ShadowBottomButtons
 import components.ShadowFooterSpace
 import equipment.EquipmentGroup
 import kotlinx.collections.immutable.ImmutableList
+import molecule.ButtonPrimary
+import molecule.ButtonSecondary
+import molecule.PaddingL
 import molecule.PaddingXL
 import molecule.PaddingXS
-import molecule.PaddingXXL
 import molecule.Shadow
 import molecule.TextBody2
 import molecule.TextH2
@@ -27,7 +29,8 @@ import molecule.TextH2
 internal fun ExcludeEquipmentPage(
     equipments: ImmutableList<EquipmentGroup>,
     selectEquipment: (id: String) -> Unit,
-    confirm: () -> Unit
+    confirm: () -> Unit,
+    back: () -> Unit
 ) {
 
     Box(modifier = Modifier.fillMaxSize()) {
@@ -36,7 +39,7 @@ internal fun ExcludeEquipmentPage(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-            PaddingXXL()
+            PaddingL()
 
             TextH2(provideText = { "Equipment" }, textAlign = TextAlign.Center)
 
@@ -68,9 +71,22 @@ internal fun ExcludeEquipmentPage(
             }
         }
 
-        ShadowFooter(
+        ShadowBottomButtons(
             modifier = Modifier.fillMaxWidth().align(Alignment.BottomCenter),
-            primary = Triple("Continue", true, confirm)
+            first = {
+                ButtonSecondary(
+                    modifier = Modifier.weight(1f),
+                    text = "Back",
+                    onClick = back
+                )
+            },
+            second = {
+                ButtonPrimary(
+                    modifier = Modifier.weight(1f),
+                    text = "Next",
+                    onClick = confirm,
+                )
+            }
         )
     }
 }

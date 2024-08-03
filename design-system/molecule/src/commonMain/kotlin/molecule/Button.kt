@@ -134,7 +134,7 @@ public fun ButtonSecondary(
         modifier = modifier
             .requiredHeight(Design.dp.componentM)
             .border(
-                color = if (enabled) Design.colors.content else Color.Transparent,
+                color = if (enabled) Design.colors.white50 else Color.Transparent,
                 width = 1.dp,
                 shape = Design.shape.circleShape
             ).background(
@@ -222,7 +222,12 @@ public fun ButtonPrimarySmall(
     ) {
         AnimatedVisibility(loading.not()) {
             TextField(
-                modifier = Modifier.padding(PaddingValues(horizontal = Design.dp.paddingL, vertical = Design.dp.paddingS)),
+                modifier = Modifier.padding(
+                    PaddingValues(
+                        horizontal = Design.dp.paddingL,
+                        vertical = Design.dp.paddingS
+                    )
+                ),
                 provideText = { text },
                 textStyle = Design.typography.PrimaryButton.copy(color = textColor)
             )
@@ -269,7 +274,10 @@ public fun ButtonSecondarySmall(
     Button(
         modifier = modifier,
         text = text,
-        contentPadding = PaddingValues(horizontal = Design.dp.paddingL, vertical = Design.dp.paddingS),
+        contentPadding = PaddingValues(
+            horizontal = Design.dp.paddingL,
+            vertical = Design.dp.paddingS
+        ),
         textStyle = Design.typography.PrimaryButton.copy(color = textColor),
         enabled = enabled,
         onClick = onClick,
