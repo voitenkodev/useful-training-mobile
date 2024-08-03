@@ -1,13 +1,11 @@
 package components.labels
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.defaultMinSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -24,10 +22,7 @@ public fun NoteLabel(
     content: @Composable ColumnScope.() -> Unit
 ) {
     Row(
-        modifier = modifier
-            .background(shape = Design.shape.small, color = Design.colors.white10)
-            .padding(Design.dp.paddingM)
-            .defaultMinSize(minHeight = Design.dp.componentS),
+        modifier = modifier.defaultMinSize(minHeight = Design.dp.componentS),
         horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM),
         verticalAlignment = Alignment.CenterVertically
     ) {

@@ -1,6 +1,7 @@
 package molecule
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -47,24 +48,25 @@ public fun SmallToolbar(
 
 @Composable
 public fun Toolbar(title: String, icon: Pair<ImageVector, () -> Unit>? = null) {
-    Row(
+    Box(
         modifier = Modifier
             .fillMaxWidth()
             .height(Design.dp.componentL),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween
     ) {
 
         TextH2(
-            modifier = Modifier.padding(horizontal = Design.dp.paddingM),
+            modifier = Modifier
+                .align(Alignment.Center)
+                .padding(horizontal = Design.dp.paddingM),
             provideText = { title },
             softWrap = false
         )
 
-        PaddingWeight()
-
         if (icon != null) ButtonIconTransparent(
-            modifier = Modifier.padding(horizontal = Design.dp.paddingM).padding(bottom = 4.dp),
+            modifier = Modifier
+                .align(Alignment.CenterEnd)
+                .padding(horizontal = Design.dp.paddingM)
+                .padding(bottom = 2.dp),
             imageVector = icon.first,
             contentColor = Design.colors.content,
             onClick = icon.second
