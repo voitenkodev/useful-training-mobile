@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBarsPadding
-import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -131,7 +130,7 @@ private fun Content(
             PaddingWeight()
 
             ButtonPrimary(
-                modifier = Modifier.width(Design.dp.componentXXL),
+                modifier = Modifier.fillMaxWidth().padding(horizontal = Design.dp.paddingL),
                 text = "Sign In",
                 onClick = loginProvider,
                 enabled = email.isNotBlank() && password.isNotBlank(),

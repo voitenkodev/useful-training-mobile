@@ -47,7 +47,7 @@ public fun Double.meter(allowUnit: Boolean): String {
         else -> null
     }
 
-    return if (allowUnit) "${value ?: floatString}m" else value ?: floatString
+    return if (allowUnit) "${value ?: floatString} m" else value ?: floatString
 }
 
 public fun Number.percents(): String {

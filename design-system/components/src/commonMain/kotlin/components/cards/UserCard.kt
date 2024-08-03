@@ -26,6 +26,7 @@ import atom.Design
 import molecule.Icon
 import molecule.PaddingS
 import molecule.PaddingWeight
+import molecule.PaddingXS
 import molecule.TextBody3
 import molecule.TextH3
 import molecule.TextH4
@@ -98,10 +99,10 @@ public fun UserCard(
                         color = Design.colors.caption
                     )
 
-                    PaddingS()
+                    PaddingXS()
 
                     TextH3(
-                        provideText = { name },
+                        provideText = { name.uppercase() },
                         color = Design.colors.yellow
                     )
                 }
@@ -123,7 +124,7 @@ public fun UserCard(
                 color = Design.colors.caption
             )
 
-            PaddingS()
+            PaddingXS()
 
             TextH4(
                 provideText = { weight }
@@ -136,7 +137,7 @@ public fun UserCard(
                 color = Design.colors.caption
             )
 
-            PaddingS()
+            PaddingXS()
 
             TextH4(
                 provideText = { height }

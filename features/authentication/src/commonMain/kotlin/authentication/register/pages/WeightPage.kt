@@ -63,7 +63,7 @@ internal fun WeightPage(
                     .fillMaxWidth()
                     .clipToBounds()
                     .navigationBarsPadding()
-                    .height(256.dp),
+                    .height(276.dp),
                 initial = weight,
                 onValueChange = updateWeight,
                 pickerStyle = WeightPickerStyle(
