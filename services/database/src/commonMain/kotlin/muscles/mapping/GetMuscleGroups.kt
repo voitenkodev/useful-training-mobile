@@ -22,7 +22,8 @@ internal fun List<GetMuscleGroups>.mapToDao(): List<MuscleGroupDao> {
                 id = groups.muscleId ?: return@mapMuscles null,
                 name = groups.muscleName ?: return@mapMuscles null,
                 type = groups.muscleType ?: return@mapMuscles null,
-                status = groups.muscleStatus
+                status = groups.muscleStatus,
+                load = groups.muscleLoad,
             )
         }
 

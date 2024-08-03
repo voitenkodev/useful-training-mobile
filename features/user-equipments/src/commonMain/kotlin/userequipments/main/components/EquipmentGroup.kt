@@ -1,5 +1,6 @@
 package userequipments.main.components
 
+import IncludedStatusEnum
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -28,7 +29,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import atom.Design
 import equipment.EquipmentGroup
-import equipment.IncludedStatusEnum
 import molecule.IconImage
 import molecule.PaddingM
 import molecule.PaddingS

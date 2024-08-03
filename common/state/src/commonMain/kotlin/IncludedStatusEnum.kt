@@ -1,5 +1,3 @@
-package equipment
-
 import androidx.compose.runtime.Immutable
 
 @Immutable

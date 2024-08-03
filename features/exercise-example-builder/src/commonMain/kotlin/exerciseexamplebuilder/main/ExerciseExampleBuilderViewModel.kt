@@ -3,9 +3,9 @@ package exerciseexamplebuilder.main
 import EquipmentsRepository
 import ExerciseExamplesRepository
 import FiltersRepository
+import IncludedStatusEnum
 import MusclesRepository
 import ViewModel
-import equipment.IncludedStatusEnum
 import equipment.mapping.toState
 import exerciseexamplebuilder.main.factories.muscleImage
 import exerciseexamplebuilder.main.mapping.toState

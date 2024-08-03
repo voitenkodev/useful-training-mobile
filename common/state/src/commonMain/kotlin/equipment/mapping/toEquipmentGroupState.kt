@@ -1,7 +1,7 @@
 package equipment.mapping
 
+import IncludedStatusEnum
 import equipment.EquipmentGroup
-import equipment.IncludedStatusEnum
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toPersistentList
 

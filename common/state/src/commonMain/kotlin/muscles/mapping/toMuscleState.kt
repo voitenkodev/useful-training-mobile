@@ -1,6 +1,8 @@
 package muscles.mapping
 
+import IncludedStatusEnum
 import models.Muscle
+import models.MuscleLoadEnum
 import models.MuscleStatusEnum
 import muscles.MuscleEnum
 
@@ -12,17 +14,25 @@ public fun Muscle.toState(
         name = name,
         id = id,
         isSelected = isSelected,
-        load = status.toState(),
+        load = load.toState(),
+        status = status.toState(),
         type = type.toState() ?: return null
     )
 }
 
-public fun MuscleStatusEnum.toState(): muscles.MuscleLoadEnum? {
+private fun MuscleStatusEnum.toState(): IncludedStatusEnum? {
     return when (this) {
-        MuscleStatusEnum.HIGH -> muscles.MuscleLoadEnum.HIGH
-        MuscleStatusEnum.MEDIUM -> muscles.MuscleLoadEnum.MEDIUM
-        MuscleStatusEnum.LOW -> muscles.MuscleLoadEnum.LOW
-        MuscleStatusEnum.EXCLUDED -> muscles.MuscleLoadEnum.EXCLUDED
+        MuscleStatusEnum.EXCLUDED -> IncludedStatusEnum.EXCLUDED
+        MuscleStatusEnum.UNKNOWN -> null
+        else -> IncludedStatusEnum.INCLUDED
+    }
+}
+
+public fun MuscleLoadEnum.toState(): muscles.MuscleLoadEnum? {
+    return when (this) {
+        MuscleLoadEnum.HIGH -> muscles.MuscleLoadEnum.HIGH
+        MuscleLoadEnum.MEDIUM -> muscles.MuscleLoadEnum.MEDIUM
+        MuscleLoadEnum.LOW -> muscles.MuscleLoadEnum.LOW
         else -> null
     }
 }

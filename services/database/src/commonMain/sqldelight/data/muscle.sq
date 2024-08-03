@@ -3,6 +3,7 @@ CREATE TABLE IF NOT EXISTS Muscle (
     muscleGroupId TEXT NOT NULL REFERENCES MuscleGroup(id) ON DELETE CASCADE,
     name TEXT NOT NULL,
     status TEXT,
+    load TEXT,
     type TEXT NOT NULL,
     createdAt TEXT NOT NULL,
     updatedAt TEXT NOT NULL
@@ -24,6 +25,7 @@ SELECT
   Muscle.name AS name,
   Muscle.muscleGroupId AS muscleGroupId,
   Muscle.status AS status,
+  Muscle.load AS load,
   Muscle.type AS type,
   Muscle.updatedAt AS updatedAt,
   Muscle.createdAt AS createdAt
@@ -42,6 +44,7 @@ SELECT
   Muscle.name AS muscleName,
   Muscle.muscleGroupId AS muscleMuscleGroupId,
   Muscle.status AS muscleStatus,
+  Muscle.load AS muscleLoad,
   Muscle.type AS muscleType,
   Muscle.updatedAt AS muscleUpdatedAt,
   Muscle.createdAt AS muscleCreatedAt
@@ -52,7 +55,7 @@ LEFT JOIN Muscle ON MuscleGroup.id = Muscle.muscleGroupId;
 
 setMuscle:
 INSERT OR REPLACE INTO Muscle
-VALUES (?,?,?,?,?,?,?);
+VALUES (?,?,?,?,?,?,?,?);
 
 setMuscleGroup:
 INSERT OR IGNORE INTO MuscleGroup

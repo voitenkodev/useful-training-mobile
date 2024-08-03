@@ -1,5 +1,6 @@
 package equipment
 
+import IncludedStatusEnum
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.vector.ImageVector
 

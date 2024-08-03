@@ -2,12 +2,12 @@ package authentication.register
 
 import AuthenticationRepository
 import EquipmentsRepository
+import IncludedStatusEnum
 import MusclesRepository
 import UserRepository
 import ViewModel
 import authentication.register.models.RegistrationStatus
 import cmToM
-import equipment.IncludedStatusEnum
 import equipment.mapping.toState
 import grToKg
 import isEmailValid

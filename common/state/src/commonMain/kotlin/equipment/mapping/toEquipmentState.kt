@@ -1,8 +1,8 @@
 package equipment.mapping
 
+import IncludedStatusEnum
 import androidx.compose.ui.graphics.vector.ImageVector
 import equipment.Equipment
-import equipment.IncludedStatusEnum
 import equipments.AbMachine
 import equipments.AdjustableBench
 import equipments.Barbell

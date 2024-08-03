@@ -1,5 +1,6 @@
 package exerciseexamplebuilder.main.components
 
+import IncludedStatusEnum
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -27,7 +28,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import atom.Design
 import equipment.EquipmentGroup
-import equipment.IncludedStatusEnum
 import kotlinx.collections.immutable.ImmutableList
 import molecule.IconImage
 import molecule.PaddingM

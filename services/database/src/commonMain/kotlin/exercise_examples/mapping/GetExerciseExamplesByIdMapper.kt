@@ -24,7 +24,8 @@ internal fun List<GetExerciseExamplesById>.mapToDao(): ExerciseExampleDao? {
             createdAt = bundle.muscleCreatedAt ?: return@mapBundles null,
             updatedAt = bundle.muscleUpdatedAt ?: return@mapBundles null,
             muscleGroupId = bundle.muscleMuscleGroupId ?: return@mapBundles null,
-            status = bundle.muscleStatus
+            status = bundle.muscleStatus,
+            load = bundle.muscleLoad
         )
 
         ExerciseExampleBundleDao(

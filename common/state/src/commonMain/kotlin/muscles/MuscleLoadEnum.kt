@@ -6,7 +6,6 @@ import androidx.compose.runtime.Immutable
 public enum class MuscleLoadEnum {
     HIGH,
     MEDIUM,
-    LOW,
-    EXCLUDED
+    LOW
 }
 

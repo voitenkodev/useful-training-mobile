@@ -7,5 +7,6 @@ public data class MuscleDao(
     val type: String,
     val createdAt: String,
     val updatedAt: String,
-    val status: String?
+    val status: String?,
+    val load: String?
 )

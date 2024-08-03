@@ -65,6 +65,7 @@ SELECT
   Muscle.type AS muscleType,
   Muscle.muscleGroupId AS muscleMuscleGroupId,
   Muscle.status AS muscleStatus,
+  Muscle.load AS muscleLoad,
   Muscle.updatedAt AS muscleUpdatedAt,
   Muscle.createdAt AS muscleCreatedAt,
 
@@ -123,6 +124,7 @@ SELECT
   Muscle.type AS muscleType,
   Muscle.muscleGroupId AS muscleMuscleGroupId,
   Muscle.status AS muscleStatus,
+  Muscle.load AS muscleLoad,
   Muscle.updatedAt AS muscleUpdatedAt,
   Muscle.createdAt AS muscleCreatedAt,
 

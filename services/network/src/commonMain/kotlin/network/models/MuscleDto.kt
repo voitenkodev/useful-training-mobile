@@ -11,6 +11,8 @@ public data class MuscleDto(
     val muscleGroupId: String? = null,
     @SerialName("status")
     val status: String? = null,
+    @SerialName("load")
+    val load: String? = null,
     @SerialName("name")
     val name: String? = null,
     @SerialName("type")

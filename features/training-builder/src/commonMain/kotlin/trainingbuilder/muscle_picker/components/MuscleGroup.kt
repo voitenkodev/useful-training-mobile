@@ -1,5 +1,6 @@
 package trainingbuilder.muscle_picker.components
 
+import IncludedStatusEnum
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -106,12 +107,15 @@ private fun MuscleChip(
 ) {
 
     val contentColor = remember(muscle.load) {
-        when (muscle.load) {
-            MuscleLoadEnum.HIGH -> Design.palette.content
-            MuscleLoadEnum.MEDIUM -> Design.palette.content
-            MuscleLoadEnum.LOW -> Design.palette.caption
-            MuscleLoadEnum.EXCLUDED -> Design.palette.white10
-            null -> Design.palette.white10
+        if (muscle.status == IncludedStatusEnum.EXCLUDED) {
+            Design.palette.white10
+        } else {
+            when (muscle.load) {
+                MuscleLoadEnum.HIGH -> Design.palette.content
+                MuscleLoadEnum.MEDIUM -> Design.palette.content
+                MuscleLoadEnum.LOW -> Design.palette.caption
+                null -> Design.palette.white10
+            }
         }
     }
 
@@ -119,23 +123,26 @@ private fun MuscleChip(
         backgroundColor = Design.colors.toxic.copy(alpha = 0.1f),
         borderColor = Design.colors.toxic,
         contentColor = Design.colors.content,
-        enabled = muscle.load != MuscleLoadEnum.EXCLUDED
+        enabled = muscle.status != IncludedStatusEnum.EXCLUDED
     )
 
     val unselectedChipState = ChipState.Colored(
         backgroundColor = Color.Transparent,
         borderColor = Design.palette.white10,
         contentColor = contentColor,
-        enabled = muscle.load != MuscleLoadEnum.EXCLUDED
+        enabled = muscle.status != IncludedStatusEnum.EXCLUDED
     )
 
     val icon = remember(muscle.load) {
-        when (muscle.load) {
-            MuscleLoadEnum.HIGH -> Icons.highBattery
-            MuscleLoadEnum.MEDIUM -> Icons.mediumBattery
-            MuscleLoadEnum.LOW -> Icons.lowBattery
-            MuscleLoadEnum.EXCLUDED -> null
-            null -> null
+        if (muscle.status == IncludedStatusEnum.EXCLUDED) {
+            null
+        } else {
+            when (muscle.load) {
+                MuscleLoadEnum.HIGH -> Icons.highBattery
+                MuscleLoadEnum.MEDIUM -> Icons.mediumBattery
+                MuscleLoadEnum.LOW -> Icons.lowBattery
+                null -> null
+            }
         }
     }
 

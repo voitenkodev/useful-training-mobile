@@ -53,7 +53,8 @@ public class MusclesSource(nativeContext: NativeContext) {
                         updatedAt = muscle.updatedAt,
                         muscleGroupId = muscle.muscleGroupId,
                         type = muscle.type,
-                        status = muscle.status
+                        status = muscle.status,
+                        load = muscle.load,
                     )
                 }
             }
@@ -68,7 +69,8 @@ public class MusclesSource(nativeContext: NativeContext) {
             updatedAt = muscle.updatedAt,
             muscleGroupId = muscle.muscleGroupId,
             type = muscle.type,
-            status = muscle.status
+            status = muscle.status,
+            load = muscle.load,
         )
     }
 

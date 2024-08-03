@@ -1,5 +1,6 @@
 package exerciseexamplebuilder.main
 
+import IncludedStatusEnum
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -35,7 +36,6 @@ import components.inputs.InputExerciseName
 import components.inputs.InputUrl
 import components.roots.ScreenRoot
 import equipment.EquipmentGroup
-import equipment.IncludedStatusEnum
 import exerciseexamplebuilder.main.components.EquipmentGroups
 import exerciseexamplebuilder.main.components.MuscleGroup
 import exerciseexamplebuilder.main.models.FilterPack

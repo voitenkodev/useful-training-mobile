@@ -1,9 +1,9 @@
 package userequipments.main
 
 import EquipmentsRepository
+import IncludedStatusEnum
 import UserRepository
 import ViewModel
-import equipment.IncludedStatusEnum
 import equipment.mapping.toState
 import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.flow.MutableStateFlow

@@ -1,9 +1,7 @@
 package models
 
 public enum class MuscleStatusEnum(private val key: String) {
-    HIGH("high"),
-    MEDIUM("medium"),
-    LOW("low"),
+    INCLUDED("included"),
     EXCLUDED("excluded"),
     UNKNOWN("unknown");
 
