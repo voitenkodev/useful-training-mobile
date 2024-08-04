@@ -1,5 +1,6 @@
 package authentication.success
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -11,6 +12,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import atom.Design
@@ -26,6 +28,7 @@ import molecule.PaddingXS
 import molecule.PaddingXXL
 import molecule.TextBody2
 import molecule.TextH2
+import resources.Icons
 import user.User
 
 @Composable
@@ -56,6 +59,13 @@ private fun Content(
     backHandler.register(BackCallback(onBack = toTrainings))
 
     ScreenRoot(error = { Error(message = { error }, close = clearError) }) {
+
+        Image(
+            modifier = Modifier.fillMaxSize(),
+            imageVector = Icons.logoBackground,
+            contentDescription = null,
+            contentScale = ContentScale.Crop
+        )
 
         Column(
             modifier = Modifier.fillMaxSize().systemBarsPadding(),
