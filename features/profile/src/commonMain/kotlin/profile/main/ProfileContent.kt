@@ -138,7 +138,6 @@ private fun Content(
 
             item {
                 PaddingXXL()
-                PaddingM()
             }
 
             item {
@@ -164,10 +163,8 @@ private fun Content(
                         text = "Weight",
                         onClick = toWeightHistory,
                         paddingValues = PaddingValues(
-                            start = Design.dp.paddingL,
-                            end = Design.dp.paddingL,
-                            top = Design.dp.paddingM,
-                            bottom = Design.dp.paddingS
+                            vertical = Design.dp.paddingS,
+                            horizontal = Design.dp.paddingM
                         )
                     )
 
@@ -182,13 +179,8 @@ private fun Content(
                         onClick = toExerciseExamples,
                         paddingValues = PaddingValues(
                             vertical = Design.dp.paddingS,
-                            horizontal = Design.dp.paddingL
+                            horizontal = Design.dp.paddingM
                         )
-                    )
-
-                    HorizontalDivider(
-                        modifier = Modifier.fillMaxWidth(),
-                        color = Design.colors.white5
                     )
 
                     HorizontalDivider(
@@ -202,7 +194,7 @@ private fun Content(
                         onClick = toMuscles,
                         paddingValues = PaddingValues(
                             vertical = Design.dp.paddingS,
-                            horizontal = Design.dp.paddingL
+                            horizontal = Design.dp.paddingM
                         )
                     )
 
@@ -216,10 +208,8 @@ private fun Content(
                         text = "Equipment",
                         onClick = toEquipment,
                         paddingValues = PaddingValues(
-                            start = Design.dp.paddingL,
-                            end = Design.dp.paddingL,
-                            top = Design.dp.paddingS,
-                            bottom = Design.dp.paddingM
+                            vertical = Design.dp.paddingS,
+                            horizontal = Design.dp.paddingM
                         )
                     )
                 }
@@ -251,10 +241,8 @@ private fun Content(
                         text = "Subscriptions",
                         onClick = logout,
                         paddingValues = PaddingValues(
-                            start = Design.dp.paddingL,
-                            end = Design.dp.paddingL,
-                            top = Design.dp.paddingM,
-                            bottom = Design.dp.paddingS
+                            vertical = Design.dp.paddingS,
+                            horizontal = Design.dp.paddingM
                         )
                     )
 
@@ -269,7 +257,7 @@ private fun Content(
                         onClick = toSupport,
                         paddingValues = PaddingValues(
                             vertical = Design.dp.paddingS,
-                            horizontal = Design.dp.paddingL
+                            horizontal = Design.dp.paddingM
                         )
                     )
 
@@ -284,10 +272,8 @@ private fun Content(
                         contentColor = Design.colors.red,
                         onClick = logout,
                         paddingValues = PaddingValues(
-                            start = Design.dp.paddingL,
-                            end = Design.dp.paddingL,
-                            top = Design.dp.paddingS,
-                            bottom = Design.dp.paddingM
+                            vertical = Design.dp.paddingS,
+                            horizontal = Design.dp.paddingM
                         )
                     )
                 }

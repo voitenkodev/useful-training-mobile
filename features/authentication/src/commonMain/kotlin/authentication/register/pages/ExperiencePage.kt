@@ -24,6 +24,7 @@ import molecule.ButtonSecondary
 import molecule.PaddingL
 import molecule.PaddingXL
 import molecule.PaddingXS
+import molecule.Shadow
 import molecule.TextBody2
 import molecule.TextH2
 import user.ExperienceEnum
@@ -57,6 +58,8 @@ internal fun ExperiencePage(
             )
 
             PaddingXL()
+
+            Shadow()
 
             LazyColumn(
                 modifier = Modifier.fillMaxWidth().weight(1f),
