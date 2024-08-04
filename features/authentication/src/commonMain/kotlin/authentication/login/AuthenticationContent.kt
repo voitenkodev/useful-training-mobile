@@ -130,7 +130,7 @@ private fun Content(
 
             ButtonPrimary(
                 modifier = Modifier.fillMaxWidth().padding(horizontal = Design.dp.paddingL),
-                text = "Sign In",
+                text = "Sign in",
                 onClick = loginProvider,
                 enabled = email.isNotBlank() && password.isNotBlank(),
                 loading = loading()

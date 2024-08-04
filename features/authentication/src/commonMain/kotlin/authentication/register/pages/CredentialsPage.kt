@@ -58,7 +58,7 @@ internal fun CredentialsPage(
 
         PaddingL()
 
-        TextH2(provideText = { "Last Step" }, textAlign = TextAlign.Center)
+        TextH2(provideText = { "Last step" }, textAlign = TextAlign.Center)
 
         PaddingXS()
 

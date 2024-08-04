@@ -106,7 +106,7 @@ private fun Content(
 
             ButtonSecondary(
                 modifier = Modifier.fillMaxWidth().padding(horizontal = Design.dp.paddingL),
-                text = "Sign In",
+                text = "Sign in",
                 onClick = login
             )
 
