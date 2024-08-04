@@ -14,7 +14,7 @@ import resources.Fonts
 internal fun typography() = Typography(
     H1 = TextStyle(
         fontSize = 30.sp,
-        fontWeight = FontWeight.Bold,
+        fontWeight = FontWeight.ExtraBold,
         fontStyle = FontStyle.Normal,
         letterSpacing = 2.sp,
         fontFamily = Fonts.Primary(),
@@ -27,7 +27,7 @@ internal fun typography() = Typography(
         baselineShift = BaselineShift.None,
         fontSize = 26.sp,
         letterSpacing = 1.sp,
-        fontWeight = FontWeight.ExtraBold,
+        fontWeight = FontWeight.Bold,
         fontStyle = FontStyle.Normal,
         fontFamily = Fonts.Primary(),
         lineHeightStyle = LineHeightStyle(
@@ -37,7 +37,7 @@ internal fun typography() = Typography(
     ),
     H3 = TextStyle(
         fontSize = 22.sp,
-        fontWeight = FontWeight.Bold,
+        fontWeight = FontWeight.Medium,
         letterSpacing = 1.sp,
         fontStyle = FontStyle.Normal,
         fontFamily = Fonts.Primary(),
@@ -48,7 +48,7 @@ internal fun typography() = Typography(
     ),
     H4 = TextStyle(
         fontSize = 18.sp,
-        fontWeight = FontWeight.Bold,
+        fontWeight = FontWeight.Normal,
         fontStyle = FontStyle.Normal,
         fontFamily = Fonts.Primary(),
         letterSpacing = 1.sp,

@@ -46,7 +46,7 @@ internal fun ExcludeEquipmentPage(
             PaddingXS()
 
             TextBody2(
-                provideText = { "If you don't have any of equipment\nyou may to exclude it?" },
+                provideText = { "If you don't have any of equipment you\nmay to exclude it?" },
                 textAlign = TextAlign.Center,
                 color = Design.colors.caption
             )
