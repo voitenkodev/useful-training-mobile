@@ -140,8 +140,8 @@ public fun Input(
                     .background(shape = shape, color = backgroundColor)
                     .border(shape = shape, width = 1.dp, color = borderColorProvider)
                     .heightIn(min = Design.dp.componentM)
-                    .padding(horizontal = 12.dp)
-                    .padding(vertical = 8.dp)
+                    .padding(horizontal = Design.dp.paddingM)
+                    .padding(vertical = Design.dp.paddingS)
                     .onFocusChanged { hasFocus.value = it.hasFocus },
 
                 value = value,
@@ -282,8 +282,8 @@ public fun Input(
                     .background(shape = shape, color = backgroundColor)
                     .border(shape = shape, width = 1.dp, color = borderColorProvider)
                     .heightIn(min = Design.dp.componentM)
-                    .padding(horizontal = 12.dp)
-                    .padding(vertical = 8.dp)
+                    .padding(horizontal = Design.dp.paddingM)
+                    .padding(vertical = Design.dp.paddingS)
                     .onFocusChanged { hasFocus.value = it.hasFocus },
                 value = value,
                 onValueChange = updater,

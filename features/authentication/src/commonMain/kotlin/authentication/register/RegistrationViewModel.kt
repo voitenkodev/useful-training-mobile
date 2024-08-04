@@ -51,29 +51,23 @@ internal class RegistrationViewModel : ViewModel() {
         musclesApi
             .observeMuscles()
             .onEach { r ->
-                _state.update {
-                    it.copy(
-                        muscleGroups = r
-                            .toState(
-                                eachMuscle = { m -> m.toState(isSelected = true) }
-                            )
-                    )
-                }
+                val muscleGroup = r.toState(eachMuscle = { m -> m.toState(isSelected = true) })
+                _state.update { it.copy(muscleGroups = muscleGroup) }
             }
-            .catch { r -> _state.update { it.copy(error = r.message) } }
-            .launchIn(this)
-
-        musclesApi.syncPublicMuscles()
             .catch { r -> _state.update { it.copy(error = r.message) } }
             .launchIn(this)
 
         equipmentsApi
             .observeEquipments()
-            .onEach { r -> _state.update { it.copy(equipmentGroups = r.toState(defaultStatus = IncludedStatusEnum.INCLUDED)) } }
+            .onEach { r ->
+                val equipmentGroups = r.toState(defaultStatus = IncludedStatusEnum.INCLUDED)
+                _state.update { it.copy(equipmentGroups = equipmentGroups) }
+            }
             .catch { r -> _state.update { it.copy(error = r.message) } }
             .launchIn(this)
 
-        equipmentsApi.syncPublicEquipments()
+        musclesApi.syncPublicMuscles()
+            .flatMapConcat { equipmentsApi.syncPublicEquipments() }
             .catch { r -> _state.update { it.copy(error = r.message) } }
             .launchIn(this)
     }

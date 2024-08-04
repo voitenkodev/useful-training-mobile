@@ -10,7 +10,6 @@ import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import components.labels.InputLabel
 import molecule.ButtonIconSecondary
 import molecule.Input
 import resources.Icons
@@ -28,7 +27,6 @@ public fun InputPasswordConfirm(
         value = provideValue.invoke(),
         onValueChange = onValueChange,
         visualTransformation = if (passwordVisibility.value) VisualTransformation.None else PasswordVisualTransformation(),
-        label = { InputLabel(provideText = { "Confirm password" }) },
         placeholder = "Confirm password",
         trailing = {
             ButtonIconSecondary(
