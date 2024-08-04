@@ -19,8 +19,8 @@ import kotlinx.collections.immutable.ImmutableList
 import molecule.Shadow
 import molecule.primaryBackground
 import muscles.MuscleGroup
+import muscles.component.MuscleGroup
 import usermuscles.main.components.Header
-import usermuscles.main.components.MuscleGroup
 
 @Composable
 internal fun UserMusclesContent(vm: UserMusclesViewModel, close: () -> Unit) {

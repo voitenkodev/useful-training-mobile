@@ -16,9 +16,9 @@ import atom.Design
 import components.Error
 import components.roots.ScreenRoot
 import equipment.EquipmentGroup
+import equipment.component.EquipmentGroup
 import kotlinx.collections.immutable.ImmutableList
 import molecule.primaryBackground
-import userequipments.main.components.EquipmentGroup
 import userequipments.main.components.Header
 
 @Composable

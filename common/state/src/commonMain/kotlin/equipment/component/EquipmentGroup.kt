@@ -1,4 +1,4 @@
-package authentication.register.components
+package equipment.component
 
 import IncludedStatusEnum
 import androidx.compose.foundation.Image
@@ -36,9 +36,10 @@ import molecule.PaddingS
 import molecule.TextBody2
 import molecule.TextH4
 import resources.Icons
+import shimmerLoadingAnimation
 
 @Composable
-internal fun EquipmentGroup(
+public fun EquipmentGroup(
     item: EquipmentGroup,
     selectEquipment: (id: String) -> Unit
 ) {
@@ -80,10 +81,12 @@ internal fun EquipmentGroup(
                             shape = Design.shape.default
                         )
                         .clip(shape = Design.shape.default)
+                        .shimmerLoadingAnimation(equipment.loading)
                         .padding(bottom = Design.dp.paddingM)
                         .clickable(
                             interactionSource = interactionSource,
                             indication = null,
+                            enabled = equipment.loading.not(),
                             onClick = { selectEquipment.invoke(equipment.id) }
                         ),
                     verticalArrangement = Arrangement.spacedBy(Design.dp.paddingS),
@@ -130,12 +133,12 @@ internal fun EquipmentGroup(
                     TextBody2(
                         modifier = Modifier.padding(horizontal = Design.dp.paddingM),
                         textAlign = TextAlign.Center,
-                        provideText = { equipment.name },
                         color = when (equipment.status) {
                             IncludedStatusEnum.EXCLUDED -> Design.colors.content.copy(alpha = 0.3f)
                             IncludedStatusEnum.INCLUDED -> Design.colors.content
-                            null -> Design.colors.caption
-                        }
+                            null -> Design.colors.content
+                        },
+                        provideText = { equipment.name },
                     )
                 }
             }

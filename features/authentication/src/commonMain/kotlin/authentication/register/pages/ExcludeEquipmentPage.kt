@@ -11,10 +11,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import atom.Design
-import authentication.register.components.EquipmentGroup
 import components.ShadowBottomButtons
 import components.ShadowFooterSpace
 import equipment.EquipmentGroup
+import equipment.component.EquipmentGroup
 import kotlinx.collections.immutable.ImmutableList
 import molecule.ButtonPrimary
 import molecule.ButtonSecondary

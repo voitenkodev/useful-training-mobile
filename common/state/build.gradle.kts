@@ -38,6 +38,8 @@ kotlin {
             implementation(projects.domain.user)
 
             implementation(projects.common.utils)
+            implementation(projects.designSystem.molecule)
+            implementation(projects.designSystem.components)
 
         }
     }

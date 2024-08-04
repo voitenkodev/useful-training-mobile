@@ -11,7 +11,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import atom.Design
-import authentication.register.components.MuscleGroup
 import components.ShadowBottomButtons
 import components.ShadowFooterSpace
 import kotlinx.collections.immutable.ImmutableList
@@ -24,6 +23,7 @@ import molecule.Shadow
 import molecule.TextBody2
 import molecule.TextH2
 import muscles.MuscleGroup
+import muscles.component.MuscleGroup
 
 @Composable
 internal fun ExcludeMusclePage(

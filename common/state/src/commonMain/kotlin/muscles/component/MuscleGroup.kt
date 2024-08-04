@@ -1,4 +1,4 @@
-package usermuscles.main.components
+package muscles.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -9,23 +9,17 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import atom.Design
-import components.chips.Chip
-import components.chips.ChipState
 import molecule.PaddingM
 import molecule.PaddingS
 import molecule.TextH4
-import muscles.Muscle
 import muscles.MuscleGroup
-import resources.Icons
 
 @Composable
-internal fun MuscleGroup(
+public fun MuscleGroup(
     item: MuscleGroup,
     loadingById: String? = null,
     selectMuscle: (id: String) -> Unit
@@ -69,40 +63,4 @@ internal fun MuscleGroup(
             }
         }
     }
-}
-
-@Composable
-private fun MuscleChip(
-    loadingById: String? = null,
-    muscle: Muscle,
-    selectMuscle: (id: String) -> Unit
-) {
-
-    val contentColor = remember(muscle.isSelected) {
-        when (muscle.isSelected) {
-            false -> Design.palette.content.copy(alpha = 0.3f)
-            true -> Design.palette.content
-        }
-    }
-
-    val chipState = ChipState.Colored(
-        backgroundColor = Color.Transparent,
-        borderColor = Design.palette.white10,
-        contentColor = contentColor
-    )
-
-    val iconStart = remember(muscle.isSelected) {
-        when (muscle.isSelected) {
-            false -> Icons.checkOff
-            true -> Icons.checkOn
-        }
-    }
-
-    Chip(
-        chipState = chipState,
-        onClick = { selectMuscle.invoke(muscle.id) },
-        text = muscle.name,
-        loading = loadingById == muscle.id,
-        iconStart = iconStart
-    )
 }
