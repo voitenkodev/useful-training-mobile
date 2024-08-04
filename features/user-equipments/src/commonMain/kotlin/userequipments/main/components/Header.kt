@@ -1,24 +1,25 @@
 package userequipments.main.components
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextAlign
 import atom.Design
-import components.labels.NoteLabel
-import molecule.IconImage
-import molecule.PaddingM
+import components.chips.Chip
+import components.chips.ChipState
+import molecule.PaddingL
 import molecule.PaddingS
 import molecule.Shadow
-import molecule.TextBody3
+import molecule.TextBody2
 import molecule.Toolbar
 import resources.Icons
 
@@ -29,7 +30,6 @@ internal fun Header(
 ) {
     Column(
         modifier = modifier
-            .background(Design.colors.secondary)
             .statusBarsPadding()
     ) {
 
@@ -37,38 +37,54 @@ internal fun Header(
 
         Toolbar(title = "Equipment", icon = Icons.close to close)
 
-        PaddingS()
+        Column(
+            modifier = modifier
+                .align(Alignment.CenterHorizontally)
+                .width(intrinsicSize = IntrinsicSize.Max)
+                .defaultMinSize(minHeight = Design.dp.componentS),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
 
-        NoteLabel(modifier = Modifier.fillMaxWidth().padding(horizontal = Design.dp.paddingM)) {
+            TextBody2(
+                provideText = { "Choose the equipment you do not have." },
+                textAlign = TextAlign.Center,
+                color = Design.colors.caption
+            )
 
-            TextBody3(provideText = { "Choose the equipment you do not have." })
+            PaddingL()
 
-            PaddingS()
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(
+                    Design.dp.paddingM,
+                    alignment = Alignment.CenterHorizontally
+                ),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
 
-            Row(modifier = Modifier.fillMaxWidth()) {
-                Row(
-                    modifier = Modifier.weight(1f),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS),
-                    content = {
-                        IconImage(modifier = Modifier.size(20.dp), imageVector = Icons.checkOn)
-                        TextBody3(provideText = { "Included" })
-                    }
+                Chip(
+                    chipState = ChipState.Colored(
+                        backgroundColor = Color.Transparent,
+                        borderColor = Design.palette.white10,
+                        contentColor = Design.palette.content
+                    ),
+                    text = "Included",
+                    iconStart = Icons.checkOn
                 )
 
-                Row(
-                    modifier = Modifier.weight(1f),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS),
-                    content = {
-                        IconImage(modifier = Modifier.size(20.dp), imageVector = Icons.redCircle)
-                        TextBody3(provideText = { "Excluded" })
-                    }
+                Chip(
+                    chipState = ChipState.Colored(
+                        backgroundColor = Color.Transparent,
+                        borderColor = Design.palette.white10,
+                        contentColor = Design.palette.content.copy(alpha = 0.3f)
+                    ),
+                    text = "Excluded",
+                    iconStart = Icons.checkOff
                 )
             }
         }
 
-        PaddingM()
+        PaddingL()
 
         Shadow()
     }

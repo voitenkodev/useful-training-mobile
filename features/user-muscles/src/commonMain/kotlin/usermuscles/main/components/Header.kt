@@ -76,7 +76,7 @@ internal fun Header(
                     chipState = ChipState.Colored(
                         backgroundColor = Color.Transparent,
                         borderColor = Design.palette.white10,
-                        contentColor = Design.palette.caption
+                        contentColor = Design.palette.content.copy(alpha = 0.3f)
                     ),
                     text = "Excluded",
                     iconStart = Icons.checkOff

@@ -98,7 +98,7 @@ internal fun EquipmentGroups(
 
                         val iconStart = remember(equipment.status) {
                             when (equipment.status) {
-                                IncludedStatusEnum.EXCLUDED -> Icons.redCircle
+                                IncludedStatusEnum.EXCLUDED -> Icons.checkOff
                                 IncludedStatusEnum.INCLUDED -> Icons.checkOn
                                 null -> null
                             }

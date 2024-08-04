@@ -2,7 +2,7 @@ package userequipments.main.components
 
 import IncludedStatusEnum
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.border
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
@@ -22,6 +22,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
@@ -74,10 +75,9 @@ internal fun EquipmentGroup(
 
                 Column(
                     modifier = Modifier
-                        .width(160.dp)
-                        .border(
-                            color = Design.colors.white10,
-                            width = 1.dp,
+                        .width(140.dp)
+                        .background(
+                            color = Design.colors.secondary,
                             shape = Design.shape.default
                         )
                         .clip(shape = Design.shape.default)
@@ -101,6 +101,12 @@ internal fun EquipmentGroup(
                                     start = Design.dp.paddingL,
                                     end = Design.dp.paddingL,
                                     top = Design.dp.paddingM
+                                ).alpha(
+                                    alpha = when (equipment.status) {
+                                        IncludedStatusEnum.INCLUDED -> 1f
+                                        IncludedStatusEnum.EXCLUDED -> 0.3f
+                                        null -> 0.5f
+                                    },
                                 ),
                             imageVector = equipment.image,
                             contentScale = ContentScale.Fit,
@@ -109,7 +115,7 @@ internal fun EquipmentGroup(
 
                         val iconStart = remember(equipment.status) {
                             when (equipment.status) {
-                                IncludedStatusEnum.EXCLUDED -> Icons.redCircle
+                                IncludedStatusEnum.EXCLUDED -> Icons.checkOff
                                 IncludedStatusEnum.INCLUDED -> Icons.checkOn
                                 null -> null
                             }
@@ -127,6 +133,11 @@ internal fun EquipmentGroup(
                     TextBody2(
                         modifier = Modifier.padding(horizontal = Design.dp.paddingM),
                         textAlign = TextAlign.Center,
+                        color = when (equipment.status) {
+                            IncludedStatusEnum.EXCLUDED -> Design.colors.content.copy(alpha = 0.3f)
+                            IncludedStatusEnum.INCLUDED -> Design.colors.content
+                            null -> Design.colors.content
+                        },
                         provideText = { equipment.name },
                     )
                 }

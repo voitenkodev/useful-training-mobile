@@ -36,7 +36,6 @@ import resources.icons.MediumBattery
 import resources.icons.Notifications
 import resources.icons.Person
 import resources.icons.Pro
-import resources.icons.RedCircle
 import resources.icons.Repetitions
 import resources.icons.Success
 import resources.icons.Support
@@ -83,7 +82,6 @@ public object Icons {
     public val note: ImageVector = Icons.Default.Notifications
     public val checkOn: ImageVector = CheckOn
     public val checkOff: ImageVector = CheckOff
-    public val redCircle: ImageVector = RedCircle
     public val repetitions: ImageVector = Repetitions
     public val beginner: ImageVector = Beginner
     public val advanced: ImageVector = Advanced

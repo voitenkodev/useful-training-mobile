@@ -80,7 +80,7 @@ private fun MuscleChip(
 
     val contentColor = remember(muscle.isSelected) {
         when (muscle.isSelected) {
-            false -> Design.palette.caption
+            false -> Design.palette.content.copy(alpha = 0.3f)
             true -> Design.palette.content
         }
     }

@@ -101,7 +101,7 @@ internal fun EquipmentGroup(
                                 ).alpha(
                                     alpha = when (equipment.status) {
                                         IncludedStatusEnum.INCLUDED -> 1f
-                                        IncludedStatusEnum.EXCLUDED -> 0.4f
+                                        IncludedStatusEnum.EXCLUDED -> 0.3f
                                         null -> 0.5f
                                     },
                                 ),
@@ -132,7 +132,7 @@ internal fun EquipmentGroup(
                         textAlign = TextAlign.Center,
                         provideText = { equipment.name },
                         color = when (equipment.status) {
-                            IncludedStatusEnum.EXCLUDED -> Design.colors.caption
+                            IncludedStatusEnum.EXCLUDED -> Design.colors.content.copy(alpha = 0.3f)
                             IncludedStatusEnum.INCLUDED -> Design.colors.content
                             null -> Design.colors.caption
                         }

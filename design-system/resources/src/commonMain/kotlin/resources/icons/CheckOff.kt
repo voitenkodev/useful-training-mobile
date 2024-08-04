@@ -18,7 +18,7 @@ internal val CheckOff: ImageVector
             viewportWidth = 32f,
             viewportHeight = 32f
         ).apply {
-            path(fill = SolidColor(Color(0xffa6a6a6))) {
+            path(fill = SolidColor(Color(0x4Dffffff))) {
                 moveTo(16f, 32f)
                 arcTo(16f, 16f, 0f, isMoreThanHalf = true, isPositiveArc = false, 0f, 16f)
                 arcTo(16f, 16f, 0f, isMoreThanHalf = false, isPositiveArc = false, 16f, 32f)
