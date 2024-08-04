@@ -5,6 +5,7 @@ import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
@@ -29,6 +30,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
@@ -49,19 +51,26 @@ public fun ButtonPrimary(
     textColor: Color = Design.colors.content,
     backgroundColor: Color = Design.colors.orange
 ) {
-    val disableBackgroundColor: Color = Design.colors.caption.copy(alpha = 0.1f)
 
     val bgColor = animateColorAsState(
         targetValue = when {
             loading -> Design.colors.content
-            enabled -> backgroundColor
-            else -> disableBackgroundColor
+            else -> backgroundColor
+        },
+        animationSpec = tween(durationMillis = 300, easing = LinearEasing)
+    )
+
+    val alpha = animateFloatAsState(
+        targetValue = when (enabled) {
+            true -> 1f
+            false -> 0.4f
         },
         animationSpec = tween(durationMillis = 300, easing = LinearEasing)
     )
 
     Row(
         modifier = modifier
+            .alpha(alpha.value)
             .requiredHeight(Design.dp.componentM)
             .background(
                 shape = Design.shape.circleShape,
@@ -79,7 +88,7 @@ public fun ButtonPrimary(
             TextField(
                 modifier = Modifier.padding(horizontal = Design.dp.paddingXL),
                 provideText = { text },
-                textStyle = Design.typography.PrimaryButton.copy(color = textColor)
+                textStyle = Design.typography.Button.copy(color = textColor)
             )
         }
 
@@ -119,22 +128,29 @@ public fun ButtonSecondary(
 
     val textColor: Color = Design.colors.content
     val enableBackgroundColor: Color = Color.Transparent
-    val disableBackgroundColor: Color = Design.colors.caption.copy(alpha = 0.1f)
 
     val bgColor = animateColorAsState(
         targetValue = when {
             loading -> Color.Transparent
-            enabled -> enableBackgroundColor
-            else -> disableBackgroundColor
+            else -> enableBackgroundColor
+        },
+        animationSpec = tween(durationMillis = 300, easing = LinearEasing)
+    )
+
+    val alpha = animateFloatAsState(
+        targetValue = when (enabled) {
+            true -> 1f
+            false -> 0.4f
         },
         animationSpec = tween(durationMillis = 300, easing = LinearEasing)
     )
 
     Row(
         modifier = modifier
+            .alpha(alpha.value)
             .requiredHeight(Design.dp.componentM)
             .border(
-                color = if (enabled) Design.colors.white50 else Color.Transparent,
+                color = if (enabled) Design.colors.white30 else Color.Transparent,
                 width = 1.dp,
                 shape = Design.shape.circleShape
             ).background(
@@ -153,7 +169,7 @@ public fun ButtonSecondary(
             TextField(
                 modifier = Modifier.padding(horizontal = Design.dp.paddingXL),
                 provideText = { text },
-                textStyle = Design.typography.PrimaryButton.copy(color = textColor)
+                textStyle = Design.typography.Button.copy(color = textColor)
             )
         }
 
@@ -229,7 +245,7 @@ public fun ButtonPrimarySmall(
                     )
                 ),
                 provideText = { text },
-                textStyle = Design.typography.PrimaryButton.copy(color = textColor)
+                textStyle = Design.typography.Button.copy(color = textColor)
             )
         }
 
@@ -278,7 +294,7 @@ public fun ButtonSecondarySmall(
             horizontal = Design.dp.paddingL,
             vertical = Design.dp.paddingS
         ),
-        textStyle = Design.typography.PrimaryButton.copy(color = textColor),
+        textStyle = Design.typography.Button.copy(color = textColor),
         enabled = enabled,
         onClick = onClick,
         borderStroke = BorderStroke(

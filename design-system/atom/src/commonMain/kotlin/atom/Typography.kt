@@ -86,12 +86,7 @@ internal fun typography() = Typography(
         fontWeight = FontWeight.Normal,
         fontStyle = FontStyle.Normal,
     ),
-    PrimaryButton = TextStyle(
-        fontSize = 16.sp,
-        fontWeight = FontWeight.Bold,
-        fontStyle = FontStyle.Normal,
-    ),
-    SecondaryButton = TextStyle(
+    Button = TextStyle(
         fontSize = 16.sp,
         fontWeight = FontWeight.Bold,
         fontStyle = FontStyle.Normal,
@@ -118,7 +113,6 @@ public data class Typography(
 
     val Label: TextStyle, // Sub titles for sections)
 
-    val PrimaryButton: TextStyle,
-    val SecondaryButton: TextStyle,
+    val Button: TextStyle,
     val TertiaryButton: TextStyle
 )
