@@ -1,5 +1,6 @@
 package authentication.intro
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -12,6 +13,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import atom.Design
 import authentication.intro.models.ScreenState
@@ -55,6 +57,13 @@ private fun Content(
 ) {
 
     ScreenRoot(modifier = Modifier.imePadding()) {
+
+        Image(
+            modifier = Modifier.fillMaxSize(),
+            imageVector = Icons.logoBackground,
+            contentDescription = null,
+            contentScale = ContentScale.Crop
+        )
 
         Column(
             modifier = Modifier.fillMaxSize().systemBarsPadding(),
