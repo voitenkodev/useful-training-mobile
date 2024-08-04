@@ -31,8 +31,8 @@ public fun ShadowFooterSpace() {
 @Composable
 public fun ShadowBottomButtons(
     modifier: Modifier = Modifier,
-    first: @Composable RowScope.() -> Unit,
-    second: @Composable RowScope.() -> Unit
+    first: (@Composable RowScope.() -> Unit)? = null,
+    second: (@Composable RowScope.() -> Unit)? = null
 ) {
 
     Box(modifier = modifier.height(IntrinsicSize.Min)) {
@@ -50,8 +50,9 @@ public fun ShadowBottomButtons(
                 horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
             ) {
 
-                first.invoke(this)
-                second.invoke(this)
+                first?.invoke(this)
+
+                second?.invoke(this)
 
             }
 

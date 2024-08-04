@@ -1,5 +1,6 @@
 package weighthistory.main.components
 
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -42,7 +43,7 @@ internal fun Header(
 
         Toolbar(title = "Weight History", icon = Icons.close to close)
 
-        PaddingS()
+        PaddingM()
 
         Column(
             modifier = modifier
@@ -79,7 +80,12 @@ internal fun Header(
                 EmptyData(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(130.dp),
+                        .height(130.dp)
+                        .border(
+                            width = 1.dp,
+                            color = Design.colors.white10,
+                            shape = Design.shape.default
+                        ),
                     title = "Chart is unavailable",
                     description = "Provide mode data"
                 )

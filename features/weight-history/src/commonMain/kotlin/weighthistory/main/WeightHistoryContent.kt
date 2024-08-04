@@ -14,12 +14,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import atom.Design
 import components.Error
-import components.ShadowFooter
+import components.ShadowBottomButtons
 import components.ShadowFooterSpace
 import components.cards.WeightCard
 import components.roots.ScreenRoot
 import kg
 import kotlinx.collections.immutable.ImmutableList
+import molecule.ButtonPrimary
 import molecule.PaddingM
 import molecule.PaddingS
 import molecule.PopupSheet
@@ -85,7 +86,7 @@ private fun Content(
                     .fillMaxWidth()
                     .weight(1f)
                     .primaryBackground(),
-                contentPadding = PaddingValues(vertical = Design.dp.paddingM),
+                contentPadding = PaddingValues(vertical = Design.dp.paddingL),
             ) {
 
                 item {
@@ -126,10 +127,16 @@ private fun Content(
             }
         }
 
-        ShadowFooter(
+        ShadowBottomButtons(
             modifier = Modifier.fillMaxWidth().align(Alignment.BottomCenter),
-            close = close,
-            primary = Triple("Update", true, update)
+            first = {},
+            second = {
+                ButtonPrimary(
+                    modifier = Modifier.weight(1f),
+                    text = "Update weight",
+                    onClick = update,
+                )
+            }
         )
     }
 }

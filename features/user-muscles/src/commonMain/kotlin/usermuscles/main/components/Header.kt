@@ -16,7 +16,7 @@ import androidx.compose.ui.text.style.TextAlign
 import atom.Design
 import components.chips.Chip
 import components.chips.ChipState
-import molecule.PaddingM
+import molecule.PaddingL
 import molecule.PaddingS
 import molecule.Shadow
 import molecule.TextBody2
@@ -37,14 +37,11 @@ internal fun Header(
 
         Toolbar(title = "Muscles", icon = Icons.close to close)
 
-        PaddingS()
-
         Column(
             modifier = modifier
                 .align(Alignment.CenterHorizontally)
                 .width(intrinsicSize = IntrinsicSize.Max)
                 .defaultMinSize(minHeight = Design.dp.componentS),
-            verticalArrangement = Arrangement.spacedBy(Design.dp.paddingM),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
@@ -53,6 +50,8 @@ internal fun Header(
                 textAlign = TextAlign.Center,
                 color = Design.colors.caption
             )
+
+            PaddingL()
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -85,7 +84,7 @@ internal fun Header(
             }
         }
 
-        PaddingM()
+        PaddingL()
 
         Shadow()
     }

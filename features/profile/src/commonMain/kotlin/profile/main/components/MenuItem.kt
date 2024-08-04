@@ -16,7 +16,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import atom.Design
 import molecule.Icon
 import molecule.PaddingWeight
-import molecule.TextBody2
+import molecule.TextLabel
 import resources.Icons
 
 @Composable
@@ -43,7 +43,7 @@ internal fun MenuItem(
             color = contentColor
         )
 
-        TextBody2(
+        TextLabel(
             provideText = { text },
             color = contentColor
         )

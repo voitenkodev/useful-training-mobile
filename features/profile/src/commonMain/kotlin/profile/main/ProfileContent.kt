@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -22,9 +21,8 @@ import components.ShadowHeaderSpace
 import components.cards.UserCard
 import components.roots.ScreenRoot
 import molecule.PaddingM
-import molecule.PaddingS
 import molecule.PaddingXL
-import molecule.PaddingXXL
+import molecule.Shadow
 import molecule.TextH4
 import molecule.secondaryDefaultBackground
 import profile.main.components.MenuItem
@@ -136,9 +134,7 @@ private fun Content(
 //                }
 //            }
 
-            item {
-                PaddingXXL()
-            }
+            item { PaddingM() }
 
             item {
                 TextH4(
@@ -148,7 +144,7 @@ private fun Content(
                 )
             }
 
-            item { PaddingS() }
+            item { PaddingM() }
 
             item {
                 Column(
@@ -157,10 +153,9 @@ private fun Content(
                         .secondaryDefaultBackground()
                         .fillMaxWidth()
                 ) {
-
                     MenuItem(
                         icon = Icons.weigher,
-                        text = "Weight",
+                        text = "Edit profile",
                         onClick = toWeightHistory,
                         paddingValues = PaddingValues(
                             vertical = Design.dp.paddingS,
@@ -168,10 +163,19 @@ private fun Content(
                         )
                     )
 
-                    HorizontalDivider(
-                        modifier = Modifier.fillMaxWidth(),
-                        color = Design.colors.white5
+                    Shadow()
+
+                    MenuItem(
+                        icon = Icons.weigher,
+                        text = "Weight history",
+                        onClick = toWeightHistory,
+                        paddingValues = PaddingValues(
+                            vertical = Design.dp.paddingS,
+                            horizontal = Design.dp.paddingM
+                        )
                     )
+
+                    Shadow()
 
                     MenuItem(
                         icon = Icons.dumbbell,
@@ -183,10 +187,7 @@ private fun Content(
                         )
                     )
 
-                    HorizontalDivider(
-                        modifier = Modifier.fillMaxWidth(),
-                        color = Design.colors.white5
-                    )
+                    Shadow()
 
                     MenuItem(
                         icon = Icons.biceps,
@@ -198,10 +199,7 @@ private fun Content(
                         )
                     )
 
-                    HorizontalDivider(
-                        modifier = Modifier.fillMaxWidth(),
-                        color = Design.colors.white5
-                    )
+                    Shadow()
 
                     MenuItem(
                         icon = Icons.equipment,
@@ -215,7 +213,7 @@ private fun Content(
                 }
             }
 
-            item { PaddingXXL() }
+            item { PaddingM() }
 
             item {
                 TextH4(
@@ -225,7 +223,7 @@ private fun Content(
                 )
             }
 
-            item { PaddingS() }
+            item { PaddingM() }
 
             item {
 
@@ -246,10 +244,7 @@ private fun Content(
                         )
                     )
 
-                    HorizontalDivider(
-                        modifier = Modifier.fillMaxWidth(),
-                        color = Design.colors.white5
-                    )
+                    Shadow()
 
                     MenuItem(
                         icon = Icons.support,
@@ -261,10 +256,7 @@ private fun Content(
                         )
                     )
 
-                    HorizontalDivider(
-                        modifier = Modifier.fillMaxWidth(),
-                        color = Design.colors.white5
-                    )
+                    Shadow()
 
                     MenuItem(
                         icon = Icons.logout,
