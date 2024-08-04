@@ -17,10 +17,9 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
-import atom.Design
 import components.labels.InputLabel
 import molecule.ButtonIconSecondary
-import molecule.InputField
+import molecule.Input
 
 @Composable
 public fun InputName(
@@ -31,12 +30,10 @@ public fun InputName(
 
     val focusManager = LocalFocusManager.current
 
-    InputField(
+    Input(
         modifier = modifier,
         value = provideValue.invoke(),
         onValueChange = onValueChange,
-        backgroundColor = Design.colors.content,
-        contentColor = Design.colors.primary,
         placeholder = "Username",
         trailing = {
 
@@ -50,7 +47,7 @@ public fun InputName(
                         .wrapContentSize()
                         .height(IntrinsicSize.Min),
                     imageVector = resources.Icons.clear,
-                    color = Design.colors.primary.copy(alpha = 0.5f),
+                    color = it.copy(alpha = 0.5f),
                     onClick = { onValueChange.invoke("") }
                 )
             }

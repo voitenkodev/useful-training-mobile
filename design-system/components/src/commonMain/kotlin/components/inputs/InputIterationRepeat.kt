@@ -13,7 +13,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import components.labels.InputLabel
-import molecule.InputField
+import molecule.Input
 
 @Composable
 public fun InputRepeat(
@@ -30,7 +30,7 @@ public fun InputRepeat(
         mutableStateOf(textFieldValue)
     }
 
-    InputField(
+    Input(
         modifier = modifier,
         value = tfv,
         onValueChange = {
@@ -42,7 +42,10 @@ public fun InputRepeat(
         maxLines = 1,
         maxLength = 2,
         placeholder = "0",
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Next),
+        keyboardOptions = KeyboardOptions(
+            keyboardType = KeyboardType.Number,
+            imeAction = ImeAction.Next
+        ),
         digits = arrayOf('1', '2', '3', '4', '5', '6', '7', '8', '9', '0'),
     )
 }

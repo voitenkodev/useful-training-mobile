@@ -28,7 +28,7 @@ import atom.Design
 import conditional
 import molecule.ButtonIconSecondary
 import molecule.Icon
-import molecule.InputField
+import molecule.Input
 import resources.Icons
 
 @Composable
@@ -45,7 +45,7 @@ public fun InputSearch(
             .fillMaxWidth()
             .height(IntrinsicSize.Min)
     ) {
-        InputField(
+        Input(
             modifier = Modifier.fillMaxWidth().conditional(
                 condition = onClick != null,
                 onYes = { clickable(onClick = {}, enabled = false) }
@@ -56,13 +56,16 @@ public fun InputSearch(
             backgroundColor = Design.colors.black10,
             keyboardActions = KeyboardActions { focusManager.moveFocus(FocusDirection.Next) },
             onValueChange = update,
-            keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Sentences, imeAction = ImeAction.Next),
+            keyboardOptions = KeyboardOptions(
+                capitalization = KeyboardCapitalization.Sentences,
+                imeAction = ImeAction.Next
+            ),
             fontWeight = FontWeight.Bold,
-            prefix = {
+            leading = {
                 Icon(
                     modifier = Modifier.padding(end = Design.dp.paddingS),
                     imageVector = Icons.search,
-                    color = Design.colors.caption
+                    color = it.copy(alpha = 0.5f),
                 )
             },
             trailing = {
@@ -76,7 +79,7 @@ public fun InputSearch(
                             .wrapContentSize()
                             .height(IntrinsicSize.Min),
                         imageVector = Icons.clear,
-                        color = Design.colors.caption,
+                        color = it.copy(alpha = 0.5f),
                         onClick = { update.invoke("") }
                     )
                 }

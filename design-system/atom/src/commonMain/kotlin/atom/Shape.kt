@@ -7,7 +7,7 @@ import androidx.compose.ui.unit.dp
 
 internal fun shape() = Shape(
     small = RoundedCornerShape(6.dp),
-    default = RoundedCornerShape(16.dp),
+    default = RoundedCornerShape(12.dp),
     circleShape = CircleShape
 )
 

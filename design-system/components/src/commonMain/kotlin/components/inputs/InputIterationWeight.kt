@@ -16,7 +16,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import components.labels.InputLabel
-import molecule.InputField
+import molecule.Input
 
 @Composable
 public fun InputWeight(
@@ -34,7 +34,7 @@ public fun InputWeight(
         mutableStateOf(textFieldValue)
     }
 
-    InputField(
+    Input(
         modifier = modifier,
         value = tfv,
         onValueChange = {
@@ -46,7 +46,10 @@ public fun InputWeight(
         maxLines = 1,
         maxLength = 6,
         placeholder = "0.0",
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Next),
+        keyboardOptions = KeyboardOptions(
+            keyboardType = KeyboardType.Number,
+            imeAction = ImeAction.Next
+        ),
         keyboardActions = KeyboardActions { focusManager.moveFocus(FocusDirection.Next) },
         digits = arrayOf('1', '2', '3', '4', '5', '6', '7', '8', '9', '0', ',', '.'),
     )

@@ -17,10 +17,9 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
-import atom.Design
 import components.labels.InputLabel
 import molecule.ButtonIconSecondary
-import molecule.InputField
+import molecule.Input
 
 @Composable
 public fun InputEmail(
@@ -31,15 +30,13 @@ public fun InputEmail(
 
     val focusManager = LocalFocusManager.current
 
-    InputField(
+    Input(
         modifier = modifier,
         value = provideValue(),
         onValueChange = onValueChange,
-        backgroundColor = Design.colors.content,
-        contentColor = Design.colors.primary,
         trailing = {
-
             AnimatedVisibility(
+                modifier = Modifier,
                 visible = provideValue().isNotEmpty(),
                 enter = fadeIn() + scaleIn(),
                 exit = scaleOut() + fadeOut(),
@@ -49,7 +46,7 @@ public fun InputEmail(
                         .wrapContentSize()
                         .height(IntrinsicSize.Min),
                     imageVector = resources.Icons.clear,
-                    color = Design.colors.primary.copy(alpha = 0.5f),
+                    color = it.copy(alpha = 0.5f),
                     onClick = { onValueChange.invoke("") }
                 )
             }

@@ -19,7 +19,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import atom.Design
 import molecule.ButtonIconSecondary
-import molecule.InputField
+import molecule.Input
 
 @Composable
 public fun InputExerciseExampleName(
@@ -29,7 +29,7 @@ public fun InputExerciseExampleName(
 ) {
     val focusManager = LocalFocusManager.current
 
-    InputField(
+    Input(
         modifier = modifier.fillMaxWidth(),
         value = value.invoke(),
         placeholder = "Name of exercise",
@@ -37,7 +37,10 @@ public fun InputExerciseExampleName(
         keyboardActions = KeyboardActions { focusManager.moveFocus(FocusDirection.Next) },
         onValueChange = onValueChange,
         backgroundColor = Design.colors.black10,
-        keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Sentences, imeAction = ImeAction.Next),
+        keyboardOptions = KeyboardOptions(
+            capitalization = KeyboardCapitalization.Sentences,
+            imeAction = ImeAction.Next
+        ),
         trailing = {
             AnimatedVisibility(
                 visible = value().isNotEmpty(),
@@ -49,7 +52,7 @@ public fun InputExerciseExampleName(
                         .wrapContentSize()
                         .height(IntrinsicSize.Min),
                     imageVector = resources.Icons.clear,
-                    color = Design.colors.caption,
+                    color = it.copy(alpha = 0.5f),
                     onClick = { onValueChange.invoke("") }
                 )
             }

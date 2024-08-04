@@ -10,10 +10,9 @@ import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import atom.Design
 import components.labels.InputLabel
 import molecule.ButtonIconSecondary
-import molecule.InputField
+import molecule.Input
 import resources.Icons
 
 @Composable
@@ -24,19 +23,17 @@ public fun InputPassword(
 ) {
     val passwordVisibility = rememberSaveable { mutableStateOf(false) }
 
-    InputField(
+    Input(
         modifier = modifier,
         value = provideValue.invoke(),
         onValueChange = onValueChange,
-        backgroundColor = Design.colors.content,
-        contentColor = Design.colors.primary,
         visualTransformation = if (passwordVisibility.value) VisualTransformation.None else PasswordVisualTransformation(),
         label = { InputLabel(provideText = { "Enter password" }) },
         placeholder = "Password",
         trailing = {
             ButtonIconSecondary(
                 imageVector = if (passwordVisibility.value) Icons.eyeOff else Icons.eye,
-                color = Design.colors.primary.copy(alpha = 0.5f),
+                color = it.copy(alpha = 0.5f),
                 onClick = { passwordVisibility.value = passwordVisibility.value.not() }
             )
         },

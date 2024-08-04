@@ -100,7 +100,8 @@ private fun Content(
 
             TextBody2(
                 provideText = { "Sign in with your email and password" },
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
+                color = Design.colors.caption
             )
 
             PaddingXXL()
