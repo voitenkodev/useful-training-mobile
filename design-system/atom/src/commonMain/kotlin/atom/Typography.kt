@@ -27,7 +27,7 @@ internal fun typography() = Typography(
         baselineShift = BaselineShift.None,
         fontSize = 26.sp,
         letterSpacing = 1.sp,
-        fontWeight = FontWeight.Bold,
+        fontWeight = FontWeight.ExtraBold,
         fontStyle = FontStyle.Normal,
         fontFamily = Fonts.Primary(),
         lineHeightStyle = LineHeightStyle(
@@ -37,7 +37,7 @@ internal fun typography() = Typography(
     ),
     H3 = TextStyle(
         fontSize = 22.sp,
-        fontWeight = FontWeight.ExtraBold,
+        fontWeight = FontWeight.Bold,
         letterSpacing = 1.sp,
         fontStyle = FontStyle.Normal,
         fontFamily = Fonts.Primary(),
