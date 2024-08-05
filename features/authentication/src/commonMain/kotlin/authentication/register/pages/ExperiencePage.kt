@@ -15,9 +15,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import atom.Design
+import authentication.register.components.ExperienceCard
 import components.ShadowBottomButtons
 import components.ShadowFooterSpace
-import components.cards.HorizontalValueCard
 import kotlinx.collections.immutable.ImmutableList
 import molecule.ButtonPrimary
 import molecule.ButtonSecondary
@@ -67,7 +67,7 @@ internal fun ExperiencePage(
                 contentPadding = PaddingValues(vertical = Design.dp.paddingL)
             ) {
                 items(experiences) {
-                    HorizontalValueCard(
+                    ExperienceCard(
                         modifier = Modifier.padding(horizontal = Design.dp.paddingM),
                         title = it.title,
                         description = it.description,

@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
@@ -39,7 +38,7 @@ internal fun MenuItem(
     ) {
 
         Icon(
-            modifier = Modifier.size(Design.dp.componentXS),
+            modifier = Modifier.size(Design.dp.componentXXS),
             imageVector = icon,
             color = contentColor
         )
@@ -52,7 +51,7 @@ internal fun MenuItem(
         PaddingWeight()
 
         if (allowRightArrow) Icon(
-            modifier = Modifier.height(Design.dp.componentS),
+            modifier = Modifier.size(Design.dp.componentXXS),
             imageVector = Icons.arrowRight,
             color = contentColor
         )

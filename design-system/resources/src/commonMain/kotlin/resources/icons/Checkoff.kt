@@ -6,7 +6,6 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.group
 import androidx.compose.ui.graphics.vector.path
 import androidx.compose.ui.unit.dp
-import kotlin.Suppress
 
 internal val CheckOff: ImageVector
     get() {
@@ -21,7 +20,7 @@ internal val CheckOff: ImageVector
             viewportHeight = 100f
         ).apply {
             group {
-                path(fill = SolidColor(Color(0xFF000000))) {
+                path(fill = SolidColor(Color(0x4Dffffff))) {
                     moveTo(50.07f, 9f)
                     curveTo(58.16f, 9f, 66.08f, 11.4f, 72.81f, 15.9f)
                     curveTo(79.54f, 20.4f, 84.78f, 26.79f, 87.88f, 34.27f)
