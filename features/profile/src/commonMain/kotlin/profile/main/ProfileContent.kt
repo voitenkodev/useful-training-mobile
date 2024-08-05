@@ -154,7 +154,7 @@ private fun Content(
                         .fillMaxWidth()
                 ) {
                     MenuItem(
-                        icon = Icons.weigher,
+                        icon = Icons.edit,
                         text = "Edit profile",
                         onClick = toWeightHistory,
                         paddingValues = PaddingValues(
@@ -247,18 +247,6 @@ private fun Content(
                     Shadow()
 
                     MenuItem(
-                        icon = Icons.support,
-                        text = "Support",
-                        onClick = toSupport,
-                        paddingValues = PaddingValues(
-                            vertical = Design.dp.paddingS,
-                            horizontal = Design.dp.paddingM
-                        )
-                    )
-
-                    Shadow()
-
-                    MenuItem(
                         icon = Icons.logout,
                         text = "Logout",
                         contentColor = Design.colors.red,
@@ -276,7 +264,6 @@ private fun Content(
 
         ShadowHeader(
             title = "Profile",
-            icon = Icons.notifications to {}
         )
     }
 }

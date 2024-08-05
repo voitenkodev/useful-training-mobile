@@ -16,7 +16,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import atom.Design
 import molecule.Icon
 import molecule.PaddingWeight
-import molecule.TextLabel
+import molecule.TextBody2
 import resources.Icons
 
 @Composable
@@ -28,6 +28,7 @@ internal fun MenuItem(
     paddingValues: PaddingValues,
     onClick: () -> Unit
 ) {
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -43,7 +44,7 @@ internal fun MenuItem(
             color = contentColor
         )
 
-        TextLabel(
+        TextBody2(
             provideText = { text },
             color = contentColor
         )

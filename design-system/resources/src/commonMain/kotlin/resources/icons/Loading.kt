@@ -1,181 +1,95 @@
+package resources.icons
+
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.PathFillType
 import androidx.compose.ui.graphics.SolidColor
-import androidx.compose.ui.graphics.StrokeCap
-import androidx.compose.ui.graphics.StrokeJoin
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.group
 import androidx.compose.ui.graphics.vector.path
 import androidx.compose.ui.unit.dp
-
-private var _vector: ImageVector? = null
+import kotlin.Suppress
 
 internal val Loading: ImageVector
     get() {
-        if (_vector != null) {
-            return _vector!!
+        if (_Loading != null) {
+            return _Loading!!
         }
-        _vector = ImageVector.Builder(
-            name = "vector",
-            defaultWidth = 32.dp,
-            defaultHeight = 32.dp,
-            viewportWidth = 32f,
-            viewportHeight = 32f
+        _Loading = ImageVector.Builder(
+            name = "Loading",
+            defaultWidth = 100.dp,
+            defaultHeight = 100.dp,
+            viewportWidth = 100f,
+            viewportHeight = 100f
         ).apply {
             group {
-                path(
-                    fill = SolidColor(Color.Black),
-                    fillAlpha = 1.0f,
-                    stroke = null,
-                    strokeAlpha = 1.0f,
-                    strokeLineWidth = 1.0f,
-                    strokeLineCap = StrokeCap.Butt,
-                    strokeLineJoin = StrokeJoin.Miter,
-                    strokeLineMiter = 1.0f,
-                    pathFillType = PathFillType.NonZero
-                ) {
-                    moveTo(5f, 18f)
-                    arcToRelative(2f, 2f, 0f, isMoreThanHalf = true, isPositiveArc = true, 2f, -2f)
-                    arcTo(2f, 2f, 0f, isMoreThanHalf = false, isPositiveArc = true, 5f, 18f)
-                    close()
-                    moveToRelative(0f, -2f)
+                path(fill = SolidColor(Color(0xFF000000))) {
+                    moveTo(50f, 0f)
+                    curveTo(45.44f, 0f, 41.74f, 3.7f, 41.74f, 8.26f)
+                    curveTo(41.74f, 12.82f, 45.44f, 16.52f, 50f, 16.52f)
+                    curveTo(54.56f, 16.52f, 58.26f, 12.82f, 58.26f, 8.26f)
+                    curveTo(58.26f, 3.7f, 54.56f, 0f, 50f, 0f)
                     close()
                 }
-                path(
-                    fill = SolidColor(Color.Black),
-                    fillAlpha = 1.0f,
-                    stroke = null,
-                    strokeAlpha = 1.0f,
-                    strokeLineWidth = 1.0f,
-                    strokeLineCap = StrokeCap.Butt,
-                    strokeLineJoin = StrokeJoin.Miter,
-                    strokeLineMiter = 1.0f,
-                    pathFillType = PathFillType.NonZero
-                ) {
-                    moveTo(8.22f, 10.22f)
-                    arcToRelative(2f, 2f, 0f, isMoreThanHalf = false, isPositiveArc = true, -1.41f, -0.58f)
-                    arcToRelative(2f, 2f, 0f, isMoreThanHalf = false, isPositiveArc = true, 0f, -2.83f)
-                    arcToRelative(2f, 2f, 0f, isMoreThanHalf = false, isPositiveArc = true, 2.83f, 0f)
-                    arcToRelative(2f, 2f, 0f, isMoreThanHalf = false, isPositiveArc = true, 0f, 2.83f)
-                    horizontalLineToRelative(0f)
-                    arcTo(2f, 2f, 0f, isMoreThanHalf = false, isPositiveArc = true, 8.22f, 10.22f)
+                path(fill = SolidColor(Color(0xFF000000))) {
+                    moveTo(50f, 83.48f)
+                    curveTo(45.44f, 83.48f, 41.74f, 87.18f, 41.74f, 91.74f)
+                    curveTo(41.74f, 96.3f, 45.44f, 100f, 50f, 100f)
+                    curveTo(54.56f, 100f, 58.26f, 96.3f, 58.26f, 91.74f)
+                    curveTo(58.26f, 87.18f, 54.56f, 83.48f, 50f, 83.48f)
                     close()
                 }
-                path(
-                    fill = SolidColor(Color.Black),
-                    fillAlpha = 1.0f,
-                    stroke = null,
-                    strokeAlpha = 1.0f,
-                    strokeLineWidth = 1.0f,
-                    strokeLineCap = StrokeCap.Butt,
-                    strokeLineJoin = StrokeJoin.Miter,
-                    strokeLineMiter = 1.0f,
-                    pathFillType = PathFillType.NonZero
-                ) {
-                    moveTo(18f, 5f)
-                    arcTo(2f, 2f, 0f, isMoreThanHalf = false, isPositiveArc = true, 16f, 7f)
-                    arcTo(2f, 2f, 0f, isMoreThanHalf = false, isPositiveArc = true, 14f, 5f)
-                    arcTo(2f, 2f, 0f, isMoreThanHalf = false, isPositiveArc = true, 18f, 5f)
+                path(fill = SolidColor(Color(0xFF000000))) {
+                    moveTo(14.64f, 14.65f)
+                    curveTo(11.42f, 17.87f, 11.42f, 23.1f, 14.64f, 26.33f)
+                    curveTo(17.87f, 29.55f, 23.1f, 29.55f, 26.32f, 26.33f)
+                    curveTo(29.55f, 23.1f, 29.55f, 17.87f, 26.32f, 14.65f)
+                    curveTo(23.1f, 11.42f, 17.87f, 11.42f, 14.64f, 14.65f)
                     close()
                 }
-                path(
-                    fill = SolidColor(Color.Black),
-                    fillAlpha = 1.0f,
-                    stroke = null,
-                    strokeAlpha = 1.0f,
-                    strokeLineWidth = 1.0f,
-                    strokeLineCap = StrokeCap.Butt,
-                    strokeLineJoin = StrokeJoin.Miter,
-                    strokeLineMiter = 1.0f,
-                    pathFillType = PathFillType.NonZero
-                ) {
-                    moveTo(23.78f, 10.22f)
-                    arcToRelative(2f, 2f, 0f, isMoreThanHalf = false, isPositiveArc = true, -1.42f, -0.58f)
-                    horizontalLineToRelative(0f)
-                    arcToRelative(2f, 2f, 0f, isMoreThanHalf = true, isPositiveArc = true, 2.83f, -2.83f)
-                    arcToRelative(2f, 2f, 0f, isMoreThanHalf = false, isPositiveArc = true, 0f, 2.83f)
-                    arcTo(2f, 2f, 0f, isMoreThanHalf = false, isPositiveArc = true, 23.78f, 10.22f)
-                    close()
-                    moveToRelative(0f, -2f)
+                path(fill = SolidColor(Color(0xFF000000))) {
+                    moveTo(73.67f, 73.67f)
+                    curveTo(70.45f, 76.9f, 70.45f, 82.13f, 73.67f, 85.36f)
+                    curveTo(76.9f, 88.58f, 82.13f, 88.58f, 85.35f, 85.36f)
+                    curveTo(88.58f, 82.13f, 88.58f, 76.9f, 85.35f, 73.67f)
+                    curveTo(82.13f, 70.45f, 76.9f, 70.45f, 73.67f, 73.67f)
                     close()
                 }
-                path(
-                    fill = SolidColor(Color.Black),
-                    fillAlpha = 1.0f,
-                    stroke = null,
-                    strokeAlpha = 1.0f,
-                    strokeLineWidth = 1.0f,
-                    strokeLineCap = StrokeCap.Butt,
-                    strokeLineJoin = StrokeJoin.Miter,
-                    strokeLineMiter = 1.0f,
-                    pathFillType = PathFillType.NonZero
-                ) {
-                    moveTo(27f, 18f)
-                    arcToRelative(2f, 2f, 0f, isMoreThanHalf = true, isPositiveArc = true, 2f, -2f)
-                    arcTo(2f, 2f, 0f, isMoreThanHalf = false, isPositiveArc = true, 27f, 18f)
-                    close()
-                    moveToRelative(0f, -2f)
+                path(fill = SolidColor(Color(0xFF000000))) {
+                    moveTo(16.52f, 50f)
+                    curveTo(16.52f, 45.44f, 12.82f, 41.74f, 8.26f, 41.74f)
+                    curveTo(3.7f, 41.74f, -0f, 45.44f, 0f, 50f)
+                    curveTo(-0f, 54.56f, 3.69f, 58.26f, 8.26f, 58.26f)
+                    curveTo(12.82f, 58.26f, 16.52f, 54.56f, 16.52f, 50f)
                     close()
                 }
-                path(
-                    fill = SolidColor(Color.Black),
-                    fillAlpha = 1.0f,
-                    stroke = null,
-                    strokeAlpha = 1.0f,
-                    strokeLineWidth = 1.0f,
-                    strokeLineCap = StrokeCap.Butt,
-                    strokeLineJoin = StrokeJoin.Miter,
-                    strokeLineMiter = 1.0f,
-                    pathFillType = PathFillType.NonZero
-                ) {
-                    moveTo(23.78f, 25.78f)
-                    arcToRelative(2f, 2f, 0f, isMoreThanHalf = false, isPositiveArc = true, -1.42f, -0.59f)
-                    arcToRelative(2f, 2f, 0f, isMoreThanHalf = false, isPositiveArc = true, 0f, -2.83f)
-                    horizontalLineToRelative(0f)
-                    arcToRelative(2.06f, 2.06f, 0f, isMoreThanHalf = false, isPositiveArc = true, 2.83f, 0f)
-                    arcToRelative(2f, 2f, 0f, isMoreThanHalf = false, isPositiveArc = true, -1.41f, 3.42f)
+                path(fill = SolidColor(Color(0xFF000000))) {
+                    moveTo(91.74f, 41.74f)
+                    curveTo(87.18f, 41.74f, 83.48f, 45.44f, 83.48f, 50f)
+                    curveTo(83.48f, 54.56f, 87.18f, 58.26f, 91.74f, 58.26f)
+                    curveTo(96.3f, 58.26f, 100f, 54.56f, 100f, 50f)
+                    curveTo(100f, 45.44f, 96.3f, 41.74f, 91.74f, 41.74f)
                     close()
                 }
-                path(
-                    fill = SolidColor(Color.Black),
-                    fillAlpha = 1.0f,
-                    stroke = null,
-                    strokeAlpha = 1.0f,
-                    strokeLineWidth = 1.0f,
-                    strokeLineCap = StrokeCap.Butt,
-                    strokeLineJoin = StrokeJoin.Miter,
-                    strokeLineMiter = 1.0f,
-                    pathFillType = PathFillType.NonZero
-                ) {
-                    moveTo(18f, 27f)
-                    arcTo(2f, 2f, 0f, isMoreThanHalf = false, isPositiveArc = true, 16f, 29f)
-                    arcTo(2f, 2f, 0f, isMoreThanHalf = false, isPositiveArc = true, 14f, 27f)
-                    arcTo(2f, 2f, 0f, isMoreThanHalf = false, isPositiveArc = true, 18f, 27f)
+                path(fill = SolidColor(Color(0xFF000000))) {
+                    moveTo(14.65f, 73.68f)
+                    curveTo(11.42f, 76.9f, 11.42f, 82.13f, 14.65f, 85.36f)
+                    curveTo(17.87f, 88.58f, 23.1f, 88.58f, 26.32f, 85.36f)
+                    curveTo(29.55f, 82.13f, 29.55f, 76.9f, 26.32f, 73.67f)
+                    curveTo(23.1f, 70.45f, 17.87f, 70.45f, 14.65f, 73.68f)
                     close()
                 }
-                path(
-                    fill = SolidColor(Color.Black),
-                    fillAlpha = 1.0f,
-                    stroke = null,
-                    strokeAlpha = 1.0f,
-                    strokeLineWidth = 1.0f,
-                    strokeLineCap = StrokeCap.Butt,
-                    strokeLineJoin = StrokeJoin.Miter,
-                    strokeLineMiter = 1.0f,
-                    pathFillType = PathFillType.NonZero
-                ) {
-                    moveTo(8.22f, 25.78f)
-                    arcToRelative(2f, 2f, 0f, isMoreThanHalf = false, isPositiveArc = true, -1.41f, -3.42f)
-                    arcToRelative(2.06f, 2.06f, 0f, isMoreThanHalf = false, isPositiveArc = true, 2.83f, 0f)
-                    horizontalLineToRelative(0f)
-                    arcToRelative(2f, 2f, 0f, isMoreThanHalf = false, isPositiveArc = true, 0f, 2.83f)
-                    arcTo(2f, 2f, 0f, isMoreThanHalf = false, isPositiveArc = true, 8.22f, 25.78f)
-                    close()
-                    moveToRelative(0f, -2f)
+                path(fill = SolidColor(Color(0xFF000000))) {
+                    moveTo(85.36f, 26.33f)
+                    curveTo(88.58f, 23.1f, 88.58f, 17.87f, 85.36f, 14.64f)
+                    curveTo(82.13f, 11.42f, 76.9f, 11.42f, 73.67f, 14.64f)
+                    curveTo(70.45f, 17.87f, 70.45f, 23.1f, 73.67f, 26.33f)
+                    curveTo(76.9f, 29.55f, 82.13f, 29.55f, 85.36f, 26.33f)
                     close()
                 }
             }
         }.build()
-        return _vector!!
+
+        return _Loading!!
     }
 
+@Suppress("ObjectPropertyName")
+private var _Loading: ImageVector? = null
