@@ -1,12 +1,10 @@
 package resources.icons
 
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.PathFillType
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.path
 import androidx.compose.ui.unit.dp
-import kotlin.Suppress
 
 internal val ArrowDown: ImageVector
     get() {
@@ -22,20 +20,32 @@ internal val ArrowDown: ImageVector
         ).apply {
             path(
                 fill = SolidColor(Color(0xFF000000)),
-                pathFillType = PathFillType.EvenOdd
+                stroke = SolidColor(Color(0xFF000000)),
+                strokeLineWidth = 1f
             ) {
-                moveTo(5.28f, 22.51f)
-                curveTo(7.29f, 20.5f, 10.54f, 20.5f, 12.55f, 22.51f)
-                lineTo(50.07f, 60.02f)
-                lineTo(87.58f, 22.51f)
-                curveTo(89.59f, 20.5f, 92.85f, 20.5f, 94.86f, 22.51f)
-                lineTo(98.49f, 26.14f)
-                curveTo(100.5f, 28.15f, 100.5f, 31.41f, 98.49f, 33.42f)
-                lineTo(55.52f, 76.39f)
-                curveTo(52.51f, 79.4f, 47.62f, 79.4f, 44.61f, 76.39f)
-                lineTo(1.64f, 33.42f)
-                curveTo(-0.37f, 31.41f, -0.37f, 28.15f, 1.64f, 26.14f)
-                lineTo(5.28f, 22.51f)
+                moveTo(52.47f, 72.66f)
+                lineTo(52.48f, 72.65f)
+                lineTo(52.49f, 72.64f)
+                lineTo(89.38f, 32.15f)
+                curveTo(90.88f, 30.63f, 90.87f, 28.17f, 89.37f, 26.64f)
+                lineTo(89.37f, 26.64f)
+                lineTo(89.37f, 26.64f)
+                curveTo(87.86f, 25.12f, 85.38f, 25.12f, 83.87f, 26.64f)
+                lineTo(83.86f, 26.65f)
+                lineTo(83.86f, 26.66f)
+                lineTo(49.55f, 64.31f)
+                lineTo(15.22f, 26.66f)
+                lineTo(15.21f, 26.65f)
+                lineTo(15.2f, 26.64f)
+                curveTo(13.69f, 25.12f, 11.25f, 25.12f, 9.71f, 26.64f)
+                lineTo(9.71f, 26.64f)
+                lineTo(9.7f, 26.64f)
+                curveTo(8.2f, 28.17f, 8.2f, 30.63f, 9.7f, 32.15f)
+                lineTo(46.59f, 72.64f)
+                lineTo(46.59f, 72.65f)
+                lineTo(46.6f, 72.66f)
+                curveTo(47.42f, 73.47f, 48.49f, 73.81f, 49.55f, 73.77f)
+                curveTo(50.58f, 73.81f, 51.66f, 73.47f, 52.47f, 72.66f)
                 close()
             }
         }.build()

@@ -66,7 +66,7 @@ public fun ExperienceCard(
                 .padding(Design.dp.paddingXS),
             color = when (isSelected) {
                 true -> Design.colors.toxic
-                false -> Design.colors.content
+                false -> Design.colors.caption
             },
             imageVector = startIcon.first
         )
