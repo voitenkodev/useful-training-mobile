@@ -5,10 +5,8 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
-import androidx.compose.foundation.layout.IntrinsicSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.runtime.Composable
@@ -47,9 +45,7 @@ public fun InputMuscleName(
                 exit = scaleOut() + fadeOut(),
             ) {
                 ButtonIconSecondary(
-                    modifier = Modifier
-                        .wrapContentSize()
-                        .height(IntrinsicSize.Min),
+                    modifier = Modifier.size(Design.dp.componentXXS),
                     imageVector = resources.Icons.clear,
                     color = it.copy(alpha = 0.5f),
                     onClick = { onValueChange.invoke("") }

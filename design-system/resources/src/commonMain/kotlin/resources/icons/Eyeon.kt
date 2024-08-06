@@ -7,7 +7,6 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.group
 import androidx.compose.ui.graphics.vector.path
 import androidx.compose.ui.unit.dp
-import kotlin.Suppress
 
 internal val EyeOn: ImageVector
     get() {
@@ -26,39 +25,39 @@ internal val EyeOn: ImageVector
                     fill = SolidColor(Color(0xFF000000)),
                     pathFillType = PathFillType.EvenOdd
                 ) {
-                    moveTo(23.8f, 66.56f)
-                    curveTo(16.77f, 60.53f, 11.76f, 53.63f, 9.4f, 50.07f)
-                    curveTo(11.76f, 46.51f, 16.77f, 39.61f, 23.8f, 33.58f)
-                    curveTo(31.05f, 27.35f, 40f, 22.41f, 50.07f, 22.41f)
-                    curveTo(60.14f, 22.41f, 69.09f, 27.35f, 76.34f, 33.58f)
-                    curveTo(83.36f, 39.61f, 88.38f, 46.51f, 90.73f, 50.07f)
-                    curveTo(88.38f, 53.63f, 83.36f, 60.53f, 76.34f, 66.56f)
-                    curveTo(69.09f, 72.79f, 60.14f, 77.73f, 50.07f, 77.73f)
-                    curveTo(40f, 77.73f, 31.05f, 72.79f, 23.8f, 66.56f)
+                    moveTo(30.66f, 49.8f)
+                    curveTo(30.66f, 38.81f, 39.56f, 29.9f, 50.53f, 29.9f)
+                    curveTo(61.51f, 29.9f, 70.4f, 38.81f, 70.4f, 49.8f)
+                    curveTo(70.4f, 60.79f, 61.51f, 69.7f, 50.53f, 69.7f)
+                    curveTo(39.56f, 69.7f, 30.66f, 60.79f, 30.66f, 49.8f)
                     close()
-                    moveTo(50.07f, 13.19f)
-                    curveTo(36.92f, 13.19f, 25.9f, 19.62f, 17.79f, 26.58f)
-                    curveTo(9.65f, 33.58f, 4f, 41.48f, 1.49f, 45.32f)
-                    curveTo(-0.4f, 48.22f, -0.4f, 51.92f, 1.49f, 54.82f)
-                    curveTo(4f, 58.66f, 9.65f, 66.56f, 17.79f, 73.56f)
-                    curveTo(25.9f, 80.52f, 36.92f, 86.95f, 50.07f, 86.95f)
-                    curveTo(63.22f, 86.95f, 74.24f, 80.52f, 82.35f, 73.56f)
-                    curveTo(90.49f, 66.56f, 96.14f, 58.66f, 98.64f, 54.82f)
-                    curveTo(100.54f, 51.92f, 100.54f, 48.22f, 98.64f, 45.32f)
-                    curveTo(96.14f, 41.48f, 90.49f, 33.58f, 82.35f, 26.58f)
-                    curveTo(74.24f, 19.62f, 63.22f, 13.19f, 50.07f, 13.19f)
+                    moveTo(21.93f, 21.66f)
+                    curveTo(37.45f, 6.11f, 62.61f, 6.11f, 78.13f, 21.66f)
+                    lineTo(88.9f, 32.44f)
+                    curveTo(92.02f, 35.56f, 94.7f, 38.25f, 96.56f, 40.69f)
+                    curveTo(98.55f, 43.31f, 100.06f, 46.21f, 100.06f, 49.8f)
+                    curveTo(100.06f, 53.39f, 98.55f, 56.3f, 96.56f, 58.91f)
+                    curveTo(94.7f, 61.35f, 92.02f, 64.04f, 88.9f, 67.16f)
+                    lineTo(78.13f, 77.94f)
+                    curveTo(62.61f, 93.49f, 37.45f, 93.49f, 21.93f, 77.94f)
+                    lineTo(11.16f, 67.16f)
+                    curveTo(8.05f, 64.04f, 5.36f, 61.35f, 3.5f, 58.91f)
+                    curveTo(1.51f, 56.3f, 0f, 53.39f, 0f, 49.8f)
+                    curveTo(0f, 46.21f, 1.51f, 43.31f, 3.5f, 40.69f)
+                    curveTo(5.36f, 38.25f, 8.05f, 35.56f, 11.16f, 32.44f)
+                    curveTo(11.24f, 32.37f, 11.31f, 32.29f, 11.39f, 32.21f)
+                    lineTo(21.93f, 21.66f)
                     close()
-                    moveTo(40.85f, 50.07f)
-                    curveTo(40.85f, 44.98f, 44.98f, 40.85f, 50.07f, 40.85f)
-                    curveTo(55.16f, 40.85f, 59.29f, 44.98f, 59.29f, 50.07f)
-                    curveTo(59.29f, 55.16f, 55.16f, 59.29f, 50.07f, 59.29f)
-                    curveTo(44.98f, 59.29f, 40.85f, 55.16f, 40.85f, 50.07f)
-                    close()
-                    moveTo(50.07f, 31.63f)
-                    curveTo(39.88f, 31.63f, 31.63f, 39.88f, 31.63f, 50.07f)
-                    curveTo(31.63f, 60.25f, 39.88f, 68.51f, 50.07f, 68.51f)
-                    curveTo(60.25f, 68.51f, 68.51f, 60.25f, 68.51f, 50.07f)
-                    curveTo(68.51f, 39.88f, 60.25f, 31.63f, 50.07f, 31.63f)
+                }
+                path(
+                    fill = SolidColor(Color(0xFF000000)),
+                    pathFillType = PathFillType.EvenOdd
+                ) {
+                    moveTo(50.53f, 39.81f)
+                    curveTo(45.04f, 39.81f, 40.6f, 44.26f, 40.6f, 49.76f)
+                    curveTo(40.6f, 55.25f, 45.04f, 59.71f, 50.53f, 59.71f)
+                    curveTo(56.02f, 59.71f, 60.47f, 55.25f, 60.47f, 49.76f)
+                    curveTo(60.47f, 44.26f, 56.02f, 39.81f, 50.53f, 39.81f)
                     close()
                 }
             }

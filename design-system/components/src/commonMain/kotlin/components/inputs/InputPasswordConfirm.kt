@@ -30,7 +30,7 @@ public fun InputPasswordConfirm(
         placeholder = "Confirm password",
         trailing = {
             ButtonIconSecondary(
-                imageVector = if (passwordVisibility.value) Icons.eyeOff else Icons.eye,
+                imageVector = if (passwordVisibility.value) Icons.eye else Icons.eyeOff,
                 color = it.copy(alpha = 0.5f),
                 onClick = { passwordVisibility.value = passwordVisibility.value.not() }
             )

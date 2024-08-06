@@ -89,7 +89,7 @@ public fun ButtonIconSecondary(
     onClick: () -> Unit
 ) {
     IconButton(
-        modifier = modifier.size(18.dp),
+        modifier = modifier.size(Design.dp.componentXXS),
         onClick = onClick
     ) {
         Icon(
