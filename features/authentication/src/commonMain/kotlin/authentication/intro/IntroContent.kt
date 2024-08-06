@@ -17,6 +17,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import atom.Design
 import authentication.intro.models.ScreenState
+import components.animation.Levitating
 import components.overlay.AlphaOverlay
 import components.roots.ScreenRoot
 import molecule.ButtonPrimary
@@ -80,10 +81,12 @@ private fun Content(
 
             PaddingWeight()
 
-            IconImage(
-                modifier = Modifier.size(250.dp),
-                imageVector = Icons.logo
-            )
+            Levitating {
+                IconImage(
+                    modifier = it.size(250.dp),
+                    imageVector = Icons.logo
+                )
+            }
 
             PaddingWeight()
 

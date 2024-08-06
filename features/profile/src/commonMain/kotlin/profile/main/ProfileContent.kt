@@ -178,7 +178,7 @@ private fun Content(
                     Shadow()
 
                     MenuItem(
-                        icon = Icons.dumbbell,
+                        icon = Icons.search,
                         text = "Exercises",
                         onClick = toExerciseExamples,
                         paddingValues = PaddingValues(

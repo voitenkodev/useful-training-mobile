@@ -6,7 +6,6 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.runtime.Composable
@@ -46,7 +45,6 @@ public fun InputExerciseExampleName(
                 exit = scaleOut() + fadeOut(),
             ) {
                 ButtonIconSecondary(
-                    modifier = Modifier.size(Design.dp.componentXXS),
                     imageVector = resources.Icons.clear,
                     color = it.copy(alpha = 0.5f),
                     onClick = { onValueChange.invoke("") }

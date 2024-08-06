@@ -8,8 +8,8 @@ import resources.icons.ArrowUp
 import resources.icons.Baby
 import resources.icons.Card
 import resources.icons.Charts
-import resources.icons.CheckOn
 import resources.icons.CheckOff
+import resources.icons.CheckOn
 import resources.icons.Close
 import resources.icons.Dumbbell
 import resources.icons.Edit
@@ -17,6 +17,7 @@ import resources.icons.EyeOff
 import resources.icons.EyeOn
 import resources.icons.Filter
 import resources.icons.FitnesCircle
+import resources.icons.GymLife
 import resources.icons.GymLifeOutline
 import resources.icons.HighBattery
 import resources.icons.Loading
@@ -47,28 +48,30 @@ public object Icons {
     public val chart: ImageVector = Charts
     public val delete: ImageVector = Close
     public val done: ImageVector = CheckOn
-    public val dumbbell: ImageVector = Dumbbell
     public val eye: ImageVector = EyeOn
     public val eyeOff: ImageVector = EyeOff
     public val filters: ImageVector = Filter
-    public val handWeight: ImageVector = WeightKg
     public val loading: ImageVector = Loading
     public val logout: ImageVector = Logout
-    public val person: ImageVector = MaleGym
-    public val time: ImageVector = Timer
-    public val weight: ImageVector = Weight
-    public val weigher: ImageVector = WeightGym
     public val edit: ImageVector = Edit
     public val clear: ImageVector = Close
     public val search: ImageVector = Search
+    public val checkOn: ImageVector = CheckOn
+    public val checkOff: ImageVector = CheckOff
 
     public val lowBattery: ImageVector = LowBattery
     public val mediumBattery: ImageVector = MediumBattery
     public val highBattery: ImageVector = HighBattery
+
+    public val dumbbell: ImageVector = Dumbbell
+    public val handWeight: ImageVector = WeightKg
+    public val person: ImageVector = MaleGym
+    public val time: ImageVector = Timer
+    public val weight: ImageVector = Weight
+    public val weigher: ImageVector = WeightGym
     public val biceps: ImageVector = MaleGym
     public val equipment: ImageVector = Dumbbell
-    public val checkOn: ImageVector = CheckOn
-    public val checkOff: ImageVector = CheckOff
+    public val training: ImageVector = GymLife
     public val repetitions: ImageVector = MaleGym
 
     public val beginner: ImageVector = Baby

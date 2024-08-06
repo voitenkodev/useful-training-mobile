@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import atom.Design
 import components.overlay.BottomShadow
 import molecule.ButtonIconPrimary
@@ -21,6 +22,7 @@ import molecule.ButtonPrimary
 import resources.Icons
 
 
+@Deprecated("use Footer")
 @Composable
 public fun ShadowFooter(
     modifier: Modifier = Modifier,
@@ -45,7 +47,7 @@ public fun ShadowFooter(
 
                 if (primary != null) {
                     ButtonPrimary(
-                        modifier = Modifier.width(Design.dp.componentXXL),
+                        modifier = Modifier.width(200.dp),
                         text = primary.first,
                         onClick = primary.third,
                         enabled = primary.second

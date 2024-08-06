@@ -64,6 +64,7 @@ public fun ButtonIconTransparent(
     IconButton(
         modifier = modifier
             .requiredSize(Design.dp.componentS)
+            .padding(Design.dp.paddingXS)
             .alpha(if (enabled) 1f else 0.5f)
             .clip(Design.shape.circleShape),
         onClick = onClick,
@@ -89,13 +90,12 @@ public fun ButtonIconSecondary(
     onClick: () -> Unit
 ) {
     IconButton(
-        modifier = modifier.size(Design.dp.componentXXS),
+        modifier = modifier.size(Design.dp.iconS),
         onClick = onClick
     ) {
         Icon(
             imageVector = imageVector,
             tint = color,
-            modifier = Modifier.clip(shape = Design.shape.default),
             contentDescription = null,
         )
     }

@@ -5,8 +5,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -58,7 +58,7 @@ internal fun WeightPickerPopup(
         WeightPicker(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(170.dp)
+                .height(200.dp)
                 .clipToBounds(),
             initial = weight.value,
             onValueChange = { weight.value = it },
@@ -82,7 +82,9 @@ internal fun WeightPickerPopup(
         ) {
 
             ButtonPrimary(
-                modifier = Modifier.width(Design.dp.componentXXL),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = Design.dp.paddingL),
                 text = "Apply",
                 enabled = weight.value != initialWeight,
                 onClick = {
