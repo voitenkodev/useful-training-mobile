@@ -1,4 +1,4 @@
-package resources.icons
+package resources.icon.filled
 
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
@@ -8,13 +8,13 @@ import androidx.compose.ui.graphics.vector.path
 import androidx.compose.ui.unit.dp
 import kotlin.Suppress
 
-internal val WeightKg: ImageVector
+internal val Kg: ImageVector
     get() {
-        if (_Weightkg != null) {
-            return _Weightkg!!
+        if (_Kg != null) {
+            return _Kg!!
         }
-        _Weightkg = ImageVector.Builder(
-            name = "Weightkg",
+        _Kg = ImageVector.Builder(
+            name = "Kg",
             defaultWidth = 100.dp,
             defaultHeight = 100.dp,
             viewportWidth = 100f,
@@ -103,8 +103,8 @@ internal val WeightKg: ImageVector
             }
         }.build()
 
-        return _Weightkg!!
+        return _Kg!!
     }
 
 @Suppress("ObjectPropertyName")
-private var _Weightkg: ImageVector? = null
+private var _Kg: ImageVector? = null

@@ -71,7 +71,7 @@ internal fun Header(exerciseExample: ExerciseExample?) {
                     Item(
                         title = "Force Type:",
                         value = exerciseExample?.forceType?.name ?: "-",
-                        icon = Icons.dumbbell
+                        icon = Icons.equipment
                     )
                 }
 
