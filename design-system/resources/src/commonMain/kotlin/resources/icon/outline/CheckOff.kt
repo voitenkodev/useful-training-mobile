@@ -21,7 +21,7 @@ internal val CheckOff: ImageVector
             viewportHeight = 107f
         ).apply {
             path(
-                stroke = SolidColor(Color(0xFF000000)),
+                stroke = SolidColor(Color(0x4DFCFBFA)),
                 strokeLineWidth = 7f,
                 strokeLineCap = StrokeCap.Round,
                 strokeLineJoin = StrokeJoin.Round

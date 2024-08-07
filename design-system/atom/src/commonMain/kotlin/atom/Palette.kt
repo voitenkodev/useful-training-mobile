@@ -17,24 +17,17 @@ public data class Color(
     val black70: Color = Color(0xB3000000), // Background shadow (popups)
 
     // Text
-//    val content: Color = Color(0xffFCFBFA),
-    val content: Color = Color(0xffffffff),
+    val content: Color = Color(0xffFCFBFA),
     val caption: Color = Color(0xffC9C5C5),
 
     // Accent Primary
     val orange: Color = Color(0xfffc5e0f),
     val yellow: Color = Color(0xffffba00),
     val toxic: Color = Color(0xff2afa2d),
-    val gray: Color = Color(0xff2E2E3E),
 
     // Accent Secondary
     val red: Color = Color(0xffff0000)
 )
-
-//    val primary: Color = Color(0xff121219), primary old
-//    val secondary: Color = Color(0xff1f2129),// default
-//    val secondary: Color = Color(0xff1f2424),// green
-//    val secondary: Color = Color(0xff172937), // Sea
 
 /*
 100% — FF

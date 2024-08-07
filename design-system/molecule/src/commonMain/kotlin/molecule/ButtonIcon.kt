@@ -73,7 +73,7 @@ public fun ButtonIconTransparent(
             Icon(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(Design.dp.paddingS),
+                    .padding(Design.dp.paddingXS),
                 tint = contentColor,
                 imageVector = imageVector,
                 contentDescription = null
