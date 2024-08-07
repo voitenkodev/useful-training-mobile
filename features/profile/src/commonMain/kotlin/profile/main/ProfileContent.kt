@@ -190,7 +190,7 @@ private fun Content(
                     Shadow()
 
                     MenuItem(
-                        icon = Icons.biceps,
+                        icon = Icons.muscles,
                         text = "Muscles",
                         onClick = toMuscles,
                         paddingValues = PaddingValues(

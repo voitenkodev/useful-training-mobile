@@ -54,7 +54,7 @@ public fun InputUrl(
                     modifier = Modifier
                         .wrapContentSize()
                         .height(IntrinsicSize.Min),
-                    imageVector = resources.Icons.clear,
+                    imageVector = resources.Icons.close,
                     color = it.copy(alpha = 0.5f),
                     onClick = { onValueChange.invoke("") }
                 )

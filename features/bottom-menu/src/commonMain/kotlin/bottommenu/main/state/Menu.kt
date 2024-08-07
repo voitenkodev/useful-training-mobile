@@ -6,7 +6,7 @@ import resources.Icons
 
 @Immutable
 internal enum class Menu(val icon: ImageVector) {
-    Trainings(icon = Icons.training),
-    Statistics(icon = Icons.chart),
-    Person(icon = Icons.person)
+    Trainings(icon = Icons.trainings),
+    Statistics(icon = Icons.statistics),
+    Person(icon = Icons.profile)
 }

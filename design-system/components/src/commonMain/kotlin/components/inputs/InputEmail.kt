@@ -39,7 +39,7 @@ public fun InputEmail(
                 exit = scaleOut() + fadeOut(),
             ) {
                 ButtonIconSecondary(
-                    imageVector = resources.Icons.clear,
+                    imageVector = resources.Icons.close,
                     color = it.copy(alpha = 0.5f),
                     onClick = { onValueChange.invoke("") }
                 )

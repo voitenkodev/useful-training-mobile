@@ -63,7 +63,7 @@ public fun InputSearch(
                 exit = scaleOut() + fadeOut(),
             ) {
                 ButtonIconSecondary(
-                    imageVector = Icons.clear,
+                    imageVector = Icons.close,
                     color = it.copy(alpha = 0.5f),
                     onClick = { update.invoke("") }
                 )

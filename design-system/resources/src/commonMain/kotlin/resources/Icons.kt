@@ -17,7 +17,6 @@ import resources.icons.EyeOff
 import resources.icons.EyeOn
 import resources.icons.Filter
 import resources.icons.FitnesCircle
-import resources.icons.GymLife
 import resources.icons.GymLifeOutline
 import resources.icons.HighBattery
 import resources.icons.Loading
@@ -34,6 +33,7 @@ import resources.icons.WeightGym
 import resources.icons.WeightKg
 
 public object Icons {
+    // Product
     public val logo: ImageVector = Logo
     public val logoBackground: ImageVector = LogoBackground
 
@@ -44,41 +44,48 @@ public object Icons {
     public val arrowUp: ImageVector = ArrowUp
     public val arrowDown: ImageVector = ArrowDown
     public val arrowRight: ImageVector = ArrowRight
-    public val card: ImageVector = Card
-    public val chart: ImageVector = Charts
     public val delete: ImageVector = Close
     public val done: ImageVector = CheckOn
     public val eye: ImageVector = EyeOn
     public val eyeOff: ImageVector = EyeOff
     public val filters: ImageVector = Filter
     public val loading: ImageVector = Loading
-    public val logout: ImageVector = Logout
-    public val edit: ImageVector = Edit
-    public val clear: ImageVector = Close
     public val search: ImageVector = Search
     public val checkOn: ImageVector = CheckOn
     public val checkOff: ImageVector = CheckOff
 
+    // Trainings
+    public val dumbbell: ImageVector = Dumbbell
+    public val handWeight: ImageVector = WeightKg
+    public val time: ImageVector = Timer
+    public val weight: ImageVector = Weight
+    public val weigher: ImageVector = WeightGym
+    public val repetitions: ImageVector = MaleGym
+
+    // Profile Menu
+    public val edit: ImageVector = Edit
+    public val equipment: ImageVector = Dumbbell
+    public val muscles: ImageVector = MaleGym
+    public val logout: ImageVector = Logout
+    public val card: ImageVector = Card
+
+    // Menu
+    public val trainings: ImageVector = LowBattery
+    public val statistics: ImageVector = Charts
+    public val profile: ImageVector = MaleGym
+
+    // Load
     public val lowBattery: ImageVector = LowBattery
     public val mediumBattery: ImageVector = MediumBattery
     public val highBattery: ImageVector = HighBattery
 
-    public val dumbbell: ImageVector = Dumbbell
-    public val handWeight: ImageVector = WeightKg
-    public val person: ImageVector = MaleGym
-    public val time: ImageVector = Timer
-    public val weight: ImageVector = Weight
-    public val weigher: ImageVector = WeightGym
-    public val biceps: ImageVector = MaleGym
-    public val equipment: ImageVector = Dumbbell
-    public val training: ImageVector = GymLife
-    public val repetitions: ImageVector = MaleGym
-
+    // Experience
     public val beginner: ImageVector = Baby
     public val advanced: ImageVector = GymLifeOutline
     public val intermediate: ImageVector = FitnesCircle
     public val pro: ImageVector = WeightGym
 
+    // Exercise data
     public val youtube: ImageVector = Search
     public val text: ImageVector = Search
 }
