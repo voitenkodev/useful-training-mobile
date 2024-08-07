@@ -20,7 +20,6 @@ import molecule.Icon
 import molecule.PaddingXS
 import molecule.TextBody3
 import molecule.TextH4
-import molecule.secondaryDefaultBackground
 
 @Composable
 public fun ExperienceCard(
@@ -33,9 +32,8 @@ public fun ExperienceCard(
 ) {
 
     val initialModifier = modifier
-        .secondaryDefaultBackground()
         .border(
-            color = if (isSelected) Design.colors.toxic else Color.Transparent,
+            color = if (isSelected) Design.colors.toxic else Design.palette.white10,
             width = 1.dp,
             shape = Design.shape.default
         )

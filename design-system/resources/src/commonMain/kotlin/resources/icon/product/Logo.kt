@@ -1,4 +1,4 @@
-package resources.icons
+package resources.icon.product
 
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor

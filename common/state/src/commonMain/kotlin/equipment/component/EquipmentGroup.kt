@@ -2,7 +2,7 @@ package equipment.component
 
 import IncludedStatusEnum
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
@@ -76,8 +76,9 @@ public fun EquipmentGroup(
                 Column(
                     modifier = Modifier
                         .width(140.dp)
-                        .background(
-                            color = Design.colors.secondary,
+                        .border(
+                            color = Design.palette.white10,
+                            width = 1.dp,
                             shape = Design.shape.default
                         )
                         .clip(shape = Design.shape.default)
