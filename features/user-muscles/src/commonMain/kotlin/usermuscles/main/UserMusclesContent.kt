@@ -17,7 +17,6 @@ import components.Error
 import components.roots.ScreenRoot
 import kotlinx.collections.immutable.ImmutableList
 import molecule.Shadow
-import molecule.primaryBackground
 import muscles.MuscleGroup
 import muscles.component.MuscleGroup
 import usermuscles.main.components.Header
@@ -53,9 +52,7 @@ private fun Content(
 
             Header(close = close)
 
-            if (list.isNotEmpty()) LazyColumn(
-                modifier = Modifier.fillMaxWidth().weight(1f).primaryBackground()
-            ) {
+            if (list.isNotEmpty()) LazyColumn(modifier = Modifier.fillMaxWidth().weight(1f)) {
 
                 itemsIndexed(list, key = { _, item -> item.id }) { index, item ->
 

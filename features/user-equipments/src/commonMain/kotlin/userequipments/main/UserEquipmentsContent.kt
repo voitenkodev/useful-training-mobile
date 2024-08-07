@@ -51,7 +51,7 @@ private fun Content(
             Header(close = close)
 
             if (list.isNotEmpty()) LazyColumn(
-                modifier = Modifier.fillMaxWidth().weight(1f).primaryBackground()
+                modifier = Modifier.fillMaxWidth().weight(1f)
             ) {
 
                 itemsIndexed(list, key = { _, item -> item.id }) { index, item ->

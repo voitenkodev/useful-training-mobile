@@ -153,9 +153,10 @@ private fun Content(
                         .secondaryDefaultBackground()
                         .fillMaxWidth()
                 ) {
+
                     MenuItem(
-                        icon = Icons.edit,
-                        text = "Edit profile",
+                        icon = Icons.weight,
+                        text = "Weight",
                         onClick = toWeightHistory,
                         paddingValues = PaddingValues(
                             vertical = Design.dp.paddingM,
@@ -166,19 +167,7 @@ private fun Content(
                     Shadow()
 
                     MenuItem(
-                        icon = Icons.weigher,
-                        text = "Weight history",
-                        onClick = toWeightHistory,
-                        paddingValues = PaddingValues(
-                            vertical = Design.dp.paddingM,
-                            horizontal = Design.dp.paddingL
-                        )
-                    )
-
-                    Shadow()
-
-                    MenuItem(
-                        icon = Icons.search,
+                        icon = Icons.exercises,
                         text = "Exercises",
                         onClick = toExerciseExamples,
                         paddingValues = PaddingValues(
@@ -190,7 +179,7 @@ private fun Content(
                     Shadow()
 
                     MenuItem(
-                        icon = Icons.muscles,
+                        icon = Icons.exercises,
                         text = "Muscles",
                         onClick = toMuscles,
                         paddingValues = PaddingValues(
@@ -233,18 +222,6 @@ private fun Content(
                         .secondaryDefaultBackground()
                         .fillMaxWidth()
                 ) {
-
-                    MenuItem(
-                        icon = Icons.card,
-                        text = "Subscriptions",
-                        onClick = logout,
-                        paddingValues = PaddingValues(
-                            vertical = Design.dp.paddingM,
-                            horizontal = Design.dp.paddingL
-                        )
-                    )
-
-                    Shadow()
 
                     MenuItem(
                         icon = Icons.logout,

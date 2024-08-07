@@ -81,12 +81,12 @@ private fun Content(
 
             PaddingWeight()
 
-            Levitating {
+//            Levitating {
                 IconImage(
-                    modifier = it.size(250.dp),
+                    modifier = Modifier.size(250.dp),
                     imageVector = Icons.logo
                 )
-            }
+//            }
 
             PaddingWeight()
 

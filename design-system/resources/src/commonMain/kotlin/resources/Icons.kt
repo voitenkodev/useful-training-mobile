@@ -71,7 +71,7 @@ public object Icons {
     // Profile
     public val edit: ImageVector = Edit
     public val equipment: ImageVector = Dumbbell
-    public val muscles: ImageVector = MaleGym
+    public val exercises: ImageVector = MaleGym
     public val logout: ImageVector = Logout
     public val card: ImageVector = Card
 

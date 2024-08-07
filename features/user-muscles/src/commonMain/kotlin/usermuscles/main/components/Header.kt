@@ -28,10 +28,7 @@ internal fun Header(
     modifier: Modifier = Modifier,
     close: () -> Unit
 ) {
-    Column(
-        modifier = modifier
-            .statusBarsPadding()
-    ) {
+    Column(modifier = modifier.statusBarsPadding()) {
 
         PaddingS()
 
