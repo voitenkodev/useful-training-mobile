@@ -37,7 +37,8 @@ internal fun ResentVolume(volumes: ImmutableList<ExerciseVolume>) {
         Shadow()
 
         TextLabel(
-            modifier = Modifier.padding(top = Design.dp.paddingS).padding(horizontal = Design.dp.paddingM),
+            modifier = Modifier.padding(top = Design.dp.paddingS)
+                .padding(horizontal = Design.dp.paddingM),
             provideText = { "Recent volume results" }
         )
 
@@ -80,7 +81,7 @@ internal fun ResentVolume(volumes: ImmutableList<ExerciseVolume>) {
             HorizontalValueCard(
                 modifier = Modifier.padding(horizontal = Design.dp.paddingM),
                 title = item.volume.kg(true),
-                description = "At: ${item.createdAt}",
+                description = "At ${item.createdAt}",
                 startIcon = img to color
             )
         }

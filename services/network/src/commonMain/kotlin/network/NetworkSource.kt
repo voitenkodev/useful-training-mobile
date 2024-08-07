@@ -27,43 +27,33 @@ public class NetworkSource(private val clientBackend: ClientBackend) {
 
     public suspend fun login(body: AuthDto): TokenDto {
         return callRequest(
-            method = HttpMethod.Post,
-            path = "/auth/login",
-            body = body
+            method = HttpMethod.Post, path = "/auth/login", body = body
         )
     }
 
     public suspend fun register(body: RegisterDto): TokenDto {
         return callRequest(
-            method = HttpMethod.Post,
-            path = "/auth/register",
-            body = body
+            method = HttpMethod.Post, path = "/auth/register", body = body
         )
     }
 
     public suspend fun getTrainings(startDate: String, endDate: String): List<TrainingDto> {
         return callRequest(
-            method = HttpMethod.Get,
-            path = "/trainings",
-            queryParams = mapOf(
-                "start" to startDate,
-                "end" to endDate
+            method = HttpMethod.Get, path = "/trainings", queryParams = mapOf(
+                "start" to startDate, "end" to endDate
             )
         )
     }
 
     public suspend fun setTraining(body: TrainingDto): TrainingDto {
         return callRequest(
-            method = HttpMethod.Post,
-            path = "/trainings",
-            body = body
+            method = HttpMethod.Post, path = "/trainings", body = body
         )
     }
 
     public suspend fun getTraining(trainingId: String): TrainingDto {
         return callRequest(
-            method = HttpMethod.Get,
-            path = "/trainings/$trainingId"
+            method = HttpMethod.Get, path = "/trainings/$trainingId"
         )
     }
 
@@ -79,13 +69,10 @@ public class NetworkSource(private val clientBackend: ClientBackend) {
         equipmentIds: List<String>
     ): List<ExerciseExampleDto> {
         return callRequest(
-            method = HttpMethod.Post,
-            path = "/exercise-examples/all",
-            queryParams = buildMap {
+            method = HttpMethod.Post, path = "/exercise-examples/all", queryParams = buildMap {
                 put("page", page.toString())
                 put("size", size.toString())
-            },
-            body = ExerciseExampleFiltersBody(
+            }, body = ExerciseExampleFiltersBody(
                 category = category,
                 equipmentIds = equipmentIds,
                 experience = experience,
@@ -121,104 +108,91 @@ public class NetworkSource(private val clientBackend: ClientBackend) {
 
     public suspend fun getExerciseExampleFilters(): ExerciseExampleFiltersDto {
         return callRequest(
-            method = HttpMethod.Get,
-            path = "/filters"
+            method = HttpMethod.Get, path = "/filters"
         )
     }
 
     public suspend fun setExerciseExample(body: ExerciseExampleDto): ExerciseExampleDto {
         return callRequest(
-            method = HttpMethod.Post,
-            path = "/exercise-examples",
-            body = body
+            method = HttpMethod.Post, path = "/exercise-examples", body = body
         )
     }
 
     public suspend fun getExerciseExample(exerciseExampleId: String): ExerciseExampleDto {
         return callRequest(
-            method = HttpMethod.Get,
-            path = "/exercise-examples/$exerciseExampleId"
+            method = HttpMethod.Get, path = "/exercise-examples/$exerciseExampleId"
         )
     }
 
-    public suspend fun getExerciseExampleAchievements(exerciseExampleId: String, size: Int): ExerciseExampleAchievementsDto {
+    public suspend fun getExerciseExampleAchievements(
+        exerciseExampleId: String, size: Int
+    ): ExerciseExampleAchievementsDto {
         return callRequest(
             method = HttpMethod.Get,
             path = "/statistics/achievements/exercise-example",
             queryParams = mapOf(
-                "id" to exerciseExampleId,
-                "size" to size.toString()
+                "id" to exerciseExampleId, "size" to size.toString()
             ),
         )
     }
 
     public suspend fun getUserMuscles(): List<MuscleGroupDto> {
         return callRequest(
-            method = HttpMethod.Get,
-            path = "/user-muscles"
+            method = HttpMethod.Get, path = "/user-muscles"
         )
     }
 
     public suspend fun getPublicMuscles(): List<MuscleGroupDto> {
         return callRequest(
-            method = HttpMethod.Get,
-            path = "/public-muscles"
+            method = HttpMethod.Get, path = "/public-muscles"
         )
     }
 
     public suspend fun getUserEquipments(): List<EquipmentGroupDto> {
         return callRequest(
-            method = HttpMethod.Get,
-            path = "/user-equipments"
+            method = HttpMethod.Get, path = "/user-equipments"
         )
     }
 
     public suspend fun getPublicEquipments(): List<EquipmentGroupDto> {
         return callRequest(
-            method = HttpMethod.Get,
-            path = "/public-equipments"
+            method = HttpMethod.Get, path = "/public-equipments"
         )
     }
 
     public suspend fun getUserMuscleById(id: String): MuscleDto {
         return callRequest(
-            method = HttpMethod.Get,
-            path = "/user-muscles/$id"
+            method = HttpMethod.Get, path = "/user-muscles/$id"
         )
     }
 
     public suspend fun getUser(): UserDto {
         return callRequest(
-            method = HttpMethod.Get,
-            path = "/users/profile"
+            method = HttpMethod.Get, path = "/users/profile"
         )
     }
 
     public suspend fun deleteExcludedMuscle(id: String): ExcludedMuscleDto {
         return callRequest(
-            method = HttpMethod.Delete,
-            path = "/excluded-muscles/$id"
+            method = HttpMethod.Delete, path = "/excluded-muscles/$id"
         )
     }
 
     public suspend fun setExcludedMuscle(id: String): ExcludedMuscleDto {
         return callRequest(
-            method = HttpMethod.Post,
-            path = "/excluded-muscles/$id"
+            method = HttpMethod.Post, path = "/excluded-muscles/$id"
         )
     }
 
     public suspend fun deleteExcludedEquipment(id: String): ExcludedEquipmentDto {
         return callRequest(
-            method = HttpMethod.Delete,
-            path = "/excluded-equipments/$id"
+            method = HttpMethod.Delete, path = "/excluded-equipments/$id"
         )
     }
 
     public suspend fun setExcludedEquipment(id: String): ExcludedEquipmentDto {
         return callRequest(
-            method = HttpMethod.Post,
-            path = "/excluded-equipments/$id"
+            method = HttpMethod.Post, path = "/excluded-equipments/$id"
         )
     }
 
@@ -230,10 +204,16 @@ public class NetworkSource(private val clientBackend: ClientBackend) {
         )
     }
 
+    public suspend fun removeWeight(id: String) {
+        return callRequest(
+            method = HttpMethod.Delete,
+            path = "/weight-history/${id}",
+        )
+    }
+
     public suspend fun getWeightHistory(): List<WeightHistoryDto> {
         return callRequest(
-            method = HttpMethod.Get,
-            path = "/weight-history"
+            method = HttpMethod.Get, path = "/weight-history"
         )
     }
 

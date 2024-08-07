@@ -10,6 +10,7 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import atom.Design
@@ -17,6 +18,7 @@ import components.Error
 import components.ShadowBottomButtons
 import components.ShadowFooterSpace
 import components.cards.WeightCard
+import components.cards.WeightCardIcon
 import components.roots.ScreenRoot
 import kg
 import kotlinx.collections.immutable.ImmutableList
@@ -25,7 +27,6 @@ import molecule.PaddingM
 import molecule.PaddingS
 import molecule.PopupSheet
 import molecule.TextH4
-import molecule.primaryBackground
 import resources.Icons
 import weighthistory.main.components.Header
 import weighthistory.main.models.WeightHistory
@@ -58,7 +59,8 @@ internal fun WeightHistoryContent(
         error = { state.error },
         clearError = vm::clearError,
         weightHistory = state.weightHistory,
-        update = vm::openWeightPickerPopup
+        update = vm::openWeightPickerPopup,
+        remove = vm::removeWeight
     )
 }
 
@@ -68,7 +70,8 @@ private fun Content(
     clearError: () -> Unit,
     weightHistory: ImmutableList<WeightHistory>,
     update: () -> Unit,
-    close: () -> Unit
+    close: () -> Unit,
+    remove: (id: String) -> Unit,
 ) {
 
     ScreenRoot(error = { Error(message = { error() }, close = clearError) }) {
@@ -84,8 +87,7 @@ private fun Content(
             LazyColumn(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .weight(1f)
-                    .primaryBackground(),
+                    .weight(1f),
                 contentPadding = PaddingValues(vertical = Design.dp.paddingL),
             ) {
 
@@ -109,11 +111,21 @@ private fun Content(
                     val img = if (item.weight > previousWeight) Icons.arrowUp
                     else Icons.arrowDown
 
+                    val removeProvider = remember {
+                        {
+                            remove.invoke(item.id)
+                        }
+                    }
+
                     WeightCard(
                         modifier = Modifier.padding(horizontal = Design.dp.paddingM),
                         title = item.weight.kg(true),
-                        description = "At: ${item.createdAt}",
-                        startIcon = img to color
+                        description = "At ${item.createdAt}",
+                        startIcon = img to color,
+                        endIcon = if (weightHistory.size > 1) WeightCardIcon(
+                            icon = Icons.close,
+                            action = removeProvider
+                        ) else null
                     )
 
                     if (index != weightHistory.lastIndex) {

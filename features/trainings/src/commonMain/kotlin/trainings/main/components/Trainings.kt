@@ -50,14 +50,16 @@ internal fun Trainings(
                 PaddingM()
 
                 TrainingTitle(
-                    mainTitle = { "At: ${training.startDate}" },
+                    mainTitle = { "At ${training.startDate}" },
                     click = { openTraining.invoke(training.id) }
                 )
 
                 PaddingM()
             }
 
-            itemsIndexed(items = training.exercises, key = { _, item -> "${training.id}:${item.id}" }) { index, item ->
+            itemsIndexed(
+                items = training.exercises,
+                key = { _, item -> "${training.id}:${item.id}" }) { index, item ->
 
                 val number by rememberUpdatedState(index + 1)
 

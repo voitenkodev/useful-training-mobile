@@ -46,6 +46,13 @@ internal class UserRepositoryImpl(
         }
     }
 
+    override fun removeWeight(id: String): Flow<Unit> {
+        return flow {
+            val result = remote.removeWeight(id)
+            emit(result)
+        }
+    }
+
     override fun updateWeight(value: Double): Flow<Unit> {
         return flow {
             val result = remote.updateWeightHistory(value).dtoToDao()
