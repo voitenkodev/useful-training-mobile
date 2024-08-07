@@ -1,4 +1,4 @@
-package resources.icons
+package resources.icon.filled
 
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
@@ -6,6 +6,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.group
 import androidx.compose.ui.graphics.vector.path
 import androidx.compose.ui.unit.dp
+import kotlin.Suppress
 
 internal val CheckOn: ImageVector
     get() {
@@ -20,7 +21,7 @@ internal val CheckOn: ImageVector
             viewportHeight = 100f
         ).apply {
             group {
-                path(fill = SolidColor(Color(0xff2afa2d))) {
+                path(fill = SolidColor(Color(0xFF000000))) {
                     moveTo(50f, 0f)
                     curveTo(63.26f, 0f, 75.98f, 5.27f, 85.36f, 14.64f)
                     curveTo(94.73f, 24.02f, 100f, 36.74f, 100f, 50f)
