@@ -24,7 +24,6 @@ import kg
 import kotlinx.collections.immutable.ImmutableList
 import molecule.ButtonPrimary
 import molecule.PaddingM
-import molecule.PaddingS
 import molecule.PopupSheet
 import molecule.TextH4
 import resources.Icons
@@ -99,7 +98,7 @@ private fun Content(
                     )
                 }
 
-                item { PaddingS() }
+                item { PaddingM() }
 
                 itemsIndexed(weightHistory, key = { _, item -> item.id }) { index, item ->
 
