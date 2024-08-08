@@ -99,10 +99,12 @@ public fun Chip(
 
         if (iconStart != null) {
             IconImage(
-                modifier = Modifier.size(18.dp),
+                modifier = Modifier.size(Design.dp.iconS),
                 imageVector = iconStart
             )
 
+            PaddingS()
+        } else {
             PaddingS()
         }
 
@@ -119,11 +121,11 @@ public fun Chip(
             PaddingS()
 
             IconImage(
-                modifier = Modifier.size(18.dp),
+                modifier = Modifier.size(Design.dp.iconS),
                 imageVector = iconEnd
             )
+        } else {
+            PaddingS()
         }
-
-        PaddingS()
     }
 }

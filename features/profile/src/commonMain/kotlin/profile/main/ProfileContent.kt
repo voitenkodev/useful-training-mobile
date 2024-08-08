@@ -108,33 +108,6 @@ private fun Content(
                 }
             }
 
-//            item { PaddingXL() }
-//
-//            item {
-//                TextH4(
-//                    modifier = Modifier.padding(horizontal = Design.dp.paddingM),
-//                    provideText = { "Admin panel" },
-//                    color = Design.colors.yellow
-//                )
-//            }
-//
-//            item { PaddingS() }
-//
-//            item {
-//                Column(
-//                    modifier = Modifier
-//                        .padding(horizontal = Design.dp.paddingM)
-//                        .secondaryDefaultBackground()
-//                        .fillMaxWidth()
-//                ) {
-//                    MenuItem(
-//                        icon = Icons.person,
-//                        text = "Exercise Builder",
-//                        onClick = toExerciseExampleBuilder
-//                    )
-//                }
-//            }
-
             item { PaddingM() }
 
             item {
@@ -168,7 +141,7 @@ private fun Content(
                     Shadow()
 
                     MenuItem(
-                        icon = Icons.exercises,
+                        icon = Icons.handWeight,
                         text = "Exercises",
                         onClick = toExerciseExamples,
                         paddingValues = PaddingValues(
@@ -180,7 +153,7 @@ private fun Content(
                     Shadow()
 
                     MenuItem(
-                        icon = Icons.exercises,
+                        icon = Icons.profile,
                         text = "Muscles",
                         onClick = toMuscles,
                         paddingValues = PaddingValues(
@@ -223,6 +196,16 @@ private fun Content(
                         .secondaryDefaultBackground()
                         .fillMaxWidth()
                 ) {
+
+                    MenuItem(
+                        icon = Icons.add,
+                        text = "Exercise Builder",
+                        onClick = toExerciseExampleBuilder,
+                        paddingValues = PaddingValues(
+                            vertical = Design.dp.paddingM,
+                            horizontal = Design.dp.paddingL
+                        )
+                    )
 
                     MenuItem(
                         icon = Icons.logout,
