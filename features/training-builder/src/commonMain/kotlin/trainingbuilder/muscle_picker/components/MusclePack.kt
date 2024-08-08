@@ -1,6 +1,5 @@
 package trainingbuilder.muscle_picker.components
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -93,12 +92,12 @@ internal fun MusclePack(
     }
 
     if (fullBodyVisible) {
-        Column(modifier = Modifier.background(Design.colors.black10)) {
+        Column(modifier = Modifier) {
             PaddingXL()
 
             Row(
                 modifier = Modifier.padding(horizontal = Design.dp.paddingM),
-                horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
+                horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
             ) {
 
                 Chip(

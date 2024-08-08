@@ -1,25 +1,30 @@
 package trainingbuilder.muscle_picker
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import components.Error
+import components.ShadowBottomButtons
+import components.ShadowFooterSpace
 import components.roots.ScreenRoot
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
+import molecule.ButtonPrimary
+import molecule.ButtonSecondary
 import molecule.Shadow
 import muscles.MuscleEnum
 import muscles.MuscleGroup
 import muscles.MuscleLoadEnum
-import trainingbuilder.muscle_picker.components.Footer
 import trainingbuilder.muscle_picker.components.Header
 import trainingbuilder.muscle_picker.components.MuscleGroup
-import trainingbuilder.muscle_picker.components.MusclePack
 
 @Composable
 internal fun MusclePickerContent(
@@ -61,30 +66,27 @@ private fun Content(
     selectUpperBody: () -> Unit,
     selectLowerBody: () -> Unit,
     apply: (List<String>) -> Unit,
-
     close: () -> Unit
 ) {
 
+    val selectedSum = remember(list) { list.sumOf { it.muscles.count { c -> c.isSelected } } }
+
     ScreenRoot(error = { Error(message = { error }, close = clearError) }) {
 
-        Column(modifier = Modifier.fillMaxWidth()) {
+        Column(modifier = Modifier.fillMaxSize()) {
 
-            Header(close = close)
+            Header(
+                close = close,
+                list = list,
+                includedMuscleStatuses = includedMuscleStatuses,
+                lowerBodyPackEnums = lowerBodyPackEnums,
+                upperBodyPackEnums = upperBodyPackEnums,
+                selectFullBody = selectFullBody,
+                selectUpperBody = selectUpperBody,
+                selectLowerBody = selectLowerBody
+            )
 
             LazyColumn(modifier = Modifier.fillMaxWidth().weight(1f)) {
-
-                item(key = "packs") {
-
-                    MusclePack(
-                        list = list,
-                        includedMuscleStatuses = includedMuscleStatuses,
-                        lowerBodyPackEnums = lowerBodyPackEnums,
-                        upperBodyPackEnums = upperBodyPackEnums,
-                        selectFullBody = selectFullBody,
-                        selectUpperBody = selectUpperBody,
-                        selectLowerBody = selectLowerBody
-                    )
-                }
 
                 itemsIndexed(list, key = { _, item -> item.id }) { index, item ->
 
@@ -97,19 +99,39 @@ private fun Content(
 
                     if (index < list.lastIndex) Shadow()
                 }
-            }
 
-            Footer(
-                list = list,
-                skip = { apply.invoke(persistentListOf()) },
-                apply = {
-                    val selectedMuscles = list
-                        .flatMap { it.muscles }
-                        .filter { it.isSelected }
-                        .map { it.id }
-                    apply.invoke(selectedMuscles)
+                item {
+                    ShadowFooterSpace()
                 }
-            )
+            }
         }
+
+        ShadowBottomButtons(
+            modifier = Modifier.fillMaxWidth().align(Alignment.BottomCenter),
+            first = {
+                ButtonSecondary(
+                    modifier = Modifier.weight(1f),
+                    text = "Skip",
+                    onClick = { apply.invoke(persistentListOf()) }
+                )
+            },
+            second = {
+                ButtonPrimary(
+                    modifier = Modifier.weight(1f),
+                    text = buildString {
+                        append("Select")
+                        selectedSum.takeIf { it > 0 }?.let { append(" $it") }
+                    },
+                    enabled = selectedSum > 0,
+                    onClick = {
+                        val selectedMuscles = list
+                            .flatMap { it.muscles }
+                            .filter { it.isSelected }
+                            .map { it.id }
+                        apply.invoke(selectedMuscles)
+                    }
+                )
+            }
+        )
     }
 }
