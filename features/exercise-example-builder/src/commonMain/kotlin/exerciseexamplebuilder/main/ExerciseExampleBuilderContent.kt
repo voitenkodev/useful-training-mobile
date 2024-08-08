@@ -25,6 +25,7 @@ import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.unit.dp
 import atom.Design
 import components.Error
+import components.ShadowBottomButtons
 import components.ShadowFooter
 import components.ShadowFooterSpace
 import components.ShadowHeader
@@ -43,6 +44,8 @@ import exerciseexamplebuilder.main.models.MuscleGroup
 import exerciseexamplebuilder.main.models.StatusEnum
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toPersistentList
+import molecule.ButtonPrimary
+import molecule.ButtonSecondary
 import molecule.PaddingM
 import molecule.PaddingS
 import molecule.TextBody1
@@ -315,7 +318,7 @@ private fun Content(
 
         ShadowHeader(title = "Exercise Builder")
 
-        val primary = remember(equipments, muscles, name, imageUrl, filterPack) {
+        val enabled = remember(equipments, muscles, name, imageUrl, filterPack) {
             val hasEquip = equipments.flatMap { it.equipments }
                 .any { it.status == IncludedStatusEnum.INCLUDED }
             val hasMuscles = muscles.flatMap { it.muscles }.any { it.status == StatusEnum.SELECTED }
@@ -326,17 +329,26 @@ private fun Content(
             val hasName = name.isNotBlank()
             val hasImage = imageUrl.isNotBlank()
 
-            Triple(
-                first = "Save",
-                second = hasEquip && hasMuscles && hasName && hasImage && hasAllFilters,
-                third = save
-            )
+            hasEquip && hasMuscles && hasName && hasImage && hasAllFilters
         }
 
-        ShadowFooter(
+        ShadowBottomButtons(
             modifier = Modifier.fillMaxWidth().align(Alignment.BottomCenter),
-            primary = primary,
-            close = close
+            first = {
+                ButtonSecondary(
+                    modifier = Modifier.weight(1f),
+                    text = "Close",
+                    onClick = close
+                )
+            },
+            second = {
+                ButtonPrimary(
+                    modifier = Modifier.weight(1f),
+                    text = "Save",
+                    enabled = enabled,
+                    onClick = save,
+                )
+            }
         )
     }
 }
