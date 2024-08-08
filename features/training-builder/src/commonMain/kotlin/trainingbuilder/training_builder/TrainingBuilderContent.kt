@@ -34,7 +34,6 @@ import molecule.ButtonPrimary
 import molecule.PaddingM
 import molecule.PopupSheet
 import molecule.TextLabel
-import molecule.primaryBackground
 import trainingbuilder.training_builder.components.Exercise
 import trainingbuilder.training_builder.components.Header
 import trainingbuilder.training_builder.components.TrainingOverview
@@ -85,7 +84,11 @@ internal fun TrainingBuilderContent(
 
     ScreenRoot(error = { Error(message = { state.error }, close = vm::clearError) }) {
 
-        VerticalPager(modifier = Modifier.fillMaxSize(), state = pagerState, userScrollEnabled = false) {
+        VerticalPager(
+            modifier = Modifier.fillMaxSize(),
+            state = pagerState,
+            userScrollEnabled = false
+        ) {
 
             when (it) {
                 0 -> Content(
@@ -111,7 +114,12 @@ internal fun TrainingBuilderContent(
                         selectedExercise = selectedExercise,
                         exerciseExample = popupState?.exerciseExample,
                         save = vm::saveExercise,
-                        toExerciseExampleDetails = { id -> toExerciseExampleDetails.invoke(id, false) }
+                        toExerciseExampleDetails = { id ->
+                            toExerciseExampleDetails.invoke(
+                                id,
+                                false
+                            )
+                        }
                     )
                 }
             }
@@ -141,7 +149,7 @@ internal fun Content(
             )
 
             LazyColumn(
-                modifier = Modifier.fillMaxWidth().weight(1f).primaryBackground(),
+                modifier = Modifier.fillMaxWidth().weight(1f),
                 contentPadding = PaddingValues(Design.dp.paddingM),
                 verticalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
             ) {

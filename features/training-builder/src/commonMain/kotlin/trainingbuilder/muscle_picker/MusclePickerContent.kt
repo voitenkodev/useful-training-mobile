@@ -13,7 +13,6 @@ import components.roots.ScreenRoot
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import molecule.Shadow
-import molecule.primaryBackground
 import muscles.MuscleEnum
 import muscles.MuscleGroup
 import muscles.MuscleLoadEnum
@@ -68,7 +67,7 @@ private fun Content(
 
     ScreenRoot(error = { Error(message = { error }, close = clearError) }) {
 
-        Column(modifier = Modifier.fillMaxWidth().primaryBackground()) {
+        Column(modifier = Modifier.fillMaxWidth()) {
 
             Header(close = close)
 
