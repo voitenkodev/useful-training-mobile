@@ -11,9 +11,12 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import atom.Design
 import components.Error
+import components.ShadowBottomButtons
+import components.ShadowFooterSpace
 import components.roots.ScreenRoot
 import kotlinx.collections.immutable.ImmutableList
 import molecule.Shadow
@@ -66,9 +69,13 @@ private fun Content(
                 }
 
                 item("navigation_padding") {
-                    Spacer(modifier = Modifier.statusBarsPadding().height(Design.dp.paddingM))
+                    ShadowFooterSpace()
                 }
             }
         }
+
+        ShadowBottomButtons(
+            modifier = Modifier.fillMaxWidth().align(Alignment.BottomCenter),
+        )
     }
 }
