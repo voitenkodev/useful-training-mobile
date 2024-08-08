@@ -22,7 +22,6 @@ import molecule.Icon
 import molecule.PaddingS
 import molecule.TextBody3
 import molecule.TextH4
-import molecule.secondaryDefaultBackground
 
 @Immutable
 public data class WeightCardIcon(
@@ -40,9 +39,11 @@ public fun WeightCard(
     onClick: (() -> Unit)? = null
 ) {
 
-    val initialModifier = modifier
-        .secondaryDefaultBackground()
-
+    val initialModifier = modifier.border(
+        width = 1.dp,
+        shape = Design.shape.default,
+        color = Design.colors.white10
+    )
 
     val interactionSource = remember { MutableInteractionSource() }
 
