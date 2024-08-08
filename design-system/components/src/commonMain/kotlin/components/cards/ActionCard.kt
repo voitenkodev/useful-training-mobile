@@ -27,7 +27,7 @@ public fun ActionCard(
             .border(
                 width = 1.dp,
                 shape = Design.shape.default,
-                color = Design.colors.caption
+                color = Design.colors.white10
             ).padding(Design.dp.paddingL),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
@@ -48,8 +48,6 @@ public fun ActionCard(
         ButtonPrimary(
             modifier = Modifier.padding(horizontal = Design.dp.paddingXL),
             text = btnText,
-            textColor = Design.colors.primary,
-            backgroundColor = Design.colors.toxic,
             onClick = onClick
         )
     }

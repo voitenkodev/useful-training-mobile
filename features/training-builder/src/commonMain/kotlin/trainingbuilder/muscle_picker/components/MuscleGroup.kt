@@ -80,7 +80,7 @@ internal fun MuscleGroup(
 
             Image(
                 modifier = Modifier
-                    .height(Design.dp.componentXL)
+                    .height(Design.dp.componentXXL)
                     .aspectRatio(1f)
                     .align(Alignment.CenterEnd),
                 imageVector = item.bodyImageVector,

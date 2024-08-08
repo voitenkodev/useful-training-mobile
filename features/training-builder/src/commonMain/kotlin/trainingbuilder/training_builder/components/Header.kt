@@ -35,7 +35,7 @@ internal fun Header(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(Design.dp.componentL),
+                .height(Design.dp.componentM),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {

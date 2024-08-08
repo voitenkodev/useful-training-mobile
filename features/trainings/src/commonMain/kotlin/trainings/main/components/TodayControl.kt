@@ -13,6 +13,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import atom.Design
 import molecule.ButtonIconPrimary
+import molecule.ButtonIconSecondary
+import molecule.ButtonIconTransparent
 import resources.Icons
 
 @Composable
@@ -22,8 +24,8 @@ internal fun BoxScope.TodayControl(
     click: () -> Unit
 ) {
 
-    val width = Design.dp.componentM
-    val padding = Design.dp.paddingM
+    val width = Design.dp.componentS
+    val padding = Design.dp.paddingL
 
     val animatedDp by animateDpAsState(
         targetValue = if (visibilityCondition()) 0.dp else width + padding,
@@ -34,7 +36,7 @@ internal fun BoxScope.TodayControl(
         )
     )
 
-    ButtonIconPrimary(
+    ButtonIconSecondary(
         modifier = modifier
             .padding(end = padding)
             .align(Alignment.CenterEnd)

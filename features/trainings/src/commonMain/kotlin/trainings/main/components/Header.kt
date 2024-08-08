@@ -32,7 +32,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.capitalize
+import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import atom.Design
@@ -65,7 +66,7 @@ internal fun Header(
             .getOrNull(lazyColumnListState.firstVisibleItemIndex)
             ?.dateTimeIso
             ?: return@remember ""
-        DateTimeKtx.formattedMonth(iso) ?: ""
+        DateTimeKtx.formattedMonth(iso)?.lowercase()?.capitalize(Locale.current) ?: ""
     }
 
     val monthIndex = remember(lazyColumnListState.firstVisibleItemIndex) {
@@ -81,7 +82,7 @@ internal fun Header(
         PaddingS()
 
         Box(
-            modifier = Modifier.height(Design.dp.componentL).fillMaxWidth(),
+            modifier = Modifier.height(Design.dp.componentM).fillMaxWidth(),
             contentAlignment = Alignment.CenterStart
         ) {
 
@@ -149,31 +150,30 @@ private fun CalendarRow(
 
         items(calendar) {
             Box(modifier = Modifier.scale(if (it.isSelected) 1.1f else 1f)) {
-                Box(
+                Column(
                     modifier = Modifier
-                        .size(60.dp)
+                        .size(Design.dp.componentXL)
                         .conditional(
                             condition = it.isSelected,
                             onYes = {
                                 border(
                                     width = 1.dp,
-                                    color = Design.colors.content,
+                                    color = Design.palette.white30,
                                     shape = Design.shape.default
                                 )
                             }
-                        ).clickable { selectCalendarDay.invoke(it.dateTimeIso) }
+                        ).clickable { selectCalendarDay.invoke(it.dateTimeIso) },
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
                 ) {
 
                     TextBody3(
-                        modifier = Modifier
-                            .align(Alignment.TopCenter)
-                            .padding(top = 7.dp),
+                        modifier = Modifier,
                         provideText = { if (it.isToday) "NOW" else it.weekDay },
                         color = if (it.isToday) Design.colors.orange else if (it.isSelected) Design.colors.content else Design.colors.caption
                     )
 
                     TextH3(
-                        modifier = Modifier.align(Alignment.BottomCenter).padding(bottom = 5.dp),
                         provideText = { it.day },
                         color = if (it.isToday) Design.colors.orange else Design.colors.content
                     )

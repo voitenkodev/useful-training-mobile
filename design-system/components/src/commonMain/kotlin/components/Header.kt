@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -20,7 +19,7 @@ import molecule.Toolbar
 
 @Composable
 public fun ShadowHeaderSpace() {
-    Spacer(modifier = Modifier.statusBarsPadding().height(Design.dp.componentL))
+    Spacer(modifier = Modifier.statusBarsPadding().height(Design.dp.componentM))
 }
 
 @Composable

@@ -6,10 +6,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import components.EmptyData
 import components.Error
 import components.roots.ScreenRoot
 import kotlinx.collections.immutable.ImmutableList
-import trainings.main.components.EmptyTraining
 import trainings.main.components.Header
 import trainings.main.components.Trainings
 import trainings.main.models.SelectableCalendar
@@ -61,7 +61,11 @@ private fun Content(
             )
 
             if (selectedDateIsToday.not() && trainings.isEmpty()) {
-                EmptyTraining(modifier = Modifier.weight(1f).fillMaxWidth())
+                EmptyData(
+                    modifier = Modifier.fillMaxWidth().weight(1f),
+                    title = "No one workout",
+                    description = "You don't have any workouts at this day"
+                )
             } else {
                 Trainings(
                     trainings = trainings,

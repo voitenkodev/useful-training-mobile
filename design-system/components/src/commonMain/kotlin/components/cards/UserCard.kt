@@ -109,8 +109,7 @@ public fun UserCard(
                 PaddingWeight()
 
                 Icon(
-                    modifier = Modifier
-                        .size(Design.dp.componentS),
+                    modifier = Modifier.size(Design.dp.componentS),
                     imageVector = experienceIcon,
                     color = Design.colors.caption
                 )

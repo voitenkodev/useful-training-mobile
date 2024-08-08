@@ -50,7 +50,7 @@ public fun Toolbar(title: String, icon: Pair<ImageVector, () -> Unit>? = null) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .height(Design.dp.componentL),
+            .height(Design.dp.componentM),
     ) {
 
         TextH2(
@@ -68,6 +68,6 @@ public fun Toolbar(title: String, icon: Pair<ImageVector, () -> Unit>? = null) {
             imageVector = icon.first,
             contentColor = Design.colors.content,
             onClick = icon.second
-        ) else Spacer(Modifier.size(Design.dp.componentL))
+        ) else Spacer(Modifier.size(Design.dp.componentM))
     }
 }
