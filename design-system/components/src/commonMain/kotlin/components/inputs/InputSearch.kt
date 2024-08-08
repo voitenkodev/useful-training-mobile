@@ -37,7 +37,6 @@ public fun InputSearch(
         value = provideName.invoke(),
         placeholder = "Search exercise",
         maxLines = 1,
-        backgroundColor = Design.colors.black10,
         keyboardActions = KeyboardActions { focusManager.moveFocus(FocusDirection.Next) },
         onValueChange = update,
         inputStyle = when (onClick) {

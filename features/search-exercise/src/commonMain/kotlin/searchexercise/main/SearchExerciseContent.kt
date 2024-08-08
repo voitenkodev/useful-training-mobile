@@ -18,7 +18,6 @@ import components.cards.ExerciseCardDefaultLoading
 import components.roots.ScreenRoot
 import kotlinx.collections.immutable.ImmutableList
 import molecule.PopupSheet
-import molecule.primaryBackground
 import searchexercise.main.components.Header
 import searchexercise.main.models.ExerciseExample
 import searchexercise.main.popups.ExerciseExampleFiltersPopup
@@ -82,7 +81,7 @@ private fun Content(
 
     ScreenRoot(error = { Error(message = error, close = clearError) }) {
 
-        Column(modifier = Modifier.fillMaxWidth().primaryBackground()) {
+        Column(modifier = Modifier.fillMaxWidth()) {
 
             Header(
                 autoFocus = autoFocus,

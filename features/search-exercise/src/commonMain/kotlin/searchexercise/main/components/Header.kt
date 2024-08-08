@@ -1,6 +1,5 @@
 package searchexercise.main.components
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -17,7 +16,7 @@ import androidx.compose.ui.platform.LocalFocusManager
 import atom.Design
 import components.inputs.InputSearch
 import molecule.ButtonIconTransparent
-import molecule.PaddingM
+import molecule.PaddingL
 import molecule.PaddingS
 import molecule.Shadow
 import molecule.Toolbar
@@ -42,11 +41,7 @@ internal fun Header(
         }
     }
 
-    Column(
-        modifier = modifier
-            .background(Design.colors.secondary)
-            .statusBarsPadding()
-    ) {
+    Column(modifier = modifier.statusBarsPadding()) {
 
         PaddingS()
 
@@ -77,7 +72,7 @@ internal fun Header(
             )
         }
 
-        PaddingM()
+        PaddingL()
 
         Shadow()
     }

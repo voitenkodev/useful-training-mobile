@@ -21,7 +21,7 @@ public fun Modifier.shimmerLoadingAnimation(
     if (visible.not()) return this
 
     return composed {
-        val c = Color(0xffa6a6a6)
+        val c = Color(0xff373751)
 
         val shimmerColors = listOf(
             c.copy(alpha = 0.3f),
