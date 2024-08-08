@@ -91,7 +91,7 @@ public fun WeightCard(
 
             TextBody3(
                 provideText = { description },
-                color = Design.colors.caption
+                color = Design.colors.white50
             )
 
             PaddingS()

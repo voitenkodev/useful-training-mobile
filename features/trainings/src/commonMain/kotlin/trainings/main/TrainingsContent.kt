@@ -54,7 +54,6 @@ private fun Content(
     ScreenRoot(error = { Error(message = error, close = clearError) }) {
 
         Column {
-
             Header(
                 calendar = calendar,
                 onAddMore = addCalendarChunk,

@@ -21,6 +21,7 @@ import components.ShadowHeaderSpace
 import components.cards.UserCard
 import components.roots.ScreenRoot
 import molecule.PaddingM
+import molecule.PaddingS
 import molecule.PaddingXL
 import molecule.Shadow
 import molecule.TextH4
@@ -144,7 +145,7 @@ private fun Content(
                 )
             }
 
-            item { PaddingM() }
+            item { PaddingS() }
 
             item {
                 Column(
@@ -212,7 +213,7 @@ private fun Content(
                 )
             }
 
-            item { PaddingM() }
+            item { PaddingS() }
 
             item {
 

@@ -32,6 +32,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import atom.Design
 import components.states.animateScrollAndCentralizeItem
@@ -74,11 +76,7 @@ internal fun Header(
         DateTimeKtx.formattedMonthNum(iso) ?: -1
     }
 
-    Column(
-        modifier = Modifier
-            .background(Design.colors.secondary)
-            .statusBarsPadding()
-    ) {
+    Column(modifier = Modifier.statusBarsPadding()) {
 
         PaddingS()
 
@@ -88,7 +86,9 @@ internal fun Header(
         ) {
 
             MonthSwiper(
-                modifier = Modifier.padding(horizontal = Design.dp.paddingM),
+                modifier = Modifier
+                    .align(Alignment.Center)
+                    .padding(horizontal = Design.dp.paddingM),
                 monthNumber = monthIndex,
                 month = month,
             )
@@ -154,7 +154,13 @@ private fun CalendarRow(
                         .size(60.dp)
                         .conditional(
                             condition = it.isSelected,
-                            onYes = { border(width = 1.dp, color = Design.colors.content, shape = Design.shape.default) }
+                            onYes = {
+                                border(
+                                    width = 1.dp,
+                                    color = Design.colors.content,
+                                    shape = Design.shape.default
+                                )
+                            }
                         ).clickable { selectCalendarDay.invoke(it.dateTimeIso) }
                 ) {
 
@@ -230,6 +236,7 @@ private fun MonthSwiper(
         TextH2(
             modifier = Modifier.fillMaxWidth(),
             provideText = { target },
+            textAlign = TextAlign.Center,
             softWrap = false
         )
     }
