@@ -94,14 +94,7 @@ private fun Content(
 
             if (user != null) {
                 UserCard(
-                    modifier = Modifier
-                        .padding(Design.dp.paddingL)
-                        .shadow(
-                            elevation = 5.dp,
-                            ambientColor = Design.colors.white10,
-                            spotColor = Design.colors.white10,
-                            shape = Design.shape.default,
-                        ),
+                    modifier = Modifier.padding(Design.dp.paddingL),
                     name = user.name,
                     weight = user.weight,
                     email = user.email,

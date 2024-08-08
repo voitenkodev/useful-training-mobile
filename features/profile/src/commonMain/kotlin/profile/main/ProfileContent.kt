@@ -1,6 +1,7 @@
 package profile.main
 
 import androidx.compose.animation.animateContentSize
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -14,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import atom.Design
 import components.Error
 import components.ShadowHeader
@@ -21,11 +23,8 @@ import components.ShadowHeaderSpace
 import components.cards.UserCard
 import components.roots.ScreenRoot
 import molecule.PaddingM
-import molecule.PaddingS
 import molecule.PaddingXL
 import molecule.Shadow
-import molecule.TextH4
-import molecule.secondaryDefaultBackground
 import profile.main.components.MenuItem
 import resources.Icons
 import user.User
@@ -108,24 +107,17 @@ private fun Content(
                 }
             }
 
-            item { PaddingM() }
-
-            item {
-                TextH4(
-                    modifier = Modifier.padding(horizontal = Design.dp.paddingL),
-                    provideText = { "User Data" },
-                    color = Design.colors.caption
-                )
-            }
-
-            item { PaddingS() }
+            item { PaddingXL() }
 
             item {
                 Column(
                     modifier = Modifier
                         .padding(horizontal = Design.dp.paddingM)
-                        .secondaryDefaultBackground()
-                        .fillMaxWidth()
+                        .border(
+                            color = Design.palette.white10,
+                            width = 1.dp,
+                            shape = Design.shape.default
+                        ).fillMaxWidth()
                 ) {
 
                     MenuItem(
@@ -176,25 +168,18 @@ private fun Content(
                 }
             }
 
-            item { PaddingM() }
-
-            item {
-                TextH4(
-                    modifier = Modifier.padding(horizontal = Design.dp.paddingL),
-                    provideText = { "Settings" },
-                    color = Design.colors.caption
-                )
-            }
-
-            item { PaddingS() }
+            item { PaddingXL() }
 
             item {
 
                 Column(
                     modifier = Modifier
                         .padding(horizontal = Design.dp.paddingM)
-                        .secondaryDefaultBackground()
-                        .fillMaxWidth()
+                        .border(
+                            color = Design.palette.white10,
+                            width = 1.dp,
+                            shape = Design.shape.default
+                        ).fillMaxWidth()
                 ) {
 
                     MenuItem(
@@ -206,6 +191,8 @@ private fun Content(
                             horizontal = Design.dp.paddingL
                         )
                     )
+
+                    Shadow()
 
                     MenuItem(
                         icon = Icons.logout,

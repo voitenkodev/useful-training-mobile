@@ -24,6 +24,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import atom.Design
 import molecule.Icon
+import molecule.PaddingM
 import molecule.PaddingS
 import molecule.PaddingWeight
 import molecule.PaddingXS
@@ -51,7 +52,7 @@ public fun UserCard(
             .clipToBounds()
     ) {
 
-        val first = Design.colors.white50
+        val first = Design.colors.white30
         val second = Design.colors.white5
 
         Canvas(modifier = Modifier.fillMaxSize()) {
@@ -74,7 +75,7 @@ public fun UserCard(
 
         TextBody3(
             modifier = Modifier
-                .padding(Design.dp.paddingM)
+                .padding(Design.dp.paddingL)
                 .align(Alignment.BottomEnd),
             provideText = { email },
             fontWeight = FontWeight.Medium,
@@ -83,8 +84,8 @@ public fun UserCard(
 
         Column(
             modifier = Modifier.padding(
-                vertical = Design.dp.paddingM,
-                horizontal = Design.dp.paddingM
+                vertical = Design.dp.paddingL,
+                horizontal = Design.dp.paddingL
             )
         ) {
 
@@ -99,8 +100,6 @@ public fun UserCard(
                         color = Design.colors.caption
                     )
 
-                    PaddingXS()
-
                     TextH3(
                         provideText = { name.uppercase() },
                         color = Design.colors.yellow
@@ -113,7 +112,7 @@ public fun UserCard(
                     modifier = Modifier
                         .size(Design.dp.componentS),
                     imageVector = experienceIcon,
-                    color = Design.colors.content
+                    color = Design.colors.caption
                 )
             }
 
@@ -124,20 +123,16 @@ public fun UserCard(
                 color = Design.colors.caption
             )
 
-            PaddingXS()
-
             TextH4(
                 provideText = { weight }
             )
 
-            PaddingS()
+            PaddingM()
 
             TextBody3(
                 provideText = { "Height" },
                 color = Design.colors.caption
             )
-
-            PaddingXS()
 
             TextH4(
                 provideText = { height }
