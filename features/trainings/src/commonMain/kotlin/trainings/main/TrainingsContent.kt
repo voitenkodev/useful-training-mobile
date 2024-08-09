@@ -2,16 +2,24 @@ package trainings.main
 
 import DateTimeKtx
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import atom.Design
 import components.EmptyData
 import components.Error
+import components.ShadowBottomButtons
 import components.roots.ScreenRoot
 import kotlinx.collections.immutable.ImmutableList
+import molecule.ButtonPrimary
+import molecule.ButtonSecondary
 import resources.Icons
 import trainings.main.components.Header
 import trainings.main.components.Trainings
@@ -52,9 +60,16 @@ private fun Content(
 ) {
 
     val selectedDate = calendar.findLast { it.isSelected } ?: return
+    val currentDay = remember { calendar.findLast { it.isToday }?.dateTimeIso }
     val selectedDateIsToday = selectedDate.isToday
     val formatterDate = remember(selectedDate) {
         DateTimeKtx.formattedLongDate(selectedDate.dateTimeIso)
+    }
+
+    val backTodayProvider: () -> Unit = remember {
+        {
+            currentDay?.let(selectCalendarDay)
+        }
     }
 
     ScreenRoot(error = { Error(message = error, close = clearError) }) {
@@ -66,21 +81,59 @@ private fun Content(
                 selectCalendarDay = selectCalendarDay
             )
 
-            if (selectedDateIsToday.not() && trainings.isEmpty()) {
-                EmptyData(
-                    modifier = Modifier.fillMaxWidth().weight(1f),
-                    icon = Icons.emptyTraining,
-                    title = "No one workout",
-                    description = "You don't have any workouts\nat $formatterDate"
-                )
-            } else {
-                Trainings(
-                    trainings = trainings,
-                    selectedDateIsToday = selectedDateIsToday,
-                    newTraining = newTraining,
-                    openTraining = openTraining
-                )
+            when {
+                trainings.isEmpty() -> {
+                    EmptyData(
+                        modifier = Modifier.fillMaxWidth().weight(1f),
+                        icon = Icons.emptyTraining,
+                        title = "No one workout",
+                        description = "You don't have any workouts\nat $formatterDate"
+                    )
+
+                    Spacer(
+                        Modifier.height(
+                            Design.dp.componentM + Design.dp.paddingL + Design.dp.paddingL
+                        )
+                    )
+                }
+
+                else -> {
+                    Trainings(
+                        trainings = trainings,
+                        openTraining = openTraining
+                    )
+                }
             }
         }
+
+        ShadowBottomButtons(
+            modifier = Modifier.fillMaxWidth().align(Alignment.BottomCenter),
+            contentPadding = PaddingValues(
+                start = Design.dp.paddingL,
+                end = Design.dp.paddingL,
+                bottom = Design.dp.paddingL
+            ),
+            navigationBarsPadding = false,
+            first = {
+                if (selectedDateIsToday.not()) {
+                    ButtonSecondary(
+                        modifier = Modifier.weight(1f),
+                        text = "Today",
+                        onClick = backTodayProvider
+                    )
+                }
+            },
+            second = {
+                if (selectedDateIsToday) {
+                    ButtonPrimary(
+                        modifier = Modifier.weight(1f),
+                        text = "Start workout",
+                        backgroundColor = Design.colors.toxic,
+                        textColor = Design.colors.primary,
+                        onClick = newTraining,
+                    )
+                }
+            }
+        )
     }
 }

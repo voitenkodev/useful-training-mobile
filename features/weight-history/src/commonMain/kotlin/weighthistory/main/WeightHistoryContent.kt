@@ -1,5 +1,6 @@
 package weighthistory.main
 
+import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -117,7 +118,9 @@ private fun Content(
                     }
 
                     WeightCard(
-                        modifier = Modifier.padding(horizontal = Design.dp.paddingM),
+                        modifier = Modifier
+                            .animateItemPlacement()
+                            .padding(horizontal = Design.dp.paddingM),
                         title = item.weight.kg(true),
                         description = "At ${item.createdAt}",
                         startIcon = img to color,

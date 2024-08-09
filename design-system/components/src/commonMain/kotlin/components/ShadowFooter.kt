@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
@@ -17,14 +18,26 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import atom.Design
 import components.overlay.BottomShadow
+import conditional
 
 
 @Composable
-public fun ShadowFooterSpace() {
+public fun ShadowFooterSpace(
+    contentPadding: PaddingValues = PaddingValues(
+        start = Design.dp.paddingL,
+        end = Design.dp.paddingL,
+        bottom = Design.dp.paddingXL
+    ),
+    navigationBarsPadding: Boolean = true,
+) {
     Spacer(
         modifier = Modifier
-            .navigationBarsPadding()
-            .height(Design.dp.paddingXL + Design.dp.componentM)
+            .conditional(
+                condition = navigationBarsPadding,
+                onYes = { this.navigationBarsPadding() }
+            )
+            .padding(contentPadding)
+            .height(Design.dp.componentM)
     )
 }
 
@@ -32,7 +45,14 @@ public fun ShadowFooterSpace() {
 public fun ShadowBottomButtons(
     modifier: Modifier = Modifier,
     first: (@Composable RowScope.() -> Unit)? = null,
-    second: (@Composable RowScope.() -> Unit)? = null
+    second: (@Composable RowScope.() -> Unit)? = null,
+
+    contentPadding: PaddingValues = PaddingValues(
+        start = Design.dp.paddingL,
+        end = Design.dp.paddingL,
+        bottom = Design.dp.paddingXL
+    ),
+    navigationBarsPadding: Boolean = true,
 ) {
 
     Box(modifier = modifier.height(IntrinsicSize.Min)) {
@@ -45,8 +65,10 @@ public fun ShadowBottomButtons(
         ) {
 
             Row(
-                modifier = Modifier.fillMaxWidth()
-                    .padding(horizontal = Design.dp.paddingL),
+                modifier = Modifier
+                    .padding(contentPadding)
+                    .fillMaxWidth()
+                    .height(Design.dp.componentM),
                 horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
             ) {
 
@@ -56,7 +78,9 @@ public fun ShadowBottomButtons(
 
             }
 
-            Spacer(modifier = Modifier.navigationBarsPadding().height(Design.dp.paddingXL))
+            if (navigationBarsPadding) {
+                Spacer(modifier = Modifier.navigationBarsPadding())
+            }
         }
     }
 }

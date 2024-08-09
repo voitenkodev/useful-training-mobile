@@ -89,7 +89,9 @@ internal fun typography() = Typography(
     Button = TextStyle(
         fontSize = 16.sp,
         fontWeight = FontWeight.Bold,
+        letterSpacing = 1.sp,
         fontStyle = FontStyle.Normal,
+//        fontFamily = Fonts.Primary(),
     ),
     TertiaryButton = TextStyle(
         fontSize = 14.sp,

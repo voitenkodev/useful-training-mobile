@@ -1,7 +1,7 @@
 package trainings.main.components
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -10,7 +10,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
 import atom.Design
-import components.cards.ActionCard
+import components.ShadowFooterSpace
 import kotlinx.collections.immutable.ImmutableList
 import molecule.PaddingM
 import trainings.main.models.Training
@@ -18,23 +18,10 @@ import trainings.main.models.Training
 @Composable
 internal fun Trainings(
     trainings: ImmutableList<Training>,
-    selectedDateIsToday: Boolean,
-    newTraining: () -> Unit,
     openTraining: (trainingId: String) -> Unit
 ) {
-    LazyColumn(modifier = Modifier.fillMaxSize()) {
 
-        if (selectedDateIsToday) {
-            item {
-                ActionCard(
-                    modifier = Modifier.fillMaxWidth().padding(Design.dp.paddingM),
-                    btnText = "Start workout",
-                    title = "Time to workout",
-                    description = "Press to start workout",
-                    onClick = newTraining
-                )
-            }
-        }
+    LazyColumn(modifier = Modifier.fillMaxSize()) {
 
         trainings.forEach { training ->
 
@@ -73,6 +60,17 @@ internal fun Trainings(
             item("footer:${training.id}") {
                 PaddingM()
             }
+        }
+
+        item {
+            ShadowFooterSpace(
+                contentPadding = PaddingValues(
+                    start = Design.dp.paddingM,
+                    end = Design.dp.paddingM,
+                    bottom = Design.dp.paddingM
+                ),
+                navigationBarsPadding = false,
+            )
         }
     }
 }

@@ -4,8 +4,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.navigationBarsPadding
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -15,16 +13,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.unit.dp
 import atom.Design
+import components.ShadowBottomButtons
 import grToKg
 import kg
 import molecule.ButtonPrimary
-import molecule.PaddingS
+import molecule.ButtonSecondary
 import molecule.PaddingWeight
-import molecule.PaddingXL
 import molecule.TextH1
-import molecule.Toolbar
 import molecule.secondaryBackground
-import resources.Icons
 import weightpicker.WeightPicker
 import weightpicker.WeightPickerStyle
 
@@ -41,13 +37,6 @@ internal fun WeightPickerPopup(
         modifier = Modifier.fillMaxSize().statusBarsPadding(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-
-        PaddingS()
-
-        Toolbar(
-            title = "",
-            icon = Icons.close to close
-        )
 
         PaddingWeight()
 
@@ -76,24 +65,31 @@ internal fun WeightPickerPopup(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .secondaryBackground()
-                .navigationBarsPadding(),
+                .secondaryBackground(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-            ButtonPrimary(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = Design.dp.paddingL),
-                text = "Apply",
-                enabled = weight.value != initialWeight,
-                onClick = {
-                    apply.invoke(weight.value)
-                    close.invoke()
+            ShadowBottomButtons(
+                modifier = Modifier.fillMaxWidth(),
+                first = {
+                    ButtonSecondary(
+                        modifier = Modifier.weight(1f),
+                        text = "Cancel",
+                        onClick = close
+                    )
+                },
+                second = {
+                    ButtonPrimary(
+                        modifier = Modifier.weight(1f),
+                        text = "Apply",
+                        enabled = weight.value != initialWeight,
+                        onClick = {
+                            apply.invoke(weight.value)
+                            close.invoke()
+                        }
+                    )
                 }
             )
-
-            PaddingXL()
         }
     }
 }
