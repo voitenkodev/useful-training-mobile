@@ -1,8 +1,10 @@
 package trainingbuilder.training_builder.popups
 
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
@@ -17,11 +19,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Density
+import androidx.compose.ui.unit.dp
 import atom.Design
+import components.EmptyData
 import components.cards.ExerciseCardDefault
-import components.cards.ExerciseCardDefaultEmpty
 import components.cards.ExerciseCardDefaultLoading
 import components.chips.Chip
 import components.chips.ChipState
@@ -39,7 +43,6 @@ import molecule.PaddingS
 import molecule.Shadow
 import molecule.SmallToolbar
 import molecule.TextBody1
-import molecule.TextLabel
 import resources.Icons
 import trainingbuilder.training_builder.models.ExerciseExample
 import trainingbuilder.training_builder.models.Muscle
@@ -69,13 +72,12 @@ internal fun FindExercisePopup(
             icon = Icons.close to close
         )
 
-        Shadow()
-
         PaddingM()
 
         InputSearch(
             modifier = Modifier.padding(horizontal = Design.dp.paddingM),
             provideName = { "" },
+            backgroundColor = Design.colors.black10,
             update = {},
             onClick = {
                 coroutineScope.launch {
@@ -86,7 +88,7 @@ internal fun FindExercisePopup(
             }
         )
 
-        PaddingM()
+        PaddingL()
 
         if (muscles.isNotEmpty()) {
 
@@ -157,7 +159,10 @@ internal fun ExerciseExamples(
         verticalAlignment = Alignment.CenterVertically
     ) {
 
-        TextBody1(provideText = { "Recommended for you" })
+        TextBody1(
+            provideText = { "Recommended for you" },
+            color = Design.colors.caption
+        )
     }
 
     PaddingM()
@@ -172,29 +177,47 @@ internal fun ExerciseExamples(
         }
     )
 
-    HorizontalPager(
-        state = pager,
-        contentPadding = PaddingValues(horizontal = Design.dp.paddingM),
-        pageSpacing = Design.dp.paddingM,
-        pageSize = object : PageSize {
-            override fun Density.calculateMainAxisPageSize(availableSpace: Int, pageSpacing: Int): Int {
-                return ((availableSpace - 2 * pageSpacing) * 0.96f).toInt()
+    if (list.isEmpty()) {
+        EmptyData(
+            modifier = Modifier
+                .padding(horizontal = Design.dp.paddingM)
+                .aspectRatio(1.72f)
+                .clipToBounds()
+                .border(
+                    width = 1.dp,
+                    color = Design.colors.white10,
+                    shape = Design.shape.default
+                ),
+            title = "Empty result",
+            description = "No one recommended exercises for you"
+        )
+    } else if (list.isNotEmpty()) {
+        HorizontalPager(
+            state = pager,
+            contentPadding = PaddingValues(horizontal = Design.dp.paddingM),
+            pageSpacing = Design.dp.paddingM,
+            pageSize = object : PageSize {
+                override fun Density.calculateMainAxisPageSize(
+                    availableSpace: Int,
+                    pageSpacing: Int
+                ): Int {
+                    return ((availableSpace - 2 * pageSpacing) * 0.96f).toInt()
+                }
             }
-        }
-    ) {
+        ) {
 
-        val item = list.getOrNull(it)
+            val item = list.getOrNull(it)
 
-        when {
-            loading -> ExerciseCardDefaultLoading()
-            list.isEmpty() -> ExerciseCardDefaultEmpty()
-            item != null -> ExerciseCardDefault(
-                name = item.name,
-                btn = "Select" to { select.invoke(item) },
-                imageUrl = item.imageUrl,
-                viewDetails = { details.invoke(item.id) },
-                musclesWithPercent = item.exerciseExampleBundles.map { it.muscle.name to it.percentage }
-            )
+            when {
+                loading -> ExerciseCardDefaultLoading()
+                item != null -> ExerciseCardDefault(
+                    name = item.name,
+                    btn = "Select" to { select.invoke(item) },
+                    imageUrl = item.imageUrl,
+                    viewDetails = { details.invoke(item.id) },
+                    musclesWithPercent = item.exerciseExampleBundles.map { it.muscle.name to it.percentage }
+                )
+            }
         }
     }
 }
@@ -226,9 +249,10 @@ internal fun Muscles(
         if (selectedIndex != -1) lazyListState.animateScrollAndCentralizeItem(selectedIndex)
     }
 
-    TextLabel(
+    TextBody1(
         modifier = Modifier.padding(horizontal = Design.dp.paddingM),
-        provideText = { "Target Muscle" }
+        provideText = { "Target Muscle" },
+        color = Design.colors.caption
     )
 
     PaddingM()

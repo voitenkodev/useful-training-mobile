@@ -12,11 +12,13 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import atom.Design
+import components.labels.InputLabel
 import molecule.ButtonIconSecondary
 import molecule.Icon
 import molecule.Input
@@ -28,7 +30,8 @@ public fun InputSearch(
     modifier: Modifier = Modifier,
     provideName: () -> String,
     update: (String) -> Unit,
-    onClick: (() -> Unit)? = null
+    onClick: (() -> Unit)? = null,
+    backgroundColor: Color = Design.colors.secondary,
 ) {
     val focusManager = LocalFocusManager.current
 
@@ -39,6 +42,7 @@ public fun InputSearch(
         maxLines = 1,
         keyboardActions = KeyboardActions { focusManager.moveFocus(FocusDirection.Next) },
         onValueChange = update,
+        backgroundColor = backgroundColor,
         inputStyle = when (onClick) {
             null -> InputStyle.Default
             else -> InputStyle.Clickable(onClick)

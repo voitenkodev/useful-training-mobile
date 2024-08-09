@@ -27,8 +27,7 @@ public fun EmptyData(
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = Design.dp.paddingXL)
-            .height(130.dp),
+            .padding(horizontal = Design.dp.paddingXL),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(Design.dp.paddingS, Alignment.CenterVertically)
     ) {

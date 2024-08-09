@@ -1,12 +1,7 @@
 package molecule
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.IntrinsicSize
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -22,26 +17,25 @@ public fun SmallToolbar(
     title: String,
     icon: Pair<ImageVector, () -> Unit>? = null
 ) {
-    Row(
+    Box(
         modifier = Modifier
-            .height(IntrinsicSize.Min)
-            .padding(start = Design.dp.paddingM)
-            .fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
+            .fillMaxWidth()
+            .height(Design.dp.componentM),
     ) {
 
-        TextH4(provideText = { title })
+        TextH3(
+            modifier = Modifier.align(Alignment.Center),
+            provideText = { title },
+        )
 
         if (icon != null) ButtonIconTransparent(
             modifier = Modifier
-                .fillMaxHeight()
-                .aspectRatio(1f)
-                .padding(Design.dp.paddingS),
+                .align(Alignment.CenterEnd)
+                .padding(horizontal = Design.dp.paddingS),
             imageVector = icon.first,
+            contentColor = Design.colors.content,
             onClick = icon.second
-        )
-        else Spacer(Modifier.size(Design.dp.componentS))
+        ) else Spacer(Modifier.size(Design.dp.componentM))
     }
 }
 

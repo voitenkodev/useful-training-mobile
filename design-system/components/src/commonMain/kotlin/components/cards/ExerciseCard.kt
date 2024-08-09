@@ -3,7 +3,6 @@ package components.cards
 import AsyncImage
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
@@ -25,7 +24,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import atom.Design
 import molecule.ButtonPrimarySmall
@@ -33,12 +31,8 @@ import molecule.ButtonSecondarySmall
 import molecule.ButtonTextLink
 import molecule.PaddingM
 import molecule.PaddingWeight
-import molecule.PaddingXS
-import molecule.TextBody1
 import molecule.TextBody3
-import molecule.TextH3
 import molecule.TextH4
-import molecule.coloredDefaultBackgroundNoBorder
 import molecule.secondaryDefaultBackground
 import percents
 import shimmerLoadingAnimation
@@ -241,32 +235,4 @@ public fun ExerciseCardDefaultLoading(modifier: Modifier = Modifier) {
             .aspectRatio(1.72f)
             .clipToBounds()
     )
-}
-
-@Composable
-public fun ExerciseCardDefaultEmpty(modifier: Modifier = Modifier) {
-    Column(
-        modifier = modifier
-            .coloredDefaultBackgroundNoBorder(Design.colors.black10)
-            .aspectRatio(1.72f)
-            .padding(horizontal = Design.dp.paddingM)
-            .clipToBounds(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-
-        TextH3(
-            provideText = { "Empty Exercises" },
-            color = Design.colors.caption.copy(alpha = 0.5f),
-            textAlign = TextAlign.Center
-        )
-
-        PaddingXS()
-
-        TextBody1(
-            provideText = { "No one recommended exercises for you" },
-            color = Design.colors.caption.copy(alpha = 0.5f),
-            textAlign = TextAlign.Center
-        )
-    }
 }

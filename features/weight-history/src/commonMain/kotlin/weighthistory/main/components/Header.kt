@@ -82,7 +82,7 @@ internal fun Header(
                         width = 1.dp,
                         color = Design.colors.white10,
                         shape = Design.shape.default
-                    ),
+                    ).height(130.dp),
                     title = "Chart is unavailable",
                     description = "Provide mode data"
                 )
