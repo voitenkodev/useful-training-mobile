@@ -1,5 +1,6 @@
 package exerciseexamplebuilder.main
 
+import ColorUtils
 import EquipmentsRepository
 import ExerciseExamplesRepository
 import FiltersRepository
@@ -7,10 +8,7 @@ import IncludedStatusEnum
 import MusclesRepository
 import ViewModel
 import equipment.mapping.toState
-import exerciseexamplebuilder.main.factories.muscleImage
 import exerciseexamplebuilder.main.mapping.toState
-import exerciseexamplebuilder.main.models.MuscleGroup
-import exerciseexamplebuilder.main.models.StatusEnum
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -27,6 +25,10 @@ import models.ForceTypeEnum
 import models.InputExerciseExample
 import models.InputExerciseExampleBundle
 import models.WeightTypeEnum
+import muscles.Coverage
+import muscles.MuscleGroup
+import muscles.factories.muscleImage
+import muscles.mapping.toState
 import org.koin.core.component.inject
 
 internal class ExerciseExampleBuilderViewModel : ViewModel() {
@@ -48,7 +50,20 @@ internal class ExerciseExampleBuilderViewModel : ViewModel() {
 
         musclesApi
             .observeMuscles()
-            .onEach { r -> _state.update { it.copy(muscleGroups = r.toState()) } }
+            .onEach { r ->
+                val groups = r.toState(
+                    eachMuscle = {
+                        it.toState(
+                            isSelected = false,
+                            coverage = Coverage(
+                                percentage = 0,
+                                color = ColorUtils.randomColor(),
+                            )
+                        )
+                    }
+                )
+                _state.update { it.copy(muscleGroups = groups) }
+            }
             .catch { r -> _state.update { it.copy(error = r.message) } }
             .launchIn(this)
 
@@ -77,8 +92,13 @@ internal class ExerciseExampleBuilderViewModel : ViewModel() {
                 .map { it.id },
             exerciseExampleBundles = lastState.muscleGroups
                 .flatMap { it.muscles }
-                .filter { it.status == StatusEnum.SELECTED }
-                .map { InputExerciseExampleBundle(muscleId = it.id, percentage = it.percentage) }
+                .filter { it.isSelected }
+                .map {
+                    InputExerciseExampleBundle(
+                        muscleId = it.id,
+                        percentage = it.coverage?.percentage ?: 0
+                    )
+                }
         )
 
         exerciseExampleApi.setExerciseExample(inputExerciseExample)
@@ -191,29 +211,38 @@ internal class ExerciseExampleBuilderViewModel : ViewModel() {
             val biggestMuscle = it.muscleGroups
                 .flatMap { m -> m.muscles }
                 .filterNot { f -> f.id == selectedMuscle.id }
-                .maxBy { max -> max.percentage }
-                .takeIf { t -> t.percentage > it.minimalRange }
+                .maxBy { max -> max.coverage?.percentage ?: 0 }
+                .takeIf { t -> (t.coverage?.percentage ?: 0) > it.minimalRange }
 
             val muscleTypes = it.muscleGroups.map { muscleType ->
                 val muscles = muscleType.muscles.map { muscle ->
 
-                    val newValue =
-                        if (selectedMuscle.status == StatusEnum.UNSELECTED) StatusEnum.SELECTED else StatusEnum.UNSELECTED
+                    val newValue = selectedMuscle.isSelected.not()
 
                     val newPercentage =
-                        if (selectedMuscle.status == StatusEnum.SELECTED) 0 // become unselected
-                        else if (selectedMuscle.status == StatusEnum.UNSELECTED && biggestMuscle == null) it.sliderRange.endInclusive
+                        if (selectedMuscle.isSelected) 0 // become unselected
+                        else if (selectedMuscle.isSelected.not() && biggestMuscle == null) it.sliderRange.endInclusive
                         else it.minimalRange
 
                     return@map when (muscle.id) {
                         selectedMuscle.id -> selectedMuscle.copy(
-                            status = newValue,
-                            percentage = newPercentage
+                            isSelected = newValue,
+                            coverage = selectedMuscle.coverage?.copy(percentage = newPercentage)
                         )
 
                         biggestMuscle?.id -> biggestMuscle.copy(
-                            percentage = if (newValue == StatusEnum.SELECTED) biggestMuscle.percentage - newPercentage
-                            else biggestMuscle.percentage + selectedMuscle.percentage
+
+                            coverage = if (newValue) {
+                                biggestMuscle.coverage?.copy(
+                                    percentage = (biggestMuscle.coverage?.percentage
+                                        ?: 0) - newPercentage
+                                )
+                            } else {
+                                biggestMuscle.coverage?.copy(
+                                    percentage = (biggestMuscle.coverage?.percentage
+                                        ?: 0) + (selectedMuscle.coverage?.percentage ?: 0)
+                                )
+                            }
                         )
 
                         else -> muscle
@@ -222,7 +251,8 @@ internal class ExerciseExampleBuilderViewModel : ViewModel() {
 
                 val image = muscleImage(
                     muscleGroupEnumState = muscleType.type,
-                    muscles = muscles
+                    muscles = muscles,
+                    includedMuscleStatuses = null
                 )
                 muscleType.copy(
                     muscles = muscles,

@@ -23,9 +23,14 @@ public fun MuscleChip(
         }
     }
 
+    val borderColor =
+        muscle.coverage?.color
+            .takeIf { muscle.coverage?.percentage != 0 }
+            ?: Design.palette.white10
+
     val chipState = ChipState.Colored(
         backgroundColor = Color.Transparent,
-        borderColor = Design.palette.white10,
+        borderColor = borderColor,
         contentColor = contentColor
     )
 
@@ -36,10 +41,19 @@ public fun MuscleChip(
         }
     }
 
+    val muscleName = remember(muscle.name, muscle.coverage) {
+        buildString {
+            if (muscle.coverage != null && muscle.coverage.percentage != 0) {
+                append(muscle.coverage.percentage)
+                append("% ")
+            }
+            append(muscle.name)
+        }
+    }
     Chip(
         chipState = chipState,
         onClick = { selectMuscle.invoke(muscle.id) },
-        text = muscle.name,
+        text = muscleName,
         loading = loadingById == muscle.id,
         iconStart = iconStart
     )

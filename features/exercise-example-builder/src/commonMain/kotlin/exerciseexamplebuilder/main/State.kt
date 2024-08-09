@@ -3,9 +3,9 @@ package exerciseexamplebuilder.main
 import androidx.compose.runtime.Immutable
 import equipment.EquipmentGroup
 import exerciseexamplebuilder.main.models.FilterPack
-import exerciseexamplebuilder.main.models.MuscleGroup
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
+import muscles.MuscleGroup
 
 @Immutable
 internal data class State(

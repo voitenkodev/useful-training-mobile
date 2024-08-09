@@ -20,6 +20,7 @@ import muscles.MuscleGroup
 
 @Composable
 public fun MuscleGroup(
+    modifier: Modifier = Modifier,
     item: MuscleGroup,
     loadingById: String? = null,
     selectMuscle: (id: String) -> Unit
@@ -28,7 +29,7 @@ public fun MuscleGroup(
     PaddingS()
 
     Column(
-        modifier = Modifier.fillMaxWidth().padding(Design.dp.paddingM),
+        modifier = modifier.fillMaxWidth().padding(Design.dp.paddingM),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 

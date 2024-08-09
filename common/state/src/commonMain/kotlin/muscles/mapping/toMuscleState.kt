@@ -4,10 +4,12 @@ import IncludedStatusEnum
 import models.Muscle
 import models.MuscleLoadEnum
 import models.MuscleStatusEnum
+import muscles.Coverage
 import muscles.MuscleEnum
 
 public fun Muscle.toState(
-    isSelected: Boolean
+    isSelected: Boolean,
+    coverage: Coverage? = null
 ): muscles.Muscle? {
 
     return muscles.Muscle(
@@ -16,7 +18,8 @@ public fun Muscle.toState(
         isSelected = isSelected,
         load = load.toState(),
         status = status.toState(),
-        type = type.toState() ?: return null
+        type = type.toState() ?: return null,
+        coverage = coverage
     )
 }
 

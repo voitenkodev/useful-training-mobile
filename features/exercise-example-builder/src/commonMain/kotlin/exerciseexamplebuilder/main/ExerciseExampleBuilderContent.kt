@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
@@ -26,7 +27,6 @@ import androidx.compose.ui.unit.dp
 import atom.Design
 import components.Error
 import components.ShadowBottomButtons
-import components.ShadowFooter
 import components.ShadowFooterSpace
 import components.ShadowHeader
 import components.ShadowHeaderSpace
@@ -38,10 +38,7 @@ import components.inputs.InputUrl
 import components.roots.ScreenRoot
 import equipment.EquipmentGroup
 import exerciseexamplebuilder.main.components.EquipmentGroups
-import exerciseexamplebuilder.main.components.MuscleGroup
 import exerciseexamplebuilder.main.models.FilterPack
-import exerciseexamplebuilder.main.models.MuscleGroup
-import exerciseexamplebuilder.main.models.StatusEnum
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toPersistentList
 import molecule.ButtonPrimary
@@ -49,7 +46,8 @@ import molecule.ButtonSecondary
 import molecule.PaddingM
 import molecule.PaddingS
 import molecule.TextBody1
-import molecule.primaryBackground
+import muscles.MuscleGroup
+import muscles.component.MuscleGroup
 import percentagepicker.RangeSlider
 import percentagepicker.ThumbRangeState
 
@@ -135,8 +133,7 @@ private fun Content(
     ScreenRoot(error = { Error(message = error, close = clearError) }) {
 
         Column(
-            modifier = Modifier.fillMaxSize().primaryBackground()
-                .verticalScroll(rememberScrollState())
+            modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState())
         ) {
 
             ShadowHeaderSpace()
@@ -171,12 +168,12 @@ private fun Content(
                 val thumbs = remember(muscles) {
                     muscles
                         .flatMap { it.muscles }
-                        .filter { it.status == StatusEnum.SELECTED }
+                        .filter { it.isSelected }
                         .map {
                             ThumbRangeState(
                                 id = it.id,
-                                positionInRange = it.percentage,
-                                color = it.color
+                                positionInRange = it.coverage?.percentage ?: 0,
+                                color = it.coverage?.color ?: Color.Transparent
                             )
                         }.toPersistentList()
                 }
@@ -194,10 +191,11 @@ private fun Content(
                     onValueChange = { updatedThumbs ->
                         val newList = muscles.map {
                             val innerMuscles = it.muscles.map { m ->
-                                val newPercentage =
-                                    updatedThumbs.find { it.id == m.id }?.positionInRange
-                                        ?: m.percentage
-                                m.copy(percentage = newPercentage)
+                                val newPercentage: Int? =
+                                    updatedThumbs.find { t -> t.id == m.id }?.positionInRange
+                                        ?: m.coverage?.percentage
+
+                                m.copy(coverage = m.coverage?.copy(percentage = newPercentage ?: 0))
                             }.toPersistentList()
                             it.copy(muscles = innerMuscles)
                         }.toPersistentList()
@@ -209,6 +207,7 @@ private fun Content(
                 LazyRow(modifier = Modifier.fillMaxWidth()) {
                     items(muscles, key = { it.id }) {
                         MuscleGroup(
+                            modifier = Modifier.width(340.dp),
                             item = it,
                             selectMuscle = selectMuscle
                         )
@@ -321,7 +320,7 @@ private fun Content(
         val enabled = remember(equipments, muscles, name, imageUrl, filterPack) {
             val hasEquip = equipments.flatMap { it.equipments }
                 .any { it.status == IncludedStatusEnum.INCLUDED }
-            val hasMuscles = muscles.flatMap { it.muscles }.any { it.status == StatusEnum.SELECTED }
+            val hasMuscles = muscles.flatMap { it.muscles }.any { it.isSelected }
             val hasAllFilters = filterPack.categories.any { it.isSelected } and
                     filterPack.forceTypes.any { it.isSelected } and
                     filterPack.weightTypes.any { it.isSelected } and

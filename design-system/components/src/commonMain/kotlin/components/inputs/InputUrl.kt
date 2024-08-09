@@ -39,7 +39,6 @@ public fun InputUrl(
         maxLines = 1,
         keyboardActions = KeyboardActions { focusManager.moveFocus(FocusDirection.Next) },
         onValueChange = onValueChange,
-        backgroundColor = Design.colors.black10,
         keyboardOptions = KeyboardOptions(
             capitalization = KeyboardCapitalization.Sentences,
             imeAction = ImeAction.Next

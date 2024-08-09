@@ -2,6 +2,7 @@ package muscles
 
 import IncludedStatusEnum
 import androidx.compose.runtime.Immutable
+import androidx.compose.ui.graphics.Color
 
 @Immutable
 public data class Muscle(
@@ -15,4 +16,11 @@ public data class Muscle(
 
     // dynamic external value
     val load: MuscleLoadEnum?,
+    val coverage: Coverage? = null,
+)
+
+@Immutable
+public data class Coverage(
+    val color: Color,
+    val percentage: Int
 )

@@ -35,7 +35,6 @@ public fun InputExerciseName(
         value = value.invoke(),
         placeholder = "Exercise name",
         maxLines = 1,
-        backgroundColor = Design.colors.black10,
         keyboardActions = KeyboardActions { focusManager.moveFocus(FocusDirection.Next) },
         onValueChange = onValueChange,
         keyboardOptions = KeyboardOptions(
