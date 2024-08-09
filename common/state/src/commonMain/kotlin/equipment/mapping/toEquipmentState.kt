@@ -63,7 +63,7 @@ public fun models.Equipment.toState(
         id = id,
         loading = false,
         image = type.toImageState() ?: return null,
-        status = status.toState() ?: defaultStatus,
+        status = defaultStatus ?: status.toState(),
     )
 }
 
