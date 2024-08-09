@@ -76,7 +76,6 @@ private fun Content(
 
     ScreenRoot(error = { Error(message = { error() }, close = clearError) }) {
 
-
         Column(modifier = Modifier.fillMaxSize()) {
 
             Header(

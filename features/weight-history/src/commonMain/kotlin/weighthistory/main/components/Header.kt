@@ -78,14 +78,11 @@ internal fun Header(
                 )
             } else {
                 EmptyData(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(130.dp)
-                        .border(
-                            width = 1.dp,
-                            color = Design.colors.white10,
-                            shape = Design.shape.default
-                        ),
+                    modifier = Modifier.border(
+                        width = 1.dp,
+                        color = Design.colors.white10,
+                        shape = Design.shape.default
+                    ),
                     title = "Chart is unavailable",
                     description = "Provide mode data"
                 )

@@ -1,15 +1,18 @@
 package trainings.main
 
+import DateTimeKtx
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import components.EmptyData
 import components.Error
 import components.roots.ScreenRoot
 import kotlinx.collections.immutable.ImmutableList
+import resources.Icons
 import trainings.main.components.Header
 import trainings.main.components.Trainings
 import trainings.main.models.SelectableCalendar
@@ -50,6 +53,9 @@ private fun Content(
 
     val selectedDate = calendar.findLast { it.isSelected } ?: return
     val selectedDateIsToday = selectedDate.isToday
+    val formatterDate = remember(selectedDate) {
+        DateTimeKtx.formattedLongDate(selectedDate.dateTimeIso)
+    }
 
     ScreenRoot(error = { Error(message = error, close = clearError) }) {
 
@@ -63,8 +69,9 @@ private fun Content(
             if (selectedDateIsToday.not() && trainings.isEmpty()) {
                 EmptyData(
                     modifier = Modifier.fillMaxWidth().weight(1f),
+                    icon = Icons.emptyTraining,
                     title = "No one workout",
-                    description = "You don't have any workouts at this day"
+                    description = "You don't have any workouts\nat $formatterDate"
                 )
             } else {
                 Trainings(
