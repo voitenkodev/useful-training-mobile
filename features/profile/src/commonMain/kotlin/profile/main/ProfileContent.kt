@@ -23,8 +23,10 @@ import components.ShadowHeaderSpace
 import components.cards.UserCard
 import components.roots.ScreenRoot
 import molecule.PaddingM
+import molecule.PaddingS
 import molecule.PaddingXL
 import molecule.Shadow
+import molecule.TextBody1
 import profile.main.components.MenuItem
 import resources.Icons
 import user.User
@@ -110,6 +112,16 @@ private fun Content(
             item { PaddingXL() }
 
             item {
+                TextBody1(
+                    modifier = Modifier.padding(horizontal = Design.dp.paddingL),
+                    provideText = { "User data" },
+                    color = Design.colors.caption
+                )
+            }
+
+            item { PaddingS() }
+
+            item {
                 Column(
                     modifier = Modifier
                         .padding(horizontal = Design.dp.paddingM)
@@ -169,6 +181,16 @@ private fun Content(
             }
 
             item { PaddingXL() }
+
+            item {
+                TextBody1(
+                    modifier = Modifier.padding(horizontal = Design.dp.paddingL),
+                    provideText = { "Settings" },
+                    color = Design.colors.caption
+                )
+            }
+
+            item { PaddingS() }
 
             item {
 

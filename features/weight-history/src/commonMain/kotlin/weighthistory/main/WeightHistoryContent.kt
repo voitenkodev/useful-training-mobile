@@ -26,7 +26,7 @@ import molecule.ButtonPrimary
 import molecule.PaddingM
 import molecule.PaddingS
 import molecule.PopupSheet
-import molecule.TextH4
+import molecule.TextBody1
 import resources.Icons
 import weighthistory.main.components.Header
 import weighthistory.main.models.WeightHistory
@@ -92,7 +92,7 @@ private fun Content(
             ) {
 
                 item {
-                    TextH4(
+                    TextBody1(
                         modifier = Modifier.padding(horizontal = Design.dp.paddingL),
                         provideText = { "History" },
                         color = Design.colors.caption
