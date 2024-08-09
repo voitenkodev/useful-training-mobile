@@ -60,7 +60,13 @@ internal class RegistrationViewModel : ViewModel() {
         equipmentsApi
             .observeEquipments()
             .onEach { r ->
-                val equipmentGroups = r.toState(defaultStatus = IncludedStatusEnum.INCLUDED)
+                val equipmentGroups = r.toState(
+                    eachEquipment = {
+                        it.toState(
+                            defaultStatus = IncludedStatusEnum.INCLUDED
+                        )
+                    },
+                )
                 _state.update { it.copy(equipmentGroups = equipmentGroups) }
             }
             .catch { r -> _state.update { it.copy(error = r.message) } }

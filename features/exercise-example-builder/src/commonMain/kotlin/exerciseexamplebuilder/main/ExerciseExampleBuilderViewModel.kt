@@ -44,7 +44,16 @@ internal class ExerciseExampleBuilderViewModel : ViewModel() {
     init {
         equipmentsApi
             .observeEquipments()
-            .onEach { r -> _state.update { it.copy(equipmentGroups = r.toState()) } }
+            .onEach { r ->
+                val groups = r.toState(
+                    eachEquipment = {
+                        it.toState(
+                            defaultStatus = IncludedStatusEnum.EXCLUDED
+                        )
+                    },
+                )
+                _state.update { it.copy(equipmentGroups = groups) }
+            }
             .catch { r -> _state.update { it.copy(error = r.message) } }
             .launchIn(this)
 

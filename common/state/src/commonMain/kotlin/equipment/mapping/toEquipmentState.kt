@@ -47,14 +47,16 @@ import models.EquipmentEnum
 import models.EquipmentStatusEnum
 
 public fun List<models.Equipment>.toState(
-    defaultStatus: IncludedStatusEnum? = null
+    eachEquipment: (models.Equipment) -> Equipment? = {
+        it.toState()
+    },
 ): ImmutableList<Equipment> {
-    return mapNotNull { it.toState(defaultStatus) }
+    return mapNotNull(eachEquipment)
         .toPersistentList()
 }
 
 public fun models.Equipment.toState(
-    defaultStatus: IncludedStatusEnum? = null
+    defaultStatus: IncludedStatusEnum? = null,
 ): Equipment? {
     return Equipment(
         name = name,
