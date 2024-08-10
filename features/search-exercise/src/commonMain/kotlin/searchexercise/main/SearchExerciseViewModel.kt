@@ -60,8 +60,7 @@ internal class SearchExerciseViewModel : ViewModel() {
             .observeEquipments()
             .onEach { r ->
                 _state.update {
-                    it.copy(filtersState = it.filtersState.copy(equipments = r.flatMap { it.equipments }
-                        .toState()))
+                    it.copy(filtersState = it.filtersState.copy(equipmentGroups = r.toState()))
                 }
             }
             .catch { r -> _state.update { it.copy(error = r.message) } }
@@ -96,7 +95,8 @@ internal class SearchExerciseViewModel : ViewModel() {
                     experience = filters.filterPack.experiences.firstOrNull { it.isSelected }?.value,
                     muscleIds = filters.muscles.flatMap { it.muscles }.filter { it.isSelected }
                         .map { it.id },
-                    equipmentIds = filters.equipments.filter { it.isSelected }
+                    equipmentIds = filters.equipmentGroups.flatMap { it.equipments }
+                        .filter { it.isSelected }
                         .map { it.id },
                     query = query.takeIf { it.isNotBlank() }
                 )

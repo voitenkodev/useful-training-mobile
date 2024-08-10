@@ -41,7 +41,7 @@ internal fun SearchExerciseContent(
                 close = hideLambda,
                 applyFilters = vm::applyFilters,
                 stateHolder = ExerciseExampleFiltersStateHolder(
-                    equipments = state.filtersState.equipments,
+                    equipments = state.filtersState.equipmentGroups,
                     filterPack = state.filtersState.filterPack,
                     muscles = state.filtersState.muscles
                 )

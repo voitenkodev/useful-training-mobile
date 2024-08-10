@@ -1,6 +1,6 @@
 package searchexercise.main.popups
 
-import equipment.Equipment
+import equipment.EquipmentGroup
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toPersistentList
@@ -13,14 +13,14 @@ import muscles.factories.muscleImage
 import searchexercise.main.models.FilterPack
 
 internal class ExerciseExampleFiltersStateHolder(
-    equipments: ImmutableList<Equipment> = persistentListOf(),
+    equipments: ImmutableList<EquipmentGroup> = persistentListOf(),
     muscles: ImmutableList<MuscleGroup> = persistentListOf(),
     filterPack: FilterPack = FilterPack()
 ) {
 
     private val _state = MutableStateFlow(
         ExerciseExampleFiltersState(
-            equipments = equipments,
+            equipmentGroups = equipments,
             muscles = muscles,
             filterPack = filterPack
         )
@@ -63,14 +63,17 @@ internal class ExerciseExampleFiltersStateHolder(
 
     fun selectEquipment(id: String) {
         _state.update {
-            it.copy(
-                equipments = it.equipments.map equipMap@{ v ->
+            val newGroups = it.equipmentGroups.map equipGroupMap@{ g ->
+                val newEquip = g.equipments.map equipMap@{ v ->
                     if (id != v.id) {
                         return@equipMap v
                     }
                     v.copy(isSelected = v.isSelected.not())
                 }.toPersistentList()
-            )
+                g.copy(equipments = newEquip)
+            }.toPersistentList()
+
+            it.copy(equipmentGroups = newGroups)
         }
     }
 
@@ -118,8 +121,10 @@ internal class ExerciseExampleFiltersStateHolder(
                         bodyImageVector = muscleImage(mt.type, muscles, null)
                     )
                 }.toPersistentList(),
-                equipments = it.equipments.map equipMap@{ v -> v.copy(isSelected = false) }
-                    .toPersistentList(),
+                equipmentGroups = it.equipmentGroups.map equipGroupMap@{ g ->
+                    val equips = g.equipments.map { it.copy(isSelected = false) }.toPersistentList()
+                    g.copy(equipments = equips)
+                }.toPersistentList(),
                 filterPack = it.filterPack.copy(
                     forceTypes = it.filterPack.forceTypes.map { item -> item.copy(isSelected = false) }
                         .toPersistentList(),

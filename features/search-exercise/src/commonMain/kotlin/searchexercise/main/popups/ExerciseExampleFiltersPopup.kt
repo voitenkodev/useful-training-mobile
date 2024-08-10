@@ -1,6 +1,5 @@
 package searchexercise.main.popups
 
-import IncludedStatusEnum
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -79,14 +78,18 @@ internal fun ExerciseExampleFiltersPopup(
 
         Shadow()
 
-        Column(modifier = Modifier.weight(1f).verticalScroll(rememberScrollState())) {
+        Column(
+            modifier = Modifier
+                .weight(1f)
+                .verticalScroll(rememberScrollState())
+        ) {
 
             PaddingL()
 
             if (state.filterPack.categories.isNotEmpty()) {
 
                 Label(
-                    modifier = Modifier.padding(horizontal = Design.dp.paddingL),
+                    modifier = Modifier.padding(horizontal = Design.dp.paddingM),
                     provideText = { "Categories" },
                 )
 
@@ -113,7 +116,7 @@ internal fun ExerciseExampleFiltersPopup(
             if (state.filterPack.weightTypes.isNotEmpty()) {
 
                 Label(
-                    modifier = Modifier.padding(horizontal = Design.dp.paddingL),
+                    modifier = Modifier.padding(horizontal = Design.dp.paddingM),
                     provideText = { "Weight Type" },
                 )
 
@@ -140,7 +143,7 @@ internal fun ExerciseExampleFiltersPopup(
             if (state.filterPack.forceTypes.isNotEmpty()) {
 
                 Label(
-                    modifier = Modifier.padding(horizontal = Design.dp.paddingL),
+                    modifier = Modifier.padding(horizontal = Design.dp.paddingM),
                     provideText = { "Force Type" },
                 )
 
@@ -167,7 +170,7 @@ internal fun ExerciseExampleFiltersPopup(
             if (state.filterPack.experiences.isNotEmpty()) {
 
                 Label(
-                    modifier = Modifier.padding(horizontal = Design.dp.paddingL),
+                    modifier = Modifier.padding(horizontal = Design.dp.paddingM),
                     provideText = { "Experience" },
                 )
 
@@ -188,18 +191,11 @@ internal fun ExerciseExampleFiltersPopup(
                     }
                 }
 
-                PaddingL()
+                PaddingM()
+                Shadow()
             }
 
             if (state.muscles.isNotEmpty()) {
-
-                Label(
-                    modifier = Modifier.padding(horizontal = Design.dp.paddingL),
-                    provideText = { "Muscles" },
-                )
-
-                PaddingM()
-
                 LazyRow(modifier = Modifier.defaultMinSize(minHeight = 240.dp).fillMaxWidth()) {
                     items(state.muscles, key = { it.id }) {
                         MuscleGroup(
@@ -209,22 +205,15 @@ internal fun ExerciseExampleFiltersPopup(
                         )
                     }
                 }
-
-                PaddingM()
             }
 
-            if (state.equipments.isNotEmpty()) {
+            Shadow()
 
+            PaddingM()
 
-                Label(
-                    modifier = Modifier.padding(horizontal = Design.dp.paddingL),
-                    provideText = { "Equipments" },
-                )
-
-                PaddingM()
-
+            if (state.equipmentGroups.isNotEmpty()) {
                 EquipmentGroups(
-                    items = state.equipments,
+                    items = state.equipmentGroups,
                     selectEquipment = stateHolder::selectEquipment
                 )
             }
@@ -240,7 +229,8 @@ internal fun ExerciseExampleFiltersPopup(
 
             val countFilters = remember(state) {
                 val muscles = state.muscles.flatMap { it.muscles }.count { it.isSelected }
-                val equipments = state.equipments.count { it.status == IncludedStatusEnum.INCLUDED }
+                val equipments =
+                    state.equipmentGroups.flatMap { it.equipments }.count { it.isSelected }
                 val categories = state.filterPack.categories.count { it.isSelected }
                 val experience = state.filterPack.experiences.count { it.isSelected }
                 val forceType = state.filterPack.forceTypes.count { it.isSelected }
