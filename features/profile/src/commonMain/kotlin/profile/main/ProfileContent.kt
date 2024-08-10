@@ -106,7 +106,7 @@ private fun Content(
                 }
             }
 
-            item { PaddingXL() }
+            item { PaddingM() }
 
             item {
                 Label(
@@ -176,7 +176,7 @@ private fun Content(
                 }
             }
 
-            item { PaddingXL() }
+            item { PaddingM() }
 
             item {
                 Label(

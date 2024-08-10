@@ -25,10 +25,8 @@ import androidx.compose.ui.unit.dp
 import atom.Design
 import molecule.Icon
 import molecule.PaddingM
-import molecule.PaddingS
 import molecule.PaddingWeight
-import molecule.PaddingXS
-import molecule.TextBody3
+import molecule.TextBody4
 import molecule.TextH3
 import molecule.TextH4
 import molecule.secondaryDefaultBackground
@@ -73,7 +71,7 @@ public fun UserCard(
             )
         }
 
-        TextBody3(
+        TextBody4(
             modifier = Modifier
                 .padding(Design.dp.paddingL)
                 .align(Alignment.BottomEnd),
@@ -95,7 +93,7 @@ public fun UserCard(
                 horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
             ) {
                 Column {
-                    TextBody3(
+                    TextBody4(
                         provideText = { "Username" },
                         color = Design.colors.caption
                     )
@@ -117,7 +115,7 @@ public fun UserCard(
 
             PaddingWeight()
 
-            TextBody3(
+            TextBody4(
                 provideText = { "Weight" },
                 color = Design.colors.caption
             )
@@ -128,7 +126,7 @@ public fun UserCard(
 
             PaddingM()
 
-            TextBody3(
+            TextBody4(
                 provideText = { "Height" },
                 color = Design.colors.caption
             )

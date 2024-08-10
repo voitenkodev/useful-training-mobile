@@ -89,6 +89,11 @@ internal fun typography() = Typography(
     ),
     Body3 = TextStyle(
         fontSize = 14.sp,
+        fontWeight = FontWeight.Bold,
+        fontStyle = FontStyle.Normal,
+    ),
+    Body4 = TextStyle(
+        fontSize = 14.sp,
         fontWeight = FontWeight.Normal,
         fontStyle = FontStyle.Normal,
     ),
@@ -97,7 +102,6 @@ internal fun typography() = Typography(
         fontWeight = FontWeight.Bold,
         letterSpacing = 1.sp,
         fontStyle = FontStyle.Normal,
-//        fontFamily = Fonts.Primary(),
     ),
     TertiaryButton = TextStyle(
         fontSize = 14.sp,
@@ -118,6 +122,7 @@ public data class Typography(
     val Body1: TextStyle, // Fields
     val Body2: TextStyle, // Fields
     val Body3: TextStyle, // Additional little input
+    val Body4: TextStyle, // Additional little input
 
     @Deprecated("Use Label")
     val TextLabel: TextStyle, // Sub titles for sections)

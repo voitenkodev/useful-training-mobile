@@ -8,7 +8,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import atom.Design
-import molecule.TextBody3
+import molecule.TextBody4
 
 @Composable
 public fun InputLabel(
@@ -17,7 +17,7 @@ public fun InputLabel(
     color: Color = Design.colors.caption,
     textAlign: TextAlign? = null
 ) {
-    TextBody3(
+    TextBody4(
         modifier = modifier.padding(
             start = Design.dp.paddingXS,
             bottom = Design.dp.paddingXS,

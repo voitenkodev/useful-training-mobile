@@ -31,7 +31,7 @@ import molecule.ButtonSecondarySmall
 import molecule.ButtonTextLink
 import molecule.PaddingM
 import molecule.PaddingWeight
-import molecule.TextBody3
+import molecule.TextBody4
 import molecule.TextH4
 import molecule.secondaryDefaultBackground
 import percents
@@ -103,7 +103,7 @@ public fun ExerciseCardSmall(
             PaddingWeight()
 
             muscles.forEach { muscle ->
-                TextBody3(
+                TextBody4(
                     provideText = { muscle.text },
                     color = muscle.color,
                     maxLines = 4
@@ -187,7 +187,7 @@ public fun ExerciseCardDefault(
                 PaddingWeight()
 
                 muscles.forEach { muscle ->
-                    TextBody3(
+                    TextBody4(
                         provideText = { muscle.text },
                         color = muscle.color,
                         maxLines = 4

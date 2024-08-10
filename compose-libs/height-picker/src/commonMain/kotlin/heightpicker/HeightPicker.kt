@@ -30,7 +30,7 @@ public fun HeightPicker(
     initial: Int,
     onValueChange: (Int) -> Unit
 ) {
-    val style = Design.typography.Body3.copy(color = Design.colors.content)
+    val style = Design.typography.Body4.copy(color = Design.colors.content)
     val textMeasurer = rememberTextMeasurer()
     val internalInitial = remember { initial }
     var targetDistant by remember { mutableStateOf(0f) }
@@ -114,7 +114,10 @@ public fun HeightPicker(
 
                     drawText(
                         textLayoutResult = dimensions,
-                        topLeft = Offset(x = positionLineScaleX - (dimensions.size.width / 2), y = topLinerY + (lineHeightSize * 2f + 10)),
+                        topLeft = Offset(
+                            x = positionLineScaleX - (dimensions.size.width / 2),
+                            y = topLinerY + (lineHeightSize * 2f + 10)
+                        ),
                     )
                 }
             }

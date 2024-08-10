@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 import atom.Design
 import molecule.Icon
 import molecule.PaddingXS
-import molecule.TextBody3
+import molecule.TextBody4
 import molecule.TextH4
 
 @Composable
@@ -80,7 +80,7 @@ public fun ExperienceCard(
 
             PaddingXS()
 
-            TextBody3(
+            TextBody4(
                 provideText = { description },
                 color = Design.colors.caption
             )

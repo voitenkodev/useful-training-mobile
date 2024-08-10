@@ -38,7 +38,7 @@ public fun RangeSlider(
         mutableStateOf(if (canvasSize.value.width == 0f) emptyList() else thumbInternalStates)
     }
 
-    val style = Design.typography.Body3.copy(color = Design.colors.content)
+    val style = Design.typography.Body4.copy(color = Design.colors.content)
     val textMeasurer = rememberTextMeasurer()
 
     Canvas(
@@ -123,7 +123,9 @@ public fun RangeSlider(
                 }
 
                 val updatedThumbPositionsBetween = updatedThumbs.mapIndexed { index, item ->
-                    val newPositionBetween = item.positionInLine - (updatedThumbs.getOrNull(index - 1)?.positionInLine ?: 0)
+                    val newPositionBetween =
+                        item.positionInLine - (updatedThumbs.getOrNull(index - 1)?.positionInLine
+                            ?: 0)
                     item.copy(positionBetween = newPositionBetween)
                 }
 

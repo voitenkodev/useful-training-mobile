@@ -22,6 +22,7 @@ import resources.icon.menu.Charts
 import resources.icon.menu.LoveGym
 import resources.icon.menu.Profile
 import resources.icon.outline.ArrowDown
+import resources.icon.outline.ArrowDownDouble
 import resources.icon.outline.ArrowLeft
 import resources.icon.outline.ArrowRight
 import resources.icon.outline.ArrowUp
@@ -52,6 +53,7 @@ public object Icons {
     public val arrowLeft: ImageVector = ArrowLeft
     public val arrowUp: ImageVector = ArrowUp
     public val arrowDown: ImageVector = ArrowDown
+    public val arrowDownDouble: ImageVector = ArrowDownDouble
     public val arrowRight: ImageVector = ArrowRight
     public val loading: ImageVector = Loading
     public val filters: ImageVector = Filter

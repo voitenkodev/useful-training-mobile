@@ -43,7 +43,7 @@ import kotlinx.collections.immutable.ImmutableList
 import molecule.PaddingM
 import molecule.PaddingS
 import molecule.Shadow
-import molecule.TextBody3
+import molecule.TextBody4
 import molecule.TextH2
 import molecule.TextH3
 import trainings.main.models.SelectableCalendar
@@ -167,7 +167,7 @@ private fun CalendarRow(
                     verticalArrangement = Arrangement.Center
                 ) {
 
-                    TextBody3(
+                    TextBody4(
                         modifier = Modifier,
                         provideText = { if (it.isToday) "NOW" else it.weekDay },
                         color = if (it.isToday) Design.colors.orange else if (it.isSelected) Design.colors.content else Design.colors.caption

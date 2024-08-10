@@ -18,10 +18,9 @@ import androidx.compose.ui.unit.dp
 import atom.Design
 import molecule.Icon
 import molecule.PaddingXS
-import molecule.TextBody3
+import molecule.TextBody4
 import molecule.TextH4
 import molecule.coloredDefaultBackgroundNoBorder
-import molecule.secondaryDefaultBackground
 
 @Composable
 public fun HorizontalValueCard(
@@ -34,23 +33,16 @@ public fun HorizontalValueCard(
     onClick: (() -> Unit)? = null
 ) {
 
-    val initialModifier = modifier
-        .secondaryDefaultBackground()
-        .border(
-            color = if (isSelected) Design.colors.toxic else Color.Transparent,
-            width = 1.dp,
-            shape = Design.shape.default
-        )
 
     val interactionSource = remember { MutableInteractionSource() }
 
     val actionModifierProvider = remember(onClick, isSelected) {
-        if (onClick != null) initialModifier.clickable(
+        if (onClick != null) modifier.clickable(
             onClick = onClick,
             interactionSource = interactionSource,
             indication = null
         )
-        else initialModifier
+        else modifier
     }
 
     Row(
@@ -86,7 +78,7 @@ public fun HorizontalValueCard(
 
             PaddingXS()
 
-            TextBody3(
+            TextBody4(
                 provideText = { description },
                 color = Design.colors.caption
             )

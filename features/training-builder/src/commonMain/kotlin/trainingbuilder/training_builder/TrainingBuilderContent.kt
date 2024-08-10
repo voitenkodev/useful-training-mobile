@@ -32,11 +32,9 @@ import io.github.xxfast.decompose.router.LocalRouterContext
 import kotlinx.collections.immutable.ImmutableList
 import molecule.ButtonPrimary
 import molecule.Label
-import molecule.PaddingM
 import molecule.PopupSheet
 import trainingbuilder.training_builder.components.Exercise
 import trainingbuilder.training_builder.components.Header
-import trainingbuilder.training_builder.components.TrainingOverview
 import trainingbuilder.training_builder.models.Exercise
 import trainingbuilder.training_builder.models.SetExerciseState
 import trainingbuilder.training_builder.pages.set_exercise.SetExerciseContent
@@ -115,10 +113,7 @@ internal fun TrainingBuilderContent(
                         exerciseExample = popupState?.exerciseExample,
                         save = vm::saveExercise,
                         toExerciseExampleDetails = { id ->
-                            toExerciseExampleDetails.invoke(
-                                id,
-                                false
-                            )
+                            toExerciseExampleDetails.invoke(id, false)
                         }
                     )
                 }
@@ -145,7 +140,10 @@ internal fun Content(
             Header(
                 finish = finish,
                 loading = loading,
-                finishEnabled = exercises.isNotEmpty()
+                finishEnabled = exercises.isNotEmpty(),
+                fullBackImage = fullBack,
+                fullFrontImage = fullFront,
+                volume = volume
             )
 
             LazyColumn(
@@ -153,21 +151,6 @@ internal fun Content(
                 contentPadding = PaddingValues(Design.dp.paddingM),
                 verticalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
             ) {
-
-                item(key = "overview") {
-
-                    Label(
-                        provideText = { "Overview" }
-                    )
-
-                    PaddingM()
-
-                    TrainingOverview(
-                        fullFrontImage = fullFront,
-                        fullBackImage = fullBack,
-                        volume = volume
-                    )
-                }
 
                 item("exercise_title") {
                     Label(

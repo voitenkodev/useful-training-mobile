@@ -25,7 +25,7 @@ import molecule.PaddingM
 import molecule.PaddingXL
 import molecule.Shadow
 import molecule.TextBody1
-import molecule.TextBody3
+import molecule.TextBody4
 import molecule.TextH2
 import resources.Icons
 
@@ -107,11 +107,11 @@ private fun Item(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
     ) {
-        TextBody3(
+        TextBody4(
             provideText = { title },
             color = Design.colors.caption
         )
-        TextBody3(
+        TextBody4(
             provideText = { value },
             color = Design.colors.content,
             fontWeight = FontWeight.Bold

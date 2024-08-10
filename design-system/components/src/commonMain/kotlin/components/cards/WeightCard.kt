@@ -20,7 +20,7 @@ import atom.Design
 import molecule.ButtonIconTransparent
 import molecule.Icon
 import molecule.PaddingS
-import molecule.TextBody3
+import molecule.TextBody4
 import molecule.TextH4
 
 @Immutable
@@ -90,7 +90,7 @@ public fun WeightCard(
 
             PaddingS()
 
-            TextBody3(
+            TextBody4(
                 provideText = { description },
                 color = Design.colors.white50
             )
