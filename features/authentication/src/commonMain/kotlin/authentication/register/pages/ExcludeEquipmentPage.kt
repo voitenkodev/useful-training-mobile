@@ -57,7 +57,7 @@ internal fun ExcludeEquipmentPage(
 
             LazyColumn(modifier = Modifier.fillMaxWidth().weight(1f)) {
 
-                itemsIndexed(equipments, key = { _, item -> item.id }) { index, item ->
+                itemsIndexed(equipments, key = { _, item -> item.id }) { _, item ->
 
                     EquipmentGroup(
                         item = item,

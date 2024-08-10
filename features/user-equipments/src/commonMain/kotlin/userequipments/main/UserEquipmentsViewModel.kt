@@ -1,7 +1,6 @@
 package userequipments.main
 
 import EquipmentsRepository
-import IncludedStatusEnum
 import UserRepository
 import ViewModel
 import equipment.mapping.toState
@@ -15,6 +14,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.update
+import models.EquipmentStatusEnum
 import org.koin.core.component.inject
 
 internal class UserEquipmentsViewModel : ViewModel() {
@@ -28,7 +28,19 @@ internal class UserEquipmentsViewModel : ViewModel() {
     init {
         equipmentsApi
             .observeEquipments()
-            .onEach { r -> _state.update { it.copy(equipmentGroups = r.toState()) } }
+            .onEach { r ->
+                val groups = r.toState(
+                    eachEquipment = { e ->
+                        val isSelected = when (e.status) {
+                            EquipmentStatusEnum.EXCLUDED -> false
+                            EquipmentStatusEnum.UNKNOWN -> null
+                            else -> true
+                        }
+                        e.toState(isSelected = isSelected ?: false)
+                    }
+                )
+                _state.update { it.copy(equipmentGroups = groups) }
+            }
             .catch { r -> _state.update { it.copy(error = r.message) } }
             .launchIn(this)
 
@@ -55,9 +67,7 @@ internal class UserEquipmentsViewModel : ViewModel() {
             .find { it.id == id } ?: return
 
         val flow =
-            if (equipment.status == IncludedStatusEnum.EXCLUDED) userApi.deleteExcludedEquipment(
-                equipment.id
-            )
+            if (equipment.isSelected.not()) userApi.deleteExcludedEquipment(equipment.id)
             else userApi.setExcludedEquipment(equipment.id)
 
         flow

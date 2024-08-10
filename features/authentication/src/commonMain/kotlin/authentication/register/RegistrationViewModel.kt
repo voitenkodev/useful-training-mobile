@@ -2,7 +2,6 @@ package authentication.register
 
 import AuthenticationRepository
 import EquipmentsRepository
-import IncludedStatusEnum
 import MusclesRepository
 import UserRepository
 import ViewModel
@@ -60,14 +59,7 @@ internal class RegistrationViewModel : ViewModel() {
         equipmentsApi
             .observeEquipments()
             .onEach { r ->
-                val equipmentGroups = r.toState(
-                    eachEquipment = {
-                        it.toState(
-                            defaultStatus = IncludedStatusEnum.INCLUDED,
-                            isSelected = false
-                        )
-                    },
-                )
+                val equipmentGroups = r.toState(eachEquipment = { it.toState(isSelected = true) })
                 _state.update { it.copy(equipmentGroups = equipmentGroups) }
             }
             .catch { r -> _state.update { it.copy(error = r.message) } }
@@ -86,7 +78,7 @@ internal class RegistrationViewModel : ViewModel() {
 
         val excludeEquipmentIds = last.equipmentGroups
             .flatMap { it.equipments }
-            .filter { it.status == IncludedStatusEnum.EXCLUDED }
+            .filter { it.isSelected.not() }
             .map { it.id }
 
         val excludeMuscleIds = last.muscleGroups
@@ -152,13 +144,7 @@ internal class RegistrationViewModel : ViewModel() {
                             return@equipMap v
                         }
 
-                        v.copy(
-                            status = when (v.status) {
-                                IncludedStatusEnum.INCLUDED -> IncludedStatusEnum.EXCLUDED
-                                IncludedStatusEnum.EXCLUDED -> IncludedStatusEnum.INCLUDED
-                                null -> null
-                            }
-                        )
+                        v.copy(isSelected = v.isSelected.not())
                     }.toPersistentList()
 
                     mt.copy(
