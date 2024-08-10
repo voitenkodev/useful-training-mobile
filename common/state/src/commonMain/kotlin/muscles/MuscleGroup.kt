@@ -7,7 +7,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 public data class MuscleGroup(
     val id: String,
     val name: String = "",
-    val muscles: List<Muscle>,
+    val muscles: List<Muscle>, // todo mov persistent
     val isSelected: Boolean,
     val type: MuscleGroupEnum,
     val bodyImageVector: ImageVector

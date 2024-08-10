@@ -4,7 +4,6 @@ import ColorUtils
 import EquipmentsRepository
 import ExerciseExamplesRepository
 import FiltersRepository
-import IncludedStatusEnum
 import MusclesRepository
 import ViewModel
 import equipment.mapping.toState
@@ -45,13 +44,7 @@ internal class ExerciseExampleBuilderViewModel : ViewModel() {
         equipmentsApi
             .observeEquipments()
             .onEach { r ->
-                val groups = r.toState(
-                    eachEquipment = {
-                        it.toState(
-                            defaultStatus = IncludedStatusEnum.EXCLUDED
-                        )
-                    },
-                )
+                val groups = r.toState()
                 _state.update { it.copy(equipmentGroups = groups) }
             }
             .catch { r -> _state.update { it.copy(error = r.message) } }
@@ -182,11 +175,7 @@ internal class ExerciseExampleBuilderViewModel : ViewModel() {
                         }
 
                         v.copy(
-                            status = when (v.status) {
-                                IncludedStatusEnum.INCLUDED -> IncludedStatusEnum.EXCLUDED
-                                IncludedStatusEnum.EXCLUDED -> IncludedStatusEnum.INCLUDED
-                                null -> null
-                            }
+                            isSelected = v.isSelected.not()
                         )
                     }.toPersistentList()
 

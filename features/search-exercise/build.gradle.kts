@@ -26,6 +26,7 @@ kotlin {
             implementation(projects.domain.equipments)
 
             implementation(projects.common.utils)
+            implementation(projects.common.state)
             implementation(projects.common.architectureComponent)
 
             implementation(projects.designSystem.atom)

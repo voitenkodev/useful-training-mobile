@@ -48,7 +48,7 @@ import models.EquipmentStatusEnum
 
 public fun List<models.Equipment>.toState(
     eachEquipment: (models.Equipment) -> Equipment? = {
-        it.toState()
+        it.toState(false)
     },
 ): ImmutableList<Equipment> {
     return mapNotNull(eachEquipment)
@@ -56,6 +56,7 @@ public fun List<models.Equipment>.toState(
 }
 
 public fun models.Equipment.toState(
+    isSelected: Boolean,
     defaultStatus: IncludedStatusEnum? = null,
 ): Equipment? {
     return Equipment(
@@ -64,6 +65,7 @@ public fun models.Equipment.toState(
         loading = false,
         image = type.toImageState() ?: return null,
         status = defaultStatus ?: status.toState(),
+        isSelected = isSelected
     )
 }
 

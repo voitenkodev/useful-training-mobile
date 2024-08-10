@@ -1,5 +1,6 @@
 package searchexercise.main.popups
 
+import IncludedStatusEnum
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -8,6 +9,7 @@ import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
@@ -38,10 +40,9 @@ import molecule.PaddingS
 import molecule.Shadow
 import molecule.SmallToolbar
 import molecule.TextLabel
+import muscles.component.MuscleGroup
 import resources.Icons
-import searchexercise.main.models.StatusEnum
 import searchexercise.main.popups.components.EquipmentGroups
-import searchexercise.main.popups.components.MuscleGroup
 
 @Composable
 internal fun ExerciseExampleFiltersPopup(
@@ -84,7 +85,9 @@ internal fun ExerciseExampleFiltersPopup(
 
             if (state.filterPack.categories.isNotEmpty()) {
 
-                TextLabel(modifier = Modifier.padding(horizontal = Design.dp.paddingM), provideText = { "Categories" })
+                TextLabel(
+                    modifier = Modifier.padding(horizontal = Design.dp.paddingM),
+                    provideText = { "Categories" })
 
                 PaddingS()
 
@@ -108,7 +111,9 @@ internal fun ExerciseExampleFiltersPopup(
 
             if (state.filterPack.weightTypes.isNotEmpty()) {
 
-                TextLabel(modifier = Modifier.padding(horizontal = Design.dp.paddingM), provideText = { "Weight Type" })
+                TextLabel(
+                    modifier = Modifier.padding(horizontal = Design.dp.paddingM),
+                    provideText = { "Weight Type" })
 
                 PaddingS()
 
@@ -132,7 +137,9 @@ internal fun ExerciseExampleFiltersPopup(
 
             if (state.filterPack.forceTypes.isNotEmpty()) {
 
-                TextLabel(modifier = Modifier.padding(horizontal = Design.dp.paddingM), provideText = { "Force Type" })
+                TextLabel(
+                    modifier = Modifier.padding(horizontal = Design.dp.paddingM),
+                    provideText = { "Force Type" })
 
                 PaddingS()
 
@@ -156,7 +163,9 @@ internal fun ExerciseExampleFiltersPopup(
 
             if (state.filterPack.experiences.isNotEmpty()) {
 
-                TextLabel(modifier = Modifier.padding(horizontal = Design.dp.paddingM), provideText = { "Experience" })
+                TextLabel(
+                    modifier = Modifier.padding(horizontal = Design.dp.paddingM),
+                    provideText = { "Experience" })
 
                 PaddingS()
 
@@ -187,6 +196,7 @@ internal fun ExerciseExampleFiltersPopup(
                 LazyRow(modifier = Modifier.defaultMinSize(minHeight = 240.dp).fillMaxWidth()) {
                     items(state.muscles, key = { it.id }) {
                         MuscleGroup(
+                            modifier = Modifier.width(340.dp),
                             item = it,
                             selectMuscle = stateHolder::selectMuscle
                         )
@@ -221,8 +231,8 @@ internal fun ExerciseExampleFiltersPopup(
         ) {
 
             val countFilters = remember(state) {
-                val muscles = state.muscles.flatMap { it.muscles }.count { it.status == StatusEnum.SELECTED }
-                val equipments = state.equipments.count { it.status == StatusEnum.SELECTED }
+                val muscles = state.muscles.flatMap { it.muscles }.count { it.isSelected }
+                val equipments = state.equipments.count { it.status == IncludedStatusEnum.INCLUDED }
                 val categories = state.filterPack.categories.count { it.isSelected }
                 val experience = state.filterPack.experiences.count { it.isSelected }
                 val forceType = state.filterPack.forceTypes.count { it.isSelected }

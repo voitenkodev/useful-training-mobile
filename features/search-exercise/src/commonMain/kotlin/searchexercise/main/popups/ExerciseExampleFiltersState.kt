@@ -1,15 +1,15 @@
 package searchexercise.main.popups
 
 import androidx.compose.runtime.Immutable
+import equipment.Equipment
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
-import searchexercise.main.models.FilterEquipment
-import searchexercise.main.models.FilterMuscleGroup
+import muscles.MuscleGroup
 import searchexercise.main.models.FilterPack
 
 @Immutable
 internal data class ExerciseExampleFiltersState(
-    val equipments: ImmutableList<FilterEquipment> = persistentListOf(),
-    val muscles: ImmutableList<FilterMuscleGroup> = persistentListOf(),
+    val equipments: ImmutableList<Equipment> = persistentListOf(),
+    val muscles: ImmutableList<MuscleGroup> = persistentListOf(),
     val filterPack: FilterPack = FilterPack()
 )

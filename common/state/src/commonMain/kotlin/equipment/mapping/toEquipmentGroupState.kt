@@ -7,7 +7,7 @@ import models.Equipment
 
 public fun List<models.EquipmentGroup>.toState(
     eachEquipment: (Equipment) -> equipment.Equipment? = {
-        it.toState()
+        it.toState(false)
     },
     eachEquipmentGroup: (models.EquipmentGroup) -> EquipmentGroup = {
         it.toState(eachEquipment = eachEquipment)
@@ -19,7 +19,7 @@ public fun List<models.EquipmentGroup>.toState(
 
 public fun models.EquipmentGroup.toState(
     eachEquipment: (Equipment) -> equipment.Equipment? = {
-        it.toState()
+        it.toState(false)
     },
 ): EquipmentGroup {
     return EquipmentGroup(

@@ -10,5 +10,10 @@ public data class Equipment(
     val name: String,
     val loading: Boolean,
     val image: ImageVector,
-    val status: IncludedStatusEnum?
+
+    // by user
+    val status: IncludedStatusEnum?,
+
+    // dynamic external value
+    val isSelected: Boolean,
 )

@@ -1,6 +1,7 @@
 package searchexercise.main.models
 
 import androidx.compose.runtime.Immutable
+import muscles.Muscle
 
 @Immutable
 internal data class ExerciseExampleBundle(

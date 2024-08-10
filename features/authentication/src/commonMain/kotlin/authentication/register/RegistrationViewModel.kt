@@ -63,7 +63,8 @@ internal class RegistrationViewModel : ViewModel() {
                 val equipmentGroups = r.toState(
                     eachEquipment = {
                         it.toState(
-                            defaultStatus = IncludedStatusEnum.INCLUDED
+                            defaultStatus = IncludedStatusEnum.INCLUDED,
+                            isSelected = false
                         )
                     },
                 )

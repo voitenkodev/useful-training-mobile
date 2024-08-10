@@ -5,6 +5,7 @@ import ExerciseExamplesRepository
 import FiltersRepository
 import MusclesRepository
 import ViewModel
+import equipment.mapping.toState
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,9 +23,9 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import muscles.mapping.toState
 import org.koin.core.component.inject
 import searchexercise.main.mapping.toState
-import searchexercise.main.models.StatusEnum
 import searchexercise.main.popups.ExerciseExampleFiltersState
 
 @OptIn(FlowPreview::class)
@@ -59,7 +60,8 @@ internal class SearchExerciseViewModel : ViewModel() {
             .observeEquipments()
             .onEach { r ->
                 _state.update {
-                    it.copy(filtersState = it.filtersState.copy(equipments = r.flatMap { it.equipments }.toState()))
+                    it.copy(filtersState = it.filtersState.copy(equipments = r.flatMap { it.equipments }
+                        .toState()))
                 }
             }
             .catch { r -> _state.update { it.copy(error = r.message) } }
@@ -92,12 +94,21 @@ internal class SearchExerciseViewModel : ViewModel() {
                     category = filters.filterPack.categories.firstOrNull { it.isSelected }?.value,
                     forceType = filters.filterPack.forceTypes.firstOrNull { it.isSelected }?.value,
                     experience = filters.filterPack.experiences.firstOrNull { it.isSelected }?.value,
-                    muscleIds = filters.muscles.flatMap { it.muscles }.filter { it.status == StatusEnum.SELECTED }.map { it.id },
-                    equipmentIds = filters.equipments.filter { it.status == StatusEnum.SELECTED }.map { it.id },
+                    muscleIds = filters.muscles.flatMap { it.muscles }.filter { it.isSelected }
+                        .map { it.id },
+                    equipmentIds = filters.equipments.filter { it.isSelected }
+                        .map { it.id },
                     query = query.takeIf { it.isNotBlank() }
                 )
             }.onStart { _state.update { it.copy(loading = true) } }
-            .onEach { r -> _state.update { it.copy(loading = false, exerciseExamples = r.toState()) } }
+            .onEach { r ->
+                _state.update {
+                    it.copy(
+                        loading = false,
+                        exerciseExamples = r.toState()
+                    )
+                }
+            }
             .catch { t ->
                 println("SOME ERROR SEARCH: ${t.message}")
                 _state.update { it.copy(loading = false, error = t.message) }

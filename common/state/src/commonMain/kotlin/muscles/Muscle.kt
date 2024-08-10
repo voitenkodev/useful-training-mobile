@@ -8,13 +8,13 @@ import androidx.compose.ui.graphics.Color
 public data class Muscle(
     val id: String,
     val name: String,
-    val isSelected: Boolean,
     val type: MuscleEnum,
 
     // by user
     val status: IncludedStatusEnum?,
 
     // dynamic external value
+    val isSelected: Boolean,
     val load: MuscleLoadEnum?,
     val coverage: Coverage? = null,
 )

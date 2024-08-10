@@ -25,14 +25,13 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import atom.Design
+import equipment.Equipment
 import kotlinx.collections.immutable.ImmutableList
 import molecule.TextBody2
-import searchexercise.main.models.FilterEquipment
-import searchexercise.main.models.StatusEnum
 
 @Composable
 internal fun EquipmentGroups(
-    items: ImmutableList<FilterEquipment>,
+    items: ImmutableList<Equipment>,
     selectEquipment: (id: String) -> Unit
 ) {
 
@@ -58,7 +57,7 @@ internal fun EquipmentGroups(
                     modifier = Modifier
                         .width(160.dp)
                         .border(
-                            color = if (equipment.status == StatusEnum.SELECTED) Design.colors.toxic else Design.colors.white10,
+                            color = if (equipment.status == IncludedStatusEnum.INCLUDED) Design.colors.toxic else Design.colors.white10,
                             width = 1.dp,
                             shape = Design.shape.default
                         )
@@ -76,7 +75,11 @@ internal fun EquipmentGroups(
                         Image(
                             modifier = Modifier
                                 .fillMaxSize()
-                                .padding(start = Design.dp.paddingL, end = Design.dp.paddingL, top = Design.dp.paddingM),
+                                .padding(
+                                    start = Design.dp.paddingL,
+                                    end = Design.dp.paddingL,
+                                    top = Design.dp.paddingM
+                                ),
                             imageVector = equipment.image,
                             contentScale = ContentScale.Fit,
                             contentDescription = null

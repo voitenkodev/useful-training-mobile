@@ -1,5 +1,6 @@
 package searchexercise.main.popups
 
+import equipment.Equipment
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toPersistentList
@@ -7,15 +8,13 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
-import searchexercise.main.factories.muscleImage
-import searchexercise.main.models.FilterEquipment
-import searchexercise.main.models.FilterMuscleGroup
+import muscles.MuscleGroup
+import muscles.factories.muscleImage
 import searchexercise.main.models.FilterPack
-import searchexercise.main.models.StatusEnum
 
 internal class ExerciseExampleFiltersStateHolder(
-    equipments: ImmutableList<FilterEquipment> = persistentListOf(),
-    muscles: ImmutableList<FilterMuscleGroup> = persistentListOf(),
+    equipments: ImmutableList<Equipment> = persistentListOf(),
+    muscles: ImmutableList<MuscleGroup> = persistentListOf(),
     filterPack: FilterPack = FilterPack()
 ) {
 
@@ -69,12 +68,7 @@ internal class ExerciseExampleFiltersStateHolder(
                     if (id != v.id) {
                         return@equipMap v
                     }
-                    v.copy(
-                        status = when (v.status) {
-                            StatusEnum.SELECTED -> StatusEnum.UNSELECTED
-                            StatusEnum.UNSELECTED -> StatusEnum.SELECTED
-                        }
-                    )
+                    v.copy(isSelected = v.isSelected.not())
                 }.toPersistentList()
             )
         }
@@ -100,17 +94,12 @@ internal class ExerciseExampleFiltersStateHolder(
                             return@muscleMap m
                         }
 
-                        m.copy(
-                            status = when (m.status) {
-                                StatusEnum.SELECTED -> StatusEnum.UNSELECTED
-                                StatusEnum.UNSELECTED -> StatusEnum.SELECTED
-                            }
-                        )
+                        m.copy(isSelected = m.isSelected.not())
                     }.toPersistentList()
 
                     mt.copy(
                         muscles = muscles,
-                        bodyImageVector = muscleImage(mt.type, muscles)
+                        bodyImageVector = muscleImage(mt.type, muscles, null)
                     )
                 }.toPersistentList()
             )
@@ -121,17 +110,25 @@ internal class ExerciseExampleFiltersStateHolder(
         _state.update {
             it.copy(
                 muscles = it.muscles.map { mt ->
-                    val muscles = mt.muscles.map muscleMap@{ m -> m.copy(status = StatusEnum.UNSELECTED) }.toPersistentList()
-                    mt.copy(muscles = muscles, bodyImageVector = muscleImage(mt.type, muscles))
+                    val muscles =
+                        mt.muscles.map muscleMap@{ m -> m.copy(isSelected = false) }
+                            .toPersistentList()
+                    mt.copy(
+                        muscles = muscles,
+                        bodyImageVector = muscleImage(mt.type, muscles, null)
+                    )
                 }.toPersistentList(),
-                equipments = it.equipments.map equipMap@{ v ->
-                    v.copy(status = StatusEnum.UNSELECTED)
-                }.toPersistentList(),
+                equipments = it.equipments.map equipMap@{ v -> v.copy(isSelected = false) }
+                    .toPersistentList(),
                 filterPack = it.filterPack.copy(
-                    forceTypes = it.filterPack.forceTypes.map { item -> item.copy(isSelected = false) }.toPersistentList(),
-                    weightTypes = it.filterPack.weightTypes.map { item -> item.copy(isSelected = false) }.toPersistentList(),
-                    categories = it.filterPack.categories.map { item -> item.copy(isSelected = false) }.toPersistentList(),
-                    experiences = it.filterPack.experiences.map { item -> item.copy(isSelected = false) }.toPersistentList(),
+                    forceTypes = it.filterPack.forceTypes.map { item -> item.copy(isSelected = false) }
+                        .toPersistentList(),
+                    weightTypes = it.filterPack.weightTypes.map { item -> item.copy(isSelected = false) }
+                        .toPersistentList(),
+                    categories = it.filterPack.categories.map { item -> item.copy(isSelected = false) }
+                        .toPersistentList(),
+                    experiences = it.filterPack.experiences.map { item -> item.copy(isSelected = false) }
+                        .toPersistentList(),
                 )
             )
         }
