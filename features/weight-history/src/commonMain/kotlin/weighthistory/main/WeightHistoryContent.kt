@@ -1,6 +1,5 @@
 package weighthistory.main
 
-import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -24,10 +23,9 @@ import components.roots.ScreenRoot
 import kg
 import kotlinx.collections.immutable.ImmutableList
 import molecule.ButtonPrimary
+import molecule.Label
 import molecule.PaddingM
-import molecule.PaddingS
 import molecule.PopupSheet
-import molecule.TextBody1
 import resources.Icons
 import weighthistory.main.components.Header
 import weighthistory.main.models.WeightHistory
@@ -88,18 +86,17 @@ private fun Content(
                 modifier = Modifier
                     .fillMaxWidth()
                     .weight(1f),
-                contentPadding = PaddingValues(vertical = Design.dp.paddingL),
+                contentPadding = PaddingValues(vertical = Design.dp.paddingM),
             ) {
 
                 item {
-                    TextBody1(
+                    Label(
                         modifier = Modifier.padding(horizontal = Design.dp.paddingL),
                         provideText = { "History" },
-                        color = Design.colors.caption
                     )
                 }
 
-                item { PaddingS() }
+                item { PaddingM() }
 
                 itemsIndexed(weightHistory, key = { _, item -> item.id }) { index, item ->
 

@@ -36,13 +36,13 @@ import kotlinx.collections.immutable.ImmutableList
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import molecule.ButtonSecondary
+import molecule.Label
 import molecule.POPUP_ANIM_DURATION_MS
 import molecule.PaddingL
 import molecule.PaddingM
 import molecule.PaddingS
 import molecule.Shadow
 import molecule.SmallToolbar
-import molecule.TextBody1
 import resources.Icons
 import trainingbuilder.training_builder.models.ExerciseExample
 import trainingbuilder.training_builder.models.Muscle
@@ -70,6 +70,13 @@ internal fun FindExercisePopup(
         SmallToolbar(
             title = "Find Exercise",
             icon = Icons.close to close
+        )
+
+        PaddingM()
+
+        Label(
+            modifier = Modifier.padding(horizontal = Design.dp.paddingL),
+            provideText = { "Search by name" },
         )
 
         PaddingM()
@@ -154,14 +161,13 @@ internal fun ExerciseExamples(
 ) {
 
     Row(
-        modifier = Modifier.fillMaxWidth().padding(horizontal = Design.dp.paddingM),
+        modifier = Modifier.fillMaxWidth().padding(horizontal = Design.dp.paddingL),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
 
-        TextBody1(
+        Label(
             provideText = { "Recommended for you" },
-            color = Design.colors.caption
         )
     }
 
@@ -249,10 +255,9 @@ internal fun Muscles(
         if (selectedIndex != -1) lazyListState.animateScrollAndCentralizeItem(selectedIndex)
     }
 
-    TextBody1(
+    Label(
         modifier = Modifier.padding(horizontal = Design.dp.paddingM),
         provideText = { "Target Muscle" },
-        color = Design.colors.caption
     )
 
     PaddingM()

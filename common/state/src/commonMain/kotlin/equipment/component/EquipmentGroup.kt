@@ -17,8 +17,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import atom.Design
 import equipment.EquipmentGroup
-import molecule.PaddingM
-import molecule.PaddingS
 import molecule.TextH4
 
 @Composable
@@ -29,14 +27,10 @@ public fun EquipmentGroup(
 
     val multiplier = remember(item.equipments.size) { if (item.equipments.size > 8) 2 else 1 }
 
-    PaddingS()
-
     Column(
         modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-
-        PaddingM()
 
         TextH4(
             modifier = Modifier.fillMaxWidth().padding(horizontal = Design.dp.paddingM),

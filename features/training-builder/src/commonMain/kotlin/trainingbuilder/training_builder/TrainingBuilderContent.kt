@@ -31,9 +31,9 @@ import components.roots.ScreenRoot
 import io.github.xxfast.decompose.router.LocalRouterContext
 import kotlinx.collections.immutable.ImmutableList
 import molecule.ButtonPrimary
+import molecule.Label
 import molecule.PaddingM
 import molecule.PopupSheet
-import molecule.TextLabel
 import trainingbuilder.training_builder.components.Exercise
 import trainingbuilder.training_builder.components.Header
 import trainingbuilder.training_builder.components.TrainingOverview
@@ -156,7 +156,9 @@ internal fun Content(
 
                 item(key = "overview") {
 
-                    TextLabel(provideText = { "Overview" })
+                    Label(
+                        provideText = { "Overview" }
+                    )
 
                     PaddingM()
 
@@ -168,7 +170,9 @@ internal fun Content(
                 }
 
                 item("exercise_title") {
-                    TextLabel(provideText = { "Exercises" })
+                    Label(
+                        provideText = { "Exercises" }
+                    )
                 }
 
                 if (exercises.isEmpty()) {

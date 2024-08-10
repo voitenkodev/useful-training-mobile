@@ -14,7 +14,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import atom.Design
 import molecule.PaddingM
-import molecule.PaddingS
 import molecule.TextH4
 import muscles.MuscleGroup
 
@@ -25,8 +24,6 @@ public fun MuscleGroup(
     loadingById: String? = null,
     selectMuscle: (id: String) -> Unit
 ) {
-
-    PaddingS()
 
     Column(
         modifier = modifier.fillMaxWidth().padding(Design.dp.paddingM),

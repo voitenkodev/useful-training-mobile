@@ -64,7 +64,7 @@ internal fun ExperiencePage(
             LazyColumn(
                 modifier = Modifier.fillMaxWidth().weight(1f),
                 verticalArrangement = Arrangement.spacedBy(Design.dp.paddingM),
-                contentPadding = PaddingValues(vertical = Design.dp.paddingL)
+                contentPadding = PaddingValues(vertical = Design.dp.paddingM)
             ) {
                 items(experiences) {
                     ExperienceCard(

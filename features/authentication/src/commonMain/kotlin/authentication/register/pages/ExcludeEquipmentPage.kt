@@ -19,6 +19,7 @@ import kotlinx.collections.immutable.ImmutableList
 import molecule.ButtonPrimary
 import molecule.ButtonSecondary
 import molecule.PaddingL
+import molecule.PaddingM
 import molecule.PaddingXL
 import molecule.PaddingXS
 import molecule.Shadow
@@ -54,6 +55,8 @@ internal fun ExcludeEquipmentPage(
             PaddingXL()
 
             Shadow()
+
+            PaddingM()
 
             LazyColumn(modifier = Modifier.fillMaxWidth().weight(1f)) {
 

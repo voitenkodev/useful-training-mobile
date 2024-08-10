@@ -22,11 +22,10 @@ import components.ShadowHeader
 import components.ShadowHeaderSpace
 import components.cards.UserCard
 import components.roots.ScreenRoot
+import molecule.Label
 import molecule.PaddingM
-import molecule.PaddingS
 import molecule.PaddingXL
 import molecule.Shadow
-import molecule.TextBody1
 import profile.main.components.MenuItem
 import resources.Icons
 import user.User
@@ -52,7 +51,6 @@ internal fun ProfileContent(
         toEquipment = toEquipment,
         toWeightHistory = toWeightHistory,
         toExerciseExampleBuilder = toExerciseExampleBuilder,
-        toSupport = {},
         logout = vm::logout
     )
 }
@@ -65,7 +63,6 @@ private fun Content(
     toExerciseExamples: () -> Unit,
     toMuscles: () -> Unit,
     toEquipment: () -> Unit,
-    toSupport: () -> Unit,
     toWeightHistory: () -> Unit,
     toExerciseExampleBuilder: () -> Unit,
     logout: () -> Unit
@@ -112,14 +109,13 @@ private fun Content(
             item { PaddingXL() }
 
             item {
-                TextBody1(
+                Label(
                     modifier = Modifier.padding(horizontal = Design.dp.paddingL),
                     provideText = { "User data" },
-                    color = Design.colors.caption
                 )
             }
 
-            item { PaddingS() }
+            item { PaddingM() }
 
             item {
                 Column(
@@ -183,14 +179,13 @@ private fun Content(
             item { PaddingXL() }
 
             item {
-                TextBody1(
+                Label(
                     modifier = Modifier.padding(horizontal = Design.dp.paddingL),
                     provideText = { "Settings" },
-                    color = Design.colors.caption
                 )
             }
 
-            item { PaddingS() }
+            item { PaddingM() }
 
             item {
 

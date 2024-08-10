@@ -33,13 +33,13 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import molecule.ButtonPrimary
 import molecule.ButtonSecondary
+import molecule.Label
 import molecule.POPUP_ANIM_DURATION_MS
 import molecule.PaddingL
 import molecule.PaddingM
 import molecule.PaddingS
 import molecule.Shadow
 import molecule.SmallToolbar
-import molecule.TextLabel
 import muscles.component.MuscleGroup
 import resources.Icons
 import searchexercise.main.popups.components.EquipmentGroups
@@ -85,11 +85,12 @@ internal fun ExerciseExampleFiltersPopup(
 
             if (state.filterPack.categories.isNotEmpty()) {
 
-                TextLabel(
-                    modifier = Modifier.padding(horizontal = Design.dp.paddingM),
-                    provideText = { "Categories" })
+                Label(
+                    modifier = Modifier.padding(horizontal = Design.dp.paddingL),
+                    provideText = { "Categories" },
+                )
 
-                PaddingS()
+                PaddingM()
 
                 LazyRow(
                     contentPadding = PaddingValues(horizontal = Design.dp.paddingM),
@@ -111,11 +112,12 @@ internal fun ExerciseExampleFiltersPopup(
 
             if (state.filterPack.weightTypes.isNotEmpty()) {
 
-                TextLabel(
-                    modifier = Modifier.padding(horizontal = Design.dp.paddingM),
-                    provideText = { "Weight Type" })
+                Label(
+                    modifier = Modifier.padding(horizontal = Design.dp.paddingL),
+                    provideText = { "Weight Type" },
+                )
 
-                PaddingS()
+                PaddingM()
 
                 LazyRow(
                     contentPadding = PaddingValues(horizontal = Design.dp.paddingM),
@@ -137,11 +139,12 @@ internal fun ExerciseExampleFiltersPopup(
 
             if (state.filterPack.forceTypes.isNotEmpty()) {
 
-                TextLabel(
-                    modifier = Modifier.padding(horizontal = Design.dp.paddingM),
-                    provideText = { "Force Type" })
+                Label(
+                    modifier = Modifier.padding(horizontal = Design.dp.paddingL),
+                    provideText = { "Force Type" },
+                )
 
-                PaddingS()
+                PaddingM()
 
                 LazyRow(
                     contentPadding = PaddingValues(horizontal = Design.dp.paddingM),
@@ -163,11 +166,12 @@ internal fun ExerciseExampleFiltersPopup(
 
             if (state.filterPack.experiences.isNotEmpty()) {
 
-                TextLabel(
-                    modifier = Modifier.padding(horizontal = Design.dp.paddingM),
-                    provideText = { "Experience" })
+                Label(
+                    modifier = Modifier.padding(horizontal = Design.dp.paddingL),
+                    provideText = { "Experience" },
+                )
 
-                PaddingS()
+                PaddingM()
 
                 LazyRow(
                     contentPadding = PaddingValues(horizontal = Design.dp.paddingM),
@@ -188,10 +192,13 @@ internal fun ExerciseExampleFiltersPopup(
             }
 
             if (state.muscles.isNotEmpty()) {
-                TextLabel(
-                    modifier = Modifier.padding(horizontal = Design.dp.paddingM),
-                    provideText = { "Muscles" }
+
+                Label(
+                    modifier = Modifier.padding(horizontal = Design.dp.paddingL),
+                    provideText = { "Muscles" },
                 )
+
+                PaddingM()
 
                 LazyRow(modifier = Modifier.defaultMinSize(minHeight = 240.dp).fillMaxWidth()) {
                     items(state.muscles, key = { it.id }) {
@@ -208,12 +215,13 @@ internal fun ExerciseExampleFiltersPopup(
 
             if (state.equipments.isNotEmpty()) {
 
-                TextLabel(
-                    modifier = Modifier.padding(horizontal = Design.dp.paddingM),
-                    provideText = { "Equipments" }
+
+                Label(
+                    modifier = Modifier.padding(horizontal = Design.dp.paddingL),
+                    provideText = { "Equipments" },
                 )
 
-                PaddingS()
+                PaddingM()
 
                 EquipmentGroups(
                     items = state.equipments,

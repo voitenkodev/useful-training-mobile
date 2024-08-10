@@ -14,7 +14,6 @@ import components.chips.ChipState
 import kotlinx.collections.immutable.ImmutableList
 import molecule.PaddingL
 import molecule.PaddingXL
-import molecule.Shadow
 import muscles.MuscleEnum
 import muscles.MuscleGroup
 import muscles.MuscleLoadEnum
@@ -124,8 +123,6 @@ internal fun MusclePack(
             }
 
             PaddingL()
-
-            Shadow()
         }
     }
 }

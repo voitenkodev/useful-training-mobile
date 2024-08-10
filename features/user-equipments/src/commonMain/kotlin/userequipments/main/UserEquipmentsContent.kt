@@ -17,6 +17,7 @@ import components.roots.ScreenRoot
 import equipment.EquipmentGroup
 import equipment.component.EquipmentGroup
 import kotlinx.collections.immutable.ImmutableList
+import molecule.PaddingM
 import userequipments.main.components.Header
 
 @Composable
@@ -48,20 +49,25 @@ private fun Content(
 
             Header(close = close)
 
-            if (list.isNotEmpty()) LazyColumn(
-                modifier = Modifier.fillMaxWidth().weight(1f)
-            ) {
+            if (list.isNotEmpty()) {
 
-                itemsIndexed(list, key = { _, item -> item.id }) { index, item ->
+                PaddingM()
 
-                    EquipmentGroup(
-                        item = item,
-                        selectEquipment = selectEquipment
-                    )
-                }
+                LazyColumn(
+                    modifier = Modifier.fillMaxWidth().weight(1f)
+                ) {
 
-                item("navigation_padding") {
-                    ShadowFooterSpace()
+                    itemsIndexed(list, key = { _, item -> item.id }) { index, item ->
+
+                        EquipmentGroup(
+                            item = item,
+                            selectEquipment = selectEquipment
+                        )
+                    }
+
+                    item("navigation_padding") {
+                        ShadowFooterSpace()
+                    }
                 }
             }
         }

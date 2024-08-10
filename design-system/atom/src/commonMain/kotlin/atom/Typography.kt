@@ -58,9 +58,15 @@ internal fun typography() = Typography(
             trim = LineHeightStyle.Trim.Both
         ),
     ),
-    Label = TextStyle(
+    TextLabel = TextStyle(
         fontSize = 18.sp,
         fontWeight = FontWeight.SemiBold,
+        fontStyle = FontStyle.Normal,
+        lineHeight = 20.sp
+    ),
+    Label = TextStyle(
+        fontSize = 16.sp,
+        fontWeight = FontWeight.Medium,
         fontStyle = FontStyle.Normal,
         lineHeight = 20.sp
     ),
@@ -113,6 +119,8 @@ public data class Typography(
     val Body2: TextStyle, // Fields
     val Body3: TextStyle, // Additional little input
 
+    @Deprecated("Use Label")
+    val TextLabel: TextStyle, // Sub titles for sections)
     val Label: TextStyle, // Sub titles for sections)
 
     val Button: TextStyle,

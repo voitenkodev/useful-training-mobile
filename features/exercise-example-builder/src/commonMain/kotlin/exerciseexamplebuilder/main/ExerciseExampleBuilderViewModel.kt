@@ -90,7 +90,7 @@ internal class ExerciseExampleBuilderViewModel : ViewModel() {
             name = lastState.name,
             equipmentIds = lastState.equipmentGroups
                 .flatMap { it.equipments }
-                .filter { it.status == IncludedStatusEnum.INCLUDED }
+                .filter { it.isSelected }
                 .map { it.id },
             exerciseExampleBundles = lastState.muscleGroups
                 .flatMap { it.muscles }
