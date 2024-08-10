@@ -7,10 +7,13 @@ import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -23,14 +26,20 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.unit.dp
 import atom.Design
+import basic.LineChart
+import basic.LineChartDotsStyle
+import basic.LineChartStyle
 import kg
+import kotlinx.collections.immutable.ImmutableList
 import molecule.ButtonIconTransparent
 import molecule.ButtonPrimarySmall
+import molecule.PaddingM
 import molecule.PaddingS
-import molecule.PaddingWeight
 import molecule.Shadow
 import molecule.TextH2
+import percents
 import resources.Icons
 
 @Composable
@@ -40,31 +49,32 @@ internal fun Header(
     finishEnabled: Boolean,
 
     volume: Double,
+    reps: Int,
+    intensity: Double,
     fullFrontImage: ImageVector,
-    fullBackImage: ImageVector
+    fullBackImage: ImageVector,
+    exerciseVolume: ImmutableList<Float>
 ) {
     Column(modifier = Modifier.statusBarsPadding()) {
 
         PaddingS()
 
-        Row(
+        Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(Design.dp.componentM),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
         ) {
 
             TextH2(
-                modifier = Modifier.padding(horizontal = Design.dp.paddingM),
+                modifier = Modifier.align(Alignment.Center),
                 provideText = { "Training" },
                 softWrap = false
             )
 
-            PaddingWeight()
-
             ButtonPrimarySmall(
-                modifier = Modifier.padding(horizontal = Design.dp.paddingM),
+                modifier = Modifier
+                    .align(Alignment.CenterEnd)
+                    .padding(horizontal = Design.dp.paddingM),
                 text = "Finish",
                 onClick = finish,
                 loading = loading,
@@ -91,54 +101,116 @@ internal fun Header(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(Design.dp.paddingS),
-                verticalAlignment = Alignment.CenterVertically
+                    .padding(horizontal = Design.dp.paddingM)
+                    .height(intrinsicSize = IntrinsicSize.Min),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
             ) {
 
-                OverviewValue(
-                    modifier = Modifier.weight(1f),
-                    title = "Duration",
-                    description = "123",
-                    icon = Icons.time,
-                    color = Design.colors.yellow
-                )
-
-                OverviewValue(
-                    modifier = Modifier.weight(1f),
-                    title = "Volume",
-                    description = volume.kg(false),
-                    icon = Icons.weight,
-                    color = Design.colors.yellow
-                )
-
-                ButtonIconTransparent(
-                    modifier = Modifier.rotate(rotationState),
-                    imageVector = Icons.arrowDown,
-                    onClick = { expandedValue.value = expandedValue.value.not() },
-                )
-
-                PaddingS()
-            }
-
-            AnimatedVisibility(
-                visible = expandedValue.value,
-                enter = fadeIn(animationSpec = tween(durationMillis = 300)),
-                exit = fadeOut(animationSpec = tween(durationMillis = 300))
-            ) {
-                Row {
-                    HeapMap(
-                        modifier = Modifier.weight(2f),
-                        fullFrontImage = fullFrontImage,
-                        fullBackImage = fullBackImage
+                Column(
+                    modifier = Modifier.weight(1f).fillMaxHeight(),
+                    verticalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
+                ) {
+                    OverviewValue(
+                        title = "Duration",
+                        description = "123",
+                        icon = Icons.time,
+                        color = Design.colors.yellow
                     )
 
-                    Spacer(Modifier.weight(1f))
+                    AnimatedVisibility(
+                        visible = expandedValue.value,
+                        enter = fadeIn(animationSpec = tween(durationMillis = 300)),
+                        exit = fadeOut(animationSpec = tween(durationMillis = 300))
+                    ) {
+                        OverviewValue(
+                            modifier = Modifier.fillMaxWidth(),
+                            title = "Reps",
+                            description = reps.toString(),
+                            icon = Icons.exercises,
+                            color = Design.colors.yellow
+                        )
+                    }
+
+                    AnimatedVisibility(
+                        visible = expandedValue.value,
+                        enter = fadeIn(animationSpec = tween(durationMillis = 300)),
+                        exit = fadeOut(animationSpec = tween(durationMillis = 300))
+                    ) {
+                        OverviewValue(
+                            modifier = Modifier.fillMaxWidth(),
+                            title = "Intensity",
+                            description = intensity.percents(),
+                            icon = Icons.equipment,
+                            color = Design.colors.yellow
+                        )
+                    }
+
+                    AnimatedVisibility(
+                        visible = expandedValue.value,
+                        enter = fadeIn(animationSpec = tween(durationMillis = 300)),
+                        exit = fadeOut(animationSpec = tween(durationMillis = 300))
+                    ) {
+                        LineChart(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .fillMaxHeight()
+                                .border(
+                                    color = Design.palette.white10,
+                                    width = 1.dp,
+                                    shape = Design.shape.default
+                                ).padding(
+                                    horizontal = Design.dp.paddingM,
+                                    vertical = Design.dp.paddingS
+                                ),
+                            values = exerciseVolume,
+                            chartStyle = LineChartStyle(
+                                lineColor = Design.colors.content,
+                                dotsStyle = LineChartDotsStyle(
+                                    backgroundColor = Design.colors.orange,
+                                    width = 4.dp,
+                                    type = LineChartDotsStyle.DotsType.START_END
+                                )
+                            )
+                        )
+                    }
+                }
+
+                Column(modifier = Modifier.weight(1f)) {
+                    Row {
+                        OverviewValue(
+                            modifier = Modifier.weight(1f),
+                            title = "Volume",
+                            description = volume.kg(false),
+                            icon = Icons.handWeight,
+                            color = Design.colors.yellow
+                        )
+
+                        ButtonIconTransparent(
+                            modifier = Modifier.rotate(rotationState),
+                            imageVector = Icons.arrowDown,
+                            onClick = { expandedValue.value = expandedValue.value.not() },
+                        )
+                    }
+
+                    AnimatedVisibility(
+                        visible = expandedValue.value,
+                        enter = fadeIn(animationSpec = tween(durationMillis = 300)),
+                        exit = fadeOut(animationSpec = tween(durationMillis = 300))
+                    ) {
+                        HeapMap(
+                            modifier = Modifier.weight(1f)
+                                .padding(top = Design.dp.paddingM, end = Design.dp.paddingS),
+                            fullFrontImage = fullFrontImage,
+                            fullBackImage = fullBackImage
+                        )
+                    }
                 }
             }
+
+            PaddingM()
+
+            Shadow()
         }
-
-        PaddingS()
-
-        Shadow()
     }
 }

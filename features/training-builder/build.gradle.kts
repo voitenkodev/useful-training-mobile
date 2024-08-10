@@ -25,9 +25,10 @@ kotlin {
             implementation(projects.domain.muscles)
             implementation(projects.domain.user)
 
-            implementation(projects.composeLibs.muscles) // todo remove it
+            implementation(projects.composeLibs.muscles)
             implementation(projects.composeLibs.weightPicker)
             implementation(projects.composeLibs.composeImage)
+            implementation(projects.composeLibs.charts)
 
             implementation(projects.common.utils)
             implementation(projects.common.state)

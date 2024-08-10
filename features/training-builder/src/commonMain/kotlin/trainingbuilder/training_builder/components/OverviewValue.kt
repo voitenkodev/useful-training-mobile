@@ -3,8 +3,8 @@ package trainingbuilder.training_builder.components
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -25,15 +25,13 @@ internal fun OverviewValue(
 ) {
 
     Row(
-        modifier = modifier,
-        horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS),
+        modifier = modifier.height(Design.dp.componentS),
+        horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM),
         verticalAlignment = Alignment.CenterVertically
     ) {
 
         Icon(
-            modifier = Modifier
-                .size(Design.dp.componentS)
-                .padding(Design.dp.paddingS),
+            modifier = Modifier.padding(vertical = Design.dp.paddingXS),
             color = color,
             imageVector = icon
         )

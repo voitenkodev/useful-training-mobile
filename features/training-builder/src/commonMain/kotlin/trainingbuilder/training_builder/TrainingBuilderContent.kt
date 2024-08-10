@@ -30,6 +30,7 @@ import components.overlay.BottomShadow
 import components.roots.ScreenRoot
 import io.github.xxfast.decompose.router.LocalRouterContext
 import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.toImmutableList
 import molecule.ButtonPrimary
 import molecule.Label
 import molecule.PopupSheet
@@ -94,6 +95,8 @@ internal fun TrainingBuilderContent(
                     fullFront = state.fullFrontImageVector,
                     fullBack = state.fullBackImageVector,
                     volume = state.training.volume,
+                    reps = state.training.repetitions,
+                    intensity = state.training.intensity,
                     addExercise = vm::openFindExercisePopup,
                     exercises = state.training.exercises,
                     selectExercise = vm::openAddExercise,
@@ -126,6 +129,8 @@ internal fun TrainingBuilderContent(
 internal fun Content(
     loading: Boolean,
     volume: Double,
+    reps: Int,
+    intensity: Double,
     exercises: ImmutableList<Exercise>,
     addExercise: () -> Unit,
     selectExercise: (index: Int) -> Unit,
@@ -137,13 +142,20 @@ internal fun Content(
 
         Column(modifier = Modifier.fillMaxSize()) {
 
+            val exercisesIntensity = remember(exercises) {
+                exercises.map { it.intensity.toFloat() }.toImmutableList()
+            }
+
             Header(
                 finish = finish,
                 loading = loading,
                 finishEnabled = exercises.isNotEmpty(),
                 fullBackImage = fullBack,
                 fullFrontImage = fullFront,
-                volume = volume
+                volume = volume,
+                reps = reps,
+                intensity = intensity,
+                exerciseVolume = exercisesIntensity
             )
 
             LazyColumn(
@@ -202,9 +214,7 @@ internal fun Content(
                     .align(Alignment.BottomEnd)
                     .navigationBarsPadding()
                     .padding(Design.dp.paddingM),
-                text = "New exercise",
-                textColor = Design.colors.primary,
-                backgroundColor = Design.colors.toxic,
+                text = "Add Exercise",
                 onClick = addExercise
             )
         }

@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -21,7 +20,7 @@ internal fun HeapMap(
     fullBackImage: ImageVector,
 ) {
     Column(
-        modifier = modifier.padding(Design.dp.paddingM),
+        modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
     ) {
 
@@ -30,7 +29,10 @@ internal fun HeapMap(
             horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            TextH4(provideText = { "Heap map" })
+            TextH4(
+                provideText = { "Heap map" },
+                color = Design.colors.yellow
+            )
 
             HeapIndicator(modifier = Modifier.weight(1f))
         }
