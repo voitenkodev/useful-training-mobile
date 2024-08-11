@@ -5,10 +5,11 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.staticCompositionLocalOf
 
 @Composable
-public fun SearchExerciseComponent(content: @Composable () -> Unit): Unit = CompositionLocalProvider(
-    LocalSearchExerciseController provides SearchExerciseApi(),
-    content = content
-)
+public fun SearchExerciseComponent(content: @Composable () -> Unit): Unit =
+    CompositionLocalProvider(
+        LocalSearchExerciseController provides SearchExerciseApi(),
+        content = content
+    )
 
 public object SearchExerciseController {
     public val api: SearchExerciseApi
@@ -24,6 +25,10 @@ public data class SearchExerciseApi(
 
     public fun itemClick(id: String) {
         _exerciseExampleId = id
+    }
+
+    public fun release() {
+        _exerciseExampleId = null
     }
 }
 

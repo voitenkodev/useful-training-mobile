@@ -2,6 +2,7 @@ package graph
 
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import com.arkivanov.decompose.extensions.compose.stack.animation.slide
 import com.arkivanov.decompose.extensions.compose.stack.animation.stackAnimation
 import com.arkivanov.decompose.router.stack.pop
@@ -135,6 +136,11 @@ internal fun MainGraph(toAuthentication: () -> Unit) {
                                 )
                             }
                         )
+
+                        SideEffect {
+                            exerciseSearchApi.release()
+                            exerciseDetailsApi.release()
+                        }
                     }
 
                     is MainRouter.WeightHistory -> WeightHistoryGraph(

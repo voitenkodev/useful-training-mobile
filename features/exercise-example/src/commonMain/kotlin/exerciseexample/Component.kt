@@ -5,10 +5,11 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.staticCompositionLocalOf
 
 @Composable
-public fun ExerciseExampleComponent(content: @Composable () -> Unit): Unit = CompositionLocalProvider(
-    LocalExerciseExampleController provides ExerciseExampleApi(),
-    content = content
-)
+public fun ExerciseExampleComponent(content: @Composable () -> Unit): Unit =
+    CompositionLocalProvider(
+        LocalExerciseExampleController provides ExerciseExampleApi(),
+        content = content
+    )
 
 public object ExerciseExampleController {
     public val api: ExerciseExampleApi
@@ -24,6 +25,10 @@ public data class ExerciseExampleApi(
 
     public fun primaryActionClick(id: String) {
         _exerciseExampleId = id
+    }
+
+    public fun release() {
+        _exerciseExampleId = null
     }
 }
 
