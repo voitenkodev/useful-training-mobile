@@ -61,9 +61,7 @@ internal fun Header(
         PaddingS()
 
         Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(Design.dp.componentM),
+            modifier = Modifier.fillMaxWidth().height(Design.dp.componentM),
         ) {
 
             TextH2(
@@ -73,12 +71,13 @@ internal fun Header(
             )
 
             ButtonPrimarySmall(
-                modifier = Modifier
-                    .align(Alignment.CenterEnd)
+                modifier = Modifier.align(Alignment.CenterEnd)
                     .padding(horizontal = Design.dp.paddingM),
                 text = "Finish",
                 onClick = finish,
                 loading = loading,
+                backgroundColor = Design.colors.toxic,
+                textColor = Design.colors.primary,
                 enabled = finishEnabled
             )
         }
@@ -94,15 +93,11 @@ internal fun Header(
         )
 
         Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .animateContentSize()
+            modifier = Modifier.fillMaxWidth().animateContentSize()
         ) {
 
             Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = Design.dp.paddingM)
+                modifier = Modifier.fillMaxWidth().padding(horizontal = Design.dp.paddingM)
                     .height(intrinsicSize = IntrinsicSize.Min),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
@@ -110,7 +105,7 @@ internal fun Header(
 
                 Column(
                     modifier = Modifier.weight(1f).fillMaxHeight(),
-                    verticalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
+                    verticalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
                 ) {
 
                     OverviewValue(
@@ -128,23 +123,18 @@ internal fun Header(
                         exit = fadeOut(animationSpec = tween(durationMillis = 300))
                     ) {
                         LineChart(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .fillMaxHeight()
-                                .border(
+                            modifier = Modifier.fillMaxWidth().fillMaxHeight().border(
                                     color = Design.palette.white10,
                                     width = 1.dp,
                                     shape = Design.shape.default
                                 ).padding(
-                                    horizontal = Design.dp.paddingM,
-                                    vertical = Design.dp.paddingM
+                                    horizontal = Design.dp.paddingM, vertical = Design.dp.paddingM
                                 ),
                             values = exerciseVolume,
                             bottomSpacing = 0f,
                             chartStyle = LineChartStyle(
-                                lineColor = Design.colors.content,
-                                dotsStyle = LineChartDotsStyle(
-                                    backgroundColor = Design.colors.orange,
+                                lineColor = Design.colors.content, dotsStyle = LineChartDotsStyle(
+                                    backgroundColor = Design.colors.yellow,
                                     width = 4.dp,
                                     type = LineChartDotsStyle.DotsType.START_END
                                 )
@@ -173,23 +163,18 @@ internal fun Header(
                         exit = fadeOut(animationSpec = tween(durationMillis = 300))
                     ) {
                         LineChart(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .fillMaxHeight()
-                                .border(
+                            modifier = Modifier.fillMaxWidth().fillMaxHeight().border(
                                     color = Design.palette.white10,
                                     width = 1.dp,
                                     shape = Design.shape.default
                                 ).padding(
-                                    horizontal = Design.dp.paddingM,
-                                    vertical = Design.dp.paddingM
+                                    horizontal = Design.dp.paddingM, vertical = Design.dp.paddingM
                                 ),
                             bottomSpacing = 0f,
                             values = exerciseIntensity,
                             chartStyle = LineChartStyle(
-                                lineColor = Design.colors.content,
-                                dotsStyle = LineChartDotsStyle(
-                                    backgroundColor = Design.colors.orange,
+                                lineColor = Design.colors.content, dotsStyle = LineChartDotsStyle(
+                                    backgroundColor = Design.colors.yellow,
                                     width = 4.dp,
                                     type = LineChartDotsStyle.DotsType.START_END
                                 )
@@ -216,8 +201,6 @@ internal fun Header(
                         )
                     }
 
-
-
                     AnimatedVisibility(
                         visible = expandedValue.value,
                         enter = fadeIn(animationSpec = tween(durationMillis = 300)),
@@ -225,12 +208,20 @@ internal fun Header(
                     ) {
                         HeapMap(
                             modifier = Modifier.weight(1f)
-                                .padding(top = Design.dp.paddingM, end = Design.dp.paddingS),
+                                .padding(top = Design.dp.paddingS, end = Design.dp.paddingS),
                             fullFrontImage = fullFrontImage,
                             fullBackImage = fullBackImage
                         )
                     }
                 }
+            }
+
+            AnimatedVisibility(
+                visible = expandedValue.value,
+                enter = fadeIn(animationSpec = tween(durationMillis = 300)),
+                exit = fadeOut(animationSpec = tween(durationMillis = 300))
+            ) {
+                PaddingS()
             }
 
             PaddingM()

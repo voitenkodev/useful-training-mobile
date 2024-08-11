@@ -15,6 +15,8 @@ import atom.Design
 public fun HeapIndicator(modifier: Modifier = Modifier) {
     val baseAlpha = 0.1f
     val color = Design.colors.orange
+    val height = 14.dp
+    val width = 6.dp
 
     Row(
         modifier = modifier,
@@ -26,8 +28,8 @@ public fun HeapIndicator(modifier: Modifier = Modifier) {
                 .background(
                     color = Design.colors.content,
                     shape = Design.shape.small
-                ).width(4.dp)
-                .height(10.dp)
+                ).width(width)
+                .height(height)
         )
 
         repeat(10) {
@@ -36,8 +38,8 @@ public fun HeapIndicator(modifier: Modifier = Modifier) {
                     .background(
                         color = color.copy(alpha = baseAlpha + it * 0.1f),
                         shape = Design.shape.small
-                    ).width(4.dp)
-                    .height(10.dp)
+                    ).width(width)
+                    .height(height)
             )
         }
 
@@ -46,8 +48,8 @@ public fun HeapIndicator(modifier: Modifier = Modifier) {
                 .background(
                     color = Design.colors.content,
                     shape = Design.shape.small
-                ).width(4.dp)
-                .height(10.dp)
+                ).width(width)
+                .height(height)
         )
     }
 }
