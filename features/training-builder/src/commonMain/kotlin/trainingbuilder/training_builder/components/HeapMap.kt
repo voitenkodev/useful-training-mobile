@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import atom.Design
 import components.indication.HeapIndicator
+import molecule.PaddingM
 import molecule.PaddingS
 
 @Composable
@@ -36,12 +37,14 @@ internal fun HeapMap(
             )
         }
 
-        PaddingS()
+        PaddingM()
 
         HeapIndicator(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = Design.dp.paddingS)
         )
+
+        PaddingS()
     }
 }

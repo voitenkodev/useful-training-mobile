@@ -124,12 +124,12 @@ internal fun Header(
                     ) {
                         LineChart(
                             modifier = Modifier.fillMaxWidth().fillMaxHeight().border(
-                                    color = Design.palette.white10,
-                                    width = 1.dp,
-                                    shape = Design.shape.default
-                                ).padding(
-                                    horizontal = Design.dp.paddingM, vertical = Design.dp.paddingM
-                                ),
+                                color = Design.palette.white10,
+                                width = 1.dp,
+                                shape = Design.shape.default
+                            ).padding(
+                                horizontal = Design.dp.paddingM, vertical = Design.dp.paddingM
+                            ),
                             values = exerciseVolume,
                             bottomSpacing = 0f,
                             chartStyle = LineChartStyle(
@@ -148,7 +148,8 @@ internal fun Header(
                         exit = fadeOut(animationSpec = tween(durationMillis = 300))
                     ) {
                         OverviewValue(
-                            modifier = Modifier.fillMaxWidth().wrapContentHeight(),
+                            modifier = Modifier.fillMaxWidth().wrapContentHeight()
+                                .padding(top = Design.dp.paddingS),
                             title = "Intensity",
                             description = intensity.percents(),
                             icon = Icons.equipment,
@@ -164,12 +165,12 @@ internal fun Header(
                     ) {
                         LineChart(
                             modifier = Modifier.fillMaxWidth().fillMaxHeight().border(
-                                    color = Design.palette.white10,
-                                    width = 1.dp,
-                                    shape = Design.shape.default
-                                ).padding(
-                                    horizontal = Design.dp.paddingM, vertical = Design.dp.paddingM
-                                ),
+                                color = Design.palette.white10,
+                                width = 1.dp,
+                                shape = Design.shape.default
+                            ).padding(
+                                horizontal = Design.dp.paddingM, vertical = Design.dp.paddingM
+                            ),
                             bottomSpacing = 0f,
                             values = exerciseIntensity,
                             chartStyle = LineChartStyle(
@@ -214,14 +215,6 @@ internal fun Header(
                         )
                     }
                 }
-            }
-
-            AnimatedVisibility(
-                visible = expandedValue.value,
-                enter = fadeIn(animationSpec = tween(durationMillis = 300)),
-                exit = fadeOut(animationSpec = tween(durationMillis = 300))
-            ) {
-                PaddingS()
             }
 
             PaddingM()

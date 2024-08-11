@@ -2,6 +2,7 @@ package trainingbuilder.training_builder.models
 
 import androidx.compose.runtime.Immutable
 
+@Deprecated("use from state")
 @Immutable
 internal data class Muscle(
     val id: String,
@@ -9,6 +10,8 @@ internal data class Muscle(
     val type: MuscleEnum
 )
 
+// todo remove it (use from state)
+@Deprecated("use from state")
 @Immutable
 internal enum class MuscleEnum {
     // Chest
