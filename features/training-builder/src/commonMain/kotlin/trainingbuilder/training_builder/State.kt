@@ -30,7 +30,5 @@ internal data class State(
     val loading: Boolean = false,
 
     // SetExercisePage
-    val selectedExercise: Exercise? = null,
-
-
-    )
+    val selectedExercise: Exercise? = null
+)

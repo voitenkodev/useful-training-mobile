@@ -95,7 +95,6 @@ internal fun TrainingBuilderContent(
                     fullFront = state.fullFrontImageVector,
                     fullBack = state.fullBackImageVector,
                     volume = state.training.volume,
-                    reps = state.training.repetitions,
                     intensity = state.training.intensity,
                     addExercise = vm::openFindExercisePopup,
                     exercises = state.training.exercises,
@@ -129,7 +128,6 @@ internal fun TrainingBuilderContent(
 internal fun Content(
     loading: Boolean,
     volume: Double,
-    reps: Int,
     intensity: Double,
     exercises: ImmutableList<Exercise>,
     addExercise: () -> Unit,
@@ -146,6 +144,10 @@ internal fun Content(
                 exercises.map { it.intensity.toFloat() }.toImmutableList()
             }
 
+            val exercisesVolume = remember(exercises) {
+                exercises.map { it.volume.toFloat() }.toImmutableList()
+            }
+
             Header(
                 finish = finish,
                 loading = loading,
@@ -153,9 +155,9 @@ internal fun Content(
                 fullBackImage = fullBack,
                 fullFrontImage = fullFront,
                 volume = volume,
-                reps = reps,
                 intensity = intensity,
-                exerciseVolume = exercisesIntensity
+                exerciseVolume = exercisesVolume,
+                exerciseIntensity = exercisesIntensity
             )
 
             LazyColumn(

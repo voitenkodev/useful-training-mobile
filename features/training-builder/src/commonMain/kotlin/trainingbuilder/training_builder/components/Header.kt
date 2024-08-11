@@ -18,6 +18,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -49,11 +50,11 @@ internal fun Header(
     finishEnabled: Boolean,
 
     volume: Double,
-    reps: Int,
     intensity: Double,
     fullFrontImage: ImageVector,
     fullBackImage: ImageVector,
-    exerciseVolume: ImmutableList<Float>
+    exerciseVolume: ImmutableList<Float>,
+    exerciseIntensity: ImmutableList<Float>
 ) {
     Column(modifier = Modifier.statusBarsPadding()) {
 
@@ -82,7 +83,7 @@ internal fun Header(
             )
         }
 
-        PaddingS()
+        PaddingM()
 
         val expandedValue = remember { mutableStateOf(false) }
 
@@ -111,42 +112,17 @@ internal fun Header(
                     modifier = Modifier.weight(1f).fillMaxHeight(),
                     verticalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
                 ) {
+
                     OverviewValue(
-                        title = "Duration",
-                        description = "123",
-                        icon = Icons.time,
+                        modifier = Modifier.fillMaxWidth().wrapContentHeight(),
+                        title = "Volume",
+                        description = volume.kg(false),
+                        icon = Icons.handWeight,
                         color = Design.colors.yellow
                     )
 
                     AnimatedVisibility(
-                        visible = expandedValue.value,
-                        enter = fadeIn(animationSpec = tween(durationMillis = 300)),
-                        exit = fadeOut(animationSpec = tween(durationMillis = 300))
-                    ) {
-                        OverviewValue(
-                            modifier = Modifier.fillMaxWidth(),
-                            title = "Reps",
-                            description = reps.toString(),
-                            icon = Icons.exercises,
-                            color = Design.colors.yellow
-                        )
-                    }
-
-                    AnimatedVisibility(
-                        visible = expandedValue.value,
-                        enter = fadeIn(animationSpec = tween(durationMillis = 300)),
-                        exit = fadeOut(animationSpec = tween(durationMillis = 300))
-                    ) {
-                        OverviewValue(
-                            modifier = Modifier.fillMaxWidth(),
-                            title = "Intensity",
-                            description = intensity.percents(),
-                            icon = Icons.equipment,
-                            color = Design.colors.yellow
-                        )
-                    }
-
-                    AnimatedVisibility(
+                        modifier = Modifier.weight(1f),
                         visible = expandedValue.value,
                         enter = fadeIn(animationSpec = tween(durationMillis = 300)),
                         exit = fadeOut(animationSpec = tween(durationMillis = 300))
@@ -161,9 +137,55 @@ internal fun Header(
                                     shape = Design.shape.default
                                 ).padding(
                                     horizontal = Design.dp.paddingM,
-                                    vertical = Design.dp.paddingS
+                                    vertical = Design.dp.paddingM
                                 ),
                             values = exerciseVolume,
+                            bottomSpacing = 0f,
+                            chartStyle = LineChartStyle(
+                                lineColor = Design.colors.content,
+                                dotsStyle = LineChartDotsStyle(
+                                    backgroundColor = Design.colors.orange,
+                                    width = 4.dp,
+                                    type = LineChartDotsStyle.DotsType.START_END
+                                )
+                            )
+                        )
+                    }
+
+                    AnimatedVisibility(
+                        visible = expandedValue.value,
+                        enter = fadeIn(animationSpec = tween(durationMillis = 300)),
+                        exit = fadeOut(animationSpec = tween(durationMillis = 300))
+                    ) {
+                        OverviewValue(
+                            modifier = Modifier.fillMaxWidth().wrapContentHeight(),
+                            title = "Intensity",
+                            description = intensity.percents(),
+                            icon = Icons.equipment,
+                            color = Design.colors.yellow
+                        )
+                    }
+
+                    AnimatedVisibility(
+                        modifier = Modifier.weight(1f),
+                        visible = expandedValue.value,
+                        enter = fadeIn(animationSpec = tween(durationMillis = 300)),
+                        exit = fadeOut(animationSpec = tween(durationMillis = 300))
+                    ) {
+                        LineChart(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .fillMaxHeight()
+                                .border(
+                                    color = Design.palette.white10,
+                                    width = 1.dp,
+                                    shape = Design.shape.default
+                                ).padding(
+                                    horizontal = Design.dp.paddingM,
+                                    vertical = Design.dp.paddingM
+                                ),
+                            bottomSpacing = 0f,
+                            values = exerciseIntensity,
                             chartStyle = LineChartStyle(
                                 lineColor = Design.colors.content,
                                 dotsStyle = LineChartDotsStyle(
@@ -176,13 +198,14 @@ internal fun Header(
                     }
                 }
 
-                Column(modifier = Modifier.weight(1f)) {
-                    Row {
+                Column(modifier = Modifier.weight(1.2f)) {
+
+                    Row(modifier = Modifier.fillMaxWidth()) {
                         OverviewValue(
-                            modifier = Modifier.weight(1f),
-                            title = "Volume",
-                            description = volume.kg(false),
-                            icon = Icons.handWeight,
+                            modifier = Modifier.weight(1f).wrapContentHeight(),
+                            title = "Duration",
+                            description = "123",
+                            icon = Icons.time,
                             color = Design.colors.yellow
                         )
 
@@ -192,6 +215,8 @@ internal fun Header(
                             onClick = { expandedValue.value = expandedValue.value.not() },
                         )
                     }
+
+
 
                     AnimatedVisibility(
                         visible = expandedValue.value,

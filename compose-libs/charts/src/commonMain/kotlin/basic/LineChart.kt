@@ -8,6 +8,7 @@ import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.text.drawText
@@ -17,15 +18,15 @@ import androidx.compose.ui.text.style.TextOverflow
 import atom.Design
 import kg
 import round
+import kotlin.math.sqrt
 
 @Composable
 public fun LineChart(
     modifier: Modifier = Modifier,
     values: List<Float>,
     chartStyle: LineChartStyle,
+    bottomSpacing: Float = 40F
 ) {
-
-    if (values.isEmpty()) return
 
     val textMeasurer = rememberTextMeasurer()
     val style = Design.typography.Body4.copy(
@@ -45,6 +46,44 @@ public fun LineChart(
 
     Canvas(modifier = modifier) {
 
+        if (values.isEmpty()) {
+
+            val canvasWidth = size.width
+            val canvasHeight = size.height
+            val stroke = 4f
+            val circleRadius = size.minDimension / 4
+            val circleCenter = Offset(canvasWidth / 2f, canvasHeight / 2f)
+
+            drawCircle(
+                color = Color.Gray,
+                radius = circleRadius,
+                center = circleCenter,
+                style = Stroke(width = stroke)
+            )
+
+            val diagonalLength = circleRadius / sqrt(2.0).toFloat()
+
+            val startOffset = Offset(
+                circleCenter.x - diagonalLength,
+                circleCenter.y - diagonalLength
+            )
+
+            val endOffset = Offset(
+                circleCenter.x + diagonalLength,
+                circleCenter.y + diagonalLength
+            )
+
+            drawLine(
+                color = Color.Gray,
+                start = startOffset,
+                end = endOffset,
+                strokeWidth = stroke
+            )
+
+            return@Canvas
+        }
+
+
         val labelTopSpace = chartStyle.labelStyle?.let {
             spaceDimensions.size.height + chartStyle.labelStyle.spaceTillLine.toPx()
         } ?: 0f
@@ -53,7 +92,7 @@ public fun LineChart(
             width = size.width,
             height = size.height,
             line = values,
-            bottomSpacing = 40f,
+            bottomSpacing = bottomSpacing,
             topSpacing = labelTopSpace
         )
 

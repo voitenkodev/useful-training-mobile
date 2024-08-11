@@ -43,12 +43,14 @@ internal fun OverviewValue(
 
             TextH4(
                 provideText = { title },
-                color = Design.colors.yellow
+                color = Design.colors.yellow,
+                maxLines = 1
             )
 
             TextBody3(
                 provideText = { description },
-                color = Design.colors.content
+                color = Design.colors.content,
+                maxLines = 1,
             )
         }
     }
