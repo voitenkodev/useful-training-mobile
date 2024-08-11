@@ -184,7 +184,7 @@ internal fun Header(
                     }
                 }
 
-                Column(modifier = Modifier.weight(1.2f)) {
+                Column(modifier = Modifier.weight(1.3f)) {
 
                     Row(modifier = Modifier.fillMaxWidth()) {
                         OverviewValue(
@@ -209,7 +209,7 @@ internal fun Header(
                     ) {
                         HeapMap(
                             modifier = Modifier.weight(1f)
-                                .padding(top = Design.dp.paddingS, end = Design.dp.paddingS),
+                                .padding(top = Design.dp.paddingM, end = Design.dp.paddingS),
                             fullFrontImage = fullFrontImage,
                             fullBackImage = fullBackImage
                         )
