@@ -111,7 +111,7 @@ internal fun Header(
                     OverviewValue(
                         modifier = Modifier.fillMaxWidth().wrapContentHeight(),
                         title = "Volume",
-                        description = volume.kg(false),
+                        description = volume.kg(true),
                         icon = Icons.handWeight,
                         color = Design.colors.yellow
                     )
