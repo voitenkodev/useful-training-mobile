@@ -20,13 +20,14 @@ public fun HeapIndicator(modifier: Modifier = Modifier) {
         modifier = modifier,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
+
         Spacer(
             modifier = Modifier
                 .background(
                     color = Design.colors.content,
                     shape = Design.shape.small
                 ).width(4.dp)
-                .height(14.dp)
+                .height(10.dp)
         )
 
         repeat(10) {
@@ -36,7 +37,7 @@ public fun HeapIndicator(modifier: Modifier = Modifier) {
                         color = color.copy(alpha = baseAlpha + it * 0.1f),
                         shape = Design.shape.small
                     ).width(4.dp)
-                    .height(14.dp)
+                    .height(10.dp)
             )
         }
 
@@ -46,7 +47,7 @@ public fun HeapIndicator(modifier: Modifier = Modifier) {
                     color = Design.colors.content,
                     shape = Design.shape.small
                 ).width(4.dp)
-                .height(14.dp)
+                .height(10.dp)
         )
     }
 }
