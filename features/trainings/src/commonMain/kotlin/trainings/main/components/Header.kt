@@ -170,7 +170,7 @@ private fun CalendarRow(
                     TextBody4(
                         modifier = Modifier,
                         provideText = { if (it.isToday) "NOW" else it.weekDay },
-                        color = if (it.isToday) Design.colors.orange else if (it.isSelected) Design.colors.content else Design.colors.caption
+                        color = if (it.isToday) Design.colors.orange else if (it.isSelected) Design.colors.content else Design.colors.label
                     )
 
                     TextH3(
@@ -190,7 +190,7 @@ private fun CalendarRow(
                             )
                             .padding(1.dp)
                             .background(
-                                color = Design.colors.toxic,
+                                color = Design.colors.green,
                                 shape = Design.shape.circleShape
                             )
                     )

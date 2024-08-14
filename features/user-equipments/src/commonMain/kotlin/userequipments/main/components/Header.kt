@@ -48,7 +48,7 @@ internal fun Header(
             TextBody2(
                 provideText = { "Choose the equipment you do not have." },
                 textAlign = TextAlign.Center,
-                color = Design.colors.caption
+                color = Design.colors.label
             )
 
             PaddingL()

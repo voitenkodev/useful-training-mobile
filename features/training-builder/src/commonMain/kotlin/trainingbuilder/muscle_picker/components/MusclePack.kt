@@ -30,14 +30,14 @@ internal fun MusclePack(
 ) {
 
     val selectedChipState = ChipState.Colored(
-        backgroundColor = Design.colors.toxic.copy(alpha = 0.2f),
-        borderColor = Design.colors.toxic,
+        backgroundColor = Design.colors.green.copy(alpha = 0.2f),
+        borderColor = Design.colors.green,
         contentColor = Design.colors.content
     )
 
     val unSelectedChipState = ChipState.Colored(
         backgroundColor = Color.Transparent,
-        borderColor = Design.colors.caption,
+        borderColor = Design.colors.label,
         contentColor = Design.colors.content
     )
 

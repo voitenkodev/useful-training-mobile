@@ -57,11 +57,16 @@ public fun EquipmentChip(
         }
     }
 
+    val borderIcon = when (item.isSelected) {
+        true -> Design.colors.green.copy(alpha = 0.4f)
+        false -> Design.colors.white10
+    }
+
     Column(
         modifier = Modifier
             .width(140.dp)
             .border(
-                color = Design.palette.white10,
+                color = borderIcon,
                 width = 1.dp,
                 shape = Design.shape.default
             )
@@ -94,7 +99,7 @@ public fun EquipmentChip(
 
             IconImage(
                 modifier = Modifier
-                    .align(Alignment.TopEnd)
+                    .align(Alignment.TopStart)
                     .padding(Design.dp.paddingS)
                     .size(18.dp),
                 imageVector = iconStart

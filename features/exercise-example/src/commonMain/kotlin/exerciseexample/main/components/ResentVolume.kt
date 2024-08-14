@@ -51,8 +51,8 @@ internal fun ResentVolume(volumes: ImmutableList<ExerciseVolume>) {
             chartStyle = LineChartStyle(
                 lineColor = Design.colors.content,
                 labelStyle = LineChartLabelStyle(
-                    backgroundColor = Design.colors.toxic.copy(alpha = 0.2f),
-                    borderColor = Design.colors.toxic,
+                    backgroundColor = Design.colors.green.copy(alpha = 0.2f),
+                    borderColor = Design.colors.green,
                     paddings = Design.dp.paddingXS,
                     textColor = Design.colors.content,
                     spaceTillLine = 26.dp,
@@ -72,7 +72,7 @@ internal fun ResentVolume(volumes: ImmutableList<ExerciseVolume>) {
             val item = reversed.getOrNull(it) ?: return
             val previousItem = reversed.getOrNull(it + 1)?.volume ?: 0.0
 
-            val color = if (item.volume > previousItem) Design.colors.toxic.copy(alpha = 0.5f)
+            val color = if (item.volume > previousItem) Design.colors.green.copy(alpha = 0.5f)
             else Design.colors.orange.copy(alpha = 0.5f)
 
             val img = if (item.volume > previousItem) Icons.arrowUp

@@ -12,7 +12,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import atom.Design
 import cmToM
-import components.ShadowBottomButtons
+import components.BottomButtons
 import heightpicker.HeightPicker
 import heightpicker.HeightPickerStyle
 import meter
@@ -25,6 +25,7 @@ import molecule.TextBody2
 import molecule.TextH1
 import molecule.TextH2
 import molecule.secondaryBackground
+import resources.Icons
 
 @Composable
 internal fun HeightPage(
@@ -41,14 +42,14 @@ internal fun HeightPage(
 
         PaddingL()
 
-        TextH2(provideText = { "Your height" }, textAlign = TextAlign.Center)
+        TextH2(provideText = { "Height" }, textAlign = TextAlign.Center)
 
         PaddingXS()
 
         TextBody2(
             provideText = { "Enter your current height!" },
             textAlign = TextAlign.Center,
-            color = Design.colors.caption
+            color = Design.colors.label
         )
 
         PaddingWeight()
@@ -63,11 +64,9 @@ internal fun HeightPage(
                 .height(190.dp)
                 .clipToBounds(),
             pickerStyle = HeightPickerStyle(
-                backgroundColor = Design.colors.secondary,
                 tenStepLineColor = Design.colors.content,
                 fiveStepLineColor = Design.colors.orange,
-                normalLineColor = Design.colors.caption,
-                indicatorColor = Design.colors.toxic
+                normalLineColor = Design.colors.label,
             ),
             initial = height,
             onValueChange = updateHeight
@@ -80,11 +79,12 @@ internal fun HeightPage(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-            ShadowBottomButtons(
+            BottomButtons(
                 modifier = Modifier.fillMaxWidth(),
                 first = {
                     ButtonSecondary(
                         modifier = Modifier.weight(1f),
+                        leadingIcon = Icons.arrowLeft,
                         text = "Back",
                         onClick = back
                     )
@@ -92,6 +92,7 @@ internal fun HeightPage(
                 second = {
                     ButtonPrimary(
                         modifier = Modifier.weight(1f),
+                        trailingIcon = Icons.arrowRight,
                         text = "Next",
                         onClick = confirm,
                     )

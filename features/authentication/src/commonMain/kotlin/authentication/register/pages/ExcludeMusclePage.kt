@@ -11,7 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import atom.Design
-import components.ShadowBottomButtons
+import components.BottomButtons
 import components.ShadowFooterSpace
 import kotlinx.collections.immutable.ImmutableList
 import molecule.ButtonPrimary
@@ -24,6 +24,7 @@ import molecule.TextBody2
 import molecule.TextH2
 import muscles.MuscleGroup
 import muscles.component.MuscleGroup
+import resources.Icons
 
 @Composable
 internal fun ExcludeMusclePage(
@@ -49,7 +50,7 @@ internal fun ExcludeMusclePage(
             TextBody2(
                 provideText = { "Would you like to exclude some muscles\nfrom your workouts?" },
                 textAlign = TextAlign.Center,
-                color = Design.colors.caption
+                color = Design.colors.label
             )
 
             PaddingXL()
@@ -74,18 +75,20 @@ internal fun ExcludeMusclePage(
             }
         }
 
-        ShadowBottomButtons(
+        BottomButtons(
             modifier = Modifier.fillMaxWidth().align(Alignment.BottomCenter),
             first = {
                 ButtonSecondary(
                     modifier = Modifier.weight(1f),
                     text = "Back",
+                    leadingIcon = Icons.arrowLeft,
                     onClick = back
                 )
             },
             second = {
                 ButtonPrimary(
                     modifier = Modifier.weight(1f),
+                    leadingIcon = Icons.arrowRight,
                     text = "Next",
                     onClick = confirm,
                 )

@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.style.TextAlign
 import atom.Design
-import components.ShadowBottomButtons
+import components.BottomButtons
 import components.inputs.InputEmail
 import components.inputs.InputPassword
 import components.inputs.InputPasswordConfirm
@@ -65,7 +65,7 @@ internal fun CredentialsPage(
         TextBody2(
             provideText = { "Enter email and password!" },
             textAlign = TextAlign.Center,
-            color = Design.colors.caption
+            color = Design.colors.label
         )
 
         PaddingXXL()
@@ -99,7 +99,7 @@ internal fun CredentialsPage(
 
         PaddingWeight()
 
-        ShadowBottomButtons(
+        BottomButtons(
             modifier = Modifier.fillMaxWidth(),
             first = {
                 ButtonSecondary(
@@ -114,7 +114,6 @@ internal fun CredentialsPage(
                     text = "Register",
                     onClick = confirmProvider,
                     enabled = email.isNotBlank() && password.isNotBlank() && passwordRepeat.isNotBlank(),
-                    loading = loading
                 )
             }
         )

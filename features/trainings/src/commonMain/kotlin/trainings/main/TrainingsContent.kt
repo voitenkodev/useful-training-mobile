@@ -2,7 +2,6 @@ package trainings.main
 
 import DateTimeKtx
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -13,9 +12,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import atom.Design
+import components.BottomButtons
 import components.EmptyData
 import components.Error
-import components.ShadowBottomButtons
 import components.roots.ScreenRoot
 import kotlinx.collections.immutable.ImmutableList
 import molecule.ButtonPrimary
@@ -106,14 +105,8 @@ private fun Content(
             }
         }
 
-        ShadowBottomButtons(
+        BottomButtons(
             modifier = Modifier.fillMaxWidth().align(Alignment.BottomCenter),
-            contentPadding = PaddingValues(
-                start = Design.dp.paddingL,
-                end = Design.dp.paddingL,
-                bottom = Design.dp.paddingL
-            ),
-            navigationBarsPadding = false,
             first = {
                 if (selectedDateIsToday.not()) {
                     ButtonSecondary(
@@ -128,7 +121,7 @@ private fun Content(
                     ButtonPrimary(
                         modifier = Modifier.weight(1f),
                         text = "Start workout",
-                        backgroundColor = Design.colors.toxic,
+                        backgroundColor = Design.colors.green,
                         textColor = Design.colors.primary,
                         onClick = newTraining,
                     )

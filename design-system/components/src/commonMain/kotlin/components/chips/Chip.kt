@@ -57,7 +57,7 @@ public fun Chip(
     val internalModifier = when (chipState) {
         is ChipState.Default -> modifier
             .border(
-                color = Design.colors.caption,
+                color = Design.colors.label,
                 width = 1.dp,
                 shape = Design.shape.circleShape
             ).background(

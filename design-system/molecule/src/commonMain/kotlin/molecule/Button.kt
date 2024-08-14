@@ -11,7 +11,6 @@ import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
@@ -47,18 +46,11 @@ public fun ButtonPrimary(
     text: String,
     enabled: Boolean = true,
     onClick: () -> Unit,
-    loading: Boolean = false,
     textColor: Color = Design.colors.content,
-    backgroundColor: Color = Design.colors.orange
+    backgroundColor: Color = Design.colors.orange,
+    trailingIcon: ImageVector? = null,
+    leadingIcon: ImageVector? = null,
 ) {
-
-    val bgColor = animateColorAsState(
-        targetValue = when {
-            loading -> Design.colors.content
-            else -> backgroundColor
-        },
-        animationSpec = tween(durationMillis = 300, easing = LinearEasing)
-    )
 
     val alpha = animateFloatAsState(
         targetValue = when (enabled) {
@@ -73,45 +65,44 @@ public fun ButtonPrimary(
             .alpha(alpha.value)
             .requiredHeight(Design.dp.componentM)
             .background(
-                shape = Design.shape.circleShape,
-                color = bgColor.value
+                shape = Design.shape.default,
+                color = backgroundColor
             ).clip(
-                shape = Design.shape.circleShape
+                shape = Design.shape.default
             ).clickable(
                 onClick = onClick,
-                enabled = enabled && loading.not()
+                enabled = enabled
+            ).padding(
+                horizontal = Design.dp.paddingL
             ),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Center
+        horizontalArrangement = Arrangement.spacedBy(
+            Design.dp.paddingS,
+            Alignment.CenterHorizontally
+        )
     ) {
-        AnimatedVisibility(loading.not()) {
-            TextField(
-                modifier = Modifier.padding(horizontal = Design.dp.paddingXL),
-                provideText = { text },
-                textStyle = Design.typography.Button.copy(color = textColor)
+        if (leadingIcon != null) {
+            Icon(
+                modifier = Modifier.size(Design.dp.iconS),
+                imageVector = leadingIcon,
+                color = textColor
             )
         }
 
-        AnimatedVisibility(loading) {
+        TextField(
+            modifier = Modifier.padding(
+                start = if (trailingIcon != null) Design.dp.paddingS else 0.dp,
+                end = if (leadingIcon != null) Design.dp.paddingS else 0.dp,
+            ),
+            provideText = { text },
+            textStyle = Design.typography.Button.copy(color = textColor)
+        )
 
-            val infiniteTransition = rememberInfiniteTransition()
-
-            val rotation by infiniteTransition.animateFloat(
-                initialValue = 0f,
-                targetValue = 360f,
-                animationSpec = infiniteRepeatable(
-                    animation = tween(2000),
-                    repeatMode = RepeatMode.Restart
-                )
-            )
-
+        if (trailingIcon != null) {
             Icon(
-                modifier = Modifier
-                    .size(Design.dp.componentM)
-                    .padding(Design.dp.paddingXS)
-                    .graphicsLayer(rotationZ = rotation),
-                imageVector = Icons.loading,
-                color = Design.colors.primary
+                modifier = Modifier.size(Design.dp.iconS),
+                imageVector = trailingIcon,
+                color = textColor
             )
         }
     }
@@ -123,19 +114,12 @@ public fun ButtonSecondary(
     text: String,
     enabled: Boolean = true,
     onClick: () -> Unit,
-    loading: Boolean = false
+    trailingIcon: ImageVector? = null,
+    leadingIcon: ImageVector? = null,
 ) {
 
     val textColor: Color = Design.colors.content
     val enableBackgroundColor: Color = Color.Transparent
-
-    val bgColor = animateColorAsState(
-        targetValue = when {
-            loading -> Color.Transparent
-            else -> enableBackgroundColor
-        },
-        animationSpec = tween(durationMillis = 300, easing = LinearEasing)
-    )
 
     val alpha = animateFloatAsState(
         targetValue = when (enabled) {
@@ -149,50 +133,46 @@ public fun ButtonSecondary(
         modifier = modifier
             .alpha(alpha.value)
             .requiredHeight(Design.dp.componentM)
-            .border(
-                color = if (enabled) Design.colors.white30 else Color.Transparent,
-                width = 1.dp,
-                shape = Design.shape.circleShape
-            ).background(
-                shape = Design.shape.circleShape,
-                color = bgColor.value
+            .background(
+                shape = Design.shape.default,
+                color = enableBackgroundColor
             ).clip(
-                shape = Design.shape.circleShape
+                shape = Design.shape.default
             ).clickable(
                 onClick = onClick,
-                enabled = enabled && loading.not()
+                enabled = enabled
+            ).padding(
+                horizontal = Design.dp.paddingL
             ),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Center
+        horizontalArrangement = Arrangement.spacedBy(
+            Design.dp.paddingS,
+            Alignment.CenterHorizontally
+        )
     ) {
-        AnimatedVisibility(loading.not()) {
-            TextField(
-                modifier = Modifier.padding(horizontal = Design.dp.paddingXL),
-                provideText = { text },
-                textStyle = Design.typography.Button.copy(color = textColor)
+
+        if (leadingIcon != null) {
+            Icon(
+                modifier = Modifier.size(Design.dp.iconS),
+                imageVector = leadingIcon,
+                color = textColor
             )
         }
 
-        AnimatedVisibility(loading) {
+        TextField(
+            modifier = Modifier.padding(
+                start = if (trailingIcon != null) Design.dp.paddingS else 0.dp,
+                end = if (leadingIcon != null) Design.dp.paddingS else 0.dp,
+            ),
+            provideText = { text },
+            textStyle = Design.typography.Button.copy(color = textColor)
+        )
 
-            val infiniteTransition = rememberInfiniteTransition()
-
-            val rotation by infiniteTransition.animateFloat(
-                initialValue = 0f,
-                targetValue = 360f,
-                animationSpec = infiniteRepeatable(
-                    animation = tween(2000),
-                    repeatMode = RepeatMode.Restart
-                )
-            )
-
+        if (trailingIcon != null) {
             Icon(
-                modifier = Modifier
-                    .size(Design.dp.componentM)
-                    .padding(Design.dp.paddingXS)
-                    .graphicsLayer(rotationZ = rotation),
-                imageVector = Icons.loading,
-                color = Design.colors.primary
+                modifier = Modifier.size(Design.dp.iconS),
+                imageVector = trailingIcon,
+                color = textColor
             )
         }
     }
@@ -210,7 +190,7 @@ public fun ButtonPrimarySmall(
 ) {
 
     val enableBackgroundColor: Color = backgroundColor
-    val disableBackgroundColor: Color = Design.colors.caption.copy(alpha = 0.1f)
+    val disableBackgroundColor: Color = Design.colors.label.copy(alpha = 0.1f)
 
     val bgColor = animateColorAsState(
         targetValue = when {
@@ -225,10 +205,10 @@ public fun ButtonPrimarySmall(
         modifier = modifier
             .requiredHeight(Design.dp.componentS)
             .background(
-                shape = Design.shape.circleShape,
+                shape = Design.shape.default,
                 color = bgColor.value
             ).clip(
-                shape = Design.shape.circleShape
+                shape = Design.shape.default
             ).clickable(
                 onClick = onClick,
                 enabled = enabled && loading.not()
@@ -274,6 +254,7 @@ public fun ButtonPrimarySmall(
     }
 }
 
+@Deprecated("Do not use it")
 @Composable
 public fun ButtonSecondarySmall(
     modifier: Modifier = Modifier,
@@ -284,7 +265,7 @@ public fun ButtonSecondarySmall(
 
     val textColor: Color = Design.colors.content
     val enableBackgroundColor: Color = Color.Transparent
-    val disableBackgroundColor: Color = Design.colors.caption.copy(alpha = 0.1f)
+    val disableBackgroundColor: Color = Design.colors.label.copy(alpha = 0.1f)
 
 
     Button(
@@ -305,7 +286,7 @@ public fun ButtonSecondarySmall(
             backgroundColor = enableBackgroundColor,
             disabledBackgroundColor = disableBackgroundColor,
         ),
-        shape = Design.shape.circleShape,
+        shape = Design.shape.default,
         leadIcon = null
     )
 }

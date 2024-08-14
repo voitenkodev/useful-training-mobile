@@ -31,34 +31,34 @@ internal fun Achievements(
         Row(horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM)) {
             VerticalValueCard(
                 modifier = Modifier.weight(1f).border(
-                    color = Design.colors.toxic,
+                    color = Design.colors.green,
                     width = 1.dp,
                     shape = Design.shape.default
                 ),
                 title = "Volume" to Design.colors.content,
-                description = maxVolume.kg(false) to Design.colors.toxic,
+                description = maxVolume.kg(false) to Design.colors.green,
                 icon = Icons.weight
             )
 
             VerticalValueCard(
                 modifier = Modifier.weight(1f).border(
-                    color = Design.colors.toxic,
+                    color = Design.colors.green,
                     width = 1.dp,
                     shape = Design.shape.default
                 ),
-                title = "P/M" to Design.colors.caption,
-                description = maxWeight.kg(false) to Design.colors.toxic,
+                title = "P/M" to Design.colors.label,
+                description = maxWeight.kg(false) to Design.colors.green,
                 icon = Icons.handWeight
             )
 
             VerticalValueCard(
                 modifier = Modifier.weight(1f).border(
-                    color = Design.colors.toxic,
+                    color = Design.colors.green,
                     width = 1.dp,
                     shape = Design.shape.default
                 ),
                 title = "Repetitions" to Design.colors.content,
-                description = maxRepetition.toString() to Design.colors.toxic,
+                description = maxRepetition.toString() to Design.colors.green,
                 icon = Icons.repetitions
             )
         }

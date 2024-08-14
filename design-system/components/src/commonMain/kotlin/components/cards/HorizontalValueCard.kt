@@ -80,7 +80,7 @@ public fun HorizontalValueCard(
 
             TextBody4(
                 provideText = { description },
-                color = Design.colors.caption
+                color = Design.colors.label
             )
         }
 

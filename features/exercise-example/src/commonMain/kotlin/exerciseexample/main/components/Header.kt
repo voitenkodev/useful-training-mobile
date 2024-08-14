@@ -109,7 +109,7 @@ private fun Item(
     ) {
         TextBody4(
             provideText = { title },
-            color = Design.colors.caption
+            color = Design.colors.label
         )
         TextBody4(
             provideText = { value },

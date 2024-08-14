@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.style.TextAlign
 import atom.Design
-import components.ShadowBottomButtons
+import components.BottomButtons
 import components.inputs.InputName
 import molecule.ButtonPrimary
 import molecule.ButtonSecondary
@@ -24,6 +24,7 @@ import molecule.PaddingXS
 import molecule.PaddingXXL
 import molecule.TextBody2
 import molecule.TextH2
+import resources.Icons
 
 @Composable
 internal fun NamePage(
@@ -51,14 +52,17 @@ internal fun NamePage(
 
         PaddingL()
 
-        TextH2(provideText = { "Nice to meet you" }, textAlign = TextAlign.Center)
+        TextH2(
+            provideText = { "Nice to meet you" },
+            textAlign = TextAlign.Center
+        )
 
         PaddingXS()
 
         TextBody2(
             provideText = { "How can we call you?" },
             textAlign = TextAlign.Center,
-            color = Design.colors.caption
+            color = Design.colors.label
         )
 
         PaddingXXL()
@@ -75,11 +79,12 @@ internal fun NamePage(
 
         PaddingWeight()
 
-        ShadowBottomButtons(
+        BottomButtons(
             modifier = Modifier.fillMaxWidth(),
             first = {
                 ButtonSecondary(
                     modifier = Modifier.weight(1f),
+                    leadingIcon = Icons.arrowLeft,
                     text = "Back",
                     onClick = backProvider
                 )
@@ -87,6 +92,7 @@ internal fun NamePage(
             second = {
                 ButtonPrimary(
                     modifier = Modifier.weight(1f),
+                    trailingIcon = Icons.arrowRight,
                     text = "Next",
                     onClick = confirmProvider,
                     enabled = name.isNotBlank()

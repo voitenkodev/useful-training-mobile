@@ -26,8 +26,8 @@ internal fun MenuItem(
 ) {
 
     val iconColor =
-        if (isSelected) Design.colors.toxic
-        else Design.colors.caption
+        if (isSelected) Design.colors.green
+        else Design.colors.label
 
     Box(
         modifier = modifier

@@ -15,8 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import atom.Design
-import authentication.register.components.ExperienceCard
-import components.ShadowBottomButtons
+import components.BottomButtons
 import components.ShadowFooterSpace
 import kotlinx.collections.immutable.ImmutableList
 import molecule.ButtonPrimary
@@ -28,6 +27,7 @@ import molecule.Shadow
 import molecule.TextBody2
 import molecule.TextH2
 import user.ExperienceEnum
+import user.component.ExperienceCard
 
 @Composable
 internal fun ExperiencePage(
@@ -54,7 +54,7 @@ internal fun ExperiencePage(
             TextBody2(
                 provideText = { "How experienced are you lifting weights?" },
                 textAlign = TextAlign.Center,
-                color = Design.colors.caption
+                color = Design.colors.label
             )
 
             PaddingXL()
@@ -83,7 +83,7 @@ internal fun ExperiencePage(
             }
         }
 
-        ShadowBottomButtons(
+        BottomButtons(
             modifier = Modifier.fillMaxWidth().align(Alignment.BottomCenter),
             first = {
                 ButtonSecondary(

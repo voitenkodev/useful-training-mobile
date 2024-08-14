@@ -95,7 +95,7 @@ public fun UserCard(
                 Column {
                     TextBody4(
                         provideText = { "Username" },
-                        color = Design.colors.caption
+                        color = Design.colors.label
                     )
 
                     TextH3(
@@ -109,7 +109,7 @@ public fun UserCard(
                 Icon(
                     modifier = Modifier.size(Design.dp.componentS),
                     imageVector = experienceIcon,
-                    color = Design.colors.caption
+                    color = Design.colors.label
                 )
             }
 
@@ -117,7 +117,7 @@ public fun UserCard(
 
             TextBody4(
                 provideText = { "Weight" },
-                color = Design.colors.caption
+                color = Design.colors.label
             )
 
             TextH4(
@@ -128,7 +128,7 @@ public fun UserCard(
 
             TextBody4(
                 provideText = { "Height" },
-                color = Design.colors.caption
+                color = Design.colors.label
             )
 
             TextH4(

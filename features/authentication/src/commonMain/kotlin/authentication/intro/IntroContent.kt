@@ -13,11 +13,11 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import atom.Design
 import authentication.intro.models.ScreenState
-import components.animation.Levitating
 import components.overlay.AlphaOverlay
 import components.roots.ScreenRoot
 import molecule.ButtonPrimary
@@ -60,7 +60,7 @@ private fun Content(
     ScreenRoot(modifier = Modifier.imePadding()) {
 
         Image(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier.fillMaxSize().alpha(0.5f),
             imageVector = Icons.logoBackground,
             contentDescription = null,
             contentScale = ContentScale.Crop
@@ -81,12 +81,10 @@ private fun Content(
 
             PaddingWeight()
 
-//            Levitating {
-                IconImage(
-                    modifier = Modifier.size(250.dp),
-                    imageVector = Icons.logo
-                )
-//            }
+            IconImage(
+                modifier = Modifier.size(250.dp),
+                imageVector = Icons.logo
+            )
 
             PaddingWeight()
 
@@ -94,14 +92,14 @@ private fun Content(
 
             TextBody2(
                 provideText = { "Don't have an account yet?" },
-                color = Design.colors.caption
+                color = Design.colors.label
             )
 
             PaddingM()
 
             ButtonPrimary(
                 modifier = Modifier.fillMaxWidth().padding(horizontal = Design.dp.paddingL),
-                text = "Get Started",
+                text = "Get started",
                 onClick = registration
             )
 

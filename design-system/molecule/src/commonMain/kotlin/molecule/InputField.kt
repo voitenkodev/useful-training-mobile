@@ -106,7 +106,6 @@ public fun Input(
 
     val borderColorProvider = when {
         enabled.not() -> Color.Transparent
-        hasFocus.value -> contentColor.copy(0.1f)
         else -> Color.Transparent
     }
 
@@ -162,7 +161,7 @@ public fun Input(
                         Box(modifier = Modifier.weight(1f)) {
 
                             if (value.isEmpty() && placeholder != null) Text(
-                                modifier = Modifier,
+                                modifier = Modifier.padding(start = 2.dp),
                                 text = placeholder,
                                 style = textStyle.copy(color = placeholderColorProvider),
                                 overflow = TextOverflow.Ellipsis,
@@ -303,7 +302,7 @@ public fun Input(
                         Box(modifier = Modifier.weight(1f)) {
 
                             if (value.text.isEmpty() && placeholder != null) Text(
-                                modifier = Modifier,
+                                modifier = Modifier.padding(start = 2.dp),
                                 text = placeholder,
                                 style = textStyle.copy(color = placeholderColorProvider),
                                 overflow = TextOverflow.Ellipsis,

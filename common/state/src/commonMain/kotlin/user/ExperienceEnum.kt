@@ -26,7 +26,7 @@ public enum class ExperienceEnum(
         icon = Icons.advanced
     ),
     PRO(
-        title = "Intermediate",
+        title = "Pro",
         description = "You've been working out for over 5 years, have excellent exercise form, and are noticeably muscular.",
         icon = Icons.pro
     )

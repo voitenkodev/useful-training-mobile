@@ -31,8 +31,8 @@ public fun DurationPicker(
             onValueChange(it)
         },
         colors = SliderDefaults.colors(
-            activeTrackColor = Design.colors.toxic,
-            inactiveTrackColor = Design.colors.caption
+            activeTrackColor = Design.colors.green,
+            inactiveTrackColor = Design.colors.label
         ),
         valueRange = range,
         steps = steps,

@@ -14,7 +14,7 @@ import molecule.TextBody4
 public fun InputLabel(
     modifier: Modifier = Modifier,
     provideText: () -> String,
-    color: Color = Design.colors.caption,
+    color: Color = Design.colors.label,
     textAlign: TextAlign? = null
 ) {
     TextBody4(

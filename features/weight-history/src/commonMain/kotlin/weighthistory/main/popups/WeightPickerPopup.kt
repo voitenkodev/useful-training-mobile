@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.unit.dp
 import atom.Design
-import components.ShadowBottomButtons
+import components.BottomButtons
 import grToKg
 import kg
 import molecule.ButtonPrimary
@@ -55,8 +55,8 @@ internal fun WeightPickerPopup(
                 scaleWidth = 140.dp,
                 tenStepLineColor = Design.colors.content,
                 fiveStepLineColor = Design.colors.orange,
-                normalLineColor = Design.colors.caption,
-                indicatorColor = Design.colors.toxic,
+                normalLineColor = Design.colors.label,
+                indicatorColor = Design.colors.green,
                 backgroundColor = Design.colors.secondary,
                 arrowColor = Design.colors.white5
             )
@@ -69,7 +69,7 @@ internal fun WeightPickerPopup(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-            ShadowBottomButtons(
+            BottomButtons(
                 modifier = Modifier.fillMaxWidth(),
                 first = {
                     ButtonSecondary(

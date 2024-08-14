@@ -248,7 +248,7 @@ public fun Label(
         placeholder = placeholder,
         textStyle = Design.typography.Label,
         maxLines = maxLines,
-        color = color ?: Design.colors.caption,
+        color = color ?: Design.colors.label,
         textAlign = textAlign,
         fontWeight = fontWeight,
         overflow = overflow

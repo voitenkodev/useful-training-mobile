@@ -12,7 +12,7 @@ internal fun dp() = Dp(
     paddingXXL = 62.dp,
 
 
-    iconS = 18.dp,
+    iconS = 16.dp,
     componentS = 42.dp,
     componentM = 54.dp,
     componentXL = 64.dp,

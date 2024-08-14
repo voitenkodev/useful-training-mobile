@@ -69,7 +69,7 @@ internal fun MuscleGroup(
                     modifier = Modifier.padding(bottom = 4.dp),
                     text = if (item.isSelected) "CLEAR" else "ALL",
                     onClick = { selectMuscleGroup.invoke(item.id) },
-                    color = if (item.isSelected) Design.colors.caption else Design.colors.toxic
+                    color = if (item.isSelected) Design.colors.label else Design.colors.green
                 )
             }
         }
@@ -113,15 +113,15 @@ private fun MuscleChip(
             when (muscle.load) {
                 MuscleLoadEnum.HIGH -> Design.palette.content
                 MuscleLoadEnum.MEDIUM -> Design.palette.content
-                MuscleLoadEnum.LOW -> Design.palette.caption
+                MuscleLoadEnum.LOW -> Design.palette.label
                 null -> Design.palette.white10
             }
         }
     }
 
     val selectedChipState = ChipState.Colored(
-        backgroundColor = Design.colors.toxic.copy(alpha = 0.1f),
-        borderColor = Design.colors.toxic,
+        backgroundColor = Design.colors.green.copy(alpha = 0.1f),
+        borderColor = Design.colors.green,
         contentColor = Design.colors.content,
         enabled = muscle.status != IncludedStatusEnum.EXCLUDED
     )

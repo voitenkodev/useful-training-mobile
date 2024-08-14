@@ -122,26 +122,10 @@ public fun WeightPicker(
                     y = outerRadius * sin(angleInRad) + circleCenter.y
                 )
 
-                val designLineStart = Offset(
-                    x = (innerRadius - outerRadius) * cos(angleInRad) + circleCenter.x,
-                    y = (innerRadius - outerRadius) * sin(angleInRad) + circleCenter.y
-                )
-                val designLineEnd = Offset(
-                    x = (innerRadius + 175) * cos(angleInRad) + circleCenter.x,
-                    y = (innerRadius + 175) * sin(angleInRad) + circleCenter.y
-                )
-
                 if (lineType is LineType.TenStep) {
                     val textRadius = outerRadius - lineLength - style.fontSize.toPx()
                     val x = textRadius * cos(angleInRad) + circleCenter.x
                     val y = textRadius * sin(angleInRad) + circleCenter.y
-
-                    drawLine(
-                        color = pickerStyle.arrowColor,
-                        start = designLineStart,
-                        end = designLineEnd,
-                        strokeWidth = pickerStyle.strokeWidth.toPx()
-                    )
 
                     rotate(
                         degrees = angleInRad * (180f / PI.toFloat()) + 90f,
@@ -176,12 +160,12 @@ public fun WeightPicker(
                 y = circleCenter.y - innerRadius - pickerStyle.scaleIndicatorLength.toPx()
             )
             val bottomLeft = Offset(
-                x = circleCenter.x - 12f,
-                y = circleCenter.y - innerRadius + 20
+                x = circleCenter.x - 24f,
+                y = circleCenter.y - innerRadius
             )
             val bottomRight = Offset(
-                x = circleCenter.x + 12f,
-                y = circleCenter.y - innerRadius + 20
+                x = circleCenter.x + 24f,
+                y = circleCenter.y - innerRadius
             )
             val indicator = Path().apply {
                 moveTo(middleTop.x, middleTop.y)

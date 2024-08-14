@@ -170,7 +170,7 @@ internal fun BoxScope.SetIterationContent(
                     imageVector = Icons.save,
                     enabled = enabledSave,
                     onClick = innerSave,
-                    contentColor = if (enabledSave) Design.colors.toxic else Design.colors.white10
+                    contentColor = if (enabledSave) Design.colors.green else Design.colors.white10
                 )
             }
 

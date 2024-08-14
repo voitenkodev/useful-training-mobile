@@ -34,7 +34,7 @@ private fun colorBySelection(
 
     return when (style) {
         is MuscleColorStyle.Loading -> {
-            val selected = Design.palette.toxic.copy(alpha = 0.7f)
+            val selected = Design.palette.green.copy(alpha = 0.7f)
 
             when {
                 muscle?.isSelected == true && style.includedMuscleStatuses.contains(muscle.load) -> selected
@@ -44,7 +44,7 @@ private fun colorBySelection(
         }
 
         is MuscleColorStyle.Default -> {
-            val selected = Design.palette.toxic
+            val selected = Design.palette.green
 
             when (muscle?.isSelected) {
                 true -> selected

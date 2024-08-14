@@ -11,8 +11,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import components.BottomButtons
 import components.Error
-import components.ShadowBottomButtons
 import components.ShadowFooterSpace
 import components.roots.ScreenRoot
 import kotlinx.collections.immutable.ImmutableList
@@ -106,7 +106,7 @@ private fun Content(
             }
         }
 
-        ShadowBottomButtons(
+        BottomButtons(
             modifier = Modifier.fillMaxWidth().align(Alignment.BottomCenter),
             first = {
                 ButtonSecondary(

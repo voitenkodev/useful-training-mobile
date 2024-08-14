@@ -1,4 +1,4 @@
-package authentication.register.components
+package user.component
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -20,6 +20,7 @@ import molecule.Icon
 import molecule.PaddingXS
 import molecule.TextBody4
 import molecule.TextH4
+import resources.Icons
 
 @Composable
 public fun ExperienceCard(
@@ -33,7 +34,11 @@ public fun ExperienceCard(
 
     val initialModifier = modifier
         .border(
-            color = if (isSelected) Design.colors.toxic else Design.palette.white10,
+            color = if (isSelected) {
+                Design.colors.green.copy(alpha = 0.4f)
+            } else {
+                Design.palette.white10
+            },
             width = 1.dp,
             shape = Design.shape.default
         )
@@ -61,12 +66,15 @@ public fun ExperienceCard(
         Icon(
             modifier = Modifier
                 .size(Design.dp.componentS)
-                .padding(Design.dp.paddingXS),
+                .padding(Design.dp.paddingS),
             color = when (isSelected) {
-                true -> Design.colors.toxic
-                false -> Design.colors.caption
+                true -> Design.colors.green
+                false -> Design.colors.label
             },
-            imageVector = startIcon.first
+            imageVector = when (isSelected) {
+                true -> Icons.checkOn
+                false -> Icons.checkOff
+            },
         )
 
         Column(
@@ -82,7 +90,7 @@ public fun ExperienceCard(
 
             TextBody4(
                 provideText = { description },
-                color = Design.colors.caption
+                color = Design.colors.label
             )
         }
     }

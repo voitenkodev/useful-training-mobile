@@ -25,8 +25,8 @@ import androidx.compose.ui.text.capitalize
 import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.unit.dp
 import atom.Design
+import components.BottomButtons
 import components.Error
-import components.ShadowBottomButtons
 import components.ShadowFooterSpace
 import components.ShadowHeader
 import components.ShadowHeaderSpace
@@ -119,14 +119,14 @@ private fun Content(
 ) {
 
     val selectedChipState = ChipState.Colored(
-        backgroundColor = Design.colors.toxic.copy(alpha = 0.2f),
-        borderColor = Design.colors.toxic,
+        backgroundColor = Design.colors.green.copy(alpha = 0.2f),
+        borderColor = Design.colors.green,
         contentColor = Design.colors.content
     )
 
     val unSelectedChipState = ChipState.Colored(
         backgroundColor = Color.Transparent,
-        borderColor = Design.colors.caption,
+        borderColor = Design.colors.label,
         contentColor = Design.colors.content
     )
 
@@ -187,7 +187,7 @@ private fun Content(
                     minimalRange = minimalRange,
                     thumbs = thumbs,
                     requiredFilledRange = false,
-                    lineColor = Design.colors.caption,
+                    lineColor = Design.colors.label,
                     onValueChange = { updatedThumbs ->
                         val newList = muscles.map {
                             val innerMuscles = it.muscles.map { m ->
@@ -331,7 +331,7 @@ private fun Content(
             hasEquip && hasMuscles && hasName && hasImage && hasAllFilters
         }
 
-        ShadowBottomButtons(
+        BottomButtons(
             modifier = Modifier.fillMaxWidth().align(Alignment.BottomCenter),
             first = {
                 ButtonSecondary(

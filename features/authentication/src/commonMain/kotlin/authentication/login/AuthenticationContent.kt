@@ -101,7 +101,7 @@ private fun Content(
             TextBody2(
                 provideText = { "Sign in with your email and password" },
                 textAlign = TextAlign.Center,
-                color = Design.colors.caption
+                color = Design.colors.label
             )
 
             PaddingXXL()
@@ -132,8 +132,7 @@ private fun Content(
                 modifier = Modifier.fillMaxWidth().padding(horizontal = Design.dp.paddingL),
                 text = "Sign in",
                 onClick = loginProvider,
-                enabled = email.isNotBlank() && password.isNotBlank(),
-                loading = loading()
+                enabled = email.isNotBlank() && password.isNotBlank()
             )
 
             PaddingL()
@@ -146,7 +145,7 @@ private fun Content(
 
                 TextBody2(
                     provideText = { "Don't have an account yet?" },
-                    color = Design.colors.caption
+                    color = Design.colors.label
                 )
 
                 ButtonTextLink(

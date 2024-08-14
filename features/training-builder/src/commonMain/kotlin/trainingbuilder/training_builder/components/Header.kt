@@ -76,7 +76,7 @@ internal fun Header(
                 text = "Finish",
                 onClick = finish,
                 loading = loading,
-                backgroundColor = Design.colors.toxic,
+                backgroundColor = Design.colors.green,
                 textColor = Design.colors.primary,
                 enabled = finishEnabled
             )

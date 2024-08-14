@@ -78,7 +78,7 @@ public fun ExerciseCardSmall(
                 shape = Design.shape.default
             ).border(
                 width = 1.dp,
-                color = Design.colors.toxic,
+                color = Design.colors.green,
                 shape = Design.shape.default
             ).clip(shape = Design.shape.default)
     ) {

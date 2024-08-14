@@ -14,8 +14,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import atom.Design
+import components.BottomButtons
 import components.Error
-import components.ShadowBottomButtons
 import components.ShadowFooterSpace
 import components.cards.WeightCard
 import components.cards.WeightCardIcon
@@ -102,7 +102,7 @@ private fun Content(
 
                     val previousWeight = weightHistory.getOrNull(index + 1)?.weight ?: 0.0
 
-                    val color = if (item.weight > previousWeight) Design.colors.toxic
+                    val color = if (item.weight > previousWeight) Design.colors.green
                     else Design.colors.orange
 
                     val img = if (item.weight > previousWeight) Icons.arrowUp
@@ -138,7 +138,7 @@ private fun Content(
             }
         }
 
-        ShadowBottomButtons(
+        BottomButtons(
             modifier = Modifier.fillMaxWidth().align(Alignment.BottomCenter),
             first = {},
             second = {

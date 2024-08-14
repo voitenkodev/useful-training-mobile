@@ -62,8 +62,8 @@ internal fun Header(
                     chartStyle = LineChartStyle(
                         lineColor = Design.colors.content,
                         labelStyle = LineChartLabelStyle(
-                            backgroundColor = Design.colors.toxic.copy(alpha = 0.2f),
-                            borderColor = Design.colors.toxic,
+                            backgroundColor = Design.colors.green.copy(alpha = 0.2f),
+                            borderColor = Design.colors.green,
                             paddings = Design.dp.paddingXS,
                             textColor = Design.colors.content,
                             spaceTillLine = 26.dp,

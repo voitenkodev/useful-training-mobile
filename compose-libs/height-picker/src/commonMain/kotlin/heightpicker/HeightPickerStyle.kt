@@ -8,12 +8,12 @@ public data class HeightPickerStyle(
     var normalLineColor: Color,
     var tenStepLineColor: Color,
     var fiveStepLineColor: Color,
-    var backgroundColor: Color,
-    var indicatorColor: Color,
-    val normalLineLength: Dp = 7.dp,
-    val fiveStepLineLength: Dp = 12.dp,
-    val tenStepLineLength: Dp = 17.dp,
-    var strokeWidth: Dp = 1.dp,
+
+    val oneLineLength: Dp = 20.dp,
+    val fiveStepLineLength: Dp = 28.dp,
+    val tenStepLineLength: Dp = 40.dp,
+
+    var strokeWidth: Dp = 3.dp,
     var spaceInterval: Int = 26,
     var visibilityRange: Int = 30
 )

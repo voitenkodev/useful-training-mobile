@@ -26,7 +26,11 @@ public fun MuscleChip(
     val borderColor =
         muscle.coverage?.color
             .takeIf { muscle.coverage?.percentage != 0 }
-            ?: Design.palette.white10
+            ?: if (muscle.isSelected) {
+                Design.palette.green.copy(alpha = 0.4f)
+            } else {
+                Design.palette.white10
+            }
 
     val chipState = ChipState.Colored(
         backgroundColor = Color.Transparent,

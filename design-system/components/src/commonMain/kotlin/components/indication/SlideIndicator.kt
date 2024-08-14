@@ -41,7 +41,7 @@ public fun SlideIndicator(pagerState: PagerState) {
             Modifier
                 .slidingLineTransition(pagerState, distance)
                 .size(width = dotWidth, height = dotHeight)
-                .background(color = Design.colors.toxic, shape = CircleShape)
+                .background(color = Design.colors.green, shape = CircleShape)
         )
     }
 }

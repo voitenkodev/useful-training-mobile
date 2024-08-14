@@ -11,7 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import atom.Design
-import components.ShadowBottomButtons
+import components.BottomButtons
 import components.ShadowFooterSpace
 import equipment.EquipmentGroup
 import equipment.component.EquipmentGroup
@@ -35,6 +35,7 @@ internal fun ExcludeEquipmentPage(
 ) {
 
     Box(modifier = Modifier.fillMaxSize()) {
+
         Column(
             modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally
@@ -49,16 +50,18 @@ internal fun ExcludeEquipmentPage(
             TextBody2(
                 provideText = { "If you don't have any of equipment you\nmay to exclude it?" },
                 textAlign = TextAlign.Center,
-                color = Design.colors.caption
+                color = Design.colors.label
             )
 
             PaddingXL()
 
             Shadow()
 
-            PaddingM()
-
             LazyColumn(modifier = Modifier.fillMaxWidth().weight(1f)) {
+
+                item {
+                    PaddingM()
+                }
 
                 itemsIndexed(equipments, key = { _, item -> item.id }) { _, item ->
 
@@ -74,7 +77,7 @@ internal fun ExcludeEquipmentPage(
             }
         }
 
-        ShadowBottomButtons(
+        BottomButtons(
             modifier = Modifier.fillMaxWidth().align(Alignment.BottomCenter),
             first = {
                 ButtonSecondary(

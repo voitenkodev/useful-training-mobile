@@ -27,7 +27,7 @@ internal fun typography() = Typography(
         baselineShift = BaselineShift.None,
         fontSize = 26.sp,
         letterSpacing = 1.sp,
-        fontWeight = FontWeight.Bold,
+        fontWeight = FontWeight.Medium,
         fontStyle = FontStyle.Normal,
         fontFamily = Fonts.Primary(),
         lineHeightStyle = LineHeightStyle(
@@ -99,13 +99,13 @@ internal fun typography() = Typography(
     ),
     Button = TextStyle(
         fontSize = 16.sp,
-        fontWeight = FontWeight.Bold,
+        fontWeight = FontWeight.Medium,
         letterSpacing = 1.sp,
         fontStyle = FontStyle.Normal,
     ),
     TertiaryButton = TextStyle(
         fontSize = 14.sp,
-        fontWeight = FontWeight.Bold,
+        fontWeight = FontWeight.Medium,
         fontStyle = FontStyle.Normal,
         textDecoration = TextDecoration.Underline,
     )
