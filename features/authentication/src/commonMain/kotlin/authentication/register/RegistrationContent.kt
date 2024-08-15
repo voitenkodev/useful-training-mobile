@@ -167,7 +167,7 @@ private fun Content(
                         back = { previousStep.invoke(backProvider) }
                     )
 
-                    3 -> ExperiencePage(
+                    2 -> ExperiencePage(
                         experiences = experiences,
                         experience = experience,
                         update = selectExperience,
@@ -175,21 +175,21 @@ private fun Content(
                         back = { previousStep.invoke(backProvider) }
                     )
 
-                    4 -> ExcludeMusclePage(
+                    3 -> ExcludeMusclePage(
                         muscles = muscles,
                         selectMuscle = selectMuscle,
                         confirm = nextStep,
                         back = { previousStep.invoke(backProvider) }
                     )
 
-                    5 -> ExcludeEquipmentPage(
+                    4 -> ExcludeEquipmentPage(
                         equipments = equipments,
                         selectEquipment = selectEquipment,
                         confirm = nextStep,
                         back = { previousStep.invoke(backProvider) }
                     )
 
-                    6 -> CredentialsPage(
+                    5 -> CredentialsPage(
                         password = password,
                         email = email,
                         updateEmail = updateEmail,
