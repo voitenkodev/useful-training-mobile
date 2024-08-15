@@ -121,7 +121,7 @@ public fun Input(
         },
         animationSpec = tween(durationMillis = 300, easing = LinearEasing)
     )
-    Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(Design.dp.paddingXS)) {
+    Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(Design.dp.paddingS)) {
 
         label?.invoke()
 
@@ -263,7 +263,7 @@ public fun Input(
         },
         animationSpec = tween(durationMillis = 300, easing = LinearEasing)
     )
-    Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(Design.dp.paddingXS)) {
+    Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(Design.dp.paddingS)) {
 
         label?.invoke()
 

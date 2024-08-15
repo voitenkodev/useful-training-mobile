@@ -26,6 +26,7 @@ kotlin {
             implementation(projects.common.utils)
 
             implementation(projects.composeLibs.composeImage)
+            implementation(projects.composeLibs.heightPicker)
             implementation(projects.composeLibs.charts)
 
             implementation(libs.immutable.collections)

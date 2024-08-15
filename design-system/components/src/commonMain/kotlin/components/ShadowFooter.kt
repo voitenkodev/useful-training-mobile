@@ -1,6 +1,5 @@
 package components
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -64,10 +63,10 @@ public fun BottomButtons(
                         end = Design.dp.paddingL
                     )
                     .fillMaxWidth()
-                    .background(
-                        color = Design.colors.secondary,
-                        shape = Design.shape.default
-                    ).padding(Design.dp.paddingS)
+//                    .background(
+//                        color = Design.colors.secondary,
+//                        shape = Design.shape.default
+//                    ).padding(Design.dp.paddingS)
                     .height(Design.dp.componentM),
                 horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
             ) {

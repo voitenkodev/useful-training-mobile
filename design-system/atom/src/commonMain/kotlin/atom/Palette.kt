@@ -7,7 +7,7 @@ internal fun darkPalette() = Color()
 public data class Color(
     val primary: Color = Color(0xff15171C), // +
     val secondary: Color = Color(0xff1D1F27), // +
-    val tertiary: Color = Color(0xff272932), // +
+    val tertiary: Color = Color(0xff33363D), // +
 
     val orange: Color = Color(0xffE54D6D), // +
     val yellow: Color = Color(0xffECCA55), // +

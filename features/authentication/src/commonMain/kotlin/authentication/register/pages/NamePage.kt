@@ -11,7 +11,6 @@ import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.text.style.TextAlign
 import atom.Design
 import components.BottomButtons
 import components.inputs.InputName
@@ -22,7 +21,7 @@ import molecule.PaddingM
 import molecule.PaddingWeight
 import molecule.PaddingXS
 import molecule.PaddingXXL
-import molecule.TextBody2
+import molecule.TextBody1
 import molecule.TextH2
 import resources.Icons
 
@@ -47,21 +46,21 @@ internal fun NamePage(
 
     Column(
         modifier = Modifier.fillMaxSize().imePadding(),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.Start
     ) {
 
         PaddingL()
 
         TextH2(
+            modifier = Modifier.padding(horizontal = Design.dp.paddingL),
             provideText = { "Nice to meet you" },
-            textAlign = TextAlign.Center
         )
 
         PaddingXS()
 
-        TextBody2(
+        TextBody1(
+            modifier = Modifier.padding(horizontal = Design.dp.paddingL),
             provideText = { "How can we call you?" },
-            textAlign = TextAlign.Center,
             color = Design.colors.label
         )
 

@@ -9,6 +9,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.geometry.RoundRect
@@ -39,7 +40,9 @@ public fun HeightPicker(
 ) {
     val style = Design.typography
         .H4
-        .copy(color = Design.colors.content)
+        .copy(
+            color = Design.colors.content,
+        )
     val textMeasurer = rememberTextMeasurer()
     val internalInitial = remember { initial }
     var targetDistant by remember { mutableStateOf(0f) }
@@ -74,13 +77,15 @@ public fun HeightPicker(
                 offset = Offset(x = 0f, y = topLinerY),
                 size = this.size
             ),
+            cornerRadius = CornerRadius(
+                x = pickerStyle.radius.toPx(),
+                y = pickerStyle.radius.toPx(),
+            )
         )
 
         val path = Path().apply { addRoundRect(rect) }
 
         clipPath(path = path) {
-
-
             for (value in rangeStart..rangeEnd) {
                 if (value in minimal..maximum) {
                     val positionLineScaleX =
@@ -105,8 +110,8 @@ public fun HeightPicker(
                     }
 
                     val centerY = pickerStyle.tenStepLineLength.toPx() / 2
-                    val lineStartY = centerY - lineHeightSize / 2
-                    val lineEndY = centerY + lineHeightSize / 2
+                    val lineStartY = 0f
+                    val lineEndY = lineHeightSize
 
                     drawLine(
                         start = Offset(positionLineScaleX, lineStartY),
@@ -134,55 +139,26 @@ public fun HeightPicker(
                             textLayoutResult = dimensions,
                             topLeft = Offset(
                                 x = positionLineScaleX - (dimensions.size.width / 2),
-                                y = lineEndY + 12.dp.toPx()
+                                y = lineEndY + 8.dp.toPx()
                             ),
                         )
                     }
                 }
             }
+
+            drawLine(
+                start = Offset(
+                    middlePoint.x,
+                    0f
+                ),
+                end = Offset(
+                    middlePoint.x,
+                    pickerStyle.tenStepLineLength.toPx()
+                ),
+                brush = SolidColor(pickerStyle.indicatorColor),
+                strokeWidth = pickerStyle.indicatorWidth.toPx(),
+                cap = StrokeCap.Round
+            )
         }
-
-        // ******************** MARKER START ********************
-
-//        val circleRadius = pickerStyle.markerHeight.toPx() / 2
-//        val circleCenter = Offset(
-//            x = center.x,
-//            y = topLinerY - circleRadius
-//        )
-//
-//        val circlePath = Path().apply {
-//            addOval(
-//                Rect(
-//                    circleCenter.x - circleRadius,
-//                    circleCenter.y - circleRadius,
-//                    circleCenter.x + circleRadius,
-//                    circleCenter.y + circleRadius
-//                )
-//            )
-//        }
-//
-//        val lineStart = Offset(
-//            x = center.x,
-//            y = circleCenter.y + circleRadius + 5f
-//        )
-//        val lineEnd = Offset(
-//            x = center.x,
-//            y = lineStart.y + 56f
-//        )
-//
-//        drawPath(
-//            path = circlePath,
-//            color = pickerStyle.indicatorColor
-//        )
-//
-//        drawLine(
-//            color = pickerStyle.indicatorColor,
-//            start = lineStart,
-//            end = lineEnd,
-//            strokeWidth = pickerStyle.strokeWidth.toPx() * 2,
-//            cap = StrokeCap.Round
-//        )
-
-        // ******************** MARKER END ********************
     }
 }

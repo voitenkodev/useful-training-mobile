@@ -1,6 +1,7 @@
 package authentication.register
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
@@ -11,13 +12,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import atom.Design
 import authentication.register.models.RegistrationStatus
 import authentication.register.models.RegistrationSteps
 import authentication.register.pages.CredentialsPage
 import authentication.register.pages.ExcludeEquipmentPage
 import authentication.register.pages.ExcludeMusclePage
 import authentication.register.pages.ExperiencePage
-import authentication.register.pages.HeightPage
 import authentication.register.pages.NamePage
 import authentication.register.pages.WeightPage
 import com.arkivanov.essenty.backhandler.BackCallback
@@ -28,7 +29,7 @@ import equipment.EquipmentGroup
 import io.github.xxfast.decompose.router.LocalRouterContext
 import kotlinx.collections.immutable.ImmutableList
 import molecule.PaddingL
-import molecule.PaddingXL
+import molecule.PaddingXXL
 import muscles.MuscleGroup
 import user.ExperienceEnum
 
@@ -134,9 +135,13 @@ private fun Content(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-            PaddingXL()
+            PaddingXXL()
 
-            SlideIndicator(pagerState)
+            SlideIndicator(
+                modifier = Modifier.padding(horizontal = Design.dp.paddingL),
+                pagerState = pagerState,
+                spacing = Design.dp.paddingS
+            )
 
             PaddingL()
 
@@ -157,13 +162,8 @@ private fun Content(
                         weight = weight,
                         updateWeight = updateWeight,
                         confirm = nextStep,
-                        back = { previousStep.invoke(backProvider) }
-                    )
-
-                    2 -> HeightPage(
                         height = height,
                         updateHeight = updateHeight,
-                        confirm = nextStep,
                         back = { previousStep.invoke(backProvider) }
                     )
 

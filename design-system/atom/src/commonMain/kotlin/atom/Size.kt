@@ -13,6 +13,9 @@ internal fun dp() = Dp(
 
 
     iconS = 16.dp,
+    iconM = 20.dp,
+
+
     componentS = 42.dp,
     componentM = 54.dp,
     componentXL = 64.dp,
@@ -28,6 +31,7 @@ public data class Dp(
     val paddingXXL: Dp,
 
     val iconS: Dp,
+    val iconM: Dp,
 
     val componentS: Dp,
 

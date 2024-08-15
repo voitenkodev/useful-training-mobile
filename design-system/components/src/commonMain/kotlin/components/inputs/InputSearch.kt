@@ -18,7 +18,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import atom.Design
-import components.labels.InputLabel
 import molecule.ButtonIconSecondary
 import molecule.Icon
 import molecule.Input

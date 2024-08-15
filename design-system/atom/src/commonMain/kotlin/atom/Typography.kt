@@ -13,7 +13,7 @@ import resources.Fonts
 @Composable
 internal fun typography() = Typography(
     H1 = TextStyle(
-        fontSize = 30.sp,
+        fontSize = 36.sp,
         fontWeight = FontWeight.ExtraBold,
         fontStyle = FontStyle.Normal,
         letterSpacing = 2.sp,
@@ -25,9 +25,9 @@ internal fun typography() = Typography(
     ),
     H2 = TextStyle(
         baselineShift = BaselineShift.None,
-        fontSize = 26.sp,
+        fontSize = 30.sp,
         letterSpacing = 1.sp,
-        fontWeight = FontWeight.Medium,
+        fontWeight = FontWeight.SemiBold,
         fontStyle = FontStyle.Normal,
         fontFamily = Fonts.Primary(),
         lineHeightStyle = LineHeightStyle(
@@ -67,6 +67,12 @@ internal fun typography() = Typography(
     Label = TextStyle(
         fontSize = 16.sp,
         fontWeight = FontWeight.Medium,
+        fontStyle = FontStyle.Normal,
+        lineHeight = 20.sp
+    ),
+    InputLabel = TextStyle(
+        fontSize = 14.sp,
+        fontWeight = FontWeight.Normal,
         fontStyle = FontStyle.Normal,
         lineHeight = 20.sp
     ),
@@ -126,7 +132,9 @@ public data class Typography(
 
     @Deprecated("Use Label")
     val TextLabel: TextStyle, // Sub titles for sections)
+
     val Label: TextStyle, // Sub titles for sections)
+    val InputLabel: TextStyle, // Sub titles for sections)
 
     val Button: TextStyle,
     val TertiaryButton: TextStyle

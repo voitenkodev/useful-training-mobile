@@ -5,6 +5,9 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 public data class HeightPickerStyle(
+    var indicatorColor: Color = Color(0xffECCA55),
+    var indicatorWidth: Dp = 3.dp,
+
     var normalLineColor: Color,
     var tenStepLineColor: Color,
     var fiveStepLineColor: Color,
@@ -15,5 +18,7 @@ public data class HeightPickerStyle(
 
     var strokeWidth: Dp = 3.dp,
     var spaceInterval: Int = 26,
-    var visibilityRange: Int = 30
+    var visibilityRange: Int = 30,
+
+    val radius: Dp = 12.dp
 )

@@ -206,6 +206,30 @@ public fun TextBody4(
     )
 }
 
+@Composable
+public fun InputLabel(
+    provideText: () -> String?,
+    modifier: Modifier = Modifier,
+    placeholder: String? = null,
+    color: Color? = null,
+    textAlign: TextAlign? = null,
+    maxLines: Int = Int.MAX_VALUE,
+    fontWeight: FontWeight? = null,
+    overflow: TextOverflow = TextOverflow.Clip
+) {
+    TextField(
+        modifier = modifier,
+        provideText = provideText,
+        placeholder = placeholder,
+        textStyle = Design.typography.InputLabel,
+        maxLines = maxLines,
+        color = color ?: Design.colors.label,
+        textAlign = textAlign,
+        fontWeight = fontWeight,
+        overflow = overflow
+    )
+}
+
 @Deprecated("use Label")
 @Composable
 public fun TextLabel(

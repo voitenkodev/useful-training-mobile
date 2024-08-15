@@ -14,9 +14,9 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
-import components.labels.InputLabel
 import molecule.ButtonIconSecondary
 import molecule.Input
+import molecule.InputLabel
 
 @Composable
 public fun InputName(
@@ -47,7 +47,9 @@ public fun InputName(
             }
         },
         label = {
-            InputLabel(provideText = { "Enter name" })
+            InputLabel(
+                provideText = { "Enter name" }
+            )
         },
         maxLines = 1,
         keyboardActions = KeyboardActions { focusManager.moveFocus(FocusDirection.Next) },

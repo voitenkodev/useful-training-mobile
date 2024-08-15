@@ -34,6 +34,7 @@ import resources.icon.outline.EmptyTraining
 import resources.icon.outline.EyeOff
 import resources.icon.outline.EyeOn
 import resources.icon.outline.Filter
+import resources.icon.outline.Height
 import resources.icon.outline.Loading
 import resources.icon.outline.Search
 import resources.icon.outline.Youtube
@@ -71,6 +72,7 @@ public object Icons {
     public val weigher: ImageVector = WeightGym
     public val repetitions: ImageVector = Dumbbell
     public val emptyTraining: ImageVector = EmptyTraining
+    public val height: ImageVector = Height
 
     // Profile
     public val edit: ImageVector = Edit

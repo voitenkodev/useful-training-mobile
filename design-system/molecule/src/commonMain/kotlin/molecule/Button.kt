@@ -83,7 +83,7 @@ public fun ButtonPrimary(
     ) {
         if (leadingIcon != null) {
             Icon(
-                modifier = Modifier.size(Design.dp.iconS),
+                modifier = Modifier.size(Design.dp.iconM),
                 imageVector = leadingIcon,
                 color = textColor
             )
