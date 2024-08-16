@@ -25,7 +25,7 @@ public fun MuscleGroup(
 ) {
 
     Column(
-        modifier = modifier.fillMaxWidth().padding(Design.dp.paddingL),
+        modifier = modifier.fillMaxWidth().padding(horizontal = Design.dp.paddingL),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 

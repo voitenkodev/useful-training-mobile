@@ -85,19 +85,19 @@ internal fun typography() = Typography(
     ),
     Body1 = TextStyle(
         fontSize = 16.sp,
-        fontWeight = FontWeight.Medium,
+        fontWeight = FontWeight.SemiBold,
         fontStyle = FontStyle.Normal,
         lineHeight = 20.sp
     ),
     Body2 = TextStyle(
         fontSize = 16.sp,
-        fontWeight = FontWeight.Normal,
+        fontWeight = FontWeight.Medium,
         fontStyle = FontStyle.Normal,
         lineHeight = 20.sp
     ),
     Body3 = TextStyle(
-        fontSize = 14.sp,
-        fontWeight = FontWeight.SemiBold,
+        fontSize = 16.sp,
+        fontWeight = FontWeight.Normal,
         fontStyle = FontStyle.Normal,
     ),
     Body4 = TextStyle(

@@ -1,5 +1,6 @@
 package authentication.register.pages
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -15,8 +16,8 @@ import kotlinx.collections.immutable.ImmutableList
 import molecule.ButtonPrimary
 import molecule.ButtonSecondary
 import molecule.PaddingL
+import molecule.PaddingM
 import molecule.PaddingXS
-import molecule.PaddingXXL
 import molecule.TextBody1
 import molecule.TextH1
 import muscles.MuscleGroup
@@ -36,7 +37,10 @@ internal fun ExcludeMusclePage(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        LazyColumn(modifier = Modifier.fillMaxWidth().weight(1f)) {
+        LazyColumn(
+            modifier = Modifier.fillMaxWidth().weight(1f),
+            verticalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
+        ) {
 
             item(key = "header") {
 
@@ -58,12 +62,13 @@ internal fun ExcludeMusclePage(
                     color = Design.colors.label
                 )
 
-                PaddingXXL()
+                PaddingM()
             }
 
             itemsIndexed(muscles, key = { _, item -> item.id }) { index, item ->
 
                 MuscleGroup(
+                    modifier = Modifier.padding(bottom = Design.dp.paddingM),
                     item = item,
                     selectMuscle = selectMuscle
                 )

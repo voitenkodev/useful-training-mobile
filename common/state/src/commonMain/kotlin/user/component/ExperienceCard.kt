@@ -5,16 +5,14 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import atom.Design
 import molecule.PaddingS
-import molecule.TextBody2
-import molecule.TextH3
+import molecule.TextBody3
+import molecule.TextH4
 
 @Composable
 public fun ExperienceCard(
@@ -25,15 +23,14 @@ public fun ExperienceCard(
     onClick: (() -> Unit)? = null
 ) {
 
-    val initialModifier = modifier
-        .background(
-            color = if (isSelected) {
-                Design.colors.green
-            } else {
-                Design.palette.secondary
-            },
-            shape = Design.shape.large
-        )
+    val initialModifier = modifier.background(
+        color = if (isSelected) {
+            Design.colors.green
+        } else {
+            Design.palette.secondary
+        },
+        shape = Design.shape.large
+    )
 
     val interactionSource = remember { MutableInteractionSource() }
 
@@ -46,33 +43,26 @@ public fun ExperienceCard(
         else initialModifier
     }
 
-    Row(
+    Column(
         modifier = actionModifierProvider.padding(
-            vertical = Design.dp.paddingL,
+            vertical = Design.dp.paddingM,
             horizontal = Design.dp.paddingL
         ),
-        horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingL),
-        verticalAlignment = Alignment.CenterVertically
+        verticalArrangement = Arrangement.Center
     ) {
 
-        Column(
-            modifier = Modifier.weight(1f),
-            verticalArrangement = Arrangement.Center
-        ) {
+        TextH4(
+            provideText = { title }
+        )
 
-            TextH3(
-                provideText = { title }
-            )
+        PaddingS()
 
-            PaddingS()
-
-            TextBody2(
-                provideText = { description },
-                color = when (isSelected) {
-                    true -> Design.colors.content
-                    false -> Design.colors.label
-                }
-            )
-        }
+        TextBody3(
+            provideText = { description },
+            color = when (isSelected) {
+                true -> Design.colors.content
+                false -> Design.colors.label
+            }
+        )
     }
 }
