@@ -20,7 +20,8 @@ import metricpicker.MetricPicker
 import metricpicker.MetricPickerStyle
 import molecule.Icon
 import molecule.Label
-import molecule.PaddingM
+import molecule.PaddingL
+import molecule.PaddingS
 import molecule.TextH1
 
 @Composable
@@ -34,13 +35,20 @@ public fun MetricPickerCard(
     updateValue: (Int) -> Unit,
     minimal: Int = 110,
     maximum: Int = 250,
-) {
+    spaceInterval: Int = 26,
+
+    ) {
 
     Column(
         modifier = modifier
             .clip(shape = Design.shape.default)
             .background(color = Design.colors.secondary)
-            .padding(Design.dp.paddingL)
+            .padding(
+                start = Design.dp.paddingL,
+                end = Design.dp.paddingL,
+                top = Design.dp.paddingL,
+                bottom = Design.dp.paddingS
+            )
     ) {
 
         Row(
@@ -59,7 +67,7 @@ public fun MetricPickerCard(
             )
         }
 
-        PaddingM()
+        PaddingS()
 
         val valueProvider = remember(value) {
             {
@@ -71,7 +79,7 @@ public fun MetricPickerCard(
             provideText = valueProvider
         )
 
-        PaddingM()
+        PaddingL()
 
         MetricPicker(
             modifier = Modifier
@@ -80,11 +88,13 @@ public fun MetricPickerCard(
                 .clipToBounds(),
             stringProvider = providePickerTitle,
             pickerStyle = MetricPickerStyle(
-                tenStepLineColor = Design.colors.label,
-                fiveStepLineColor = Design.colors.label,
-                normalLineColor = Design.colors.label,
+                tenStepLineColor = Design.colors.white30,
+                fiveStepLineColor = Design.colors.white10,
+                normalLineColor = Design.colors.white10,
+                indicatorColor = Design.colors.green,
                 strokeWidth = 2.dp,
-                radius = 6.dp
+                radius = 6.dp,
+                spaceInterval = spaceInterval
             ),
             initial = value,
             minimal = minimal,

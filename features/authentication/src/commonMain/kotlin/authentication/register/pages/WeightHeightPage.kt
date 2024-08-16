@@ -69,8 +69,9 @@ internal fun WeightPage(
             updateValue = updateWeight,
             minimal = 300,
             maximum = 3000,
+            spaceInterval = 18,
         )
-        PaddingXXL()
+        PaddingL()
 
         MetricPickerCard(
             title = "Height",
@@ -82,6 +83,7 @@ internal fun WeightPage(
             updateValue = updateHeight,
             minimal = 110,
             maximum = 250,
+            spaceInterval = 30
         )
 
         PaddingWeight()

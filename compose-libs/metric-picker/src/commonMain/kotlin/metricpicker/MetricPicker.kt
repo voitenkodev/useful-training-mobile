@@ -41,6 +41,7 @@ public fun MetricPicker(
 ) {
     val style = Design.typography
         .H4
+
         .copy(
             color = Design.colors.content,
         )
