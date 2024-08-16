@@ -17,32 +17,40 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import atom.Design
 import equipment.EquipmentGroup
-import molecule.TextH4
+import molecule.PaddingS
+import molecule.TextH3
 
 @Composable
 public fun EquipmentGroup(
+    modifier: Modifier = Modifier,
     item: EquipmentGroup,
     selectEquipment: (id: String) -> Unit
 ) {
 
-    val multiplier = remember(item.equipments.size) { if (item.equipments.size > 8) 2 else 1 }
+    val multiplier = remember(item.equipments.size) {
+        if (item.equipments.size > 8) 2 else 1
+    }
 
     Column(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        TextH4(
-            modifier = Modifier.fillMaxWidth().padding(horizontal = Design.dp.paddingM),
+        TextH3(
+            modifier = Modifier.fillMaxWidth().padding(horizontal = Design.dp.paddingL),
             provideText = { item.name },
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
         )
 
+        PaddingS()
+
         LazyHorizontalGrid(
-            modifier = Modifier.fillMaxWidth().height(200.dp * multiplier),
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(200.dp * multiplier),
             rows = GridCells.Fixed(multiplier),
-            contentPadding = PaddingValues(Design.dp.paddingM),
+            contentPadding = PaddingValues(horizontal = Design.dp.paddingL),
             horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS),
             verticalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
         ) {

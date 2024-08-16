@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import atom.Design
 import components.BottomButtons
@@ -32,10 +31,7 @@ internal fun ExcludeMusclePage(
     back: () -> Unit
 ) {
 
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
+    Column(modifier = Modifier.fillMaxSize()) {
 
         LazyColumn(
             modifier = Modifier.fillMaxWidth().weight(1f),
@@ -55,10 +51,7 @@ internal fun ExcludeMusclePage(
 
                 TextBody1(
                     modifier = Modifier.padding(horizontal = Design.dp.paddingL),
-                    provideText = {
-                        "Would you like to exclude some muscles\n" +
-                                "from your workouts?"
-                    },
+                    provideText = { "You may to exclude muscles you don't want to train with" },
                     color = Design.colors.label
                 )
 
