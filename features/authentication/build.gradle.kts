@@ -37,7 +37,7 @@ kotlin {
 
             implementation(projects.composeLibs.muscles)
             implementation(projects.composeLibs.weightPicker)
-            implementation(projects.composeLibs.heightPicker)
+            implementation(projects.composeLibs.metricPicker)
 
             implementation(libs.immutable.collections)
             implementation(libs.koin.core)

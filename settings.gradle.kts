@@ -56,7 +56,7 @@ include(
     "compose-libs:compose-video",
     "compose-libs:compose-image",
     "compose-libs:weight-picker",
-    "compose-libs:height-picker",
+    "compose-libs:metric-picker",
     "compose-libs:percentage-picker",
     "compose-libs:muscles",
     "compose-libs:equipments",
