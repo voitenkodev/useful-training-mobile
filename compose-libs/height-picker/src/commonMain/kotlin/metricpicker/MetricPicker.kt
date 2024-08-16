@@ -1,4 +1,4 @@
-package heightpicker
+package metricpicker
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.gestures.detectDragGestures
@@ -29,9 +29,9 @@ import kotlin.math.roundToInt
 public const val DEFAULT_INITIAL_HEIGHT: Int = 165
 
 @Composable
-public fun HeightPicker(
+public fun MetricPicker(
     modifier: Modifier = Modifier,
-    pickerStyle: HeightPickerStyle,
+    pickerStyle: MetricPickerStyle,
     minimal: Int = 110,
     maximum: Int = 250,
     initial: Int,

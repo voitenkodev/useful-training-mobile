@@ -4,10 +4,10 @@ import androidx.compose.runtime.Immutable
 import authentication.register.models.RegistrationStatus
 import authentication.register.models.RegistrationSteps
 import equipment.EquipmentGroup
-import heightpicker.DEFAULT_INITIAL_HEIGHT
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toPersistentList
+import metricpicker.DEFAULT_INITIAL_HEIGHT
 import muscles.MuscleGroup
 import user.ExperienceEnum
 import weightpicker.DEFAULT_INITIAL_WEIGHT

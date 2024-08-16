@@ -1,10 +1,10 @@
-package heightpicker
+package metricpicker
 
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
-public data class HeightPickerStyle(
+public data class MetricPickerStyle(
     var indicatorColor: Color = Color(0xffECCA55),
     var indicatorWidth: Dp = 3.dp,
 

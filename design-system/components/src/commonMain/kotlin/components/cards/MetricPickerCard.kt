@@ -16,8 +16,8 @@ import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import atom.Design
-import heightpicker.HeightPicker
-import heightpicker.HeightPickerStyle
+import metricpicker.MetricPicker
+import metricpicker.MetricPickerStyle
 import molecule.Icon
 import molecule.Label
 import molecule.PaddingM
@@ -73,13 +73,13 @@ public fun MetricPickerCard(
 
         PaddingM()
 
-        HeightPicker(
+        MetricPicker(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(Design.dp.paddingXS)
                 .clipToBounds(),
             stringProvider = providePickerTitle,
-            pickerStyle = HeightPickerStyle(
+            pickerStyle = MetricPickerStyle(
                 tenStepLineColor = Design.colors.label,
                 fiveStepLineColor = Design.colors.label,
                 normalLineColor = Design.colors.label,

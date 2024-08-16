@@ -8,7 +8,7 @@ plugins {
 apply(from = "$rootDir/gradle/configs/android.gradle")
 apply(from = "$rootDir/gradle/configs/kotlin.gradle")
 
-android { namespace = "com.voitenko.alienworkout.composelibs.heightpicker" }
+android { namespace = "com.voitenko.alienworkout.composelibs.metricpicker" }
 
 kotlin {
     composeCompiler {

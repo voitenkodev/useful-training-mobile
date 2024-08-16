@@ -1,4 +1,4 @@
-package heightpicker
+package metricpicker
 
 internal sealed class LineType {
     data object Normal : LineType()
