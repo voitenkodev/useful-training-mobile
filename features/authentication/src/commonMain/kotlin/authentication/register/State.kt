@@ -7,16 +7,16 @@ import equipment.EquipmentGroup
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toPersistentList
-import metricpicker.DEFAULT_INITIAL_HEIGHT
+import metricpicker.BASIC_INITIAL_HEIGHT
+import metricpicker.BASIC_INITIAL_WEIGHT
 import muscles.MuscleGroup
 import user.ExperienceEnum
-import weightpicker.DEFAULT_INITIAL_WEIGHT
 
 @Immutable
 internal data class State(
     val name: String = "",
-    val weight: Int = DEFAULT_INITIAL_WEIGHT,
-    val height: Int = DEFAULT_INITIAL_HEIGHT,
+    val weight: Int = BASIC_INITIAL_WEIGHT,
+    val height: Int = BASIC_INITIAL_HEIGHT,
     val email: String = "",
     val password: String = "",
     val passwordRepeat: String = "",

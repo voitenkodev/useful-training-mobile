@@ -26,7 +26,8 @@ import atom.Design
 import kotlin.math.abs
 import kotlin.math.roundToInt
 
-public const val DEFAULT_INITIAL_HEIGHT: Int = 165
+public const val BASIC_INITIAL_HEIGHT: Int = 165
+public const val BASIC_INITIAL_WEIGHT: Int = 650
 
 @Composable
 public fun MetricPicker(
