@@ -13,8 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import atom.Design
-import molecule.PaddingM
-import molecule.TextH4
+import molecule.TextH3
 import muscles.MuscleGroup
 
 @Composable
@@ -26,18 +25,9 @@ public fun MuscleGroup(
 ) {
 
     Column(
-        modifier = modifier.fillMaxWidth().padding(Design.dp.paddingM),
+        modifier = modifier.fillMaxWidth().padding(Design.dp.paddingL),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-
-        TextH4(
-            modifier = Modifier.fillMaxWidth(),
-            provideText = { item.name },
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis,
-        )
-
-        PaddingM()
 
         Box(modifier = Modifier.fillMaxWidth()) {
 
@@ -51,6 +41,15 @@ public fun MuscleGroup(
             )
 
             Column(verticalArrangement = Arrangement.spacedBy(Design.dp.paddingS)) {
+                TextH3(
+                    modifier = Modifier.fillMaxWidth()
+                        .padding(bottom = Design.dp.paddingS),
+                    provideText = { item.name },
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                )
+
+
                 item.muscles.forEach { muscle ->
                     MuscleChip(
                         loadingById = loadingById,

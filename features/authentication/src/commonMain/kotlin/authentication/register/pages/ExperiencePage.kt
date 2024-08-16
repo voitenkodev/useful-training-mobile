@@ -19,6 +19,7 @@ import molecule.PaddingM
 import molecule.PaddingXS
 import molecule.TextBody1
 import molecule.TextH1
+import resources.Icons
 import user.ExperienceEnum
 import user.component.ExperienceCard
 
@@ -60,8 +61,7 @@ internal fun ExperiencePage(
 
             items(experiences) {
                 ExperienceCard(
-                    modifier = Modifier
-                        .padding(horizontal = Design.dp.paddingL),
+                    modifier = Modifier.padding(horizontal = Design.dp.paddingL),
                     title = it.title,
                     description = it.description,
                     isSelected = experience == it,
@@ -77,6 +77,7 @@ internal fun ExperiencePage(
             first = {
                 ButtonSecondary(
                     modifier = Modifier.weight(1f),
+                    leadingIcon = Icons.arrowLeft,
                     text = "Back",
                     onClick = back
                 )
@@ -84,6 +85,7 @@ internal fun ExperiencePage(
             second = {
                 ButtonPrimary(
                     modifier = Modifier.weight(1f),
+                    trailingIcon = Icons.arrowRight,
                     text = "Next",
                     onClick = confirm,
                     enabled = experience != null
