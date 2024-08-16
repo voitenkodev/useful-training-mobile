@@ -1,26 +1,20 @@
 package user.component
 
-import androidx.compose.foundation.border
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.unit.dp
 import atom.Design
-import molecule.Icon
-import molecule.PaddingXS
-import molecule.TextBody4
-import molecule.TextH4
-import resources.Icons
+import molecule.PaddingS
+import molecule.TextBody2
+import molecule.TextH3
 
 @Composable
 public fun ExperienceCard(
@@ -28,19 +22,17 @@ public fun ExperienceCard(
     title: String,
     description: String,
     isSelected: Boolean = false,
-    startIcon: Pair<ImageVector, Color>,
     onClick: (() -> Unit)? = null
 ) {
 
     val initialModifier = modifier
-        .border(
+        .background(
             color = if (isSelected) {
-                Design.colors.green.copy(alpha = 0.4f)
+                Design.colors.green
             } else {
-                Design.palette.white10
+                Design.palette.secondary
             },
-            width = 1.dp,
-            shape = Design.shape.default
+            shape = Design.shape.large
         )
 
     val interactionSource = remember { MutableInteractionSource() }
@@ -56,41 +48,30 @@ public fun ExperienceCard(
 
     Row(
         modifier = actionModifierProvider.padding(
-            vertical = Design.dp.paddingM,
-            horizontal = Design.dp.paddingM
+            vertical = Design.dp.paddingL,
+            horizontal = Design.dp.paddingL
         ),
-        horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM),
+        horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingL),
         verticalAlignment = Alignment.CenterVertically
     ) {
-
-        Icon(
-            modifier = Modifier
-                .size(Design.dp.componentS)
-                .padding(Design.dp.paddingS),
-            color = when (isSelected) {
-                true -> Design.colors.green
-                false -> Design.colors.label
-            },
-            imageVector = when (isSelected) {
-                true -> Icons.checkOn
-                false -> Icons.checkOff
-            },
-        )
 
         Column(
             modifier = Modifier.weight(1f),
             verticalArrangement = Arrangement.Center
         ) {
 
-            TextH4(
+            TextH3(
                 provideText = { title }
             )
 
-            PaddingXS()
+            PaddingS()
 
-            TextBody4(
+            TextBody2(
                 provideText = { description },
-                color = Design.colors.label
+                color = when (isSelected) {
+                    true -> Design.colors.content
+                    false -> Design.colors.label
+                }
             )
         }
     }

@@ -4,6 +4,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -22,7 +24,7 @@ import molecule.PaddingWeight
 import molecule.PaddingXS
 import molecule.PaddingXXL
 import molecule.TextBody1
-import molecule.TextH2
+import molecule.TextH1
 import resources.Icons
 
 @Composable
@@ -36,13 +38,13 @@ internal fun WeightPage(
 ) {
 
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.Start
     ) {
 
         PaddingL()
 
-        TextH2(
+        TextH1(
             modifier = Modifier.padding(horizontal = Design.dp.paddingL),
             provideText = { "Weight & Height" },
             textAlign = TextAlign.Center
@@ -71,6 +73,7 @@ internal fun WeightPage(
             maximum = 3000,
             spaceInterval = 18,
         )
+
         PaddingL()
 
         MetricPickerCard(

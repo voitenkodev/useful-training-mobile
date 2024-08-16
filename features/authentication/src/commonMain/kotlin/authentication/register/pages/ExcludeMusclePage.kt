@@ -21,7 +21,7 @@ import molecule.PaddingXL
 import molecule.PaddingXS
 import molecule.Shadow
 import molecule.TextBody2
-import molecule.TextH2
+import molecule.TextH1
 import muscles.MuscleGroup
 import muscles.component.MuscleGroup
 import resources.Icons
@@ -43,7 +43,7 @@ internal fun ExcludeMusclePage(
 
             PaddingL()
 
-            TextH2(provideText = { "Muscles" }, textAlign = TextAlign.Center)
+            TextH1(provideText = { "Muscles" }, textAlign = TextAlign.Center)
 
             PaddingXS()
 

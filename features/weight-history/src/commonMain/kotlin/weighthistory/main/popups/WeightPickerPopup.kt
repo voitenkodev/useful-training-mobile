@@ -19,7 +19,7 @@ import kg
 import molecule.ButtonPrimary
 import molecule.ButtonSecondary
 import molecule.PaddingWeight
-import molecule.TextH1
+import molecule.TextH2
 import molecule.secondaryBackground
 import weightpicker.WeightPicker
 import weightpicker.WeightPickerStyle
@@ -40,7 +40,7 @@ internal fun WeightPickerPopup(
 
         PaddingWeight()
 
-        TextH1(provideText = { weight.value.grToKg().kg(true) })
+        TextH2(provideText = { weight.value.grToKg().kg(true) })
 
         PaddingWeight()
 

@@ -25,7 +25,7 @@ import molecule.PaddingWeight
 import molecule.PaddingXS
 import molecule.PaddingXXL
 import molecule.TextBody2
-import molecule.TextH2
+import molecule.TextH1
 
 @Composable
 internal fun CredentialsPage(
@@ -58,7 +58,7 @@ internal fun CredentialsPage(
 
         PaddingL()
 
-        TextH2(provideText = { "Last step" }, textAlign = TextAlign.Center)
+        TextH1(provideText = { "Last step" }, textAlign = TextAlign.Center)
 
         PaddingXS()
 

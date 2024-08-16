@@ -19,6 +19,7 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.clipPath
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.text.drawText
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -40,10 +41,10 @@ public fun MetricPicker(
     onValueChange: (Int) -> Unit
 ) {
     val style = Design.typography
-        .H4
-
+        .Body1
         .copy(
             color = Design.colors.content,
+            fontWeight = FontWeight.ExtraBold
         )
     val textMeasurer = rememberTextMeasurer()
     val internalInitial = remember { initial }
@@ -149,10 +150,7 @@ public fun MetricPicker(
             }
 
             drawLine(
-                start = Offset(
-                    middlePoint.x,
-                    0f
-                ),
+                start = Offset(middlePoint.x, 0f),
                 end = Offset(
                     middlePoint.x,
                     pickerStyle.tenStepLineLength.toPx()

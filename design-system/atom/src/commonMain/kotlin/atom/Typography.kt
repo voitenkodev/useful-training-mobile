@@ -13,10 +13,11 @@ import resources.Fonts
 @Composable
 internal fun typography() = Typography(
     H1 = TextStyle(
-        fontSize = 36.sp,
-        fontWeight = FontWeight.ExtraBold,
+        baselineShift = BaselineShift.None,
+        fontSize = 32.sp,
+        letterSpacing = 1.sp,
+        fontWeight = FontWeight.SemiBold,
         fontStyle = FontStyle.Normal,
-        letterSpacing = 2.sp,
         fontFamily = Fonts.Primary(),
         lineHeightStyle = LineHeightStyle(
             alignment = LineHeightStyle.Alignment.Center,
@@ -25,7 +26,7 @@ internal fun typography() = Typography(
     ),
     H2 = TextStyle(
         baselineShift = BaselineShift.None,
-        fontSize = 30.sp,
+        fontSize = 28.sp,
         letterSpacing = 1.sp,
         fontWeight = FontWeight.SemiBold,
         fontStyle = FontStyle.Normal,
@@ -36,6 +37,7 @@ internal fun typography() = Typography(
         ),
     ),
     H3 = TextStyle(
+        baselineShift = BaselineShift.None,
         fontSize = 22.sp,
         fontWeight = FontWeight.Medium,
         letterSpacing = 1.sp,
@@ -95,7 +97,7 @@ internal fun typography() = Typography(
     ),
     Body3 = TextStyle(
         fontSize = 14.sp,
-        fontWeight = FontWeight.Bold,
+        fontWeight = FontWeight.SemiBold,
         fontStyle = FontStyle.Normal,
     ),
     Body4 = TextStyle(

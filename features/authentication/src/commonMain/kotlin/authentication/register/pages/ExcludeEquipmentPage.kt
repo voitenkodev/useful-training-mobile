@@ -24,7 +24,7 @@ import molecule.PaddingXL
 import molecule.PaddingXS
 import molecule.Shadow
 import molecule.TextBody2
-import molecule.TextH2
+import molecule.TextH1
 
 @Composable
 internal fun ExcludeEquipmentPage(
@@ -43,7 +43,7 @@ internal fun ExcludeEquipmentPage(
 
             PaddingL()
 
-            TextH2(provideText = { "Equipment" }, textAlign = TextAlign.Center)
+            TextH1(provideText = { "Equipment" }, textAlign = TextAlign.Center)
 
             PaddingXS()
 

@@ -22,7 +22,7 @@ import molecule.PaddingWeight
 import molecule.PaddingXS
 import molecule.PaddingXXL
 import molecule.TextBody1
-import molecule.TextH2
+import molecule.TextH1
 import resources.Icons
 
 @Composable
@@ -51,7 +51,7 @@ internal fun NamePage(
 
         PaddingL()
 
-        TextH2(
+        TextH1(
             modifier = Modifier.padding(horizontal = Design.dp.paddingL),
             provideText = { "Nice to meet you" },
         )

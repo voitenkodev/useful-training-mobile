@@ -1,12 +1,10 @@
 package components.cards
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -18,11 +16,9 @@ import androidx.compose.ui.unit.dp
 import atom.Design
 import metricpicker.MetricPicker
 import metricpicker.MetricPickerStyle
-import molecule.Icon
-import molecule.Label
 import molecule.PaddingL
-import molecule.PaddingS
-import molecule.TextH1
+import molecule.PaddingWeight
+import molecule.TextH2
 
 @Composable
 public fun MetricPickerCard(
@@ -41,7 +37,7 @@ public fun MetricPickerCard(
 
     Column(
         modifier = modifier
-            .clip(shape = Design.shape.default)
+            .clip(shape = Design.shape.large)
             .background(color = Design.colors.secondary)
             .padding(
                 start = Design.dp.paddingL,
@@ -51,23 +47,6 @@ public fun MetricPickerCard(
             )
     ) {
 
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-
-            Icon(
-                modifier = Modifier.size(Design.dp.iconM),
-                imageVector = icon,
-                color = Design.colors.label
-            )
-
-            Label(
-                provideText = { title },
-            )
-        }
-
-        PaddingS()
 
         val valueProvider = remember(value) {
             {
@@ -75,9 +54,23 @@ public fun MetricPickerCard(
             }
         }
 
-        TextH1(
-            provideText = valueProvider
-        )
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+
+
+            TextH2(
+                provideText = { title },
+                color = Design.colors.label
+            )
+
+            PaddingWeight()
+
+            TextH2(
+                provideText = valueProvider
+            )
+        }
 
         PaddingL()
 
