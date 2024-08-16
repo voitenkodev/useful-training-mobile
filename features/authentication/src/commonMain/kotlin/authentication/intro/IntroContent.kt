@@ -1,6 +1,5 @@
 package authentication.intro
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -13,8 +12,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import atom.Design
 import authentication.intro.models.ScreenState
@@ -27,7 +24,6 @@ import molecule.PaddingL
 import molecule.PaddingM
 import molecule.PaddingWeight
 import molecule.PaddingXL
-import molecule.PaddingXXL
 import molecule.TextBody2
 import molecule.TextH1
 import resources.Icons
@@ -59,25 +55,11 @@ private fun Content(
 
     ScreenRoot(modifier = Modifier.imePadding()) {
 
-        Image(
-            modifier = Modifier.fillMaxSize().alpha(0.5f),
-            imageVector = Icons.logoBackground,
-            contentDescription = null,
-            contentScale = ContentScale.Crop
-        )
-
         Column(
             modifier = Modifier.fillMaxSize().systemBarsPadding(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-            PaddingXXL()
-
-            PaddingXXL()
-
-            TextH1(
-                provideText = { "ALIEN WORKOUT" },
-            )
 
             PaddingWeight()
 
@@ -85,10 +67,13 @@ private fun Content(
                 modifier = Modifier.size(250.dp),
                 imageVector = Icons.logo
             )
+            PaddingXL()
+
+            TextH1(
+                provideText = { "ALIEN WORKOUT" },
+            )
 
             PaddingWeight()
-
-            PaddingXL()
 
             TextBody2(
                 provideText = { "Don't have an account yet?" },

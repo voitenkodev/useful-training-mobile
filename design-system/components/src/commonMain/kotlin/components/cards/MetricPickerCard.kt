@@ -11,7 +11,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.clipToBounds
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import atom.Design
 import metricpicker.MetricPicker
@@ -24,7 +23,6 @@ import molecule.TextH2
 public fun MetricPickerCard(
     modifier: Modifier = Modifier,
     title: String,
-    icon: ImageVector,
     value: Int,
     provideTitle: (Int) -> String,
     providePickerTitle: (Int) -> String,

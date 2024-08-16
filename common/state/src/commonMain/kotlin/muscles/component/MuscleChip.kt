@@ -7,7 +7,6 @@ import atom.Design
 import components.chips.Chip
 import components.chips.ChipState
 import muscles.Muscle
-import resources.Icons
 
 @Composable
 public fun MuscleChip(
@@ -23,27 +22,20 @@ public fun MuscleChip(
         }
     }
 
-    val borderColor =
+    val backgroundColor =
         muscle.coverage?.color
             .takeIf { muscle.coverage?.percentage != 0 }
             ?: if (muscle.isSelected) {
-                Design.palette.green.copy(alpha = 0.4f)
+                Design.palette.green
             } else {
-                Design.palette.white10
+                Design.palette.secondary
             }
 
     val chipState = ChipState.Colored(
-        backgroundColor = Color.Transparent,
-        borderColor = borderColor,
+        backgroundColor = backgroundColor,
+        borderColor = Color.Transparent,
         contentColor = contentColor
     )
-
-    val iconStart = remember(muscle.isSelected) {
-        when (muscle.isSelected) {
-            false -> Icons.checkOff
-            true -> Icons.checkOn
-        }
-    }
 
     val muscleName = remember(muscle.name, muscle.coverage) {
         buildString {
@@ -59,6 +51,5 @@ public fun MuscleChip(
         onClick = { selectMuscle.invoke(muscle.id) },
         text = muscleName,
         loading = loadingById == muscle.id,
-        iconStart = iconStart
     )
 }

@@ -63,7 +63,6 @@ internal fun WeightPage(
 
         MetricPickerCard(
             title = "Weight",
-            icon = Icons.weight,
             modifier = Modifier.padding(horizontal = Design.dp.paddingL),
             value = weight,
             provideTitle = { it.grToKg().kg(true) },
@@ -78,7 +77,6 @@ internal fun WeightPage(
 
         MetricPickerCard(
             title = "Height",
-            icon = Icons.height,
             modifier = Modifier.padding(horizontal = Design.dp.paddingL),
             value = height,
             provideTitle = { it.cmToM().meter(true) },
