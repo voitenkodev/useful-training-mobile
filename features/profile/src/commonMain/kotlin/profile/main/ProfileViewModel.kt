@@ -28,6 +28,8 @@ internal class ProfileViewModel : ViewModel() {
             .onEach { r -> _state.update { it.copy(user = r.toState()) } }
             .catch { r -> _state.update { it.copy(error = r.message) } }
             .launchIn(this)
+
+
     }
 
     fun logout() {

@@ -39,7 +39,7 @@ internal fun MenuItem(
     ) {
 
         Icon(
-            modifier = Modifier.size(Design.dp.iconS),
+            modifier = Modifier.size(Design.dp.iconM),
             imageVector = icon,
             color = contentColor
         )

@@ -169,7 +169,7 @@ private fun Content(
                     ) {
 
                         MenuItem(
-                            icon = Icons.weight,
+                            icon = Icons.userWeight,
                             text = "Weight",
                             onClick = toWeightHistory,
                             paddingValues = PaddingValues(
