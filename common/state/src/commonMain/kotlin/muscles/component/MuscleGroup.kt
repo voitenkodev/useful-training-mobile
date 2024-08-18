@@ -40,10 +40,11 @@ public fun MuscleGroup(
                 contentDescription = null
             )
 
-            Column(verticalArrangement = Arrangement.spacedBy(Design.dp.paddingS)) {
+            Column(
+                verticalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
+            ) {
                 TextH3(
-                    modifier = Modifier.fillMaxWidth()
-                        .padding(bottom = Design.dp.paddingS),
+                    modifier = Modifier.fillMaxWidth().padding(bottom = Design.dp.paddingS),
                     provideText = { item.name },
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
