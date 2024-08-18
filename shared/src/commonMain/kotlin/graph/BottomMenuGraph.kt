@@ -72,6 +72,7 @@ internal fun BottomMenuGraph(
                         toWeightHistory = toWeightHistory,
                         toMuscles = toMuscles,
                         toEquipment = toEquipment,
+                        toTraining = toTrainingBuilder,
                         toExerciseExampleBuilder = toExerciseExampleBuilder
                     )
                 }

@@ -2,6 +2,7 @@ package bottommenu.main
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -28,7 +29,7 @@ internal fun BottomMenuContent(
     selectedIndex: Int,
     menuItemClick: (index: Int) -> Unit,
     toAuthentication: () -> Unit,
-    screen: @Composable () -> Unit
+    screen: @Composable BoxScope.() -> Unit
 ) {
 
     val state by vm.state.collectAsState()
@@ -50,13 +51,13 @@ private fun Content(
     menu: ImmutableList<Menu>,
     selectedIndex: Int,
     onClick: (index: Int) -> Unit,
-    screen: @Composable () -> Unit
+    screen: @Composable BoxScope.() -> Unit
 ) {
 
     Column(modifier = Modifier.fillMaxWidth()) {
         Box(
             modifier = Modifier.weight(1f),
-            content = { screen.invoke() }
+            content = screen
         )
 
         Column(

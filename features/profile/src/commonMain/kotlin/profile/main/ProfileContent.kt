@@ -1,29 +1,31 @@
 package profile.main
 
 import androidx.compose.animation.animateContentSize
-import androidx.compose.foundation.border
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.draw.clip
 import atom.Design
 import components.Error
 import components.cards.UserCard
+import components.cards.ValueCard
 import components.roots.ScreenRoot
-import molecule.Label
+import molecule.ButtonPrimary
 import molecule.PaddingM
-import molecule.PaddingXL
 import molecule.Shadow
 import molecule.Toolbar
 import profile.main.components.MenuItem
@@ -35,6 +37,7 @@ internal fun ProfileContent(
     vm: ProfileViewModel,
     toExerciseExamples: () -> Unit,
     toMuscles: () -> Unit,
+    toTraining: (id: String?) -> Unit,
     toEquipment: () -> Unit,
     toWeightHistory: () -> Unit,
     toExerciseExampleBuilder: () -> Unit
@@ -50,6 +53,7 @@ internal fun ProfileContent(
         toMuscles = toMuscles,
         toEquipment = toEquipment,
         toWeightHistory = toWeightHistory,
+        toTraining = toTraining,
         toExerciseExampleBuilder = toExerciseExampleBuilder,
         logout = vm::logout
     )
@@ -65,6 +69,7 @@ private fun Content(
     toEquipment: () -> Unit,
     toWeightHistory: () -> Unit,
     toExerciseExampleBuilder: () -> Unit,
+    toTraining: (id: String?) -> Unit,
     logout: () -> Unit
 ) {
 
@@ -73,8 +78,9 @@ private fun Content(
     ScreenRoot(error = { Error(message = error, close = clearError) }) {
 
         Column(
-            modifier = Modifier.fillMaxSize()
-                .systemBarsPadding()
+            modifier = Modifier
+                .fillMaxSize()
+                .statusBarsPadding()
         ) {
 
             Toolbar(
@@ -83,13 +89,16 @@ private fun Content(
 
             LazyColumn(
                 state = listState,
-                modifier = Modifier.fillMaxWidth().animateContentSize().fillMaxSize()
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f)
+                    .animateContentSize(),
+                contentPadding = PaddingValues(horizontal = Design.dp.paddingL)
             ) {
 
                 item {
                     if (user != null) {
                         UserCard(
-                            modifier = Modifier.padding(horizontal = Design.dp.paddingM),
                             name = user.name,
                             weight = user.weight,
                             height = user.height,
@@ -98,7 +107,6 @@ private fun Content(
                     } else {
                         Spacer(
                             modifier = Modifier
-                                .padding(horizontal = Design.dp.paddingM)
                                 .fillMaxWidth()
                                 .aspectRatio(1.72f)
                         )
@@ -108,9 +116,43 @@ private fun Content(
                 item { PaddingM() }
 
                 item {
-                    Label(
-                        modifier = Modifier.padding(horizontal = Design.dp.paddingL),
-                        provideText = { "User data" },
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
+                    ) {
+
+                        ValueCard(
+                            modifier = Modifier.weight(1f),
+                            value = "123 KG",
+                            title = "Last weight",
+                            label = "At 16 jan, 2024",
+                            icon = Icons.userWeight
+                        )
+
+                        ValueCard(
+                            modifier = Modifier.weight(1f),
+                            value = "15K KG",
+                            title = "Last training",
+                            label = "At 16 jan, 2024",
+                            icon = Icons.trainingWeight
+                        )
+
+                    }
+                }
+
+                item { PaddingM() }
+
+                item {
+                    val toTrainingProvider = remember {
+                        {
+                            toTraining.invoke(null)
+                        }
+                    }
+
+                    ButtonPrimary(
+                        modifier = Modifier.fillMaxWidth(),
+                        text = "Start training",
+                        onClick = toTrainingProvider
                     )
                 }
 
@@ -119,11 +161,10 @@ private fun Content(
                 item {
                     Column(
                         modifier = Modifier
-                            .padding(horizontal = Design.dp.paddingM)
-                            .border(
-                                color = Design.palette.white10,
-                                width = 1.dp,
-                                shape = Design.shape.default
+                            .clip(
+                                shape = Design.shape.large
+                            ).background(
+                                color = Design.palette.secondary
                             ).fillMaxWidth()
                     ) {
 
@@ -178,22 +219,12 @@ private fun Content(
                 item { PaddingM() }
 
                 item {
-                    Label(
-                        modifier = Modifier.padding(horizontal = Design.dp.paddingL),
-                        provideText = { "Settings" },
-                    )
-                }
-
-                item { PaddingM() }
-
-                item {
                     Column(
                         modifier = Modifier
-                            .padding(horizontal = Design.dp.paddingM)
-                            .border(
-                                color = Design.palette.white10,
-                                width = 1.dp,
-                                shape = Design.shape.default
+                            .clip(
+                                shape = Design.shape.large
+                            ).background(
+                                color = Design.palette.secondary
                             ).fillMaxWidth()
                     ) {
 
@@ -222,7 +253,7 @@ private fun Content(
                     }
                 }
 
-                item { PaddingXL() }
+                item { PaddingM() }
             }
         }
     }

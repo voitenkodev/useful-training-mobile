@@ -37,6 +37,8 @@ import resources.icon.outline.Filter
 import resources.icon.outline.Height
 import resources.icon.outline.Loading
 import resources.icon.outline.Search
+import resources.icon.outline.TrainingWeight
+import resources.icon.outline.UserWeight
 import resources.icon.outline.Youtube
 import resources.icon.product.Logo
 import resources.icon.product.LogoBackground
@@ -80,6 +82,8 @@ public object Icons {
     public val exercises: ImageVector = MaleGym
     public val logout: ImageVector = Logout
     public val card: ImageVector = Card
+    public val userWeight: ImageVector = UserWeight
+    public val trainingWeight: ImageVector = TrainingWeight
 
     // Menu
     public val trainings: ImageVector = LoveGym

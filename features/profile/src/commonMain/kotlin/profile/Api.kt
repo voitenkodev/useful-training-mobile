@@ -25,6 +25,7 @@ public fun ProfileGraph(
     toMuscles: () -> Unit,
     toEquipment: () -> Unit,
     toWeightHistory: () -> Unit,
+    toTraining: (id: String?) -> Unit,
     toExerciseExampleBuilder: () -> Unit
 ) {
 
@@ -48,6 +49,7 @@ public fun ProfileGraph(
                     toWeightHistory = toWeightHistory,
                     toMuscles = toMuscles,
                     toEquipment = toEquipment,
+                    toTraining = toTraining,
                     toExerciseExampleBuilder = toExerciseExampleBuilder
                 )
             }
