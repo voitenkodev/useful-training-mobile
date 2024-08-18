@@ -67,6 +67,7 @@ private fun Content(
                 modifier = Modifier.size(250.dp),
                 imageVector = Icons.logo
             )
+
             PaddingXL()
 
             TextH1(

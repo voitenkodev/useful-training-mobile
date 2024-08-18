@@ -3,8 +3,7 @@ package userequipments.main
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -12,12 +11,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import components.BottomButtons
 import components.Error
-import components.ShadowFooterSpace
 import components.roots.ScreenRoot
 import equipment.EquipmentGroup
-import equipment.component.EquipmentGroup
+import equipment.component.EquipmentGrid
 import kotlinx.collections.immutable.ImmutableList
-import molecule.PaddingM
 import userequipments.main.components.Header
 
 @Composable
@@ -45,30 +42,19 @@ private fun Content(
 
     ScreenRoot(error = { Error(message = { error }, close = clearError) }) {
 
-        Column(modifier = Modifier.fillMaxSize()) {
+        Column(
+            modifier = Modifier.fillMaxSize().navigationBarsPadding()
+        ) {
 
             Header(close = close)
 
             if (list.isNotEmpty()) {
 
-                PaddingM()
-
-                LazyColumn(
-                    modifier = Modifier.fillMaxWidth().weight(1f)
-                ) {
-
-                    itemsIndexed(list, key = { _, item -> item.id }) { index, item ->
-
-                        EquipmentGroup(
-                            item = item,
-                            selectEquipment = selectEquipment
-                        )
-                    }
-
-                    item("navigation_padding") {
-                        ShadowFooterSpace()
-                    }
-                }
+                EquipmentGrid(
+                    modifier = Modifier.fillMaxWidth().weight(1f),
+                    equipments = list,
+                    selectEquipment = selectEquipment
+                )
             }
         }
 

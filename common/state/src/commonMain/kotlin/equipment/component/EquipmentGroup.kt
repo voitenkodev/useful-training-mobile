@@ -12,6 +12,7 @@ import equipment.EquipmentGroup
 import molecule.PaddingS
 import molecule.TextH3
 
+@Deprecated("Use EquipmentGrid")
 @Composable
 public fun EquipmentGroup(
     modifier: Modifier = Modifier,
