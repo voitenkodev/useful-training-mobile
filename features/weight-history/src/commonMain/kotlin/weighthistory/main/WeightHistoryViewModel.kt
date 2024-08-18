@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.update
 import org.koin.core.component.inject
-import weighthistory.main.mapping.toState
+import user.mapping.toState
 
 internal class WeightHistoryViewModel : ViewModel() {
 

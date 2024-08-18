@@ -24,7 +24,7 @@ import molecule.PaddingS
 import molecule.Shadow
 import molecule.Toolbar
 import resources.Icons
-import weighthistory.main.models.WeightHistory
+import user.WeightHistory
 
 @Composable
 internal fun Header(

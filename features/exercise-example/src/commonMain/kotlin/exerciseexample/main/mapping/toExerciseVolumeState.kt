@@ -13,7 +13,7 @@ internal fun List<ExerciseVolume>.toState(): ImmutableList<exerciseexample.main.
 
 internal fun ExerciseVolume.toState(): exerciseexample.main.models.ExerciseVolume {
     return exerciseexample.main.models.ExerciseVolume(
-        createdAt = DateTimeKtx.formattedLongDate(createdAt) ?: "-",
+        createdAt = DateTimeKtx.formattedDate1(createdAt) ?: "-",
         exerciseExampleId = exerciseExampleId,
         id = id,
         volume = volume

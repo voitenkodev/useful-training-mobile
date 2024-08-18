@@ -29,6 +29,11 @@ internal class ProfileViewModel : ViewModel() {
             .catch { r -> _state.update { it.copy(error = r.message) } }
             .launchIn(this)
 
+        userApi
+            .observeLastWeight()
+            .onEach { r -> _state.update { it.copy(lastWeight = r.toState()) } }
+            .catch { r -> _state.update { it.copy(error = r.message) } }
+            .launchIn(this)
 
     }
 

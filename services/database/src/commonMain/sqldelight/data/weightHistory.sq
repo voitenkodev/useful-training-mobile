@@ -11,6 +11,12 @@ getWeightHistory:
 SELECT *
 FROM WeightHistory;
 
+getLastWeightHistory:
+SELECT *
+FROM WeightHistory
+ORDER BY createdAt DESC
+LIMIT 1;
+
 -------------- SET --------------
 
 setWeightHistory:

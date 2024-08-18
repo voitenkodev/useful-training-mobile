@@ -17,6 +17,69 @@ import kotlin.time.Duration
 
 public object DateTimeKtx {
 
+    public enum class Format {
+        DD_MMMM_YYYY, // 21 October, 2022
+        DD_MMM_YYYY, // 21 Oct, 2022
+        DD_MM_YYYY, // 21.10.2022
+        DD_MMMM, // 21 October
+        DD_MMM, // 21 Oct
+        DD_MM, // 21.10
+    }
+
+    public fun convert(
+        iso8601Timestamp: String?,
+        format: Format
+    ): String? {
+        iso8601Timestamp ?: return null
+        return when (format) {
+            Format.DD_MMMM_YYYY -> formattedDate1(iso8601Timestamp)
+            Format.DD_MMM_YYYY -> formattedDate2(iso8601Timestamp)
+            Format.DD_MM_YYYY -> formattedDate3(iso8601Timestamp)
+            Format.DD_MMMM -> formattedDate1(iso8601Timestamp, withYear = false)
+            Format.DD_MMM -> formattedDate2(iso8601Timestamp, withYear = false)
+            Format.DD_MM -> formattedDate3(iso8601Timestamp, withYear = false)
+        }
+    }
+
+    /** Output 21 October, 2022 */
+    public fun formattedDate1(iso8601Timestamp: String, withYear: Boolean = true): String? {
+        val localDateTime = iso8601TimestampToLocalDateTime(iso8601Timestamp) ?: return null
+        val date = localDateTime.date
+        val day = date.dayOfMonth
+        val month = date.month.name.lowercase().capitalize(Locale.current)
+        val year = date.year
+
+        return if (withYear) "${day.zeroPrefixed(2)} $month, $year"
+        else "${day.zeroPrefixed(2)} $month"
+    }
+
+    /** Output 21 Oct, 2022 */
+    private fun formattedDate2(iso8601Timestamp: String, withYear: Boolean = true): String? {
+        val localDateTime = iso8601TimestampToLocalDateTime(iso8601Timestamp) ?: return null
+        val date = localDateTime.date
+        val day = date.dayOfMonth
+        val month = date.month.name.lowercase().capitalize(Locale.current).take(3)
+        val year = date.year
+
+        return if (withYear) "${day.zeroPrefixed(2)} $month, $year"
+        else "${day.zeroPrefixed(2)} $month"
+    }
+
+    /** Output 21.10.2022 */
+    private fun formattedDate3(iso8601Timestamp: String, withYear: Boolean = true): String? {
+        val localDateTime = iso8601TimestampToLocalDateTime(iso8601Timestamp) ?: return null
+        val date = localDateTime.date
+        val day = date.dayOfMonth
+        val month = date.monthNumber
+        val year = date.year
+
+        return if (withYear) "${day.zeroPrefixed(2)}.${month.zeroPrefixed(2)}.${year}"
+        else "${day.zeroPrefixed(2)}.${month.zeroPrefixed(2)}"
+    }
+
+
+    // *************************** DEPRECATED ***************************
+
     public fun isoToMillis(iso8601Timestamp: String): Long {
         val timeZone = TimeZone.currentSystemDefault()
         val localDateTime = iso8601TimestampToLocalDateTime(iso8601Timestamp)
@@ -99,7 +162,8 @@ public object DateTimeKtx {
 
     public fun isCurrentDate(iso8601Timestamp: String): Boolean {
         val localDateTime = iso8601TimestampToLocalDateTime(iso8601Timestamp)?.date ?: return false
-        val currentLocalDateTime = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date
+        val currentLocalDateTime =
+            Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date
         return localDateTime == currentLocalDateTime
     }
 
@@ -109,8 +173,10 @@ public object DateTimeKtx {
      * Output true / false
      * */
     public fun isTheSameDate(iso8601Timestamp1: String, iso8601Timestamp2: String): Boolean {
-        val localDateTime1 = iso8601TimestampToLocalDateTime(iso8601Timestamp1)?.date ?: return false
-        val localDateTime2 = iso8601TimestampToLocalDateTime(iso8601Timestamp2)?.date ?: return false
+        val localDateTime1 =
+            iso8601TimestampToLocalDateTime(iso8601Timestamp1)?.date ?: return false
+        val localDateTime2 =
+            iso8601TimestampToLocalDateTime(iso8601Timestamp2)?.date ?: return false
         return localDateTime1 == localDateTime2
     }
 
@@ -121,7 +187,8 @@ public object DateTimeKtx {
      * */
     public fun isOneOfDates(iso8601Timestamp1: String, iso8601Timestamps: List<String>): Boolean {
 
-        val localDateTime1 = iso8601TimestampToLocalDateTime(iso8601Timestamp1)?.date ?: return false
+        val localDateTime1 =
+            iso8601TimestampToLocalDateTime(iso8601Timestamp1)?.date ?: return false
 
         val result = iso8601Timestamps.mapNotNull {
             iso8601TimestampToLocalDateTime(it)?.date
@@ -191,21 +258,6 @@ public object DateTimeKtx {
     /**
      * Input 2022-10-21T13:20:18.496Z
      *
-     * Output 21.10.2022
-     * */
-
-    public fun formattedShortDate(iso8601Timestamp: String): String? {
-        val localDateTime = iso8601TimestampToLocalDateTime(iso8601Timestamp) ?: return null
-        val date = localDateTime.date
-        val day = date.dayOfMonth
-        val month = date.monthNumber
-        val year = date.year
-        return "${day.zeroPrefixed(2)}.${month.zeroPrefixed(2)}.${year}"
-    }
-
-    /**
-     * Input 2022-10-21T13:20:18.496Z
-     *
      * Output 21
      * */
 
@@ -231,27 +283,13 @@ public object DateTimeKtx {
     /**
      * Input 2022-10-21T13:20:18.496Z
      *
-     * Output 21 October 2022
-     * */
-
-    public fun formattedLongDate(iso8601Timestamp: String, withYear: Boolean = true): String? {
-        val localDateTime = iso8601TimestampToLocalDateTime(iso8601Timestamp) ?: return null
-        val date = localDateTime.date
-        val day = date.dayOfMonth
-        val month = date.month.name.lowercase().capitalize(Locale.current)
-        val year = date.year
-
-        return if (withYear) "${day.zeroPrefixed(2)} $month $year"
-        else "${day.zeroPrefixed(2)} $month"
-    }
-
-    /**
-     * Input 2022-10-21T13:20:18.496Z
-     *
      * Output 23 October 2022
      * */
 
-    public fun formattedEndOfWeekLongDate(iso8601Timestamp: String, withYear: Boolean = true): String? {
+    public fun formattedEndOfWeekLongDate(
+        iso8601Timestamp: String,
+        withYear: Boolean = true
+    ): String? {
         val currentLocalDateTime = iso8601TimestampToLocalDateTime(iso8601Timestamp) ?: return null
 
         val dayOfWeek = DayOfWeek.values().lastIndex - currentLocalDateTime.dayOfWeek.ordinal
@@ -261,7 +299,7 @@ public object DateTimeKtx {
             .plus(dayOfWeek, DateTimeUnit.DAY, TimeZone.currentSystemDefault())
             .toString()
 
-        return formattedLongDate(endOfWeek, withYear)
+        return formattedDate1(endOfWeek, withYear)
     }
 
     /**
@@ -283,7 +321,7 @@ public object DateTimeKtx {
             .minus(dayOfWeek, DateTimeUnit.DAY, TimeZone.currentSystemDefault())
             .toString()
 
-        return formattedLongDate(endOfWeek, withYear)
+        return formattedDate1(endOfWeek, withYear)
     }
 
     /**

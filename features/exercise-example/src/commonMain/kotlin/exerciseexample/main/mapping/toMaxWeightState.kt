@@ -5,7 +5,7 @@ import models.MaxWeight
 
 internal fun MaxWeight.toState(): exerciseexample.main.models.MaxWeight {
     return exerciseexample.main.models.MaxWeight(
-        createdAt = DateTimeKtx.formattedLongDate(createdAt) ?: "-",
+        createdAt = DateTimeKtx.formattedDate1(createdAt) ?: "-",
         exerciseExampleId = exerciseExampleId,
         id = id,
         weight = weight,

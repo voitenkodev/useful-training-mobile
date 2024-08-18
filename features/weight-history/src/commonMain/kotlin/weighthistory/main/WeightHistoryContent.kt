@@ -25,10 +25,10 @@ import molecule.Label
 import molecule.PaddingM
 import molecule.PopupSheet
 import resources.Icons
+import user.WeightHistory
 import user.component.WeightCard
 import user.component.WeightCardIcon
 import weighthistory.main.components.Header
-import weighthistory.main.models.WeightHistory
 import weighthistory.main.popups.WeightPickerPopup
 
 @Composable

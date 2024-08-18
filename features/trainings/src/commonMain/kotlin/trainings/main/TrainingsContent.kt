@@ -62,7 +62,7 @@ private fun Content(
     val currentDay = remember { calendar.findLast { it.isToday }?.dateTimeIso }
     val selectedDateIsToday = selectedDate.isToday
     val formatterDate = remember(selectedDate) {
-        DateTimeKtx.formattedLongDate(selectedDate.dateTimeIso)
+        DateTimeKtx.formattedDate1(selectedDate.dateTimeIso)
     }
 
     val backTodayProvider: () -> Unit = remember {

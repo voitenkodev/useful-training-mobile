@@ -38,6 +38,12 @@ internal class UserRepositoryImpl(
             .map { it.daoToDomain() }
     }
 
+    override fun observeLastWeight(): Flow<WeightHistory> {
+        return local
+            .getLastWeight()
+            .map { it.daoToDomain() }
+    }
+
     override fun syncWeightHistory(): Flow<Unit> {
         return flow {
             val result = remote.getWeightHistory().dtoToDao()

@@ -35,6 +35,14 @@ public class UserSource(nativeContext: NativeContext) {
             .map { item -> item.map { it.toDao() } }
     }
 
+    public fun getLastWeight(): Flow<WeightHistoryDao> {
+        return weightApi
+            .getLastWeightHistory()
+            .asFlow()
+            .mapToOne(Dispatchers.Default)
+            .map { item -> item.toDao() }
+    }
+
     public fun setUser(userDao: UserDao) {
         userApi
             .setUser(

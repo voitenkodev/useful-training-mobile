@@ -1,5 +1,6 @@
 package profile.main
 
+import DateTimeKtx
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -26,6 +27,7 @@ import components.cards.UserCard
 import components.cards.ValueCard
 import components.cards.ValueCardAction
 import components.roots.ScreenRoot
+import kg
 import molecule.ButtonPrimary
 import molecule.PaddingM
 import molecule.Shadow
@@ -33,6 +35,7 @@ import molecule.Toolbar
 import profile.main.components.MenuItem
 import resources.Icons
 import user.User
+import user.WeightHistory
 
 @Composable
 internal fun ProfileContent(
@@ -51,6 +54,7 @@ internal fun ProfileContent(
         error = { state.error },
         clearError = vm::clearError,
         user = state.user,
+        lastWeight = state.lastWeight,
         toExerciseExamples = toExerciseExamples,
         toMuscles = toMuscles,
         toEquipment = toEquipment,
@@ -66,6 +70,7 @@ private fun Content(
     error: () -> String?,
     clearError: () -> Unit,
     user: User?,
+    lastWeight: WeightHistory?,
     toExerciseExamples: () -> Unit,
     toMuscles: () -> Unit,
     toEquipment: () -> Unit,
@@ -123,11 +128,22 @@ private fun Content(
                         horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
                     ) {
 
+                        val value = remember(lastWeight?.weight) {
+                            lastWeight?.weight?.kg(allowUnit = true) ?: ""
+                        }
+
+                        val label = remember(lastWeight?.createdAt) {
+                            DateTimeKtx.convert(
+                                lastWeight?.createdAt,
+                                DateTimeKtx.Format.DD_MMM_YYYY
+                            ) ?: ""
+                        }
+
                         ValueCard(
                             modifier = Modifier.weight(1f),
-                            value = "123 KG",
+                            value = value,
                             title = "Last weight",
-                            label = "At 16 jan, 2024",
+                            label = "At $label",
                             icon = Icons.userWeight,
                             action = ValueCardAction(
                                 title = "MORE",

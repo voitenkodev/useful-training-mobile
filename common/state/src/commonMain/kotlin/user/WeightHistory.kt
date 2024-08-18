@@ -1,9 +1,9 @@
-package weighthistory.main.models
+package user
 
 import androidx.compose.runtime.Immutable
 
 @Immutable
-internal data class WeightHistory(
+public data class WeightHistory(
     val id: String,
     val weight: Double,
     val createdAt: String
