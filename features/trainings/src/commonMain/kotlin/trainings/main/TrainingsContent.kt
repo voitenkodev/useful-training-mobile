@@ -121,8 +121,6 @@ private fun Content(
                     ButtonPrimary(
                         modifier = Modifier.weight(1f),
                         text = "Start workout",
-                        backgroundColor = Design.colors.green,
-                        textColor = Design.colors.primary,
                         onClick = newTraining,
                     )
                 }

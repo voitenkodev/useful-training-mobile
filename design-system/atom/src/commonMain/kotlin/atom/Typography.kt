@@ -6,13 +6,12 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.BaselineShift
 import androidx.compose.ui.text.style.LineHeightStyle
-import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.sp
 import resources.Fonts
 
 @Composable
 internal fun typography() = Typography(
-    H1 = TextStyle(
+    h1 = TextStyle(
         baselineShift = BaselineShift.None,
         fontSize = 32.sp,
         letterSpacing = 1.sp,
@@ -24,7 +23,7 @@ internal fun typography() = Typography(
             trim = LineHeightStyle.Trim.Both
         ),
     ),
-    H2 = TextStyle(
+    h2 = TextStyle(
         baselineShift = BaselineShift.None,
         fontSize = 28.sp,
         letterSpacing = 1.sp,
@@ -36,7 +35,7 @@ internal fun typography() = Typography(
             trim = LineHeightStyle.Trim.Both
         ),
     ),
-    H3 = TextStyle(
+    h3 = TextStyle(
         baselineShift = BaselineShift.None,
         fontSize = 22.sp,
         fontWeight = FontWeight.Medium,
@@ -48,7 +47,7 @@ internal fun typography() = Typography(
             trim = LineHeightStyle.Trim.Both
         )
     ),
-    H4 = TextStyle(
+    h4 = TextStyle(
         fontSize = 18.sp,
         fontWeight = FontWeight.Normal,
         fontStyle = FontStyle.Normal,
@@ -60,84 +59,83 @@ internal fun typography() = Typography(
             trim = LineHeightStyle.Trim.Both
         ),
     ),
-    TextLabel = TextStyle(
+    textLabel = TextStyle(
         fontSize = 18.sp,
         fontWeight = FontWeight.SemiBold,
         fontStyle = FontStyle.Normal,
         lineHeight = 20.sp
     ),
-    Label = TextStyle(
+    label = TextStyle(
         fontSize = 16.sp,
         fontWeight = FontWeight.Medium,
         fontStyle = FontStyle.Normal,
         lineHeight = 20.sp
     ),
-    InputLabel = TextStyle(
+    inputLabel = TextStyle(
         fontSize = 14.sp,
         fontWeight = FontWeight.Normal,
         fontStyle = FontStyle.Normal,
         lineHeight = 20.sp
     ),
-    Input = TextStyle(
+    input = TextStyle(
         fontSize = 16.sp,
         fontWeight = FontWeight.Medium,
         fontStyle = FontStyle.Normal,
     ),
-    Body1 = TextStyle(
+    body1 = TextStyle(
         fontSize = 16.sp,
         fontWeight = FontWeight.SemiBold,
         fontStyle = FontStyle.Normal,
         lineHeight = 20.sp
     ),
-    Body2 = TextStyle(
+    body2 = TextStyle(
         fontSize = 16.sp,
         fontWeight = FontWeight.Medium,
         fontStyle = FontStyle.Normal,
         lineHeight = 20.sp
     ),
-    Body3 = TextStyle(
+    body3 = TextStyle(
         fontSize = 16.sp,
         fontWeight = FontWeight.Normal,
         fontStyle = FontStyle.Normal,
     ),
-    Body4 = TextStyle(
+    body4 = TextStyle(
         fontSize = 14.sp,
         fontWeight = FontWeight.Normal,
         fontStyle = FontStyle.Normal,
     ),
-    Button = TextStyle(
+    button = TextStyle(
         fontSize = 16.sp,
         fontWeight = FontWeight.Medium,
         letterSpacing = 1.sp,
         fontStyle = FontStyle.Normal,
     ),
-    TertiaryButton = TextStyle(
+    textButton = TextStyle(
         fontSize = 14.sp,
         fontWeight = FontWeight.Medium,
         fontStyle = FontStyle.Normal,
-        textDecoration = TextDecoration.Underline,
     )
 )
 
 public data class Typography(
-    val H1: TextStyle, // Welcome titles
-    val H2: TextStyle, // Main Toolbar
-    val H3: TextStyle, // Sub Main Title
-    val H4: TextStyle, // Sub Title ( + Popup Title)
+    val h1: TextStyle, // Welcome titles
+    val h2: TextStyle, // Main Toolbar
+    val h3: TextStyle, // Sub Main Title
+    val h4: TextStyle, // Sub Title ( + Popup Title)
 
-    val Input: TextStyle, // Main inputs + fields
+    val input: TextStyle, // Main inputs + fields
 
-    val Body1: TextStyle, // Fields
-    val Body2: TextStyle, // Fields
-    val Body3: TextStyle, // Additional little input
-    val Body4: TextStyle, // Additional little input
+    val body1: TextStyle, // Fields
+    val body2: TextStyle, // Fields
+    val body3: TextStyle, // Additional little input
+    val body4: TextStyle, // Additional little input
 
     @Deprecated("Use Label")
-    val TextLabel: TextStyle, // Sub titles for sections)
+    val textLabel: TextStyle, // Sub titles for sections)
 
-    val Label: TextStyle, // Sub titles for sections)
-    val InputLabel: TextStyle, // Sub titles for sections)
+    val label: TextStyle, // Sub titles for sections)
+    val inputLabel: TextStyle, // Sub titles for sections)
 
-    val Button: TextStyle,
-    val TertiaryButton: TextStyle
+    val button: TextStyle,
+    val textButton: TextStyle
 )

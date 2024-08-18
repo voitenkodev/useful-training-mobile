@@ -41,7 +41,7 @@ public fun MetricPicker(
     onValueChange: (Int) -> Unit
 ) {
     val style = Design.typography
-        .Body1
+        .body1
         .copy(
             color = Design.colors.content,
             fontWeight = FontWeight.ExtraBold

@@ -37,7 +37,7 @@ public fun WeightPicker(
 
     val density = LocalDensity.current
 
-    val style = Design.typography.Body4.copy(color = Design.colors.content)
+    val style = Design.typography.body4.copy(color = Design.colors.content)
     val textMeasurer = rememberTextMeasurer()
     val internalInitial = remember { initial }
     val radius = pickerStyle.radius

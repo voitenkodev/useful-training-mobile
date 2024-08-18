@@ -26,9 +26,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import atom.Design
-import molecule.ButtonPrimarySmall
-import molecule.ButtonSecondarySmall
-import molecule.ButtonTextLink
+import molecule.ButtonPrimary
+import molecule.ButtonSecondary
+import molecule.ButtonText
 import molecule.PaddingM
 import molecule.PaddingWeight
 import molecule.TextBody4
@@ -110,7 +110,7 @@ public fun ExerciseCardSmall(
             }
         }
 
-        ButtonTextLink(
+        ButtonText(
             modifier = Modifier.padding(Design.dp.paddingM).align(Alignment.BottomEnd),
             text = "View Details",
             onClick = viewDetails,
@@ -176,7 +176,7 @@ public fun ExerciseCardDefault(
                     color = Design.colors.content
                 )
 
-                ButtonTextLink(
+                ButtonText(
                     text = "View details",
                     onClick = viewDetails,
                 )
@@ -203,7 +203,7 @@ public fun ExerciseCardDefault(
                 horizontalAlignment = Alignment.End
             ) {
 
-                ButtonSecondarySmall(
+                ButtonSecondary(
                     modifier = Modifier.fillMaxWidth(),
                     text = "Hide",
                     onClick = {}
@@ -214,7 +214,7 @@ public fun ExerciseCardDefault(
                 PaddingWeight()
 
                 if (btn != null) {
-                    ButtonPrimarySmall(
+                    ButtonPrimary(
                         modifier = Modifier.align(Alignment.CenterHorizontally),
                         text = btn.first,
                         onClick = btn.second

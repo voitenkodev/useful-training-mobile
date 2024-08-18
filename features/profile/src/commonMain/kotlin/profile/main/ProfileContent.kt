@@ -19,10 +19,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.text.style.TextDecoration
 import atom.Design
 import components.Error
 import components.cards.UserCard
 import components.cards.ValueCard
+import components.cards.ValueCardAction
 import components.roots.ScreenRoot
 import molecule.ButtonPrimary
 import molecule.PaddingM
@@ -126,7 +128,14 @@ private fun Content(
                             value = "123 KG",
                             title = "Last weight",
                             label = "At 16 jan, 2024",
-                            icon = Icons.userWeight
+                            icon = Icons.userWeight,
+                            action = ValueCardAction(
+                                title = "MORE",
+                                onClick = toWeightHistory,
+                                trailingIcon = Icons.arrowRight,
+                                color = Design.colors.orange,
+                                textDecoration = TextDecoration.None
+                            )
                         )
 
                         ValueCard(
@@ -151,7 +160,8 @@ private fun Content(
 
                     ButtonPrimary(
                         modifier = Modifier.fillMaxWidth(),
-                        text = "Start training",
+                        text = "Add workout",
+                        leadingIcon = Icons.add,
                         onClick = toTrainingProvider
                     )
                 }
@@ -167,18 +177,6 @@ private fun Content(
                                 color = Design.palette.secondary
                             ).fillMaxWidth()
                     ) {
-
-                        MenuItem(
-                            icon = Icons.userWeight,
-                            text = "Weight",
-                            onClick = toWeightHistory,
-                            paddingValues = PaddingValues(
-                                vertical = Design.dp.paddingM,
-                                horizontal = Design.dp.paddingL
-                            )
-                        )
-
-                        Shadow()
 
                         MenuItem(
                             icon = Icons.handWeight,

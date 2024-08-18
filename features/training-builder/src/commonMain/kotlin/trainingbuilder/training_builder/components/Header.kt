@@ -35,7 +35,7 @@ import basic.LineChartStyle
 import kg
 import kotlinx.collections.immutable.ImmutableList
 import molecule.ButtonIconTransparent
-import molecule.ButtonPrimarySmall
+import molecule.ButtonPrimary
 import molecule.PaddingM
 import molecule.PaddingS
 import molecule.Shadow
@@ -70,14 +70,11 @@ internal fun Header(
                 softWrap = false
             )
 
-            ButtonPrimarySmall(
+            ButtonPrimary(
                 modifier = Modifier.align(Alignment.CenterEnd)
                     .padding(horizontal = Design.dp.paddingM),
                 text = "Finish",
                 onClick = finish,
-                loading = loading,
-                backgroundColor = Design.colors.green,
-                textColor = Design.colors.primary,
                 enabled = finishEnabled
             )
         }

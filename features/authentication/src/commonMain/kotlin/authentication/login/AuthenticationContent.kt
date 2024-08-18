@@ -24,7 +24,7 @@ import components.inputs.InputEmail
 import components.inputs.InputPassword
 import components.roots.ScreenRoot
 import molecule.ButtonPrimary
-import molecule.ButtonTextLink
+import molecule.ButtonText
 import molecule.PaddingL
 import molecule.PaddingM
 import molecule.PaddingWeight
@@ -148,7 +148,7 @@ private fun Content(
                     color = Design.colors.label
                 )
 
-                ButtonTextLink(
+                ButtonText(
                     text = "Join Us!",
                     onClick = registrationProvider
                 )

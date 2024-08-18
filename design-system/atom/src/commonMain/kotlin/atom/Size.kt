@@ -10,7 +10,7 @@ internal fun dp() = Dp(
     paddingL = 24.dp,
     paddingXL = 32.dp,
 
-    iconS = 16.dp,
+    iconS = 14.dp,
     iconM = 20.dp,
     iconL = 24.dp,
 

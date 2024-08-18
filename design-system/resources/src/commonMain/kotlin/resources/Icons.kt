@@ -12,7 +12,6 @@ import resources.icon.filled.Kg
 import resources.icon.filled.Logout
 import resources.icon.filled.MaleGym
 import resources.icon.filled.Minus
-import resources.icon.filled.Plus
 import resources.icon.filled.Timer
 import resources.icon.filled.Weight
 import resources.icon.load.HighBattery
@@ -21,6 +20,7 @@ import resources.icon.load.MediumBattery
 import resources.icon.menu.Charts
 import resources.icon.menu.LoveGym
 import resources.icon.menu.Profile
+import resources.icon.outline.Add
 import resources.icon.outline.ArrowDown
 import resources.icon.outline.ArrowDownDouble
 import resources.icon.outline.ArrowLeft
@@ -63,7 +63,7 @@ public object Icons {
     public val search: ImageVector = Search
     public val checkOn: ImageVector = CheckOn
     public val checkOff: ImageVector = CheckOff
-    public val add: ImageVector = Plus
+    public val add: ImageVector = Add
     public val save: ImageVector = CheckOn
     public val delete: ImageVector = Minus
 

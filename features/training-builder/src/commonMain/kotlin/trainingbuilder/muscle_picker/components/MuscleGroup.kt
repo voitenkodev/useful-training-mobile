@@ -21,7 +21,7 @@ import atom.Design
 import components.chips.Chip
 import components.chips.ChipState
 import kotlinx.collections.immutable.ImmutableList
-import molecule.ButtonTextLink
+import molecule.ButtonText
 import molecule.PaddingM
 import molecule.PaddingS
 import molecule.TextH4
@@ -65,7 +65,7 @@ internal fun MuscleGroup(
             PaddingS()
 
             if (visiblePackAction) {
-                ButtonTextLink(
+                ButtonText(
                     modifier = Modifier.padding(bottom = 4.dp),
                     text = if (item.isSelected) "CLEAR" else "ALL",
                     onClick = { selectMuscleGroup.invoke(item.id) },

@@ -90,7 +90,7 @@ public fun Input(
         )
     }
 
-    val textStyle = Design.typography.Input
+    val textStyle = Design.typography.input
         .merge(color = contentColor)
         .merge(textAlign = textAlign ?: TextAlign.Start)
         .merge(fontWeight = fontWeight)
@@ -231,7 +231,7 @@ public fun Input(
         )
     }
 
-    val textStyle = Design.typography.Input
+    val textStyle = Design.typography.input
         .merge(color = contentColor)
         .merge(textAlign = textAlign ?: TextAlign.Start)
         .merge(fontWeight = fontWeight)

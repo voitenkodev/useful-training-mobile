@@ -29,7 +29,7 @@ public fun LineChart(
 ) {
 
     val textMeasurer = rememberTextMeasurer()
-    val style = Design.typography.Body4.copy(
+    val style = Design.typography.body4.copy(
         color = chartStyle.labelStyle?.textColor ?: Design.colors.content,
         fontWeight = FontWeight.Bold
     )
