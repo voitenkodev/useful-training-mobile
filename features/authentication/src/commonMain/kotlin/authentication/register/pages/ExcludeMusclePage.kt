@@ -51,7 +51,7 @@ internal fun ExcludeMusclePage(
 
                 TextBody1(
                     modifier = Modifier.padding(horizontal = Design.dp.paddingL),
-                    provideText = { "You may to exclude muscles you don't want to train with" },
+                    provideText = { "You may to exclude muscles you don't want to train with!" },
                     color = Design.colors.label
                 )
 

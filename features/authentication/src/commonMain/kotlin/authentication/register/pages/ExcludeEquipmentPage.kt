@@ -46,7 +46,7 @@ internal fun ExcludeEquipmentPage(
                         PaddingXS()
 
                         TextBody1(
-                            provideText = { "You may to exclude equipment you cannot find in gym" },
+                            provideText = { "You may to exclude equipment you cannot find in gym!" },
                             color = Design.colors.label
                         )
 
