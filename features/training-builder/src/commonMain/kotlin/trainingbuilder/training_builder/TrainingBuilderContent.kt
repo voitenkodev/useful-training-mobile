@@ -25,8 +25,6 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import atom.Design
 import com.arkivanov.essenty.backhandler.BackCallback
 import components.Error
-import components.cards.ActionCard
-import components.overlay.BottomShadow
 import components.roots.ScreenRoot
 import io.github.xxfast.decompose.router.LocalRouterContext
 import kotlinx.collections.immutable.ImmutableList
@@ -174,12 +172,10 @@ internal fun Content(
 
                 if (exercises.isEmpty()) {
                     item {
-                        ActionCard(
-                            modifier = Modifier.fillMaxWidth(),
-                            title = "Let's start workout",
-                            description = "Add your first exercise",
-                            btnText = "New exercise",
-                            onClick = addExercise
+
+                        ButtonPrimary(
+                            onClick = addExercise,
+                            text = "Let's start workout"
                         )
                     }
                 }
@@ -203,13 +199,6 @@ internal fun Content(
         }
 
         if (exercises.isNotEmpty()) {
-            BottomShadow(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .align(Alignment.BottomEnd)
-                    .navigationBarsPadding()
-                    .size(Design.dp.componentM + Design.dp.paddingM)
-            )
 
             ButtonPrimary(
                 modifier = Modifier

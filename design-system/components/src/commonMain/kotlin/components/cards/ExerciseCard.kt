@@ -37,7 +37,6 @@ import molecule.secondaryDefaultBackground
 import percents
 import shimmerLoadingAnimation
 
-
 @Immutable
 private data class MuscleUi(
     val text: String,

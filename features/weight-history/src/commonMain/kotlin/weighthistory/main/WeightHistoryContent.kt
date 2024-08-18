@@ -17,8 +17,6 @@ import atom.Design
 import components.BottomButtons
 import components.Error
 import components.ShadowFooterSpace
-import components.cards.WeightCard
-import components.cards.WeightCardIcon
 import components.roots.ScreenRoot
 import kg
 import kotlinx.collections.immutable.ImmutableList
@@ -27,6 +25,8 @@ import molecule.Label
 import molecule.PaddingM
 import molecule.PopupSheet
 import resources.Icons
+import user.component.WeightCard
+import user.component.WeightCardIcon
 import weighthistory.main.components.Header
 import weighthistory.main.models.WeightHistory
 import weighthistory.main.popups.WeightPickerPopup

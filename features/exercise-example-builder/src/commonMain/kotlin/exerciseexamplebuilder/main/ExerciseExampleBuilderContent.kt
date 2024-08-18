@@ -28,8 +28,6 @@ import atom.Design
 import components.BottomButtons
 import components.Error
 import components.ShadowFooterSpace
-import components.ShadowHeader
-import components.ShadowHeaderSpace
 import components.chips.Chip
 import components.chips.ChipState
 import components.inputs.InputDescription
@@ -135,8 +133,6 @@ private fun Content(
         Column(
             modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState())
         ) {
-
-            ShadowHeaderSpace()
 
             PaddingM()
 
@@ -314,8 +310,6 @@ private fun Content(
 
             ShadowFooterSpace()
         }
-
-        ShadowHeader(title = "Exercise Builder")
 
         val enabled = remember(equipments, muscles, name, imageUrl, filterPack) {
             val hasEquip = equipments.flatMap { it.equipments }

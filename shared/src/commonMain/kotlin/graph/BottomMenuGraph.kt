@@ -12,16 +12,12 @@ import io.github.xxfast.decompose.router.stack.rememberRouter
 import kotlinx.serialization.Serializable
 import profile.ProfileFeature
 import profile.ProfileGraph
-import statistics.StatisticsGraph
 import trainings.TrainingsGraph
 
 @Serializable
 internal sealed class BottomMenuRouter {
     @Serializable
     data object Trainings : BottomMenuRouter()
-
-    @Serializable
-    data object Statistics : BottomMenuRouter()
 
     @Serializable
     data object Profile : BottomMenuRouter()
@@ -48,8 +44,7 @@ internal fun BottomMenuGraph(
     LaunchedEffect(router.stack.value.active.configuration) {
         when (router.stack.value.active.configuration) {
             BottomMenuRouter.Trainings -> selectedIndex.value = 0
-            BottomMenuRouter.Statistics -> selectedIndex.value = 1
-            BottomMenuRouter.Profile -> selectedIndex.value = 2
+            BottomMenuRouter.Profile -> selectedIndex.value = 1
         }
     }
 
@@ -59,7 +54,6 @@ internal fun BottomMenuGraph(
         menuItemClick = {
             val newRoute = when (it) {
                 0 -> BottomMenuRouter.Trainings
-                1 -> BottomMenuRouter.Statistics
                 else -> BottomMenuRouter.Profile
             }
             router.bringToFront(newRoute)
@@ -79,10 +73,6 @@ internal fun BottomMenuGraph(
                         toMuscles = toMuscles,
                         toEquipment = toEquipment,
                         toExerciseExampleBuilder = toExerciseExampleBuilder
-                    )
-
-                    BottomMenuRouter.Statistics -> StatisticsGraph(
-
                     )
                 }
             }

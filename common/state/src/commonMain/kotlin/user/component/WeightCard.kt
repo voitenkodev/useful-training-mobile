@@ -1,4 +1,4 @@
-package components.cards
+package user.component
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable

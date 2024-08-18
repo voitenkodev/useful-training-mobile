@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
@@ -18,14 +19,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import atom.Design
 import components.Error
-import components.ShadowHeader
-import components.ShadowHeaderSpace
 import components.cards.UserCard
 import components.roots.ScreenRoot
 import molecule.Label
 import molecule.PaddingM
 import molecule.PaddingXL
 import molecule.Shadow
+import molecule.Toolbar
 import profile.main.components.MenuItem
 import resources.Icons
 import user.User
@@ -72,162 +72,158 @@ private fun Content(
 
     ScreenRoot(error = { Error(message = error, close = clearError) }) {
 
-        LazyColumn(
-            state = listState,
-            modifier = Modifier.fillMaxWidth().animateContentSize().fillMaxSize()
+        Column(
+            modifier = Modifier.fillMaxSize()
+                .systemBarsPadding()
         ) {
 
-            item("shadow_header_space") {
-                ShadowHeaderSpace()
-                PaddingM()
-            }
+            Toolbar(
+                title = "Profile"
+            )
 
-            item {
-                PaddingM()
-            }
+            LazyColumn(
+                state = listState,
+                modifier = Modifier.fillMaxWidth().animateContentSize().fillMaxSize()
+            ) {
 
-            item {
-                if (user != null) {
-                    UserCard(
-                        modifier = Modifier.padding(horizontal = Design.dp.paddingM),
-                        name = user.name,
-                        weight = user.weight,
-                        height = user.height,
-                        email = user.email,
+                item {
+                    if (user != null) {
+                        UserCard(
+                            modifier = Modifier.padding(horizontal = Design.dp.paddingM),
+                            name = user.name,
+                            weight = user.weight,
+                            height = user.height,
+                            email = user.email,
+                        )
+                    } else {
+                        Spacer(
+                            modifier = Modifier
+                                .padding(horizontal = Design.dp.paddingM)
+                                .fillMaxWidth()
+                                .aspectRatio(1.72f)
+                        )
+                    }
+                }
+
+                item { PaddingM() }
+
+                item {
+                    Label(
+                        modifier = Modifier.padding(horizontal = Design.dp.paddingL),
+                        provideText = { "User data" },
                     )
-                } else {
-                    Spacer(
+                }
+
+                item { PaddingM() }
+
+                item {
+                    Column(
                         modifier = Modifier
                             .padding(horizontal = Design.dp.paddingM)
-                            .fillMaxWidth()
-                            .aspectRatio(1.72f)
+                            .border(
+                                color = Design.palette.white10,
+                                width = 1.dp,
+                                shape = Design.shape.default
+                            ).fillMaxWidth()
+                    ) {
+
+                        MenuItem(
+                            icon = Icons.weight,
+                            text = "Weight",
+                            onClick = toWeightHistory,
+                            paddingValues = PaddingValues(
+                                vertical = Design.dp.paddingM,
+                                horizontal = Design.dp.paddingL
+                            )
+                        )
+
+                        Shadow()
+
+                        MenuItem(
+                            icon = Icons.handWeight,
+                            text = "Exercises",
+                            onClick = toExerciseExamples,
+                            paddingValues = PaddingValues(
+                                vertical = Design.dp.paddingM,
+                                horizontal = Design.dp.paddingL
+                            )
+                        )
+
+                        Shadow()
+
+                        MenuItem(
+                            icon = Icons.profile,
+                            text = "Muscles",
+                            onClick = toMuscles,
+                            paddingValues = PaddingValues(
+                                vertical = Design.dp.paddingM,
+                                horizontal = Design.dp.paddingL
+                            )
+                        )
+
+                        Shadow()
+
+                        MenuItem(
+                            icon = Icons.equipment,
+                            text = "Equipment",
+                            onClick = toEquipment,
+                            paddingValues = PaddingValues(
+                                vertical = Design.dp.paddingM,
+                                horizontal = Design.dp.paddingL
+                            )
+                        )
+                    }
+                }
+
+                item { PaddingM() }
+
+                item {
+                    Label(
+                        modifier = Modifier.padding(horizontal = Design.dp.paddingL),
+                        provideText = { "Settings" },
                     )
                 }
-            }
 
-            item { PaddingM() }
+                item { PaddingM() }
 
-            item {
-                Label(
-                    modifier = Modifier.padding(horizontal = Design.dp.paddingL),
-                    provideText = { "User data" },
-                )
-            }
+                item {
+                    Column(
+                        modifier = Modifier
+                            .padding(horizontal = Design.dp.paddingM)
+                            .border(
+                                color = Design.palette.white10,
+                                width = 1.dp,
+                                shape = Design.shape.default
+                            ).fillMaxWidth()
+                    ) {
 
-            item { PaddingM() }
-
-            item {
-                Column(
-                    modifier = Modifier
-                        .padding(horizontal = Design.dp.paddingM)
-                        .border(
-                            color = Design.palette.white10,
-                            width = 1.dp,
-                            shape = Design.shape.default
-                        ).fillMaxWidth()
-                ) {
-
-                    MenuItem(
-                        icon = Icons.weight,
-                        text = "Weight",
-                        onClick = toWeightHistory,
-                        paddingValues = PaddingValues(
-                            vertical = Design.dp.paddingM,
-                            horizontal = Design.dp.paddingL
+                        MenuItem(
+                            icon = Icons.add,
+                            text = "Exercise Builder",
+                            onClick = toExerciseExampleBuilder,
+                            paddingValues = PaddingValues(
+                                vertical = Design.dp.paddingM,
+                                horizontal = Design.dp.paddingL
+                            )
                         )
-                    )
 
-                    Shadow()
+                        Shadow()
 
-                    MenuItem(
-                        icon = Icons.handWeight,
-                        text = "Exercises",
-                        onClick = toExerciseExamples,
-                        paddingValues = PaddingValues(
-                            vertical = Design.dp.paddingM,
-                            horizontal = Design.dp.paddingL
+                        MenuItem(
+                            icon = Icons.logout,
+                            text = "Logout",
+                            contentColor = Design.colors.red,
+                            onClick = logout,
+                            paddingValues = PaddingValues(
+                                vertical = Design.dp.paddingM,
+                                horizontal = Design.dp.paddingL
+                            )
                         )
-                    )
-
-                    Shadow()
-
-                    MenuItem(
-                        icon = Icons.profile,
-                        text = "Muscles",
-                        onClick = toMuscles,
-                        paddingValues = PaddingValues(
-                            vertical = Design.dp.paddingM,
-                            horizontal = Design.dp.paddingL
-                        )
-                    )
-
-                    Shadow()
-
-                    MenuItem(
-                        icon = Icons.equipment,
-                        text = "Equipment",
-                        onClick = toEquipment,
-                        paddingValues = PaddingValues(
-                            vertical = Design.dp.paddingM,
-                            horizontal = Design.dp.paddingL
-                        )
-                    )
+                    }
                 }
+
+                item { PaddingXL() }
             }
-
-            item { PaddingM() }
-
-            item {
-                Label(
-                    modifier = Modifier.padding(horizontal = Design.dp.paddingL),
-                    provideText = { "Settings" },
-                )
-            }
-
-            item { PaddingM() }
-
-            item {
-
-                Column(
-                    modifier = Modifier
-                        .padding(horizontal = Design.dp.paddingM)
-                        .border(
-                            color = Design.palette.white10,
-                            width = 1.dp,
-                            shape = Design.shape.default
-                        ).fillMaxWidth()
-                ) {
-
-                    MenuItem(
-                        icon = Icons.add,
-                        text = "Exercise Builder",
-                        onClick = toExerciseExampleBuilder,
-                        paddingValues = PaddingValues(
-                            vertical = Design.dp.paddingM,
-                            horizontal = Design.dp.paddingL
-                        )
-                    )
-
-                    Shadow()
-
-                    MenuItem(
-                        icon = Icons.logout,
-                        text = "Logout",
-                        contentColor = Design.colors.red,
-                        onClick = logout,
-                        paddingValues = PaddingValues(
-                            vertical = Design.dp.paddingM,
-                            horizontal = Design.dp.paddingL
-                        )
-                    )
-                }
-            }
-
-            item { PaddingXL() }
         }
-
-        ShadowHeader(
-            title = "Profile",
-        )
     }
 }

@@ -14,14 +14,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import atom.Design
 import components.Error
-import components.ShadowFooter
 import components.ShadowFooterSpace
-import components.overlay.TopShadow
 import components.roots.ScreenRoot
 import exerciseexample.main.components.Achievements
 import exerciseexample.main.components.Equipments
@@ -125,20 +122,18 @@ private fun Content(
         }
 
         Box(modifier = Modifier.fillMaxWidth().height(IntrinsicSize.Min)) {
-            TopShadow(modifier = Modifier.fillMaxSize())
             Spacer(modifier = Modifier.statusBarsPadding().height(Design.dp.paddingXL))
         }
 
         val primary = remember(primaryAction, exerciseExample?.id) {
             if (primaryAction != null && exerciseExample?.id != null) {
-                Triple(primaryAction.first, true) { primaryAction.second.invoke(exerciseExample.id) }
+                Triple(
+                    primaryAction.first,
+                    true
+                ) { primaryAction.second.invoke(exerciseExample.id) }
             } else null
         }
 
-        ShadowFooter(
-            modifier = Modifier.fillMaxWidth().align(Alignment.BottomCenter),
-            primary = primary,
-            close = close
-        )
+        // todo add actions
     }
 }

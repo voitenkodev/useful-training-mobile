@@ -44,7 +44,7 @@ public sealed class AuthenticationRouter {
 public fun AuthenticationGraph(toTrainings: () -> Unit) {
 
     val router: Router<AuthenticationRouter> = rememberRouter(AuthenticationRouter::class) {
-        listOf(AuthenticationRouter.SuccessRegistration)
+        listOf(AuthenticationRouter.Splash)
     }
 
     RoutedContent(router = router, animation = stackAnimation(slide())) { child ->
