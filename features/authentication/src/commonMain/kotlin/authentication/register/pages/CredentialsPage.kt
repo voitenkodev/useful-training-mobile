@@ -25,6 +25,7 @@ import molecule.PaddingXS
 import molecule.PaddingXXL
 import molecule.TextBody1
 import molecule.TextH1
+import resources.Icons
 
 @Composable
 internal fun CredentialsPage(
@@ -115,6 +116,7 @@ internal fun CredentialsPage(
             first = {
                 ButtonSecondary(
                     modifier = Modifier.weight(1f),
+                    leadingIcon = Icons.arrowLeft,
                     text = "Back",
                     onClick = backProvider
                 )

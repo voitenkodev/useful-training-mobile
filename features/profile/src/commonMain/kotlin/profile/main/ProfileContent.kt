@@ -94,7 +94,6 @@ private fun Content(
                         weight = user.weight,
                         height = user.height,
                         email = user.email,
-                        experienceIcon = user.experience.icon
                     )
                 } else {
                     Spacer(

@@ -19,6 +19,7 @@ import molecule.PaddingS
 import molecule.PaddingXS
 import molecule.TextBody1
 import molecule.TextH1
+import resources.Icons
 
 @Composable
 internal fun ExcludeEquipmentPage(
@@ -63,6 +64,7 @@ internal fun ExcludeEquipmentPage(
             first = {
                 ButtonSecondary(
                     modifier = Modifier.weight(1f),
+                    leadingIcon = Icons.arrowLeft,
                     text = "Back",
                     onClick = back
                 )
@@ -70,6 +72,7 @@ internal fun ExcludeEquipmentPage(
             second = {
                 ButtonPrimary(
                     modifier = Modifier.weight(1f),
+                    trailingIcon = Icons.arrowRight,
                     text = "Next",
                     onClick = confirm,
                 )

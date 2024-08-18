@@ -1,6 +1,5 @@
 package authentication.success
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -11,10 +10,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
 import atom.Design
 import com.arkivanov.essenty.backhandler.BackCallback
 import components.Error
@@ -28,7 +24,6 @@ import molecule.PaddingXS
 import molecule.PaddingXXL
 import molecule.TextBody2
 import molecule.TextH2
-import resources.Icons
 import user.User
 
 @Composable
@@ -60,19 +55,12 @@ private fun Content(
 
     ScreenRoot(error = { Error(message = { error }, close = clearError) }) {
 
-        Image(
-            modifier = Modifier.fillMaxSize(),
-            imageVector = Icons.logoBackground,
-            contentDescription = null,
-            contentScale = ContentScale.Crop
-        )
-
         Column(
-            modifier = Modifier.fillMaxSize().systemBarsPadding(),
-            horizontalAlignment = Alignment.CenterHorizontally
+            modifier = Modifier.fillMaxSize()
+                .systemBarsPadding()
+                .padding(horizontal = Design.dp.paddingL),
+            horizontalAlignment = Alignment.Start
         ) {
-
-            PaddingXXL()
 
             PaddingXXL()
 
@@ -85,31 +73,26 @@ private fun Content(
 
             TextBody2(
                 provideText = { "Take your personal card!" },
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
+                color = Design.colors.label
             )
 
-            PaddingXXL()
-
-            PaddingXXL()
+            PaddingWeight(value = 0.5f)
 
             if (user != null) {
                 UserCard(
-                    modifier = Modifier.padding(Design.dp.paddingL),
                     name = user.name,
                     weight = user.weight,
                     email = user.email,
-                    experienceIcon = user.experience.icon,
                     height = user.height,
                 )
             }
 
-            PaddingWeight()
+            PaddingWeight(value = 1.5f)
 
             ButtonPrimary(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = Design.dp.paddingL),
-                text = "Start",
+                modifier = Modifier.fillMaxWidth(),
+                text = "Let's go!",
                 onClick = toTrainings,
             )
 
