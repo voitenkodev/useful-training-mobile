@@ -6,6 +6,7 @@ import network.models.EquipmentGroupDto
 
 internal fun List<EquipmentGroupDao>.daoToDomain(): List<EquipmentGroup> {
     return mapNotNull { it.daoToDomain() }
+        .sortedBy { it.equipments.count() }
 }
 
 internal fun EquipmentGroupDao.daoToDomain(): EquipmentGroup {

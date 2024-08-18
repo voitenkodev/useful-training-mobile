@@ -19,7 +19,7 @@ internal fun dp() = Dp(
     componentS = 42.dp,
     componentM = 54.dp,
     componentXL = 64.dp,
-    componentXXL = 168.dp
+    componentXXL = 148.dp
 )
 
 public data class Dp(
