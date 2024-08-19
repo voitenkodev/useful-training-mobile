@@ -41,7 +41,6 @@ import conditional
 import kotlinx.collections.immutable.ImmutableList
 import molecule.PaddingL
 import molecule.PaddingM
-import molecule.Shadow
 import molecule.TextBody4
 import molecule.TextH2
 import molecule.TextH3
@@ -108,8 +107,6 @@ internal fun Header(
         )
 
         PaddingM()
-
-        Shadow()
     }
 }
 

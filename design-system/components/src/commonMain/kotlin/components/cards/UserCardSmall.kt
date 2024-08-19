@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.clipToBounds
@@ -74,14 +75,10 @@ public fun UserCardSmall(
                 vertical = Design.dp.paddingL,
                 horizontal = Design.dp.paddingL
             ),
-            horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
+            horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM),
+            verticalAlignment = Alignment.CenterVertically
         ) {
             Column {
-
-                TextBody4(
-                    provideText = { "Username" },
-                    color = Design.colors.label
-                )
 
                 TextH3(
                     provideText = { name.uppercase() },

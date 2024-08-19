@@ -26,7 +26,6 @@ import components.cards.ValueCard
 import components.cards.ValueCardAction
 import components.roots.ScreenRoot
 import kg
-import molecule.ButtonPrimary
 import molecule.PaddingM
 import molecule.Shadow
 import molecule.Toolbar
@@ -179,22 +178,22 @@ private fun Content(
 
                 item { PaddingM() }
 
-                item {
-                    val toTrainingProvider = remember {
-                        {
-                            toTraining.invoke(null)
-                        }
-                    }
-
-                    ButtonPrimary(
-                        modifier = Modifier.fillMaxWidth(),
-                        text = "Start workout",
-                        leadingIcon = Icons.add,
-                        onClick = toTrainingProvider
-                    )
-                }
-
-                item { PaddingM() }
+//                item {
+//                    val toTrainingProvider = remember {
+//                        {
+//                            toTraining.invoke(null)
+//                        }
+//                    }
+//
+//                    ButtonPrimary(
+//                        modifier = Modifier.fillMaxWidth(),
+//                        text = "Start workout",
+//                        leadingIcon = Icons.add,
+//                        onClick = toTrainingProvider
+//                    )
+//                }
+//
+//                item { PaddingM() }
 
                 item {
                     Column(
