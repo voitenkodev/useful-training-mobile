@@ -23,6 +23,7 @@ kotlin {
             implementation(projects.domain.trainings)
 
             implementation(projects.common.utils)
+            implementation(projects.common.state)
             implementation(projects.common.architectureComponent)
 
             implementation(projects.designSystem.atom)

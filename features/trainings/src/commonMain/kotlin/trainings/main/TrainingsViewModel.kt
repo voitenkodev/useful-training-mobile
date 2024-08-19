@@ -18,9 +18,9 @@ import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import org.koin.core.component.inject
-import trainings.main.mapping.toState
+import trainings.Training
 import trainings.main.models.SelectableCalendar
-import trainings.main.models.Training
+import trainings.mapping.toState
 
 internal class TrainingsViewModel : ViewModel() {
 
@@ -55,7 +55,8 @@ internal class TrainingsViewModel : ViewModel() {
 
                             st.copy(
                                 trainings = t,
-                                displayedTrainings = t.getTrainingsByDate(selectedDates).toPersistentList(),
+                                displayedTrainings = t.getTrainingsByDate(selectedDates)
+                                    .toPersistentList(),
                                 calendar = st.calendar.syncWithTrainings(t).toPersistentList(),
                             )
                         }
@@ -89,7 +90,10 @@ internal class TrainingsViewModel : ViewModel() {
             val first = newChunk.firstOrNull()
             val last = newChunk.lastOrNull()
 
-            if (first != null && last != null) syncTrainings(fromIso = last.dateTimeIso, toIso = first.dateTimeIso)
+            if (first != null && last != null) syncTrainings(
+                fromIso = last.dateTimeIso,
+                toIso = first.dateTimeIso
+            )
 
             it.copy(calendar = (it.calendar + newChunk).toPersistentList())
         }
@@ -106,7 +110,11 @@ internal class TrainingsViewModel : ViewModel() {
             .map { it.dateTimeIso }
 
         _state.update {
-            it.copy(calendar = newList, displayedTrainings = it.trainings.getTrainingsByDate(selectedList).toPersistentList())
+            it.copy(
+                calendar = newList,
+                displayedTrainings = it.trainings.getTrainingsByDate(selectedList)
+                    .toPersistentList()
+            )
         }
     }
 
@@ -114,14 +122,16 @@ internal class TrainingsViewModel : ViewModel() {
         if (dateTimeIsoList.isEmpty()) return emptyList()
 
         return this
-            .filter { training -> DateTimeKtx.isOneOfDates(training.dateIso, dateTimeIsoList) }
+            .filter { training -> DateTimeKtx.isOneOfDates(training.createdAt, dateTimeIsoList) }
             .toImmutableList()
     }
 
-    private fun List<SelectableCalendar>.syncWithTrainings(trainings: List<Training>) = map { item ->
-        val count = trainings.count { DateTimeKtx.isTheSameDate(item.dateTimeIso, it.dateIso) }
-        item.copy(repetitions = count)
-    }
+    private fun List<SelectableCalendar>.syncWithTrainings(trainings: List<Training>) =
+        map { item ->
+            val count =
+                trainings.count { DateTimeKtx.isTheSameDate(item.dateTimeIso, it.createdAt) }
+            item.copy(repetitions = count)
+        }
 
     fun clearError() {
         _state.update { it.copy(error = null) }

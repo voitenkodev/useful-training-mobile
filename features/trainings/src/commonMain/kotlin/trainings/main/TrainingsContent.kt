@@ -20,10 +20,10 @@ import kotlinx.collections.immutable.ImmutableList
 import molecule.ButtonPrimary
 import molecule.ButtonSecondary
 import resources.Icons
+import trainings.Training
 import trainings.main.components.Header
 import trainings.main.components.Trainings
 import trainings.main.models.SelectableCalendar
-import trainings.main.models.Training
 
 @Composable
 internal fun TrainingsContent(

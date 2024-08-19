@@ -17,7 +17,7 @@ import molecule.TextBody2
 import molecule.TextH4
 import molecule.secondarySmallBackground
 import recomposeHighlighter
-import trainings.main.models.Exercise
+import trainings.Exercise
 
 @Composable
 internal fun Exercise(

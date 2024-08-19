@@ -13,7 +13,7 @@ import atom.Design
 import components.ShadowFooterSpace
 import kotlinx.collections.immutable.ImmutableList
 import molecule.PaddingM
-import trainings.main.models.Training
+import trainings.Training
 
 @Composable
 internal fun Trainings(
@@ -37,7 +37,7 @@ internal fun Trainings(
                 PaddingM()
 
                 TrainingTitle(
-                    mainTitle = { "At ${training.startDate}" },
+                    mainTitle = { "At ${training.createdAt}" },
                     click = { openTraining.invoke(training.id) }
                 )
 

@@ -18,11 +18,12 @@ import basic.LineChart
 import basic.LineChartDotsStyle
 import basic.LineChartStyle
 import components.cards.HorizontalValueCard
+import kg
 import kotlinx.collections.immutable.ImmutableList
 import molecule.secondaryDefaultBackground
 import recomposeHighlighter
 import resources.Icons
-import trainings.main.models.Training
+import trainings.Training
 
 @Composable
 internal fun TrainingHeader(
@@ -44,7 +45,7 @@ internal fun TrainingHeader(
                 .fillMaxHeight()
                 .secondaryDefaultBackground(),
             title = "Volume",
-            value = training.volume,
+            value = training.volume.kg(allowUnit = true),
             icon = Icons.weight,
             values = training.volumeExerciseList
         )

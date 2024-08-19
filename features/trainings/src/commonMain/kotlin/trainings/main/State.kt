@@ -3,8 +3,8 @@ package trainings.main
 import androidx.compose.runtime.Immutable
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
+import trainings.Training
 import trainings.main.models.SelectableCalendar
-import trainings.main.models.Training
 
 @Immutable
 internal data class State(
