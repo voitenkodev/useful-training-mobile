@@ -164,7 +164,14 @@ private fun Content(
                             value = lastTrainingValue,
                             title = "Last training",
                             label = lastTrainingLabel,
-                            icon = Icons.trainingWeight
+                            icon = Icons.trainingWeight,
+                            action = ValueCardAction(
+                                title = "SHOW",
+                                onClick = {}, // TODO ADD
+                                trailingIcon = Icons.arrowRight,
+                                color = Design.colors.orange,
+                                textDecoration = TextDecoration.None
+                            )
                         )
 
                     }

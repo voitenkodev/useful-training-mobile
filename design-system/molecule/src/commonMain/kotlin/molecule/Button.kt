@@ -8,6 +8,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.size
@@ -181,7 +182,7 @@ public fun ButtonText(
 
         if (leadingIcon != null) {
             Icon(
-                modifier = Modifier.size(Design.dp.iconXS),
+                modifier = Modifier.height(Design.dp.iconXS),
                 imageVector = leadingIcon,
                 color = color
             )
@@ -204,7 +205,7 @@ public fun ButtonText(
 
         if (trailingIcon != null) {
             Icon(
-                modifier = Modifier.size(Design.dp.iconXS),
+                modifier = Modifier.height(Design.dp.iconXS),
                 imageVector = trailingIcon,
                 color = color
             )
