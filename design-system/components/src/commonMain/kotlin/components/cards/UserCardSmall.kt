@@ -5,11 +5,12 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -43,7 +44,7 @@ public fun UserCardSmall(
                 shape = Design.shape.large,
             )
             .fillMaxWidth()
-            .wrapContentHeight()
+            .height(intrinsicSize = IntrinsicSize.Min)
             .clipToBounds()
     ) {
 
@@ -51,7 +52,7 @@ public fun UserCardSmall(
         val second = Design.colors.white5
 
         Canvas(modifier = Modifier.fillMaxSize()) {
-            val centerX = size.width / 4f
+            val centerX = 100f
             val centerY = size.height / 4f
             val radius = size.minDimension / 2f
 

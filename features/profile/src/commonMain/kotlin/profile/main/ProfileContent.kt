@@ -269,7 +269,7 @@ private fun Content(
                         MenuItem(
                             icon = Icons.logout,
                             text = "Logout",
-                            contentColor = Design.colors.red,
+                            contentColor = Design.colors.orange,
                             onClick = logout,
                             paddingValues = PaddingValues(
                                 vertical = Design.dp.paddingM,
