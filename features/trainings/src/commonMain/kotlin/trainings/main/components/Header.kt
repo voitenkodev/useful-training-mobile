@@ -6,7 +6,6 @@ import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -18,6 +17,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -34,14 +34,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.text.capitalize
 import androidx.compose.ui.text.intl.Locale
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import atom.Design
 import components.states.animateScrollAndCentralizeItem
 import conditional
 import kotlinx.collections.immutable.ImmutableList
+import molecule.PaddingL
 import molecule.PaddingM
-import molecule.PaddingS
 import molecule.Shadow
 import molecule.TextBody4
 import molecule.TextH2
@@ -79,17 +78,18 @@ internal fun Header(
 
     Column(modifier = Modifier.statusBarsPadding()) {
 
-        PaddingS()
+        PaddingL()
 
         Box(
-            modifier = Modifier.height(Design.dp.componentM).fillMaxWidth(),
-            contentAlignment = Alignment.CenterStart
+            modifier = Modifier
+                .height(Design.dp.componentM)
+                .fillMaxWidth(),
         ) {
 
             MonthSwiper(
                 modifier = Modifier
-                    .align(Alignment.Center)
-                    .padding(horizontal = Design.dp.paddingM),
+                    .width(260.dp)
+                    .padding(horizontal = Design.dp.paddingL),
                 monthNumber = monthIndex,
                 month = month,
             )
@@ -99,8 +99,6 @@ internal fun Header(
                 click = { currentDay?.let { selectCalendarDay.invoke(it) } }
             )
         }
-
-        PaddingS()
 
         CalendarRow(
             lazyListState = lazyColumnListState,
@@ -142,7 +140,7 @@ private fun CalendarRow(
 
     LazyRow(
         state = lazyListState,
-        modifier = Modifier.fillMaxWidth().padding(vertical = Design.dp.paddingXS),
+        modifier = Modifier.fillMaxWidth(),
         reverseLayout = true,
         horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM),
         contentPadding = PaddingValues(horizontal = Design.dp.paddingM)
@@ -156,9 +154,14 @@ private fun CalendarRow(
                         .conditional(
                             condition = it.isSelected,
                             onYes = {
-                                border(
-                                    width = 1.dp,
-                                    color = Design.palette.white30,
+                                background(
+                                    color = Design.palette.tertiary,
+                                    shape = Design.shape.default
+                                )
+                            },
+                            onNot = {
+                                background(
+                                    color = Design.palette.secondary,
                                     shape = Design.shape.default
                                 )
                             }
@@ -170,12 +173,12 @@ private fun CalendarRow(
                     TextBody4(
                         modifier = Modifier,
                         provideText = { if (it.isToday) "NOW" else it.weekDay },
-                        color = if (it.isToday) Design.colors.orange else if (it.isSelected) Design.colors.content else Design.colors.label
+                        color = if (it.isToday) Design.colors.yellow else if (it.isSelected) Design.colors.content else Design.colors.label
                     )
 
                     TextH3(
                         provideText = { it.day },
-                        color = if (it.isToday) Design.colors.orange else Design.colors.content
+                        color = if (it.isToday) Design.colors.yellow else Design.colors.content
                     )
                 }
 
@@ -234,9 +237,8 @@ private fun MonthSwiper(
         }
     ) { target ->
         TextH2(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier,
             provideText = { target },
-            textAlign = TextAlign.Center,
             softWrap = false
         )
     }

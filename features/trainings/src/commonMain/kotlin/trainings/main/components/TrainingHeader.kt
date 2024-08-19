@@ -35,8 +35,7 @@ internal fun TrainingHeader(
         modifier = modifier
             .fillMaxWidth()
             .height(IntrinsicSize.Min)
-            .recomposeHighlighter(),
-        horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
+            .recomposeHighlighter()
     ) {
 
         ChartBlock(
@@ -84,7 +83,11 @@ private fun ChartBlock(
             modifier = Modifier
                 .fillMaxWidth()
                 .weight(1f)
-                .padding(start = Design.dp.paddingM, end = Design.dp.paddingM, top = Design.dp.paddingM)
+                .padding(
+                    start = Design.dp.paddingM,
+                    end = Design.dp.paddingM,
+                    top = Design.dp.paddingM
+                )
                 .recomposeHighlighter(),
             values = values,
             chartStyle = LineChartStyle(

@@ -10,9 +10,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import atom.Design
-import molecule.ButtonIconXS
+import molecule.ButtonText
 import resources.Icons
 
 @Composable
@@ -22,7 +23,7 @@ internal fun BoxScope.TodayControl(
     click: () -> Unit
 ) {
 
-    val width = Design.dp.componentS
+    val width = 64.dp
     val padding = Design.dp.paddingL
 
     val animatedDp by animateDpAsState(
@@ -34,12 +35,15 @@ internal fun BoxScope.TodayControl(
         )
     )
 
-    ButtonIconXS(
+    ButtonText(
         modifier = modifier
             .padding(end = padding)
             .align(Alignment.CenterEnd)
             .offset(x = animatedDp),
-        imageVector = Icons.arrowRight,
-        onClick = click
+        trailingIcon = Icons.arrowRight,
+        color = Design.colors.orange,
+        textDecoration = TextDecoration.None,
+        onClick = click,
+        text = "TODAY"
     )
 }
