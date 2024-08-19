@@ -17,6 +17,8 @@ import kotlin.time.Duration
 
 public object DateTimeKtx {
 
+    private const val BASIC_CHUNK: Int = 40
+
     public enum class Format {
         DD_MMMM_YYYY, // 21 October, 2022
         DD_MMM_YYYY, // 21 Oct, 2022
@@ -24,6 +26,7 @@ public object DateTimeKtx {
         DD_MMMM, // 21 October
         DD_MMM, // 21 Oct
         DD_MM, // 21.10
+        HH_MM_DD_MMM, // 16:10, 21 jun
     }
 
     public fun convert(
@@ -38,7 +41,46 @@ public object DateTimeKtx {
             Format.DD_MMMM -> formattedDate1(iso8601Timestamp, withYear = false)
             Format.DD_MMM -> formattedDate2(iso8601Timestamp, withYear = false)
             Format.DD_MM -> formattedDate3(iso8601Timestamp, withYear = false)
+            Format.HH_MM_DD_MMM -> formattedDateTime1(iso8601Timestamp)
         }
+    }
+
+    /** Output 2022-10-21T13:20:18.496Z */
+    public fun currentDateTimeIso(): String = Clock.System.now().toString()
+
+    /**
+     * Input 2 + listOf(2022-10-21T13:20:18.496Z, 2022-10-22T13:20:18.496Z)
+     * Output listOf(2022-10-20T13:20:18.496Z, 2022-10-19T13:20:18.496Z)
+     **/
+
+    public fun chunkBefore(previousList: List<String>, count: Int = BASIC_CHUNK): List<String> {
+        val timeZone = TimeZone.currentSystemDefault()
+
+        val lastDate = if (previousList.isEmpty()) Clock
+            .System.now()
+            .toLocalDateTime(timeZone)
+            .toInstant(timeZone)
+            .plus(4, DateTimeUnit.DAY, timeZone)
+            .toLocalDateTime(timeZone)
+        else previousList
+            .minOfOrNull { Instant.parse(it).toLocalDateTime(timeZone) }
+
+        if (lastDate == null) return emptyList()
+
+        val newChunk = mutableListOf<String>()
+
+        for (i in 1..count) {
+            val previousDate = lastDate
+                .toInstant(timeZone)
+                .minus(i, DateTimeUnit.DAY, timeZone)
+                .toLocalDateTime(timeZone)
+                .toInstant(offset = UtcOffset.ZERO)
+                .toString()
+
+            newChunk.add(previousDate)
+        }
+
+        return newChunk.toSet().toList()
     }
 
     /** Output 21 October, 2022 */
@@ -78,7 +120,17 @@ public object DateTimeKtx {
     }
 
 
-    // *************************** DEPRECATED ***************************
+    /** Output 17h 44m, 21 Jun */
+    private fun formattedDateTime1(iso8601Timestamp: String): String? {
+        val localDateTime = iso8601TimestampToLocalDateTime(iso8601Timestamp) ?: return null
+        val hour = localDateTime.hour
+        val min = localDateTime.minute
+
+        val date = localDateTime.date
+        val day = date.dayOfMonth
+        val month = date.month.name.lowercase().capitalize(Locale.current).take(3)
+        return "${timeFormat(hour, min)}, ${day.zeroPrefixed(2)} $month"
+    }
 
     public fun isoToMillis(iso8601Timestamp: String): Long {
         val timeZone = TimeZone.currentSystemDefault()
@@ -86,52 +138,11 @@ public object DateTimeKtx {
         return localDateTime?.toInstant(timeZone)?.toEpochMilliseconds() ?: -1
     }
 
-
     public fun millisToIso(millis: Long): String {
         return Instant.fromEpochMilliseconds(millis).toString()
     }
 
-
-    /**
-     * Input 2 + listOf(2022-10-21T13:20:18.496Z, 2022-10-22T13:20:18.496Z)
-     * Output listOf(2022-10-20T13:20:18.496Z, 2022-10-19T13:20:18.496Z)
-     **/
-
-    public fun addEarlyCalendarChunk(previousList: List<String>, count: Int): List<String> {
-        val timeZone = TimeZone.currentSystemDefault()
-
-        val lastDate = if (previousList.isEmpty()) Clock
-            .System.now()
-            .toLocalDateTime(timeZone)
-            .toInstant(timeZone)
-            .plus(4, DateTimeUnit.DAY, timeZone)
-            .toLocalDateTime(timeZone)
-        else previousList
-            .minOfOrNull { Instant.parse(it).toLocalDateTime(timeZone) }
-
-        if (lastDate == null) return emptyList()
-
-        val newChunk = mutableListOf<String>()
-
-        for (i in 1..count) {
-            val previousDate = lastDate
-                .toInstant(timeZone)
-                .minus(i, DateTimeUnit.DAY, timeZone)
-                .toLocalDateTime(timeZone)
-                .toInstant(offset = UtcOffset.ZERO)
-                .toString()
-
-            newChunk.add(previousDate)
-        }
-
-        return newChunk.toSet().toList()
-    }
-
-    /**
-     * Output 2022-10-21T13:20:18.496Z
-     * */
-
-    public fun currentDateTime(): String = Clock.System.now().toString()
+    // *************************** DEPRECATED ***************************
 
     /**
      * Output FRIDAY
@@ -152,7 +163,6 @@ public object DateTimeKtx {
         val year = date.year
         return "${day.zeroPrefixed(2)} $month $year"
     }
-
 
     /**
      * Input 2022-10-21T13:20:18.496Z

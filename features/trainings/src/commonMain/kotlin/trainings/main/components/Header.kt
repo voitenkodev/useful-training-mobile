@@ -11,12 +11,12 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.LazyRow
@@ -39,8 +39,8 @@ import atom.Design
 import components.states.animateScrollAndCentralizeItem
 import conditional
 import kotlinx.collections.immutable.ImmutableList
-import molecule.PaddingL
 import molecule.PaddingM
+import molecule.PaddingWeight
 import molecule.TextBody4
 import molecule.TextH2
 import molecule.TextH3
@@ -75,12 +75,11 @@ internal fun Header(
         DateTimeKtx.formattedMonthNum(iso) ?: -1
     }
 
-    Column(modifier = Modifier.statusBarsPadding()) {
+    Column(modifier = Modifier) {
 
-        PaddingL()
-
-        Box(
+        Row(
             modifier = Modifier
+                .padding(top = Design.dp.paddingL)
                 .height(Design.dp.componentM)
                 .fillMaxWidth(),
         ) {
@@ -93,7 +92,10 @@ internal fun Header(
                 month = month,
             )
 
+            PaddingWeight()
+
             TodayControl(
+                modifier = Modifier,
                 visibilityCondition = { selectedDateIsToday.not() },
                 click = { currentDay?.let { selectCalendarDay.invoke(it) } }
             )

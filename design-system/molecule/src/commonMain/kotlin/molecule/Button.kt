@@ -8,9 +8,9 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeight
+import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -21,6 +21,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import atom.Design
 
@@ -175,37 +176,37 @@ public fun ButtonText(
 ) {
 
     Row(
-        modifier = modifier,
-        horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingXS),
+        modifier = modifier.clickable(
+            interactionSource = remember { MutableInteractionSource() },
+            indication = null,
+            onClick = onClick
+        ),
         verticalAlignment = Alignment.CenterVertically
     ) {
 
         if (leadingIcon != null) {
             Icon(
-                modifier = Modifier.height(Design.dp.iconXS),
+                modifier = Modifier.requiredSize(Design.dp.iconXS),
                 imageVector = leadingIcon,
                 color = color
             )
         }
 
         TextField(
-            modifier = Modifier
-                .clickable(
-                    interactionSource = remember { MutableInteractionSource() },
-                    indication = null,
-                    onClick = onClick
-                ),
+            modifier = Modifier.padding(horizontal = Design.dp.paddingXS),
             provideText = { text },
             textStyle = Design.typography.textButton
                 .copy(
                     color = color,
                     textDecoration = textDecoration
-                )
+                ),
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis
         )
 
         if (trailingIcon != null) {
             Icon(
-                modifier = Modifier.height(Design.dp.iconXS),
+                modifier = Modifier.requiredSize(Design.dp.iconXS),
                 imageVector = trailingIcon,
                 color = color
             )

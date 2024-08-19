@@ -3,22 +3,20 @@ package trainings.main
 import DateTimeKtx
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import atom.Design
-import components.BottomButtons
 import components.EmptyData
 import components.Error
 import components.roots.ScreenRoot
 import kotlinx.collections.immutable.ImmutableList
-import molecule.ButtonPrimary
-import molecule.ButtonSecondary
 import resources.Icons
 import trainings.Training
 import trainings.main.components.Header
@@ -73,7 +71,8 @@ private fun Content(
 
     ScreenRoot(error = { Error(message = error, close = clearError) }) {
 
-        Column {
+        Column(modifier = Modifier.fillMaxSize().statusBarsPadding()) {
+
             Header(
                 calendar = calendar,
                 onAddMore = addCalendarChunk,
@@ -105,26 +104,26 @@ private fun Content(
             }
         }
 
-        BottomButtons(
-            modifier = Modifier.fillMaxWidth().align(Alignment.BottomCenter),
-            first = {
-                if (selectedDateIsToday.not()) {
-                    ButtonSecondary(
-                        modifier = Modifier.weight(1f),
-                        text = "Today",
-                        onClick = backTodayProvider
-                    )
-                }
-            },
-            second = {
-                if (selectedDateIsToday) {
-                    ButtonPrimary(
-                        modifier = Modifier.weight(1f),
-                        text = "Start workout",
-                        onClick = newTraining,
-                    )
-                }
-            }
-        )
+//        BottomButtons(
+//            modifier = Modifier.fillMaxWidth().align(Alignment.BottomCenter),
+//            first = {
+//                if (selectedDateIsToday.not()) {
+//                    ButtonSecondary(
+//                        modifier = Modifier.weight(1f),
+//                        text = "Today",
+//                        onClick = backTodayProvider
+//                    )
+//                }
+//            },
+//            second = {
+//                if (selectedDateIsToday) {
+//                    ButtonPrimary(
+//                        modifier = Modifier.weight(1f),
+//                        text = "Start workout",
+//                        onClick = newTraining,
+//                    )
+//                }
+//            }
+//        )
     }
 }

@@ -1,4 +1,4 @@
-package components.cards
+package user.component
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
@@ -28,12 +28,13 @@ import molecule.PaddingXS
 import molecule.TextBody4
 import molecule.TextH3
 import resources.Icons
+import shimmerLoadingAnimation
+import user.User
 
 @Composable
 public fun UserCardSmall(
     modifier: Modifier = Modifier,
-    name: String,
-    email: String,
+    user: User?,
     edit: () -> Unit
 ) {
 
@@ -44,6 +45,7 @@ public fun UserCardSmall(
                 color = Design.colors.secondary,
                 shape = Design.shape.large,
             )
+            .shimmerLoadingAnimation(user == null)
             .fillMaxWidth()
             .height(intrinsicSize = IntrinsicSize.Min)
             .clipToBounds()
@@ -81,7 +83,7 @@ public fun UserCardSmall(
             Column {
 
                 TextH3(
-                    provideText = { name.uppercase() },
+                    provideText = { user?.name?.uppercase() ?: "" },
                     color = Design.colors.yellow
                 )
 
@@ -96,7 +98,7 @@ public fun UserCardSmall(
                     PaddingXS()
 
                     TextBody4(
-                        provideText = { email },
+                        provideText = { user?.email ?: "" },
                         color = Design.colors.label
                     )
                 }

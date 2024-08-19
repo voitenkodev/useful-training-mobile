@@ -21,7 +21,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextDecoration
 import atom.Design
 import components.Error
-import components.cards.UserCardSmall
 import components.cards.ValueCard
 import components.cards.ValueCardAction
 import components.roots.ScreenRoot
@@ -34,6 +33,7 @@ import resources.Icons
 import trainings.Training
 import user.User
 import user.WeightHistory
+import user.component.UserCardSmall
 
 @Composable
 internal fun ProfileContent(
@@ -104,13 +104,10 @@ private fun Content(
             ) {
 
                 item {
-                    if (user != null) {
-                        UserCardSmall(
-                            name = user.name,
-                            email = user.email,
-                            edit = {}
-                        )
-                    }
+                    UserCardSmall(
+                        user = user,
+                        edit = {}
+                    )
                 }
 
                 item { PaddingM() }
@@ -139,7 +136,7 @@ private fun Content(
                             label = "At $lastWeightLabel",
                             icon = Icons.userWeight,
                             action = ValueCardAction(
-                                title = "MORE",
+                                title = "HISTORY",
                                 onClick = toWeightHistory,
                                 trailingIcon = Icons.arrowRight,
                                 color = Design.colors.orange,
@@ -165,7 +162,7 @@ private fun Content(
                             label = lastTrainingLabel,
                             icon = Icons.trainingWeight,
                             action = ValueCardAction(
-                                title = "SHOW",
+                                title = "OVERVIEW",
                                 onClick = {}, // TODO ADD
                                 trailingIcon = Icons.arrowRight,
                                 color = Design.colors.orange,

@@ -1,7 +1,7 @@
 package trainings.main
 
 import DateTimeKtx
-import DateTimeKtx.addEarlyCalendarChunk
+import DateTimeKtx.chunkBefore
 import TrainingsRepository
 import ViewModel
 import kotlinx.collections.immutable.toImmutableList
@@ -29,13 +29,9 @@ internal class TrainingsViewModel : ViewModel() {
 
     private val trainingApi by inject<TrainingsRepository>()
 
-    companion object {
-        private const val DAY_PAGE_CHUNK = 40
-    }
-
     init {
         addCalendarChunk()
-        selectCalendarDay(DateTimeKtx.currentDateTime())
+        selectCalendarDay(DateTimeKtx.currentDateTimeIso())
 
         _state.mapNotNull {
             val first = it.calendar.firstOrNull()?.dateTimeIso ?: return@mapNotNull null
@@ -73,8 +69,7 @@ internal class TrainingsViewModel : ViewModel() {
 
     fun addCalendarChunk() {
         _state.update {
-            val newChunk = addEarlyCalendarChunk(
-                count = DAY_PAGE_CHUNK,
+            val newChunk = chunkBefore(
                 previousList = it.calendar.map { it.dateTimeIso }
             ).map { item ->
                 SelectableCalendar(

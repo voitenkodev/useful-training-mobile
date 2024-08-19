@@ -3,12 +3,10 @@ package trainings.main.components
 import androidx.compose.animation.core.EaseOut
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
@@ -17,7 +15,7 @@ import molecule.ButtonText
 import resources.Icons
 
 @Composable
-internal fun BoxScope.TodayControl(
+internal fun TodayControl(
     modifier: Modifier = Modifier,
     visibilityCondition: () -> Boolean = { true },
     click: () -> Unit
@@ -30,7 +28,7 @@ internal fun BoxScope.TodayControl(
         targetValue = if (visibilityCondition()) 0.dp else width + padding,
         animationSpec = tween(
             durationMillis = 300,
-            delayMillis = 250,
+            delayMillis = 150,
             easing = EaseOut
         )
     )
@@ -38,7 +36,6 @@ internal fun BoxScope.TodayControl(
     ButtonText(
         modifier = modifier
             .padding(end = padding)
-            .align(Alignment.CenterEnd)
             .offset(x = animatedDp),
         trailingIcon = Icons.arrowRight,
         color = Design.colors.orange,

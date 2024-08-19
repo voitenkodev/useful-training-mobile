@@ -69,6 +69,8 @@ public fun ValueCard(
 
             PaddingWeight()
 
+            PaddingM()
+
             action?.let { a ->
                 ButtonText(
                     text = a.title,
