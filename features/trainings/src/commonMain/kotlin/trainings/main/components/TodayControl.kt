@@ -12,9 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import atom.Design
-import molecule.ButtonIconPrimary
-import molecule.ButtonIconSecondary
-import molecule.ButtonIconTransparent
+import molecule.ButtonIconXS
 import resources.Icons
 
 @Composable
@@ -36,7 +34,7 @@ internal fun BoxScope.TodayControl(
         )
     )
 
-    ButtonIconSecondary(
+    ButtonIconXS(
         modifier = modifier
             .padding(end = padding)
             .align(Alignment.CenterEnd)

@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import atom.Design
-import molecule.ButtonIconSecondary
+import molecule.ButtonIconXS
 
 @Composable
 internal fun MenuItem(
@@ -46,7 +46,7 @@ internal fun MenuItem(
             horizontalArrangement = Arrangement.spacedBy(4.dp)
         ) {
 
-            ButtonIconSecondary(
+            ButtonIconXS(
                 modifier = Modifier.size(26.dp),
                 imageVector = if (isSelected) icon else icon,
                 onClick = onClick,

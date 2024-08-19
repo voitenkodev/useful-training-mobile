@@ -22,6 +22,7 @@ kotlin {
         commonMain.dependencies {
             implementation(projects.domain.user)
             implementation(projects.domain.authentication)
+            implementation(projects.domain.trainings)
 
             implementation(projects.common.state)
             implementation(projects.common.utils)

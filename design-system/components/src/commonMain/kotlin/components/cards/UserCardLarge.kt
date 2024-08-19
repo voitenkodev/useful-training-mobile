@@ -28,7 +28,7 @@ import molecule.TextH3
 import molecule.TextH4
 
 @Composable
-public fun UserCard(
+public fun UserCardLarge(
     modifier: Modifier = Modifier,
     name: String,
     height: String,

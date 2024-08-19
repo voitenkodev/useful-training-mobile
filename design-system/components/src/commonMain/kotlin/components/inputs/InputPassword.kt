@@ -10,7 +10,7 @@ import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import molecule.ButtonIconSecondary
+import molecule.ButtonIconXS
 import molecule.Input
 import molecule.InputLabel
 import resources.Icons
@@ -31,7 +31,7 @@ public fun InputPassword(
         label = { InputLabel(provideText = { "Enter password" }) },
         placeholder = "Password",
         trailing = {
-            ButtonIconSecondary(
+            ButtonIconXS(
                 imageVector = if (passwordVisibility.value) Icons.eye else Icons.eyeOff,
                 color = it.copy(alpha = 0.5f),
                 onClick = { passwordVisibility.value = passwordVisibility.value.not() }

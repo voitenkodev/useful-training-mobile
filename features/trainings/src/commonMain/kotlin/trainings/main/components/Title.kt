@@ -9,10 +9,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import atom.Design
-import molecule.ButtonIconPrimary
+import molecule.ButtonPrimary
 import molecule.TextH3
 import recomposeHighlighter
-import resources.Icons
 
 @Composable
 internal fun TrainingTitle(
@@ -35,9 +34,8 @@ internal fun TrainingTitle(
             provideText = mainTitle,
         )
 
-        ButtonIconPrimary(
-            backgroundColor = Design.colors.secondary,
-            imageVector = Icons.arrowRight,
+        ButtonPrimary(
+            text = "Open",
             onClick = click
         )
     }

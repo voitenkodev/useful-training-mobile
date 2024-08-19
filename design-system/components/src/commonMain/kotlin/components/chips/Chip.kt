@@ -100,7 +100,7 @@ public fun Chip(
 
         if (iconStart != null) {
             IconImage(
-                modifier = Modifier.size(Design.dp.iconS),
+                modifier = Modifier.size(Design.dp.iconXS),
                 imageVector = iconStart
             )
 
@@ -123,7 +123,7 @@ public fun Chip(
             PaddingS()
 
             IconImage(
-                modifier = Modifier.size(Design.dp.iconS),
+                modifier = Modifier.size(Design.dp.iconXS),
                 imageVector = iconEnd
             )
         } else {

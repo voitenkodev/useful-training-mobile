@@ -84,7 +84,7 @@ public fun ButtonPrimary(
 
         if (trailingIcon != null) {
             Icon(
-                modifier = Modifier.size(Design.dp.iconS),
+                modifier = Modifier.size(Design.dp.iconXS),
                 imageVector = trailingIcon,
                 color = textColor
             )
@@ -137,7 +137,7 @@ public fun ButtonSecondary(
 
         if (leadingIcon != null) {
             Icon(
-                modifier = Modifier.size(Design.dp.iconS),
+                modifier = Modifier.size(Design.dp.iconXS),
                 imageVector = leadingIcon,
                 color = textColor
             )
@@ -154,7 +154,7 @@ public fun ButtonSecondary(
 
         if (trailingIcon != null) {
             Icon(
-                modifier = Modifier.size(Design.dp.iconS),
+                modifier = Modifier.size(Design.dp.iconXS),
                 imageVector = trailingIcon,
                 color = textColor
             )
@@ -181,7 +181,7 @@ public fun ButtonText(
 
         if (leadingIcon != null) {
             Icon(
-                modifier = Modifier.size(Design.dp.iconS),
+                modifier = Modifier.size(Design.dp.iconXS),
                 imageVector = leadingIcon,
                 color = color
             )
@@ -204,7 +204,7 @@ public fun ButtonText(
 
         if (trailingIcon != null) {
             Icon(
-                modifier = Modifier.size(Design.dp.iconS),
+                modifier = Modifier.size(Design.dp.iconXS),
                 imageVector = trailingIcon,
                 color = color
             )

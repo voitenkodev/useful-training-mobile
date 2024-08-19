@@ -7,8 +7,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.statusBarsPadding
@@ -23,7 +21,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextDecoration
 import atom.Design
 import components.Error
-import components.cards.UserCard
+import components.cards.UserCardSmall
 import components.cards.ValueCard
 import components.cards.ValueCardAction
 import components.roots.ScreenRoot
@@ -105,17 +103,10 @@ private fun Content(
 
                 item {
                     if (user != null) {
-                        UserCard(
+                        UserCardSmall(
                             name = user.name,
-                            weight = user.weight,
-                            height = user.height,
                             email = user.email,
-                        )
-                    } else {
-                        Spacer(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .aspectRatio(1.72f)
+                            edit = {}
                         )
                     }
                 }
@@ -176,7 +167,7 @@ private fun Content(
 
                     ButtonPrimary(
                         modifier = Modifier.fillMaxWidth(),
-                        text = "Add workout",
+                        text = "Start workout",
                         leadingIcon = Icons.add,
                         onClick = toTrainingProvider
                     )

@@ -14,7 +14,7 @@ import androidx.compose.ui.text.style.TextAlign
 import atom.Design
 import com.arkivanov.essenty.backhandler.BackCallback
 import components.Error
-import components.cards.UserCard
+import components.cards.UserCardLarge
 import components.roots.ScreenRoot
 import io.github.xxfast.decompose.router.LocalRouterContext
 import molecule.ButtonPrimary
@@ -80,7 +80,7 @@ private fun Content(
             PaddingWeight(value = 0.5f)
 
             if (user != null) {
-                UserCard(
+                UserCardLarge(
                     name = user.name,
                     weight = user.weight,
                     email = user.email,

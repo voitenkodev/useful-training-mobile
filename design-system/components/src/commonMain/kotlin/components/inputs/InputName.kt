@@ -14,7 +14,7 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
-import molecule.ButtonIconSecondary
+import molecule.ButtonIconXS
 import molecule.Input
 import molecule.InputLabel
 
@@ -39,7 +39,7 @@ public fun InputName(
                 enter = fadeIn() + scaleIn(),
                 exit = scaleOut() + fadeOut(),
             ) {
-                ButtonIconSecondary(
+                ButtonIconXS(
                     imageVector = resources.Icons.close,
                     color = it.copy(alpha = 0.5f),
                     onClick = { onValueChange.invoke("") }

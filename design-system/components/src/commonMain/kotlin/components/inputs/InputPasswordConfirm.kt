@@ -10,7 +10,7 @@ import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import molecule.ButtonIconSecondary
+import molecule.ButtonIconXS
 import molecule.Input
 import resources.Icons
 
@@ -29,7 +29,7 @@ public fun InputPasswordConfirm(
         visualTransformation = if (passwordVisibility.value) VisualTransformation.None else PasswordVisualTransformation(),
         placeholder = "Confirm password",
         trailing = {
-            ButtonIconSecondary(
+            ButtonIconXS(
                 imageVector = if (passwordVisibility.value) Icons.eye else Icons.eyeOff,
                 color = it.copy(alpha = 0.5f),
                 onClick = { passwordVisibility.value = passwordVisibility.value.not() }

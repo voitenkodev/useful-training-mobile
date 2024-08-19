@@ -52,7 +52,7 @@ internal fun MenuItem(
         PaddingWeight()
 
         if (allowRightArrow) Icon(
-            modifier = Modifier.size(Design.dp.iconS),
+            modifier = Modifier.size(Design.dp.iconXS),
             imageVector = Icons.arrowRight,
             color = contentColor
         )

@@ -10,7 +10,8 @@ internal fun dp() = Dp(
     paddingL = 24.dp,
     paddingXL = 32.dp,
 
-    iconS = 14.dp,
+    iconXS = 14.dp,
+    iconS = 16.dp,
     iconM = 20.dp,
     iconL = 24.dp,
 
@@ -27,6 +28,7 @@ public data class Dp(
     val paddingL: Dp,
     val paddingXL: Dp,
 
+    val iconXS: Dp,
     val iconS: Dp,
     val iconM: Dp,
     val iconL: Dp,

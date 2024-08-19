@@ -16,7 +16,7 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import atom.Design
-import molecule.ButtonIconSecondary
+import molecule.ButtonIconXS
 import molecule.Input
 
 @Composable
@@ -46,7 +46,7 @@ public fun InputDescription(
                 enter = fadeIn() + scaleIn(),
                 exit = scaleOut() + fadeOut(),
             ) {
-                ButtonIconSecondary(
+                ButtonIconXS(
                     imageVector = resources.Icons.close,
                     color = it.copy(alpha = 0.5f),
                     onClick = { onValueChange.invoke("") }

@@ -18,7 +18,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import atom.Design
-import molecule.ButtonIconSecondary
+import molecule.ButtonIconXS
 import molecule.Icon
 import molecule.Input
 import molecule.InputStyle
@@ -53,7 +53,7 @@ public fun InputSearch(
         fontWeight = FontWeight.Bold,
         leading = {
             Icon(
-                modifier = Modifier.size(Design.dp.iconS),
+                modifier = Modifier.size(Design.dp.iconXS),
                 imageVector = Icons.search,
                 color = it.copy(alpha = 0.5f),
             )
@@ -64,7 +64,7 @@ public fun InputSearch(
                 enter = fadeIn() + scaleIn(),
                 exit = scaleOut() + fadeOut(),
             ) {
-                ButtonIconSecondary(
+                ButtonIconXS(
                     imageVector = Icons.close,
                     color = it.copy(alpha = 0.5f),
                     onClick = { update.invoke("") }
