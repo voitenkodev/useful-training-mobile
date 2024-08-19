@@ -37,6 +37,9 @@ kotlin {
             // User
             implementation(projects.domain.user)
 
+            // Trainings
+            implementation(projects.domain.trainings)
+
             implementation(projects.common.utils)
             implementation(projects.designSystem.molecule)
             implementation(projects.designSystem.components)

@@ -2,6 +2,7 @@ import kotlinx.coroutines.flow.Flow
 import models.Training
 
 public interface TrainingsRepository {
+    public fun observeLastTraining(): Flow<Training?>
     public fun observeTrainings(startDate: String, endDate: String): Flow<List<Training>>
     public fun syncTrainings(startDate: String, endDate: String): Flow<Unit>
     public fun observeTraining(trainingId: String): Flow<Training?>

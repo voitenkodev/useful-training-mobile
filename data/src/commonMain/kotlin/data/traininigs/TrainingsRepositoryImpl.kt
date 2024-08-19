@@ -18,6 +18,12 @@ internal class TrainingsRepositoryImpl(
     private val localExerciseExamples: ExerciseExamplesSource
 ) : TrainingsRepository {
 
+    override fun observeLastTraining(): Flow<Training?> {
+        return localTrainings
+            .getLastTraining()
+            .map { it?.daoToDomain() }
+    }
+
     override fun observeTrainings(startDate: String, endDate: String): Flow<List<Training>> {
         return localTrainings
             .getTrainings(startDate, endDate)

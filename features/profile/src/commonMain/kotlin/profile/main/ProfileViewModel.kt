@@ -1,6 +1,7 @@
 package profile.main
 
 import AuthenticationRepository
+import TrainingsRepository
 import UserRepository
 import ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -12,6 +13,7 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.koin.core.component.inject
+import trainings.mapping.toState
 import user.mapping.toState
 
 internal class ProfileViewModel : ViewModel() {
@@ -21,6 +23,7 @@ internal class ProfileViewModel : ViewModel() {
 
     private val userApi by inject<UserRepository>()
     private val authApi by inject<AuthenticationRepository>()
+    private val trainingsApi by inject<TrainingsRepository>()
 
     init {
         userApi
@@ -35,6 +38,11 @@ internal class ProfileViewModel : ViewModel() {
             .catch { r -> _state.update { it.copy(error = r.message) } }
             .launchIn(this)
 
+        trainingsApi
+            .observeLastTraining()
+            .onEach { r -> _state.update { it.copy(lastTraining = r?.toState()) } }
+            .catch { r -> _state.update { it.copy(error = r.message) } }
+            .launchIn(this)
     }
 
     fun logout() {

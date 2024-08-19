@@ -32,6 +32,7 @@ import molecule.Shadow
 import molecule.Toolbar
 import profile.main.components.MenuItem
 import resources.Icons
+import trainings.Training
 import user.User
 import user.WeightHistory
 
@@ -53,6 +54,7 @@ internal fun ProfileContent(
         clearError = vm::clearError,
         user = state.user,
         lastWeight = state.lastWeight,
+        lastTraining = state.lastTraining,
         toExerciseExamples = toExerciseExamples,
         toMuscles = toMuscles,
         toEquipment = toEquipment,
@@ -69,6 +71,7 @@ private fun Content(
     clearError: () -> Unit,
     user: User?,
     lastWeight: WeightHistory?,
+    lastTraining: Training?,
     toExerciseExamples: () -> Unit,
     toMuscles: () -> Unit,
     toEquipment: () -> Unit,
@@ -119,11 +122,11 @@ private fun Content(
                         horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
                     ) {
 
-                        val value = remember(lastWeight?.weight) {
+                        val lastWeightValue = remember(lastWeight?.weight) {
                             lastWeight?.weight?.kg(allowUnit = true) ?: ""
                         }
 
-                        val label = remember(lastWeight?.createdAt) {
+                        val lastWeightLabel = remember(lastWeight?.createdAt) {
                             DateTimeKtx.convert(
                                 lastWeight?.createdAt,
                                 DateTimeKtx.Format.DD_MMM_YYYY
@@ -132,9 +135,9 @@ private fun Content(
 
                         ValueCard(
                             modifier = Modifier.weight(1f),
-                            value = value,
+                            value = lastWeightValue,
                             title = "Last weight",
-                            label = "At $label",
+                            label = "At $lastWeightLabel",
                             icon = Icons.userWeight,
                             action = ValueCardAction(
                                 title = "MORE",
@@ -145,11 +148,22 @@ private fun Content(
                             )
                         )
 
+                        val lastTrainingValue = remember(lastTraining?.volume) {
+                            lastTraining?.volume?.kg(allowUnit = true) ?: ""
+                        }
+
+                        val lastTrainingLabel = remember(lastTraining?.createdAt) {
+                            DateTimeKtx.convert(
+                                lastTraining?.createdAt,
+                                DateTimeKtx.Format.DD_MMM_YYYY
+                            ) ?: ""
+                        }
+
                         ValueCard(
                             modifier = Modifier.weight(1f),
-                            value = "15K KG",
+                            value = lastTrainingValue,
                             title = "Last training",
-                            label = "At 16 jan, 2024",
+                            label = lastTrainingLabel,
                             icon = Icons.trainingWeight
                         )
 
