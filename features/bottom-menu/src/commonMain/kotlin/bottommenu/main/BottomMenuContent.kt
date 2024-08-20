@@ -80,7 +80,7 @@ private fun Content(
                 repeat(menu.size) {
                     MenuItem(
                         modifier = Modifier
-                            .requiredHeight(Design.dp.componentSM)
+                            .requiredHeight(Design.dp.componentS)
                             .weight(1f),
                         icon = menu[it].icon,
                         isSelected = selectedIndex == it,

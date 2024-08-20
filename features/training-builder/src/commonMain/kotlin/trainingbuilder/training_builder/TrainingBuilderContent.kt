@@ -192,7 +192,7 @@ internal fun Content(
                     Spacer(
                         modifier = Modifier
                             .navigationBarsPadding()
-                            .size(Design.dp.componentSM + Design.dp.paddingS)
+                            .size(Design.dp.componentS + Design.dp.paddingS)
                     )
                 }
             }

@@ -53,7 +53,7 @@ public fun EquipmentChip(
 
     Column(
         modifier = modifier
-            .height(Design.dp.componentXXL)
+            .height(Design.dp.componentXL)
             .background(
                 color = backgroundIcon,
                 shape = Design.shape.default

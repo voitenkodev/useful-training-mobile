@@ -6,17 +6,20 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import atom.Design
 import components.EmptyData
 import components.Error
 import components.roots.ScreenRoot
 import kotlinx.collections.immutable.ImmutableList
+import molecule.ButtonPrimary
 import resources.Icons
 import trainings.Training
 import trainings.main.components.Header
@@ -90,7 +93,7 @@ private fun Content(
 
                     Spacer(
                         Modifier.height(
-                            Design.dp.componentSM + Design.dp.paddingL + Design.dp.paddingL
+                            Design.dp.componentS + Design.dp.paddingL + Design.dp.paddingL
                         )
                     )
                 }
@@ -104,26 +107,11 @@ private fun Content(
             }
         }
 
-//        BottomButtons(
-//            modifier = Modifier.fillMaxWidth().align(Alignment.BottomCenter),
-//            first = {
-//                if (selectedDateIsToday.not()) {
-//                    ButtonSecondary(
-//                        modifier = Modifier.weight(1f),
-//                        text = "Today",
-//                        onClick = backTodayProvider
-//                    )
-//                }
-//            },
-//            second = {
-//                if (selectedDateIsToday) {
-//                    ButtonPrimary(
-//                        modifier = Modifier.weight(1f),
-//                        text = "Start workout",
-//                        onClick = newTraining,
-//                    )
-//                }
-//            }
-//        )
+        ButtonPrimary(
+            modifier = Modifier.align(Alignment.BottomEnd).padding(Design.dp.paddingL),
+            text = "Start workout",
+            leadingIcon = Icons.add,
+            onClick = newTraining,
+        )
     }
 }

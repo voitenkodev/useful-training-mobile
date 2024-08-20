@@ -49,7 +49,7 @@ public fun ButtonPrimary(
     Row(
         modifier = modifier
             .alpha(alpha.value)
-            .requiredHeight(Design.dp.componentSM)
+            .requiredHeight(Design.dp.componentS)
             .background(
                 shape = Design.shape.default,
                 color = backgroundColor
@@ -118,7 +118,7 @@ public fun ButtonSecondary(
     Row(
         modifier = modifier
             .alpha(alpha.value)
-            .requiredHeight(Design.dp.componentSM)
+            .requiredHeight(Design.dp.componentS)
             .background(
                 shape = Design.shape.default,
                 color = enableBackgroundColor

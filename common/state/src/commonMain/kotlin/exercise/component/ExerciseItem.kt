@@ -37,7 +37,7 @@ public fun ExerciseItem(
             .clip(Design.shape.default)
             .fillMaxWidth()
             .shimmerLoadingAnimation(visible = exerciseExample == null)
-            .height(Design.dp.componentL)
+            .height(Design.dp.componentM)
             .clickable(onClick = viewDetails),
         horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM),
         verticalAlignment = Alignment.CenterVertically

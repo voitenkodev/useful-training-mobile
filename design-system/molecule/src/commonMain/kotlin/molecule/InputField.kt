@@ -138,7 +138,7 @@ public fun Input(
                     .alpha(alpha.value)
                     .background(shape = shape, color = backgroundColor)
                     .border(shape = shape, width = 1.dp, color = borderColorProvider)
-                    .heightIn(min = Design.dp.componentSM)
+                    .heightIn(min = Design.dp.componentS)
                     .padding(horizontal = Design.dp.paddingM)
                     .padding(vertical = Design.dp.paddingS)
                     .onFocusChanged { hasFocus.value = it.hasFocus },
@@ -280,7 +280,7 @@ public fun Input(
                     .alpha(alpha.value)
                     .background(shape = shape, color = backgroundColor)
                     .border(shape = shape, width = 1.dp, color = borderColorProvider)
-                    .heightIn(min = Design.dp.componentSM)
+                    .heightIn(min = Design.dp.componentS)
                     .padding(horizontal = Design.dp.paddingM)
                     .padding(vertical = Design.dp.paddingS)
                     .onFocusChanged { hasFocus.value = it.hasFocus },

@@ -34,7 +34,7 @@ public fun EmptyData(
             Icon(
                 modifier = Modifier
                     .padding(vertical = Design.dp.paddingS)
-                    .size(Design.dp.componentXXL),
+                    .size(Design.dp.componentXL),
                 imageVector = icon,
                 color = Design.colors.white30
             )

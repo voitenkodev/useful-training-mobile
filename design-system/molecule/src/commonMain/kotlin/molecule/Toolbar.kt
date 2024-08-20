@@ -21,7 +21,7 @@ public fun SmallToolbar(
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .height(Design.dp.componentSM),
+            .height(Design.dp.componentS),
     ) {
 
         TextH4(
@@ -36,7 +36,7 @@ public fun SmallToolbar(
             imageVector = icon.first,
             contentColor = Design.colors.content,
             onClick = icon.second
-        ) else Spacer(Modifier.size(Design.dp.componentSM))
+        ) else Spacer(Modifier.size(Design.dp.componentS))
     }
 }
 
@@ -52,7 +52,7 @@ public fun Toolbar(
                 start = Design.dp.paddingL,
                 end = Design.dp.paddingL
             )
-            .height(Design.dp.componentSM),
+            .height(Design.dp.componentS),
     ) {
 
         TextH2(
@@ -68,6 +68,6 @@ public fun Toolbar(
             imageVector = icon.first,
             contentColor = Design.colors.content,
             onClick = icon.second
-        ) else Spacer(Modifier.size(Design.dp.componentSM))
+        ) else Spacer(Modifier.size(Design.dp.componentS))
     }
 }

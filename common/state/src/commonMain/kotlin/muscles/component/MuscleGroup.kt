@@ -33,7 +33,7 @@ public fun MuscleGroup(
 
             Image(
                 modifier = Modifier
-                    .height(Design.dp.componentXXL)
+                    .height(Design.dp.componentXL)
                     .aspectRatio(1f)
                     .align(Alignment.CenterEnd),
                 imageVector = item.bodyImageVector,

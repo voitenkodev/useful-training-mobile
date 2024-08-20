@@ -35,7 +35,7 @@ public fun ExerciseCardSmall(
         modifier = Modifier
             .fillMaxWidth()
             .shimmerLoadingAnimation(visible = exerciseExample == null)
-            .height(Design.dp.componentXL)
+            .height(Design.dp.componentL)
             .background(
                 Design.colors.black30,
                 shape = Design.shape.large
