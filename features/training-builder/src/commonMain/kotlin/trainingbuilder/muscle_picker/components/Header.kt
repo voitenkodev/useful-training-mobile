@@ -5,8 +5,7 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import kotlinx.collections.immutable.ImmutableList
-import molecule.PaddingS
-import molecule.Shadow
+import molecule.PaddingM
 import molecule.Toolbar
 import muscles.MuscleEnum
 import muscles.MuscleGroup
@@ -24,11 +23,7 @@ internal fun Header(
     selectUpperBody: () -> Unit,
     selectLowerBody: () -> Unit
 ) {
-    Column(
-        modifier = Modifier.statusBarsPadding()
-    ) {
-
-        PaddingS()
+    Column(modifier = Modifier.statusBarsPadding()) {
 
         Toolbar(title = "Target", icon = Icons.close to close)
 
@@ -42,6 +37,6 @@ internal fun Header(
             selectLowerBody = selectLowerBody
         )
 
-        Shadow()
+        PaddingM()
     }
 }

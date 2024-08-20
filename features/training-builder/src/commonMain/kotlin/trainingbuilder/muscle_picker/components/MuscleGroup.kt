@@ -90,16 +90,22 @@ internal fun MuscleGroup(
             Column(verticalArrangement = Arrangement.spacedBy(Design.dp.paddingS)) {
 
                 item.muscles.forEach { muscle ->
-                    MuscleChip(
+                    muscles.component.MuscleChip(
+                        loadingById = null,
                         muscle = muscle,
                         selectMuscle = selectMuscle
                     )
+//                    MuscleChip(
+//                        muscle = muscle,
+//                        selectMuscle = selectMuscle
+//                    )
                 }
             }
         }
     }
 }
 
+@Deprecated("ASD")
 @Composable
 private fun MuscleChip(
     muscle: Muscle,

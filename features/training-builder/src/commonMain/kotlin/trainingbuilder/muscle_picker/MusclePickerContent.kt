@@ -9,16 +9,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import components.BottomButtons
 import components.Error
-import components.ShadowFooterSpace
 import components.roots.ScreenRoot
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import molecule.ButtonPrimary
 import molecule.ButtonSecondary
+import molecule.PaddingL
 import molecule.Shadow
 import muscles.MuscleEnum
 import muscles.MuscleGroup
@@ -99,39 +98,37 @@ private fun Content(
 
                     if (index < list.lastIndex) Shadow()
                 }
+            }
 
-                item {
-                    ShadowFooterSpace()
+            PaddingL()
+
+            BottomButtons(
+                modifier = Modifier.fillMaxWidth(),
+                first = {
+                    ButtonSecondary(
+                        modifier = Modifier.weight(1f),
+                        text = "Skip",
+                        onClick = { apply.invoke(persistentListOf()) }
+                    )
+                },
+                second = {
+                    ButtonPrimary(
+                        modifier = Modifier.weight(1f),
+                        text = buildString {
+                            append("Select")
+                            selectedSum.takeIf { it > 0 }?.let { append(" $it") }
+                        },
+                        enabled = selectedSum > 0,
+                        onClick = {
+                            val selectedMuscles = list
+                                .flatMap { it.muscles }
+                                .filter { it.isSelected }
+                                .map { it.id }
+                            apply.invoke(selectedMuscles)
+                        }
+                    )
                 }
-            }
+            )
         }
-
-        BottomButtons(
-            modifier = Modifier.fillMaxWidth().align(Alignment.BottomCenter),
-            first = {
-                ButtonSecondary(
-                    modifier = Modifier.weight(1f),
-                    text = "Skip",
-                    onClick = { apply.invoke(persistentListOf()) }
-                )
-            },
-            second = {
-                ButtonPrimary(
-                    modifier = Modifier.weight(1f),
-                    text = buildString {
-                        append("Select")
-                        selectedSum.takeIf { it > 0 }?.let { append(" $it") }
-                    },
-                    enabled = selectedSum > 0,
-                    onClick = {
-                        val selectedMuscles = list
-                            .flatMap { it.muscles }
-                            .filter { it.isSelected }
-                            .map { it.id }
-                        apply.invoke(selectedMuscles)
-                    }
-                )
-            }
-        )
     }
 }

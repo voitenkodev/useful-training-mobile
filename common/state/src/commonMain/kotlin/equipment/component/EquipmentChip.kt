@@ -1,5 +1,6 @@
 package equipment.component
 
+import IncludedStatusEnum
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -33,29 +34,33 @@ public fun EquipmentChip(
     val interactionSource = remember { MutableInteractionSource() }
 
     val contentColor = remember(item.isSelected) {
-        when (item.isSelected) {
-            false -> Design.palette.content.copy(alpha = 0.3f)
-            true -> Design.palette.content
+        when {
+            item.status == IncludedStatusEnum.EXCLUDED -> Design.palette.content.copy(alpha = 0.3f)
+            item.isSelected.not() -> Design.palette.content
+            item.isSelected -> Design.palette.content
+            else -> Design.palette.content
         }
     }
 
     val alpha = remember(item.isSelected) {
         when (item.isSelected) {
             true -> 1f
-            false -> 0.3f
+            false -> 1f
         }
     }
 
-    val backgroundIcon = when (item.isSelected) {
-        true -> Design.colors.green
-        false -> Design.colors.secondary
+    val backgroundColor = when {
+        item.status == IncludedStatusEnum.EXCLUDED -> Design.palette.secondary
+        item.isSelected -> Design.palette.green
+        item.isSelected.not() -> Design.palette.tertiary
+        else -> Design.palette.tertiary
     }
 
     Column(
         modifier = modifier
             .height(Design.dp.componentXL)
             .background(
-                color = backgroundIcon,
+                color = backgroundColor,
                 shape = Design.shape.default
             )
             .clip(shape = Design.shape.default)

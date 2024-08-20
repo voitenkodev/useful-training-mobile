@@ -12,8 +12,6 @@ import atom.Design
 import components.chips.Chip
 import components.chips.ChipState
 import kotlinx.collections.immutable.ImmutableList
-import molecule.PaddingL
-import molecule.PaddingXL
 import muscles.MuscleEnum
 import muscles.MuscleGroup
 import muscles.MuscleLoadEnum
@@ -30,14 +28,14 @@ internal fun MusclePack(
 ) {
 
     val selectedChipState = ChipState.Colored(
-        backgroundColor = Design.colors.green.copy(alpha = 0.2f),
-        borderColor = Design.colors.green,
+        backgroundColor = Design.colors.green,
+        borderColor = Color.Transparent,
         contentColor = Design.colors.content
     )
 
     val unSelectedChipState = ChipState.Colored(
-        backgroundColor = Color.Transparent,
-        borderColor = Design.colors.label,
+        backgroundColor = Design.colors.tertiary,
+        borderColor = Color.Transparent,
         contentColor = Design.colors.content
     )
 
@@ -92,8 +90,6 @@ internal fun MusclePack(
 
     if (fullBodyVisible) {
         Column(modifier = Modifier) {
-            PaddingXL()
-
             Row(
                 modifier = Modifier.padding(horizontal = Design.dp.paddingM),
                 horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
@@ -121,8 +117,6 @@ internal fun MusclePack(
                     )
                 }
             }
-
-            PaddingL()
         }
     }
 }

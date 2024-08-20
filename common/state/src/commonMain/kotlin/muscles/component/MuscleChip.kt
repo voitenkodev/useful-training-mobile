@@ -1,5 +1,6 @@
 package muscles.component
 
+import IncludedStatusEnum
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
@@ -16,20 +17,23 @@ public fun MuscleChip(
 ) {
 
     val contentColor = remember(muscle.isSelected) {
-        when (muscle.isSelected) {
-            false -> Design.palette.content.copy(alpha = 0.3f)
-            true -> Design.palette.content
+        when {
+            muscle.status == IncludedStatusEnum.EXCLUDED -> Design.palette.content.copy(alpha = 0.3f)
+            muscle.isSelected.not() -> Design.palette.content
+            muscle.isSelected -> Design.palette.content
+            else -> Design.palette.content
         }
     }
 
-    val backgroundColor =
-        muscle.coverage?.color
-            .takeIf { muscle.coverage?.percentage != 0 }
-            ?: if (muscle.isSelected) {
-                Design.palette.green
-            } else {
-                Design.palette.secondary
-            }
+    val coverage = muscle.coverage
+
+    val backgroundColor = when {
+        coverage != null && coverage.percentage != 0 -> coverage.color
+        muscle.status == IncludedStatusEnum.EXCLUDED -> Design.palette.secondary
+        muscle.isSelected -> Design.palette.green
+        muscle.isSelected.not() -> Design.palette.tertiary
+        else -> Design.palette.tertiary
+    }
 
     val chipState = ChipState.Colored(
         backgroundColor = backgroundColor,
