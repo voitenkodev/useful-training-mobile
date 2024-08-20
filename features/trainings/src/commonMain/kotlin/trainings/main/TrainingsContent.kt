@@ -28,9 +28,7 @@ import trainings.main.models.SelectableCalendar
 
 @Composable
 internal fun TrainingsContent(
-    vm: TrainingsViewModel,
-    toTrainingById: (trainingId: String) -> Unit,
-    toNewTraining: () -> Unit
+    vm: TrainingsViewModel, toTrainingById: (trainingId: String) -> Unit, toNewTraining: () -> Unit
 ) {
 
     val state by vm.state.collectAsState()
@@ -60,16 +58,8 @@ private fun Content(
 ) {
 
     val selectedDate = calendar.findLast { it.isSelected } ?: return
-    val currentDay = remember { calendar.findLast { it.isToday }?.dateTimeIso }
-    val selectedDateIsToday = selectedDate.isToday
     val formatterDate = remember(selectedDate) {
-        DateTimeKtx.formattedDate1(selectedDate.dateTimeIso)
-    }
-
-    val backTodayProvider: () -> Unit = remember {
-        {
-            currentDay?.let(selectCalendarDay)
-        }
+        DateTimeKtx.convert(selectedDate.dateTimeIso, DateTimeKtx.Format.DD_MMMM)
     }
 
     ScreenRoot(error = { Error(message = error, close = clearError) }) {
@@ -100,8 +90,7 @@ private fun Content(
 
                 else -> {
                     Trainings(
-                        trainings = trainings,
-                        openTraining = openTraining
+                        trainings = trainings, openTraining = openTraining
                     )
                 }
             }
