@@ -1,13 +1,21 @@
 package muscles.component
 
 import IncludedStatusEnum
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import atom.Design
 import components.chips.Chip
 import components.chips.ChipState
+import molecule.IconImage
+import molecule.PaddingS
 import muscles.Muscle
+import muscles.MuscleLoadEnum
+import resources.Icons
 
 @Composable
 public fun MuscleChip(
@@ -41,6 +49,19 @@ public fun MuscleChip(
         contentColor = contentColor
     )
 
+    val icon = remember(muscle.load) {
+        if (muscle.status == IncludedStatusEnum.EXCLUDED) {
+            null
+        } else {
+            when (muscle.load) {
+                MuscleLoadEnum.HIGH -> Icons.highBattery
+                MuscleLoadEnum.MEDIUM -> Icons.mediumBattery
+                MuscleLoadEnum.LOW -> Icons.lowBattery
+                null -> null
+            }
+        }
+    }
+
     val muscleName = remember(muscle.name, muscle.coverage) {
         buildString {
             if (muscle.coverage != null && muscle.coverage.percentage != 0) {
@@ -50,10 +71,23 @@ public fun MuscleChip(
             append(muscle.name)
         }
     }
-    Chip(
-        chipState = chipState,
-        onClick = { selectMuscle.invoke(muscle.id) },
-        text = muscleName,
-        loading = loadingById == muscle.id,
-    )
+
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        if (icon != null) {
+            IconImage(
+                modifier = Modifier.size(Design.dp.iconXS),
+                imageVector = icon
+            )
+
+            PaddingS()
+        }
+
+        Chip(
+            chipState = chipState,
+            onClick = { selectMuscle.invoke(muscle.id) },
+            text = muscleName,
+            loading = loadingById == muscle.id,
+        )
+
+    }
 }

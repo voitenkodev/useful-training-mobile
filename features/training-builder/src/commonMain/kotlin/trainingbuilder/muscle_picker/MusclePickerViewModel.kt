@@ -1,5 +1,6 @@
 package trainingbuilder.muscle_picker
 
+import IncludedStatusEnum
 import MusclesRepository
 import ViewModel
 import kotlinx.collections.immutable.toImmutableList
@@ -59,6 +60,13 @@ internal class MusclePickerViewModel : ViewModel() {
 
     fun selectMuscle(id: String) {
         _state.update { st ->
+            val muscleIsExcluded = st.muscleGroups
+                .flatMap { it.muscles }
+                .find { it.id == id }
+                ?.status == IncludedStatusEnum.EXCLUDED
+
+            if (muscleIsExcluded) return
+
             val groups = st.muscleGroups.map { muscleGroup ->
                 val muscles = muscleGroup.muscles
                     .map { muscle ->

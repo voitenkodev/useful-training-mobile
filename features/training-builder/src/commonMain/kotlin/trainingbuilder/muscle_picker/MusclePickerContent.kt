@@ -1,6 +1,8 @@
 package trainingbuilder.muscle_picker
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
@@ -10,6 +12,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import atom.Design
 import components.BottomButtons
 import components.Error
 import components.roots.ScreenRoot
@@ -18,12 +21,11 @@ import kotlinx.collections.immutable.persistentListOf
 import molecule.ButtonPrimary
 import molecule.ButtonSecondary
 import molecule.PaddingL
-import molecule.Shadow
 import muscles.MuscleEnum
 import muscles.MuscleGroup
 import muscles.MuscleLoadEnum
+import muscles.component.MuscleGroup
 import trainingbuilder.muscle_picker.components.Header
-import trainingbuilder.muscle_picker.components.MuscleGroup
 
 @Composable
 internal fun MusclePickerContent(
@@ -73,7 +75,6 @@ private fun Content(
     ScreenRoot(error = { Error(message = { error }, close = clearError) }) {
 
         Column(modifier = Modifier.fillMaxSize()) {
-
             Header(
                 close = close,
                 list = list,
@@ -85,18 +86,18 @@ private fun Content(
                 selectLowerBody = selectLowerBody
             )
 
-            LazyColumn(modifier = Modifier.fillMaxWidth().weight(1f)) {
+            LazyColumn(
+                modifier = Modifier.fillMaxWidth().weight(1f),
+                contentPadding = PaddingValues(vertical = Design.dp.paddingXL),
+                verticalArrangement = Arrangement.spacedBy(Design.dp.paddingXL)
+            ) {
 
                 itemsIndexed(list, key = { _, item -> item.id }) { index, item ->
 
                     MuscleGroup(
                         item = item,
-                        includedMuscleStatuses = includedMuscleStatuses,
-                        selectMuscleGroup = selectMuscleGroup,
                         selectMuscle = selectMuscle
                     )
-
-                    if (index < list.lastIndex) Shadow()
                 }
             }
 
