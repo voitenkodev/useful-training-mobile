@@ -18,7 +18,11 @@ internal fun dp() = Dp(
     componentS = 42.dp,
     componentM = 54.dp,
     componentXL = 64.dp,
-    componentXXL = 148.dp
+    componentXXL = 148.dp,
+
+    shapeSmall = 12.dp,
+    shapeDefault = 12.dp,
+    shapeLarge = 24.dp
 )
 
 public data class Dp(
@@ -34,13 +38,11 @@ public data class Dp(
     val iconL: Dp,
 
     val componentS: Dp,
-
-    // Button, Input, Toolbar
     val componentM: Dp,
-
-    // Calendar item
     val componentXL: Dp,
-
-    // Muscle group image
     val componentXXL: Dp,
+
+    val shapeSmall: Dp,
+    val shapeDefault: Dp,
+    val shapeLarge: Dp,
 )

@@ -1,5 +1,6 @@
 package trainings.main.components
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.FlowRow
@@ -9,13 +10,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
 import atom.Design
 import molecule.PaddingM
 import molecule.PaddingS
+import molecule.PaddingXS
+import molecule.TextBody1
 import molecule.TextBody2
-import molecule.TextH4
-import molecule.secondarySmallBackground
 import recomposeHighlighter
 import trainings.Exercise
 
@@ -26,7 +26,7 @@ internal fun Exercise(
     exercise: Exercise
 ) {
 
-    Column(modifier = modifier.padding(horizontal = Design.dp.paddingM)) {
+    Column(modifier = modifier) {
 
         PaddingS()
 
@@ -36,20 +36,17 @@ internal fun Exercise(
             verticalAlignment = Alignment.CenterVertically
         ) {
 
-            TextH4(
+            TextBody2(
                 modifier = Modifier,
-                provideText = { "$number" },
-                fontWeight = FontWeight.Bold
+                provideText = { "$number." },
             )
 
-            TextH4(
-                modifier = Modifier.recomposeHighlighter(),
+            TextBody1(
                 provideText = { exercise.name },
-                fontWeight = FontWeight.Bold
             )
         }
 
-        PaddingS()
+        PaddingM()
 
         FlowRow(
             modifier = Modifier.recomposeHighlighter(),
@@ -60,16 +57,18 @@ internal fun Exercise(
             exercise.iterations.forEach {
                 TextBody2(
                     modifier = Modifier
-                        .secondarySmallBackground()
-                        .padding(
+                        .background(
+                            color = Design.colors.tertiary,
+                            shape = Design.shape.small
+                        ).padding(
                             horizontal = Design.dp.paddingM,
                             vertical = Design.dp.paddingXS
-                        ).recomposeHighlighter(),
+                        ),
                     provideText = { it.weightAndRepeat }
                 )
             }
         }
 
-        PaddingM()
+        PaddingXS()
     }
 }

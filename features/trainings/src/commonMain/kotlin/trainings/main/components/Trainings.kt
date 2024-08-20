@@ -1,6 +1,7 @@
 package trainings.main.components
 
 import DateTimeKtx
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -9,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -16,11 +18,12 @@ import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.unit.dp
 import atom.Design
 import kotlinx.collections.immutable.ImmutableList
 import molecule.ButtonText
 import molecule.PaddingM
-import molecule.TextBody4
+import molecule.TextH4
 import resources.Icons
 import trainings.Training
 
@@ -35,6 +38,7 @@ internal fun Trainings(
         trainings.forEach { training ->
 
             item(key = "header:${training.id}") {
+
                 PaddingM()
 
                 val date = remember(training.createdAt) {
@@ -47,14 +51,28 @@ internal fun Trainings(
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = Design.dp.paddingL),
+                        .padding(horizontal = Design.dp.paddingL)
+                        .background(
+                            shape = RoundedCornerShape(
+                                topStart = Design.dp.shapeLarge,
+                                topEnd = Design.dp.shapeLarge
+                            ),
+                            color = Design.colors.secondary
+                        )
+                        .padding(
+                            start = Design.dp.paddingM,
+                            end = Design.dp.paddingM,
+                            top = Design.dp.paddingM,
+                            bottom = Design.dp.paddingS
+                        ),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
 
-                    TextBody4(
+                    TextH4(
                         modifier = Modifier.wrapContentHeight(),
-                        provideText = { "At $date" },
+                        provideText = { date },
+                        color = Design.colors.label
                     )
 
                     ButtonText(
@@ -65,8 +83,6 @@ internal fun Trainings(
                         onClick = { openTraining.invoke(training.id) }
                     )
                 }
-
-                PaddingM()
             }
 
             itemsIndexed(
@@ -76,7 +92,20 @@ internal fun Trainings(
                 val number by rememberUpdatedState(index + 1)
 
                 Exercise(
-                    modifier = Modifier,
+                    modifier = Modifier
+                        .padding(horizontal = Design.dp.paddingL)
+                        .background(
+                            shape = RoundedCornerShape(
+                                bottomStart = if (index == training.exercises.lastIndex) Design.dp.shapeLarge else 0.dp,
+                                bottomEnd = if (index == training.exercises.lastIndex) Design.dp.shapeLarge else 0.dp,
+                            ),
+                            color = Design.colors.secondary
+                        ).padding(
+                            start = Design.dp.paddingM,
+                            end = Design.dp.paddingM,
+                            top = Design.dp.paddingXS,
+                            bottom = if (index == training.exercises.lastIndex) Design.dp.paddingM else Design.dp.paddingXS,
+                        ),
                     number = number,
                     exercise = item
                 )

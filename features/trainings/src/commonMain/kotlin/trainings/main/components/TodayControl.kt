@@ -38,7 +38,7 @@ internal fun TodayControl(
             .padding(end = padding)
             .offset(x = animatedDp),
         trailingIcon = Icons.arrowRight,
-        color = Design.colors.orange,
+        color = Design.colors.yellow,
         textDecoration = TextDecoration.None,
         onClick = click,
         text = "TODAY"

@@ -41,7 +41,7 @@ public object DateTimeKtx {
             Format.DD_MMMM -> formattedDate1(iso8601Timestamp, withYear = false)
             Format.DD_MMM -> formattedDate2(iso8601Timestamp, withYear = false)
             Format.DD_MM -> formattedDate3(iso8601Timestamp, withYear = false)
-            Format.HH_MM_DD_MMM -> formattedDateTime1(iso8601Timestamp)
+            Format.HH_MM_DD_MMM -> formattedDateTime2(iso8601Timestamp)
         }
     }
 
@@ -130,6 +130,18 @@ public object DateTimeKtx {
         val day = date.dayOfMonth
         val month = date.month.name.lowercase().capitalize(Locale.current).take(3)
         return "${timeFormat(hour, min)}, ${day.zeroPrefixed(2)} $month"
+    }
+
+    /** Output 17h 44m, 21 Jun */
+    private fun formattedDateTime2(iso8601Timestamp: String): String? {
+        val localDateTime = iso8601TimestampToLocalDateTime(iso8601Timestamp) ?: return null
+        val hour = localDateTime.hour
+        val min = localDateTime.minute
+
+        val date = localDateTime.date
+        val day = date.dayOfMonth
+        val month = date.month.name.lowercase().capitalize(Locale.current).take(3)
+        return "${hour}:${min}, ${day.zeroPrefixed(2)} $month"
     }
 
     public fun isoToMillis(iso8601Timestamp: String): Long {
