@@ -196,7 +196,7 @@ private fun Content(
                                 color = Design.colors.secondary
                             ).padding(
                                 vertical = Design.dp.paddingM
-                            ),
+                            ).animateContentSize(),
                         verticalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
                     ) {
 
@@ -231,7 +231,8 @@ private fun Content(
 
                             ExerciseItem(
                                 modifier = Modifier.fillMaxWidth()
-                                    .padding(horizontal = Design.dp.paddingM),
+                                    .padding(horizontal = Design.dp.paddingM)
+                                    .animateItemPlacement(),
                                 exerciseExample = ex,
                                 viewDetails = onDetailsClick
                             )

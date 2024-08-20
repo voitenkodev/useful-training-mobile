@@ -52,7 +52,7 @@ internal class ProfileViewModel : ViewModel() {
             .onEach { r ->
                 _state.update {
                     it.copy(
-                        lastExerciseExamples = r.take(2).toState()
+                        lastExerciseExamples = r.take(3).toState()
                     )
                 }
             }
