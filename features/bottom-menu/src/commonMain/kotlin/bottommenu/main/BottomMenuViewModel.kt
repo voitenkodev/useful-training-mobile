@@ -3,6 +3,7 @@ package bottommenu.main
 import AuthenticationRepository
 import DateTimeKtx
 import DateTimeKtx.chunkBefore
+import ExerciseExamplesRepository
 import TrainingsRepository
 import UserRepository
 import ViewModel
@@ -24,6 +25,7 @@ internal class BottomMenuViewModel : ViewModel() {
     private val authApi by inject<AuthenticationRepository>()
     private val trainingsApi by inject<TrainingsRepository>()
     private val userApi by inject<UserRepository>()
+    private val exerciseExamplesApi by inject<ExerciseExamplesRepository>()
 
     init {
         authApi.getToken()
@@ -33,6 +35,13 @@ internal class BottomMenuViewModel : ViewModel() {
                     else it.copy(tokenStatus = TokenStatus.Available)
                 }
             }.launchIn(this)
+
+        // ************************ Sync Exercises ************************
+
+        exerciseExamplesApi
+            .getExerciseExamples(page = 0, size = 10)
+            .catch { /* silent sync */ }
+            .launchIn(this)
 
         // ************************ Sync Trainings ************************
 
