@@ -27,10 +27,12 @@ import components.cards.ValueCard
 import components.cards.ValueCardAction
 import components.roots.ScreenRoot
 import exercise.ExerciseExample
-import exercise.component.ExerciseCardSmall
+import exercise.component.ExerciseItem
 import kg
+import kotlinx.collections.immutable.ImmutableList
 import molecule.ButtonText
 import molecule.PaddingM
+import molecule.PaddingS
 import molecule.Shadow
 import molecule.TextBody4
 import molecule.Toolbar
@@ -60,7 +62,7 @@ internal fun ProfileContent(
         clearError = vm::clearError,
         user = state.user,
         lastWeight = state.lastWeight,
-        lastExerciseExample = state.lastExerciseExample,
+        lastExerciseExample = state.lastExerciseExamples,
         lastTraining = state.lastTraining,
         toExerciseExamples = toExerciseExamples,
         toMuscles = toMuscles,
@@ -79,7 +81,7 @@ private fun Content(
     clearError: () -> Unit,
     user: User?,
     lastWeight: WeightHistory?,
-    lastExerciseExample: ExerciseExample?,
+    lastExerciseExample: ImmutableList<ExerciseExample>,
     lastTraining: Training?,
     toExerciseExamples: () -> Unit,
     toMuscles: () -> Unit,
@@ -193,24 +195,25 @@ private fun Content(
                                 shape = Design.shape.large,
                                 color = Design.colors.secondary
                             ).padding(
-                                all = Design.dp.paddingM
+                                vertical = Design.dp.paddingM
                             ),
                         verticalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
                     ) {
 
                         Row(
-                            modifier = Modifier.fillMaxWidth(),
+                            modifier = Modifier.fillMaxWidth()
+                                .padding(horizontal = Design.dp.paddingM),
                             verticalAlignment = Alignment.CenterVertically,
                             horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
                         ) {
 
                             TextBody4(
                                 modifier = Modifier.weight(1f),
-                                provideText = { "MY EXERCISES" },
+                                provideText = { "LAST EXERCISES" },
                             )
 
                             ButtonText(
-                                text = "MORE",
+                                text = "ALL",
                                 trailingIcon = Icons.arrowRight,
                                 onClick = toExerciseExamples,
                                 color = Design.colors.orange,
@@ -218,19 +221,21 @@ private fun Content(
                             )
                         }
 
-                        val onDetailsClick = remember(lastExerciseExample?.id) {
-                            {
-                                val id = lastExerciseExample?.id
-                                if (id != null) {
-                                    toExerciseExampleById.invoke(id)
+                        lastExerciseExample.forEach { ex ->
+
+                            val onDetailsClick = remember(ex.id) {
+                                {
+                                    toExerciseExampleById.invoke(ex.id)
                                 }
                             }
-                        }
 
-                        ExerciseCardSmall(
-                            exerciseExample = lastExerciseExample,
-                            viewDetails = onDetailsClick
-                        )
+                            ExerciseItem(
+                                modifier = Modifier.fillMaxWidth()
+                                    .padding(horizontal = Design.dp.paddingM),
+                                exerciseExample = ex,
+                                viewDetails = onDetailsClick
+                            )
+                        }
                     }
                 }
 
@@ -246,27 +251,47 @@ private fun Content(
                             ).fillMaxWidth()
                     ) {
 
+                        PaddingM()
+
+                        TextBody4(
+                            modifier = Modifier.padding(horizontal = Design.dp.paddingM),
+                            provideText = { "USER SETTINGS" },
+                        )
+
+                        PaddingS()
+
                         MenuItem(
                             icon = Icons.profile,
                             text = "Muscles",
                             onClick = toMuscles,
                             paddingValues = PaddingValues(
-                                vertical = Design.dp.paddingM,
-                                horizontal = Design.dp.paddingL
+                                vertical = Design.dp.paddingS,
+                                horizontal = Design.dp.paddingM
                             )
                         )
-
-                        Shadow()
 
                         MenuItem(
                             icon = Icons.equipment,
                             text = "Equipment",
                             onClick = toEquipment,
                             paddingValues = PaddingValues(
-                                vertical = Design.dp.paddingM,
-                                horizontal = Design.dp.paddingL
+                                vertical = Design.dp.paddingS,
+                                horizontal = Design.dp.paddingM
                             )
                         )
+
+                        MenuItem(
+                            icon = Icons.logout,
+                            text = "Logout",
+                            contentColor = Design.colors.orange,
+                            onClick = logout,
+                            paddingValues = PaddingValues(
+                                vertical = Design.dp.paddingS,
+                                horizontal = Design.dp.paddingM
+                            )
+                        )
+
+                        PaddingS()
                     }
                 }
 
@@ -288,7 +313,7 @@ private fun Content(
                             onClick = toExerciseExampleBuilder,
                             paddingValues = PaddingValues(
                                 vertical = Design.dp.paddingM,
-                                horizontal = Design.dp.paddingL
+                                horizontal = Design.dp.paddingM
                             )
                         )
 
@@ -301,7 +326,7 @@ private fun Content(
                             onClick = logout,
                             paddingValues = PaddingValues(
                                 vertical = Design.dp.paddingM,
-                                horizontal = Design.dp.paddingL
+                                horizontal = Design.dp.paddingM
                             )
                         )
                     }
