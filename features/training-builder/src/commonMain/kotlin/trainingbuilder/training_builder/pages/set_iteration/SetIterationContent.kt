@@ -141,7 +141,7 @@ internal fun BoxScope.SetIterationContent(
             ) {
 
                 ButtonIconTransparent(
-                    modifier = Modifier.width(Design.dp.componentS),
+                    modifier = Modifier.width(Design.dp.componentXS),
                     imageVector = Icons.delete,
                     onClick = innerRemove,
                     contentColor = Design.colors.red
@@ -166,7 +166,7 @@ internal fun BoxScope.SetIterationContent(
                 )
 
                 ButtonIconTransparent(
-                    modifier = Modifier.width(Design.dp.componentS),
+                    modifier = Modifier.width(Design.dp.componentXS),
                     imageVector = Icons.save,
                     enabled = enabledSave,
                     onClick = innerSave,

@@ -36,7 +36,7 @@ public fun ShadowFooterSpace(
             )
             .padding(contentPadding)
             .height(
-                Design.dp.componentM
+                Design.dp.componentSM
             )
     )
 }
@@ -67,7 +67,7 @@ public fun BottomButtons(
 //                        color = Design.colors.secondary,
 //                        shape = Design.shape.default
 //                    ).padding(Design.dp.paddingS)
-                    .height(Design.dp.componentM),
+                    .height(Design.dp.componentSM),
                 horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
             ) {
 

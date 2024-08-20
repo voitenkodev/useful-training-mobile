@@ -93,7 +93,15 @@ internal fun MainGraph(toAuthentication: () -> Unit) {
                         toWeightHistory = { router.push(MainRouter.WeightHistory) },
                         toMuscles = { router.push(MainRouter.UserMuscles) },
                         toEquipment = { router.push(MainRouter.UserEquipments) },
-                        toExerciseExampleBuilder = { router.push(MainRouter.ExerciseExampleBuilder) }
+                        toExerciseExampleBuilder = { router.push(MainRouter.ExerciseExampleBuilder) },
+                        toExerciseExampleById = { id ->
+                            router.push(
+                                MainRouter.ExerciseExample(
+                                    id = id,
+                                    primaryAction = null
+                                )
+                            )
+                        }
                     )
 
                     is MainRouter.Training -> {

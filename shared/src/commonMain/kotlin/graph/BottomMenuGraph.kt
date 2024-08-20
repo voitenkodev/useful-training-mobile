@@ -28,6 +28,7 @@ internal fun BottomMenuGraph(
     toTrainingBuilder: (id: String?) -> Unit,
     toTrainingDetails: (id: String) -> Unit,
     toExerciseExamples: () -> Unit,
+    toExerciseExampleById: (id: String) -> Unit,
     toAuthentication: () -> Unit,
     toMuscles: () -> Unit,
     toEquipment: () -> Unit,
@@ -72,6 +73,7 @@ internal fun BottomMenuGraph(
                         toWeightHistory = toWeightHistory,
                         toMuscles = toMuscles,
                         toEquipment = toEquipment,
+                        toExerciseExampleById = toExerciseExampleById,
                         toTraining = toTrainingBuilder,
                         toExerciseExampleBuilder = toExerciseExampleBuilder
                     )

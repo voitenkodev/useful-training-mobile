@@ -16,10 +16,10 @@ import components.Error
 import components.cards.ExerciseCardDefault
 import components.cards.ExerciseCardDefaultLoading
 import components.roots.ScreenRoot
+import exercise.ExerciseExample
 import kotlinx.collections.immutable.ImmutableList
 import molecule.PopupSheet
 import searchexercise.main.components.Header
-import searchexercise.main.models.ExerciseExample
 import searchexercise.main.popups.ExerciseExampleFiltersPopup
 import searchexercise.main.popups.ExerciseExampleFiltersStateHolder
 

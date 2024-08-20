@@ -80,7 +80,7 @@ internal fun Header(
         Row(
             modifier = Modifier
                 .padding(top = Design.dp.paddingL)
-                .height(Design.dp.componentM)
+                .height(Design.dp.componentSM)
                 .fillMaxWidth(),
         ) {
 
@@ -149,7 +149,7 @@ private fun CalendarRow(
             Box(modifier = Modifier.scale(if (it.isSelected) 1.1f else 1f)) {
                 Column(
                     modifier = Modifier
-                        .size(Design.dp.componentXL)
+                        .size(Design.dp.componentL)
                         .conditional(
                             condition = it.isSelected,
                             onYes = {

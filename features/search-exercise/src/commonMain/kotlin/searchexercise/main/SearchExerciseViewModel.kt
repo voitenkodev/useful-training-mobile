@@ -6,6 +6,7 @@ import FiltersRepository
 import MusclesRepository
 import ViewModel
 import equipment.mapping.toState
+import exercise.mapping.toState
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow

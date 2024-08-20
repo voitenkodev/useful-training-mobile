@@ -43,6 +43,7 @@ kotlin {
             implementation(projects.common.utils)
             implementation(projects.designSystem.molecule)
             implementation(projects.designSystem.components)
+            implementation(projects.composeLibs.composeImage)
 
         }
     }

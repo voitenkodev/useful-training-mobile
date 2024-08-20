@@ -1,9 +1,11 @@
 package profile.main
 
 import AuthenticationRepository
+import ExerciseExamplesRepository
 import TrainingsRepository
 import UserRepository
 import ViewModel
+import exercise.mapping.toState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -24,6 +26,7 @@ internal class ProfileViewModel : ViewModel() {
     private val userApi by inject<UserRepository>()
     private val authApi by inject<AuthenticationRepository>()
     private val trainingsApi by inject<TrainingsRepository>()
+    private val exerciseExamplesApi by inject<ExerciseExamplesRepository>()
 
     init {
         userApi
@@ -41,6 +44,18 @@ internal class ProfileViewModel : ViewModel() {
         trainingsApi
             .observeLastTraining()
             .onEach { r -> _state.update { it.copy(lastTraining = r?.toState()) } }
+            .catch { r -> _state.update { it.copy(error = r.message) } }
+            .launchIn(this)
+
+        exerciseExamplesApi
+            .observeExerciseExamples()
+            .onEach { r ->
+                _state.update {
+                    it.copy(
+                        lastExerciseExample = r.firstOrNull()?.toState()
+                    )
+                }
+            }
             .catch { r -> _state.update { it.copy(error = r.message) } }
             .launchIn(this)
     }

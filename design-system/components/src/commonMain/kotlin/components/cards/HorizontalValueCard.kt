@@ -56,7 +56,7 @@ public fun HorizontalValueCard(
 
         Icon(
             modifier = Modifier
-                .size(Design.dp.componentS)
+                .size(Design.dp.componentXS)
                 .border(
                     color = startIcon.second,
                     width = 1.dp,
@@ -87,7 +87,7 @@ public fun HorizontalValueCard(
         if (endIcon != null) {
             Icon(
                 modifier = Modifier
-                    .size(Design.dp.componentS)
+                    .size(Design.dp.componentXS)
                     .padding(Design.dp.paddingS),
                 color = endIcon.second,
                 imageVector = endIcon.first

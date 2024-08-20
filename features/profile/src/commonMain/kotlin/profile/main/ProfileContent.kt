@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -16,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextDecoration
@@ -24,9 +26,13 @@ import components.Error
 import components.cards.ValueCard
 import components.cards.ValueCardAction
 import components.roots.ScreenRoot
+import exercise.ExerciseExample
+import exercise.component.ExerciseCardSmall
 import kg
+import molecule.ButtonText
 import molecule.PaddingM
 import molecule.Shadow
+import molecule.TextBody4
 import molecule.Toolbar
 import profile.main.components.MenuItem
 import resources.Icons
@@ -43,6 +49,7 @@ internal fun ProfileContent(
     toTraining: (id: String?) -> Unit,
     toEquipment: () -> Unit,
     toWeightHistory: () -> Unit,
+    toExerciseExampleById: (id: String) -> Unit,
     toExerciseExampleBuilder: () -> Unit
 ) {
 
@@ -53,9 +60,11 @@ internal fun ProfileContent(
         clearError = vm::clearError,
         user = state.user,
         lastWeight = state.lastWeight,
+        lastExerciseExample = state.lastExerciseExample,
         lastTraining = state.lastTraining,
         toExerciseExamples = toExerciseExamples,
         toMuscles = toMuscles,
+        toExerciseExampleById = toExerciseExampleById,
         toEquipment = toEquipment,
         toWeightHistory = toWeightHistory,
         toTraining = toTraining,
@@ -70,6 +79,7 @@ private fun Content(
     clearError: () -> Unit,
     user: User?,
     lastWeight: WeightHistory?,
+    lastExerciseExample: ExerciseExample?,
     lastTraining: Training?,
     toExerciseExamples: () -> Unit,
     toMuscles: () -> Unit,
@@ -77,6 +87,7 @@ private fun Content(
     toWeightHistory: () -> Unit,
     toExerciseExampleBuilder: () -> Unit,
     toTraining: (id: String?) -> Unit,
+    toExerciseExampleById: (id: String) -> Unit,
     logout: () -> Unit
 ) {
 
@@ -177,24 +188,63 @@ private fun Content(
                 item {
                     Column(
                         modifier = Modifier
+                            .fillMaxWidth()
+                            .background(
+                                shape = Design.shape.large,
+                                color = Design.colors.secondary
+                            ).padding(
+                                all = Design.dp.paddingM
+                            ),
+                        verticalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
+                    ) {
+
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
+                        ) {
+
+                            TextBody4(
+                                modifier = Modifier.weight(1f),
+                                provideText = { "MY EXERCISES" },
+                            )
+
+                            ButtonText(
+                                text = "MORE",
+                                trailingIcon = Icons.arrowRight,
+                                onClick = toExerciseExamples,
+                                color = Design.colors.orange,
+                                textDecoration = TextDecoration.None
+                            )
+                        }
+
+                        val onDetailsClick = remember(lastExerciseExample?.id) {
+                            {
+                                val id = lastExerciseExample?.id
+                                if (id != null) {
+                                    toExerciseExampleById.invoke(id)
+                                }
+                            }
+                        }
+
+                        ExerciseCardSmall(
+                            exerciseExample = lastExerciseExample,
+                            viewDetails = onDetailsClick
+                        )
+                    }
+                }
+
+                item { PaddingM() }
+
+                item {
+                    Column(
+                        modifier = Modifier
                             .clip(
                                 shape = Design.shape.large
                             ).background(
                                 color = Design.palette.secondary
                             ).fillMaxWidth()
                     ) {
-
-                        MenuItem(
-                            icon = Icons.handWeight,
-                            text = "Exercises",
-                            onClick = toExerciseExamples,
-                            paddingValues = PaddingValues(
-                                vertical = Design.dp.paddingM,
-                                horizontal = Design.dp.paddingL
-                            )
-                        )
-
-                        Shadow()
 
                         MenuItem(
                             icon = Icons.profile,

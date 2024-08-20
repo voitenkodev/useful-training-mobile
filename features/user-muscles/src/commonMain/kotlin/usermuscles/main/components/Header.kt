@@ -38,7 +38,7 @@ internal fun Header(
             modifier = modifier
                 .align(Alignment.CenterHorizontally)
                 .width(intrinsicSize = IntrinsicSize.Max)
-                .defaultMinSize(minHeight = Design.dp.componentS),
+                .defaultMinSize(minHeight = Design.dp.componentXS),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 

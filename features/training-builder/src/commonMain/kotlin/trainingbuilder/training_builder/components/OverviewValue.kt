@@ -25,7 +25,7 @@ internal fun OverviewValue(
 ) {
 
     Row(
-        modifier = modifier.height(Design.dp.componentS),
+        modifier = modifier.height(Design.dp.componentXS),
         horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM),
         verticalAlignment = Alignment.CenterVertically
     ) {

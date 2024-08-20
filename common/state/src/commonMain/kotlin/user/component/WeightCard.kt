@@ -67,7 +67,7 @@ public fun WeightCard(
 
         Icon(
             modifier = Modifier
-                .size(Design.dp.componentM)
+                .size(Design.dp.componentSM)
                 .border(
                     color = startIcon.second,
                     width = 1.dp,

@@ -15,9 +15,10 @@ internal fun dp() = Dp(
     iconM = 20.dp,
     iconL = 24.dp,
 
-    componentS = 42.dp,
-    componentM = 54.dp,
-    componentXL = 64.dp,
+    componentXS = 42.dp,
+    componentSM = 54.dp,
+    componentL = 64.dp,
+    componentXL = 120.dp,
     componentXXL = 148.dp,
 
     shapeSmall = 12.dp,
@@ -37,8 +38,9 @@ public data class Dp(
     val iconM: Dp,
     val iconL: Dp,
 
-    val componentS: Dp,
-    val componentM: Dp,
+    val componentXS: Dp,
+    val componentSM: Dp,
+    val componentL: Dp,
     val componentXL: Dp,
     val componentXXL: Dp,
 

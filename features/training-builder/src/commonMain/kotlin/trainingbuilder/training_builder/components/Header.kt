@@ -61,7 +61,7 @@ internal fun Header(
         PaddingS()
 
         Box(
-            modifier = Modifier.fillMaxWidth().height(Design.dp.componentM),
+            modifier = Modifier.fillMaxWidth().height(Design.dp.componentSM),
         ) {
 
             TextH2(

@@ -90,7 +90,7 @@ private fun Content(
 
                     Spacer(
                         Modifier.height(
-                            Design.dp.componentM + Design.dp.paddingL + Design.dp.paddingL
+                            Design.dp.componentSM + Design.dp.paddingL + Design.dp.paddingL
                         )
                     )
                 }
