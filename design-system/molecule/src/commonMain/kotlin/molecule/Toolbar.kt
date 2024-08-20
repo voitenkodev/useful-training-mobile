@@ -24,7 +24,7 @@ public fun SmallToolbar(
             .height(Design.dp.componentM),
     ) {
 
-        TextH3(
+        TextH4(
             modifier = Modifier.align(Alignment.Center),
             provideText = { title },
         )

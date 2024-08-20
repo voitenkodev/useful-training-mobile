@@ -26,7 +26,7 @@ import molecule.PaddingS
 import molecule.PaddingWeight
 import molecule.PaddingXS
 import molecule.TextBody4
-import molecule.TextH3
+import molecule.TextH4
 import resources.Icons
 import shimmerLoadingAnimation
 import user.User
@@ -82,7 +82,7 @@ public fun UserCardSmall(
         ) {
             Column {
 
-                TextH3(
+                TextH4(
                     provideText = { user?.name?.uppercase() ?: "" },
                     color = Design.colors.yellow
                 )

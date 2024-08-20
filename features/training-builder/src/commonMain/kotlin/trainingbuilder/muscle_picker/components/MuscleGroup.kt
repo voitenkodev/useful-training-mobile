@@ -24,7 +24,7 @@ import kotlinx.collections.immutable.ImmutableList
 import molecule.ButtonText
 import molecule.PaddingM
 import molecule.PaddingS
-import molecule.TextH4
+import molecule.TextH5
 import muscles.Muscle
 import muscles.MuscleGroup
 import muscles.MuscleLoadEnum
@@ -55,7 +55,7 @@ internal fun MuscleGroup(
             verticalAlignment = Alignment.CenterVertically
         ) {
 
-            TextH4(
+            TextH5(
                 modifier = Modifier.weight(1f),
                 provideText = { item.name },
                 maxLines = 1,

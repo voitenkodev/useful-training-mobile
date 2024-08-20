@@ -37,6 +37,18 @@ internal fun typography() = Typography(
     ),
     h3 = TextStyle(
         baselineShift = BaselineShift.None,
+        fontSize = 24.sp,
+        letterSpacing = 1.sp,
+        fontWeight = FontWeight.SemiBold,
+        fontStyle = FontStyle.Normal,
+        fontFamily = Fonts.Primary(),
+        lineHeightStyle = LineHeightStyle(
+            alignment = LineHeightStyle.Alignment.Center,
+            trim = LineHeightStyle.Trim.Both
+        ),
+    ),
+    h4 = TextStyle(
+        baselineShift = BaselineShift.None,
         fontSize = 22.sp,
         fontWeight = FontWeight.Medium,
         letterSpacing = 1.sp,
@@ -47,7 +59,7 @@ internal fun typography() = Typography(
             trim = LineHeightStyle.Trim.Both
         )
     ),
-    h4 = TextStyle(
+    h5 = TextStyle(
         fontSize = 18.sp,
         fontWeight = FontWeight.Normal,
         fontStyle = FontStyle.Normal,
@@ -104,6 +116,11 @@ internal fun typography() = Typography(
         fontWeight = FontWeight.Normal,
         fontStyle = FontStyle.Normal,
     ),
+    body5 = TextStyle(
+        fontSize = 14.sp,
+        fontWeight = FontWeight.Light,
+        fontStyle = FontStyle.Normal,
+    ),
     button = TextStyle(
         fontSize = 16.sp,
         fontWeight = FontWeight.Medium,
@@ -118,23 +135,24 @@ internal fun typography() = Typography(
 )
 
 public data class Typography(
-    val h1: TextStyle, // Welcome titles
-    val h2: TextStyle, // Main Toolbar
-    val h3: TextStyle, // Sub Main Title
-    val h4: TextStyle, // Sub Title ( + Popup Title)
+    val h1: TextStyle,
+    val h2: TextStyle,
+    val h3: TextStyle,
+    val h4: TextStyle,
+    val h5: TextStyle,
 
-    val input: TextStyle, // Main inputs + fields
-
-    val body1: TextStyle, // Fields
-    val body2: TextStyle, // Fields
-    val body3: TextStyle, // Additional little input
-    val body4: TextStyle, // Additional little input
+    val body1: TextStyle,
+    val body2: TextStyle,
+    val body3: TextStyle,
+    val body4: TextStyle,
+    val body5: TextStyle,
 
     @Deprecated("Use Label")
     val textLabel: TextStyle, // Sub titles for sections)
 
-    val label: TextStyle, // Sub titles for sections)
-    val inputLabel: TextStyle, // Sub titles for sections)
+    val label: TextStyle,
+    val input: TextStyle,
+    val inputLabel: TextStyle,
 
     val button: TextStyle,
     val textButton: TextStyle

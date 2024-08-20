@@ -43,7 +43,7 @@ import molecule.PaddingM
 import molecule.PaddingWeight
 import molecule.TextBody4
 import molecule.TextH2
-import molecule.TextH3
+import molecule.TextH4
 import trainings.main.models.SelectableCalendar
 
 @Composable
@@ -175,7 +175,7 @@ private fun CalendarRow(
                         color = if (it.isToday) Design.colors.yellow else if (it.isSelected) Design.colors.content else Design.colors.label
                     )
 
-                    TextH3(
+                    TextH4(
                         provideText = { it.day },
                         color = if (it.isToday) Design.colors.yellow else Design.colors.content
                     )

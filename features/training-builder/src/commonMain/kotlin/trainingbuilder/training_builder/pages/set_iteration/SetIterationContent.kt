@@ -34,7 +34,7 @@ import kotlinx.coroutines.delay
 import molecule.ButtonIconTransparent
 import molecule.PaddingM
 import molecule.Shadow
-import molecule.TextH4
+import molecule.TextH5
 import molecule.secondaryBackground
 import molecule.secondaryDefaultBackground
 import resources.Icons
@@ -122,7 +122,7 @@ internal fun BoxScope.SetIterationContent(
                 verticalAlignment = Alignment.CenterVertically
             ) {
 
-                TextH4(provideText = { "Set #${state.iterationIndex + 1}" })
+                TextH5(provideText = { "Set #${state.iterationIndex + 1}" })
 
                 ButtonIconTransparent(
                     modifier = Modifier

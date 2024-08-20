@@ -10,7 +10,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import atom.Design
 import equipment.EquipmentGroup
 import molecule.PaddingS
-import molecule.TextH3
+import molecule.TextH4
 
 @Deprecated("Use EquipmentGrid")
 @Composable
@@ -25,7 +25,7 @@ public fun EquipmentGroup(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        TextH3(
+        TextH4(
             modifier = Modifier.fillMaxWidth().padding(horizontal = Design.dp.paddingL),
             provideText = { item.name },
             maxLines = 1,

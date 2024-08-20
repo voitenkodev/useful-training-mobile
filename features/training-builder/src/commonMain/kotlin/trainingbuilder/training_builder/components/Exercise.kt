@@ -13,7 +13,7 @@ import androidx.compose.ui.text.font.FontWeight
 import atom.Design
 import molecule.PaddingS
 import molecule.TextBody2
-import molecule.TextH4
+import molecule.TextH5
 import molecule.secondarySmallBackground
 import trainingbuilder.training_builder.models.Exercise
 
@@ -32,13 +32,13 @@ internal fun Exercise(
             horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
         ) {
 
-            TextH4(
+            TextH5(
                 modifier = Modifier,
                 provideText = { "$number" },
                 fontWeight = FontWeight.Bold
             )
 
-            TextH4(
+            TextH5(
                 provideText = { exercise.name },
                 fontWeight = FontWeight.Bold
             )

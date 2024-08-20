@@ -175,23 +175,6 @@ private fun Content(
 
                 item { PaddingM() }
 
-//                item {
-//                    val toTrainingProvider = remember {
-//                        {
-//                            toTraining.invoke(null)
-//                        }
-//                    }
-//
-//                    ButtonPrimary(
-//                        modifier = Modifier.fillMaxWidth(),
-//                        text = "Start workout",
-//                        leadingIcon = Icons.add,
-//                        onClick = toTrainingProvider
-//                    )
-//                }
-//
-//                item { PaddingM() }
-
                 item {
                     Column(
                         modifier = Modifier

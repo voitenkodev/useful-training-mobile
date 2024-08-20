@@ -23,7 +23,7 @@ import atom.Design
 import kotlinx.collections.immutable.ImmutableList
 import molecule.ButtonText
 import molecule.PaddingM
-import molecule.TextH4
+import molecule.TextH5
 import resources.Icons
 import trainings.Training
 
@@ -69,7 +69,7 @@ internal fun Trainings(
                     horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
 
-                    TextH4(
+                    TextH5(
                         modifier = Modifier.wrapContentHeight(),
                         provideText = { date },
                         color = Design.colors.label

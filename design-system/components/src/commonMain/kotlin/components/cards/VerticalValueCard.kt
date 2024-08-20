@@ -17,7 +17,7 @@ import molecule.Icon
 import molecule.PaddingS
 import molecule.PaddingXS
 import molecule.TextBody4
-import molecule.TextH3
+import molecule.TextH4
 
 @Composable
 public fun VerticalValueCard(
@@ -45,7 +45,7 @@ public fun VerticalValueCard(
 
         PaddingS()
 
-        TextH3(
+        TextH4(
             textAlign = TextAlign.Center,
             provideText = { description.first },
             maxLines = 1,

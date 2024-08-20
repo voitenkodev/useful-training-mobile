@@ -13,7 +13,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import atom.Design
 import molecule.Icon
 import molecule.TextBody3
-import molecule.TextH4
+import molecule.TextH5
 
 @Composable
 internal fun OverviewValue(
@@ -41,7 +41,7 @@ internal fun OverviewValue(
             verticalArrangement = Arrangement.Center
         ) {
 
-            TextH4(
+            TextH5(
                 provideText = { title },
                 color = Design.colors.yellow,
                 maxLines = 1

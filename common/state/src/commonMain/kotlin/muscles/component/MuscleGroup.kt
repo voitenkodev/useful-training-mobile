@@ -13,7 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import atom.Design
-import molecule.TextH3
+import molecule.TextH4
 import muscles.MuscleGroup
 
 @Composable
@@ -43,7 +43,7 @@ public fun MuscleGroup(
             Column(
                 verticalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
             ) {
-                TextH3(
+                TextH4(
                     modifier = Modifier.fillMaxWidth().padding(bottom = Design.dp.paddingS),
                     provideText = { item.name },
                     maxLines = 1,

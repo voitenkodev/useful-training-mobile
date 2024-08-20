@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import atom.Design
 import molecule.PaddingS
 import molecule.TextBody3
-import molecule.TextH4
+import molecule.TextH5
 
 @Composable
 public fun ExperienceCard(
@@ -51,7 +51,7 @@ public fun ExperienceCard(
         verticalArrangement = Arrangement.Center
     ) {
 
-        TextH4(
+        TextH5(
             provideText = { title }
         )
 

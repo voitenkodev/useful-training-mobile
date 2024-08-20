@@ -24,8 +24,8 @@ import atom.Design
 import molecule.PaddingM
 import molecule.PaddingWeight
 import molecule.TextBody4
-import molecule.TextH3
 import molecule.TextH4
+import molecule.TextH5
 
 @Composable
 public fun UserCardLarge(
@@ -96,7 +96,7 @@ public fun UserCardLarge(
                         color = Design.colors.label
                     )
 
-                    TextH3(
+                    TextH4(
                         provideText = { name.uppercase() },
                         color = Design.colors.yellow
                     )
@@ -112,7 +112,7 @@ public fun UserCardLarge(
                 color = Design.colors.label
             )
 
-            TextH4(
+            TextH5(
                 provideText = { weight }
             )
 
@@ -123,7 +123,7 @@ public fun UserCardLarge(
                 color = Design.colors.label
             )
 
-            TextH4(
+            TextH5(
                 provideText = { height }
             )
         }

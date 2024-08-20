@@ -19,7 +19,7 @@ import atom.Design
 import molecule.Icon
 import molecule.PaddingXS
 import molecule.TextBody4
-import molecule.TextH4
+import molecule.TextH5
 import molecule.coloredDefaultBackgroundNoBorder
 
 @Composable
@@ -72,7 +72,7 @@ public fun HorizontalValueCard(
             verticalArrangement = Arrangement.Center
         ) {
 
-            TextH4(
+            TextH5(
                 provideText = { title }
             )
 

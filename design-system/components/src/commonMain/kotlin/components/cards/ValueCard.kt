@@ -12,13 +12,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import atom.Design
 import molecule.ButtonText
 import molecule.Icon
 import molecule.PaddingM
+import molecule.PaddingS
 import molecule.PaddingWeight
+import molecule.PaddingXS
 import molecule.TextBody4
+import molecule.TextBody5
 import molecule.TextH3
 
 @Immutable
@@ -85,19 +89,22 @@ public fun ValueCard(
 
         PaddingM()
 
-        TextBody4(
+        TextBody5(
             provideText = { title.uppercase() },
             color = Design.colors.content,
+            fontWeight = FontWeight.Light,
             maxLines = 1
         )
 
-        PaddingM()
+        PaddingS()
 
         TextH3(
             provideText = { value.uppercase() },
             color = Design.colors.content,
             maxLines = 1
         )
+
+        PaddingXS()
 
         TextBody4(
             provideText = { label },

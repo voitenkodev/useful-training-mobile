@@ -13,7 +13,7 @@ import androidx.compose.ui.text.style.TextAlign
 import atom.Design
 import molecule.Icon
 import molecule.TextBody1
-import molecule.TextH3
+import molecule.TextH4
 
 @Composable
 public fun EmptyData(
@@ -40,7 +40,7 @@ public fun EmptyData(
             )
         }
 
-        TextH3(
+        TextH4(
             textAlign = TextAlign.Center,
             provideText = { title },
             color = Design.colors.white30

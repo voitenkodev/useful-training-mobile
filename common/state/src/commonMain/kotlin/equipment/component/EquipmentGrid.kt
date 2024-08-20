@@ -15,7 +15,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import atom.Design
 import equipment.EquipmentGroup
 import kotlinx.collections.immutable.ImmutableList
-import molecule.TextH3
+import molecule.TextH4
 
 @Composable
 public fun EquipmentGrid(
@@ -44,7 +44,7 @@ public fun EquipmentGrid(
                     span = { GridItemSpan(3) }
                 ) {
 
-                    TextH3(
+                    TextH4(
                         modifier = Modifier.fillMaxWidth()
                             .padding(vertical = Design.dp.paddingS),
                         provideText = { group.name },

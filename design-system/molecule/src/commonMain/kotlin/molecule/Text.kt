@@ -69,8 +69,7 @@ public fun TextH3(
     textAlign: TextAlign? = null,
     maxLines: Int = Int.MAX_VALUE,
     fontWeight: FontWeight? = null,
-    overflow: TextOverflow = TextOverflow.Clip,
-    softWrap: Boolean = true
+    overflow: TextOverflow = TextOverflow.Clip
 ) {
     TextField(
         provideText = provideText,
@@ -81,13 +80,38 @@ public fun TextH3(
         color = color ?: Design.colors.content,
         textAlign = textAlign,
         fontWeight = fontWeight,
+        overflow = overflow
+    )
+}
+
+@Composable
+public fun TextH4(
+    provideText: () -> String?,
+    modifier: Modifier = Modifier,
+    placeholder: String? = null,
+    color: Color? = null,
+    textAlign: TextAlign? = null,
+    maxLines: Int = Int.MAX_VALUE,
+    fontWeight: FontWeight? = null,
+    overflow: TextOverflow = TextOverflow.Clip,
+    softWrap: Boolean = true
+) {
+    TextField(
+        provideText = provideText,
+        modifier = modifier,
+        placeholder = placeholder,
+        textStyle = Design.typography.h4,
+        maxLines = maxLines,
+        color = color ?: Design.colors.content,
+        textAlign = textAlign,
+        fontWeight = fontWeight,
         overflow = overflow,
         softWrap = softWrap
     )
 }
 
 @Composable
-public fun TextH4(
+public fun TextH5(
     provideText: () -> String?,
     modifier: Modifier = Modifier,
     placeholder: String? = null,
@@ -101,7 +125,7 @@ public fun TextH4(
         provideText = provideText,
         modifier = modifier,
         placeholder = placeholder,
-        textStyle = Design.typography.h4,
+        textStyle = Design.typography.h5,
         maxLines = maxLines,
         color = color ?: Design.colors.content,
         textAlign = textAlign,
@@ -198,6 +222,30 @@ public fun TextBody4(
         provideText = provideText,
         placeholder = placeholder,
         textStyle = Design.typography.body4,
+        maxLines = maxLines,
+        color = color ?: Design.colors.content,
+        textAlign = textAlign,
+        fontWeight = fontWeight,
+        overflow = overflow
+    )
+}
+
+@Composable
+public fun TextBody5(
+    provideText: () -> String?,
+    modifier: Modifier = Modifier,
+    placeholder: String? = null,
+    color: Color? = null,
+    textAlign: TextAlign? = null,
+    maxLines: Int = Int.MAX_VALUE,
+    fontWeight: FontWeight? = null,
+    overflow: TextOverflow = TextOverflow.Clip
+) {
+    TextField(
+        modifier = modifier,
+        provideText = provideText,
+        placeholder = placeholder,
+        textStyle = Design.typography.body5,
         maxLines = maxLines,
         color = color ?: Design.colors.content,
         textAlign = textAlign,

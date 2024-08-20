@@ -21,7 +21,7 @@ import molecule.ButtonIconTransparent
 import molecule.Icon
 import molecule.PaddingS
 import molecule.TextBody4
-import molecule.TextH4
+import molecule.TextH5
 
 @Immutable
 public data class WeightCardIcon(
@@ -84,7 +84,7 @@ public fun WeightCard(
 
             PaddingS()
 
-            TextH4(
+            TextH5(
                 provideText = { title }
             )
 

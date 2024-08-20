@@ -32,7 +32,7 @@ import molecule.ButtonText
 import molecule.PaddingM
 import molecule.PaddingWeight
 import molecule.TextBody4
-import molecule.TextH4
+import molecule.TextH5
 import molecule.secondaryDefaultBackground
 import percents
 import shimmerLoadingAnimation
@@ -93,7 +93,7 @@ public fun ExerciseCardSmall(
         Column(
             modifier = Modifier.padding(Design.dp.paddingM).fillMaxSize()
         ) {
-            TextH4(
+            TextH5(
                 provideText = { name },
                 maxLines = 2
             )
@@ -170,7 +170,7 @@ public fun ExerciseCardDefault(
                     .padding(vertical = Design.dp.paddingM, horizontal = Design.dp.paddingM),
             ) {
 
-                TextH4(
+                TextH5(
                     provideText = { name },
                     maxLines = 3,
                     color = Design.colors.content

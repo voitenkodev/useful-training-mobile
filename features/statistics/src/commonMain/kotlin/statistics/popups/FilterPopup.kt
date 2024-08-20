@@ -15,7 +15,7 @@ import kotlinx.collections.immutable.ImmutableList
 import molecule.PaddingL
 import molecule.PaddingS
 import molecule.TextBody1
-import molecule.TextH3
+import molecule.TextH4
 import molecule.TextLabel
 import statistics.state.ExerciseExample
 import statistics.state.Interval
@@ -33,7 +33,7 @@ internal fun ColumnScope.FilterPopup(
     intervalClick: (intervalType: IntervalType) -> Unit
 ) {
 
-    TextH3(
+    TextH4(
         modifier = Modifier.padding(horizontal = Design.dp.paddingM),
         provideText = { "Filters" }
     )

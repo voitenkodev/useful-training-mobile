@@ -16,7 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import atom.Design
 import molecule.TextBody2
-import molecule.TextH4
+import molecule.TextH5
 
 @Composable
 public fun Error(
@@ -84,7 +84,7 @@ private fun ErrorContent(
         verticalArrangement = Arrangement.spacedBy(Design.dp.paddingM),
         content = {
 
-            TextH4(provideText = { "Error!" }, fontWeight = FontWeight.Bold)
+            TextH5(provideText = { "Error!" }, fontWeight = FontWeight.Bold)
 
             TextBody2(provideText = provideMessage)
         }
