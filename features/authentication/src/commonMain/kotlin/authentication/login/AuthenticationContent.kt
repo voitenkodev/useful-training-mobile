@@ -89,22 +89,23 @@ private fun Content(
 
         Column(
             modifier = Modifier.fillMaxSize().systemBarsPadding(),
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.Start
         ) {
 
             PaddingXXL()
 
-            TextH2(provideText = { "Sign In" }, textAlign = TextAlign.Center)
+            TextH2(
+                modifier = Modifier.padding(horizontal = Design.dp.paddingL),
+                provideText = { "Sign In" },
+            )
 
             PaddingXS()
 
             TextBody2(
+                modifier = Modifier.padding(horizontal = Design.dp.paddingL),
                 provideText = { "Sign in with your email and password" },
-                textAlign = TextAlign.Center,
                 color = Design.colors.label
             )
-
-            PaddingXXL()
 
             PaddingXXL()
 
