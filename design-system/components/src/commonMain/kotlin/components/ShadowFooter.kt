@@ -63,10 +63,6 @@ public fun BottomButtons(
                         end = Design.dp.paddingL
                     )
                     .fillMaxWidth()
-//                    .background(
-//                        color = Design.colors.secondary,
-//                        shape = Design.shape.default
-//                    ).padding(Design.dp.paddingS)
                     .height(Design.dp.componentS),
                 horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
             ) {

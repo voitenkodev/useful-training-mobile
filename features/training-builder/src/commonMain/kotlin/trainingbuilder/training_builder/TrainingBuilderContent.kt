@@ -1,15 +1,10 @@
 package trainingbuilder.training_builder
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.navigationBarsPadding
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.pager.VerticalPager
@@ -19,18 +14,20 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import atom.Design
 import com.arkivanov.essenty.backhandler.BackCallback
+import components.BottomButtons
 import components.Error
 import components.roots.ScreenRoot
 import io.github.xxfast.decompose.router.LocalRouterContext
 import kotlinx.collections.immutable.ImmutableList
 import molecule.ButtonPrimary
+import molecule.ButtonSecondary
 import molecule.PopupSheet
 import molecule.TextBody4
+import resources.Icons
 import trainingbuilder.training_builder.components.Exercise
 import trainingbuilder.training_builder.components.Header
 import trainingbuilder.training_builder.models.Exercise
@@ -135,69 +132,57 @@ internal fun Content(
     fullFront: ImageVector,
     fullBack: ImageVector
 ) {
-    Box {
 
-        Column(modifier = Modifier.fillMaxSize()) {
+    Column(modifier = Modifier.fillMaxSize()) {
 
-            Header(
-                finish = finish,
-                finishEnabled = exercises.isNotEmpty(),
-                volume = volume,
-                startDateMillis = startDateMillis,
-            )
+        Header(
+            finish = finish,
+            finishEnabled = exercises.isNotEmpty(),
+            volume = volume,
+            startDateMillis = startDateMillis,
+        )
 
-            LazyColumn(
-                modifier = Modifier.fillMaxWidth().weight(1f),
-                contentPadding = PaddingValues(
-                    vertical = Design.dp.paddingS,
-                    horizontal = Design.dp.paddingL
-                ),
-                verticalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
-            ) {
+        LazyColumn(
+            modifier = Modifier.fillMaxWidth().weight(1f),
+            contentPadding = PaddingValues(
+                vertical = Design.dp.paddingS,
+                horizontal = Design.dp.paddingL
+            ),
+            verticalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
+        ) {
 
-                item("exercise_title") {
-                    TextBody4(
-                        provideText = { "EXERCISES" }
-                    )
-                }
+            item("exercise_title") {
+                TextBody4(
+                    provideText = { "EXERCISES" }
+                )
+            }
 
-                if (exercises.isEmpty()) {
-                    item {
-                        ButtonPrimary(
-                            onClick = addExercise,
-                            text = "Let's start workout"
-                        )
-                    }
-                }
-
-                itemsIndexed(exercises) { index, item ->
-                    Exercise(
-                        number = index + 1,
-                        exercise = item,
-                        onClick = { selectExercise.invoke(index) }
-                    )
-                }
-
-                item("add_exercise") {
-                    Spacer(
-                        modifier = Modifier
-                            .navigationBarsPadding()
-                            .size(Design.dp.componentS + Design.dp.paddingS)
-                    )
-                }
+            itemsIndexed(exercises) { index, item ->
+                Exercise(
+                    number = index + 1,
+                    exercise = item,
+                    onClick = { selectExercise.invoke(index) }
+                )
             }
         }
 
-        if (exercises.isNotEmpty()) {
+        BottomButtons(
+            modifier = Modifier.fillMaxWidth(),
+            first = {
+                ButtonSecondary(
+                    text = "Overview",
+                    onClick = {},
 
-            ButtonPrimary(
-                modifier = Modifier
-                    .align(Alignment.BottomEnd)
-                    .navigationBarsPadding()
-                    .padding(Design.dp.paddingM),
-                text = "Add Exercise",
-                onClick = addExercise
-            )
-        }
+                    )
+            },
+            second = {
+                ButtonPrimary(
+                    modifier = Modifier.weight(1f),
+                    leadingIcon = Icons.add,
+                    text = "Add Exercise",
+                    onClick = addExercise,
+                )
+            }
+        )
     }
 }

@@ -1,5 +1,6 @@
 package trainingbuilder.training_builder.components
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -9,12 +10,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
 import atom.Design
 import molecule.PaddingS
+import molecule.TextBody1
 import molecule.TextBody2
-import molecule.TextH5
-import molecule.secondarySmallBackground
 import trainingbuilder.training_builder.models.Exercise
 
 @Composable
@@ -32,15 +31,13 @@ internal fun Exercise(
             horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
         ) {
 
-            TextH5(
+            TextBody1(
                 modifier = Modifier,
                 provideText = { "$number" },
-                fontWeight = FontWeight.Bold
             )
 
-            TextH5(
+            TextBody1(
                 provideText = { exercise.name },
-                fontWeight = FontWeight.Bold
             )
         }
 
@@ -54,8 +51,10 @@ internal fun Exercise(
             exercise.iterations.forEach {
                 TextBody2(
                     modifier = Modifier
-                        .secondarySmallBackground()
-                        .padding(
+                        .background(
+                            color = Design.colors.tertiary,
+                            shape = Design.shape.small
+                        ).padding(
                             horizontal = Design.dp.paddingM,
                             vertical = Design.dp.paddingXS
                         ),

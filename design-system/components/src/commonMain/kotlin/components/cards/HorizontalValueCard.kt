@@ -22,6 +22,7 @@ import molecule.TextBody4
 import molecule.TextH5
 import molecule.coloredDefaultBackgroundNoBorder
 
+@Deprecated("HorizontalValueCard")
 @Composable
 public fun HorizontalValueCard(
     modifier: Modifier = Modifier,

@@ -1,4 +1,4 @@
-package trainings.main.components
+package trainings.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -20,7 +20,7 @@ import recomposeHighlighter
 import trainings.Exercise
 
 @Composable
-internal fun Exercise(
+public fun Exercise(
     modifier: Modifier = Modifier,
     number: Int,
     exercise: Exercise
@@ -36,7 +36,7 @@ internal fun Exercise(
             verticalAlignment = Alignment.CenterVertically
         ) {
 
-            TextBody2(
+            TextBody1(
                 modifier = Modifier,
                 provideText = { "$number." },
             )

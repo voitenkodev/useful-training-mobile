@@ -25,9 +25,10 @@ import atom.Design
 import kotlinx.collections.immutable.ImmutableList
 import molecule.ButtonText
 import molecule.PaddingM
-import molecule.TextH5
+import molecule.TextBody5
 import resources.Icons
 import trainings.Training
+import trainings.component.Exercise
 
 @Composable
 internal fun Trainings(
@@ -71,10 +72,9 @@ internal fun Trainings(
                     horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
 
-                    TextH5(
+                    TextBody5(
                         modifier = Modifier.wrapContentHeight(),
-                        provideText = { date },
-                        color = Design.colors.label
+                        provideText = { date?.uppercase() },
                     )
 
                     ButtonText(

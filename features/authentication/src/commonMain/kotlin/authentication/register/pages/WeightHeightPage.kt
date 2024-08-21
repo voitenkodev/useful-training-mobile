@@ -89,31 +89,24 @@ internal fun WeightPage(
 
         PaddingWeight()
 
-        Column(
-            modifier = Modifier
-                .fillMaxWidth(),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-
-            BottomButtons(
-                modifier = Modifier.fillMaxWidth(),
-                first = {
-                    ButtonSecondary(
-                        modifier = Modifier.weight(1f),
-                        leadingIcon = Icons.arrowLeft,
-                        text = "Back",
-                        onClick = back
-                    )
-                },
-                second = {
-                    ButtonPrimary(
-                        modifier = Modifier.weight(1f),
-                        trailingIcon = Icons.arrowRight,
-                        text = "Next",
-                        onClick = confirm,
-                    )
-                }
-            )
-        }
+        BottomButtons(
+            modifier = Modifier.fillMaxWidth(),
+            first = {
+                ButtonSecondary(
+                    modifier = Modifier.weight(1f),
+                    leadingIcon = Icons.arrowLeft,
+                    text = "Back",
+                    onClick = back
+                )
+            },
+            second = {
+                ButtonPrimary(
+                    modifier = Modifier.weight(1f),
+                    trailingIcon = Icons.arrowRight,
+                    text = "Next",
+                    onClick = confirm,
+                )
+            }
+        )
     }
 }
