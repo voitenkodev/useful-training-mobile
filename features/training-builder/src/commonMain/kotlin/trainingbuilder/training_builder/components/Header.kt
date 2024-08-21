@@ -211,7 +211,7 @@ internal fun Header(
                                 color = Design.colors.yellow,
                                 value = {
                                     TimerComponent(
-                                        initialMillis = 123L,
+                                        initialMillis = startDateMillis,
                                         content = {
                                             TextBody3(
                                                 provideText = { it },

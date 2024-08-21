@@ -43,7 +43,7 @@ internal class Timer(
     private fun calculateTime(updatedAtMillis: Long): Long {
         if (updatedAtMillis == 0L) return 0
         val currentTimeMillis = DateTimeKtx.currentDateTimeMillis()
-        val elapsedTimeMillis = currentTimeMillis + updatedAtMillis
+        val elapsedTimeMillis = currentTimeMillis - updatedAtMillis
         return elapsedTimeMillis
     }
 }
