@@ -303,6 +303,7 @@ public fun TextLabel(
     )
 }
 
+@Deprecated("body5")
 @Composable
 public fun Label(
     provideText: () -> String?,

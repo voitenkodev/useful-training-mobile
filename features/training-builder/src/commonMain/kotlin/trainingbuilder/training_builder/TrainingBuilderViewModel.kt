@@ -42,7 +42,14 @@ internal class TrainingBuilderViewModel(muscleIds: List<String>) : ViewModel() {
         musclesApi
             .observeMusclesById(muscleIds)
             .map { it.toState() }
-            .onEach { r -> _state.update { it.copy(muscles = r, selectedMuscle = r.firstOrNull()) } }
+            .onEach { r ->
+                _state.update {
+                    it.copy(
+                        muscles = r,
+                        selectedMuscle = r.firstOrNull()
+                    )
+                }
+            }
             .catch { r -> _state.update { it.copy(error = r.message) } }
             .launchIn(this)
 
@@ -51,15 +58,48 @@ internal class TrainingBuilderViewModel(muscleIds: List<String>) : ViewModel() {
             .flatMapLatest { muscle -> _state.map { it.training.exercises }.map { muscle to it } }
             .distinctUntilChanged()
             .flatMapLatest {
-                exerciseExampleApi.getRecommendedExerciseExamples(
-                    page = 1,
-                    size = 10,
-                    targetMuscleId = it.first?.id,
-                    exerciseCount = it.second.size,
-                    exerciseExampleIds = it.second.mapNotNull { it.exerciseExample?.id }
-                ).onStart { _state.update { it.copy(recommendationsLoading = true) } }
-                    .catch { t -> _state.update { it.copy(recommendationsLoading = false, error = t.message) } }
-                    .onEach { r -> _state.update { it.copy(recommendationsLoading = false, exerciseExamples = r.toState()) } }
+                exerciseExampleApi
+                    .getExerciseExamples(1, 10)
+                    .onStart { _state.update { it.copy(recommendationsLoading = true) } }
+                    .catch { t ->
+                        _state.update {
+                            it.copy(
+                                recommendationsLoading = false,
+                                error = t.message
+                            )
+                        }
+                    }.onEach { r ->
+                        _state.update {
+                            it.copy(
+                                recommendationsLoading = false,
+                                exerciseExamples = r.toState()
+                            )
+                        }
+                    }
+//            }.flatMapLatest {
+//                exerciseExampleApi.getRecommendedExerciseExamples(
+//                    page = 1,
+//                    size = 10,
+//                    targetMuscleId = it.first?.id,
+//                    exerciseCount = it.second.size,
+//                    exerciseExampleIds = it.second.mapNotNull { it.exerciseExample?.id }
+//                ).onStart { _state.update { it.copy(recommendationsLoading = true) } }
+//                    .catch { t ->
+//                        _state.update {
+//                            it.copy(
+//                                recommendationsLoading = false,
+//                                error = t.message
+//                            )
+//                        }
+//                    }
+//                    .onEach { r ->
+//                        _state.update {
+//                            it.copy(
+//                                recommendationsLoading = false,
+//                                exerciseExamples = r.toState()
+//                            )
+//                        }
+//                    }
             }.launchIn(this)
     }
 
@@ -133,7 +173,12 @@ internal class TrainingBuilderViewModel(muscleIds: List<String>) : ViewModel() {
 
     fun openAddExercise(index: Int, exerciseExample: ExerciseExample? = null) {
         _state.update {
-            it.copy(setExerciseState = SetExerciseState.Opened(index = index, exerciseExample = exerciseExample))
+            it.copy(
+                setExerciseState = SetExerciseState.Opened(
+                    index = index,
+                    exerciseExample = exerciseExample
+                )
+            )
         }
     }
 
@@ -141,7 +186,12 @@ internal class TrainingBuilderViewModel(muscleIds: List<String>) : ViewModel() {
         val newIndex = state.value.training.exercises.lastIndex + 1
 
         _state.update {
-            it.copy(setExerciseState = SetExerciseState.Opened(index = newIndex, exerciseExample = exerciseExample))
+            it.copy(
+                setExerciseState = SetExerciseState.Opened(
+                    index = newIndex,
+                    exerciseExample = exerciseExample
+                )
+            )
         }
     }
 
@@ -191,7 +241,8 @@ internal class TrainingBuilderViewModel(muscleIds: List<String>) : ViewModel() {
     private fun Training.calculateValues(): Training {
         val calculatedExercises = exercises.map {
             val exVolume = it.iterations.sumOf { iteration ->
-                (iteration.repetitions.toIntOrNull() ?: 0) * (iteration.weight.toDoubleOrNull() ?: 0.0)
+                (iteration.repetitions.toIntOrNull() ?: 0) * (iteration.weight.toDoubleOrNull()
+                    ?: 0.0)
             }
             val exRepetitions = it.iterations.sumOf { iteration ->
                 iteration.repetitions.toIntOrNull() ?: 0

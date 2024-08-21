@@ -25,8 +25,8 @@ import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.dp
 import atom.Design
 import components.EmptyData
-import components.cards.ExerciseCardDefault
 import components.cards.ExerciseCardDefaultLoading
+import components.cards.ExerciseCardSmall
 import components.chips.Chip
 import components.chips.ChipState
 import components.inputs.InputSearch
@@ -36,14 +36,12 @@ import kotlinx.collections.immutable.ImmutableList
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import molecule.ButtonPrimary
-import molecule.ButtonSecondary
-import molecule.Label
 import molecule.POPUP_ANIM_DURATION_MS
 import molecule.PaddingL
 import molecule.PaddingM
 import molecule.PaddingS
-import molecule.Shadow
 import molecule.SmallToolbar
+import molecule.TextBody5
 import resources.Icons
 import trainingbuilder.training_builder.models.ExerciseExample
 import trainingbuilder.training_builder.models.Muscle
@@ -120,10 +118,6 @@ internal fun FindExercisePopup(
             }
         )
 
-        PaddingM()
-
-        Shadow()
-
         Row(
             modifier = Modifier.padding(Design.dp.paddingL),
             verticalAlignment = Alignment.CenterVertically,
@@ -159,8 +153,8 @@ internal fun ExerciseExamples(
         verticalAlignment = Alignment.CenterVertically
     ) {
 
-        Label(
-            provideText = { "Recommended for you" },
+        TextBody5(
+            provideText = { "RECOMMENDED" },
         )
     }
 
@@ -179,7 +173,7 @@ internal fun ExerciseExamples(
     if (list.isEmpty()) {
         EmptyData(
             modifier = Modifier
-                .padding(horizontal = Design.dp.paddingM)
+                .padding(horizontal = Design.dp.paddingL)
                 .aspectRatio(1.72f)
                 .clipToBounds()
                 .border(
@@ -209,12 +203,12 @@ internal fun ExerciseExamples(
 
             when {
                 loading -> ExerciseCardDefaultLoading()
-                item != null -> ExerciseCardDefault(
+                item != null -> ExerciseCardSmall(
                     name = item.name,
-                    btn = "Select" to { select.invoke(item) },
+                    onClick = { select.invoke(item) },
                     imageUrl = item.imageUrl,
                     viewDetails = { details.invoke(item.id) },
-                    musclesWithPercent = item.exerciseExampleBundles.map { it.muscle.name to it.percentage }
+                    musclesWithPercent = item.exerciseExampleBundles.map { it.muscle.name to it.percentage },
                 )
             }
         }
@@ -248,9 +242,9 @@ internal fun Muscles(
         if (selectedIndex != -1) lazyListState.animateScrollAndCentralizeItem(selectedIndex)
     }
 
-    Label(
+    TextBody5(
         modifier = Modifier.padding(horizontal = Design.dp.paddingM),
-        provideText = { "Target Muscle" },
+        provideText = { "MUSCLE" },
     )
 
     PaddingM()

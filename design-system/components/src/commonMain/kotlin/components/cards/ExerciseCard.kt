@@ -3,6 +3,7 @@ package components.cards
 import AsyncImage
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
@@ -26,6 +27,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import atom.Design
+import conditional
 import molecule.ButtonPrimary
 import molecule.ButtonSecondary
 import molecule.ButtonText
@@ -48,7 +50,8 @@ public fun ExerciseCardSmall(
     name: String,
     imageUrl: String?,
     viewDetails: () -> Unit,
-    musclesWithPercent: List<Pair<String, Int>> = emptyList()
+    musclesWithPercent: List<Pair<String, Int>> = emptyList(),
+    onClick: (() -> Unit)? = null
 ) {
 
     val muscles = remember(musclesWithPercent) {
@@ -80,6 +83,13 @@ public fun ExerciseCardSmall(
                 color = Design.colors.green,
                 shape = Design.shape.default
             ).clip(shape = Design.shape.default)
+            .conditional(
+                condition = onClick != null,
+                onYes = {
+                    if (onClick != null) this.clickable(onClick = onClick)
+                    else this
+                }
+            )
     ) {
 
         AsyncImage(
