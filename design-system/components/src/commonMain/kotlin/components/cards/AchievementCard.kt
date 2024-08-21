@@ -20,7 +20,7 @@ import molecule.TextBody4
 import molecule.TextH4
 
 @Composable
-public fun VerticalValueCard(
+public fun AchievementCard(
     modifier: Modifier = Modifier,
     title: Pair<String, Color>,
     description: Pair<String, Color>,

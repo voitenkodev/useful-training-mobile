@@ -23,8 +23,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextDecoration
 import atom.Design
 import components.Error
-import components.cards.ValueCard
 import components.cards.ValueCardAction
+import components.cards.VerticalValueCard
 import components.roots.ScreenRoot
 import exercise.ExerciseExample
 import exercise.component.ExerciseItem
@@ -141,7 +141,7 @@ private fun Content(
                             ) ?: ""
                         }
 
-                        ValueCard(
+                        VerticalValueCard(
                             modifier = Modifier.weight(1f),
                             value = lastWeightValue,
                             title = "Last weight",
@@ -167,7 +167,7 @@ private fun Content(
                             ) ?: ""
                         }
 
-                        ValueCard(
+                        VerticalValueCard(
                             modifier = Modifier.weight(1f),
                             value = lastTrainingValue,
                             title = "Last training",

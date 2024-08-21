@@ -12,6 +12,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import atom.Design
 import molecule.Icon
+import molecule.TextBody4
 import molecule.TextH5
 
 @Composable
@@ -39,6 +40,11 @@ internal fun OverviewValue(
             modifier = Modifier.weight(1f),
             verticalArrangement = Arrangement.Center
         ) {
+
+            TextBody4(
+                modifier = Modifier.padding(horizontal = Design.dp.paddingM),
+                provideText = { title },
+            )
 
             TextH5(
                 provideText = { title },

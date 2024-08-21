@@ -9,7 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import atom.Design
-import components.cards.VerticalValueCard
+import components.cards.AchievementCard
 import kg
 import molecule.TextLabel
 import resources.Icons
@@ -29,7 +29,7 @@ internal fun Achievements(
         TextLabel(provideText = { "Achievements" })
 
         Row(horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM)) {
-            VerticalValueCard(
+            AchievementCard(
                 modifier = Modifier.weight(1f).border(
                     color = Design.colors.green,
                     width = 1.dp,
@@ -40,7 +40,7 @@ internal fun Achievements(
                 icon = Icons.weight
             )
 
-            VerticalValueCard(
+            AchievementCard(
                 modifier = Modifier.weight(1f).border(
                     color = Design.colors.green,
                     width = 1.dp,
@@ -51,7 +51,7 @@ internal fun Achievements(
                 icon = Icons.handWeight
             )
 
-            VerticalValueCard(
+            AchievementCard(
                 modifier = Modifier.weight(1f).border(
                     color = Design.colors.green,
                     width = 1.dp,

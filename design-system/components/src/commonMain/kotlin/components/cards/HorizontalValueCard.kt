@@ -33,7 +33,6 @@ public fun HorizontalValueCard(
     onClick: (() -> Unit)? = null
 ) {
 
-
     val interactionSource = remember { MutableInteractionSource() }
 
     val actionModifierProvider = remember(onClick, isSelected) {

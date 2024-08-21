@@ -28,10 +28,9 @@ import components.Error
 import components.roots.ScreenRoot
 import io.github.xxfast.decompose.router.LocalRouterContext
 import kotlinx.collections.immutable.ImmutableList
-import kotlinx.collections.immutable.toImmutableList
 import molecule.ButtonPrimary
-import molecule.Label
 import molecule.PopupSheet
+import molecule.TextBody4
 import trainingbuilder.training_builder.components.Exercise
 import trainingbuilder.training_builder.components.Header
 import trainingbuilder.training_builder.models.Exercise
@@ -140,42 +139,30 @@ internal fun Content(
 
         Column(modifier = Modifier.fillMaxSize()) {
 
-            val exercisesIntensity = remember(exercises) {
-                exercises.map { it.intensity.toFloat() }.toImmutableList()
-            }
-
-            val exercisesVolume = remember(exercises) {
-                exercises.map { it.volume.toFloat() }.toImmutableList()
-            }
-
             Header(
                 finish = finish,
-                loading = loading,
                 finishEnabled = exercises.isNotEmpty(),
-                fullBackImage = fullBack,
-                fullFrontImage = fullFront,
                 volume = volume,
-                intensity = intensity,
-                exerciseVolume = exercisesVolume,
                 startDateMillis = startDateMillis,
-                exerciseIntensity = exercisesIntensity
             )
 
             LazyColumn(
                 modifier = Modifier.fillMaxWidth().weight(1f),
-                contentPadding = PaddingValues(Design.dp.paddingM),
+                contentPadding = PaddingValues(
+                    vertical = Design.dp.paddingS,
+                    horizontal = Design.dp.paddingL
+                ),
                 verticalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
             ) {
 
                 item("exercise_title") {
-                    Label(
-                        provideText = { "Exercises" }
+                    TextBody4(
+                        provideText = { "EXERCISES" }
                     )
                 }
 
                 if (exercises.isEmpty()) {
                     item {
-
                         ButtonPrimary(
                             onClick = addExercise,
                             text = "Let's start workout"
