@@ -79,9 +79,9 @@ internal fun Header(
 
         Row(
             modifier = Modifier
-                .padding(top = Design.dp.paddingL)
                 .height(Design.dp.componentS)
                 .fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically
         ) {
 
             MonthSwiper(

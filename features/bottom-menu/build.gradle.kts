@@ -23,6 +23,8 @@ kotlin {
             implementation(projects.domain.user)
             implementation(projects.domain.trainings)
             implementation(projects.domain.exerciseExamples)
+            implementation(projects.domain.muscles)
+            implementation(projects.domain.equipments)
 
             implementation(projects.common.architectureComponent)
             implementation(projects.common.utils)

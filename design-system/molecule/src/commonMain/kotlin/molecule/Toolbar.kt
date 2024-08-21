@@ -48,11 +48,10 @@ public fun Toolbar(
         modifier = Modifier
             .fillMaxWidth()
             .padding(
-                top = Design.dp.paddingL,
                 start = Design.dp.paddingL,
                 end = Design.dp.paddingL
-            )
-            .height(Design.dp.componentS),
+            ).height(Design.dp.componentS),
+        verticalAlignment = Alignment.CenterVertically
     ) {
 
         TextH2(

@@ -51,8 +51,8 @@ public object DateTimeKtx {
     /**
      * Input 2 + listOf(2022-10-21T13:20:18.496Z, 2022-10-22T13:20:18.496Z)
      * Output listOf(2022-10-20T13:20:18.496Z, 2022-10-19T13:20:18.496Z)
+     * в полученном списке newChunk самые ранние даты будут в конце списка, а самые поздние — в начале.
      **/
-
     public fun chunkBefore(previousList: List<String>, count: Int = BASIC_CHUNK): List<String> {
         val timeZone = TimeZone.currentSystemDefault()
 

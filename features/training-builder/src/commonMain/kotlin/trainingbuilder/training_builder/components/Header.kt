@@ -9,7 +9,6 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
@@ -37,7 +36,7 @@ import kotlinx.collections.immutable.ImmutableList
 import molecule.ButtonIconTransparent
 import molecule.ButtonPrimary
 import molecule.PaddingM
-import molecule.PaddingS
+import molecule.PaddingWeight
 import molecule.Shadow
 import molecule.TextH2
 import percents
@@ -58,21 +57,25 @@ internal fun Header(
 ) {
     Column(modifier = Modifier.statusBarsPadding()) {
 
-        PaddingS()
-
-        Box(
-            modifier = Modifier.fillMaxWidth().height(Design.dp.componentS),
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(
+                    start = Design.dp.paddingL,
+                    end = Design.dp.paddingL
+                )
+                .height(Design.dp.componentS),
+            verticalAlignment = Alignment.CenterVertically
         ) {
 
             TextH2(
-                modifier = Modifier.align(Alignment.Center),
                 provideText = { "Training" },
                 softWrap = false
             )
 
+            PaddingWeight()
+
             ButtonPrimary(
-                modifier = Modifier.align(Alignment.CenterEnd)
-                    .padding(horizontal = Design.dp.paddingM),
                 text = "Finish",
                 onClick = finish,
                 enabled = finishEnabled
