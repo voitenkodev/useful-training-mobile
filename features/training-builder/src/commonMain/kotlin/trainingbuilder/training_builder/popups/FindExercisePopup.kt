@@ -35,6 +35,7 @@ import components.states.animateScrollAndCentralizeItem
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import molecule.ButtonPrimary
 import molecule.ButtonSecondary
 import molecule.Label
 import molecule.POPUP_ANIM_DURATION_MS
@@ -74,17 +75,9 @@ internal fun FindExercisePopup(
 
         PaddingM()
 
-        Label(
-            modifier = Modifier.padding(horizontal = Design.dp.paddingL),
-            provideText = { "Search by name" },
-        )
-
-        PaddingM()
-
         InputSearch(
-            modifier = Modifier.padding(horizontal = Design.dp.paddingM),
+            modifier = Modifier.padding(horizontal = Design.dp.paddingL),
             provideName = { "" },
-            backgroundColor = Design.colors.black10,
             update = {},
             onClick = {
                 coroutineScope.launch {
@@ -132,12 +125,12 @@ internal fun FindExercisePopup(
         Shadow()
 
         Row(
-            modifier = Modifier.padding(Design.dp.paddingM),
+            modifier = Modifier.padding(Design.dp.paddingL),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
         ) {
 
-            ButtonSecondary(
+            ButtonPrimary(
                 modifier = Modifier.weight(1f),
                 text = "Create by own",
                 onClick = {
