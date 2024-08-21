@@ -1,5 +1,6 @@
 package trainingbuilder.training_builder.mapping
 
+import DateTimeKtx
 import models.CategoryEnum
 import models.ExerciseExample
 import models.ExperienceEnum
@@ -42,7 +43,7 @@ internal fun Training.toBody(): models.Training {
             )
         },
         duration = duration,
-        createdAt = startDateTime,
+        createdAt = DateTimeKtx.millisToIso(startDateTime),
         volume = volume,
         repetitions = repetitions,
         intensity = intensity

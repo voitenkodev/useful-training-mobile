@@ -38,9 +38,11 @@ import molecule.ButtonPrimary
 import molecule.PaddingM
 import molecule.PaddingWeight
 import molecule.Shadow
+import molecule.TextBody3
 import molecule.TextH2
 import percents
 import resources.Icons
+import trainingbuilder.training_builder.components.timer.TimerComponent
 
 @Composable
 internal fun Header(
@@ -48,6 +50,7 @@ internal fun Header(
     loading: Boolean,
     finishEnabled: Boolean,
 
+    startDateMillis: Long,
     volume: Double,
     intensity: Double,
     fullFrontImage: ImageVector,
@@ -111,9 +114,15 @@ internal fun Header(
                     OverviewValue(
                         modifier = Modifier.fillMaxWidth().wrapContentHeight(),
                         title = "Volume",
-                        description = volume.kg(true),
                         icon = Icons.handWeight,
-                        color = Design.colors.yellow
+                        color = Design.colors.yellow,
+                        value = {
+                            TextBody3(
+                                provideText = { volume.kg(true) },
+                                color = Design.colors.content,
+                                maxLines = 1,
+                            )
+                        }
                     )
 
                     AnimatedVisibility(
@@ -151,9 +160,15 @@ internal fun Header(
                             modifier = Modifier.fillMaxWidth().wrapContentHeight()
                                 .padding(top = Design.dp.paddingS),
                             title = "Intensity",
-                            description = intensity.percents(),
                             icon = Icons.equipment,
-                            color = Design.colors.yellow
+                            color = Design.colors.yellow,
+                            value = {
+                                TextBody3(
+                                    provideText = { intensity.percents() },
+                                    color = Design.colors.content,
+                                    maxLines = 1,
+                                )
+                            }
                         )
                     }
 
@@ -186,21 +201,34 @@ internal fun Header(
 
                 Column(modifier = Modifier.weight(1.3f)) {
 
-                    Row(modifier = Modifier.fillMaxWidth()) {
-                        OverviewValue(
-                            modifier = Modifier.weight(1f).wrapContentHeight(),
-                            title = "Duration",
-                            description = "123",
-                            icon = Icons.time,
-                            color = Design.colors.yellow
-                        )
+                    val duration =
 
-                        ButtonIconTransparent(
-                            modifier = Modifier.rotate(rotationState),
-                            imageVector = Icons.arrowDown,
-                            onClick = { expandedValue.value = expandedValue.value.not() },
-                        )
-                    }
+                        Row(modifier = Modifier.fillMaxWidth()) {
+                            OverviewValue(
+                                modifier = Modifier.weight(1f).wrapContentHeight(),
+                                title = "Duration",
+                                icon = Icons.time,
+                                color = Design.colors.yellow,
+                                value = {
+                                    TimerComponent(
+                                        initialMillis = 123L,
+                                        content = {
+                                            TextBody3(
+                                                provideText = { it },
+                                                color = Design.colors.content,
+                                                maxLines = 1,
+                                            )
+                                        })
+
+                                }
+                            )
+
+                            ButtonIconTransparent(
+                                modifier = Modifier.rotate(rotationState),
+                                imageVector = Icons.arrowDown,
+                                onClick = { expandedValue.value = expandedValue.value.not() },
+                            )
+                        }
 
                     AnimatedVisibility(
                         visible = expandedValue.value,

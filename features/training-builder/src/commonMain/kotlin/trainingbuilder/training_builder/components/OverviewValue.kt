@@ -12,16 +12,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import atom.Design
 import molecule.Icon
-import molecule.TextBody3
 import molecule.TextH5
 
 @Composable
 internal fun OverviewValue(
     modifier: Modifier = Modifier,
     title: String,
-    description: String,
     icon: ImageVector,
-    color: Color
+    color: Color,
+    value: @Composable () -> Unit
 ) {
 
     Row(
@@ -47,11 +46,7 @@ internal fun OverviewValue(
                 maxLines = 1
             )
 
-            TextBody3(
-                provideText = { description },
-                color = Design.colors.content,
-                maxLines = 1,
-            )
+            value.invoke()
         }
     }
 }

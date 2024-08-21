@@ -45,8 +45,24 @@ public object DateTimeKtx {
         }
     }
 
+    /** Output 233123123123213 */
+    public fun currentDateTimeMillis(): Long {
+        val iso = Clock.System.now().toString()
+        return isoToMillis(iso)
+    }
+
     /** Output 2022-10-21T13:20:18.496Z */
     public fun currentDateTimeIso(): String = Clock.System.now().toString()
+
+    public fun isoToMillis(iso8601Timestamp: String): Long {
+        val timeZone = TimeZone.currentSystemDefault()
+        val localDateTime = iso8601TimestampToLocalDateTime(iso8601Timestamp)
+        return localDateTime?.toInstant(timeZone)?.toEpochMilliseconds() ?: -1
+    }
+
+    public fun millisToIso(millis: Long): String {
+        return Instant.fromEpochMilliseconds(millis).toString()
+    }
 
     /**
      * Input 2 + listOf(2022-10-21T13:20:18.496Z, 2022-10-22T13:20:18.496Z)
@@ -119,7 +135,6 @@ public object DateTimeKtx {
         else "${day.zeroPrefixed(2)}.${month.zeroPrefixed(2)}"
     }
 
-
     /** Output 17h 44m, 21 Jun */
     private fun formattedDateTime1(iso8601Timestamp: String): String? {
         val localDateTime = iso8601TimestampToLocalDateTime(iso8601Timestamp) ?: return null
@@ -142,16 +157,6 @@ public object DateTimeKtx {
         val day = date.dayOfMonth
         val month = date.month.name.lowercase().capitalize(Locale.current).take(3)
         return "${hour}:${min}, ${day.zeroPrefixed(2)} $month"
-    }
-
-    public fun isoToMillis(iso8601Timestamp: String): Long {
-        val timeZone = TimeZone.currentSystemDefault()
-        val localDateTime = iso8601TimestampToLocalDateTime(iso8601Timestamp)
-        return localDateTime?.toInstant(timeZone)?.toEpochMilliseconds() ?: -1
-    }
-
-    public fun millisToIso(millis: Long): String {
-        return Instant.fromEpochMilliseconds(millis).toString()
     }
 
     // *************************** DEPRECATED ***************************

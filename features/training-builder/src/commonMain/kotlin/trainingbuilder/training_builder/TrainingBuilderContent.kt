@@ -93,6 +93,7 @@ internal fun TrainingBuilderContent(
                     fullFront = state.fullFrontImageVector,
                     fullBack = state.fullBackImageVector,
                     volume = state.training.volume,
+                    startDateMillis = state.training.startDateTime,
                     intensity = state.training.intensity,
                     addExercise = vm::openFindExercisePopup,
                     exercises = state.training.exercises,
@@ -127,6 +128,7 @@ internal fun Content(
     loading: Boolean,
     volume: Double,
     intensity: Double,
+    startDateMillis: Long,
     exercises: ImmutableList<Exercise>,
     addExercise: () -> Unit,
     selectExercise: (index: Int) -> Unit,
@@ -155,6 +157,7 @@ internal fun Content(
                 volume = volume,
                 intensity = intensity,
                 exerciseVolume = exercisesVolume,
+                startDateMillis = startDateMillis,
                 exerciseIntensity = exercisesIntensity
             )
 
