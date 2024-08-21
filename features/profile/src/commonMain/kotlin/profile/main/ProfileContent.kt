@@ -33,7 +33,6 @@ import kotlinx.collections.immutable.ImmutableList
 import molecule.ButtonText
 import molecule.PaddingM
 import molecule.PaddingS
-import molecule.Shadow
 import molecule.TextBody4
 import molecule.Toolbar
 import profile.main.components.MenuItem
@@ -298,6 +297,7 @@ private fun Content(
 
                 item { PaddingM() }
 
+
                 item {
                     Column(
                         modifier = Modifier
@@ -308,28 +308,26 @@ private fun Content(
                             ).fillMaxWidth()
                     ) {
 
+                        PaddingM()
+
+                        TextBody4(
+                            modifier = Modifier.padding(horizontal = Design.dp.paddingM),
+                            provideText = { "ADMIN SETTINGS" },
+                        )
+
+                        PaddingS()
+
                         MenuItem(
                             icon = Icons.add,
                             text = "Exercise Builder",
                             onClick = toExerciseExampleBuilder,
                             paddingValues = PaddingValues(
-                                vertical = Design.dp.paddingM,
+                                vertical = Design.dp.paddingS,
                                 horizontal = Design.dp.paddingM
                             )
                         )
 
-                        Shadow()
-
-                        MenuItem(
-                            icon = Icons.logout,
-                            text = "Logout",
-                            contentColor = Design.colors.orange,
-                            onClick = logout,
-                            paddingValues = PaddingValues(
-                                vertical = Design.dp.paddingM,
-                                horizontal = Design.dp.paddingM
-                            )
-                        )
+                        PaddingS()
                     }
                 }
 
