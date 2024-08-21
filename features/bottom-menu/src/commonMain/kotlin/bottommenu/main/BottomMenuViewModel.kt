@@ -43,10 +43,10 @@ internal class BottomMenuViewModel : ViewModel() {
 
         // ************************ Sync Backend ************************
 
-        val lastChunk = chunkBefore(previousList = listOf(DateTimeKtx.currentDateTimeIso()))
+        val lastChunk = chunkBefore(previousList = listOf(DateTimeKtx.tomorrowISO()))
 
-        val start = lastChunk.firstOrNull() ?: DateTimeKtx.currentDateTimeIso()
-        val end = lastChunk.lastOrNull() ?: DateTimeKtx.currentDateTimeIso()
+        val start = lastChunk.firstOrNull() ?: DateTimeKtx.todayIso()
+        val end = lastChunk.lastOrNull() ?: DateTimeKtx.todayIso()
 
         userApi.syncUser()
             .flatMapConcat { userApi.syncWeightHistory() }

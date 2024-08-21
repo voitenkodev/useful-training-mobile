@@ -31,7 +31,7 @@ internal class TrainingsViewModel : ViewModel() {
 
     init {
         addCalendarChunk()
-        selectCalendarDay(DateTimeKtx.currentDateTimeIso())
+        selectCalendarDay(DateTimeKtx.todayIso())
 
         _state.mapNotNull {
             val first = it.calendar.firstOrNull()?.dateTimeIso ?: return@mapNotNull null

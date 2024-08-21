@@ -46,13 +46,19 @@ public object DateTimeKtx {
     }
 
     /** Output 233123123123213 */
-    public fun currentDateTimeMillis(): Long {
+    public fun todayMillis(): Long {
         val iso = Clock.System.now().toString()
         return isoToMillis(iso)
     }
 
     /** Output 2022-10-21T13:20:18.496Z */
-    public fun currentDateTimeIso(): String = Clock.System.now().toString()
+    public fun todayIso(): String = Clock.System.now().toString()
+
+    /** Output 2022-10-21T13:20:18.496Z */
+    public fun tomorrowISO(): String {
+        val timeZone = TimeZone.currentSystemDefault()
+        return Clock.System.now().plus(1, DateTimeUnit.DAY, timeZone).toString()
+    }
 
     public fun isoToMillis(iso8601Timestamp: String): Long {
         val timeZone = TimeZone.currentSystemDefault()
