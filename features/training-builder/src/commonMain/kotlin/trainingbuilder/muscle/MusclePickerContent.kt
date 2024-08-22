@@ -93,7 +93,6 @@ private fun Content(
             ) {
 
                 itemsIndexed(list, key = { _, item -> item.id }) { index, item ->
-
                     MuscleGroup(
                         item = item,
                         selectMuscle = selectMuscle

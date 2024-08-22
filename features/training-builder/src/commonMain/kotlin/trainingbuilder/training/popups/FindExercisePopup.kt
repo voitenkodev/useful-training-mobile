@@ -1,9 +1,6 @@
 package trainingbuilder.training.popups
 
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -26,6 +23,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Density
 import atom.Design
+import components.EmptyData
+import components.LoadingData
 import components.cards.ExerciseCardSmall
 import components.chips.Chip
 import components.chips.ChipState
@@ -149,31 +148,42 @@ internal fun ExerciseExamples(
     details: (id: String) -> Unit
 ) {
 
-    AnimatedVisibility(
-        visible = loading || list.isNotEmpty(),
-        enter = fadeIn(),
-        exit = fadeOut()
-    ) {
+    Column(modifier = modifier) {
+        Row(
+            modifier = Modifier.fillMaxWidth().padding(horizontal = Design.dp.paddingL),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
 
-        Column(modifier = modifier) {
-            Row(
-                modifier = Modifier.fillMaxWidth().padding(horizontal = Design.dp.paddingL),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
+            TextBody5(
+                provideText = { "RECOMMENDED" },
+            )
+        }
 
-                TextBody5(
-                    provideText = { "RECOMMENDED" },
-                )
-            }
+        PaddingM()
 
-            PaddingM()
+        val pager = rememberPagerState(
+            pageCount = { list.size }
+        )
 
-            val pager = rememberPagerState(
-                pageCount = { list.size }
+        when {
+            loading -> LoadingData(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(Design.dp.componentL)
+                    .padding(horizontal = Design.dp.paddingL)
             )
 
-            HorizontalPager(
+            list.isEmpty() -> EmptyData(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(Design.dp.componentL)
+                    .padding(horizontal = Design.dp.paddingL),
+                title = "Not found",
+                description = "We cannon find recommended exercises"
+            )
+
+            else -> HorizontalPager(
                 modifier = Modifier.height(Design.dp.componentL),
                 state = pager,
                 contentPadding = PaddingValues(horizontal = Design.dp.paddingL),

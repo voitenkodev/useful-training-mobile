@@ -62,7 +62,6 @@ internal class TrainingBuilderViewModel(muscleIds: List<String>) : ViewModel() {
             }
             .distinctUntilChanged()
             .flatMapLatest {
-                delay(3000)
                 exerciseExampleApi
                     .getExerciseExamples(1, 10)
                     .onStart { _state.update { it.copy(recommendationsLoading = true) } }
@@ -74,6 +73,7 @@ internal class TrainingBuilderViewModel(muscleIds: List<String>) : ViewModel() {
                             )
                         }
                     }.onEach { r ->
+                        delay(3000)
                         _state.update {
                             it.copy(
                                 recommendationsLoading = false,
