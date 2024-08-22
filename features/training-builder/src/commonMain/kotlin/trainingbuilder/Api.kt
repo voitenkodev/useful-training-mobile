@@ -10,10 +10,10 @@ import io.github.xxfast.decompose.router.stack.RoutedContent
 import io.github.xxfast.decompose.router.stack.Router
 import io.github.xxfast.decompose.router.stack.rememberRouter
 import kotlinx.serialization.Serializable
-import trainingbuilder.muscle_picker.MusclePickerContent
-import trainingbuilder.muscle_picker.MusclePickerViewModel
-import trainingbuilder.training_builder.TrainingBuilderContent
-import trainingbuilder.training_builder.TrainingBuilderViewModel
+import trainingbuilder.muscle.MusclePickerContent
+import trainingbuilder.muscle.MusclePickerViewModel
+import trainingbuilder.training.TrainingBuilderContent
+import trainingbuilder.training.TrainingBuilderViewModel
 
 @Serializable
 public sealed class TrainingRouter {
