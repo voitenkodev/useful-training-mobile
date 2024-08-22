@@ -7,6 +7,7 @@ import ViewModel
 import exercise.ExerciseExample
 import exercise.mapping.toState
 import kotlinx.collections.immutable.toPersistentList
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -61,6 +62,7 @@ internal class TrainingBuilderViewModel(muscleIds: List<String>) : ViewModel() {
             }
             .distinctUntilChanged()
             .flatMapLatest {
+                delay(3000)
                 exerciseExampleApi
                     .getExerciseExamples(1, 10)
                     .onStart { _state.update { it.copy(recommendationsLoading = true) } }

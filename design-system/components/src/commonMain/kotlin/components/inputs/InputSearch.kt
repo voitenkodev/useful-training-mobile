@@ -30,7 +30,7 @@ public fun InputSearch(
     provideName: () -> String,
     update: (String) -> Unit,
     onClick: (() -> Unit)? = null,
-    backgroundColor: Color = Design.colors.secondary,
+    backgroundColor: Color = Design.colors.tertiary,
 ) {
     val focusManager = LocalFocusManager.current
 

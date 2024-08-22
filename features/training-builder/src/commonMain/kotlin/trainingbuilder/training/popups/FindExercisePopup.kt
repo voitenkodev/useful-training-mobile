@@ -1,11 +1,15 @@
 package trainingbuilder.training.popups
 
-import androidx.compose.foundation.border
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -19,12 +23,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Density
-import androidx.compose.ui.unit.dp
 import atom.Design
-import components.EmptyData
 import components.cards.ExerciseCardSmall
 import components.chips.Chip
 import components.chips.ChipState
@@ -99,6 +100,7 @@ internal fun FindExercisePopup(
         }
 
         ExerciseExamples(
+            modifier = Modifier.animateContentSize(),
             list = exerciseExamples,
             loading = loading,
             select = {
@@ -140,75 +142,64 @@ internal fun FindExercisePopup(
 
 @Composable
 internal fun ExerciseExamples(
+    modifier: Modifier = Modifier,
     loading: Boolean,
     list: ImmutableList<ExerciseExample>,
     select: (exerciseExample: ExerciseExample) -> Unit,
     details: (id: String) -> Unit
 ) {
 
-    Row(
-        modifier = Modifier.fillMaxWidth().padding(horizontal = Design.dp.paddingL),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
+    AnimatedVisibility(
+        visible = loading || list.isNotEmpty(),
+        enter = fadeIn(),
+        exit = fadeOut()
     ) {
 
-        TextBody5(
-            provideText = { "RECOMMENDED" },
-        )
-    }
+        Column(modifier = modifier) {
+            Row(
+                modifier = Modifier.fillMaxWidth().padding(horizontal = Design.dp.paddingL),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
 
-    PaddingM()
-
-    val pager = rememberPagerState(
-        pageCount = {
-            when {
-                loading -> 3
-                list.isEmpty() -> 1
-                else -> list.size
-            }
-        }
-    )
-
-    if (list.isEmpty()) {
-        EmptyData(
-            modifier = Modifier
-                .padding(horizontal = Design.dp.paddingL)
-                .aspectRatio(1.72f)
-                .clipToBounds()
-                .border(
-                    width = 1.dp,
-                    color = Design.colors.white10,
-                    shape = Design.shape.default
-                ),
-            title = "Empty result",
-            description = "No one recommended exercises for you"
-        )
-    } else if (list.isNotEmpty()) {
-        HorizontalPager(
-            state = pager,
-            contentPadding = PaddingValues(horizontal = Design.dp.paddingL),
-            pageSpacing = Design.dp.paddingM,
-            pageSize = object : PageSize {
-                override fun Density.calculateMainAxisPageSize(
-                    availableSpace: Int,
-                    pageSpacing: Int
-                ): Int {
-                    return ((availableSpace - 2 * pageSpacing) * 0.96f).toInt()
-                }
-            }
-        ) {
-
-            val item = list.getOrNull(it)
-
-            when {
-                item != null -> ExerciseCardSmall(
-                    modifier = Modifier,
-                    name = item.name,
-                    onClick = { select.invoke(item) },
-                    imageUrl = item.imageUrl,
-                    viewDetails = { details.invoke(item.id) },
-                    musclesWithPercent = item.exerciseExampleBundles.map { it.muscle.name to it.percentage },
+                TextBody5(
+                    provideText = { "RECOMMENDED" },
                 )
+            }
+
+            PaddingM()
+
+            val pager = rememberPagerState(
+                pageCount = { list.size }
+            )
+
+            HorizontalPager(
+                modifier = Modifier.height(Design.dp.componentL),
+                state = pager,
+                contentPadding = PaddingValues(horizontal = Design.dp.paddingL),
+                pageSpacing = Design.dp.paddingM,
+                pageSize = object : PageSize {
+                    override fun Density.calculateMainAxisPageSize(
+                        availableSpace: Int,
+                        pageSpacing: Int
+                    ): Int {
+                        return ((availableSpace - 2 * pageSpacing) * 0.96f).toInt()
+                    }
+                }
+            ) {
+
+                val item = list.getOrNull(it)
+
+                when {
+                    item != null -> ExerciseCardSmall(
+                        modifier = Modifier,
+                        name = item.name,
+                        onClick = { select.invoke(item) },
+                        imageUrl = item.imageUrl,
+                        viewDetails = { details.invoke(item.id) },
+                        musclesWithPercent = item.exerciseExampleBundles.map { it.muscle.name to it.percentage },
+                    )
+                }
             }
         }
     }
