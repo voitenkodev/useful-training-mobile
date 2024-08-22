@@ -13,6 +13,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import atom.Design
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 import molecule.TextH4
 import muscles.MuscleGroup
 
@@ -21,6 +23,7 @@ public fun MuscleGroup(
     modifier: Modifier = Modifier,
     item: MuscleGroup,
     loadingById: String? = null,
+    semiFields: ImmutableList<ComponentVisible> = persistentListOf(),
     selectMuscle: (id: String) -> Unit
 ) {
 
@@ -55,7 +58,8 @@ public fun MuscleGroup(
                     MuscleChip(
                         loadingById = loadingById,
                         muscle = muscle,
-                        selectMuscle = selectMuscle
+                        selectMuscle = selectMuscle,
+                        semiFields = semiFields
                     )
                 }
             }

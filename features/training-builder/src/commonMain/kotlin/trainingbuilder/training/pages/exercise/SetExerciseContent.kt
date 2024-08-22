@@ -95,6 +95,7 @@ internal fun SetExerciseContent(
 
             state.buildExercise.exerciseExample?.let { ex ->
                 ExerciseCardSmall(
+                    modifier = Modifier.padding(horizontal = Design.dp.paddingL),
                     name = ex.name,
                     imageUrl = ex.imageUrl,
                     viewDetails = { toExerciseExampleDetails.invoke(ex.id) },

@@ -47,6 +47,7 @@ private data class MuscleUi(
 
 @Composable
 public fun ExerciseCardSmall(
+    modifier: Modifier = Modifier,
     name: String,
     imageUrl: String?,
     viewDetails: () -> Unit,
@@ -71,10 +72,9 @@ public fun ExerciseCardSmall(
     }
 
     Box(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
-            .height(116.dp)
-            .padding(horizontal = Design.dp.paddingM)
+            .height(Design.dp.componentL)
             .background(
                 Design.colors.black10,
                 shape = Design.shape.default

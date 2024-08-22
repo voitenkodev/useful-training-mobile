@@ -25,7 +25,6 @@ import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.dp
 import atom.Design
 import components.EmptyData
-import components.cards.ExerciseCardDefaultLoading
 import components.cards.ExerciseCardSmall
 import components.chips.Chip
 import components.chips.ChipState
@@ -187,7 +186,7 @@ internal fun ExerciseExamples(
     } else if (list.isNotEmpty()) {
         HorizontalPager(
             state = pager,
-            contentPadding = PaddingValues(horizontal = Design.dp.paddingM),
+            contentPadding = PaddingValues(horizontal = Design.dp.paddingL),
             pageSpacing = Design.dp.paddingM,
             pageSize = object : PageSize {
                 override fun Density.calculateMainAxisPageSize(
@@ -202,8 +201,8 @@ internal fun ExerciseExamples(
             val item = list.getOrNull(it)
 
             when {
-                loading -> ExerciseCardDefaultLoading()
                 item != null -> ExerciseCardSmall(
+                    modifier = Modifier,
                     name = item.name,
                     onClick = { select.invoke(item) },
                     imageUrl = item.imageUrl,
@@ -223,14 +222,14 @@ internal fun Muscles(
 ) {
 
     val selectedChipState = ChipState.Colored(
-        backgroundColor = Design.colors.green.copy(alpha = 0.2f),
-        borderColor = Design.colors.green,
+        backgroundColor = Design.colors.green,
+        borderColor = Color.Transparent,
         contentColor = Design.colors.content
     )
 
     val unSelectedChipState = ChipState.Colored(
-        backgroundColor = Color.Transparent,
-        borderColor = Design.colors.label,
+        backgroundColor = Design.colors.tertiary,
+        borderColor = Color.Transparent,
         contentColor = Design.colors.content
     )
 
@@ -243,7 +242,7 @@ internal fun Muscles(
     }
 
     TextBody5(
-        modifier = Modifier.padding(horizontal = Design.dp.paddingM),
+        modifier = Modifier.padding(horizontal = Design.dp.paddingL),
         provideText = { "MUSCLE" },
     )
 
@@ -253,7 +252,7 @@ internal fun Muscles(
         state = lazyListState,
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS),
-        contentPadding = PaddingValues(horizontal = Design.dp.paddingM)
+        contentPadding = PaddingValues(horizontal = Design.dp.paddingL)
     ) {
         items(list, key = { it.id }) {
             Chip(
