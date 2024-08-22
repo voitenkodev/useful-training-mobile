@@ -43,9 +43,11 @@ public fun EquipmentChip(
     }
 
     val alpha = remember(item.isSelected) {
-        when (item.isSelected) {
-            true -> 1f
-            false -> 1f
+        when {
+            item.status == IncludedStatusEnum.EXCLUDED -> 0.6f
+            item.isSelected -> 1f
+            item.isSelected.not() -> 1f
+            else -> 1f
         }
     }
 

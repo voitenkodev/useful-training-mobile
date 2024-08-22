@@ -20,6 +20,7 @@ import components.Error
 import components.roots.ScreenRoot
 import kotlinx.collections.immutable.ImmutableList
 import molecule.ButtonPrimary
+import molecule.PaddingL
 import resources.Icons
 import trainings.Training
 import trainings.main.components.Header
@@ -65,6 +66,8 @@ private fun Content(
     ScreenRoot(error = { Error(message = error, close = clearError) }) {
 
         Column(modifier = Modifier.fillMaxSize().statusBarsPadding()) {
+
+            PaddingL()
 
             Header(
                 calendar = calendar,

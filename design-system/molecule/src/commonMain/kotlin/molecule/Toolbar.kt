@@ -49,7 +49,8 @@ public fun Toolbar(
             .fillMaxWidth()
             .padding(
                 start = Design.dp.paddingL,
-                end = Design.dp.paddingL
+                end = Design.dp.paddingL,
+                top = Design.dp.paddingL
             ).height(Design.dp.componentS),
         verticalAlignment = Alignment.CenterVertically
     ) {

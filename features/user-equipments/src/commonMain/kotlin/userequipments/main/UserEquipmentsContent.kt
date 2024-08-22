@@ -7,9 +7,7 @@ import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import components.BottomButtons
 import components.Error
 import components.roots.ScreenRoot
 import equipment.EquipmentGroup
@@ -48,18 +46,11 @@ private fun Content(
 
             Header(close = close)
 
-            if (list.isNotEmpty()) {
-
-                EquipmentGrid(
-                    modifier = Modifier.fillMaxWidth().weight(1f),
-                    equipments = list,
-                    selectEquipment = selectEquipment
-                )
-            }
+            EquipmentGrid(
+                modifier = Modifier.fillMaxWidth().weight(1f),
+                equipments = list,
+                selectEquipment = selectEquipment
+            )
         }
-
-        BottomButtons(
-            modifier = Modifier.fillMaxWidth().align(Alignment.BottomCenter),
-        )
     }
 }

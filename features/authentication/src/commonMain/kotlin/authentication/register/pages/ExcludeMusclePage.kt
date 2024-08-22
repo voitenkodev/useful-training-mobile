@@ -61,7 +61,12 @@ internal fun ExcludeMusclePage(
             itemsIndexed(muscles, key = { _, item -> item.id }) { index, item ->
 
                 MuscleGroup(
-                    modifier = Modifier.padding(bottom = Design.dp.paddingM),
+                    modifier = Modifier
+                        .padding(
+                            start = Design.dp.paddingL,
+                            end = Design.dp.paddingL,
+                            bottom = Design.dp.paddingM
+                        ),
                     item = item,
                     selectMuscle = selectMuscle
                 )

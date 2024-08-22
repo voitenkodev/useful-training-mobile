@@ -112,7 +112,10 @@ private fun Content(
                     .fillMaxWidth()
                     .weight(1f)
                     .animateContentSize(),
-                contentPadding = PaddingValues(horizontal = Design.dp.paddingL)
+                contentPadding = PaddingValues(
+                    horizontal = Design.dp.paddingL,
+                    vertical = Design.dp.paddingM
+                )
             ) {
 
                 item {
@@ -330,8 +333,6 @@ private fun Content(
                         PaddingS()
                     }
                 }
-
-                item { PaddingM() }
             }
         }
     }
