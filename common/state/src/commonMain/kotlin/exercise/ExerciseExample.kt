@@ -9,4 +9,5 @@ public data class ExerciseExample(
     val exerciseExampleBundles: ImmutableList<ExerciseExampleBundle>,
     val name: String,
     val imageUrl: String?,
+    val description: String,
 )

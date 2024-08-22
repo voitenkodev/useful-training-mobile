@@ -30,7 +30,7 @@ import molecule.TextBody4
 import resources.Icons
 import trainingbuilder.training_builder.components.Exercise
 import trainingbuilder.training_builder.components.Header
-import trainingbuilder.training_builder.models.Exercise
+import trainingbuilder.training_builder.models.BuildExercise
 import trainingbuilder.training_builder.models.SetExerciseState
 import trainingbuilder.training_builder.pages.set_exercise.SetExerciseContent
 import trainingbuilder.training_builder.popups.FindExercisePopup
@@ -88,11 +88,11 @@ internal fun TrainingBuilderContent(
                     loading = state.loading,
                     fullFront = state.fullFrontImageVector,
                     fullBack = state.fullBackImageVector,
-                    volume = state.training.volume,
-                    startDateMillis = state.training.startDateTime,
-                    intensity = state.training.intensity,
+                    volume = state.buildTraining.volume,
+                    startDateMillis = state.buildTraining.startDateTime,
+                    intensity = state.buildTraining.intensity,
                     addExercise = vm::openFindExercisePopup,
-                    exercises = state.training.exercises,
+                    buildExercises = state.buildTraining.buildExercises,
                     selectExercise = vm::openAddExercise,
                     finish = { vm.saveTraining { close.invoke() } }
                 )
@@ -100,13 +100,14 @@ internal fun TrainingBuilderContent(
                 1 -> {
                     val popupState = (state.setExerciseState as? SetExerciseState.Opened)
 
-                    val selectedExercise = remember(popupState?.index, state.training.exercises) {
-                        state.training.exercises.getOrNull(popupState?.index ?: -1)
-                    }
+                    val selectedExercise =
+                        remember(popupState?.index, state.buildTraining.buildExercises) {
+                            state.buildTraining.buildExercises.getOrNull(popupState?.index ?: -1)
+                        }
 
                     SetExerciseContent(
                         close = vm::closeSetExercise,
-                        selectedExercise = selectedExercise,
+                        selectedBuildExercise = selectedExercise,
                         exerciseExample = popupState?.exerciseExample,
                         save = vm::saveExercise,
                         toExerciseExampleDetails = { id ->
@@ -125,7 +126,7 @@ internal fun Content(
     volume: Double,
     intensity: Double,
     startDateMillis: Long,
-    exercises: ImmutableList<Exercise>,
+    buildExercises: ImmutableList<BuildExercise>,
     addExercise: () -> Unit,
     selectExercise: (index: Int) -> Unit,
     finish: () -> Unit,
@@ -137,7 +138,7 @@ internal fun Content(
 
         Header(
             finish = finish,
-            finishEnabled = exercises.isNotEmpty(),
+            finishEnabled = buildExercises.isNotEmpty(),
             volume = volume,
             startDateMillis = startDateMillis,
         )
@@ -157,10 +158,10 @@ internal fun Content(
                 )
             }
 
-            itemsIndexed(exercises) { index, item ->
+            itemsIndexed(buildExercises) { index, item ->
                 Exercise(
                     number = index + 1,
-                    exercise = item,
+                    buildExercise = item,
                     onClick = { selectExercise.invoke(index) }
                 )
             }

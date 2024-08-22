@@ -1,38 +1,41 @@
 package trainingbuilder.training_builder.pages.set_exercise
 
+import exercise.ExerciseExample
 import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
-import trainingbuilder.training_builder.models.Exercise
-import trainingbuilder.training_builder.models.ExerciseExample
-import trainingbuilder.training_builder.models.Iteration
+import trainingbuilder.training_builder.models.BuildExercise
+import trainingbuilder.training_builder.models.BuildIteration
 import trainingbuilder.training_builder.models.IterationTargetFocus
 
-internal class SetExerciseStateHolder(selectedExercise: Exercise? = null, exerciseExample: ExerciseExample?) {
+internal class SetExerciseStateHolder(
+    selectedBuildExercise: BuildExercise? = null,
+    exerciseExample: ExerciseExample?
+) {
 
     private val _state = MutableStateFlow(
         SetExerciseState(
-            exercise = selectedExercise ?: Exercise(
+            buildExercise = selectedBuildExercise ?: BuildExercise(
                 name = exerciseExample?.name ?: "",
-                exerciseExample = exerciseExample ?: selectedExercise?.exerciseExample
+                exerciseExample = exerciseExample ?: selectedBuildExercise?.exerciseExample
             )
         )
     )
     val state: StateFlow<SetExerciseState> = _state.asStateFlow()
 
-    fun saveIteration(index: Int, iteration: Iteration) {
+    fun saveIteration(index: Int, buildIteration: BuildIteration) {
         _state.update {
-            val iterations = if (index in 0..it.exercise.iterations.lastIndex)
-                it.exercise.iterations.set(index, iteration)
+            val iterations = if (index in 0..it.buildExercise.buildIterations.lastIndex)
+                it.buildExercise.buildIterations.set(index, buildIteration)
             else buildList {
-                addAll(it.exercise.iterations)
-                add(iteration)
+                addAll(it.buildExercise.buildIterations)
+                add(buildIteration)
             }.toPersistentList()
 
             it.copy(
-                exercise = it.exercise.copy(iterations = iterations.toPersistentList()),
+                buildExercise = it.buildExercise.copy(buildIterations = iterations.toPersistentList()),
                 focusTarget = -1 to IterationTargetFocus.Weight
             )
         }
@@ -40,20 +43,20 @@ internal class SetExerciseStateHolder(selectedExercise: Exercise? = null, exerci
 
     fun updateName(value: String) {
         _state.update {
-            it.copy(exercise = it.exercise.copy(name = value))
+            it.copy(buildExercise = it.buildExercise.copy(name = value))
         }
     }
 
     fun removeSelectedIteration() {
         _state.update {
-            val list = it.exercise.iterations
+            val list = it.buildExercise.buildIterations
                 .mapIndexedNotNull { index, iteration ->
                     if (index == it.focusTarget.first) return@mapIndexedNotNull null
                     iteration
                 }
 
             it.copy(
-                exercise = it.exercise.copy(iterations = list.toPersistentList()),
+                buildExercise = it.buildExercise.copy(buildIterations = list.toPersistentList()),
                 focusTarget = -1 to IterationTargetFocus.Weight
             )
         }
@@ -73,7 +76,7 @@ internal class SetExerciseStateHolder(selectedExercise: Exercise? = null, exerci
 
     fun addIteration() {
         _state.update {
-            it.copy(focusTarget = it.exercise.iterations.lastIndex + 1 to IterationTargetFocus.Weight)
+            it.copy(focusTarget = it.buildExercise.buildIterations.lastIndex + 1 to IterationTargetFocus.Weight)
         }
     }
 

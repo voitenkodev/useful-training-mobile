@@ -6,16 +6,16 @@ import models.ExerciseExample
 import models.ExperienceEnum
 import models.ForceTypeEnum
 import models.WeightTypeEnum
-import trainingbuilder.training_builder.models.Training
+import trainingbuilder.training_builder.models.BuildTraining
 
-internal fun Training.toBody(): models.Training {
+internal fun BuildTraining.toBody(): models.Training {
     return models.Training(
         id = id,
-        exercises = exercises.map {
+        exercises = buildExercises.map {
             models.Exercise(
                 id = null,
                 name = it.name,
-                iterations = it.iterations.mapNotNull { iteration ->
+                iterations = it.buildIterations.mapNotNull { iteration ->
                     models.Iteration(
                         id = null,
                         weight = iteration.weight.toDoubleOrNull() ?: return@mapNotNull null,
@@ -31,13 +31,13 @@ internal fun Training.toBody(): models.Training {
                         name = ex.name,
                         description = ex.description,
                         imageUrl = ex.imageUrl,
-                        weightType = WeightTypeEnum.FIXED, // todo do not need it in body
-                        category = CategoryEnum.COMPOUND, // todo do not need it in body
-                        forceType = ForceTypeEnum.PULL, // todo do not need it in body
-                        experience = ExperienceEnum.BEGINNER, // todo do not need it in body
-                        equipments = emptyList(), // todo do not need it in body
-                        tutorials = emptyList(), // todo do not need it in body
-                        exerciseExampleBundles = emptyList() // todo do not need it in body
+                        weightType = WeightTypeEnum.FIXED, // do not need it in body
+                        category = CategoryEnum.COMPOUND, // do not need it in body
+                        forceType = ForceTypeEnum.PULL, // do not need it in body
+                        experience = ExperienceEnum.BEGINNER, // do not need it in body
+                        equipments = emptyList(), // do not need it in body
+                        tutorials = emptyList(), // do not need it in body
+                        exerciseExampleBundles = emptyList() // do not need it in body
                     )
                 }
             )

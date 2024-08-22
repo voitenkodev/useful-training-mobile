@@ -14,13 +14,13 @@ import atom.Design
 import molecule.PaddingS
 import molecule.TextBody1
 import molecule.TextBody2
-import trainingbuilder.training_builder.models.Exercise
+import trainingbuilder.training_builder.models.BuildExercise
 
 @Composable
 internal fun Exercise(
     modifier: Modifier = Modifier,
     number: Int,
-    exercise: Exercise,
+    buildExercise: BuildExercise,
     onClick: () -> Unit
 ) {
 
@@ -37,7 +37,7 @@ internal fun Exercise(
             )
 
             TextBody1(
-                provideText = { exercise.name },
+                provideText = { buildExercise.name },
             )
         }
 
@@ -48,7 +48,7 @@ internal fun Exercise(
             verticalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
         ) {
 
-            exercise.iterations.forEach {
+            buildExercise.buildIterations.forEach {
                 TextBody2(
                     modifier = Modifier
                         .background(

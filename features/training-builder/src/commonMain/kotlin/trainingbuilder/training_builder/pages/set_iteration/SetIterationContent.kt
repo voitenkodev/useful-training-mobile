@@ -38,13 +38,13 @@ import molecule.TextH5
 import molecule.secondaryBackground
 import molecule.secondaryDefaultBackground
 import resources.Icons
-import trainingbuilder.training_builder.models.Iteration
+import trainingbuilder.training_builder.models.BuildIteration
 import trainingbuilder.training_builder.models.IterationTargetFocus
 
 @Composable
 internal fun BoxScope.SetIterationContent(
     stateHolder: SetIterationStateHolder,
-    save: (index: Int, iteration: Iteration) -> Unit,
+    save: (index: Int, buildIteration: BuildIteration) -> Unit,
     remove: () -> Unit,
     close: () -> Unit
 ) {
@@ -79,8 +79,8 @@ internal fun BoxScope.SetIterationContent(
             }
         }
 
-        val enabledSave = remember(state.iteration.weight, state.iteration.repetitions) {
-            state.iteration.weight.isNotBlank() && state.iteration.repetitions.isNotBlank()
+        val enabledSave = remember(state.buildIteration.weight, state.buildIteration.repetitions) {
+            state.buildIteration.weight.isNotBlank() && state.buildIteration.repetitions.isNotBlank()
         }
 
         val interactionSource = remember { MutableInteractionSource() }
@@ -88,7 +88,7 @@ internal fun BoxScope.SetIterationContent(
         val innerSave = remember {
             {
                 focus.clearFocus()
-                save.invoke(state.iterationIndex, state.iteration)
+                save.invoke(state.iterationIndex, state.buildIteration)
             }
         }
 
@@ -152,7 +152,7 @@ internal fun BoxScope.SetIterationContent(
                         .focusRequester(weightRequester)
                         .secondaryDefaultBackground()
                         .weight(0.56f),
-                    provideValue = { state.iteration.weight },
+                    provideValue = { state.buildIteration.weight },
                     onValueChange = stateHolder::updateWeight
                 )
 
@@ -161,7 +161,7 @@ internal fun BoxScope.SetIterationContent(
                         .focusRequester(repeatRequester)
                         .secondaryDefaultBackground()
                         .weight(0.44f),
-                    provideValue = { state.iteration.repetitions },
+                    provideValue = { state.buildIteration.repetitions },
                     onValueChange = stateHolder::updateRepeat
                 )
 

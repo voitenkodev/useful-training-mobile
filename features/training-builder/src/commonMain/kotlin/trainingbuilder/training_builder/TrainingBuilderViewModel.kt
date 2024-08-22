@@ -4,6 +4,8 @@ import ExerciseExamplesRepository
 import MusclesRepository
 import TrainingsRepository
 import ViewModel
+import exercise.ExerciseExample
+import exercise.mapping.toState
 import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -19,15 +21,14 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import muscles.mapping.toState
 import org.koin.core.component.inject
 import round
 import trainingbuilder.training_builder.factories.createFrontBackImages
 import trainingbuilder.training_builder.mapping.toBody
-import trainingbuilder.training_builder.mapping.toState
-import trainingbuilder.training_builder.models.Exercise
-import trainingbuilder.training_builder.models.ExerciseExample
+import trainingbuilder.training_builder.models.BuildExercise
+import trainingbuilder.training_builder.models.BuildTraining
 import trainingbuilder.training_builder.models.SetExerciseState
-import trainingbuilder.training_builder.models.Training
 
 internal class TrainingBuilderViewModel(muscleIds: List<String>) : ViewModel() {
 
@@ -41,11 +42,11 @@ internal class TrainingBuilderViewModel(muscleIds: List<String>) : ViewModel() {
     init {
         musclesApi
             .observeMusclesById(muscleIds)
-            .map { it.toState() }
+            .map { it.mapNotNull { it.toState(isSelected = false) } }
             .onEach { r ->
                 _state.update {
                     it.copy(
-                        muscles = r,
+                        muscles = r.toPersistentList(),
                         selectedMuscle = r.firstOrNull()
                     )
                 }
@@ -55,7 +56,9 @@ internal class TrainingBuilderViewModel(muscleIds: List<String>) : ViewModel() {
 
         _state
             .mapLatest { it.selectedMuscle }
-            .flatMapLatest { muscle -> _state.map { it.training.exercises }.map { muscle to it } }
+            .flatMapLatest { muscle ->
+                _state.map { it.buildTraining.buildExercises }.map { muscle to it }
+            }
             .distinctUntilChanged()
             .flatMapLatest {
                 exerciseExampleApi
@@ -104,11 +107,11 @@ internal class TrainingBuilderViewModel(muscleIds: List<String>) : ViewModel() {
     }
 
     fun saveTraining(onSuccess: (trainingId: String) -> Unit) {
-        val training = state.value.training
+        val training = state.value.buildTraining
             .validate()
             .calculateValues()
 
-        if (training.exercises.isEmpty()) {
+        if (training.buildExercises.isEmpty()) {
             _state.update { it.copy(error = "Empty training") }
             return
         }
@@ -124,26 +127,26 @@ internal class TrainingBuilderViewModel(muscleIds: List<String>) : ViewModel() {
             }.launchIn(this)
     }
 
-    fun saveExercise(exercise: Exercise) {
+    fun saveExercise(buildExercise: BuildExercise) {
         val index = (state.value.setExerciseState as? SetExerciseState.Opened)?.index ?: -1
 
         _state.update {
-            val exercises = if (index in 0..it.training.exercises.lastIndex)
-                it.training.exercises.set(index, exercise)
+            val exercises = if (index in 0..it.buildTraining.buildExercises.lastIndex)
+                it.buildTraining.buildExercises.set(index, buildExercise)
             else buildList {
-                addAll(it.training.exercises)
-                add(exercise)
+                addAll(it.buildTraining.buildExercises)
+                add(buildExercise)
             }.toPersistentList()
 
-            val training = it.training.copy(exercises = exercises)
+            val training = it.buildTraining.copy(buildExercises = exercises)
                 .validate()
                 .calculateValues()
 
-            val images = training.exercises
+            val images = training.buildExercises
                 .createFrontBackImages()
 
             it.copy(
-                training = training,
+                buildTraining = training,
                 fullFrontImageVector = images.first,
                 fullBackImageVector = images.second
             )
@@ -152,7 +155,7 @@ internal class TrainingBuilderViewModel(muscleIds: List<String>) : ViewModel() {
 
     fun removeExercise(exerciseIndex: Int?) {
         exerciseIndex?.let {
-            _state.update { it.copy(training = it.training.removeExercise(exerciseIndex)) }
+            _state.update { it.copy(buildTraining = it.buildTraining.removeExercise(exerciseIndex)) }
         }
     }
 
@@ -183,7 +186,7 @@ internal class TrainingBuilderViewModel(muscleIds: List<String>) : ViewModel() {
     }
 
     fun openAddExercise(exerciseExample: ExerciseExample? = null) {
-        val newIndex = state.value.training.exercises.lastIndex + 1
+        val newIndex = state.value.buildTraining.buildExercises.lastIndex + 1
 
         _state.update {
             it.copy(
@@ -215,36 +218,36 @@ internal class TrainingBuilderViewModel(muscleIds: List<String>) : ViewModel() {
         }
     }
 
-    private fun Training.removeExercise(exerciseIndex: Int): Training {
-        val newList = this.exercises
+    private fun BuildTraining.removeExercise(exerciseIndex: Int): BuildTraining {
+        val newList = this.buildExercises
             .mapIndexedNotNull { index, old -> if (exerciseIndex == index) null else old }
             .toPersistentList()
-        return this.copy(exercises = newList)
+        return this.copy(buildExercises = newList)
     }
 
-    private fun Training.validate(): Training {
-        val exercises = exercises.mapNotNull {
+    private fun BuildTraining.validate(): BuildTraining {
+        val exercises = buildExercises.mapNotNull {
             val isNameValid = it.name.isNotBlank()
-            val iterations = it.iterations.filter { iteration ->
+            val iterations = it.buildIterations.filter { iteration ->
                 val repetitions = iteration.repetitions.toIntOrNull()
                 val weight = iteration.weight.toDoubleOrNull()
                 val isRepeatValid = repetitions != null && repetitions > 0.0
                 val isWeightValid = weight != null && weight > 0
                 isRepeatValid && isWeightValid
             }.toPersistentList()
-            if (isNameValid && iterations.isNotEmpty()) it.copy(iterations = iterations)
+            if (isNameValid && iterations.isNotEmpty()) it.copy(buildIterations = iterations)
             else null
         }.toPersistentList()
-        return this.copy(exercises = exercises)
+        return this.copy(buildExercises = exercises)
     }
 
-    private fun Training.calculateValues(): Training {
-        val calculatedExercises = exercises.map {
-            val exVolume = it.iterations.sumOf { iteration ->
+    private fun BuildTraining.calculateValues(): BuildTraining {
+        val calculatedExercises = buildExercises.map {
+            val exVolume = it.buildIterations.sumOf { iteration ->
                 (iteration.repetitions.toIntOrNull() ?: 0) * (iteration.weight.toDoubleOrNull()
                     ?: 0.0)
             }
-            val exRepetitions = it.iterations.sumOf { iteration ->
+            val exRepetitions = it.buildIterations.sumOf { iteration ->
                 iteration.repetitions.toIntOrNull() ?: 0
             }
             val exIntensity = (exVolume / exRepetitions)
@@ -260,7 +263,7 @@ internal class TrainingBuilderViewModel(muscleIds: List<String>) : ViewModel() {
         val trainIntensity = trainVolume / trainRepetitions
 
         return this.copy(
-            exercises = calculatedExercises,
+            buildExercises = calculatedExercises,
             volume = trainVolume.round(2),
             repetitions = trainRepetitions,
             intensity = trainIntensity.round(1)

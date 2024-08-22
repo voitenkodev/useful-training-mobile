@@ -4,18 +4,18 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
-import trainingbuilder.training_builder.models.Iteration
+import trainingbuilder.training_builder.models.BuildIteration
 import trainingbuilder.training_builder.models.IterationTargetFocus
 
 internal class SetIterationStateHolder(
     iterationIndex: Int,
-    selectedIteration: Iteration?,
+    selectedBuildIteration: BuildIteration?,
     targetFocus: IterationTargetFocus
 ) {
 
     private val _state = MutableStateFlow(
         SetIterationState(
-            iteration = selectedIteration ?: Iteration(),
+            buildIteration = selectedBuildIteration ?: BuildIteration(),
             targetFocus = targetFocus,
             iterationIndex = iterationIndex
         )
@@ -24,14 +24,14 @@ internal class SetIterationStateHolder(
 
     fun updateRepeat(value: String) {
         _state.update {
-            it.copy(iteration = it.iteration.copy(repetitions = value))
+            it.copy(buildIteration = it.buildIteration.copy(repetitions = value))
         }
 
     }
 
     fun updateWeight(value: String) {
         _state.update {
-            it.copy(iteration = it.iteration.copy(weight = value))
+            it.copy(buildIteration = it.buildIteration.copy(weight = value))
         }
     }
 }

@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import atom.Design
 import components.cards.ExerciseCardSmall
 import components.inputs.InputExerciseName
+import exercise.ExerciseExample
 import kotlinx.collections.immutable.ImmutableList
 import molecule.ButtonPrimary
 import molecule.ButtonSecondary
@@ -42,18 +43,17 @@ import molecule.primaryBackground
 import molecule.secondaryBackground
 import molecule.secondaryDefaultBackground
 import resources.Icons
-import trainingbuilder.training_builder.models.Exercise
-import trainingbuilder.training_builder.models.ExerciseExample
-import trainingbuilder.training_builder.models.Iteration
+import trainingbuilder.training_builder.models.BuildExercise
+import trainingbuilder.training_builder.models.BuildIteration
 import trainingbuilder.training_builder.pages.set_iteration.SetIterationContent
 import trainingbuilder.training_builder.pages.set_iteration.SetIterationStateHolder
 
 @Composable
 internal fun SetExerciseContent(
     exerciseExample: ExerciseExample?,
-    selectedExercise: Exercise? = null,
+    selectedBuildExercise: BuildExercise? = null,
     close: () -> Unit,
-    save: (exercise: Exercise) -> Unit,
+    save: (buildExercise: BuildExercise) -> Unit,
     toExerciseExampleDetails: (id: String) -> Unit
 ) {
 
@@ -62,7 +62,7 @@ internal fun SetExerciseContent(
     val setExerciseStateHolder = remember {
         SetExerciseStateHolder(
             exerciseExample = exerciseExample,
-            selectedExercise = selectedExercise
+            selectedBuildExercise = selectedBuildExercise
         )
     }
 
@@ -78,7 +78,7 @@ internal fun SetExerciseContent(
     val innerSave = remember {
         {
             focus.clearFocus()
-            save.invoke(state.exercise)
+            save.invoke(state.buildExercise)
             close.invoke()
         }
     }
@@ -93,7 +93,7 @@ internal fun SetExerciseContent(
 
             PaddingS()
 
-            state.exercise.exerciseExample?.let { ex ->
+            state.buildExercise.exerciseExample?.let { ex ->
                 ExerciseCardSmall(
                     name = ex.name,
                     imageUrl = ex.imageUrl,
@@ -101,7 +101,7 @@ internal fun SetExerciseContent(
                     musclesWithPercent = ex.exerciseExampleBundles.map { it.muscle.name to it.percentage }
                 )
             } ?: InputExerciseName(
-                value = { state.exercise.name },
+                value = { state.buildExercise.name },
                 onValueChange = setExerciseStateHolder::updateName
             )
 
@@ -115,7 +115,7 @@ internal fun SetExerciseContent(
                     .weight(1f)
                     .primaryBackground()
                     .verticalScroll(rememberScrollState()),
-                iterations = state.exercise.iterations,
+                buildIterations = state.buildExercise.buildIterations,
                 selectIterationWeight = setExerciseStateHolder::selectIterationTargetWeight,
                 selectIterationRepetition = setExerciseStateHolder::selectIterationTargetRepetition,
                 addIteration = setExerciseStateHolder::addIteration
@@ -123,18 +123,19 @@ internal fun SetExerciseContent(
 
             Footer(
                 cancel = innerClose,
-                saveEnabled = state.exercise.name.isNotBlank() && state.exercise.iterations.isNotEmpty(),
+                saveEnabled = state.buildExercise.name.isNotBlank() && state.buildExercise.buildIterations.isNotEmpty(),
                 save = innerSave
             )
         }
 
-        val setIterationStateHolder = remember(state.focusTarget, state.exercise.iterations) {
-            SetIterationStateHolder(
-                selectedIteration = state.exercise.iterations.getOrNull(state.focusTarget.first),
-                targetFocus = state.focusTarget.second,
-                iterationIndex = state.focusTarget.first
-            )
-        }
+        val setIterationStateHolder =
+            remember(state.focusTarget, state.buildExercise.buildIterations) {
+                SetIterationStateHolder(
+                    selectedBuildIteration = state.buildExercise.buildIterations.getOrNull(state.focusTarget.first),
+                    targetFocus = state.focusTarget.second,
+                    iterationIndex = state.focusTarget.first
+                )
+            }
 
         SetIterationContent(
             stateHolder = setIterationStateHolder,
@@ -180,7 +181,7 @@ private fun Footer(
 @Composable
 private fun EditExercise(
     modifier: Modifier = Modifier,
-    iterations: ImmutableList<Iteration>,
+    buildIterations: ImmutableList<BuildIteration>,
     addIteration: () -> Unit,
     selectIterationWeight: (index: Int) -> Unit,
     selectIterationRepetition: (index: Int) -> Unit
@@ -247,7 +248,7 @@ private fun EditExercise(
             )
         }
 
-        iterations.forEachIndexed { index, item ->
+        buildIterations.forEachIndexed { index, item ->
 
             Row(
                 modifier = Modifier
@@ -300,7 +301,7 @@ private fun EditExercise(
 
             TextBody2(
                 modifier = Modifier.width(46.dp),
-                provideText = { "${iterations.size + 1}" },
+                provideText = { "${buildIterations.size + 1}" },
                 textAlign = TextAlign.Center,
                 maxLines = 1
             )

@@ -15,5 +15,6 @@ public fun models.ExerciseExample.toState(): ExerciseExample {
         name = name,
         imageUrl = imageUrl,
         exerciseExampleBundles = exerciseExampleBundles.toState(),
+        description = description ?: ""
     )
 }

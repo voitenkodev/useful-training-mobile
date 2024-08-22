@@ -3,13 +3,13 @@ package trainingbuilder.training_builder.factories
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import atom.Design
+import muscles.Muscle
+import muscles.MuscleEnum
 import muscles.fullBack
 import muscles.fullFront
-import trainingbuilder.training_builder.models.Exercise
-import trainingbuilder.training_builder.models.Muscle
-import trainingbuilder.training_builder.models.MuscleEnum
+import trainingbuilder.training_builder.models.BuildExercise
 
-internal fun List<Exercise>.createFrontBackImages(): Pair<ImageVector, ImageVector> {
+internal fun List<BuildExercise>.createFrontBackImages(): Pair<ImageVector, ImageVector> {
     val muscleWithAlpha = calculateMuscleRatios()
         .toList()
         .sortedByDescending { it.second }
@@ -74,7 +74,7 @@ private fun List<Pair<Muscle, Double>>.mapValueToAlpha(): Map<MuscleEnum, Float>
     return alphaValues
 }
 
-private fun List<Exercise>.calculateMuscleRatios(): Map<Muscle, Double> {
+private fun List<BuildExercise>.calculateMuscleRatios(): Map<Muscle, Double> {
     val totalMuscleRatios = mutableMapOf<Muscle, Double>()
 
     forEach { exercise ->

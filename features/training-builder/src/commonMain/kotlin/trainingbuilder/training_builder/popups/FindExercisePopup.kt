@@ -32,6 +32,7 @@ import components.chips.ChipState
 import components.inputs.InputSearch
 import components.roots.PopupRoot
 import components.states.animateScrollAndCentralizeItem
+import exercise.ExerciseExample
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -42,9 +43,8 @@ import molecule.PaddingM
 import molecule.PaddingS
 import molecule.SmallToolbar
 import molecule.TextBody5
+import muscles.Muscle
 import resources.Icons
-import trainingbuilder.training_builder.models.ExerciseExample
-import trainingbuilder.training_builder.models.Muscle
 
 @Composable
 internal fun FindExercisePopup(

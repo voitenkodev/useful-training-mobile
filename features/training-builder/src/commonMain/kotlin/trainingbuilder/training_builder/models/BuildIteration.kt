@@ -3,8 +3,8 @@ package trainingbuilder.training_builder.models
 import androidx.compose.runtime.Immutable
 
 @Immutable
-internal data class ExerciseExampleBundle(
+internal data class BuildIteration(
     val id: String? = null,
-    val percentage: Int = 0,
-    val muscle: Muscle
+    val weight: String = "",
+    val repetitions: String = ""
 )
