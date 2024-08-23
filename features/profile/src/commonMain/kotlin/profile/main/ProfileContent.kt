@@ -298,39 +298,41 @@ private fun Content(
                     }
                 }
 
-                item { PaddingM() }
+                if (user?.email == "alienworkout@admin.panel") {
 
+                    item { PaddingM() }
 
-                item {
-                    Column(
-                        modifier = Modifier
-                            .clip(
-                                shape = Design.shape.large
-                            ).background(
-                                color = Design.palette.secondary
-                            ).fillMaxWidth()
-                    ) {
+                    item {
+                        Column(
+                            modifier = Modifier
+                                .clip(
+                                    shape = Design.shape.large
+                                ).background(
+                                    color = Design.palette.secondary
+                                ).fillMaxWidth()
+                        ) {
 
-                        PaddingM()
+                            PaddingM()
 
-                        TextBody4(
-                            modifier = Modifier.padding(horizontal = Design.dp.paddingM),
-                            provideText = { "ADMIN SETTINGS" },
-                        )
-
-                        PaddingS()
-
-                        MenuItem(
-                            icon = Icons.add,
-                            text = "Exercise Builder",
-                            onClick = toExerciseExampleBuilder,
-                            paddingValues = PaddingValues(
-                                vertical = Design.dp.paddingS,
-                                horizontal = Design.dp.paddingM
+                            TextBody4(
+                                modifier = Modifier.padding(horizontal = Design.dp.paddingM),
+                                provideText = { "ADMIN SETTINGS" },
                             )
-                        )
 
-                        PaddingS()
+                            PaddingS()
+
+                            MenuItem(
+                                icon = Icons.add,
+                                text = "Exercise Builder",
+                                onClick = toExerciseExampleBuilder,
+                                paddingValues = PaddingValues(
+                                    vertical = Design.dp.paddingS,
+                                    horizontal = Design.dp.paddingM
+                                )
+                            )
+
+                            PaddingS()
+                        }
                     }
                 }
             }

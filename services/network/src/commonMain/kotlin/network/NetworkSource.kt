@@ -69,10 +69,13 @@ public class NetworkSource(private val clientBackend: ClientBackend) {
         equipmentIds: List<String>
     ): List<ExerciseExampleDto> {
         return callRequest(
-            method = HttpMethod.Post, path = "/exercise-examples/all", queryParams = buildMap {
+            method = HttpMethod.Post,
+            path = "/exercise-examples/all",
+            queryParams = buildMap {
                 put("page", page.toString())
                 put("size", size.toString())
-            }, body = ExerciseExampleFiltersBody(
+            },
+            body = ExerciseExampleFiltersBody(
                 category = category,
                 equipmentIds = equipmentIds,
                 experience = experience,
