@@ -251,6 +251,8 @@ private fun Content(
                 }
             }
 
+            PaddingM()
+
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
