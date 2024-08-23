@@ -30,7 +30,7 @@ public fun InputDescription(
     Input(
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = Design.dp.paddingM),
+            .padding(horizontal = Design.dp.paddingL),
         value = value.invoke(),
         placeholder = "Description of exercise",
         maxLines = 3,

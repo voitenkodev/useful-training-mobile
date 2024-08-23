@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
 import androidx.compose.foundation.lazy.grid.items
@@ -39,13 +40,17 @@ internal fun EquipmentGroups(
         LazyHorizontalGrid(
             modifier = Modifier.fillMaxWidth().height(200.dp * multiplier),
             rows = GridCells.Fixed(multiplier),
-            contentPadding = PaddingValues(Design.dp.paddingM),
+            contentPadding = PaddingValues(
+                horizontal = Design.dp.paddingL,
+                vertical = Design.dp.paddingM
+            ),
             horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS),
             verticalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
         ) {
             items(items.flatMap { it.equipments }, key = { it.id }) { equipment ->
 
                 EquipmentChip(
+                    modifier = Modifier.width(140.dp),
                     item = equipment,
                     selectEquipment = selectEquipment
                 )

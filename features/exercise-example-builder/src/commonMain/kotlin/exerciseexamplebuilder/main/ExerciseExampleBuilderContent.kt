@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -24,9 +25,7 @@ import androidx.compose.ui.text.capitalize
 import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.unit.dp
 import atom.Design
-import components.BottomButtons
 import components.Error
-import components.ShadowFooterSpace
 import components.chips.Chip
 import components.chips.ChipState
 import components.inputs.InputDescription
@@ -39,14 +38,15 @@ import exerciseexamplebuilder.main.models.FilterPack
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toPersistentList
 import molecule.ButtonPrimary
-import molecule.ButtonSecondary
 import molecule.PaddingM
 import molecule.PaddingS
 import molecule.TextBody1
+import molecule.Toolbar
 import muscles.MuscleGroup
 import muscles.component.MuscleGroup
 import percentagepicker.RangeSlider
 import percentagepicker.ThumbRangeState
+import resources.Icons
 
 @Composable
 internal fun ExerciseExampleBuilderContent(
@@ -116,22 +116,27 @@ private fun Content(
 ) {
 
     val selectedChipState = ChipState.Colored(
-        backgroundColor = Design.colors.green.copy(alpha = 0.2f),
-        borderColor = Design.colors.green,
+        backgroundColor = Design.colors.green,
+        borderColor = Color.Transparent,
         contentColor = Design.colors.content
     )
 
     val unSelectedChipState = ChipState.Colored(
-        backgroundColor = Color.Transparent,
-        borderColor = Design.colors.label,
+        backgroundColor = Design.colors.tertiary,
+        borderColor = Color.Transparent,
         contentColor = Design.colors.content
     )
 
     ScreenRoot(error = { Error(message = error, close = clearError) }) {
 
         Column(
-            modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState())
+            modifier = Modifier
+                .fillMaxSize()
+                .systemBarsPadding()
+                .verticalScroll(rememberScrollState())
         ) {
+
+            Toolbar(title = "Exercise Builder", icon = Icons.close to close)
 
             PaddingM()
 
@@ -156,9 +161,11 @@ private fun Content(
 
             PaddingM()
 
-            Column(modifier = Modifier.fillMaxWidth().defaultMinSize(minHeight = 320.dp)) {
-
-                PaddingM()
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .defaultMinSize(minHeight = 320.dp)
+            ) {
 
                 val thumbs = remember(muscles) {
                     muscles
@@ -199,7 +206,10 @@ private fun Content(
                 )
                 PaddingS()
 
-                LazyRow(modifier = Modifier.fillMaxWidth()) {
+                LazyRow(
+                    modifier = Modifier.fillMaxWidth(),
+                    contentPadding = PaddingValues(horizontal = Design.dp.paddingL)
+                ) {
                     items(muscles, key = { it.id }) {
                         MuscleGroup(
                             modifier = Modifier.width(340.dp),
@@ -210,17 +220,15 @@ private fun Content(
                 }
             }
 
-            PaddingM()
-
             TextBody1(
-                modifier = Modifier.padding(horizontal = Design.dp.paddingM),
+                modifier = Modifier.padding(horizontal = Design.dp.paddingL),
                 provideText = { "Categories" })
 
             PaddingS()
 
             LazyRow(
-                contentPadding = PaddingValues(horizontal = Design.dp.paddingM),
-                horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
+                contentPadding = PaddingValues(horizontal = Design.dp.paddingL),
+                horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
             ) {
                 filterPack.categories.forEach {
                     item {
@@ -236,14 +244,14 @@ private fun Content(
             PaddingM()
 
             TextBody1(
-                modifier = Modifier.padding(horizontal = Design.dp.paddingM),
+                modifier = Modifier.padding(horizontal = Design.dp.paddingL),
                 provideText = { "Weight Type" })
 
             PaddingS()
 
             LazyRow(
-                contentPadding = PaddingValues(horizontal = Design.dp.paddingM),
-                horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
+                contentPadding = PaddingValues(horizontal = Design.dp.paddingL),
+                horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
             ) {
                 filterPack.weightTypes.forEach {
                     item {
@@ -259,14 +267,14 @@ private fun Content(
             PaddingM()
 
             TextBody1(
-                modifier = Modifier.padding(horizontal = Design.dp.paddingM),
+                modifier = Modifier.padding(horizontal = Design.dp.paddingL),
                 provideText = { "Force Type" })
 
             PaddingS()
 
             LazyRow(
-                contentPadding = PaddingValues(horizontal = Design.dp.paddingM),
-                horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
+                contentPadding = PaddingValues(horizontal = Design.dp.paddingL),
+                horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
             ) {
                 filterPack.forceTypes.forEach {
                     item {
@@ -282,14 +290,14 @@ private fun Content(
             PaddingM()
 
             TextBody1(
-                modifier = Modifier.padding(horizontal = Design.dp.paddingM),
+                modifier = Modifier.padding(horizontal = Design.dp.paddingL),
                 provideText = { "Experience" })
 
             PaddingS()
 
             LazyRow(
-                contentPadding = PaddingValues(horizontal = Design.dp.paddingM),
-                horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
+                contentPadding = PaddingValues(horizontal = Design.dp.paddingL),
+                horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
             ) {
                 filterPack.experiences.forEach {
                     item {
@@ -307,40 +315,28 @@ private fun Content(
                 selectEquipment = selectEquipment
             )
 
-            ShadowFooterSpace()
-        }
+            val enabled = remember(equipments, muscles, name, imageUrl, filterPack) {
+                val hasEquip = equipments.flatMap { it.equipments }
+                    .any { it.status == IncludedStatusEnum.INCLUDED }
+                val hasMuscles = muscles.flatMap { it.muscles }.any { it.isSelected }
+                val hasAllFilters = filterPack.categories.any { it.isSelected } and
+                        filterPack.forceTypes.any { it.isSelected } and
+                        filterPack.weightTypes.any { it.isSelected } and
+                        filterPack.experiences.any { it.isSelected }
+                val hasName = name.isNotBlank()
+                val hasImage = imageUrl.isNotBlank()
 
-        val enabled = remember(equipments, muscles, name, imageUrl, filterPack) {
-            val hasEquip = equipments.flatMap { it.equipments }
-                .any { it.status == IncludedStatusEnum.INCLUDED }
-            val hasMuscles = muscles.flatMap { it.muscles }.any { it.isSelected }
-            val hasAllFilters = filterPack.categories.any { it.isSelected } and
-                    filterPack.forceTypes.any { it.isSelected } and
-                    filterPack.weightTypes.any { it.isSelected } and
-                    filterPack.experiences.any { it.isSelected }
-            val hasName = name.isNotBlank()
-            val hasImage = imageUrl.isNotBlank()
-
-            hasEquip && hasMuscles && hasName && hasImage && hasAllFilters
-        }
-
-        BottomButtons(
-            modifier = Modifier.fillMaxWidth(),
-            first = {
-                ButtonSecondary(
-                    modifier = Modifier.weight(1f),
-                    text = "Close",
-                    onClick = close
-                )
-            },
-            second = {
-                ButtonPrimary(
-                    modifier = Modifier.weight(1f),
-                    text = "Save",
-                    enabled = enabled,
-                    onClick = save,
-                )
+                hasEquip && hasMuscles && hasName && hasImage && hasAllFilters
             }
-        )
+
+            PaddingM()
+
+            ButtonPrimary(
+                modifier = Modifier.fillMaxWidth(),
+                text = "Submit",
+                enabled = enabled,
+                onClick = save,
+            )
+        }
     }
 }

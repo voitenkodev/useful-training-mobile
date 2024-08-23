@@ -31,7 +31,7 @@ public fun InputExerciseName(
     Input(
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = Design.dp.paddingM),
+            .padding(horizontal = Design.dp.paddingL),
         value = value.invoke(),
         placeholder = "Exercise name",
         maxLines = 1,

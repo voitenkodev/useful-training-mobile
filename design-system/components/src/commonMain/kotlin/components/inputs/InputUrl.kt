@@ -33,7 +33,7 @@ public fun InputUrl(
     Input(
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = Design.dp.paddingM),
+            .padding(horizontal = Design.dp.paddingL),
         value = value.invoke(),
         placeholder = "https://",
         maxLines = 1,
