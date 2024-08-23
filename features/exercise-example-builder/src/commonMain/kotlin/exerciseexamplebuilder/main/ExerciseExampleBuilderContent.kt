@@ -30,10 +30,12 @@ import components.chips.Chip
 import components.chips.ChipState
 import components.inputs.InputDescription
 import components.inputs.InputExerciseName
+import components.inputs.InputTutorialName
 import components.inputs.InputUrl
 import components.roots.ScreenRoot
 import equipment.EquipmentGroup
 import exerciseexamplebuilder.main.components.EquipmentGroups
+import exerciseexamplebuilder.main.models.Filter
 import exerciseexamplebuilder.main.models.FilterPack
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toPersistentList
@@ -79,6 +81,15 @@ internal fun ExerciseExampleBuilderContent(
         selectExperience = vm::selectExperience,
         selectWeightType = vm::selectWeightType,
 
+        tutorialLanguages = state.tutorialLanguages,
+        tutorialTitle = state.tutorialTitle,
+        tutorialValue = state.tutorialValue,
+        updateTutorialTitle = vm::updateTutorialName,
+        updateTutorialValue = vm::updateTutorialValue,
+        selectResourceType = vm::selectResourceType,
+        selectTutorialLanguage = vm::selectLanguage,
+        tutorialResourceTypes = state.tutorialResourceTypes,
+
         equipments = state.equipmentGroups,
         selectEquipment = vm::selectEquipment,
         save = { vm.saveExercise(close) }
@@ -109,6 +120,15 @@ private fun Content(
     selectExperience: (value: String) -> Unit,
     selectForceType: (value: String) -> Unit,
     selectWeightType: (value: String) -> Unit,
+
+    tutorialLanguages: ImmutableList<Filter>,
+    tutorialResourceTypes: ImmutableList<Filter>,
+    tutorialTitle: String,
+    updateTutorialTitle: (String) -> Unit,
+    tutorialValue: String,
+    updateTutorialValue: (String) -> Unit,
+    selectTutorialLanguage: (String) -> Unit,
+    selectResourceType: (String) -> Unit,
 
     equipments: ImmutableList<EquipmentGroup>,
     selectEquipment: (id: String) -> Unit,
@@ -322,12 +342,55 @@ private fun Content(
 
             TextBody1(
                 modifier = Modifier.padding(horizontal = Design.dp.paddingL),
-                provideText = { "Tutorials" })
+                provideText = { "Tutorial" })
 
-            PaddingS()
+            PaddingM()
 
-            // tutprioal;
+            InputTutorialName(
+                value = { tutorialTitle },
+                onValueChange = updateTutorialTitle
+            )
 
+            PaddingM()
+
+            InputUrl(
+                value = { tutorialValue },
+                onValueChange = updateTutorialValue
+            )
+
+            PaddingM()
+
+            LazyRow(
+                contentPadding = PaddingValues(horizontal = Design.dp.paddingL),
+                horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
+            ) {
+                tutorialLanguages.forEach {
+                    item {
+                        Chip(
+                            chipState = if (it.isSelected) selectedChipState else unSelectedChipState,
+                            text = it.value.capitalize(Locale.current),
+                            onClick = { selectTutorialLanguage.invoke(it.value) }
+                        )
+                    }
+                }
+            }
+
+            PaddingM()
+
+            LazyRow(
+                contentPadding = PaddingValues(horizontal = Design.dp.paddingL),
+                horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
+            ) {
+                tutorialResourceTypes.forEach {
+                    item {
+                        Chip(
+                            chipState = if (it.isSelected) selectedChipState else unSelectedChipState,
+                            text = it.value.capitalize(Locale.current),
+                            onClick = { selectResourceType.invoke(it.value) }
+                        )
+                    }
+                }
+            }
 
             val enabled = remember(equipments, muscles, name, imageUrl, filterPack) {
                 val hasEquip = equipments.flatMap { it.equipments }

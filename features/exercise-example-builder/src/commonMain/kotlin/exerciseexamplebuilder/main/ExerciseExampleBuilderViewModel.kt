@@ -143,6 +143,32 @@ internal class ExerciseExampleBuilderViewModel : ViewModel() {
         }
     }
 
+    fun updateTutorialValue(value: String) {
+        _state.update { it.copy(tutorialValue = value) }
+    }
+
+    fun updateTutorialName(value: String) {
+        _state.update { it.copy(tutorialTitle = value) }
+    }
+
+    fun selectLanguage(value: String) {
+        _state.update {
+            val tutorialLanguages = it.tutorialLanguages.map { item ->
+                item.copy(isSelected = item.value == value)
+            }.toPersistentList()
+            it.copy(tutorialLanguages = tutorialLanguages)
+        }
+    }
+
+    fun selectResourceType(value: String) {
+        _state.update {
+            val tutorialResourceTypes = it.tutorialResourceTypes.map { item ->
+                item.copy(isSelected = item.value == value)
+            }.toPersistentList()
+            it.copy(tutorialResourceTypes = tutorialResourceTypes)
+        }
+    }
+
     fun selectWeightType(value: String) {
         _state.update {
             val newFilterPack = it.filterPack.copy(

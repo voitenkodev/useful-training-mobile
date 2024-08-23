@@ -3,6 +3,7 @@ package exerciseexamplebuilder.main
 import androidx.compose.runtime.Immutable
 import equipment.EquipmentGroup
 import exercise.ResourceTypeEnum
+import exerciseexamplebuilder.main.models.Filter
 import exerciseexamplebuilder.main.models.FilterPack
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
@@ -21,7 +22,17 @@ internal data class State(
 
     val filterPack: FilterPack = FilterPack(),
 
-    val tutorialResourceTypes: ImmutableList<ResourceTypeEnum> = ResourceTypeEnum.entries.toPersistentList(),
+    val tutorialType: ResourceTypeEnum = ResourceTypeEnum.TEXT,
+    val tutorialTitle: String = "",
+    val tutorialValue: String = "",
+    val tutorialResourceTypes: ImmutableList<Filter> = ResourceTypeEnum.entries
+        .map { Filter(it.name, false) }
+        .toPersistentList(),
+    val tutorialLanguages: ImmutableList<Filter> = persistentListOf(
+        Filter("En", false),
+        Filter("Ua", false),
+        Filter("Ru", false),
+    ),
 
     val equipmentGroups: ImmutableList<EquipmentGroup> = persistentListOf(),
 
