@@ -41,7 +41,7 @@ internal fun TutorialDto.dtoToDao(): ExerciseExampleTutorialDao? {
         exerciseExampleId = exerciseExampleId ?: return null,
         createdAt = createdAt ?: return null,
         updatedAt = updatedAt ?: return null,
-        author = author ?: return null,
+        author = author,
         resourceType = resourceType ?: return null,
         language = language ?: return null,
         title = title ?: return null,
