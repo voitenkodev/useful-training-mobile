@@ -88,8 +88,11 @@ private fun Content(
 
             LazyColumn(
                 modifier = Modifier.fillMaxWidth().weight(1f),
-                contentPadding = PaddingValues(vertical = Design.dp.paddingXL),
-                verticalArrangement = Arrangement.spacedBy(Design.dp.paddingXL)
+                contentPadding = PaddingValues(
+                    vertical = Design.dp.paddingXL,
+                    horizontal = Design.dp.paddingL
+                ),
+                verticalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
             ) {
 
                 itemsIndexed(list, key = { _, item -> item.id }) { index, item ->

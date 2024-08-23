@@ -1,9 +1,8 @@
 package trainingbuilder.muscle.components
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -89,27 +88,32 @@ internal fun MusclePack(
     }
 
     if (fullBodyVisible) {
-        Column(modifier = Modifier) {
-            Row(
-                modifier = Modifier.padding(horizontal = Design.dp.paddingM),
-                horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
-            ) {
+        LazyRow(
+            modifier = Modifier,
+            contentPadding = PaddingValues(horizontal = Design.dp.paddingL),
+            horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
+        ) {
 
+            item("full") {
                 Chip(
                     chipState = fullBodyState,
                     onClick = selectFullBody,
                     text = "Full Body"
                 )
+            }
 
-                if (upperBodyVisible) {
+            if (upperBodyVisible) {
+                item("upper") {
                     Chip(
                         chipState = upperBodyState,
                         onClick = selectUpperBody,
                         text = "Upper Body"
                     )
                 }
+            }
 
-                if (lowerBodyVisible) {
+            if (lowerBodyVisible) {
+                item("lower") {
                     Chip(
                         chipState = lowerBodyState,
                         onClick = selectLowerBody,

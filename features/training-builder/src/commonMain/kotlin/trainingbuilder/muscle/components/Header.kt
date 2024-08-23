@@ -6,6 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import kotlinx.collections.immutable.ImmutableList
 import molecule.PaddingM
+import molecule.PaddingXS
 import molecule.Toolbar
 import muscles.MuscleEnum
 import muscles.MuscleGroup
@@ -26,6 +27,8 @@ internal fun Header(
     Column(modifier = Modifier.statusBarsPadding()) {
 
         Toolbar(title = "Target", icon = Icons.close to close)
+
+        PaddingXS()
 
         MusclePack(
             list = list,
