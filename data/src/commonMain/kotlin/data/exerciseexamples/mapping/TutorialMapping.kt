@@ -11,7 +11,8 @@ internal fun InputExerciseExampleTutorial.domainToDto(): TutorialDto {
         author = author,
         resourceType = resourceType.key,
         language = language,
-        value = author
+        value = value,
+        title = title
     )
 }
 
