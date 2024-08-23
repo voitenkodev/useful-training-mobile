@@ -25,13 +25,13 @@ import androidx.compose.ui.unit.Density
 import atom.Design
 import components.EmptyData
 import components.LoadingData
-import components.cards.ExerciseCardSmall
 import components.chips.Chip
 import components.chips.ChipState
 import components.inputs.InputSearch
 import components.roots.PopupRoot
 import components.states.animateScrollAndCentralizeItem
 import exercise.ExerciseExample
+import exercise.component.ExerciseCardSmall
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -203,11 +203,9 @@ internal fun ExerciseExamples(
                 when {
                     item != null -> ExerciseCardSmall(
                         modifier = Modifier,
-                        name = item.name,
+                        exerciseExample = item,
                         onClick = { select.invoke(item) },
-                        imageUrl = item.imageUrl,
                         viewDetails = { details.invoke(item.id) },
-                        musclesWithPercent = item.exerciseExampleBundles.map { it.muscle.name to it.percentage },
                     )
                 }
             }

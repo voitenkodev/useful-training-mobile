@@ -20,6 +20,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import atom.Design
 import exercise.ExerciseExample
 import molecule.Icon
+import molecule.PaddingXS
 import molecule.TextBody1
 import molecule.TextBody3
 import resources.Icons
@@ -68,6 +69,8 @@ public fun ExerciseItem(
                     ?.take(2)
                     ?.joinToString(", ") { it.muscle.name } ?: ""
             }
+
+            PaddingXS()
 
             TextBody3(
                 provideText = { description },

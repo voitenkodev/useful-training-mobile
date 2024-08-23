@@ -26,9 +26,9 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import atom.Design
-import components.cards.ExerciseCardSmall
 import components.inputs.InputExerciseName
 import exercise.ExerciseExample
+import exercise.component.ExerciseCardSmall
 import kotlinx.collections.immutable.ImmutableList
 import molecule.ButtonPrimary
 import molecule.ButtonSecondary
@@ -96,10 +96,8 @@ internal fun SetExerciseContent(
             state.buildExercise.exerciseExample?.let { ex ->
                 ExerciseCardSmall(
                     modifier = Modifier.padding(horizontal = Design.dp.paddingL),
-                    name = ex.name,
-                    imageUrl = ex.imageUrl,
+                    exerciseExample = ex,
                     viewDetails = { toExerciseExampleDetails.invoke(ex.id) },
-                    musclesWithPercent = ex.exerciseExampleBundles.map { it.muscle.name to it.percentage }
                 )
             } ?: InputExerciseName(
                 value = { state.buildExercise.name },
