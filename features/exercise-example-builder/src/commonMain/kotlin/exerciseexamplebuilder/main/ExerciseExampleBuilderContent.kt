@@ -296,6 +296,7 @@ private fun Content(
                         onMuscleBundleChange(newList)
                     }
                 )
+
                 PaddingS()
 
                 LazyRow(
