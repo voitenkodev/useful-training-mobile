@@ -17,7 +17,7 @@ public fun List<models.Tutorial>.toState(): ImmutableList<Tutorial> {
 public fun models.Tutorial.toState(): Tutorial {
     return Tutorial(
         id = id,
-        resource = resource,
+        author = author,
         language = language,
         title = title,
         value = value,

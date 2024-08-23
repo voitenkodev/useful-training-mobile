@@ -6,7 +6,7 @@ public data class ExerciseExampleTutorialDao(
     val title: String,
     val value: String,
     val language: String,
-    val resource: String,
+    val author: String?,
     val resourceType: String,
     val createdAt: String,
     val updatedAt: String

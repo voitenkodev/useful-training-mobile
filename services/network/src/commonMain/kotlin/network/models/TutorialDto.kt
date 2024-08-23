@@ -15,8 +15,8 @@ public data class TutorialDto(
     val language: String? = null,
     @SerialName("value")
     val value: String? = null,
-    @SerialName("resource")
-    val resource: String? = null,
+    @SerialName("author")
+    val author: String? = null,
     @SerialName("resourceType")
     val resourceType: String? = null,
     @SerialName("title")

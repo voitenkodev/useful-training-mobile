@@ -27,7 +27,7 @@ internal fun Tutorial(
         tutorials.forEach {
             HorizontalValueCard(
                 title = "[${it.language}] ${it.title}",
-                description = "By \"${it.resource}\"",
+                description = "By \"${it.author}\"",
                 startIcon = it.icon,
                 endIcon = Icons.arrowRight to Design.colors.content,
                 onClick = { onClick.invoke(it) }

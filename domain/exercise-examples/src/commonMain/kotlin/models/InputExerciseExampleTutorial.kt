@@ -1,7 +1,8 @@
 package models
 
 public data class InputExerciseExampleTutorial(
-    val resource: String,
+    val author: String?,
+    val value: String,
     val language: String,
     val title: String,
     val resourceType: ResourceTypeEnum,

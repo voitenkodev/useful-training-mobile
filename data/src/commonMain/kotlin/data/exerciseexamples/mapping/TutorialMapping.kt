@@ -8,10 +8,10 @@ import network.models.TutorialDto
 
 internal fun InputExerciseExampleTutorial.domainToDto(): TutorialDto {
     return TutorialDto(
-        resource = resource,
+        author = author,
         resourceType = resourceType.key,
         language = language,
-        value = resource
+        value = author
     )
 }
 
@@ -23,7 +23,7 @@ internal fun ExerciseExampleTutorialDao.daoToDomain(): Tutorial {
     return Tutorial(
         id = id,
         resourceType = ResourceTypeEnum.of(resourceType),
-        resource = resource,
+        author = author,
         title = title,
         language = language,
         value = value
@@ -40,7 +40,7 @@ internal fun TutorialDto.dtoToDao(): ExerciseExampleTutorialDao? {
         exerciseExampleId = exerciseExampleId ?: return null,
         createdAt = createdAt ?: return null,
         updatedAt = updatedAt ?: return null,
-        resource = resource ?: return null,
+        author = author ?: return null,
         resourceType = resourceType ?: return null,
         language = language ?: return null,
         title = title ?: return null,
@@ -55,7 +55,7 @@ internal fun List<TutorialDto>.dtoToDomain(): List<Tutorial> {
 internal fun TutorialDto.dtoToDomain(): Tutorial? {
     return Tutorial(
         id = id ?: return null,
-        resource = resource ?: return null,
+        author = author ?: return null,
         resourceType = ResourceTypeEnum.of(resourceType),
         language = language ?: return null,
         title = title ?: return null,

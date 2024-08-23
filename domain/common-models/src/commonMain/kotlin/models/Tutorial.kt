@@ -5,6 +5,6 @@ public data class Tutorial(
     val title: String,
     val value: String,
     val language: String,
-    val resource: String,
+    val author: String?,
     val resourceType: ResourceTypeEnum,
 )

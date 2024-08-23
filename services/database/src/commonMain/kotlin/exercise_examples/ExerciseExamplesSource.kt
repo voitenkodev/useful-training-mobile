@@ -75,7 +75,7 @@ public class ExerciseExamplesSource(nativeContext: NativeContext) {
                     exerciseExampleId = tutorial.exerciseExampleId,
                     title = tutorial.title,
                     resourceType = tutorial.resourceType,
-                    resource = tutorial.resource,
+                    author = tutorial.author,
                     language = tutorial.language,
                     value_ = tutorial.value,
                     createdAt = tutorial.createdAt,

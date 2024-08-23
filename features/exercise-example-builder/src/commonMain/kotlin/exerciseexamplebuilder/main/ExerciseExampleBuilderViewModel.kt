@@ -100,9 +100,10 @@ internal class ExerciseExampleBuilderViewModel : ViewModel() {
                     ResourceTypeEnum.TEXT -> models.ResourceTypeEnum.TEXT
                     ResourceTypeEnum.UNKNOWN -> models.ResourceTypeEnum.UNKNOWN
                 },
-                resource = tutorialValue,
+                author = null,
                 language = tutorialLanguage,
                 title = tutorialTitle,
+                value = tutorialValue
             )
         } else null
 
