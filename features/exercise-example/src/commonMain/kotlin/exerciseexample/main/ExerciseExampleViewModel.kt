@@ -4,9 +4,10 @@ import ExerciseExamplesRepository
 import NativeIntentApi
 import StatisticsRepository
 import ViewModel
-import exerciseexample.main.factories.createFrontBackImages
+import exercise.Tutorial
+import exercise.factories.createFrontBackImages
+import exercise.mapping.toState
 import exerciseexample.main.mapping.toState
-import exerciseexample.main.models.Tutorial
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -40,7 +41,11 @@ internal class ExerciseExampleViewModel(id: String) : ViewModel() {
 
             _state.update {
                 val images = result.createFrontBackImages()
-                it.copy(exerciseExample = result, fullFrontImageVector = images.first, fullBackImageVector = images.second)
+                it.copy(
+                    exerciseExample = result,
+                    fullFrontImageVector = images.first,
+                    fullBackImageVector = images.second
+                )
             }
         }
 

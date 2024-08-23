@@ -1,4 +1,4 @@
-package exerciseexample.main.models
+package exercise
 
 import androidx.compose.runtime.Immutable
 

@@ -318,6 +318,17 @@ private fun Content(
                 selectEquipment = selectEquipment
             )
 
+            PaddingM()
+
+            TextBody1(
+                modifier = Modifier.padding(horizontal = Design.dp.paddingL),
+                provideText = { "Tutorials" })
+
+            PaddingS()
+
+            // tutprioal;
+
+
             val enabled = remember(equipments, muscles, name, imageUrl, filterPack) {
                 val hasEquip = equipments.flatMap { it.equipments }
                     .any { it.status == IncludedStatusEnum.INCLUDED }
@@ -332,10 +343,8 @@ private fun Content(
                 hasEquip && hasMuscles && hasName && hasImage && hasAllFilters
             }
 
-            PaddingM()
-
             ButtonPrimary(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth().padding(Design.dp.paddingL),
                 text = "Submit",
                 enabled = enabled,
                 onClick = save,

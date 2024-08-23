@@ -1,14 +1,14 @@
-package exerciseexample.main.factories
+package exercise.factories
 
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import atom.Design
-import exerciseexample.main.models.ExerciseExample
-import exerciseexample.main.models.MuscleEnum
+import exercise.ExerciseExample
+import muscles.MuscleEnum
 import muscles.fullBack
 import muscles.fullFront
 
-internal fun ExerciseExample?.createFrontBackImages(): Pair<ImageVector, ImageVector> {
+public fun ExerciseExample?.createFrontBackImages(): Pair<ImageVector, ImageVector> {
     if (this == null) return fullFront() to fullBack()
 
     val muscleWithAlpha = exerciseExampleBundles

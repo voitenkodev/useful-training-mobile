@@ -20,6 +20,8 @@ import atom.Design
 import components.Error
 import components.ShadowFooterSpace
 import components.roots.ScreenRoot
+import exercise.ExerciseExample
+import exercise.Tutorial
 import exerciseexample.main.components.Achievements
 import exerciseexample.main.components.Equipments
 import exerciseexample.main.components.Header
@@ -27,9 +29,7 @@ import exerciseexample.main.components.HeapMap
 import exerciseexample.main.components.MusclePack
 import exerciseexample.main.components.ResentVolume
 import exerciseexample.main.components.Tutorial
-import exerciseexample.main.models.ExerciseExample
 import exerciseexample.main.models.ExerciseExampleAchievements
-import exerciseexample.main.models.Tutorial
 import molecule.PaddingM
 import molecule.PaddingXL
 

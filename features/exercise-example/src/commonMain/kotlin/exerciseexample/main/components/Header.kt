@@ -20,7 +20,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import atom.Design
-import exerciseexample.main.models.ExerciseExample
+import exercise.ExerciseExample
 import molecule.PaddingM
 import molecule.PaddingXL
 import molecule.Shadow

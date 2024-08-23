@@ -1,20 +1,20 @@
-package exerciseexample.main.mapping
+package exercise.mapping
 
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import atom.Design
-import exerciseexample.main.models.ResourceTypeEnum
-import exerciseexample.main.models.Tutorial
+import exercise.ResourceTypeEnum
+import exercise.Tutorial
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toPersistentList
 import resources.Icons
 
-internal fun List<models.Tutorial>.toState(): ImmutableList<Tutorial> {
+public fun List<models.Tutorial>.toState(): ImmutableList<Tutorial> {
     return map { it.toState() }
         .toPersistentList()
 }
 
-internal fun models.Tutorial.toState(): Tutorial {
+public fun models.Tutorial.toState(): Tutorial {
     return Tutorial(
         id = id,
         resource = resource,

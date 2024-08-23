@@ -1,9 +1,9 @@
-package exerciseexample.main.models
+package exercise
 
 import androidx.compose.runtime.Immutable
 
 @Immutable
-internal enum class Category {
+public enum class Category {
     COMPOUND,
     ISOLATION;
 }

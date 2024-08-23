@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import atom.Design
 import components.chips.Chip
 import components.chips.ChipState
-import exerciseexample.main.models.ExerciseExample
+import exercise.ExerciseExample
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toPersistentList
 import molecule.TextLabel
@@ -27,7 +27,13 @@ internal fun MusclePack(exerciseExample: ExerciseExample?) {
 
     val pieData = remember(exerciseExample) {
         exerciseExample?.exerciseExampleBundles
-            ?.map { PieChartData(value = it.percentage, color = ColorUtils.randomColor(), title = it.muscle.name) }
+            ?.map {
+                PieChartData(
+                    value = it.percentage,
+                    color = ColorUtils.randomColor(),
+                    title = it.muscle.name
+                )
+            }
             ?.sortedByDescending { it.value }
             ?.toPersistentList()
             ?: persistentListOf()

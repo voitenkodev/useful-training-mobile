@@ -7,9 +7,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import atom.Design
 import components.cards.HorizontalValueCard
-import exerciseexample.main.models.Tutorial
+import exercise.Tutorial
 import kotlinx.collections.immutable.ImmutableList
-import molecule.PaddingS
 import molecule.TextLabel
 import resources.Icons
 

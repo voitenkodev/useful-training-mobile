@@ -1,11 +1,11 @@
-package exerciseexample.main.models
+package exercise
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 
 @Immutable
-internal data class Tutorial(
+public data class Tutorial(
     val id: String,
     val title: String,
     val value: String,

@@ -2,8 +2,8 @@ package exerciseexample.main
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.vector.ImageVector
-import exerciseexample.main.factories.createFrontBackImages
-import exerciseexample.main.models.ExerciseExample
+import exercise.ExerciseExample
+import exercise.factories.createFrontBackImages
 import exerciseexample.main.models.ExerciseExampleAchievements
 
 @Immutable

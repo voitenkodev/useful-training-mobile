@@ -1,9 +1,9 @@
-package exerciseexample.main.models
+package exercise
 
 import androidx.compose.runtime.Immutable
 
 @Immutable
-internal enum class ForceType {
+public enum class ForceType {
     PULL,
     PUSH;
 }
