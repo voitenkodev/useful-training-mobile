@@ -1,4 +1,4 @@
-package components.cards
+package exercise.component
 
 import AsyncImage
 import androidx.compose.foundation.background
@@ -14,14 +14,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import atom.Design
+import exercise.ExerciseExample
 import molecule.ButtonPrimary
 import molecule.ButtonSecondary
 import molecule.ButtonText
@@ -31,31 +30,22 @@ import molecule.TextBody4
 import molecule.TextH5
 import molecule.secondaryDefaultBackground
 import percents
-import shimmerLoadingAnimation
-
-@Immutable
-private data class MuscleUi(
-    val text: String,
-    val color: Color
-)
 
 @Composable
-public fun ExerciseCardDefault(
+public fun ExerciseCard(
     modifier: Modifier = Modifier,
-    name: String,
-    imageUrl: String?,
+    exerciseExample: ExerciseExample,
     btn: Pair<String, () -> Unit>?,
     viewDetails: () -> Unit,
-    musclesWithPercent: List<Pair<String, Int>> = emptyList()
 ) {
 
-    val muscles = remember(musclesWithPercent) {
-        musclesWithPercent
-            .sortedByDescending { it.second }
+    val muscles = remember(exerciseExample.exerciseExampleBundles) {
+        exerciseExample.exerciseExampleBundles
+            .sortedByDescending { it.percentage }
             .take(3)
             .mapIndexed { index, item ->
                 MuscleUi(
-                    text = "${item.first}: ${item.second.percents()}",
+                    text = "${item.muscle.name}: ${item.percentage.percents()}",
                     color = when (index) {
                         0 -> Design.palette.content
                         1 -> Design.palette.content.copy(0.7f)
@@ -75,7 +65,7 @@ public fun ExerciseCardDefault(
 
         AsyncImage(
             modifier = Modifier.fillMaxSize(),
-            url = imageUrl,
+            url = exerciseExample.imageUrl,
             contentScale = ContentScale.Crop
         )
 
@@ -91,7 +81,7 @@ public fun ExerciseCardDefault(
             ) {
 
                 TextH5(
-                    provideText = { name },
+                    provideText = { exerciseExample.name },
                     maxLines = 3,
                     color = Design.colors.content
                 )
@@ -143,15 +133,4 @@ public fun ExerciseCardDefault(
             }
         }
     }
-}
-
-@Composable
-public fun ExerciseCardDefaultLoading(modifier: Modifier = Modifier) {
-    Box(
-        modifier
-            .secondaryDefaultBackground()
-            .shimmerLoadingAnimation(true)
-            .aspectRatio(1.72f)
-            .clipToBounds()
-    )
 }

@@ -25,16 +25,14 @@ public fun ButtonIconTransparent(
     IconButton(
         modifier = modifier
             .padding(Design.dp.paddingXS)
-            .requiredSize(Design.dp.iconL)
+            .requiredSize(Design.dp.iconM)
             .alpha(if (enabled) 1f else 0.5f)
             .clip(Design.shape.circleShape),
         onClick = onClick,
         enabled = enabled,
         content = {
             Icon(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(Design.dp.paddingXS),
+                modifier = Modifier.fillMaxSize(),
                 tint = contentColor,
                 imageVector = imageVector,
                 contentDescription = null

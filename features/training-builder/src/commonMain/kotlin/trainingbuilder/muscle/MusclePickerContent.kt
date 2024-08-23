@@ -89,7 +89,7 @@ private fun Content(
             LazyColumn(
                 modifier = Modifier.fillMaxWidth().weight(1f),
                 contentPadding = PaddingValues(
-                    vertical = Design.dp.paddingXL,
+                    vertical = Design.dp.paddingM,
                     horizontal = Design.dp.paddingL
                 ),
                 verticalArrangement = Arrangement.spacedBy(Design.dp.paddingM)

@@ -14,7 +14,6 @@ import androidx.compose.ui.text.style.TextAlign
 import atom.Design
 import com.arkivanov.essenty.backhandler.BackCallback
 import components.Error
-import components.cards.UserCardLarge
 import components.roots.ScreenRoot
 import io.github.xxfast.decompose.router.LocalRouterContext
 import molecule.ButtonPrimary
@@ -25,6 +24,7 @@ import molecule.PaddingXXL
 import molecule.TextBody2
 import molecule.TextH2
 import user.User
+import user.component.UserCardLarge
 
 @Composable
 internal fun SuccessRegistrationContent(
@@ -81,10 +81,7 @@ private fun Content(
 
             if (user != null) {
                 UserCardLarge(
-                    name = user.name,
-                    weight = user.weight,
-                    email = user.email,
-                    height = user.height,
+                    user = user,
                 )
             }
 

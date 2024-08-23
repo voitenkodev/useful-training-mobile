@@ -18,7 +18,6 @@ import components.inputs.InputSearch
 import molecule.ButtonIconTransparent
 import molecule.PaddingL
 import molecule.PaddingS
-import molecule.Shadow
 import molecule.Toolbar
 import resources.Icons
 
@@ -33,6 +32,7 @@ internal fun Header(
 ) {
 
     val inputRequester = remember { FocusRequester() }
+
     val focus = LocalFocusManager.current
 
     LaunchedEffect(Unit) {
@@ -50,7 +50,7 @@ internal fun Header(
         PaddingS()
 
         Row(
-            modifier = Modifier.padding(horizontal = Design.dp.paddingM),
+            modifier = Modifier.padding(horizontal = Design.dp.paddingL),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(Design.dp.paddingS)
         ) {
@@ -58,6 +58,7 @@ internal fun Header(
             InputSearch(
                 modifier = Modifier.weight(1f).focusRequester(inputRequester),
                 provideName = { query },
+                backgroundColor = Design.colors.secondary,
                 update = setQuery
             )
 
@@ -73,7 +74,5 @@ internal fun Header(
         }
 
         PaddingL()
-
-        Shadow()
     }
 }

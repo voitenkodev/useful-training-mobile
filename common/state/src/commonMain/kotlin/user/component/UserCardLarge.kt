@@ -1,4 +1,4 @@
-package components.cards
+package user.component
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
@@ -26,14 +26,12 @@ import molecule.PaddingWeight
 import molecule.TextBody4
 import molecule.TextH4
 import molecule.TextH5
+import user.User
 
 @Composable
 public fun UserCardLarge(
     modifier: Modifier = Modifier,
-    name: String,
-    height: String,
-    weight: String,
-    email: String,
+    user: User
 ) {
 
     Box(
@@ -73,7 +71,7 @@ public fun UserCardLarge(
             modifier = Modifier
                 .padding(Design.dp.paddingL)
                 .align(Alignment.BottomEnd),
-            provideText = { email },
+            provideText = { user.email },
             fontWeight = FontWeight.Medium,
             color = Design.colors.white30
         )
@@ -97,7 +95,7 @@ public fun UserCardLarge(
                     )
 
                     TextH4(
-                        provideText = { name.uppercase() },
+                        provideText = { user.name.uppercase() },
                         color = Design.colors.yellow
                     )
                 }
@@ -113,7 +111,7 @@ public fun UserCardLarge(
             )
 
             TextH5(
-                provideText = { weight }
+                provideText = { user.weight }
             )
 
             PaddingM()
@@ -124,7 +122,7 @@ public fun UserCardLarge(
             )
 
             TextH5(
-                provideText = { height }
+                provideText = { user.height }
             )
         }
     }

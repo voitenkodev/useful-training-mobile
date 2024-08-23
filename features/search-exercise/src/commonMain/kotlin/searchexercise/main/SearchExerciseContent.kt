@@ -3,6 +3,7 @@ package searchexercise.main
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -13,10 +14,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import atom.Design
 import components.Error
-import components.cards.ExerciseCardDefault
-import components.cards.ExerciseCardDefaultLoading
+import components.LoadingData
 import components.roots.ScreenRoot
 import exercise.ExerciseExample
+import exercise.component.ExerciseCard
 import kotlinx.collections.immutable.ImmutableList
 import molecule.PopupSheet
 import searchexercise.main.components.Header
@@ -93,13 +94,12 @@ private fun Content(
 
             LazyColumn(
                 modifier = Modifier.fillMaxWidth().weight(1f),
-                contentPadding = PaddingValues(Design.dp.paddingM),
+                contentPadding = PaddingValues(
+                    horizontal = Design.dp.paddingL,
+                    vertical = Design.dp.paddingM
+                ),
                 verticalArrangement = Arrangement.spacedBy(Design.dp.paddingM)
             ) {
-
-                if (loading) repeat(3) {
-                    item { ExerciseCardDefaultLoading() }
-                }
 
                 items(exerciseExamples, key = { it.id }) {
 
@@ -108,15 +108,19 @@ private fun Content(
                         itemAction.first to { itemAction.second.invoke(it.id) }
                     }
 
-                    ExerciseCardDefault(
-                        name = it.name,
-                        imageUrl = it.imageUrl,
+                    ExerciseCard(
+                        exerciseExample = it,
                         btn = actionProvider,
                         viewDetails = { toDetails.invoke(it.id) },
-                        musclesWithPercent = it.exerciseExampleBundles.map { b -> b.muscle.name to b.percentage }
                     )
                 }
             }
         }
+    }
+
+    if (loading) {
+        LoadingData(
+            modifier = Modifier.fillMaxSize(),
+        )
     }
 }

@@ -5,7 +5,7 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import kotlinx.collections.immutable.ImmutableList
-import molecule.PaddingM
+import molecule.PaddingL
 import molecule.PaddingXS
 import molecule.Toolbar
 import muscles.MuscleEnum
@@ -40,6 +40,6 @@ internal fun Header(
             selectLowerBody = selectLowerBody
         )
 
-        PaddingM()
+        PaddingL()
     }
 }
