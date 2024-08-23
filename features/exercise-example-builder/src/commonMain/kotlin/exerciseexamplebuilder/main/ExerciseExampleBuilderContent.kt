@@ -161,65 +161,6 @@ private fun Content(
 
             PaddingM()
 
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .defaultMinSize(minHeight = 320.dp)
-            ) {
-
-                val thumbs = remember(muscles) {
-                    muscles
-                        .flatMap { it.muscles }
-                        .filter { it.isSelected }
-                        .map {
-                            ThumbRangeState(
-                                id = it.id,
-                                positionInRange = it.coverage?.percentage ?: 0,
-                                color = it.coverage?.color ?: Color.Transparent
-                            )
-                        }.toPersistentList()
-                }
-
-                RangeSlider(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = Design.dp.paddingL)
-                        .height(46.dp),
-                    range = sliderRange,
-                    minimalRange = minimalRange,
-                    thumbs = thumbs,
-                    requiredFilledRange = false,
-                    lineColor = Design.colors.label,
-                    onValueChange = { updatedThumbs ->
-                        val newList = muscles.map {
-                            val innerMuscles = it.muscles.map { m ->
-                                val newPercentage: Int? =
-                                    updatedThumbs.find { t -> t.id == m.id }?.positionInRange
-                                        ?: m.coverage?.percentage
-
-                                m.copy(coverage = m.coverage?.copy(percentage = newPercentage ?: 0))
-                            }.toPersistentList()
-                            it.copy(muscles = innerMuscles)
-                        }.toPersistentList()
-                        onMuscleBundleChange(newList)
-                    }
-                )
-                PaddingS()
-
-                LazyRow(
-                    modifier = Modifier.fillMaxWidth(),
-                    contentPadding = PaddingValues(horizontal = Design.dp.paddingL)
-                ) {
-                    items(muscles, key = { it.id }) {
-                        MuscleGroup(
-                            modifier = Modifier.width(340.dp),
-                            item = it,
-                            selectMuscle = selectMuscle
-                        )
-                    }
-                }
-            }
-
             TextBody1(
                 modifier = Modifier.padding(horizontal = Design.dp.paddingL),
                 provideText = { "Categories" })
@@ -305,6 +246,65 @@ private fun Content(
                             chipState = if (it.isSelected) selectedChipState else unSelectedChipState,
                             text = it.value.capitalize(Locale.current),
                             onClick = { selectExperience.invoke(it.value) }
+                        )
+                    }
+                }
+            }
+
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .defaultMinSize(minHeight = 260.dp)
+            ) {
+
+                val thumbs = remember(muscles) {
+                    muscles
+                        .flatMap { it.muscles }
+                        .filter { it.isSelected }
+                        .map {
+                            ThumbRangeState(
+                                id = it.id,
+                                positionInRange = it.coverage?.percentage ?: 0,
+                                color = it.coverage?.color ?: Color.Transparent
+                            )
+                        }.toPersistentList()
+                }
+
+                RangeSlider(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = Design.dp.paddingL)
+                        .height(46.dp),
+                    range = sliderRange,
+                    minimalRange = minimalRange,
+                    thumbs = thumbs,
+                    requiredFilledRange = false,
+                    lineColor = Design.colors.label,
+                    onValueChange = { updatedThumbs ->
+                        val newList = muscles.map {
+                            val innerMuscles = it.muscles.map { m ->
+                                val newPercentage: Int? =
+                                    updatedThumbs.find { t -> t.id == m.id }?.positionInRange
+                                        ?: m.coverage?.percentage
+
+                                m.copy(coverage = m.coverage?.copy(percentage = newPercentage ?: 0))
+                            }.toPersistentList()
+                            it.copy(muscles = innerMuscles)
+                        }.toPersistentList()
+                        onMuscleBundleChange(newList)
+                    }
+                )
+                PaddingS()
+
+                LazyRow(
+                    modifier = Modifier.fillMaxWidth(),
+                    contentPadding = PaddingValues(horizontal = Design.dp.paddingL)
+                ) {
+                    items(muscles, key = { it.id }) {
+                        MuscleGroup(
+                            modifier = Modifier.width(340.dp),
+                            item = it,
+                            selectMuscle = selectMuscle
                         )
                     }
                 }
