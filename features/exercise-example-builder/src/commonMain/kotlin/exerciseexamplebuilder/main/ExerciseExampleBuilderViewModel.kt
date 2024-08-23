@@ -7,6 +7,7 @@ import FiltersRepository
 import MusclesRepository
 import ViewModel
 import equipment.mapping.toState
+import exercise.ResourceTypeEnum
 import exerciseexamplebuilder.main.mapping.toState
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toPersistentList
@@ -23,6 +24,7 @@ import models.ExperienceEnum
 import models.ForceTypeEnum
 import models.InputExerciseExample
 import models.InputExerciseExampleBundle
+import models.InputExerciseExampleTutorial
 import models.WeightTypeEnum
 import muscles.Coverage
 import muscles.MuscleGroup
@@ -80,6 +82,30 @@ internal class ExerciseExampleBuilderViewModel : ViewModel() {
     fun saveExercise(onSuccess: () -> Unit) {
         val lastState = state.value
 
+        val tutorialLanguage = lastState.tutorialLanguages.find { it.isSelected }?.value
+        val tutorialResourceType = lastState.tutorialResourceTypes.find { it.isSelected }?.value
+        val tutorialValue = lastState.tutorialValue.takeIf { it.isNotBlank() }
+        val tutorialTitle = lastState.tutorialTitle.takeIf { it.isNotBlank() }
+
+        val tutorial = if (
+            tutorialTitle != null &&
+            tutorialLanguage != null &&
+            tutorialResourceType != null &&
+            tutorialValue != null
+        ) {
+            InputExerciseExampleTutorial(
+                resourceType = when (tutorialResourceType) {
+                    ResourceTypeEnum.YOUTUBE_VIDEO -> models.ResourceTypeEnum.YOUTUBE_VIDEO
+                    ResourceTypeEnum.VIDEO -> models.ResourceTypeEnum.VIDEO
+                    ResourceTypeEnum.TEXT -> models.ResourceTypeEnum.TEXT
+                    ResourceTypeEnum.UNKNOWN -> models.ResourceTypeEnum.UNKNOWN
+                },
+                resource = tutorialValue,
+                language = tutorialLanguage,
+                title = tutorialTitle,
+            )
+        } else null
+
         val inputExerciseExample = InputExerciseExample(
             category = CategoryEnum.of(lastState.filterPack.categories.firstOrNull { it.isSelected }?.value),
             experience = ExperienceEnum.of(lastState.filterPack.experiences.firstOrNull { it.isSelected }?.value),
@@ -100,7 +126,8 @@ internal class ExerciseExampleBuilderViewModel : ViewModel() {
                         muscleId = it.id,
                         percentage = it.coverage?.percentage ?: 0
                     )
-                }
+                },
+            exerciseExampleTutorial = tutorial
         )
 
         exerciseExampleApi.setExerciseExample(inputExerciseExample)
@@ -160,7 +187,7 @@ internal class ExerciseExampleBuilderViewModel : ViewModel() {
         }
     }
 
-    fun selectResourceType(value: String) {
+    fun selectResourceType(value: ResourceTypeEnum) {
         _state.update {
             val tutorialResourceTypes = it.tutorialResourceTypes.map { item ->
                 item.copy(isSelected = item.value == value)

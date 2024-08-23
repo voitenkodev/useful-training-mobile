@@ -14,6 +14,7 @@ internal fun InputExerciseExample.domainToDto(): ExerciseExampleDto {
         weightType = weightType.toString(),
         experience = experience.toString(),
         forceType = forceType.toString(),
-        exerciseExampleBundles = exerciseExampleBundles.domainToDto()
+        exerciseExampleBundles = exerciseExampleBundles.domainToDto(),
+        tutorials = listOfNotNull(exerciseExampleTutorial?.domainToDto())
     )
 }

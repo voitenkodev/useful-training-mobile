@@ -1,6 +1,6 @@
 package models
 
-public enum class ResourceTypeEnum(private val key: String) {
+public enum class ResourceTypeEnum(public val key: String) {
     YOUTUBE_VIDEO("youtube_video"),
     VIDEO("video"),
     TEXT("text"),

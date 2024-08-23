@@ -2,6 +2,7 @@ package models
 
 public data class InputExerciseExample(
     val exerciseExampleBundles: List<InputExerciseExampleBundle>,
+    val exerciseExampleTutorial: InputExerciseExampleTutorial?,
     val equipmentIds: List<String>,
     val name: String,
     val description: String?,

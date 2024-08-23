@@ -5,6 +5,7 @@ import equipment.EquipmentGroup
 import exercise.ResourceTypeEnum
 import exerciseexamplebuilder.main.models.Filter
 import exerciseexamplebuilder.main.models.FilterPack
+import exerciseexamplebuilder.main.models.ResourceTypeFilter
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toPersistentList
@@ -22,16 +23,15 @@ internal data class State(
 
     val filterPack: FilterPack = FilterPack(),
 
-    val tutorialType: ResourceTypeEnum = ResourceTypeEnum.TEXT,
     val tutorialTitle: String = "",
     val tutorialValue: String = "",
-    val tutorialResourceTypes: ImmutableList<Filter> = ResourceTypeEnum.entries
-        .map { Filter(it.name, false) }
+    val tutorialResourceTypes: ImmutableList<ResourceTypeFilter> = ResourceTypeEnum.entries
+        .map { ResourceTypeFilter(it, false) }
         .toPersistentList(),
     val tutorialLanguages: ImmutableList<Filter> = persistentListOf(
-        Filter("En", false),
-        Filter("Ua", false),
-        Filter("Ru", false),
+        Filter("en", false),
+        Filter("ua", false),
+        Filter("ru", false),
     ),
 
     val equipmentGroups: ImmutableList<EquipmentGroup> = persistentListOf(),

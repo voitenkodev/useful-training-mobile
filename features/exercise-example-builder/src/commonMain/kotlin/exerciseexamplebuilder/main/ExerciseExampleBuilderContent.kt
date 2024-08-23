@@ -34,9 +34,11 @@ import components.inputs.InputTutorialName
 import components.inputs.InputUrl
 import components.roots.ScreenRoot
 import equipment.EquipmentGroup
+import exercise.ResourceTypeEnum
 import exerciseexamplebuilder.main.components.EquipmentGroups
 import exerciseexamplebuilder.main.models.Filter
 import exerciseexamplebuilder.main.models.FilterPack
+import exerciseexamplebuilder.main.models.ResourceTypeFilter
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toPersistentList
 import molecule.ButtonPrimary
@@ -122,13 +124,13 @@ private fun Content(
     selectWeightType: (value: String) -> Unit,
 
     tutorialLanguages: ImmutableList<Filter>,
-    tutorialResourceTypes: ImmutableList<Filter>,
+    tutorialResourceTypes: ImmutableList<ResourceTypeFilter>,
     tutorialTitle: String,
     updateTutorialTitle: (String) -> Unit,
     tutorialValue: String,
     updateTutorialValue: (String) -> Unit,
     selectTutorialLanguage: (String) -> Unit,
-    selectResourceType: (String) -> Unit,
+    selectResourceType: (ResourceTypeEnum) -> Unit,
 
     equipments: ImmutableList<EquipmentGroup>,
     selectEquipment: (id: String) -> Unit,
@@ -385,7 +387,7 @@ private fun Content(
                     item {
                         Chip(
                             chipState = if (it.isSelected) selectedChipState else unSelectedChipState,
-                            text = it.value.capitalize(Locale.current),
+                            text = it.value.name.capitalize(Locale.current),
                             onClick = { selectResourceType.invoke(it.value) }
                         )
                     }

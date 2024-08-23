@@ -1,9 +1,19 @@
 package data.exerciseexamples.mapping
 
 import exercise_examples.models.ExerciseExampleTutorialDao
+import models.InputExerciseExampleTutorial
 import models.ResourceTypeEnum
 import models.Tutorial
 import network.models.TutorialDto
+
+internal fun InputExerciseExampleTutorial.domainToDto(): TutorialDto {
+    return TutorialDto(
+        resource = resource,
+        resourceType = resourceType.key,
+        language = language,
+        value = resource
+    )
+}
 
 internal fun List<ExerciseExampleTutorialDao>.daoToDomain(): List<Tutorial> {
     return mapNotNull { it.daoToDomain() }
