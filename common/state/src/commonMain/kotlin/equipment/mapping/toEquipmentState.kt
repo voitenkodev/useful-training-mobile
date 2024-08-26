@@ -41,6 +41,7 @@ import equipments.SquatRack
 import equipments.StraightBar
 import equipments.TrapBar
 import equipments.TricepsMachines
+import equipments.VBar
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toPersistentList
 import models.EquipmentEnum
@@ -85,6 +86,7 @@ private fun EquipmentEnum.toImageState(): ImageVector? {
         EquipmentEnum.STRAIGHT_BAR -> StraightBar
         EquipmentEnum.BARBELL -> Barbell
         EquipmentEnum.EZ_BAR -> EzBar
+        EquipmentEnum.VBar -> VBar
         EquipmentEnum.TRAP_BAR -> TrapBar
         EquipmentEnum.AB_MACHINES -> AbMachine
         EquipmentEnum.BUTTERFLY -> Butterfly
