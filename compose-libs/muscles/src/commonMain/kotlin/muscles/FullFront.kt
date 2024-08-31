@@ -545,7 +545,7 @@ public fun fullFront(
             close()
         }
         path(
-            fill = SolidColor(quadriceps),
+            fill = SolidColor(other),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,
@@ -563,7 +563,7 @@ public fun fullFront(
             close()
         }
         path(
-            fill = SolidColor(quadriceps),
+            fill = SolidColor(other),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,
@@ -659,7 +659,7 @@ public fun fullFront(
             close()
         }
         path(
-            fill = SolidColor(quadriceps),
+            fill = SolidColor(other),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,
@@ -677,7 +677,7 @@ public fun fullFront(
             close()
         }
         path(
-            fill = SolidColor(quadriceps),
+            fill = SolidColor(other),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,
