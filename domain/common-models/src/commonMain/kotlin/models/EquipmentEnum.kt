@@ -38,6 +38,8 @@ public enum class EquipmentEnum(private val key: String) {
 
     FLAT_BENCH("flat_bench"),
     ADJUSTABLE_BENCH("adjustable_bench"),
+    ADDUCTOR_MACHINE("adductor_machine"),
+    ABDUCTOR_MACHINE("abductor_machine"),
     DECLINE_BENCH("decline_bench"),
     FLAT_BENCH_WITH_RACK("flat_bench_with_rack"),
     INCLINE_BENCH_WITH_RACK("incline_bench_with_rack"),

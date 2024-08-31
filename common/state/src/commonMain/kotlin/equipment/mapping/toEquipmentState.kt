@@ -4,6 +4,8 @@ import IncludedStatusEnum
 import androidx.compose.ui.graphics.vector.ImageVector
 import equipment.Equipment
 import equipments.AbMachine
+import equipments.AbductorMachine
+import equipments.AdductorMachine
 import equipments.AdjustableBench
 import equipments.Barbell
 import equipments.BicepsMachine
@@ -113,6 +115,8 @@ private fun EquipmentEnum.toImageState(): ImageVector? {
         EquipmentEnum.GLUTE_HAM_RAISE_BENCH -> GluteHamRaiseBench
         EquipmentEnum.FLAT_BENCH -> FlatBench
         EquipmentEnum.ADJUSTABLE_BENCH -> AdjustableBench
+        EquipmentEnum.ADDUCTOR_MACHINE -> AdductorMachine
+        EquipmentEnum.ABDUCTOR_MACHINE -> AbductorMachine
         EquipmentEnum.DECLINE_BENCH -> DeclineBench
         EquipmentEnum.FLAT_BENCH_WITH_RACK -> FlatBenchWithRack
         EquipmentEnum.INCLINE_BENCH_WITH_RACK -> InclineBenchWithRack
