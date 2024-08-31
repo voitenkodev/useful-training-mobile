@@ -40,6 +40,8 @@ public fun ExerciseExample?.createFrontBackImages(): Pair<ImageVector, ImageVect
         gluteal = colorSelectionWithAlpha(muscleWithAlpha[MuscleEnum.GLUTEAL]),
         hamstrings = colorSelectionWithAlpha(muscleWithAlpha[MuscleEnum.HAMSTRINGS]),
         calf = colorSelectionWithAlpha(muscleWithAlpha[MuscleEnum.CALF]),
+        adductors = colorSelectionWithAlpha(muscleWithAlpha[MuscleEnum.ADDUCTORS]),
+        abductors = colorSelectionWithAlpha(muscleWithAlpha[MuscleEnum.ABDUCTORS]),
 
         outlineColor = Design.palette.content
     )

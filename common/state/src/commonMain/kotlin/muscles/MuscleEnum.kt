@@ -23,6 +23,8 @@ public enum class MuscleEnum {
     GLUTEAL,
     HAMSTRINGS,
     QUADRICEPS,
+    ADDUCTORS,
+    ABDUCTORS,
 
     // Shoulder
     ANTERIOR_DELTOID,

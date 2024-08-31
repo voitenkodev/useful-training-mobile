@@ -20,6 +20,8 @@ public enum class MuscleEnum(private val key: String) {
     GLUTEAL("gluteal"),
     HAMSTRINGS("hamstrings"),
     QUADRICEPS("quadriceps"),
+    ADDUCTORS("adductors"),
+    ABDUCTORS("abductors"),
 
     // Shoulder
     ANTERIOR_DELTOID("anterior_deltoid"),

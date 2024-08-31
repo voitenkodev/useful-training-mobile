@@ -60,6 +60,8 @@ public fun models.MuscleEnum.toState(): MuscleEnum? {
         models.MuscleEnum.BICEPS -> MuscleEnum.BICEPS
         models.MuscleEnum.TRICEPS -> MuscleEnum.TRICEPS
         models.MuscleEnum.FOREARM -> MuscleEnum.FOREARM
+        models.MuscleEnum.ADDUCTORS -> MuscleEnum.ADDUCTORS
+        models.MuscleEnum.ABDUCTORS -> MuscleEnum.ABDUCTORS
         models.MuscleEnum.UNKNOWN -> null
     }
 }

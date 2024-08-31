@@ -15,10 +15,12 @@ public fun legsSplit(
     gluteal: Color = Colors.defaultBack,
     hamstrings: Color = Colors.defaultBack,
     calf: Color = Colors.defaultBack,
+    adductors: Color = Colors.defaultBack,
+    abductors: Color = Colors.defaultBack,
     otherFront: Color = Colors.defaultFront,
     otherBack: Color = Colors.defaultBack,
     backgroundFront: Color = Colors.backgroundFront,
-    backgroundBack: Color = Colors.backgroundBack
+    backgroundBack: Color = Colors.backgroundBack,
 ): ImageVector {
     return ImageVector.Builder(
         name = "vector",
@@ -357,7 +359,7 @@ public fun legsSplit(
             close()
         }
         path(
-            fill = SolidColor(hamstrings),
+            fill = SolidColor(adductors),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,
@@ -377,7 +379,7 @@ public fun legsSplit(
             close()
         }
         path(
-            fill = SolidColor(hamstrings),
+            fill = SolidColor(adductors),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,
@@ -447,7 +449,7 @@ public fun legsSplit(
             close()
         }
         path(
-            fill = SolidColor(otherBack),
+            fill = SolidColor(abductors),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,
@@ -464,7 +466,7 @@ public fun legsSplit(
             close()
         }
         path(
-            fill = SolidColor(otherBack),
+            fill = SolidColor(abductors),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,

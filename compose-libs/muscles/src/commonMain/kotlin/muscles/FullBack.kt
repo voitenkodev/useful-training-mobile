@@ -25,6 +25,9 @@ public fun fullBack(
     hamstrings: Color = Colors.defaultBack,
     calf: Color = Colors.defaultBack,
 
+    adductors: Color = Colors.defaultBack,
+    abductors: Color = Colors.defaultBack,
+
     other: Color = Colors.defaultBack,
 
     backgroundBack: Color = Colors.backgroundBack
@@ -439,7 +442,7 @@ public fun fullBack(
             close()
         }
         path(
-            fill = SolidColor(hamstrings),
+            fill = SolidColor(adductors),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,
@@ -459,7 +462,7 @@ public fun fullBack(
             close()
         }
         path(
-            fill = SolidColor(hamstrings),
+            fill = SolidColor(adductors),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,
@@ -529,7 +532,7 @@ public fun fullBack(
             close()
         }
         path(
-            fill = SolidColor(other),
+            fill = SolidColor(abductors),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,
@@ -546,7 +549,7 @@ public fun fullBack(
             close()
         }
         path(
-            fill = SolidColor(other),
+            fill = SolidColor(abductors),
             fillAlpha = 1.0f,
             stroke = null,
             strokeAlpha = 1.0f,

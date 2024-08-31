@@ -52,10 +52,7 @@ public class ClientBackend(
         }
 
         defaultRequest {
-//            Gmyri 20
-            host = "192.168.0.100:3010"
-            // Sova
-//            host = "192.168.0.146:3010"
+            host = "192.168.0.101:3010"
             url { protocol = URLProtocol.HTTP }
 //            url { protocol = URLProtocol.HTTPS }
             contentType(ContentType.Application.Json)

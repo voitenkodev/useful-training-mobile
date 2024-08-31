@@ -107,12 +107,16 @@ public fun muscleImage(
             val hamstrings = muscles.find { it.type == MuscleEnum.HAMSTRINGS }
             val calf = muscles.find { it.type == MuscleEnum.CALF }
             val gluteal = muscles.find { it.type == MuscleEnum.GLUTEAL }
+            val adductors = muscles.find { it.type == MuscleEnum.ADDUCTORS }
+            val abductors = muscles.find { it.type == MuscleEnum.ABDUCTORS }
 
             legsSplit(
                 quadriceps = colorBySelection(quadriceps, style),
                 hamstrings = colorBySelection(hamstrings, style),
                 calf = colorBySelection(calf, style),
-                gluteal = colorBySelection(gluteal, style)
+                gluteal = colorBySelection(gluteal, style),
+                adductors = colorBySelection(adductors, style),
+                abductors = colorBySelection(abductors, style),
             )
         }
 
