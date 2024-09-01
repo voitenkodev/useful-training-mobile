@@ -19,6 +19,7 @@ public enum class EquipmentEnum(private val key: String) {
     BICEPS_MACHINES("biceps_machines"),
     SMITH_MACHINES("smith_machines"),
     HACK_SQUAT_MACHINES("hack_squat_machines"),
+    LEG_PRESS_MACHINE("leg_press_machine"),
     DEADLIFT_MACHINES("deadlift_machines"),
     SHOULDER_PRESS_MACHINES("shoulder_press_machines"),
     LATERAL_RAISE_MACHINES("lateral_raise_machines"),

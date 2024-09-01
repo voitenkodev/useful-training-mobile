@@ -31,6 +31,7 @@ import equipments.LatPulldown
 import equipments.LateralRaiseMachines
 import equipments.LegCurlMachine
 import equipments.LegExtensionMachine
+import equipments.LegPressMachine
 import equipments.PreacherCurlBench
 import equipments.PullUpBar
 import equipments.RomainChair
@@ -124,6 +125,7 @@ private fun EquipmentEnum.toImageState(): ImageVector? {
         EquipmentEnum.SQUAT_RACK -> SquatRack
         EquipmentEnum.PREACHER_CURL_BENCH -> PreacherCurlBench
         EquipmentEnum.ROW_BENCH -> RowBench
-        else -> null
+        EquipmentEnum.LEG_PRESS_MACHINE -> LegPressMachine
+        EquipmentEnum.UNKNOWN -> null
     }
 }
