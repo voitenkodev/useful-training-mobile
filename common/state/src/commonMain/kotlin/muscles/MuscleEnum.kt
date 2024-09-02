@@ -5,8 +5,10 @@ import androidx.compose.runtime.Immutable
 @Immutable
 public enum class MuscleEnum {
     // Chest
-    PECTORALIS_MAJOR,
-    PECTORALIS_MINOR,
+    PECTORALIS_MAJOR_CLAVICULAR,
+    PECTORALIS_MAJOR_STERNOCOSTAL,
+    PECTORALIS_MAJOR_ABDOMINAL,
+
 
     // Back
     TRAPEZIUS,

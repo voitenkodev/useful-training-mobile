@@ -42,8 +42,9 @@ public fun MuscleLoadEnum.toState(): muscles.MuscleLoadEnum? {
 
 public fun models.MuscleEnum.toState(): MuscleEnum? {
     return when (this) {
-        models.MuscleEnum.PECTORALIS_MAJOR -> MuscleEnum.PECTORALIS_MAJOR
-        models.MuscleEnum.PECTORALIS_MINOR -> MuscleEnum.PECTORALIS_MINOR
+        models.MuscleEnum.PECTORALIS_MAJOR_ABDOMINAL -> MuscleEnum.PECTORALIS_MAJOR_ABDOMINAL
+        models.MuscleEnum.PECTORALIS_MAJOR_CLAVICULAR -> MuscleEnum.PECTORALIS_MAJOR_CLAVICULAR
+        models.MuscleEnum.PECTORALIS_MAJOR_STERNOCOSTAL -> MuscleEnum.PECTORALIS_MAJOR_STERNOCOSTAL
         models.MuscleEnum.TRAPEZIUS -> MuscleEnum.TRAPEZIUS
         models.MuscleEnum.LATISSIMUS_DORSI -> MuscleEnum.LATISSIMUS_DORSI
         models.MuscleEnum.RHOMBOIDS -> MuscleEnum.RHOMBOIDS

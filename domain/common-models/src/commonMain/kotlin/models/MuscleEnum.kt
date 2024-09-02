@@ -2,8 +2,9 @@ package models
 
 public enum class MuscleEnum(private val key: String) {
     // Chest
-    PECTORALIS_MAJOR("pectoralis_major"),
-    PECTORALIS_MINOR("pectoralis_minor"),
+    PECTORALIS_MAJOR_CLAVICULAR("pectoralis_major_clavicular"),
+    PECTORALIS_MAJOR_STERNOCOSTAL("pectoralis_major_sternocostal"),
+    PECTORALIS_MAJOR_ABDOMINAL("pectoralis_major_abdominal"),
 
     // Back
     TRAPEZIUS("trapezius"),

@@ -69,12 +69,17 @@ public fun muscleImage(
 
     return when (muscleGroupEnumState) {
         MuscleGroupEnum.CHEST_MUSCLES -> {
-            val pectoralisMinor = muscles.find { it.type == MuscleEnum.PECTORALIS_MINOR }
-            val pectoralisMajor = muscles.find { it.type == MuscleEnum.PECTORALIS_MAJOR }
+            val pectoralisMajorAbdominal =
+                muscles.find { it.type == MuscleEnum.PECTORALIS_MAJOR_ABDOMINAL }
+            val pectoralisMajorClavicular =
+                muscles.find { it.type == MuscleEnum.PECTORALIS_MAJOR_CLAVICULAR }
+            val pectoralisMajorSternocostal =
+                muscles.find { it.type == MuscleEnum.PECTORALIS_MAJOR_STERNOCOSTAL }
 
             bodyFront(
-                pectoralisMinor = colorBySelection(pectoralisMinor, style),
-                pectoralisMajor = colorBySelection(pectoralisMajor, style)
+                pectoralisMajorAbdominal = colorBySelection(pectoralisMajorAbdominal, style),
+                pectoralisMajorClavicular = colorBySelection(pectoralisMajorClavicular, style),
+                pectoralisMajorSternocostal = colorBySelection(pectoralisMajorSternocostal, style),
             )
         }
 
