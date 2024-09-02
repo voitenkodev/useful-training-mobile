@@ -3,6 +3,7 @@ package models
 public enum class WeightTypeEnum(private val key: String) {
     FREE(key = "free"),
     FIXED(key = "fixed"),
+    BODY_WEIGHT(key = "body_weight"),
     UNKNOWN(key = "UNKNOWN");
 
 

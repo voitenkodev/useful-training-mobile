@@ -8,6 +8,7 @@ import exercise.WeightType
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 import models.CategoryEnum
+import models.ForceTypeEnum
 import models.WeightTypeEnum
 import user.mapping.toState
 
@@ -37,7 +38,8 @@ private fun WeightTypeEnum.toState(): WeightType? {
     return when (this) {
         WeightTypeEnum.FREE -> WeightType.FREE
         WeightTypeEnum.FIXED -> WeightType.FIXED
-        else -> null
+        WeightTypeEnum.BODY_WEIGHT -> WeightType.BODY_WEIGHT
+        WeightTypeEnum.UNKNOWN -> null
     }
 }
 
@@ -45,14 +47,14 @@ private fun CategoryEnum.toState(): Category? {
     return when (this) {
         CategoryEnum.COMPOUND -> Category.COMPOUND
         CategoryEnum.ISOLATION -> Category.ISOLATION
-        else -> null
+        CategoryEnum.UNKNOWN -> null
     }
 }
 
-private fun models.ForceTypeEnum.toState(): ForceType? {
+private fun ForceTypeEnum.toState(): ForceType? {
     return when (this) {
-        models.ForceTypeEnum.PULL -> ForceType.PULL
-        models.ForceTypeEnum.PUSH -> ForceType.PUSH
-        else -> null
+        ForceTypeEnum.PULL -> ForceType.PULL
+        ForceTypeEnum.PUSH -> ForceType.PUSH
+        ForceTypeEnum.UNKNOWN -> null
     }
 }

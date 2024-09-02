@@ -4,6 +4,5 @@ import androidx.compose.runtime.Immutable
 
 @Immutable
 public enum class WeightType {
-    FREE,
-    FIXED;
+    FREE, FIXED, BODY_WEIGHT;
 }
