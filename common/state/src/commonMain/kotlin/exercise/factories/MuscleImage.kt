@@ -22,8 +22,9 @@ public fun ExerciseExample?.createFrontBackImages(): Pair<ImageVector, ImageVect
         anteriorDeltoid = colorSelectionWithAlpha(muscleWithAlpha[MuscleEnum.ANTERIOR_DELTOID]),
         rectusAbdominis = colorSelectionWithAlpha(muscleWithAlpha[MuscleEnum.RECTUS_ABDOMINIS]),
         obliquesAbdominis = colorSelectionWithAlpha(muscleWithAlpha[MuscleEnum.OBLIQUES]),
-        pectoralisMajor = colorSelectionWithAlpha(muscleWithAlpha[MuscleEnum.PECTORALIS_MAJOR_ABDOMINAL]),// todo fix
-        pectoralisMinor = colorSelectionWithAlpha(muscleWithAlpha[MuscleEnum.PECTORALIS_MAJOR_CLAVICULAR]), // todo fix
+        pectoralisMajorAbdominal = colorSelectionWithAlpha(muscleWithAlpha[MuscleEnum.PECTORALIS_MAJOR_ABDOMINAL]),
+        pectoralisMajorClavicular = colorSelectionWithAlpha(muscleWithAlpha[MuscleEnum.PECTORALIS_MAJOR_CLAVICULAR]),
+        pectoralisMajorSternocostal = colorSelectionWithAlpha(muscleWithAlpha[MuscleEnum.PECTORALIS_MAJOR_STERNOCOSTAL]),
         quadriceps = colorSelectionWithAlpha(muscleWithAlpha[MuscleEnum.QUADRICEPS]),
 
         outlineColor = Design.palette.content
