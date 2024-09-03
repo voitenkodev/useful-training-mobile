@@ -3,6 +3,7 @@ package models
 public enum class ForceTypeEnum(private val key: String) {
     PULL(key = "pull"),
     PUSH(key = "push"),
+    HINGE(key = "hinge"),
     UNKNOWN(key = "UNKNOWN");
 
 
