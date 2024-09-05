@@ -6,16 +6,13 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.path
 import androidx.compose.ui.unit.dp
 
-@Suppress("ObjectPropertyName")
-private var _VBar: ImageVector? = null
-
 public val VBar: ImageVector
     get() {
-        if (_VBar != null) {
-            return _VBar!!
+        if (_Vbar != null) {
+            return _Vbar!!
         }
-        _VBar = ImageVector.Builder(
-            name = "VBar",
+        _Vbar = ImageVector.Builder(
+            name = "Vbar",
             defaultWidth = 195.dp,
             defaultHeight = 124.dp,
             viewportWidth = 195f,
@@ -34,7 +31,7 @@ public val VBar: ImageVector
                 close()
             }
             path(
-                fill = SolidColor(Color(0xFFA0A0A0)),
+                fill = SolidColor(Color(0xFF424346)),
                 stroke = SolidColor(Color(0xFFAAAAAA)),
                 strokeLineWidth = 1f
             ) {
@@ -46,7 +43,7 @@ public val VBar: ImageVector
                 close()
             }
             path(
-                fill = SolidColor(Color(0xFFA0A0A0)),
+                fill = SolidColor(Color(0xFF424346)),
                 stroke = SolidColor(Color(0xFFAAAAAA)),
                 strokeLineWidth = 1f
             ) {
@@ -70,15 +67,15 @@ public val VBar: ImageVector
                 close()
             }
             path(fill = SolidColor(Color(0xFFA0A0A0))) {
-                moveTo(124.1f, 49.84f)
-                curveTo(127.94f, 49.08f, 126.63f, 37.19f, 126.62f, 34.66f)
+                moveTo(124.09f, 49.84f)
+                curveTo(127.94f, 49.08f, 126.62f, 37.19f, 126.62f, 34.66f)
                 curveTo(122.34f, 30.96f, 106.16f, 31.61f, 101.43f, 30.43f)
                 curveTo(108.39f, 20.8f, 102.28f, 3.21f, 93.6f, 5.83f)
                 curveTo(91.04f, 6.6f, 93.03f, 12.65f, 93.03f, 12.65f)
                 curveTo(102.88f, 10.83f, 101.19f, 24.77f, 95.23f, 24.45f)
                 curveTo(88.99f, 24.12f, 93.91f, 40.37f, 93.91f, 40.37f)
-                lineTo(92.91f, 50.32f)
-                curveTo(109.94f, 51.03f, 117.76f, 51.11f, 124.1f, 49.84f)
+                lineTo(92.9f, 50.32f)
+                curveTo(109.94f, 51.03f, 117.76f, 51.11f, 124.09f, 49.84f)
                 close()
             }
             path(
@@ -107,5 +104,8 @@ public val VBar: ImageVector
             }
         }.build()
 
-        return _VBar!!
+        return _Vbar!!
     }
+
+@Suppress("ObjectPropertyName")
+private var _Vbar: ImageVector? = null

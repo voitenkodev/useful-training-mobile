@@ -13,6 +13,7 @@ import equipments.Butterfly
 import equipments.Cable
 import equipments.CalfRaiseMachines
 import equipments.ChestPressMachines
+import equipments.CloseGripHandle
 import equipments.CordHandles
 import equipments.Crossower
 import equipments.DeadliftMachines
@@ -45,6 +46,7 @@ import equipments.StraightBar
 import equipments.TrapBar
 import equipments.TricepsMachines
 import equipments.VBar
+import equipments.WideGripHandle
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toPersistentList
 import models.EquipmentEnum
@@ -90,6 +92,8 @@ private fun EquipmentEnum.toImageState(): ImageVector? {
         EquipmentEnum.BARBELL -> Barbell
         EquipmentEnum.EZ_BAR -> EzBar
         EquipmentEnum.VBar -> VBar
+        EquipmentEnum.CloseGripHandle -> CloseGripHandle
+        EquipmentEnum.WideGripHandle -> WideGripHandle
         EquipmentEnum.TRAP_BAR -> TrapBar
         EquipmentEnum.AB_MACHINES -> AbMachine
         EquipmentEnum.BUTTERFLY -> Butterfly

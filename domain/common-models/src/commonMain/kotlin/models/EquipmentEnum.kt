@@ -4,6 +4,8 @@ public enum class EquipmentEnum(private val key: String) {
     DUMBBELLS("dumbbells"),
     BARBELL("barbell"),
     VBar("v_bar"),
+    WideGripHandle("wide_grip_handle"),
+    CloseGripHandle("close_grip_handle"),
     EZ_BAR("ez_bar"),
     TRAP_BAR("trap_bar"),
     ROPE("rope"),

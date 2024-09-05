@@ -55,6 +55,7 @@ private fun ForceTypeEnum.toState(): ForceType? {
     return when (this) {
         ForceTypeEnum.PULL -> ForceType.PULL
         ForceTypeEnum.PUSH -> ForceType.PUSH
+        ForceTypeEnum.HINGE -> ForceType.HINGE
         ForceTypeEnum.UNKNOWN -> null
     }
 }
